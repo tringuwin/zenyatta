@@ -1,0 +1,232 @@
+import copy
+import discord
+from discord.utils import get
+
+def find_user_with_battle_tag(db, lower_tag):
+
+    users = db['users']
+    
+    search_query = {"lower_tag": lower_tag}
+
+    existing_user = users.find_one(search_query)
+
+    if existing_user:
+        return True
+    else:
+        return False
+    
+def user_exists(db, discord_id):
+    
+    users = db['users']
+
+    search_query = {"discord_id": int(discord_id)}
+
+    return users.find_one(search_query)
+
+def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
+
+    users = db['users']
+
+    search_query = {"discord_id": int(discord_id)}
+
+    existing_user = users.find_one(search_query)
+    if existing_user:
+        new_user = copy.deepcopy(existing_user)
+        new_user['battle_tag'] = battle_tag
+        new_user['lower_tag'] = lower_tag
+
+        users.update_one({"discord_id": discord_id}, new_user)
+    else:
+
+        new_user = {
+            "battle_tag": battle_tag,
+            "lower_tag": lower_tag,
+            "discord_id": discord_id,
+            "entries": []
+        }
+        print(new_user)
+        users.insert_one(new_user)
+
+
+def get_event_by_id(db, event_id):
+
+    events = db['events']
+
+    search_query = {"event_id": event_id}
+
+    return events.find_one(search_query)
+
+def get_all_events(db):
+
+    events = db['events']
+
+    event_objects = events.find()
+    return event_objects 
+
+def create_event(db, event_id, event_name, max_players):
+
+    events = db['events']
+
+    new_event = {
+        "event_id": event_id,
+        "event_name": event_name,
+        "max_players": int(max_players),
+        "spots_filled": 0,
+        "entries": [],
+        "requests": []
+    }
+
+    events.insert_one(new_event)
+
+
+
+
+async def try_join_event(db, message, event_id, discord_client):
+
+    discord_id = message.author.id
+
+    # ensure user is registered
+    existing_user = user_exists(db, discord_id)
+    print(existing_user)
+    if existing_user:
+
+        # check if user has already attempted to join this event
+        user_entries = existing_user['entries']
+        already_joined = False
+        for entry in user_entries:
+            if entry['event_id'] == event_id:
+                already_joined = True
+                break
+        
+        if already_joined:
+            await message.channel.send("It looks like you've already tried to join this event. To see the status of your join request for this event enter the command **!status "+event_id+"**")
+
+        else:
+
+            # check if event exists / is full
+            events = db['events']
+
+            my_event = get_event_by_id(db, event_id)
+            if my_event:
+
+                if my_event['max_players'] == my_event['spots_filled']:
+                    await message.channel.send('It looks like this event is full. Use the command **!events** to see if there are any events with remaining spots.')
+                else:
+
+                    users = db['users']
+
+                    # add event entry to user
+                    new_user = copy.deepcopy(existing_user)
+                    entry_info = {
+                        "event_id": event_id,
+                        "status": "Not Reviewed",
+                    }
+                    new_user['entries'].append(entry_info)
+                    users.update_one({"discord_id": discord_id}, {"$set": {"entries": new_user['entries']}})
+
+                    # add user to event
+                    new_event = copy.deepcopy(my_event)
+                    request_info = {
+                        "discord_id": discord_id,
+                        "battle_tag": existing_user['battle_tag']
+                    }
+                    new_event['requests'].append(request_info)
+                    events.update_one({"event_id": event_id}, {"$set": {"requests": new_event['requests']}})
+
+                    requests_channel_id = 1131281041454280784
+                    target_channel = discord_client.get_channel(requests_channel_id)
+                    if target_channel:
+                        await target_channel.send('User with ID: '+str(discord_id)+"\nDiscord Name: "+message.author.name+"\nBattle Tag: "+existing_user['battle_tag']+"\nRequested to join event "+event_id)
+
+                    await message.channel.send("Success! You've made a request to join this event. Your request will be manually verified and you will be given a special role in the discord server if you are accepted. Enter the command **!status** at any time to see the status of your join request.")
+
+            else:
+                await message.channel.send("I didn't find any events with that event ID. Use the command **!events** to see the current events.")
+
+    else:
+        await message.channel.send("You need to connect your Battle Tag to your discord account before you can join an event. Enter the command **!register** for more info.")
+
+
+async def event_status(db, message, event_id): 
+
+    discord_id = message.author.id
+
+    existing_user = user_exists(db, discord_id)
+    if existing_user:
+        user_entries = existing_user['entries']
+        entry_found = False
+        for entry in user_entries:
+            if entry['event_id'] == event_id:
+                await message.channel.send("Status for join request for event "+event_id+": **"+entry['status']+"**")
+                entry_found = True
+        if not entry_found:
+            await message.channel.send("I couldn't find any event with ID '"+event_id+"'. Enter the command **!events** for a list of current events.")
+    else:
+        await message.channel.send("It looks like you have not connected your Battle Tag to your discord account yet. Please enter the command **!register** for more info.")
+
+    
+
+async def deny_user(db, discord_id, event_id, deny_reason, discord_client, message):
+
+    existing_user = user_exists(db, discord_id)
+    if existing_user:
+
+        users = db['users']
+
+        new_user = copy.deepcopy(existing_user)
+        new_user_entries = new_user['entries']
+        for entry in new_user_entries:
+            if entry['event_id'] == event_id:
+                entry['status'] = "Denied with the following reason: "+deny_reason
+        users.update_one({"discord_id": discord_id}, {"$set": {"entries": new_user['entries']}})
+
+        user = await discord_client.fetch_user(int(discord_id))
+        if user:
+            try:
+                await user.send("Update for your request to join event "+event_id+": **You were denied with the following reason: "+deny_reason+"**\nWe encourage you to join future events!")
+                await message.channel.send("The user was notified of their denial.")
+            except discord.Forbidden:
+                await message.channel.send('I was not able to DM the user.')
+        else:
+            await message.channel.send("I couldn't find any discord user with that discord ID.")
+
+    else:
+        await message.channel.send("I didn't find any registered user with that discord ID")
+
+async def approve_user(db, discord_id, event_id, discord_client, message):
+
+    existing_user = user_exists(db, discord_id)
+    if existing_user:
+
+        events = db['events']
+        my_event = get_event_by_id(db, event_id)
+        if my_event:
+
+            new_event = copy.deepcopy(my_event)
+            new_event['entries'].append(discord_id)
+            events.update_one({"event_id": event_id}, {"$set": {"entries": new_event['entries']}})
+            events.update_one({"event_id": event_id}, {"$set": {"spots_filled": new_event['spots_filled'] + 1}})
+            print(get_event_by_id(db, event_id))
+
+            users = db['users']
+            new_user = copy.deepcopy(existing_user)
+            new_user_entries = new_user['entries']
+            for entry in new_user_entries:
+                if entry['event_id'] == event_id:
+                    entry['status'] = "Approved"
+            users.update_one({"discord_id": discord_id}, {"$set": {"entries": new_user['entries']}})
+
+            user = await discord_client.fetch_user(int(discord_id))
+            if user:
+                try:
+                    await user.send("You're in! You were approved for participation in **event "+event_id+"**!! Make sure to keep up to date on information so you don't miss it!")
+                    await message.channel.send("The user was notified of their approval.")
+                except discord.Forbidden:
+                    await message.channel.send('I was not able to DM the user.')
+            else:
+                await message.channel.send("I couldn't find any discord user with that discord ID.")
+        else:
+            await message.channel.send("I could not find an event with that ID.")
+
+    else:
+        await message.channel.send("I didn't find any registered user with that discord ID")
