@@ -133,6 +133,8 @@ def run_discord_bot(mongo_client, db):
 
                     if not event_full:
                         final_string += " : To join event enter the command **!join "+event['event_id']+"**\n"
+                    else:
+                        final_string += "\n"
 
                 if found:
                     await message.channel.send(final_string)
