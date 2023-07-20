@@ -141,10 +141,10 @@ async def try_join_event(db, message, event_id, discord_client):
                         embed = discord.Embed(
                             title = "Event Join Request"
                         )
-                        embed.add_field(name='Event ID', value=event_id)
-                        embed.add_field(name='Discord ID', value=str(discord_id))
-                        embed.add_field(name='Discord Name', value=message.author.name)
-                        embed.add_field(name='Battle Tag', value=existing_user['battle_tag'])
+                        embed.add_field(name='Event ID', value=event_id, inline=False)
+                        embed.add_field(name='Discord ID', value=str(discord_id), inline=False)
+                        embed.add_field(name='Discord Name', value=message.author.name, inline=False)
+                        embed.add_field(name='Battle Tag', value=existing_user['battle_tag'], inline=False)
                         await target_channel.send(embed=embed)
 
                         await target_channel.send('User with ID: '+str(discord_id)+"\nDiscord Name: "+message.author.name+"\nBattle Tag: "+existing_user['battle_tag']+"\nRequested to join event "+event_id)
