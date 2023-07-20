@@ -147,8 +147,6 @@ async def try_join_event(db, message, event_id, discord_client):
                         embed.add_field(name='Battle Tag', value=existing_user['battle_tag'], inline=False)
                         await target_channel.send(embed=embed)
 
-                        await target_channel.send('User with ID: '+str(discord_id)+"\nDiscord Name: "+message.author.name+"\nBattle Tag: "+existing_user['battle_tag']+"\nRequested to join event "+event_id)
-
                     await message.channel.send("Success! You've made a request to join this event. Your request will be manually verified and you will be given a special role in the discord server if you are accepted. Enter the command **!status** at any time to see the status of your join request.")
 
             else:
