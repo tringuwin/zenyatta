@@ -2,9 +2,11 @@ import discord
 from mongo import approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, get_all_events, get_event_by_id, try_join_event
 
 
-async def dm_user_register_info(author):
+async def dm_user_register_info(author, message):
 
-    await author.send(author.mention+' Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find your copy Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
+    await message.channel.send(author.mention+" I sent you a direct message with instructions to register!")
+
+    await author.send('Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find your copy Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
 
 
 def is_dm_channel(channel):
@@ -102,7 +104,7 @@ def run_discord_bot(mongo_client, db):
             is_admin = (message.author.id == MY_ID)
 
             if lower_message == '!register':
-                await dm_user_register_info(message.author)
+                await dm_user_register_info(message.author, message)
 
             elif lower_message.startswith('!battle '):
                 
