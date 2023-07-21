@@ -1,5 +1,5 @@
 import discord
-from mongo import approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, get_all_events, get_event_by_id, try_join_event
+from mongo import approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, try_join_event
 
 
 async def dm_user_register_info(author, message):
@@ -195,9 +195,15 @@ def run_discord_bot(mongo_client, db):
                 else:
                     await message.channel.send("Invalid number of arguments.")
 
-            elif lower_message == "!ping" and is_admin:
+            elif lower_message.startswith("!bracket ") and is_admin:
 
-                await message.channel.send(message.author.mention+" pong")
+                # !bracket [event id]
+                word_list = message.content.split()
+                if len(word_list) == 2:
+                    await generate_bracket(db, message, word_list[1])
+                else:
+                    await message.channel.send("Invalid number of arguments.")
+
 
                 
 

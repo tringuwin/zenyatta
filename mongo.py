@@ -1,4 +1,5 @@
 import copy
+import random
 import discord
 from discord.utils import get
 
@@ -63,6 +64,15 @@ def get_all_events(db):
 
     event_objects = events.find()
     return event_objects 
+
+def get_bracket_by_event_id(db, event_id):
+
+    brackets = db['brackets']
+
+    search_query = {"event_id": event_id}
+
+    return brackets.find_one(search_query)
+
 
 def create_event(db, event_id, event_name, max_players):
 
@@ -239,3 +249,32 @@ async def approve_user(db, discord_id, event_id, discord_client, message):
 
     else:
         await message.channel.send("I didn't find any registered user with that discord ID")
+
+
+
+async def generate_bracket(db, message, event_id):
+    
+    event = get_event_by_id(db, event_id)
+
+    if event:
+
+        existing_bracket = get_bracket_by_event_id(db, event_id)
+        if existing_bracket:
+            await message.channel.send("A bracket has already been generated for this event.")
+        else:
+            brackets = db['brackets']
+
+            round1 = event['entries'].copy()
+            random.shuffle(round1)
+
+            new_bracket = {
+                "event_id": event_id,
+                "rounds": [round1]
+            }
+
+            brackets.insert_one(new_bracket)
+
+            await message.channel.send("Bracket has been created for event "+event_id)
+
+    else:
+        await message.channel.send("I couldn't find any event with that ID.")
