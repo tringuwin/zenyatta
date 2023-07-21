@@ -4,7 +4,7 @@ from mongo import approve_user, create_event, create_or_update_battle_tag, deny_
 
 async def dm_user_register_info(author):
 
-    await author.send('Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find your copy Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
+    await author.send(author.mention+' Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find your copy Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
 
 
 def is_dm_channel(channel):
