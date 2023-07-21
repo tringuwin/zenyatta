@@ -193,6 +193,10 @@ def run_discord_bot(mongo_client, db):
                 else:
                     await message.channel.send("Invalid number of arguments.")
 
+            elif lower_message == "!ping" and is_admin:
+
+                await message.channel.send(message.author.mention)
+
                 
 
 
