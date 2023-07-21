@@ -205,7 +205,10 @@ def run_discord_bot(mongo_client, db):
                     await message.channel.send("Invalid number of arguments.")
 
 
-                
+            elif lower_message.startswith("!test") and is_admin:
+
+                sent_message = await message.channel.send("This is a test message")
+                await sent_message.add_reaction(":white_check_mark:")
 
 
 
