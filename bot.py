@@ -195,7 +195,7 @@ def run_discord_bot(mongo_client, db):
 
             elif lower_message == "!ping" and is_admin:
 
-                await message.channel.send(message.author.mention)
+                await message.channel.send(message.author.mention+" pong")
 
                 
 
