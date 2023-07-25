@@ -4,10 +4,11 @@ from mongo import approve_user, create_event, create_or_update_battle_tag, deny_
 
 async def dm_user_register_info(author, message):
 
-    await message.channel.send(author.mention+" I sent you a direct message with instructions to register!")
-
-    await author.send('Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find your copy Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
-
+    await message.channel.send(author.mention+' Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find your copy Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
+    try:
+        await author.send(author.mention+' Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find your copy Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
+    except:
+        print('could not dm user')
 
 def is_dm_channel(channel):
 
@@ -108,11 +109,12 @@ def run_discord_bot(mongo_client, db):
 
             elif lower_message.startswith('!battle '):
                 
-                if is_dm_channel(message.channel):
-                    await register_battle_user(message, message.content, db)
-                else:
-                    await message.channel.send('For your privacy, please only use the !battle command in a DM with me.')
-                    await message.delete()
+                register_battle_user(message, message.content, db)
+                # if is_dm_channel(message.channel):
+                #     await register_battle_user(message, message.content, db)
+                # else:
+                #     await message.channel.send('For your privacy, please only use the !battle command in a DM with me.')
+                #     await message.delete()
 
             elif lower_message == "!events":
 
