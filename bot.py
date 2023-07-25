@@ -109,7 +109,7 @@ def run_discord_bot(mongo_client, db):
 
             elif lower_message.startswith('!battle '):
                 
-                register_battle_user(message, message.content, db)
+                await register_battle_user(message, message.content, db)
                 # if is_dm_channel(message.channel):
                 #     await register_battle_user(message, message.content, db)
                 # else:
