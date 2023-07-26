@@ -170,7 +170,7 @@ def run_discord_bot(mongo_client, db):
                     title = "Event Idea From "+message.author.name,
                     description=event_idea
                 )
-                embed_msg.footer = "Test footer"
+                embed_msg.set_footer(text="Suggest your own idea using the command !suggestevent [event idea here]")
 
                 event_idea_msg = await event_channel.send(embed=embed_msg)
                 await event_idea_msg.add_reaction("👍")
