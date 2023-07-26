@@ -163,7 +163,7 @@ def run_discord_bot(mongo_client, db):
 
             elif lower_message.startswith("!suggestevent "):
                 data = message.content[len("!suggestevent ")].strip()
-                message.channel.send(data)
+                await message.channel.send(data)
 
             # ADMIN COMMANDS
 
