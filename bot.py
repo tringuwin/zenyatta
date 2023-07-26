@@ -166,8 +166,13 @@ def run_discord_bot(mongo_client, db):
 
                 event_channel = client.get_channel(1133850857037901956)
 
+                embed_msg = discord.Embed(
+                    title = "Event Idea From "+message.author.name,
+                    description=event_idea
+                )
+                embed_msg.footer = "Test footer"
 
-                event_idea_msg = await event_channel.send(event_idea)
+                event_idea_msg = await event_channel.send(embed=embed_msg)
                 await event_idea_msg.add_reaction("👍")
 
                 await message.delete()
