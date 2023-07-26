@@ -162,7 +162,7 @@ def run_discord_bot(mongo_client, db):
                     await message.channel.send("Command was not in the correct format. Please enter '!status' followed by the ID of the event.")
 
             elif lower_message.startswith("!suggestevent "):
-                data = message.content[len("!suggestevent ")].strip()
+                data = message.content[len("!suggestevent "):].strip()
                 await message.channel.send(data)
 
             # ADMIN COMMANDS
