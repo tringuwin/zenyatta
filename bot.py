@@ -153,7 +153,7 @@ def run_discord_bot(mongo_client, db):
                 else:
                     message.channel.send("Command was not in the correct format. Please enter '!join' followed by the id of the event you want to join.")
 
-            elif lower_message.startswith("!status "):
+            elif lower_message.startswith("!status"):
 
                 word_list = message.content.split()
                 if len(word_list) == 2:

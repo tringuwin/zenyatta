@@ -159,7 +159,7 @@ async def try_join_event(db, message, event_id, discord_client):
                         sent_message = await target_channel.send(embed=embed)
                         await sent_message.add_reaction("✅")
 
-                    await message.channel.send("Success! You've made a request to join this event. Your request will be manually verified and you will be given a special role in the discord server if you are accepted. Enter the command **!status** at any time to see the status of your join request.")
+                    await message.channel.send("Success! You've made a request to join this event. Your request will be manually verified and you will be given a special role in the discord server if you are accepted. Enter the command **!status "+ event_id+"** at any time to see the status of your join request.")
 
             else:
                 await message.channel.send("I didn't find any events with that event ID. Use the command **!events** to see the current events.")
