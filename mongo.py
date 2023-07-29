@@ -280,3 +280,20 @@ async def generate_bracket(db, message, event_id):
 
     else:
         await message.channel.send("I couldn't find any event with that ID.")
+
+
+async def output_tokens(db, message):
+
+
+    existing_user = existing_user(db, message.author.id)
+
+    if existing_user:
+
+        tokens = existing_user['tokens']
+        if tokens:
+            await message.channel.send("Your tokens: 🪙**"+str(tokens)+"**")
+        else:
+            users = db['users']
+            users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"tokens": 0}})
+            await message.channel.send("Your tokens: 🪙**0**")
+

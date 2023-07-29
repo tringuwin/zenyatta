@@ -177,6 +177,10 @@ def run_discord_bot(mongo_client, db):
 
                 await message.delete()
 
+            elif lower_message == "!tokens":
+
+                await output_tokens(db, message)
+
             # ADMIN COMMANDS
 
             elif lower_message.startswith("!addevent") and is_admin:
