@@ -285,7 +285,7 @@ async def generate_bracket(db, message, event_id):
 async def output_tokens(db, message):
 
 
-    existing_user = existing_user(db, message.author.id)
+    existing_user = user_exists(db, message.author.id)
 
     if existing_user:
 
