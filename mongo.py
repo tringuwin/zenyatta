@@ -290,7 +290,7 @@ async def output_tokens(db, message):
     if existing_user:
 
         if "tokens" in existing_user:
-            await message.channel.send("Your tokens: 🪙**"+str(existing_user.tokens)+"**")
+            await message.channel.send("Your tokens: 🪙**"+str(existing_user['tokens'])+"**")
         else:
             users = db['users']
             users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"tokens": 0}})
