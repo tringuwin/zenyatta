@@ -122,7 +122,7 @@ def run_discord_bot(mongo_client, db):
 
         is_admin = (message.author.id == MY_ID)
 
-        valid_channel = is_admin or isinstance(channel, discord.DMChannel) or channel.id == 1130553489106411591
+        valid_channel = is_admin or isinstance(message.channel, discord.DMChannel) or message.channel.id == 1130553489106411591
 
         if not valid_channel:
             
