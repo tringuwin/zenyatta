@@ -127,7 +127,7 @@ def run_discord_bot(mongo_client, db):
         if not valid_channel:
             
             await message.delete()
-            warning = await channel.send(message.author.mention+" Please only use commands in #bot-commands or in a Direct Message with me.")
+            warning = await message.channel.send(message.author.mention+" Please only use commands in #bot-commands or in a Direct Message with me.")
 
             time.sleep(3)
             await warning.delete()
