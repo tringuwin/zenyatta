@@ -1,3 +1,4 @@
+import time
 import discord
 from mongo import approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, output_tokens, try_join_event
 
@@ -100,150 +101,165 @@ def run_discord_bot(mongo_client, db):
         if role is not None:
             await member.add_roles(role)
             print("Gave role to new user")
-            
+
 
     @client.event
     async def on_message(message):
         if message.author == client.user:
             return
 
+
         user_message = str(message.content)
-        if len(user_message) > 0 and (user_message[0] == '!'):
+        is_command = len(user_message) > 0 and (user_message[0] == '!')
+        if not is_command:
+            return
+        
+        username = str(message.author)
+        channel = str(message.channel)
 
-            username = str(message.author)
-            channel = str(message.channel)
+        print(f'{username} said: "{user_message}" ({channel})')
+        lower_message = user_message.lower()
 
-            print(f'{username} said: "{user_message}" ({channel})')
-            lower_message = user_message.lower()
+        is_admin = (message.author.id == MY_ID)
 
-            is_admin = (message.author.id == MY_ID)
+        valid_channel = is_admin or isinstance(channel, discord.DMChannel) or channel.id == 1130553489106411591
 
-            if lower_message == '!register':
-                await dm_user_register_info(message.author, message)
+        if not valid_channel:
+            
+            await message.delete()
+            warning = await channel.send(message.author.mention+" Please only use commands in #bot-commands or in a Direct Message with me.")
 
-            elif lower_message.startswith('!battle '):
-                
-                await register_battle_user(message, message.content, db)
-                # if is_dm_channel(message.channel):
-                #     await register_battle_user(message, message.content, db)
-                # else:
-                #     await message.channel.send('For your privacy, please only use the !battle command in a DM with me.')
-                #     await message.delete()
+            time.sleep(3)
+            await warning.delete()
+            return
+        
 
-            elif lower_message == "!events":
+        if lower_message == '!register':
+            await dm_user_register_info(message.author, message)
 
-                event_list = get_all_events(db)
-                found = False
-                none_string = "It looks like there's no events right now... Check back soon!"
+        elif lower_message.startswith('!battle '):
+            
+            await register_battle_user(message, message.content, db)
+            # if is_dm_channel(message.channel):
+            #     await register_battle_user(message, message.content, db)
+            # else:
+            #     await message.channel.send('For your privacy, please only use the !battle command in a DM with me.')
+            #     await message.delete()
 
-                final_string = ""
+        elif lower_message == "!events":
 
-                for event in event_list:
-                    found = True
-                    event_full = False
-                    if (event['max_players'] == event['spots_filled']):
-                        join_string = "FULL"
-                        event_full = True
-                    else:
-                        join_string = "**"+str(event['max_players']-event['spots_filled'])+" Spots Remaining**"
+            event_list = get_all_events(db)
+            found = False
+            none_string = "It looks like there's no events right now... Check back soon!"
 
-                    final_string = final_string+"**["+event['event_id']+"]** "+event['event_name']+" : "+ str(event['max_players']) +" Total Players : "+join_string
+            final_string = ""
 
-                    if not event_full:
-                        final_string += " : To join event enter the command **!join "+event['event_id']+"**\n"
-                    else:
-                        final_string += "\n"
-
-                if found:
-                    await message.channel.send(final_string)
+            for event in event_list:
+                found = True
+                event_full = False
+                if (event['max_players'] == event['spots_filled']):
+                    join_string = "FULL"
+                    event_full = True
                 else:
-                    await message.channel.send(none_string)
+                    join_string = "**"+str(event['max_players']-event['spots_filled'])+" Spots Remaining**"
 
-            elif lower_message.startswith("!join "):
+                final_string = final_string+"**["+event['event_id']+"]** "+event['event_name']+" : "+ str(event['max_players']) +" Total Players : "+join_string
 
-                word_list = message.content.split()
-                if len(word_list) == 2:
-                    await try_join_event(db, message, word_list[1], client)
+                if not event_full:
+                    final_string += " : To join event enter the command **!join "+event['event_id']+"**\n"
                 else:
-                    message.channel.send("Command was not in the correct format. Please enter '!join' followed by the id of the event you want to join.")
+                    final_string += "\n"
 
-            elif lower_message.startswith("!status"):
+            if found:
+                await message.channel.send(final_string)
+            else:
+                await message.channel.send(none_string)
 
-                word_list = message.content.split()
-                if len(word_list) == 2:
-                    await event_status(db, message, word_list[1])
-                else:
-                    await message.channel.send("Command was not in the correct format. Please enter '!status' followed by the ID of the event.")
+        elif lower_message.startswith("!join "):
 
-            elif lower_message.startswith("!suggestevent "):
-                event_idea = message.content[len("!suggestevent "):].strip()
+            word_list = message.content.split()
+            if len(word_list) == 2:
+                await try_join_event(db, message, word_list[1], client)
+            else:
+                message.channel.send("Command was not in the correct format. Please enter '!join' followed by the id of the event you want to join.")
 
-                event_channel = client.get_channel(1133850857037901956)
+        elif lower_message.startswith("!status"):
 
-                embed_msg = discord.Embed(
-                    title = "Event Idea From "+message.author.name,
-                    description=event_idea
-                )
-                embed_msg.set_footer(text="Suggest your own idea using the command !suggestevent [event idea here]", icon_url=message.author.display_avatar)
+            word_list = message.content.split()
+            if len(word_list) == 2:
+                await event_status(db, message, word_list[1])
+            else:
+                await message.channel.send("Command was not in the correct format. Please enter '!status' followed by the ID of the event.")
 
-                event_idea_msg = await event_channel.send(embed=embed_msg)
-                await event_idea_msg.add_reaction("👍")
+        elif lower_message.startswith("!suggestevent "):
+            event_idea = message.content[len("!suggestevent "):].strip()
 
-                await message.delete()
+            event_channel = client.get_channel(1133850857037901956)
 
-            elif lower_message == "!tokens":
+            embed_msg = discord.Embed(
+                title = "Event Idea From "+message.author.name,
+                description=event_idea
+            )
+            embed_msg.set_footer(text="Suggest your own idea using the command !suggestevent [event idea here]", icon_url=message.author.display_avatar)
 
-                await output_tokens(db, message)
+            event_idea_msg = await event_channel.send(embed=embed_msg)
+            await event_idea_msg.add_reaction("👍")
 
-            # ADMIN COMMANDS
+            await message.delete()
 
-            elif lower_message.startswith("!addevent") and is_admin:
-                
-                # !addevent|[event id]|[event name]|[max participants]
-                await add_event(db, message)
+        elif lower_message == "!tokens":
 
-            elif lower_message.startswith("!delevent") and is_admin:
+            await output_tokens(db, message)
 
-                # !delevent [event id]
-                word_list = message.content.split()
-                if len(word_list) == 2:
-                    await delete_event(db, message, word_list[1])
-                else:
-                    await message.channel.send('Invalid use of command')
+        # ADMIN COMMANDS
 
-            elif lower_message.startswith("!approve ") and is_admin:
+        elif lower_message.startswith("!addevent") and is_admin:
+            
+            # !addevent|[event id]|[event name]|[max participants]
+            await add_event(db, message)
 
-                # !approve [user_id] [event id]
-                word_list = message.content.split()
-                if len(word_list) == 3:
-                    await approve_user(db, int(word_list[1]), word_list[2], client, message)
-                else:
-                    await message.channel.send("Invalid number of arguments.")
+        elif lower_message.startswith("!delevent") and is_admin:
 
+            # !delevent [event id]
+            word_list = message.content.split()
+            if len(word_list) == 2:
+                await delete_event(db, message, word_list[1])
+            else:
+                await message.channel.send('Invalid use of command')
 
-            elif lower_message.startswith("!deny") and is_admin:
+        elif lower_message.startswith("!approve ") and is_admin:
 
-                # !deny|[user id]|[event id]|[reason]
-                word_list = message.content.split('|')
-                if len(word_list) == 4:
-                    await deny_user(db, int(word_list[1]), word_list[2], word_list[3], client, message)
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-            elif lower_message.startswith("!bracket ") and is_admin:
-
-                # !bracket [event id]
-                word_list = message.content.split()
-                if len(word_list) == 2:
-                    await generate_bracket(db, message, word_list[1])
-                else:
-                    await message.channel.send("Invalid number of arguments.")
+            # !approve [user_id] [event id]
+            word_list = message.content.split()
+            if len(word_list) == 3:
+                await approve_user(db, int(word_list[1]), word_list[2], client, message)
+            else:
+                await message.channel.send("Invalid number of arguments.")
 
 
-            elif lower_message.startswith("!test") and is_admin:
+        elif lower_message.startswith("!deny") and is_admin:
 
-                sent_message = await message.channel.send("This is a test message")
-                await sent_message.add_reaction("✅")
+            # !deny|[user id]|[event id]|[reason]
+            word_list = message.content.split('|')
+            if len(word_list) == 4:
+                await deny_user(db, int(word_list[1]), word_list[2], word_list[3], client, message)
+            else:
+                await message.channel.send("Invalid number of arguments.")
+
+        elif lower_message.startswith("!bracket ") and is_admin:
+
+            # !bracket [event id]
+            word_list = message.content.split()
+            if len(word_list) == 2:
+                await generate_bracket(db, message, word_list[1])
+            else:
+                await message.channel.send("Invalid number of arguments.")
+
+
+        elif lower_message.startswith("!test") and is_admin:
+
+            sent_message = await message.channel.send("This is a test message")
+            await sent_message.add_reaction("✅")
 
 
 
