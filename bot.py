@@ -76,6 +76,7 @@ async def delete_event(db, message, event_id):
         await message.channel.send('Event with id does not exist.')
 
 
+
 def run_discord_bot(mongo_client, db):
     TOKEN = 'MTEzMDIyNTQzNjAwNjMwNTk0Ng.GNqc6p.qR6t7fym71pGd3CLl9QKwQ8usCFoXhhG8W7PDE'
     intents = discord.Intents.default()
@@ -83,10 +84,22 @@ def run_discord_bot(mongo_client, db):
     client = discord.Client(intents=intents)
 
     MY_ID = 1112204092723441724
+    GUILD_ID = 1130553449491210442
+    MEMBER_ROLE_ID = 1131309952200347741
 
     @client.event
     async def on_ready():
         print(f'{client.user} is now running!')
+
+    @client.event
+    async def on_member_join(member):
+        print("New user joined")
+        guild = client.get_guild(GUILD_ID)
+        role = guild.get_role(MEMBER_ROLE_ID)
+
+        if role is not None:
+            await member.add_roles(role)
+            print("Gave role to new user")
 
     @client.event
     async def on_message(message):
