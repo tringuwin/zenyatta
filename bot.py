@@ -100,6 +100,7 @@ def run_discord_bot(mongo_client, db):
         if role is not None:
             await member.add_roles(role)
             print("Gave role to new user")
+            
 
     @client.event
     async def on_message(message):
