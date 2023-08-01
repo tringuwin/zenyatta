@@ -151,7 +151,7 @@ def run_discord_bot(mongo_client, db):
 
             for event in event_list:
 
-                if 'test' in event['event_name']:
+                if 'test' in event['event_id']:
                     continue
 
                 found = True
