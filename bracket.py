@@ -27,7 +27,7 @@ async def make_matches_from_users(users_in_round):
     matches = []
 
     for i in range(0, match_size):
-        matches.append([{"is_bye": True}, {"is_bye", True}])
+        matches.append([{"is_bye": True}, {"is_bye": True}])
     
     match_index = 0
     for user in users_in_round:
