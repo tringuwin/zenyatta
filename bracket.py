@@ -13,9 +13,12 @@ async def add_user_to_match(user, match):
     if not match[0]['is_bye']:
         user_index = 1
 
-    user['is_bye'] = False
-    match[user_index] = user
-
+    entry = {
+        'user': user,
+        'is_bye': False
+    }
+    match[user_index] = entry
+    
 async def make_matches_from_users(users_in_round):
     
     match_size = await get_match_size(len(users_in_round))
