@@ -18,7 +18,7 @@ async def add_user_to_match(user, match):
 
 async def make_matches_from_users(users_in_round):
     
-    match_size = get_match_size(len(users_in_round))
+    match_size = await get_match_size(len(users_in_round))
 
     matches = []
 
@@ -27,13 +27,13 @@ async def make_matches_from_users(users_in_round):
     
     match_index = 0
     for user in users_in_round:
-        add_user_to_match(user, matches[0])
+        await add_user_to_match(user, matches[0])
 
     return matches
 
 async def make_bracket_from_users(all_users):
 
-    round1_matches = make_bracket_from_users(all_users)
+    round1_matches = await make_bracket_from_users(all_users)
 
     rounds = [round1_matches]
 
