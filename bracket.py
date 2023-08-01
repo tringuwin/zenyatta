@@ -5,7 +5,7 @@ async def get_match_size(num_users_in_round):
     while num_users_in_round > round_size:
         round_size *= 2
 
-    return round_size / 2
+    return int(round_size / 2)
 
 async def add_user_to_match(user, match):
 
@@ -19,6 +19,7 @@ async def add_user_to_match(user, match):
 async def make_matches_from_users(users_in_round):
     
     match_size = await get_match_size(len(users_in_round))
+    print(match_size)
 
     matches = []
 
