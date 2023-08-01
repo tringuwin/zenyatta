@@ -33,7 +33,7 @@ async def make_matches_from_users(users_in_round):
 
 async def make_bracket_from_users(all_users):
 
-    round1_matches = await make_bracket_from_users(all_users)
+    round1_matches = await make_matches_from_users(all_users)
 
     rounds = [round1_matches]
 
