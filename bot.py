@@ -140,11 +140,6 @@ def run_discord_bot(mongo_client, db):
         elif lower_message.startswith('!battle '):
             
             await register_battle_user(message, message.content, db)
-            # if is_dm_channel(message.channel):
-            #     await register_battle_user(message, message.content, db)
-            # else:
-            #     await message.channel.send('For your privacy, please only use the !battle command in a DM with me.')
-            #     await message.delete()
 
         elif lower_message == "!events":
 
@@ -155,6 +150,10 @@ def run_discord_bot(mongo_client, db):
             final_string = ""
 
             for event in event_list:
+
+                if 'test' in event['event_name']:
+                    continue
+
                 found = True
                 event_full = False
                 if (event['max_players'] == event['spots_filled']):
