@@ -31,7 +31,7 @@ async def make_matches_from_users(users_in_round):
     
     match_index = 0
     for user in users_in_round:
-        await add_user_to_match(user, matches[0])
+        await add_user_to_match(user, matches[match_index])
 
         match_index += 1
         if match_index == len(matches):
