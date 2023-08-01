@@ -2,6 +2,7 @@ import copy
 import random
 import discord
 from discord.utils import get
+from bracket import make_bracket_from_users
 
 
 def find_user_with_battle_tag(db, lower_tag):
@@ -264,17 +265,19 @@ async def generate_bracket(db, message, event_id):
         if existing_bracket:
             await message.channel.send("A bracket has already been generated for this event.")
         else:
-            brackets = db['brackets']
+            # brackets = db['brackets']
 
             round1 = event['entries'].copy()
             random.shuffle(round1)
 
             new_bracket = {
                 "event_id": event_id,
-                "rounds": [round1]
+                "bracket": await make_bracket_from_users(round1)
             }
 
-            brackets.insert_one(new_bracket)
+            print(new_bracket)
+
+            #brackets.insert_one(new_bracket)
 
             await message.channel.send("Bracket has been created for event "+event_id)
 
@@ -295,4 +298,3 @@ async def output_tokens(db, message):
             users = db['users']
             users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"tokens": 0}})
             await message.channel.send("Your tokens: 🪙**0**")
-
