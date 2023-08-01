@@ -18,7 +18,7 @@ async def add_user_to_match(user, match):
         'is_bye': False
     }
     match[user_index] = entry
-    
+
 async def make_matches_from_users(users_in_round):
     
     match_size = await get_match_size(len(users_in_round))
@@ -32,6 +32,10 @@ async def make_matches_from_users(users_in_round):
     match_index = 0
     for user in users_in_round:
         await add_user_to_match(user, matches[0])
+
+        match_index += 1
+        if match_index == len(matches):
+            match_index = 0
 
     return matches
 
