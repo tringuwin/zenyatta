@@ -334,7 +334,7 @@ async def add_fun_fact(message, fun_fact, db):
         await message.delete()
         del_msg = await message.channel.send('Your fun fact has been added!')
         time.sleep(5)
-        del_msg.delete()
+        await del_msg.delete()
 
     else:
         await message.channel.send("It looks like you're not registered yet. Please register your battle tag before adding a fun fact.")
