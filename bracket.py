@@ -20,7 +20,7 @@ async def add_user_to_match(user, match, users):
         'user': user,
         'username': user_obj['battle_tag'].split('#')[0],
         'is_bye': False,
-        'is_tdb': True
+        'is_tbd': False
     }
     match[user_index] = entry
 
@@ -53,7 +53,7 @@ async def gen_tbd_round(length_last_round):
     matches = []
 
     for i in range(0, this_round_length):
-        matches.append([{'is_bye': False, 'is_tdb': True}, {'is_bye': False, 'is_tdb': True}])
+        matches.append([{'is_bye': False, 'is_tbd': True}, {'is_bye': False, 'is_tbd': True}])
 
     return matches
 
