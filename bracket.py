@@ -55,6 +55,8 @@ async def gen_tbd_round(length_last_round):
     for i in range(0, this_round_length):
         matches.append([{'is_bye': False, 'is_tdb': True}, {'is_bye': False, 'is_tdb': True}])
 
+    return matches
+
 async def make_bracket_from_users(all_users, db):
 
     round1_matches = await make_matches_from_users(all_users, db)
@@ -63,7 +65,7 @@ async def make_bracket_from_users(all_users, db):
 
     len_matches = len(round1_matches)
     while len_matches != 1:
-        next_round = gen_tbd_round(len_matches)
+        next_round = await gen_tbd_round(len_matches)
         rounds.append(copy.deepcopy(next_round))
 
         len_matches = len(next_round)
