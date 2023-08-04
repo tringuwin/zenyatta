@@ -213,6 +213,11 @@ def run_discord_bot(mongo_client, db):
 
             await output_tokens(db, message)
 
+        elif lower_message.startswith('!funfact '):
+
+            fun_fact = message.content[len("!funfact "):].strip()
+            await add_fun_fact(message, fun_fact, db)
+
         # ADMIN COMMANDS
 
         elif lower_message.startswith("!addevent") and is_admin:

@@ -1,5 +1,6 @@
 import copy
 import random
+import time
 import discord
 from discord.utils import get
 from bracket import make_bracket_from_users
@@ -46,7 +47,8 @@ def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
             "battle_tag": battle_tag,
             "lower_tag": lower_tag,
             "discord_id": discord_id,
-            "entries": []
+            "entries": [],
+            "fun_fact": ''
         }
         print(new_user)
         users.insert_one(new_user)
@@ -318,3 +320,21 @@ async def switch_matches(db, message, event_id, match1, match2):
         await message.channel.send('Matches moved.')
     else:
         await message.channel.send("Could not find a bracket with that event id.")
+
+async def add_fun_fact(message, fun_fact, db):
+
+    existing_user = user_exists(db, message.author.id)
+
+    if existing_user:
+
+        users = db['users']
+
+        users.update_one({'discord_id': existing_user['discord_id']}, {"$set": {"fun_fact": fun_fact}})
+        print(existing_user)
+        await message.delete()
+        del_msg = await message.channel.send('Your fun fact has been added!')
+        time.sleep(5)
+        del_msg.delete()
+
+    else:
+        await message.channel.send("It looks like you're not registered yet. Please register your battle tag before adding a fun fact.")
