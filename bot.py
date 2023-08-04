@@ -143,9 +143,12 @@ def run_discord_bot(mongo_client, db):
 
         elif lower_message == "!events":
 
+
             event_list = get_all_events(db)
             found = False
             none_string = "It looks like there's no events right now... Check back soon!"
+            await message.channel.send(none_string)
+            return
 
             final_string = ""
 
