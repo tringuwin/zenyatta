@@ -253,7 +253,7 @@ def run_discord_bot(mongo_client, db):
             # !bracket [event id]
             word_list = message.content.split()
             if len(word_list) == 2:
-                await generate_bracket(db, message, word_list[1], db)
+                await generate_bracket(db, message, word_list[1])
             else:
                 await message.channel.send("Invalid number of arguments.")
 

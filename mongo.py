@@ -272,7 +272,7 @@ async def generate_bracket(db, message, event_id):
 
             new_bracket = {
                 "event_id": event_id,
-                "bracket": await make_bracket_from_users(round1)
+                "bracket": await make_bracket_from_users(round1, db)
             }
 
             brackets.insert_one(new_bracket)
