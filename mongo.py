@@ -265,7 +265,7 @@ async def generate_bracket(db, message, event_id):
         if existing_bracket:
             await message.channel.send("A bracket has already been generated for this event.")
         else:
-            # brackets = db['brackets']
+            brackets = db['brackets']
 
             round1 = event['entries'].copy()
             random.shuffle(round1)
@@ -275,9 +275,7 @@ async def generate_bracket(db, message, event_id):
                 "bracket": await make_bracket_from_users(round1)
             }
 
-            print(new_bracket)
-
-            #brackets.insert_one(new_bracket)
+            brackets.insert_one(new_bracket)
 
             await message.channel.send("Bracket has been created for event "+event_id)
 
