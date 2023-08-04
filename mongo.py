@@ -307,8 +307,12 @@ async def switch_matches(db, message, event_id, match1, match2):
         brackets = db['brackets']
 
         round1copy = copy.deepcopy(my_bracket['bracket'][0])
+        print(round1copy)
+        print('----------')
         match1copy = copy.deepcopy(round1copy[int(match1)])
+        print(match1copy)
         match2copy = copy.deepcopy(round1copy[int(match2)])
+        print('match2copy')
         round1copy[int(match1)] = match2copy
         round1copy[int(match2)] = match1copy
 
