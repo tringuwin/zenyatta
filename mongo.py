@@ -67,7 +67,7 @@ def get_all_events(db):
     event_objects = events.find()
     return event_objects 
 
-def get_bracket_by_event_id(db, event_id):
+async def get_bracket_by_event_id(db, event_id):
 
     brackets = db['brackets']
 
@@ -261,7 +261,7 @@ async def generate_bracket(db, message, event_id):
 
     if event:
 
-        existing_bracket = get_bracket_by_event_id(db, event_id)
+        existing_bracket = await get_bracket_by_event_id(db, event_id)
         if existing_bracket:
             await message.channel.send("A bracket has already been generated for this event.")
         else:
