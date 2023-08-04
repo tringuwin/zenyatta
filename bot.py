@@ -262,8 +262,12 @@ def run_discord_bot(mongo_client, db):
 
             sent_message = await message.channel.send("This is a test message")
             await sent_message.add_reaction("✅")
-                
 
+        elif lower_message.startswith("!wipebrackets") and is_admin:
+                
+            brackets = db['brackets']
+            brackets.delete_many({})
+            await message.channel.send('Brackets have been wiped')
 
 
             
