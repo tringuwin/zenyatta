@@ -1,6 +1,6 @@
 import time
 import discord
-from mongo import approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, output_tokens, try_join_event
+from mongo import approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, output_tokens, switch_matches, try_join_event
 
 
 async def dm_user_register_info(author, message):
@@ -268,6 +268,15 @@ def run_discord_bot(mongo_client, db):
             brackets = db['brackets']
             brackets.delete_many({})
             await message.channel.send('Brackets have been wiped')
+
+        elif lower_message.startswith("!switchmatches "):
+
+            # !switchmatches [event id] [switch match id 1] [switch match id 2]
+            word_list = message.content.split()
+            if len(word_list) == 4:
+                await switch_matches(db, message, word_list[1], word_list[2], word_list[3])
+            else:
+                await message.channel.send("Invalid number of arguments.")
 
 
             

@@ -296,3 +296,25 @@ async def output_tokens(db, message):
             users = db['users']
             users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"tokens": 0}})
             await message.channel.send("Your tokens: 🪙**0**")
+
+
+async def switch_matches(db, message, event_id, match1, match2):
+
+    my_bracket = await get_bracket_by_event_id(db, event_id)
+
+    if my_bracket:
+
+        brackets = db['brackets']
+
+        round1copy = copy.deepcopy(my_bracket['bracket'][0])
+        match1copy = copy.deepcopy(round1copy[int(match1)])
+        match2copy = copy.deepcopy(round1copy[int(match2)])
+        round1copy[int(match1)] = match2copy
+        round1copy[int(match2)] = match1copy
+
+        my_bracket['bracket'][0] = round1copy
+        brackets.update_one({"event_id": event_id}, {"$set": {"bracket": my_bracket}})
+
+        await message.channel.send('Matches moved.')
+    else:
+        await message.channel.send("Could not find a bracket with that event id.")
