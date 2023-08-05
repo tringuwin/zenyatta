@@ -238,7 +238,7 @@ async def send_next_info(db, message):
     round_index = tourney_details['round_index']
     match_index = tourney_details['match_index']
 
-    if round_index > 0:
+    if round_index > -1:
 
         match = bracket['bracket'][round_index][match_index]
         
