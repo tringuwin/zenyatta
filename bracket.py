@@ -81,6 +81,7 @@ async def get_tourney(db):
     all_tourney = tourney.find({})
 
     if all_tourney.count_documents({}) > 0:
+        print(all_tourney.count_documents({}))
         return True
     else:
         return False
