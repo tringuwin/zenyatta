@@ -285,6 +285,7 @@ async def send_next_info(db, message, guild):
         if match[1]['is_bye']:
             await won_match(1, message, db, guild)
         else:
+            print(match)
             user1 = user_exists(db, match[0]['user'])
             user2 = user_exists(db, match[1]['user'])
             user1fact = ''
