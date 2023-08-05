@@ -242,7 +242,7 @@ async def won_match(win_index, message, db, guild):
     win_index = win_index - 1
 
     tourney = await get_tourney_details(db)
-    bracket = await get_bracket_by_event_id(tourney['event_id'])
+    bracket = await get_bracket_by_event_id(db, tourney['event_id'])
 
     round_index = tourney['round_index']
     match_index = tourney['match_index']
