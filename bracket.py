@@ -140,16 +140,28 @@ async def wipe_tourney(db, message):
 
 async def notify_match(match, message, start_string, guild):
 
-    user1 = guild.get_member(match[0]['user'])
-    user2 = guild.get_member(match[1]['user'])
 
     user1mention = '[User Not Found]'
     user2mention = '[User Not Found]'
-    if user1: 
-        user1mention = user1.mention
-    if user2:
-        user2mention = user2.mention
-    
+
+    if match[0]['is_bye']:
+        user1mention = "*BYE*"
+    elif match[0]['is_tbd']:
+        user1mention = '*TBD*'
+    else:
+        user1 = guild.get_member(match[0]['user'])
+        if user1: 
+            user1mention = user1.mention
+
+    if match[1]['is_bye']:
+        user2mention = "*BYE*"
+    elif match[1]['is_tbd']:
+        user2mention = '*TBD*'
+    else:
+        user2 = guild.get_member(match[1]['user'])
+        if user2: 
+            user1mention = user2.mention
+
     await message.channel.send(start_string+user1mention+' VS '+user2mention)
 
 
