@@ -150,10 +150,7 @@ async def notify_match(match, index, message, start_string, guild):
     if user2:
         user2mention = user2.mention
     
-    if user1 and user2:
-        await message.channel.send(start_string+user1mention+' VS '+user2mention)
-    else:
-        await message.channel.send('Error getting users')
+    await message.channel.send(start_string+user1mention+' VS '+user2mention)
 
 
 async def increment_tourney_index(round_index, match_index, bracket):
