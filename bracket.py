@@ -96,6 +96,12 @@ async def get_tourney(db):
     else:
         return False
     
+async def get_tourney_details(db):
+
+    tourney = db['tourney']
+    existing_tourney = tourney.find_one({})
+
+    return existing_tourney
 
 async def gen_tourney(db, event_id, message):
 
@@ -130,3 +136,49 @@ async def wipe_tourney(db, message):
     tourney.delete_many({})
 
     await message.channel.send('Current tourney has been wiped.')
+
+
+async def notify_match(match, index, message):
+    message.channel.send('test notify match')
+
+
+async def increment_tourney_index(round_index, match_index, bracket):
+
+
+    # is our current round valid?
+    if round_index >= len(bracket):
+        return -1, -1
+    else:
+        # current round is valid, is our current match valid?
+        if match_index >= len(bracket[round_index]):
+            # go to the next round
+            round_index += 1
+            match_index = 0
+            return round_index, match_index
+        else:
+            match_index += 1 
+            return round_index, match_index
+
+
+async def notify_next_users(db, guild, message):
+
+    tourney_details = await get_tourney_details(db)
+    if tourney_details:
+
+        round_index = tourney_details['round_index']
+        match_index = tourney_details['match_index']
+
+        bracket = get_bracket_by_event_id(db, tourney_details['event_id'])
+
+        for i in range(0, 3):
+            
+            if round_index > -1:
+                next_match = bracket['bracket'][round_index][match_index]
+                notify_match(next_match, i)
+                round_index, match_index = increment_tourney_index(round_index, match_index, bracket['bracket'])
+            else:
+                break
+        
+
+    else:
+        await message.channel.send('An error occurred.')
