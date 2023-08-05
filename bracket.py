@@ -173,6 +173,9 @@ async def notify_next_users(db, guild, message):
         for i in range(0, 3):
             
             if round_index > -1:
+                print(round_index)
+                print(match_index)
+                print(bracket)
                 next_match = bracket['bracket'][round_index][match_index]
                 notify_match(next_match, i, message)
                 round_index, match_index = await increment_tourney_index(round_index, match_index, bracket['bracket'])
