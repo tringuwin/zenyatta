@@ -139,7 +139,7 @@ async def wipe_tourney(db, message):
 
 
 async def notify_match(match, index, message):
-    message.channel.send('test notify match')
+    await message.channel.send('test notify match')
 
 
 async def increment_tourney_index(round_index, match_index, bracket):
