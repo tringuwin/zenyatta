@@ -96,15 +96,18 @@ async def get_bracket_by_event_id(db, event_id):
 
 async def gen_tourney(db, event_id, message):
 
-    tourney = db['tourney']
-    existing_tourney = get_tourney(db)
+    
+    existing_tourney = await get_tourney(db)
     if existing_tourney:
         await message.channel.send('There is already a tournament in progress.')
         return
+    
+
 
     bracket = await get_bracket_by_event_id(db, event_id)
     if bracket:
 
+        tourney = db['tourney']
         new_tourney = {
             'event_id': event_id,
             'round_index': 0,
