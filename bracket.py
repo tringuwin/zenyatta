@@ -138,7 +138,7 @@ async def wipe_tourney(db, message):
     await message.channel.send('Current tourney has been wiped.')
 
 
-async def notify_match(match, index, message, start_string, guild):
+async def notify_match(match, message, start_string, guild):
 
     user1 = guild.get_member(match[0]['user'])
     user2 = guild.get_member(match[1]['user'])
@@ -182,7 +182,7 @@ async def notify_next_users(db, guild, message):
         bracket = await get_bracket_by_event_id(db, tourney_details['event_id'])
         start_strings = [
             '**UP NEXT:** ',
-            '**1 MATCH AWAY:** '
+            '**1 MATCH AWAY:** ',
             '**2 MATCHES AWAY:** ' 
         ]
 
@@ -195,7 +195,7 @@ async def notify_next_users(db, guild, message):
                 print(match_index)
                 print(bracket)
                 next_match = bracket['bracket'][round_index][match_index]
-                await notify_match(next_match, i, message, start_string, guild)
+                await notify_match(next_match, message, start_string, guild)
                 round_index, match_index = await increment_tourney_index(round_index, match_index, bracket['bracket'])
             else:
                 break
