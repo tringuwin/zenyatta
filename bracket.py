@@ -1,6 +1,6 @@
 import copy
 
-from mongo import get_bracket_by_event_id
+
 
 async def get_match_size(num_users_in_round):
     
@@ -84,6 +84,14 @@ async def get_tourney(db):
         return True
     else:
         return False
+    
+async def get_bracket_by_event_id(db, event_id):
+
+    brackets = db['brackets']
+
+    search_query = {"event_id": event_id}
+
+    return brackets.find_one(search_query)
 
 async def gen_tourney(db, event_id, message):
 

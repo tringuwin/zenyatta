@@ -3,7 +3,7 @@ import random
 import time
 import discord
 from discord.utils import get
-from bracket import make_bracket_from_users
+from bracket import get_bracket_by_event_id, make_bracket_from_users
 
 
 def find_user_with_battle_tag(db, lower_tag):
@@ -69,13 +69,7 @@ def get_all_events(db):
     event_objects = events.find()
     return event_objects 
 
-async def get_bracket_by_event_id(db, event_id):
 
-    brackets = db['brackets']
-
-    search_query = {"event_id": event_id}
-
-    return brackets.find_one(search_query)
 
 
 def create_event(db, event_id, event_name, max_players):
