@@ -297,6 +297,11 @@ def run_discord_bot(mongo_client, db):
 
             await wipe_tourney(db, message)
 
+        elif lower_message == '!starttourney' and is_admin:
+
+            await message.channel.send('**TOURNAMENT HAS STARTED**')
+            await message.channel.send('(ping up next users here)')
+
             
            
 
