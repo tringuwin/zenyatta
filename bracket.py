@@ -144,20 +144,19 @@ async def notify_match(match, index, message):
 
 async def increment_tourney_index(round_index, match_index, bracket):
 
+    match_index += 1
+    if match_index >= len(bracket[round_index]):
+        match_index = 0
+        round_index += 1
 
-    # is our current round valid?
-    if round_index >= len(bracket):
-        return -1, -1
-    else:
-        # current round is valid, is our current match valid?
-        if match_index >= len(bracket[round_index]):
-            # go to the next round
-            round_index += 1
-            match_index = 0
-            return round_index, match_index
+        if round_index >= len(bracket):
+            return -1, -1
+        
         else:
-            match_index += 1 
             return round_index, match_index
+
+    else:
+        return round_index, match_index
 
 
 async def notify_next_users(db, guild, message):
