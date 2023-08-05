@@ -75,17 +75,7 @@ async def make_bracket_from_users(all_users, db):
     return rounds
     
 
-async def get_tourney(db):
 
-    tourney = db['tourney']
-    all_tourney = tourney.find({})
-
-    if all_tourney.count_documents({}) > 0:
-        print(all_tourney.count_documents({}))
-        return True
-    else:
-        return False
-    
 async def get_bracket_by_event_id(db, event_id):
 
     brackets = db['brackets']
@@ -93,6 +83,19 @@ async def get_bracket_by_event_id(db, event_id):
     search_query = {"event_id": event_id}
 
     return brackets.find_one(search_query)
+
+
+async def get_tourney(db):
+
+    tourney = db['tourney']
+    num_tourney = tourney.count_documents({})
+
+    if num_tourney > 0:
+        print(num_tourney)
+        return True
+    else:
+        return False
+    
 
 async def gen_tourney(db, event_id, message):
 
