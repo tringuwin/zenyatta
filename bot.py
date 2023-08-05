@@ -301,26 +301,30 @@ def run_discord_bot(mongo_client, db):
 
             guild = client.get_guild(GUILD_ID)
             tourney_role = guild.get_role(1131326944311525577)
+            event_channel = client.get_channel(1131365793855176854)
 
-            await send_next_info(db, message, guild)
+            await send_next_info(db, message, guild, event_channel)
 
-            await message.channel.send('**TOURNAMENT HAS STARTED** '+tourney_role.mention)
-            await notify_next_users(db, guild, message)
+            await event_channel.send('**TOURNAMENT HAS STARTED** '+tourney_role.mention)
+            await notify_next_users(db, guild, message, event_channel)
 
         elif lower_message == '!pausetourney' and is_admin:
 
             guild = client.get_guild(GUILD_ID)
             tourney_role = guild.get_role(1131326944311525577)
+            event_channel = client.get_channel(1131365793855176854)
 
-            await message.channel.send('**TOURNAMENT HAS PASUED** '+tourney_role.mention)
+            await event_channel.send('**TOURNAMENT HAS PASUED** '+tourney_role.mention)
 
         elif lower_message.startswith('!win ') and is_admin:
             
+            event_channel = client.get_channel(1131365793855176854)
+
             # !gentourney [winner 1 or 2]
             word_list = message.content.split()
             if len(word_list) == 2:
                 guild = client.get_guild(GUILD_ID)
-                await won_match(int(word_list[1]), message, db, guild)
+                await won_match(int(word_list[1]), message, db, guild, event_channel)
             else:
                 await message.channel.send("Invalid number of arguments.")
 

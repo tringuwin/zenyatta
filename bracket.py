@@ -145,7 +145,7 @@ async def wipe_tourney(db, message):
     await message.channel.send('Current tourney has been wiped.')
 
 
-async def notify_match(match, message, start_string, guild):
+async def notify_match(match, message, start_string, guild, event_channel):
 
 
     user1mention = '[User Not Found]'
@@ -169,7 +169,7 @@ async def notify_match(match, message, start_string, guild):
         if user2: 
             user2mention = user2.mention
 
-    await message.channel.send(start_string+user1mention+' VS '+user2mention)
+    await event_channel.send(start_string+user1mention+' VS '+user2mention)
 
 
 async def increment_tourney_index(round_index, match_index, bracket):
@@ -190,7 +190,7 @@ async def increment_tourney_index(round_index, match_index, bracket):
 
 
 
-async def notify_next_users(db, guild, message):
+async def notify_next_users(db, guild, message, event_channel):
 
     tourney_details = await get_tourney_details(db)
     if tourney_details:
@@ -215,7 +215,7 @@ async def notify_next_users(db, guild, message):
                 print(match_index)
                 print(bracket)
                 next_match = bracket['bracket'][round_index][match_index]
-                await notify_match(next_match, message, start_string, guild)
+                await notify_match(next_match, message, start_string, guild, event_channel)
                 round_index, match_index = await increment_tourney_index(round_index, match_index, bracket['bracket'])
             else:
                 break
@@ -236,7 +236,7 @@ def get_next_round_match_from_match(match_index):
 
 
 # 1 or 2 is input
-async def won_match(win_index, message, db, guild):
+async def won_match(win_index, message, db, guild, event_channel):
     
     #normalize for database
     win_index = win_index - 1
@@ -270,10 +270,10 @@ async def won_match(win_index, message, db, guild):
     db['tourney'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"match_index": new_match_index}})
     await message.channel.send("Updates made")
 
-    await send_next_info(db, message, guild)
-    await notify_next_users(db, guild, message)
+    await notify_next_users(db, guild, message, event_channel)
+    await send_next_info(db, message, guild, event_channel)
 
-async def send_next_info(db, message, guild):
+async def send_next_info(db, message, guild, event_channel):
 
     tourney_details = await get_tourney_details(db)
 
@@ -289,7 +289,7 @@ async def send_next_info(db, message, guild):
         # is it a bye for player1?
         print(match)
         if match[1]['is_bye']:
-            await won_match(1, message, db, guild)
+            await won_match(1, message, db, guild, event_channel)
         else:
             user1 = user_exists(db, match[0]['user'])
             user2 = user_exists(db, match[1]['user'])
