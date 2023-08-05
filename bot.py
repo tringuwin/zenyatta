@@ -1,6 +1,6 @@
 import time
 import discord
-from bracket import gen_tourney
+from bracket import gen_tourney, wipe_tourney
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, output_tokens, switch_matches, try_join_event
 
 
@@ -292,6 +292,10 @@ def run_discord_bot(mongo_client, db):
                 await gen_tourney(db, word_list[1], message)
             else:
                 await message.channel.send("Invalid number of arguments.")
+
+        elif lower_message == '!wipetourney' and is_admin:
+
+            await wipe_tourney(db, message)
 
             
            

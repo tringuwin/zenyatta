@@ -123,3 +123,10 @@ async def gen_tourney(db, event_id, message):
     else:
         await message.channel.send('There is no existing bracket with that event id.')
 
+
+async def wipe_tourney(db, message):
+
+    tourney = db['tourney']
+    tourney.delete_many({})
+
+    await message.channel.send('Current tourney has been wiped.')
