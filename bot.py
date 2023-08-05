@@ -1,6 +1,6 @@
 import time
 import discord
-from bracket import gen_tourney, notify_next_users, wipe_tourney
+from bracket import gen_tourney, notify_next_users, send_next_info, wipe_tourney
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, output_tokens, switch_matches, try_join_event
 
 
@@ -301,6 +301,8 @@ def run_discord_bot(mongo_client, db):
 
             guild = client.get_guild(GUILD_ID)
             tourney_role = guild.get_role(1131326944311525577)
+
+            await send_next_info(db, message)
 
             await message.channel.send('**TOURNAMENT HAS STARTED** '+tourney_role.mention)
             await notify_next_users(db, guild, message)

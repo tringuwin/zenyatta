@@ -3,7 +3,7 @@ import random
 import time
 import discord
 from discord.utils import get
-from bracket import get_bracket_by_event_id, make_bracket_from_users
+from bracket import get_bracket_by_event_id, make_bracket_from_users, user_exists
 
 
 def find_user_with_battle_tag(db, lower_tag):
@@ -19,14 +19,6 @@ def find_user_with_battle_tag(db, lower_tag):
     else:
         return False
     
-def user_exists(db, discord_id):
-    
-    users = db['users']
-
-    search_query = {"discord_id": int(discord_id)}
-
-    return users.find_one(search_query)
-
 def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
 
     users = db['users']

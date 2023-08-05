@@ -1,5 +1,12 @@
 import copy
 
+def user_exists(db, discord_id):
+    
+    users = db['users']
+
+    search_query = {"discord_id": int(discord_id)}
+
+    return users.find_one(search_query)
 
 
 async def get_match_size(num_users_in_round):
@@ -198,6 +205,7 @@ async def notify_next_users(db, guild, message):
             '**2 MATCHES AWAY:** ' 
         ]
 
+        await message.channel.send('--------------------------------------------')
         for i in range(0, 3):
             
             start_string = start_strings[i]
@@ -211,7 +219,45 @@ async def notify_next_users(db, guild, message):
                 round_index, match_index = await increment_tourney_index(round_index, match_index, bracket['bracket'])
             else:
                 break
+        await message.channel.send('--------------------------------------------')
         
 
     else:
         await message.channel.send('An error occurred.')
+
+# 1 or 2 is input
+async def won_match(win_index):
+    pass
+
+async def send_next_info(db, message):
+
+    tourney_details = await get_tourney_details(db)
+
+    bracket = await get_bracket_by_event_id(db, tourney_details['event_id'])
+
+    round_index = tourney_details['round_index']
+    match_index = tourney_details['match_index']
+
+    if round_index > 0:
+
+        match = bracket['bracket'][round_index][match_index]
+        
+        # is it a bye for player1?
+        if match[1]['is_bye']:
+            await won_match(1)
+        else:
+            user1 = user_exists(db, match[0]['user'])
+            user2 = user_exists(db, match[1]['user'])
+            user1fact = ''
+            user2fact = ''
+            if 'fun_fact' in user1:
+                user1fact = user1['fun_fact']
+            if 'fun_fact' in user2:
+                user2fact = user2['fun_fact']
+
+            await message.channel.send("**USER 1**\nBattle Tag: "+user1['battle_tag']+"\n"+user1fact)
+            await message.channel.send("**USER 2**\nBattle Tag: "+user2['battle_tag']+"\n"+user2fact)
+
+
+    else:
+        await message.channel.send('There are no matches left in this tournament.')
