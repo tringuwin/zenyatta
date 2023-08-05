@@ -225,11 +225,50 @@ async def notify_next_users(db, guild, message):
     else:
         await message.channel.send('An error occurred.')
 
-# 1 or 2 is input
-async def won_match(win_index):
-    pass
+def get_next_round_match_from_match(match_index):
 
-async def send_next_info(db, message):
+    is_odd = match_index % 2 == 1
+    if is_odd:
+        match_index -= 1
+
+    parent_match_id = int(match_index / 2)
+    return parent_match_id
+
+
+# 1 or 2 is input
+async def won_match(win_index, message, db, guild):
+    
+    #normalize for database
+    win_index = win_index - 1
+
+    tourney = await get_tourney_details()
+    bracket = await get_bracket_by_event_id(tourney['event_id'])
+
+    round_index = tourney['round_index']
+    match_index = tourney['match_index']
+
+    match = bracket['bracket']['round_index']['match_index']
+    winner = copy.deepcopy(match[win_index])
+
+    advance_round = round_index + 1
+    advance_match = get_next_round_match_from_match(match_index)
+
+    advance_match_obj = copy.deepcopy(bracket['bracket'][advance_round][advance_match])
+    advance_pos = 1
+    if advance_match_obj[0]['is_tbd']:
+        advance_pos = 0
+
+    bracket_copy = copy.deepcopy(bracket)
+    bracket_copy['bracket'][advance_match][advance_pos] = winner
+
+    db['brackets'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"bracket": bracket_copy['bracket']}})
+
+
+
+    await send_next_info(db, message)
+    await notify_next_users(db, guild, message)
+
+async def send_next_info(db, message, guild):
 
     tourney_details = await get_tourney_details(db)
 
@@ -244,7 +283,7 @@ async def send_next_info(db, message):
         
         # is it a bye for player1?
         if match[1]['is_bye']:
-            await won_match(1)
+            await won_match(1, message, db, guild)
         else:
             user1 = user_exists(db, match[0]['user'])
             user2 = user_exists(db, match[1]['user'])

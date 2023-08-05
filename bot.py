@@ -1,6 +1,6 @@
 import time
 import discord
-from bracket import gen_tourney, notify_next_users, send_next_info, wipe_tourney
+from bracket import gen_tourney, notify_next_users, send_next_info, wipe_tourney, won_match
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, output_tokens, switch_matches, try_join_event
 
 
@@ -302,7 +302,7 @@ def run_discord_bot(mongo_client, db):
             guild = client.get_guild(GUILD_ID)
             tourney_role = guild.get_role(1131326944311525577)
 
-            await send_next_info(db, message)
+            await send_next_info(db, message, guild)
 
             await message.channel.send('**TOURNAMENT HAS STARTED** '+tourney_role.mention)
             await notify_next_users(db, guild, message)
@@ -313,6 +313,16 @@ def run_discord_bot(mongo_client, db):
             tourney_role = guild.get_role(1131326944311525577)
 
             await message.channel.send('**TOURNAMENT HAS PASUED** '+tourney_role.mention)
+
+        elif lower_message.startswith('!win ') and is_admin:
+            
+            # !gentourney [winner 1 or 2]
+            word_list = message.content.split()
+            if len(word_list) == 2:
+                guild = client.get_guild(GUILD_ID)
+                await won_match(int(word_list[1]), message, db, guild)
+            else:
+                await message.channel.send("Invalid number of arguments.")
 
             
            
