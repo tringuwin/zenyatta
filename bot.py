@@ -88,6 +88,7 @@ def run_discord_bot(mongo_client, db):
     MY_ID = 1112204092723441724
     GUILD_ID = 1130553449491210442
     MEMBER_ROLE_ID = 1131309952200347741
+    guild = client.get_guild(GUILD_ID)
 
     @client.event
     async def on_ready():
@@ -96,7 +97,6 @@ def run_discord_bot(mongo_client, db):
     @client.event
     async def on_member_join(member):
         print("New user joined")
-        guild = client.get_guild(GUILD_ID)
         role = guild.get_role(MEMBER_ROLE_ID)
 
         if role is not None:
@@ -299,7 +299,9 @@ def run_discord_bot(mongo_client, db):
 
         elif lower_message == '!starttourney' and is_admin:
 
-            await message.channel.send('**TOURNAMENT HAS STARTED**')
+            tourney_role = guild.get_role(1131326944311525577)
+
+            await message.channel.send('**TOURNAMENT HAS STARTED** '+tourney_role.mention)
             await message.channel.send('(ping up next users here)')
 
             
