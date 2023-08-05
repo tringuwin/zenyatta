@@ -257,9 +257,10 @@ async def won_match(win_index, message, db, guild):
     advance_pos = 1
     if advance_match_obj[0]['is_tbd']:
         advance_pos = 0
+    advance_match_obj[advance_pos] = winner
 
     bracket_copy = copy.deepcopy(bracket)
-    bracket_copy['bracket'][advance_match][advance_round][advance_pos] = winner
+    bracket_copy['bracket'][advance_round][advance_match] = advance_match_obj
     print(bracket_copy)
 
     db['brackets'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"bracket": bracket_copy['bracket']}})
