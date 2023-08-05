@@ -265,7 +265,7 @@ async def won_match(win_index, message, db, guild):
 
 
 
-    await send_next_info(db, message)
+    await send_next_info(db, message, guild)
     await notify_next_users(db, guild, message)
 
 async def send_next_info(db, message, guild):
