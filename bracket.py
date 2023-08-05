@@ -167,7 +167,7 @@ async def notify_match(match, message, start_string, guild):
     else:
         user2 = guild.get_member(match[1]['user'])
         if user2: 
-            user1mention = user2.mention
+            user2mention = user2.mention
 
     await message.channel.send(start_string+user1mention+' VS '+user2mention)
 
