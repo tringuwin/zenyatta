@@ -142,9 +142,16 @@ async def notify_match(match, index, message, start_string, guild):
 
     user1 = guild.get_member(match[0]['user'])
     user2 = guild.get_member(match[1]['user'])
+
+    user1mention = '[User Not Found]'
+    user2mention = '[User Not Found]'
+    if user1: 
+        user1mention = user1.mention
+    if user2:
+        user2mention = user2.mention
     
     if user1 and user2:
-        await message.channel.send(start_string+user1.mention+' VS '+user2.mention)
+        await message.channel.send(start_string+user1mention+' VS '+user2mention)
     else:
         await message.channel.send('Error getting users')
 
