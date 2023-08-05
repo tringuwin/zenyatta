@@ -1,5 +1,7 @@
 import copy
 
+from mongo import get_bracket_by_event_id
+
 async def get_match_size(num_users_in_round):
     
     round_size = 1
@@ -72,3 +74,37 @@ async def make_bracket_from_users(all_users, db):
 
     return rounds
     
+
+async def get_tourney(db):
+
+    tourney = db['tourney']
+    all_tourney = tourney.find({})
+
+    if all_tourney.count_documents({}) > 0:
+        return True
+    else:
+        return False
+
+async def gen_tourney(db, event_id, message):
+
+    tourney = db['tourney']
+    existing_tourney = get_tourney(db)
+    if existing_tourney:
+        await message.channel.send('There is already a tournament in progress.')
+        return
+
+    bracket = await get_bracket_by_event_id(db, event_id)
+    if bracket:
+
+        new_tourney = {
+            'event_id': event_id,
+            'round_index': 0,
+            'match_index': 0
+        }
+        tourney.insert_one(new_tourney)
+
+        await message.channel.send('Tourney has been created for event '+event_id)
+
+    else:
+        await message.channel.send('There is no existing bracket with that event id.')
+

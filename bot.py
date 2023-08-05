@@ -1,5 +1,6 @@
 import time
 import discord
+from bracket import gen_tourney
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, output_tokens, switch_matches, try_join_event
 
 
@@ -274,7 +275,7 @@ def run_discord_bot(mongo_client, db):
             brackets.delete_many({})
             await message.channel.send('Brackets have been wiped')
 
-        elif lower_message.startswith("!switchmatches "):
+        elif lower_message.startswith("!switchmatches ") and is_admin:
 
             # !switchmatches [event id] [switch match id 1] [switch match id 2]
             word_list = message.content.split()
@@ -283,6 +284,14 @@ def run_discord_bot(mongo_client, db):
             else:
                 await message.channel.send("Invalid number of arguments.")
 
+        elif lower_message.startswith("!gentourney ") and is_admin:
+
+            # !gentourney [event id]
+            word_list = message.content.split()
+            if len(word_list) == 2:
+                await gen_tourney(db, word_list[1], message)
+            else:
+                await message.channel.send("Invalid number of arguments.")
 
             
            
