@@ -265,6 +265,11 @@ async def won_match(win_index, message, db, guild):
 
     db['brackets'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"bracket": bracket_copy['bracket']}})
 
+    new_round_index, new_match_index = await increment_tourney_index(round_index, match_index, bracket_copy['bracket'])
+    db['tourney'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"round_index": new_round_index}})
+    db['tourney'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"match_index": new_match_index}})
+    await message.channel.send("Updates made")
+
     await send_next_info(db, message, guild)
     await notify_next_users(db, guild, message)
 
