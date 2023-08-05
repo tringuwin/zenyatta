@@ -307,6 +307,13 @@ def run_discord_bot(mongo_client, db):
             await message.channel.send('**TOURNAMENT HAS STARTED** '+tourney_role.mention)
             await notify_next_users(db, guild, message)
 
+        elif lower_message == '!pausetourney' and is_admin:
+
+            guild = client.get_guild(GUILD_ID)
+            tourney_role = guild.get_role(1131326944311525577)
+
+            await message.channel.send('**TOURNAMENT HAS PASUED** '+tourney_role.mention)
+
             
            
 
