@@ -168,7 +168,7 @@ async def notify_next_users(db, guild, message):
         round_index = tourney_details['round_index']
         match_index = tourney_details['match_index']
 
-        bracket = get_bracket_by_event_id(db, tourney_details['event_id'])
+        bracket = await get_bracket_by_event_id(db, tourney_details['event_id'])
 
         for i in range(0, 3):
             
