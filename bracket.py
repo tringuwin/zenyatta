@@ -247,7 +247,7 @@ async def won_match(win_index, message, db, guild):
     round_index = tourney['round_index']
     match_index = tourney['match_index']
 
-    match = bracket['bracket']['round_index']['match_index']
+    match = bracket['bracket'][round_index][match_index]
     winner = copy.deepcopy(match[win_index])
 
     advance_round = round_index + 1
