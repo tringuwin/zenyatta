@@ -286,6 +286,21 @@ async def output_tokens(db, message):
             await message.channel.send("Your tokens: 🪙**0**")
 
 
+async def output_passes(db, message):
+
+    existing_user = user_exists(db, message.author.id)
+
+    if existing_user:
+
+        if "passes" in existing_user:
+            await message.channel.send("Your Priority Passes: 🎟️**"+str(existing_user['passes'])+"**")
+        else:
+            users = db['users']
+            users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"passes": 0}})
+            await message.channel.send("Your Priority Passes: 🎟️**0**")
+
+
+
 async def switch_matches(db, message, event_id, match1, match2):
 
     my_bracket = await get_bracket_by_event_id(db, event_id)
