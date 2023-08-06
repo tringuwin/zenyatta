@@ -353,12 +353,12 @@ async def give_daily_gift(db, message):
         if 'last_gift' in existing_user:
             diff_in_time = current_time - existing_user['last_gift']
             if diff_in_time >= 86400:
-                process_gift(db, current_time, existing_user, message)
+                await process_gift(db, current_time, existing_user, message)
             else:
-                await message.channel.send(message.author.mention+" Your daily gift is not ready yet. Next daily gift in **"+time_to_gift())
+                await message.channel.send(message.author.mention+" Your daily gift is not ready yet. Next daily gift in **"+time_to_gift()+"**")
 
         else:
-            process_gift(db, current_time, existing_user, message)
+            await process_gift(db, current_time, existing_user, message)
 
     else:
         await message.channel.send(message.author.mention+" It looks like you're not registered yet. Please register first!")
