@@ -315,7 +315,7 @@ async def process_gift(db, current_time, existing_user, message):
     else:
         tokens = random.randint(2, 5)
         await give_tokens(db, existing_user, tokens)
-        await message.channel.send(message.author.mention+" 🪙 You found a **"+ str(tokens)+" Tokens** 🪙")
+        await message.channel.send(message.author.mention+" 🪙 You found **"+ str(tokens)+" Tokens** 🪙")
 
 
 
