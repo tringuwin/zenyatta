@@ -338,7 +338,16 @@ def run_discord_bot(mongo_client, db):
                 await message.channel.send("Invalid number of arguments.")
 
         elif lower_message.startswith('!giverewards') and is_admin:
-            pass
+            
+            reward_per_round = [10, 10, 100, 200, 500, 0, 0]
+
+            bracket = db['brackets'].find_one({'event_id': '1'})
+
+            for round in bracket['bracket']:
+                print('------------------')
+                print(round)
+
+
             
         elif lower_message.startswith('!givetokens ') and is_admin:
 
