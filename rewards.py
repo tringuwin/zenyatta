@@ -5,6 +5,7 @@ from user import user_exists
 
 async def give_tokens(db, user, num):
 
+    print('giving '+str(num)+'tokens to user '+user['battle_tag'])
     users = db['users']
     
     if "tokens" in user:
@@ -16,9 +17,10 @@ async def give_tokens(db, user, num):
 
 async def give_tokens_command(db, user_id, num, message):
 
-    user = user_exists(db, user_id)
+    user = user_exists(db, int(user_id))
 
     if user:
+        print('user exists')
         give_tokens(db, user, num)
 
         await message.channel.send('Tokens given')
