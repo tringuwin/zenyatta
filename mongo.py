@@ -328,17 +328,19 @@ def format_time(num, title):
 
 def time_to_gift(diff_in_time):
 
+    time_to_gift = 86400 - diff_in_time
+
     hours = 0
     minutes = 0
 
-    while diff_in_time > 3600:
+    while time_to_gift > 3600:
         hours += 1
-        diff_in_time -= 3600
-    while diff_in_time >= 60:
+        time_to_gift -= 3600
+    while time_to_gift >= 60:
         minutes += 1
-        diff_in_time -= 60
+        time_to_gift -= 60
 
-    return format_time(hours, 'hours')+format_time(minutes, 'minutes')+format_time(diff_in_time, 'seconds')
+    return format_time(hours, 'hours')+format_time(minutes, 'minutes')+format_time(time_to_gift, 'seconds')
 
 
 async def give_daily_gift(db, message):
