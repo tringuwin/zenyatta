@@ -21,7 +21,7 @@ async def give_tokens_command(db, user_id, num, message):
 
     if user:
         print('user exists')
-        give_tokens(db, user, num)
+        await give_tokens(db, user, num)
 
         await message.channel.send('Tokens given')
     else:
