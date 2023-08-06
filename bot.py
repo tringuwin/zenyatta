@@ -2,7 +2,7 @@ import time
 import discord
 from bracket import gen_tourney, notify_next_users, send_next_info, wipe_tourney, won_match
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_passes, output_tokens, switch_matches, try_join_event
-from rewards import give_tokens_command
+from rewards import give_tokens, give_tokens_command
 
 
 async def dm_user_register_info(author, message):
@@ -355,7 +355,14 @@ def run_discord_bot(mongo_client, db):
 
                 round_index += 1
 
-            print(final_dict)
+            for player_id_string, highest_round in final_dict.items():
+
+                user = db['users'].find_one({'discord_id': int(player_id_string)})
+                if user:
+
+                    reward = reward_per_round[highest_round]
+                    print("giving "+str(reward)+" tokens to "+player_id_string)
+                    #give_tokens(db, user, reward)
 
 
 
