@@ -205,7 +205,7 @@ async def notify_next_users(db, guild, message, event_channel):
             '**2 MATCHES AWAY:** ' 
         ]
 
-        await message.channel.send('--------------------------------------------')
+        await event_channel.send('--------------------------------------------')
         for i in range(0, 3):
             
             start_string = start_strings[i]
@@ -219,7 +219,7 @@ async def notify_next_users(db, guild, message, event_channel):
                 round_index, match_index = await increment_tourney_index(round_index, match_index, bracket['bracket'])
             else:
                 break
-        await message.channel.send('--------------------------------------------')
+        await event_channel.send('--------------------------------------------')
         
 
     else:
