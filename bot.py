@@ -361,8 +361,9 @@ def run_discord_bot(mongo_client, db):
                 if user:
 
                     reward = reward_per_round[highest_round]
-                    print("giving "+str(reward)+" tokens to "+player_id_string)
-                    #give_tokens(db, user, reward)
+                    await give_tokens(db, user, reward)
+
+            await message.channel.send('Rewards given')
 
 
 
