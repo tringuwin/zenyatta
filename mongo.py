@@ -1,4 +1,5 @@
 import copy
+import datetime
 import random
 import time
 import discord
@@ -298,6 +299,24 @@ async def output_passes(db, message):
             users = db['users']
             users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"passes": 0}})
             await message.channel.send("Your Priority Passes: 🎟️**0**")
+
+
+async def give_daily_gift(db, message):
+
+    existing_user = user_exists(db, message.author.id)
+
+    if existing_user:
+
+        current_time = datetime.now()
+
+        if 'last_gift' in existing_user:
+            await message.channel.send('last gift exists')
+
+        else:
+            await message.channel.send('last gift does not exist')
+
+    else:
+        await message.channel.send(message.author.mention+" It looks like you're not registered yet. Please register first!")
 
 
 
