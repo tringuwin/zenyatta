@@ -308,6 +308,7 @@ async def give_daily_gift(db, message):
     if existing_user:
 
         current_time = datetime.now()
+        print(current_time)
 
         if 'last_gift' in existing_user:
             await message.channel.send('last gift exists')
