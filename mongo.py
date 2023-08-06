@@ -308,14 +308,14 @@ async def process_gift(db, current_time, existing_user, message):
     prize_index = random.randint(1, 100)
     if prize_index == 1:
         await give_tokens(db, existing_user, 100)
-        await message.channel.send(message.author.mention+" 🪙**YOU FOUND 100 TOKENS!!**🪙")
+        await message.channel.send(message.author.mention+" 🪙 **YOU FOUND 100 TOKENS!!** 🪙")
     elif prize_index <= 10:
         await give_pass(db, existing_user)
-        await message.channel.send(message.author.mention+" 🎟️You found a **Priority Pass!**🎟️")
+        await message.channel.send(message.author.mention+" 🎟️ You found a **Priority Pass!** 🎟️")
     else:
         tokens = random.randint(2, 5)
         await give_tokens(db, existing_user, tokens)
-        await message.channel.send(message.author.mention+" 🪙You found a **"+ str(tokens)+" Tokens**🪙")
+        await message.channel.send(message.author.mention+" 🪙 You found a **"+ str(tokens)+" Tokens** 🪙")
 
 
 
@@ -355,7 +355,7 @@ async def give_daily_gift(db, message):
             if diff_in_time >= 86400:
                 await process_gift(db, current_time, existing_user, message)
             else:
-                await message.channel.send(message.author.mention+" Your daily gift is not ready yet. Next daily gift in **"+time_to_gift()+"**")
+                await message.channel.send(message.author.mention+" Your daily gift is not ready yet. Next daily gift in **"+time_to_gift(diff_in_time)+"**")
 
         else:
             await process_gift(db, current_time, existing_user, message)
