@@ -1,5 +1,4 @@
 import copy
-from datetime import datetime
 import random
 import time
 import discord
@@ -307,7 +306,7 @@ async def give_daily_gift(db, message):
 
     if existing_user:
 
-        current_time = datetime.now()
+        current_time = int(time.time())
         print(current_time)
 
         if 'last_gift' in existing_user:
