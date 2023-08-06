@@ -1,12 +1,6 @@
 import copy
 
-def user_exists(db, discord_id):
-    
-    users = db['users']
-
-    search_query = {"discord_id": int(discord_id)}
-
-    return users.find_one(search_query)
+from user import user_exists
 
 
 async def get_match_size(num_users_in_round):

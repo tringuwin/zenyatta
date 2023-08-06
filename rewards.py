@@ -1,5 +1,8 @@
 
 
+from user import user_exists
+
+
 async def give_tokens(db, user, num):
 
     users = db['users']
@@ -9,6 +12,18 @@ async def give_tokens(db, user, num):
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"tokens": new_tokens}})
     else:
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"tokens": num}})
+
+
+async def give_tokens_command(db, user_id, num, message):
+
+    user = user_exists(db, user_id)
+
+    if user:
+        give_tokens(db, user, num)
+
+        await message.channel.send('Tokens given')
+    else:
+        await message.channel.send('Could not find user with that ID')
 
 async def give_pass(db, user):
 

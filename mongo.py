@@ -3,8 +3,9 @@ import random
 import time
 import discord
 from discord.utils import get
-from bracket import get_bracket_by_event_id, make_bracket_from_users, user_exists
+from bracket import get_bracket_by_event_id, make_bracket_from_users
 from rewards import give_pass, give_tokens
+from user import user_exists
 
 
 def find_user_with_battle_tag(db, lower_tag):
