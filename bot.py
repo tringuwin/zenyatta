@@ -343,9 +343,20 @@ def run_discord_bot(mongo_client, db):
 
             bracket = db['brackets'].find_one({'event_id': '1'})
 
+            final_dict = {}
+
+            round_index = 0
             for round in bracket['bracket']:
-                print('------------------')
-                print(round)
+                for match in round:
+                    
+                    for player in match:
+                        if not (player['is_bye'] or player['is_tbd']):
+                            final_dict[str(player['user'])] = round_index
+
+                round_index += 1
+
+            print(final_dict)
+
 
 
             
