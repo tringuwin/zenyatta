@@ -1,3 +1,4 @@
+import random
 import time
 import discord
 from bracket import gen_tourney, notify_next_users, send_next_info, wipe_tourney, won_match
@@ -227,6 +228,20 @@ def run_discord_bot(mongo_client, db):
 
             fun_fact = message.content[len("!funfact "):].strip()
             await add_fun_fact(message, fun_fact, db)
+
+        elif lower_message == "!hello":
+
+            answers = [
+                'Greetings.',
+                'Hello.',
+                'I greet you.',
+                'Peace be upon you.'
+            ]
+
+            random_response = random.choice(answers)
+            await message.channel.send(random_response)
+
+
 
         # ADMIN COMMANDS
 
