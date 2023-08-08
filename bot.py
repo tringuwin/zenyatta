@@ -391,6 +391,13 @@ def run_discord_bot(mongo_client, db):
                 await give_tokens_command(db, int(word_list[1]), int(word_list[2]), message)
             else:
                 await message.channel.send("Invalid number of arguments.")
+
+
+        elif lower_message == '!listids' and is_admin:
+
+            for member in client.get_all_members():
+
+                print(member.display_name+": "+str(member.id))
            
 
     client.run(TOKEN)
