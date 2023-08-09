@@ -43,7 +43,7 @@ async def register_battle_user(message, message_content, db):
                     await message.channel.send("That Battle Tag has already been connected with a discord account. (Maybe you've already linked it?)")
                 else:
                     create_or_update_battle_tag(db, battle_tag, lower_tag, message.author.id)
-                    await message.channel.send("Success! Your Battle Tag has been linked to Ragu Bot! (Please note: if you change your Battle Tag please use the !battle command again to update it!)")
+                    await message.channel.send("Success! Your Battle Tag has been linked to the SpicyRagu server! (Please note: if you change your Battle Tag please use the !battle command again to update it!)")
                     await message.channel.send("Now that your account is linked would you like to sign up for an event? Just say **!events** to see events with openings!")
             else:
                 await message.channel.send("The Battle Tag you provided seems to be missing the # and numbers at the end. Please include that too.")
