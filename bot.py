@@ -395,7 +395,7 @@ def run_discord_bot(mongo_client, db):
             else:
                 await message.channel.send("Invalid number of arguments.")
 
-        elif lower_message.startswith('!givepass ') and is_admin:
+        elif lower_message.startswith('!givepasses ') and is_admin:
 
             # !givepass [winner id] [passes]
             word_list = message.content.split()
