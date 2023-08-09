@@ -4,6 +4,7 @@ import discord
 from bracket import gen_tourney, notify_next_users, send_next_info, wipe_tourney, won_match
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_passes, output_tokens, switch_matches, try_join_event
 from rewards import give_tokens, give_tokens_command
+from user import user_exists
 
 
 async def dm_user_register_info(author, message):
@@ -396,6 +397,31 @@ def run_discord_bot(mongo_client, db):
             for member in client.get_all_members():
 
                 print(member.display_name+" : "+str(member.id) + " : "+member.name+' : '+member.discriminator)
+
+        elif lower_message.startswith('!getdetails ') and is_admin:
+
+            # !getdetails [username]
+            word_list = message.content.split()
+            if len(word_list) == 2:
+                
+                for member in client.get_all_members():
+
+                    disc = member.discriminator
+                    final_name = member.name
+                    if disc != '0':
+                        final_name = final_name+"#"+disc
+
+                    if word_list[1] == final_name:
+                        
+                        user = user_exists(db, member.id)
+                        if user:
+                            await message.channel.send('User ID: '+str(member.id)+"\nBattle Tag: "+user['battle_tag'])
+
+                        break
+
+            else:
+                await message.channel.send("Invalid number of arguments.")
+
            
 
     client.run(TOKEN)
