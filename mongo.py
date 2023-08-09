@@ -4,7 +4,7 @@ import time
 import discord
 from discord.utils import get
 from bracket import get_bracket_by_event_id, make_bracket_from_users
-from rewards import give_passes, give_tokens
+from rewards import change_passes, give_tokens
 from user import user_exists
 
 
@@ -311,7 +311,7 @@ async def process_gift(db, current_time, existing_user, message):
         await give_tokens(db, existing_user, 100)
         await message.channel.send(message.author.mention+" 🪙 **YOU FOUND 100 TOKENS!!** 🪙")
     elif prize_index <= 10:
-        await give_passes(db, existing_user, 1)
+        await change_passes(db, existing_user, 1)
         await message.channel.send(message.author.mention+" 🎟️ You found a **Priority Pass!** 🎟️")
     else:
         tokens = random.randint(2, 5)
