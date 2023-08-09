@@ -27,7 +27,7 @@ async def give_tokens_command(db, user_id, num, message):
     else:
         await message.channel.send('Could not find user with that ID')
 
-async def give_passes(db, user, num):
+async def change_passes(db, user, num):
 
     users = db['users']
 
@@ -35,7 +35,7 @@ async def give_passes(db, user, num):
         new_passes = user['passes'] + num
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"passes": new_passes}})
     else:
-        users.update_one({"discord_id": user['discord_id']}, {"$set": {"passes": 1}})
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"passes": num}})
 
 
 async def give_passes_command(db, user_id, num, message):
@@ -44,9 +44,9 @@ async def give_passes_command(db, user_id, num, message):
 
     if user:
         print('user exists')
-        await give_passes(db, user, num)
+        await change_passes(db, user, num)
 
-        await message.channel.send('Pass given')
+        await message.channel.send('Passes given')
     else:
         await message.channel.send('Could not find user with that ID')
 

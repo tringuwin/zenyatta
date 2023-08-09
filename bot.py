@@ -397,7 +397,7 @@ def run_discord_bot(mongo_client, db):
 
         elif lower_message.startswith('!givepasses ') and is_admin:
 
-            # !givepass [winner id] [passes]
+            # !givepasses [winner id] [passes]
             word_list = message.content.split()
             if len(word_list) == 3:
                 await give_passes_command(db, int(word_list[1]), int(word_list[2]), message)
