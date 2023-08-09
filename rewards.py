@@ -36,3 +36,16 @@ async def give_pass(db, user):
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"passes": new_passes}})
     else:
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"passes": 1}})
+
+
+async def give_pass_command(db, user_id, message):
+
+    user = user_exists(db, int(user_id))
+
+    if user:
+        print('user exists')
+        await give_pass(db, user)
+
+        await message.channel.send('Pass given')
+    else:
+        await message.channel.send('Could not find user with that ID')
