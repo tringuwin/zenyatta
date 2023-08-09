@@ -395,7 +395,7 @@ def run_discord_bot(mongo_client, db):
 
             for member in client.get_all_members():
 
-                print(member.display_name+": "+str(member.id))
+                print(member.display_name+" : "+str(member.id) + " : "+member.name)
            
 
     client.run(TOKEN)
