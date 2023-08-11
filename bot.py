@@ -383,8 +383,6 @@ def run_discord_bot(mongo_client, db):
 
             await message.channel.send('Rewards given')
 
-
-
             
         elif lower_message.startswith('!givetokens ') and is_admin:
 
