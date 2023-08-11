@@ -451,6 +451,7 @@ def run_discord_bot(mongo_client, db):
             else:
                 await message.channel.send("Invalid number of arguments.")
 
-           
+        else:
+            await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
     client.run(TOKEN)
