@@ -62,7 +62,5 @@ async def sell_pass_for_tokens(db, message):
        else:
            await message.channel.send('You do not have any priority passes to sell.')
         
-           
-
     else:
         await message.channel.send('It looks like you are not registered yet. Please register first.')

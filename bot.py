@@ -137,8 +137,13 @@ def run_discord_bot(mongo_client, db):
             await warning.delete()
             return
         
+        if lower_message == '!help':
 
-        if lower_message == '!register':
+            help_embed = discord.Embed(title='List of commands:')
+            help_embed.add_field(name='!register', value='Show instructions to register', inline=False)
+            help_embed.add_field(name='!battle BattleTagHere#1234', value='Register your battle tag with the SpicyRagu server', inline=False)
+
+        elif lower_message == '!register':
             await dm_user_register_info(message.author, message)
 
         elif lower_message.startswith('!battle '):
