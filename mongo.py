@@ -2,6 +2,7 @@ import copy
 import random
 import time
 import discord
+import constants
 from discord.utils import get
 from bracket import get_bracket_by_event_id, make_bracket_from_users
 from rewards import change_passes, change_tokens
@@ -205,6 +206,15 @@ async def deny_user(db, discord_id, event_id, deny_reason, discord_client, messa
     else:
         await message.channel.send("I didn't find any registered user with that discord ID")
 
+async def give_event_role(client, member_id):
+    guild = client.get_guild(constants.GUILD_ID)
+    role = guild.get_role(constants.EVENT_ROLE)
+
+    if role is not None:
+        member = guild.get_member(member_id)
+        if member:
+            await member.add_roles(role)
+
 async def approve_user(db, discord_id, event_id, discord_client, message):
 
     existing_user = user_exists(db, discord_id)
@@ -231,6 +241,7 @@ async def approve_user(db, discord_id, event_id, discord_client, message):
             user = await discord_client.fetch_user(int(discord_id))
             if user:
                 try:
+                    await give_event_role(discord_client, int(discord_id))
                     await user.send("You're in! You were approved for participation in **event "+event_id+"**!! Make sure to keep up to date on information so you don't miss it!")
                     await message.channel.send("The user was notified of their approval.")
                 except discord.Forbidden:
