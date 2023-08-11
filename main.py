@@ -1,12 +1,10 @@
 import bot
+import asyncio  # Import asyncio to handle asynchronous tasks
 
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
 uri = "mongodb+srv://loganstanford53:cMczqREMdzhQR9T6@cluster0.o9naf24.mongodb.net/?retryWrites=true&w=majority"
-
-
-
 
 async def main():
     client = MongoClient(uri, server_api=ServerApi('1'))
@@ -22,7 +20,6 @@ async def main():
         # events = db['events']
         # events.delete_many({})
 
-        
     except Exception as e:
         print(e)
 
@@ -30,5 +27,5 @@ async def main():
     await bot.run_discord_bot(client, db)
 
 if __name__ == '__main__':
-
-    main()
+    loop = asyncio.get_event_loop()  # Get the event loop
+    loop.run_until_complete(main())  # Run the asynchronous main function within the event loop
