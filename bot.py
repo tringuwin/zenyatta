@@ -87,7 +87,7 @@ def run_discord_bot(mongo_client, db):
     intents = discord.Intents.all()
     intents.message_content = True
     client = discord.Client(intents=intents)
-    client.change_presence(activity=discord.Activity(discord.ActivityType.listening, name='!help'))
+    client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
 
     MY_ID = 1112204092723441724
     GUILD_ID = 1130553449491210442
