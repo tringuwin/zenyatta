@@ -1,7 +1,7 @@
 import random
 import time
 import discord
-from bracket import gen_tourney, notify_next_users, send_next_info, wipe_tourney, won_match
+from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_passes, output_tokens, switch_matches, try_join_event
 from rewards import give_passes_command, give_tokens, give_tokens_command, sell_pass_for_tokens
 from user import user_exists
@@ -361,13 +361,27 @@ def run_discord_bot(mongo_client, db):
             
             event_channel = client.get_channel(1131365793855176854)
 
-            # !gentourney [winner 1 or 2]
+            # !win [winner 1 or 2]
             word_list = message.content.split()
             if len(word_list) == 2:
                 guild = client.get_guild(GUILD_ID)
                 await won_match(int(word_list[1]), message, db, guild, event_channel)
             else:
                 await message.channel.send("Invalid number of arguments.")
+
+        elif lower_message.startswith('!noshow ') and is_admin:
+
+            # !noshow [loser 1 or 2]
+            word_list = message.content.split()
+            if len(word_list) == 2:
+                guild = client.get_guild(GUILD_ID)
+                await no_show(int(word_list[1]), message, db, guild, event_channel)
+            else:
+                await message.channel.send("Invalid number of arguments.")
+
+        elif lower_message == '!bothnoshow' and is_admin:
+
+            await both_no_show(message, db, guild, event_channel)
 
         elif lower_message.startswith('!giverewards') and is_admin:
             

@@ -229,6 +229,17 @@ def get_next_round_match_from_match(match_index):
     return parent_match_id
 
 
+async def advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild, event_channel):
+
+    new_round_index, new_match_index = await increment_tourney_index(round_index, match_index, bracket_copy['bracket'])
+    db['tourney'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"round_index": new_round_index}})
+    db['tourney'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"match_index": new_match_index}})
+    await message.channel.send("Updates made")
+
+    await notify_next_users(db, guild, message, event_channel)
+    await send_next_info(db, message, guild, event_channel)
+
+
 # 1 or 2 is input
 async def won_match(win_index, message, db, guild, event_channel):
     
@@ -259,13 +270,77 @@ async def won_match(win_index, message, db, guild, event_channel):
 
     db['brackets'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"bracket": bracket_copy['bracket']}})
 
-    new_round_index, new_match_index = await increment_tourney_index(round_index, match_index, bracket_copy['bracket'])
-    db['tourney'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"round_index": new_round_index}})
-    db['tourney'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"match_index": new_match_index}})
-    await message.channel.send("Updates made")
+    await advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild, event_channel)
 
-    await notify_next_users(db, guild, message, event_channel)
-    await send_next_info(db, message, guild, event_channel)
+async def no_show(lose_index, message, db, guild, event_channel):
+
+    #normalize for database
+    lose_index = lose_index - 1
+    win_index = 0
+    if lose_index == 0:
+        win_index = 1
+
+    tourney = await get_tourney_details(db)
+    bracket = await get_bracket_by_event_id(db, tourney['event_id'])
+
+    round_index = tourney['round_index']
+    match_index = tourney['match_index']
+
+    match = bracket['bracket'][round_index][match_index]
+    winner = copy.deepcopy(match[win_index])
+    loser = copy.deepcopy(match[lose_index])
+    loser['no_show'] = True
+    cur_match_obj = copy.deepcopy(match)
+    cur_match_obj[lose_index] = loser
+
+    advance_round = round_index + 1
+    advance_match = get_next_round_match_from_match(match_index)
+
+    advance_match_obj = copy.deepcopy(bracket['bracket'][advance_round][advance_match])
+    advance_pos = 1
+    if advance_match_obj[0]['is_tbd']:
+        advance_pos = 0
+    advance_match_obj[advance_pos] = winner
+
+    bracket_copy = copy.deepcopy(bracket)
+    bracket_copy['bracket'][advance_round][advance_match] = advance_match_obj
+    bracket_copy['bracket'][round_index][match_index] = cur_match_obj
+
+    db['brackets'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"bracket": bracket_copy['bracket']}})
+
+    await advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild, event_channel)
+
+async def both_no_show(message, db, guild, event_channel):
+    
+    tourney = await get_tourney_details(db)
+    bracket = await get_bracket_by_event_id(db, tourney['event_id'])
+
+    round_index = tourney['round_index']
+    match_index = tourney['match_index']
+    match = bracket['bracket'][round_index][match_index]
+    cur_match_obj = copy.deepcopy(match)
+
+    cur_match_obj[0]['no_show'] = True
+    cur_match_obj[1]['no_show'] = True
+
+    advance_round = round_index + 1
+    advance_match = get_next_round_match_from_match(match_index)
+
+    advance_match_obj = copy.deepcopy(bracket['bracket'][advance_round][advance_match])
+    advance_pos = 1
+    if advance_match_obj[0]['is_tbd']:
+        advance_pos = 0
+    advance_match_obj[advance_pos] = {'is_bye': True}
+
+    bracket_copy = copy.deepcopy(bracket)
+    bracket_copy['bracket'][advance_round][advance_match] = advance_match_obj
+    bracket_copy['bracket'][round_index][match_index] = cur_match_obj
+
+    db['brackets'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"bracket": bracket_copy['bracket']}})
+
+    await advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild, event_channel)
+
+
 
 async def send_next_info(db, message, guild, event_channel):
 
@@ -281,9 +356,11 @@ async def send_next_info(db, message, guild, event_channel):
         match = bracket['bracket'][round_index][match_index]
         
         # is it a bye for player1?
-        print(match)
         if match[1]['is_bye']:
             await won_match(1, message, db, guild, event_channel)
+        # is it a bye for player2?
+        elif match[0]['is_bye']:
+            await won_match(2, message, db, guild, event_channel)
         else:
             user1 = user_exists(db, match[0]['user'])
             user2 = user_exists(db, match[1]['user'])
