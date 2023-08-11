@@ -17,11 +17,6 @@ if __name__ == '__main__':
         print('Pinged deployment!')
         db = client['spicyragu']
 
-        # users = db['users']
-        # users.delete_many({})
-        # events = db['events']
-        # events.delete_many({})
-
         
     except Exception as e:
         print(e)

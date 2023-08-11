@@ -394,18 +394,21 @@ def run_discord_bot(mongo_client, db):
                 for match in round:
                     
                     for player in match:
-                        if not (player['is_bye'] or player['is_tbd']):
+                        if player['no_show']:
+                            final_dict[str(player['user'])] = -1
+                        elif not (player['is_bye'] or player['is_tbd']):
                             final_dict[str(player['user'])] = round_index
 
                 round_index += 1
 
             for player_id_string, highest_round in final_dict.items():
 
-                user = db['users'].find_one({'discord_id': int(player_id_string)})
-                if user:
+                if highest_round > -1:
+                    user = db['users'].find_one({'discord_id': int(player_id_string)})
+                    if user:
 
-                    reward = reward_per_round[highest_round]
-                    await change_tokens(db, user, reward)
+                        reward = reward_per_round[highest_round]
+                        await change_tokens(db, user, reward)
 
             await message.channel.send('Rewards given')
 
