@@ -3,7 +3,7 @@ import time
 import discord
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_passes, output_tokens, switch_matches, try_join_event
-from rewards import give_passes_command, give_tokens, give_tokens_command, sell_pass_for_tokens
+from rewards import give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from user import user_exists
 
 
@@ -258,8 +258,6 @@ def run_discord_bot(mongo_client, db):
             random_response = random.choice(answers)
             await message.channel.send(random_response)
 
-
-
         # ADMIN COMMANDS
 
         elif lower_message.startswith("!addevent") and is_admin:
@@ -407,7 +405,7 @@ def run_discord_bot(mongo_client, db):
                 if user:
 
                     reward = reward_per_round[highest_round]
-                    await give_tokens(db, user, reward)
+                    await change_tokens(db, user, reward)
 
             await message.channel.send('Rewards given')
 

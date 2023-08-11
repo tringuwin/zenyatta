@@ -3,7 +3,7 @@
 from user import user_exists
 
 
-async def give_tokens(db, user, num):
+async def change_tokens(db, user, num):
 
     print('giving '+str(num)+'tokens to user '+user['battle_tag'])
     users = db['users']
@@ -21,7 +21,7 @@ async def give_tokens_command(db, user_id, num, message):
 
     if user:
         print('user exists')
-        await give_tokens(db, user, num)
+        await change_tokens(db, user, num)
 
         await message.channel.send('Tokens given')
     else:
@@ -57,7 +57,7 @@ async def sell_pass_for_tokens(db, message):
 
        if 'passes' in user and user['passes'] > 0:
            await change_passes(db, user, -1)
-           await give_tokens(db, user, 10)
+           await change_tokens(db, user, 10)
            await message.channel.send('You sold 1 Priority Pass for **10 Tokens!**')
        else:
            await message.channel.send('You do not have any priority passes to sell.')
