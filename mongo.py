@@ -312,6 +312,18 @@ async def output_passes(db, message):
             users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"passes": 0}})
             await message.channel.send("Your Priority Passes: 🎟️**0**")
 
+async def output_eggs(db, message):
+
+    existing_user = user_exists(db, message.author.id)
+
+    if existing_user:
+
+        if "eggs" in existing_user:
+            await message.channel.send("Your Eggs: 🥚**"+str(existing_user['eggs'])+"**")
+        else:
+            users = db['users']
+            users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"eggs": 0}})
+            await message.channel.send("Your Eggs: 🥚**0**")
 
 async def process_gift(db, current_time, existing_user, message):
     users = db['users']

@@ -64,3 +64,26 @@ async def sell_pass_for_tokens(db, message):
         
     else:
         await message.channel.send('It looks like you are not registered yet. Please register first.')
+
+
+async def change_eggs(db, user, num):
+
+    users = db['users']
+    
+    if "eggs" in user:
+        new_eggs = user['eggs'] + num
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"eggs": new_eggs}})
+    else:
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"eggs": num}})
+
+
+async def give_eggs_command(db, user_id, num, message):
+
+    user = user_exists(db, int(user_id))
+
+    if user:
+        await change_eggs(db, user, num)
+
+        await message.channel.send('Eggs given')
+    else:
+        await message.channel.send('Could not find user with that ID')
