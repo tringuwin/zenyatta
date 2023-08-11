@@ -10,10 +10,6 @@ from user import user_exists
 async def dm_user_register_info(author, message):
 
     await message.channel.send(author.mention+' Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find and copy your Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
-    try:
-        await author.send(author.mention+' Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find and copy your Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
-    except:
-        print('could not dm user')
 
 def is_dm_channel(channel):
 
