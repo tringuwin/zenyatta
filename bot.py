@@ -142,6 +142,16 @@ def run_discord_bot(mongo_client, db):
             help_embed = discord.Embed(title='List of commands:')
             help_embed.add_field(name='!register', value='Show instructions to register', inline=False)
             help_embed.add_field(name='!battle BattleTagHere#1234', value='Register your battle tag with the SpicyRagu server', inline=False)
+            help_embed.add_field(name='!events', value='Show a list of current server events', inline=False)
+            help_embed.add_field(name='!join [event id]', value='Join an upcoming event', inline=False)
+            help_embed.add_field(name='!status [event id]', value='See the status of an event join request', inline=False)
+            help_embed.add_field(name='!suggestevent [idea here]', value='Suggest an idea for a future event', inline=False)
+            help_embed.add_field(name='!tokens', value='See your current number of tokens', inline=False)
+            help_embed.add_field(name='!passes', value='See your current passes', inline=False)
+            help_embed.add_field(name='!sellpass', value='Sell 1 Priority Pass for 10 tokens', inline=False)
+            help_embed.add_field(name='!dailygift', value='Earn a daily gift once per day', inline=False)
+            help_embed.add_field(name='!funfact [fun fact here]', value='Add a fun fact about yourself that might be mentioned during livestreamed events', inline=False)
+            help_embed.add_field(name='!hello', value='Say hi to the Zenyatta bot', inline=False)
 
             await message.channel.send(embed=help_embed)
 
@@ -194,7 +204,7 @@ def run_discord_bot(mongo_client, db):
             else:
                 message.channel.send("Command was not in the correct format. Please enter '!join' followed by the id of the event you want to join.")
 
-        elif lower_message.startswith("!status"):
+        elif lower_message.startswith("!status "):
 
             word_list = message.content.split()
             if len(word_list) == 2:
