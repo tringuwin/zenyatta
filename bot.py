@@ -1,6 +1,7 @@
 import random
 import time
 import discord
+import constants
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches, try_join_event
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
@@ -85,7 +86,6 @@ def run_discord_bot(mongo_client, db):
     client = discord.Client(intents=intents)
 
     MY_ID = 1112204092723441724
-    GUILD_ID = 1130553449491210442
     MEMBER_ROLE_ID = 1131309952200347741
 
     @client.event
@@ -95,7 +95,7 @@ def run_discord_bot(mongo_client, db):
 
     @client.event
     async def on_member_join(member):
-        guild = client.get_guild(GUILD_ID)
+        guild = client.get_guild(constants.GUILD_ID)
         role = guild.get_role(MEMBER_ROLE_ID)
 
         if role is not None:
@@ -340,7 +340,7 @@ def run_discord_bot(mongo_client, db):
 
         elif lower_message == '!starttourney' and is_admin:
 
-            guild = client.get_guild(GUILD_ID)
+            guild = client.get_guild(constants.GUILD_ID)
             tourney_role = guild.get_role(1131326944311525577)
             event_channel = client.get_channel(1131365793855176854)
 
@@ -351,7 +351,7 @@ def run_discord_bot(mongo_client, db):
 
         elif lower_message == '!pausetourney' and is_admin:
 
-            guild = client.get_guild(GUILD_ID)
+            guild = client.get_guild(constants.GUILD_ID)
             tourney_role = guild.get_role(1131326944311525577)
             event_channel = client.get_channel(1131365793855176854)
 
@@ -364,7 +364,7 @@ def run_discord_bot(mongo_client, db):
             # !win [winner 1 or 2]
             word_list = message.content.split()
             if len(word_list) == 2:
-                guild = client.get_guild(GUILD_ID)
+                guild = client.get_guild(constants.GUILD_ID)
                 await won_match(int(word_list[1]), message, db, guild, event_channel)
             else:
                 await message.channel.send("Invalid number of arguments.")
@@ -374,7 +374,7 @@ def run_discord_bot(mongo_client, db):
             # !noshow [loser 1 or 2]
             word_list = message.content.split()
             if len(word_list) == 2:
-                guild = client.get_guild(GUILD_ID)
+                guild = client.get_guild(constants.GUILD_ID)
                 await no_show(int(word_list[1]), message, db, guild, event_channel)
             else:
                 await message.channel.send("Invalid number of arguments.")
