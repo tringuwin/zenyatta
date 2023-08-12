@@ -210,7 +210,7 @@ def run_discord_bot(mongo_client, db):
         elif lower_message.startswith("!suggestevent "):
             event_idea = message.content[len("!suggestevent "):].strip()
 
-            event_channel = client.get_channel(1133850857037901956)
+            event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
 
             embed_msg = discord.Embed(
                 title = "Event Idea From "+message.author.name,
@@ -341,8 +341,8 @@ def run_discord_bot(mongo_client, db):
         elif lower_message == '!starttourney' and is_admin:
 
             guild = client.get_guild(constants.GUILD_ID)
-            tourney_role = guild.get_role(1131326944311525577)
-            event_channel = client.get_channel(1131365793855176854)
+            tourney_role = guild.get_role(constants.EVENT_ROLE)
+            event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
 
             await send_next_info(db, message, guild, event_channel)
 
@@ -352,14 +352,14 @@ def run_discord_bot(mongo_client, db):
         elif lower_message == '!pausetourney' and is_admin:
 
             guild = client.get_guild(constants.GUILD_ID)
-            tourney_role = guild.get_role(1131326944311525577)
-            event_channel = client.get_channel(1131365793855176854)
+            tourney_role = guild.get_role(constants.EVENT_ROLE)
+            event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
 
             await event_channel.send('**TOURNAMENT HAS PASUED** '+tourney_role.mention)
 
         elif lower_message.startswith('!win ') and is_admin:
             
-            event_channel = client.get_channel(1131365793855176854)
+            event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
 
             # !win [winner 1 or 2]
             word_list = message.content.split()
@@ -371,6 +371,8 @@ def run_discord_bot(mongo_client, db):
 
         elif lower_message.startswith('!noshow ') and is_admin:
 
+            event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
+
             # !noshow [loser 1 or 2]
             word_list = message.content.split()
             if len(word_list) == 2:
@@ -380,6 +382,8 @@ def run_discord_bot(mongo_client, db):
                 await message.channel.send("Invalid number of arguments.")
 
         elif lower_message == '!bothnoshow' and is_admin:
+
+            event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
 
             await both_no_show(message, db, guild, event_channel)
 
