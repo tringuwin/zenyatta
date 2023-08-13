@@ -131,7 +131,7 @@ def run_discord_bot(db):
             return
         
         if lower_message == '!help':
-            handle_help(message)
+            await handle_help(message)
         elif lower_message == '!register':
             await dm_user_register_info(message.author, message)
 
