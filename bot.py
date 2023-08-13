@@ -483,7 +483,7 @@ def run_discord_bot(mongo_client, db):
             reg_role = guild.get_role(constants.REGISTERED_ROLE)
 
             if reg_role:
-                for member in client.get_all_channels():
+                for member in client.get_all_members():
                     member_id = member.id
                     existing_user = user_exists(db, member_id)
                     if existing_user:
