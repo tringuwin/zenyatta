@@ -86,8 +86,6 @@ def run_discord_bot(db):
     intents.message_content = True
     client = discord.Client(intents=intents)
 
-    MEMBER_ROLE_ID = 1131309952200347741
-
     @client.event
     async def on_ready():
         print(f'{client.user} is now running!')
@@ -96,7 +94,7 @@ def run_discord_bot(db):
     @client.event
     async def on_member_join(member):
         guild = client.get_guild(constants.GUILD_ID)
-        role = guild.get_role(MEMBER_ROLE_ID)
+        role = guild.get_role(constants.MEMBER_ROLE_ID)
 
         if role is not None:
             await member.add_roles(role)
