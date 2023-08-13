@@ -81,7 +81,6 @@ async def delete_event(db, message, event_id):
 
 
 def run_discord_bot(db):
-    TOKEN = 'MTEzMDIyNTQzNjAwNjMwNTk0Ng.GNqc6p.qR6t7fym71pGd3CLl9QKwQ8usCFoXhhG8W7PDE'
     intents = discord.Intents.all()
     intents.message_content = True
     client = discord.Client(intents=intents)
@@ -498,4 +497,4 @@ def run_discord_bot(db):
         else:
             await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
-    client.run(TOKEN)
+    client.run(constants.DISCORD_TOKEN)
