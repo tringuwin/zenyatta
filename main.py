@@ -5,9 +5,6 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
 
-
-
-
 if __name__ == '__main__':
 
     client = MongoClient(constants.MONGO_URI, server_api=ServerApi('1'))
@@ -17,7 +14,6 @@ if __name__ == '__main__':
         client.admin.command('ping')
         print('Pinged deployment!')
         db = client['spicyragu']
-
         
     except Exception as e:
         print(e)

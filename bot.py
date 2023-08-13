@@ -1,6 +1,7 @@
 import random
 import time
 import discord
+from command_handlers.help import handle_help
 import constants
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches, try_join_event
@@ -130,23 +131,7 @@ def run_discord_bot(db):
             return
         
         if lower_message == '!help':
-
-            help_embed = discord.Embed(title='List of commands:')
-            help_embed.add_field(name='!register', value='Show instructions to register', inline=False)
-            help_embed.add_field(name='!battle BattleTagHere#1234', value='Register your battle tag with the SpicyRagu server', inline=False)
-            help_embed.add_field(name='!events', value='Show a list of current server events', inline=False)
-            help_embed.add_field(name='!join [event id]', value='Join an upcoming event', inline=False)
-            help_embed.add_field(name='!status [event id]', value='See the status of an event join request', inline=False)
-            help_embed.add_field(name='!suggestevent [idea here]', value='Suggest an idea for a future event', inline=False)
-            help_embed.add_field(name='!tokens', value='See your current number of tokens', inline=False)
-            help_embed.add_field(name='!passes', value='See your current passes', inline=False)
-            help_embed.add_field(name='!sellpass', value='Sell 1 Priority Pass for 10 tokens', inline=False)
-            help_embed.add_field(name='!dailygift', value='Earn a daily gift once per day', inline=False)
-            help_embed.add_field(name='!funfact [fun fact here]', value='Add a fun fact about yourself that might be mentioned during livestreamed events', inline=False)
-            help_embed.add_field(name='!hello', value='Say hi to the Zenyatta bot', inline=False)
-
-            await message.channel.send(embed=help_embed)
-
+            handle_help(message)
         elif lower_message == '!register':
             await dm_user_register_info(message.author, message)
 
