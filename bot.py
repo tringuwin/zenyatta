@@ -474,10 +474,22 @@ def run_discord_bot(mongo_client, db):
                             await message.channel.send('User ID: '+str(member.id)+"\nBattle Tag: "+user['battle_tag'])
 
                         break
-
             else:
                 await message.channel.send("Invalid number of arguments.")
 
+        elif lower_message == '!givereg' and is_admin:
+
+            guild = client.get_guild(constants.GUILD_ID)
+            reg_role = guild.get_role(constants.REGISTERED_ROLE)
+
+            if reg_role:
+                for member in client.get_all_channels():
+                    member_id = member.id
+                    existing_user = user_exists(db, member_id)
+                    if existing_user:
+                        await member.add_roles(reg_role)
+
+                await message.channel.send('Reg roles given')
         else:
             await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
