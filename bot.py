@@ -445,7 +445,7 @@ def run_discord_bot(db):
 
             for member in client.get_all_members():
 
-                user = existing_user(db, member.id)
+                user = user_exists(db, member.id)
                 if user:
 
                     print(member.display_name+" : "+str(member.id) + " : "+user['battle_tag'])
