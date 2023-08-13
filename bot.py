@@ -1,6 +1,7 @@
 import random
 import time
 import discord
+from command_handlers.hatch import hatch_handler
 from command_handlers.help import handle_help
 import constants
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
@@ -145,7 +146,6 @@ def run_discord_bot(db):
                 if member and reg_role:
                     await member.add_roles(reg_role)
 
-
         elif lower_message == "!events":
 
 
@@ -250,6 +250,10 @@ def run_discord_bot(db):
 
             random_response = random.choice(answers)
             await message.channel.send(random_response)
+
+        elif lower_message == '!hatch':
+
+            await hatch_handler(db, message)
 
         # ADMIN COMMANDS
 
