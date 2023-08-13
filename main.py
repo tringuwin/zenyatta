@@ -22,4 +22,4 @@ if __name__ == '__main__':
         print(e)
 
     print(db)
-    bot.run_discord_bot(client, db)
+    bot.run_discord_bot(db)
