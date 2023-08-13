@@ -14,7 +14,7 @@ def get_creature_image(creature_id):
 
 async def hatch_handler(db, message):
 
-    user = user_exists(message.author.id)
+    user = user_exists(db, message.author.id)
     if user:
 
         if 'eggs' in user and user['eggs'] > 0:
