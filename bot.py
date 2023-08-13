@@ -34,7 +34,6 @@ async def register_battle_user(message, message_content, db):
 
             if '#' in battle_tag:
                 
-                await message.channel.send("Please wait while I check the database...")
                 lower_tag = battle_tag.lower()
 
                 if find_user_with_battle_tag(db, lower_tag):
@@ -42,12 +41,14 @@ async def register_battle_user(message, message_content, db):
                 else:
                     create_or_update_battle_tag(db, battle_tag, lower_tag, message.author.id)
                     await message.channel.send("Success! Your Battle Tag has been linked to the SpicyRagu server! (Please note: if you change your Battle Tag please use the !battle command again to update it!)")
-                    await message.channel.send("Now that your account is linked would you like to sign up for an event? Just say **!events** to see events with openings!")
+                    return True
             else:
                 await message.channel.send("The Battle Tag you provided seems to be missing the # and numbers at the end. Please include that too.")
 
     else:
         await message.channel.send('This command was not formatted correctly. Please type !battle and then add your Battle Tag.')
+
+    return False
 
 
 async def add_event(db, message): 
@@ -155,7 +156,14 @@ def run_discord_bot(mongo_client, db):
 
         elif lower_message.startswith('!battle '):
             
-            await register_battle_user(message, message.content, db)
+            success = await register_battle_user(message, message.content, db)
+            if success:
+                guild = client.get_guild(constants.GUILD_ID)
+                reg_role = guild.get_role(constants.REGISTERED_ROLE)
+                member = guild.get_member(message.author.id)
+                if member and reg_role:
+                    await member.add_roles(reg_role)
+
 
         elif lower_message == "!events":
 
