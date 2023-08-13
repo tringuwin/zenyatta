@@ -220,7 +220,7 @@ def run_discord_bot(mongo_client, db):
         elif lower_message.startswith("!suggestevent "):
             event_idea = message.content[len("!suggestevent "):].strip()
 
-            event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
+            event_channel = client.get_channel(constants.SUGGEST_CHANNEL)
 
             embed_msg = discord.Embed(
                 title = "Event Idea From "+message.author.name,
