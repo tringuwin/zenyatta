@@ -22,7 +22,7 @@ async def hatch_handler(db, message):
             await change_eggs(db, user, -1)
             creature_id = get_creature_id()
             creature_embed = discord.Embed(title='You hacthed creature '+str(creature_id))
-            creature_embed.set_image('spicemon\S1.png')
+            creature_embed.set_image(url='spicemon\S1.png')
             await message.channel.send(embed = creature_embed)
         else:
             await message.channel.send('You do not have any eggs right now.')
