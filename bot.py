@@ -445,7 +445,10 @@ def run_discord_bot(db):
 
             for member in client.get_all_members():
 
-                print(member.display_name+" : "+str(member.id) + " : "+member.name+' : '+member.discriminator)
+                user = existing_user(db, member.id)
+                if user:
+
+                    print(member.display_name+" : "+str(member.id) + " : "+user['battle_tag'])
 
         elif lower_message.startswith('!getdetails ') and is_admin:
 
