@@ -86,7 +86,6 @@ def run_discord_bot(db):
     intents.message_content = True
     client = discord.Client(intents=intents)
 
-    MY_ID = 1112204092723441724
     MEMBER_ROLE_ID = 1131309952200347741
 
     @client.event
@@ -120,7 +119,7 @@ def run_discord_bot(db):
         print(f'{username} said: "{user_message}" ({channel})')
         lower_message = user_message.lower()
 
-        is_admin = (message.author.id == MY_ID)
+        is_admin = (message.author.id == constants.SPICY_RAGU_ID)
 
         valid_channel = is_admin or isinstance(message.channel, discord.DMChannel) or message.channel.id == 1130553489106411591
 
