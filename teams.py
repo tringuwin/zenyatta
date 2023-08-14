@@ -19,4 +19,5 @@ async def make_team(db, creator, team_size, team_name):
         'invites': []
     }
     teams.insert_one(new_team)
-    print('New team made')
+    print('New team made:')
+    print(team_name)
