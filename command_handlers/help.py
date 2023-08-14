@@ -1,7 +1,7 @@
 
 import discord
 
-async def handle_help(message):
+async def help_hanlder(message):
 
     help_embed = discord.Embed(title='List of commands:')
     help_embed.add_field(name='!register', value='Show instructions to register', inline=False)

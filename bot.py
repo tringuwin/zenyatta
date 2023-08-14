@@ -1,8 +1,9 @@
 import random
 import time
 import discord
+from command_handlers.create_team import create_team_handler
 from command_handlers.hatch import hatch_handler
-from command_handlers.help import handle_help
+from command_handlers.help import help_hanlder
 import constants
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches, try_join_event
@@ -132,7 +133,7 @@ def run_discord_bot(db):
             return
         
         if lower_message == '!help':
-            await handle_help(message)
+            await help_hanlder(message)
         elif lower_message == '!register':
             await dm_user_register_info(message.author, message)
 
@@ -252,8 +253,10 @@ def run_discord_bot(db):
             await message.channel.send(random_response)
 
         elif lower_message == '!hatch':
-
             await hatch_handler(db, message)
+
+        elif lower_message.startswith('!createteam'):
+            await create_team_handler(db, message)
 
         # ADMIN COMMANDS
 
