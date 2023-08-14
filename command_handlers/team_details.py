@@ -29,7 +29,7 @@ def make_details_from_team(db, team):
         if player:
             team_string += player['battle_tag']+'\n'
         else:
-            team_string += '*EMPTY*'
+            team_string += '*EMPTY*\n'
         p_index += 1
         
 
