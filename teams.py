@@ -1,3 +1,17 @@
+
+def make_team_name_from_word_list(word_list, start_index):
+
+    team_name = ''
+
+    team_name_section_index = start_index
+    while team_name_section_index < len(word_list):
+        team_name += word_list[team_name_section_index]
+        team_name_section_index += 1
+        if team_name_section_index != len(word_list):
+            team_name += ' '
+
+    return team_name
+
 async def get_team_by_name(db, team_name):
 
     teams = db['teams']

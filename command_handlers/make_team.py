@@ -1,7 +1,8 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from teams import get_team_by_name, make_team
+from teams import get_team_by_name, make_team, make_team_name_from_word_list
 from user import user_exists
+
 
 
 async def make_team_handler(db, message): 
@@ -13,14 +14,7 @@ async def make_team_handler(db, message):
         if user:
              
             team_size = int(word_list[1])
-            team_name = ''
-
-            team_name_section_index = 2
-            while team_name_section_index < len(word_list):
-                team_name += word_list[team_name_section_index]
-                team_name_section_index += 1
-                if team_name_section_index != len(word_list):
-                    team_name += ' '
+            team_name = make_team_name_from_word_list(word_list, 2)
 
             existing_team = await get_team_by_name(db, team_name)
             if existing_team:
