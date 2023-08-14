@@ -386,7 +386,7 @@ def run_discord_bot(db):
             
             reward_per_round = [10, 10, 100, 200, 500, 0, 0]
 
-            bracket = db['brackets'].find_one({'event_id': '1'})
+            bracket = db['brackets'].find_one({'event_id': '2'})
 
             final_dict = {}
 
