@@ -18,7 +18,7 @@ async def team_details_hanlder(db, message):
     if len(word_list) > 1:
 
         team_name = make_team_name_from_word_list(word_list, 1)
-        existing_team = get_team_by_name(db, team_name)
+        existing_team = await get_team_by_name(db, team_name)
         if existing_team:
             team_details = make_details_from_team(existing_team)
             await message.channel.send(team_details)
