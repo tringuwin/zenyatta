@@ -1,7 +1,7 @@
 import random
 import time
 import discord
-from command_handlers.create_team import create_team_handler
+from command_handlers.make_team import make_team_handler
 from command_handlers.hatch import hatch_handler
 from command_handlers.help import help_hanlder
 import constants
@@ -255,8 +255,8 @@ def run_discord_bot(db):
         elif lower_message == '!hatch':
             await hatch_handler(db, message)
 
-        elif lower_message.startswith('!createteam'):
-            await create_team_handler(db, message)
+        elif lower_message.startswith('!maketeam'):
+            await make_team_handler(db, message)
 
         # ADMIN COMMANDS
 

@@ -5,7 +5,7 @@ from teams import get_team_by_name, make_team
 from user import user_exists
 
 
-async def create_team_handler(db, message): 
+async def make_team_handler(db, message): 
 
     valid_params, params = valid_number_of_params(message, 3)
     if valid_params:
