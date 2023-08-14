@@ -395,7 +395,7 @@ def run_discord_bot(db):
                 for match in round:
                     
                     for player in match:
-                        if player['no_show']:
+                        if 'no_show' in player:
                             print('no show in round '+str(round)+' match '+str(match))
                             print(player)
                             final_dict[str(player['user'])] = -1
