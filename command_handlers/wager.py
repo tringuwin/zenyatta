@@ -91,10 +91,11 @@ async def wager_handler(db, message):
 
             if result == 'green':
                 token_change += int(wager * 36)
-                final_message_end = 'You won **'+str(wager * 36)+'** tokens!'
+                
             else:
                 token_change += int(wager * 2)
-                final_message_end = 'You won **'+str(wager * 2)+'** tokens!'
+
+            final_message_end = 'You won **'+str(token_change)+'** tokens!'
         
         spin_response = roulette_spin_to_emojis(roulette_details['array'])
         await change_tokens(db, user, token_change)
