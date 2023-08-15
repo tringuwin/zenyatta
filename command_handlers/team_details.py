@@ -35,6 +35,7 @@ def make_details_from_team(db, team):
 
     return team_string
 
+
 async def team_details_hanlder(db, message):
     
     word_list = message.content.split(' ')

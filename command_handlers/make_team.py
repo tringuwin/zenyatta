@@ -16,12 +16,16 @@ async def make_team_handler(db, message):
             team_size = int(word_list[1])
             team_name = make_team_name_from_word_list(word_list, 2)
 
-            existing_team = await get_team_by_name(db, team_name)
-            if existing_team:
-                await message.channel.send('A team with this name already exists. Try another name!')
+            if len(team_name) > 30:
+                await message.channel.send('Team name must be 30 characters or less.')
             else:
-                await make_team(db, user, team_size, team_name)
-                await message.channel.send('Success! Your new team has been created.')
+
+                existing_team = await get_team_by_name(db, team_name)
+                if existing_team:
+                    await message.channel.send('A team with this name already exists. Try another name!')
+                else:
+                    await make_team(db, user, team_size, team_name)
+                    await message.channel.send('Success! Your new team has been created.')
 
         else:
             await not_registered_response(message)
