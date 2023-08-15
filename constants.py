@@ -8,3 +8,5 @@ SPICY_RAGU_ID = 1112204092723441724
 MEMBER_ROLE_ID = 1131309952200347741
 DISCORD_TOKEN = 'MTEzMDIyNTQzNjAwNjMwNTk0Ng.GNqc6p.qR6t7fym71pGd3CLl9QKwQ8usCFoXhhG8W7PDE'
 MONGO_URI = "mongodb+srv://loganstanford53:cMczqREMdzhQR9T6@cluster0.o9naf24.mongodb.net/?retryWrites=true&w=majority"
+
+MAX_OWNED_TEAMS_PER_USER = 5
