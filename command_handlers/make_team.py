@@ -2,6 +2,7 @@
 from common_messages import invalid_number_of_params, not_registered_response
 from teams import get_team_by_name, make_team, make_team_name_from_word_list
 from user import user_exists
+import constants
 
 def can_be_int(var):
     try:
@@ -17,6 +18,10 @@ async def make_team_handler(db, message):
 
         user = user_exists(db, message.author.id)
         if user:
+
+            if len(user['teams']) >= constants.MAX_PLAYER_TEAMS:
+                await message.channel.send('You are already on '+str(constants.MAX_PLAYER_TEAMS+' which is the max allowed.'))
+                return
 
             if not can_be_int(word_list[1]):
                 await message.channel.send('Please include the number of players in the team in the command.')
