@@ -57,6 +57,8 @@ async def wager_handler(db, message):
         if user_tokens < wager:
             await message.channel.send('You do not have enough tokens for this wager')
 
+        # CHECK VALID BET
+
         # TAKE TOKENS
         roulette_details = get_roulette_details()
         print(roulette_details['array'])
