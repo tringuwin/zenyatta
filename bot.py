@@ -1,6 +1,7 @@
 import random
 import time
 import discord
+from admin_handlers.wipe_teams import wipe_teams_handler
 from command_handlers.make_team import make_team_handler
 from command_handlers.hatch import hatch_handler
 from command_handlers.help import help_hanlder
@@ -493,6 +494,9 @@ def run_discord_bot(db):
                         await member.add_roles(reg_role)
 
                 await message.channel.send('Reg roles given')
+
+        elif lower_message == '!wipeteams' and is_admin:
+            await wipe_teams_handler(db, message)
         else:
             await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
