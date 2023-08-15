@@ -20,7 +20,7 @@ async def make_team_handler(db, message):
         if user:
 
             if len(user['teams']) >= constants.MAX_PLAYER_TEAMS:
-                await message.channel.send('You are already on '+str(constants.MAX_PLAYER_TEAMS)+' which is the max allowed.')
+                await message.channel.send('You are already on '+str(constants.MAX_PLAYER_TEAMS)+' teams which is the max allowed.')
                 return
 
             if not can_be_int(word_list[1]):
