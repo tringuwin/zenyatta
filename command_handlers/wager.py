@@ -81,7 +81,7 @@ async def wager_handler(db, message):
             await message.channel.send('Your can only bet on red, black, or green')
             return
 
-        await change_tokens(db, user, int(-1*wager))
+        token_change = int(-1 * wager)
         roulette_details = get_roulette_details()
 
         result = roulette_details['result']
@@ -90,13 +90,14 @@ async def wager_handler(db, message):
         if result == lower_bet:
 
             if result == 'green':
-                await change_tokens(db, user, int(wager * 36))
+                token_change += int(wager * 36)
                 final_message_end = 'You won **'+str(wager * 36)+'** tokens!'
             else:
-                await change_tokens(db, user, int(wager *2))
+                token_change += int(wager * 2)
                 final_message_end = 'You won **'+str(wager * 2)+'** tokens!'
         
         spin_response = roulette_spin_to_emojis(roulette_details['array'])
+        await change_tokens(db, user, token_change)
         await message.channel.send(spin_response)
         await message.channel.send(final_message_start+final_message_end)
     else:
