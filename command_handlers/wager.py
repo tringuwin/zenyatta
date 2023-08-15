@@ -17,6 +17,12 @@ wheel = ['red', 'black', 'red', 'black',
          'red', 'black', 'red', 'black',
          'green']
 
+color_to_emoji = {
+    'black': '⬛',
+    'red': '🟥',
+    'green': '🟩'
+}
+
 def get_roulette_details():
     
     random_start_index = random.randint(0, 36)
@@ -32,6 +38,15 @@ def get_roulette_details():
 
     return {'array': spin_array, 'result': spin_result}
 
+
+def roulette_spin_to_emojis(spin_array):
+
+    final_string = ''
+
+    for color in spin_array:
+        final_string += color_to_emoji[color]
+
+    return final_string
 
 async def wager_handler(db, message):
     
@@ -64,5 +79,7 @@ async def wager_handler(db, message):
         print(roulette_details['array'])
         print(roulette_details['result'])
         
+        spin_response = roulette_spin_to_emojis(roulette_details['array'])
+        await message.channel.send(spin_response)
     else:
         await invalid_number_of_params(message)
