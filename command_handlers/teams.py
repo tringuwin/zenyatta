@@ -15,7 +15,7 @@ async def teams_handler(db, message):
     output_string = '**YOUR TEAMS**\n'
     team_index = 1
     for team_name in team_names:
-        team = get_team_by_name(db, team_name)
+        team = await get_team_by_name(db, team_name)
         output_string += str(team_index)+'. '+team_name+' : '+str(len(team['members']))+'/'+str(team['team_size'])+'\n'
         team_index += 1
 
