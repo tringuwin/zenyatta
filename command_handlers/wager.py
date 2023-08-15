@@ -23,7 +23,7 @@ def get_roulette_details():
 
     spin_array = []
     for i in range (0, 8):
-        spin_array[i] = wheel[random_start_index]
+        spin_array.append(wheel[random_start_index])
         random_start_index += 1
         if random_start_index >= len(wheel):
             random_start_index = 0
