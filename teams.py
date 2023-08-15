@@ -1,4 +1,7 @@
 
+from user import add_team_to_user
+
+
 def make_team_name_from_word_list(word_list, start_index):
 
     team_name = ''
@@ -33,5 +36,6 @@ async def make_team(db, creator, team_size, team_name):
         'invites': []
     }
     teams.insert_one(new_team)
+    add_team_to_user(db, creator, team_name)
     print('New team made:')
     print(team_name)

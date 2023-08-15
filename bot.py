@@ -6,6 +6,7 @@ from command_handlers.make_team import make_team_handler
 from command_handlers.hatch import hatch_handler
 from command_handlers.help import help_hanlder
 from command_handlers.team_details import team_details_hanlder
+from command_handlers.teams import teams_handler
 import constants
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches, try_join_event
@@ -262,6 +263,9 @@ def run_discord_bot(db):
 
         elif lower_message.startswith('!teamdetails'):
             await team_details_hanlder(db, message)
+
+        elif lower_message == '!teams':
+            await teams_handler(db, message)
 
         # ADMIN COMMANDS
 
