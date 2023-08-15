@@ -16,7 +16,7 @@ async def teams_handler(db, message):
     team_index = 1
     for team_name in team_names:
         team = await get_team_by_name(db, team_name)
-        output_string += str(team_index)+'. '+team_name+' : '+str(len(team['members']))+'/'+str(team['team_size'])+'\n'
+        output_string += str(team_index)+'. '+team_name+' : '+str(len(team['members']))+'/'+str(team['team_size'])+' Players\n'
         team_index += 1
 
     await message.channel.send(output_string)
