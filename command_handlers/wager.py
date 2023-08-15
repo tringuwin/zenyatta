@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
+from rewards import change_tokens
 from user import get_user_tokens, user_exists
 import random
 
@@ -73,15 +74,30 @@ async def wager_handler(db, message):
         user_tokens = get_user_tokens(user)
         if user_tokens < wager:
             await message.channel.send('You do not have enough tokens for this wager')
+            return
 
-        # CHECK VALID BET
+        lower_bet = params[2].lower()
+        if not (lower_bet == 'red' or lower_bet == 'black' or lower_bet == 'green'):
+            await message.channel.send('Your can only bet on red, black, or green')
+            return
 
-        # TAKE TOKENS
+        await change_tokens(db, user, int(-1*wager))
         roulette_details = get_roulette_details()
-        print(roulette_details['array'])
-        print(roulette_details['result'])
+
+        result = roulette_details['result']
+        final_message_start = 'The result is **'+result+"**\n"
+        final_message_end = 'You lost '+str(wager)+' tokens'
+        if result == lower_bet:
+
+            if result == 'green':
+                await change_tokens(db, user, int(wager * 36))
+                final_message_end = 'You won **'+str(wager * 36)+'** tokens!'
+            else:
+                await change_tokens(db, user, int(wager *2))
+                final_message_end = 'You won **'+str(wager * 2)+'** tokens!'
         
         spin_response = roulette_spin_to_emojis(roulette_details['array'])
         await message.channel.send(spin_response)
+        await message.channel.send(final_message_start+final_message_end)
     else:
         await invalid_number_of_params(message)
