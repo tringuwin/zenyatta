@@ -1,6 +1,7 @@
 import random
 import time
 import discord
+from admin_handlers.total_tokens import total_tokens_handler
 from admin_handlers.wipe_teams import wipe_teams_handler
 from command_handlers.make_team import make_team_handler
 from command_handlers.hatch import hatch_handler
@@ -501,6 +502,8 @@ def run_discord_bot(db):
 
         elif lower_message == '!wipeteams' and is_admin:
             await wipe_teams_handler(db, message)
+        elif lower_message == '!totaltokens' and is_admin:
+            await total_tokens_handler(db, message)
         else:
             await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
