@@ -5,3 +5,11 @@ def valid_number_of_params(message, num_params):
     valid = len(message_parts) == num_params
 
     return valid, message_parts
+
+
+def can_be_int(var):
+    try:
+        int(var)
+        return True
+    except ValueError:
+        return False

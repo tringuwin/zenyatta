@@ -1,15 +1,10 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
+from helpers import can_be_int
 from teams import get_team_by_name, make_team, make_team_name_from_word_list
 from user import user_exists
 import constants
 
-def can_be_int(var):
-    try:
-        int(var)
-        return True
-    except ValueError:
-        return False
 
 async def make_team_handler(db, message): 
 

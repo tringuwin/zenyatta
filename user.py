@@ -7,6 +7,13 @@ def user_exists(db, discord_id):
     return users.find_one(search_query)
 
 
+def get_user_tokens(user):
+
+    if 'tokens' in user:
+        return user['tokens']
+    
+    return 0
+
 def add_team_to_user(db, user, team_name):
 
     users = db['users']
