@@ -269,7 +269,7 @@ def run_discord_bot(db):
         elif lower_message == '!teams':
             await teams_handler(db, message)
 
-        elif lower_message == '!wager':
+        elif lower_message.startswith('!wager'):
             await wager_handler(db, message)
 
         # ADMIN COMMANDS
