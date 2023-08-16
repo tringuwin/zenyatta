@@ -21,10 +21,9 @@ async def update_shop_handler(db, message):
     shop = db['shop']
     the_shop = shop.find_one({'shop_id': 1})
 
-    channel = await get_shop_channel()
+    channel = await get_shop_channel(message)
     await delete_shop_message_if_exists(the_shop, channel, 'offers_message_id')
     await delete_shop_message_if_exists(the_shop, channel, 'guide_message_id')
-
 
     offers_string = 'this is the offers string'
     guide_string = 'this is the guide string'
