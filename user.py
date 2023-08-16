@@ -44,7 +44,9 @@ def user_invited_to_team(team, user):
     user_invites = get_user_invites(user)
 
     for invite in user_invites:
-        if invite == team['team_name']:
+        print(invite.lower())
+        print(team['lower_team_name'])
+        if invite.lower() == team['lower_team_name']:
             return True
         
     return False
