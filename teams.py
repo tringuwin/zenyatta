@@ -121,7 +121,7 @@ async def remove_user_from_team(db, user, team):
 async def delete_team(db, team):
     team_members = team['members']
     for member in team_members:
-        user = user_exists(member)
+        user = user_exists(db, member)
         if user:
             remove_user_from_team(db, user, team)
 
