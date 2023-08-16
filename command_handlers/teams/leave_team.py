@@ -26,7 +26,7 @@ async def leave_team_handler(db, message):
         await message.channel.send('You are not on this team.')
         return
 
-    if team['creator'] == user['discord_id']:
+    if team['creator_id'] == user['discord_id']:
         await message.channel.send('You are the creator of this team. Please delete the team instead of leaving.')
         return
 

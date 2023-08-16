@@ -108,6 +108,7 @@ def remove_user_from_member_list(user_id, member_list):
 
 
 async def remove_user_from_team(db, user, team):
+    
     users = db['users']
     user_teams = get_user_teams(user)
     user_teams = remove_team_from_team_list(team['team_name'], user_teams)
