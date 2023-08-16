@@ -6,6 +6,7 @@ from admin_handlers.wipe_teams import wipe_teams_handler
 from command_handlers.teams.accept_invite import accept_invite_handler
 from command_handlers.teams.delete_team import delete_team_handler
 from command_handlers.teams.deny_invite import deny_invite_handler
+from command_handlers.teams.help_teams import help_teams_hanlder
 from command_handlers.teams.invite import invite_handler
 from command_handlers.teams.leave_team import leave_team_handler
 from command_handlers.teams.my_invites import my_invites_handler
@@ -266,17 +267,17 @@ def run_discord_bot(db):
         elif lower_message == '!hatch':
             await hatch_handler(db, message)
 
-        elif lower_message.startswith('!maketeam'):
-            await make_team_handler(db, message)
-
-        elif lower_message.startswith('!teamdetails'):
-            await team_details_hanlder(db, message)
+        elif lower_message.startswith('!wager'):
+            await wager_handler(db, message)
 
         elif lower_message == '!teams':
             await teams_handler(db, message)
 
-        elif lower_message.startswith('!wager'):
-            await wager_handler(db, message)
+        elif lower_message.startswith('!teamdetails'):
+            await team_details_hanlder(db, message)
+
+        elif lower_message.startswith('!maketeam'):
+            await make_team_handler(db, message)
 
         elif lower_message.startswith('!invite'):
             await invite_handler(db, message)
@@ -295,6 +296,9 @@ def run_discord_bot(db):
 
         elif lower_message.startswith('!deleteteam'):
             await delete_team_handler(db, message)
+
+        elif lower_message.startswith('!helpteams'):
+            await help_teams_hanlder(message)
 
         # ADMIN COMMANDS
 
