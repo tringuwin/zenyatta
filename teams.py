@@ -57,6 +57,7 @@ async def invite_user_to_team(db, team, user):
     users = db['users']
     user_invites = get_user_invites(user)
     user_invites.append(team['team_name'])
+    print(user_invites)
 
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"invites": user_invites}})
 
