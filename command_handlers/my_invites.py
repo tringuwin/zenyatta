@@ -17,6 +17,7 @@ async def my_invites_handler(db, message):
         team_index = 1
         for invite in invites:
             final_string += str(team_index)+'. '+invite+'\n'
+        await message.channel.send(final_string)
     else:
         await message.channel.send('You have no team invites.')
 
