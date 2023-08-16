@@ -42,6 +42,8 @@ def get_user_teams(user):
 def user_invited_to_team(team, user):
     
     user_invites = get_user_invites(user)
+    print('user invites is')
+    print(user_invites)
 
     for invite in user_invites:
         print(invite.lower())
