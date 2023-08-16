@@ -1,5 +1,5 @@
 
-from user import add_team_to_user, get_user_invites, get_user_teams
+from user import add_team_to_user, get_user_invites, get_user_teams, user_exists
 
 
 def make_team_name_from_word_list(word_list, start_index):
@@ -108,7 +108,7 @@ def remove_user_from_member_list(user_id, member_list):
 
 
 async def remove_user_from_team(db, user, team):
-    
+
     users = db['users']
     user_teams = get_user_teams(user)
     user_teams = remove_team_from_team_list(team['team_name'], user_teams)
@@ -118,3 +118,12 @@ async def remove_user_from_team(db, user, team):
     team['members'] = remove_user_from_member_list(user['discord_id'], team['members'])
     teams.update_one({'team_name': team['team_name']}, {"$set": {"members": team['members']}})
 
+async def delete_team(db, team):
+    team_members = team['members']
+    for member in team_members:
+        user = user_exists(member)
+        if user:
+            remove_user_from_team(db, user, team)
+
+    teams = db['teams']
+    teams.delete_one({'team_name': team['team_name']})

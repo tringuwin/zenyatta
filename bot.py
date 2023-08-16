@@ -4,6 +4,7 @@ import discord
 from admin_handlers.total_tokens import total_tokens_handler
 from admin_handlers.wipe_teams import wipe_teams_handler
 from command_handlers.teams.accept_invite import accept_invite_handler
+from command_handlers.teams.delete_team import delete_team_handler
 from command_handlers.teams.deny_invite import deny_invite_handler
 from command_handlers.teams.invite import invite_handler
 from command_handlers.teams.leave_team import leave_team_handler
@@ -291,6 +292,9 @@ def run_discord_bot(db):
 
         elif lower_message.startswith('!leaveteam'):
             await leave_team_handler(db, message)
+
+        elif lower_message.startswith('!deleteteam'):
+            await delete_team_handler(db, message)
 
         # ADMIN COMMANDS
 
