@@ -1,19 +1,11 @@
 
+from helpers import make_string_from_word_list
 from user import add_team_to_user, get_user_invites, get_user_teams, user_exists
 
 
 def make_team_name_from_word_list(word_list, start_index):
 
-    team_name = ''
-
-    team_name_section_index = start_index
-    while team_name_section_index < len(word_list):
-        team_name += word_list[team_name_section_index]
-        team_name_section_index += 1
-        if team_name_section_index != len(word_list):
-            team_name += ' '
-
-    return team_name
+    return make_string_from_word_list(word_list, start_index)
 
 async def get_team_by_name(db, team_name):
 

@@ -13,3 +13,16 @@ def can_be_int(var):
         return True
     except ValueError:
         return False
+
+def make_string_from_word_list(word_list, start_index):
+
+    info = ''
+
+    section_index = start_index
+    while section_index < len(word_list):
+        info += word_list[section_index]
+        section_index += 1
+        if section_index != len(word_list):
+            info += ' '
+
+    return info
