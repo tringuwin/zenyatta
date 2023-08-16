@@ -2,7 +2,7 @@
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int
 from teams import get_team_by_name, make_team, make_team_name_from_word_list
-from user import user_exists
+from user import get_user_teams, user_exists
 import constants
 
 
@@ -14,7 +14,8 @@ async def make_team_handler(db, message):
         user = user_exists(db, message.author.id)
         if user:
 
-            if len(user['teams']) >= constants.MAX_PLAYER_TEAMS:
+            user_teams = get_user_teams(user)
+            if len(user_teams) >= constants.MAX_PLAYER_TEAMS:
                 await message.channel.send('You are already on '+str(constants.MAX_PLAYER_TEAMS)+' teams which is the max allowed.')
                 return
 

@@ -32,6 +32,12 @@ def get_user_invites(user):
     else:
         return []
 
+def get_user_teams(user):
+
+    if 'teams' in user:
+        return user['teams']
+    else:
+        return []
 
 def user_invited_to_team(team, user):
     
