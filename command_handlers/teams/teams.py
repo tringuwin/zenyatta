@@ -12,6 +12,7 @@ async def teams_handler(db, message):
         return
     
     team_names = user['teams']
+    print(team_names)
     output_string = '**YOUR TEAMS**\n'
     team_index = 1
     for team_name in team_names:
