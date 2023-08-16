@@ -3,7 +3,7 @@ from common_messages import not_registered_response
 from user import get_user_invites, user_exists
 
 
-async def invites_handler(db, message):
+async def my_invites_handler(db, message):
     
     user = user_exists(db, message.author.id)
     if not user:
