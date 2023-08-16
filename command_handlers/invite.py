@@ -12,7 +12,7 @@ async def invite_handler(db, message):
         return
 
     word_list = message.content.split(' ')
-    if word_list < 3:
+    if len(word_list) < 3:
         await invalid_number_of_params(message)
         return
     

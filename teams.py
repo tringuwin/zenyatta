@@ -59,3 +59,4 @@ async def invite_user_to_team(db, team, user):
     user_invites.append(team['team_name'])
 
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"invites": user_invites}})
+
