@@ -11,7 +11,7 @@ async def delete_shop_message_if_exists(the_shop, channel, message_id_label):
     
     if message_id_label in the_shop:
 
-        del_msg = await channel.fetch_msg(the_shop[message_id_label])
+        del_msg = await channel.fetch_message(the_shop[message_id_label])
         if del_msg:
             await del_msg.delete()
 
