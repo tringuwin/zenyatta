@@ -4,6 +4,7 @@ import discord
 from admin_handlers.total_tokens import total_tokens_handler
 from admin_handlers.wipe_teams import wipe_teams_handler
 from command_handlers.accept_invite import accept_invite_handler
+from command_handlers.deny_invite import deny_invite_handler
 from command_handlers.invite import invite_handler
 from command_handlers.my_invites import my_invites_handler
 from command_handlers.make_team import make_team_handler
@@ -283,6 +284,9 @@ def run_discord_bot(db):
 
         elif lower_message.startswith('!acceptinvite'):
             await accept_invite_handler(db, message)
+
+        elif lower_message.startswith('!denyinvite'):
+            await deny_invite_handler(db, message)
 
         # ADMIN COMMANDS
 
