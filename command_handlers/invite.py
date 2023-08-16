@@ -17,7 +17,7 @@ async def invite_handler(db, message):
         return
     
     team_name = make_team_name_from_word_list(word_list, 2)
-    team = get_team_by_name(team_name)
+    team = get_team_by_name(db, team_name)
     if not team:
         await message.channel.send('There is no team with that name.')
         return
