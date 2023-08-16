@@ -12,7 +12,7 @@ async def accept_invite_handler(db, message):
         await invalid_number_of_params(message)
         return
     
-    user = user_exists(message.author.id)
+    user = user_exists(db, message.author.id)
     if not user:
         await not_registered_response(message)
         return
