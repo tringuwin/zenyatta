@@ -4,6 +4,7 @@ import discord
 from admin_handlers.total_tokens import total_tokens_handler
 from admin_handlers.wipe_teams import wipe_teams_handler
 from command_handlers.invite import invite_handler
+from command_handlers.invites import invites_handler
 from command_handlers.make_team import make_team_handler
 from command_handlers.hatch import hatch_handler
 from command_handlers.help import help_hanlder
@@ -275,6 +276,9 @@ def run_discord_bot(db):
 
         elif lower_message.startswith('!invite'):
             await invite_handler(db, message)
+
+        elif lower_message == '!invites':
+            await invites_handler(db, message)
 
         # ADMIN COMMANDS
 
