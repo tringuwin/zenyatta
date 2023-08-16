@@ -123,7 +123,7 @@ async def delete_team(db, team):
     for member in team_members:
         user = user_exists(db, member)
         if user:
-            remove_user_from_team(db, user, team)
+            await remove_user_from_team(db, user, team)
 
     teams = db['teams']
     teams.delete_one({'team_name': team['team_name']})
