@@ -16,7 +16,6 @@ async def get_shop_message(the_shop, channel, message_id_label):
 
 async def update_shop_handler(db, message):
 
-
     shop = db['shop']
     the_shop = shop.find_one({'shop_id': 1})
 
@@ -28,7 +27,10 @@ async def update_shop_handler(db, message):
 
     offer_num = 1
     for offer in the_shop['offers']:
-        offers_string += str(offer_num)+'. '+offer['item_name']+'\n'
+        offers_string += '-----\n'
+        offers_string += '**'+str(offer_num)+'.** '+offer['item_name']+' : **'+str(offer['price'])+'** : In Stock: ['+str(offer['in_stock'])+']\n'
+        offers_string += '*To buy, use the command* ***!buy '+str(offer_num)+'***\n'
+        offers_string += '-----\n'
         offer_num += 1
 
     guide_string = 'this is the guide string [EDITED 2]'
