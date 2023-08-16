@@ -246,7 +246,7 @@ def run_discord_bot(db):
 
             await sell_pass_for_tokens(db, message)
 
-        elif lower_message == '!dailygift':
+        elif lower_message == '!dailygift' or lower_message == '!gift':
 
             await give_daily_gift(db, message)
 
