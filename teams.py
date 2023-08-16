@@ -1,5 +1,5 @@
 
-from user import add_team_to_user, get_user_invites
+from user import add_team_to_user, get_user_invites, get_user_teams
 
 
 def make_team_name_from_word_list(word_list, start_index):
@@ -61,3 +61,27 @@ async def invite_user_to_team(db, team, user):
 
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"invites": user_invites}})
 
+
+async def remove_team_invite(db, user, team_name):
+
+    invites = get_user_invites(user)
+    final_invites = []
+    
+    for invite_team in invites:
+        if team_name.lower() != invite_team.lower():
+            final_invites.append(invite_team)
+
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"invites": final_invites}})
+
+
+async def add_user_to_team(db, user, team):
+    
+    users = db['users']
+    user_teams = get_user_teams(user)
+    user_teams.append(team['team_name'])
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"teams": user_teams}})
+
+    teams = db['teams']
+    team['members'].append(user['discord_id'])
+    teams.update_one({'team_name': team['team_name']}, {"$set": {"members": team['members']}})
