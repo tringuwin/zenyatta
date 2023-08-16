@@ -23,3 +23,22 @@ def add_team_to_user(db, user, team_name):
 
     user['teams'].append(team_name)
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"teams": user['teams']}})
+
+
+def get_user_invites(user):
+    
+    if 'invites' in user:
+        return user['invites']
+    else:
+        return []
+
+
+def user_invited_to_team(team, user):
+    
+    user_invites = get_user_invites(user)
+
+    for invite in user_invites:
+        if invite == team['team_name']:
+            return True
+        
+    return False
