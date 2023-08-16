@@ -354,7 +354,7 @@ def format_time(num, title):
 
 def time_to_gift(diff_in_time):
 
-    time_to_gift = 86400 - diff_in_time
+    time_to_gift = constants.TIME_BETWEEN_GIFTS - diff_in_time
 
     hours = 0
     minutes = 0
