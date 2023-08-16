@@ -36,7 +36,7 @@ async def invite_handler(db, message):
         return
     
     invited_member = mentions[0]
-    invited_user = user_exists(invited_member.id)
+    invited_user = user_exists(db, invited_member.id)
     if not invited_user:
         await message.channel.send('That user is not registered.')
         return
