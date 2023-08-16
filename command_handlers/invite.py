@@ -49,5 +49,5 @@ async def invite_handler(db, message):
         await message.channel.send('This user has already been invited to this team.')
         return
     
-    await invite_user_to_team(db, team, user)
+    await invite_user_to_team(db, team, invited_user)
     await message.channel.send('User was successfully invited to the team!')
