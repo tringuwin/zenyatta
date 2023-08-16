@@ -3,15 +3,16 @@ import time
 import discord
 from admin_handlers.total_tokens import total_tokens_handler
 from admin_handlers.wipe_teams import wipe_teams_handler
-from command_handlers.accept_invite import accept_invite_handler
-from command_handlers.deny_invite import deny_invite_handler
-from command_handlers.invite import invite_handler
-from command_handlers.my_invites import my_invites_handler
-from command_handlers.make_team import make_team_handler
+from command_handlers.teams.accept_invite import accept_invite_handler
+from command_handlers.teams.deny_invite import deny_invite_handler
+from command_handlers.teams.invite import invite_handler
+from command_handlers.teams.leave_team import leave_team_handler
+from command_handlers.teams.my_invites import my_invites_handler
+from command_handlers.teams.make_team import make_team_handler
 from command_handlers.hatch import hatch_handler
 from command_handlers.help import help_hanlder
-from command_handlers.team_details import team_details_hanlder
-from command_handlers.teams import teams_handler
+from command_handlers.teams.team_details import team_details_hanlder
+from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
 import constants
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
@@ -287,6 +288,9 @@ def run_discord_bot(db):
 
         elif lower_message.startswith('!denyinvite'):
             await deny_invite_handler(db, message)
+
+        elif lower_message.startswith('!leaveteam'):
+            await leave_team_handler(db, message)
 
         # ADMIN COMMANDS
 

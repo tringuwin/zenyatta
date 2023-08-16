@@ -85,3 +85,35 @@ async def add_user_to_team(db, user, team):
     teams = db['teams']
     team['members'].append(user['discord_id'])
     teams.update_one({'team_name': team['team_name']}, {"$set": {"members": team['members']}})
+
+
+
+def remove_team_from_team_list(team_name, team_list):
+    lower_team_name = team_name.lower()
+    final_team_list = []
+    for team in team_list:
+        if team.lower() != lower_team_name:
+            final_team_list.append(team)
+
+    return final_team_list
+
+def remove_user_from_member_list(user_id, member_list):
+    
+    final_member_list = []
+    for member in member_list:
+        if member != user_id:
+            final_member_list.append(member)
+
+    return final_member_list
+
+
+async def remove_user_from_team(db, user, team):
+    users = db['users']
+    user_teams = get_user_teams(user)
+    user_teams = remove_team_from_team_list(team['team_name'], user_teams)
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"teams": user_teams}})
+
+    teams = db['teams']
+    team['members'] = remove_user_from_member_list(user['discord_id'], team['members'])
+    teams.update_one({'team_name': team['team_name']}, {"$set": {"members": team['members']}})
+
