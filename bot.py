@@ -188,12 +188,12 @@ def run_discord_bot(db):
                 else:
                     join_string = "**"+str(event['max_players']-event['spots_filled'])+" Spots Remaining**"
 
-                final_string = final_string+"**["+event['event_id']+"]** "+event['event_name']+" : "+ str(event['max_players']) +" Total Players : "+join_string
+                final_string = final_string+"**["+event['event_id']+"]** "+event['event_name']+" : "+ str(event['max_players']) +" Total Players : "+join_string+' : '
                 if ('needs_pass' in event) and (event['needs_pass']):
                     final_string += '***🎟️PRIORITY PASS REQUIRED🎟️***'
 
                 if not event_full:
-                    final_string += " : To join event enter the command **!join "+event['event_id']+"**\n"
+                    final_string += "\nTo join event enter the command **!join "+event['event_id']+"**\n"
                 else:
                     final_string += "\n"
 
