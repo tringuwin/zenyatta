@@ -19,7 +19,7 @@ async def buy_handler(db, message):
         return
     buy_item = int(raw_buy_item)
 
-    user = user_exists(message.author.id)
+    user = user_exists(db, message.author.id)
     if not user:
         await not_registered_response(message)
         return
