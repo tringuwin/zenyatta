@@ -3,12 +3,12 @@ from common_messages import not_registered_response
 from teams import get_team_by_name
 from user import user_exists
 
-def get_active_teams(team_names):
+async def get_active_teams(db, team_names):
 
     active_teams = []
 
     for team_name in team_names:
-        team = get_team_by_name(team_name)
+        team = await get_team_by_name(db, team_name)
         if team:
             active_teams.append(team)
 
@@ -23,7 +23,7 @@ async def teams_handler(db, message):
     
     team_names = user['teams']
 
-    active_teams = get_active_teams(team_names)
+    active_teams = await get_active_teams(db, team_names)
 
     team_index = 1
     if len(active_teams) == 0:
