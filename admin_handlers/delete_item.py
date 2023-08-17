@@ -6,7 +6,7 @@ from shop import update_shop
 
 async def delete_item_handler(db, message):
     
-    valid_params, params = valid_number_of_params(message.content, 2)
+    valid_params, params = valid_number_of_params(message, 2)
     if valid_params:
 
         item_to_delete = int(params[1])
