@@ -138,7 +138,7 @@ def run_discord_bot(db):
 
         is_admin = (message.author.id == constants.SPICY_RAGU_ID)
 
-        valid_channel = is_admin or isinstance(message.channel, discord.DMChannel) or message.channel.id == 1130553489106411591
+        valid_channel = is_admin or isinstance(message.channel, discord.DMChannel) or message.channel.id == 1130553489106411591 or (message.channel.id == constants.CASINO_CHANNEL and lower_message.startswith('!wager'))
 
         if not valid_channel:
             
