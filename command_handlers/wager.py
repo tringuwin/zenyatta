@@ -4,6 +4,7 @@ from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
 from user import get_user_tokens, user_exists
 import random
+import constants
 
 valid_bets = ['red', 'black', 'green']
 
@@ -55,6 +56,10 @@ async def wager_handler(db, message):
     
     valid_params, params = valid_number_of_params(message, 3)
     if valid_params:
+
+        if message.channel.id == constants.BOT_CHANNEL:
+            await message.channel.send('Please use the !wager command in the casino channel.')
+            return
 
         user = user_exists(db, message.author.id)
         if not user:
