@@ -307,7 +307,7 @@ def run_discord_bot(db):
         elif lower_message.startswith('!helpteams'):
             await help_teams_hanlder(message)
 
-        elif lower_message.startswith('!buy') and is_admin:
+        elif lower_message.startswith('!buy'):
             await buy_handler(db, message)
 
         # ADMIN COMMANDS
