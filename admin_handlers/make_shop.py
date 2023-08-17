@@ -6,8 +6,7 @@ async def make_shop_handler(db, message):
     new_shop = {
         'shop_id': 1,
         'offers': [],
-        'offers_message_id': 0,
-        'guide_message_id': 0
+        'offers_message_id': 0
     }
     shop.insert_one(new_shop)
 
