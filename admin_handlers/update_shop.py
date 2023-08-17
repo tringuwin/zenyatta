@@ -49,4 +49,6 @@ async def update_shop_handler(db, message):
 
     # shop.update_one({"shop_id": 1}, {"$set": {"offers_message_id": offer_msg.id}})
     # shop.update_one({"shop_id": 1}, {"$set": {"guide_message_id": guide_msg.id}})
+
+    await message.channel.send('Shop updated')
         
