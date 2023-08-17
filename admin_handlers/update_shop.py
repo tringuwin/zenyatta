@@ -37,9 +37,8 @@ async def update_shop_handler(db, message):
 
     offer_num = 1
     for offer in the_shop['offers']:
-        offers_string += '**'+str(offer_num)+'.** '+offer['item_name']+' : **'+str(offer['price'])+' Tokens** : In Stock: ['+str(offer['in_stock'])+']\n'
+        offers_string += '\n**'+str(offer_num)+'.** '+offer['item_name']+' : **'+str(offer['price'])+' Tokens** : ['+str(offer['in_stock'])+'] in stock\n'
         offers_string += '*To buy, use the command* **!buy '+str(offer_num)+'**\n'
-        offers_string += '----------\n'
         offer_num += 1
 
     await offer_msg.edit(content=offers_string)
