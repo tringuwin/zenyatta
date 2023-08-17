@@ -12,6 +12,8 @@ async def get_active_teams(db, team_names):
         if team:
             active_teams.append(team)
 
+    return active_teams
+
 
 
 async def teams_handler(db, message):
