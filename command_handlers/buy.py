@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
+from rewards import change_tokens
 from shop import get_redemptions_channel
 from user import get_user_tokens, user_exists
 import constants
@@ -39,6 +40,7 @@ async def buy_handler(db, message):
         await message.channel.send('You do not have enough tokens to redeem this reward.')
         return
 
+    await change_tokens(db, user, -1 * offer['price'])
     if offer['auto']:
         pass
     else:
