@@ -124,7 +124,7 @@ async def try_join_event(db, message, event_id, discord_client):
 
                     if my_event['needs_pass']:
                         if get_user_passes(existing_user) < 1:
-                            await message.channel.send('This event requires a Priority Pass🎟️ to join! Please get a Priority Pass first!')
+                            await message.channel.send('This event requires a Priority Pass 🎟️ to join! Please get a Priority Pass first!')
                             return
                         else:
                             await change_passes(db, existing_user, -1)
