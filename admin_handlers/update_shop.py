@@ -14,7 +14,7 @@ async def get_shop_message(the_shop, channel, message_id_label):
         shop_msg = await channel.fetch_message(the_shop[message_id_label])
         return shop_msg
 
-guide_string = '-------------------------------\n'
+guide_string = '\n-------------------------------\n'
 guide_string += '**HOW TO EARN TOKENS**\n'
 guide_string += '-------------------------------\n'
 guide_string += '- Prizes for participating in events\n'
