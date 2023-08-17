@@ -31,7 +31,6 @@ async def update_shop_handler(db, message):
 
     channel = await get_shop_channel(message)
     offer_msg = await get_shop_message(the_shop, channel, 'offers_message_id')
-    #guide_msg = await get_shop_message(the_shop, channel, 'guide_message_id')
 
     offers_string = '-------------------------------\n**AVAILABLE REWARDS**\n-------------------------------\n'
 
@@ -42,13 +41,6 @@ async def update_shop_handler(db, message):
         offer_num += 1
 
     await offer_msg.edit(content=offers_string+guide_string)
-    # await guide_msg.edit(content=guide_string)
-
-    # offer_msg = await channel.send(offers_string)
-    # guide_msg = await channel.send(guide_string)
-
-    # shop.update_one({"shop_id": 1}, {"$set": {"offers_message_id": offer_msg.id}})
-    # shop.update_one({"shop_id": 1}, {"$set": {"guide_message_id": guide_msg.id}})
 
     await message.channel.send('Shop updated')
         
