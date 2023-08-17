@@ -72,7 +72,7 @@ def create_event(db, event_id, event_name, max_players, pass_required):
 
     events = db['events']
     needs_pass = False
-    if pass_required == 1:
+    if pass_required == '1':
         needs_pass = True
 
     new_event = {
