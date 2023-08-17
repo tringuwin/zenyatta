@@ -1,6 +1,7 @@
 import random
 import time
 import discord
+from admin_handlers.delete_item import delete_item_handler
 from admin_handlers.make_shop import make_shop_handler
 from admin_handlers.total_tokens import total_tokens_handler
 from admin_handlers.update_shop import update_shop_handler
@@ -543,6 +544,8 @@ def run_discord_bot(db):
             await make_shop_handler(db, message)
         elif lower_message.startswith('!additem') and is_admin:
             await add_item_handler(db, message)
+        elif lower_message.startswith('!delitem') and is_admin:
+            await delete_item_handler(db, message)
         elif lower_message == '!updateshop' and is_admin:
             await update_shop_handler(db, message)
         else:
