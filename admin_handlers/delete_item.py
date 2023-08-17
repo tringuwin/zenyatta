@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
+from shop import update_shop
 
 
 async def delete_item_handler(db, message):
