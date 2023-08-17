@@ -1,6 +1,7 @@
 
 
 from helpers import make_string_from_word_list
+from shop import update_shop
 
 
 async def add_item_handler(db, message):
@@ -31,4 +32,6 @@ async def add_item_handler(db, message):
     the_shop['offers'].append(new_offer)
     shop.update_one({"shop_id":1}, {"$set": {"offers": the_shop['offers']}})
 
-    await message.channel.send('Item added.')
+    await update_shop(db, message)
+
+    await message.channel.send('Item added and shop updated.')
