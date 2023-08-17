@@ -2,7 +2,7 @@
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_passes, change_tokens
-from shop import get_redemptions_channel
+from shop import get_redemptions_channel, update_shop
 from user import get_user_tokens, user_exists
 import constants
 
@@ -40,6 +40,11 @@ async def buy_handler(db, message):
         await message.channel.send('You do not have enough tokens to redeem this reward.')
         return
 
+    offer['in_stock'] -= 1
+    the_shop['offers'][buy_item-1] = offer
+    shop.update_one({"shop_id":1}, {"$set": {"offers": the_shop['offers']}})
+
+    await update_shop(db, message)
     await change_tokens(db, user, -1 * offer['price'])
     if offer['auto']:
     
