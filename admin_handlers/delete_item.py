@@ -23,7 +23,7 @@ async def delete_item_handler(db, message):
 
         shop.update_one({"shop_id":1}, {"$set": {"offers": final_offers}})
 
-        #await update_shop()
+        await update_shop(db, message)
 
         await message.channel.send('Item deleted and shop updated.')
 
