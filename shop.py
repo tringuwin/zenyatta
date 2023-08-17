@@ -6,6 +6,10 @@ async def get_shop_channel(message):
     channel = await guild.fetch_channel(constants.SHOP_CHANNEL_ID)
     return channel
 
+async def get_redemptions_channel(message):
+    guild = message.guild
+    channel = await guild.fetch_channel(constants.OFFER_REDEMPTIONS_CHANNEL_ID)
+    return channel
 
 async def get_shop_message(the_shop, channel, message_id_label):
     

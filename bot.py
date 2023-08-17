@@ -7,6 +7,7 @@ from admin_handlers.total_tokens import total_tokens_handler
 from admin_handlers.update_shop import update_shop_handler
 from admin_handlers.wipe_teams import wipe_teams_handler
 from admin_handlers.add_item import add_item_handler
+from command_handlers.buy import buy_handler
 from command_handlers.teams.accept_invite import accept_invite_handler
 from command_handlers.teams.delete_team import delete_team_handler
 from command_handlers.teams.deny_invite import deny_invite_handler
@@ -303,6 +304,9 @@ def run_discord_bot(db):
 
         elif lower_message.startswith('!helpteams'):
             await help_teams_hanlder(message)
+
+        elif lower_message.startswith('!buy') and is_admin:
+            await buy_handler(db, message)
 
         # ADMIN COMMANDS
 
