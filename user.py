@@ -14,6 +14,13 @@ def get_user_tokens(user):
     
     return 0
 
+def get_user_passes(user):
+
+    if 'passes' in user:
+        return user['passes']
+    
+    return 0
+
 def add_team_to_user(db, user, team_name):
 
     users = db['users']

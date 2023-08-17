@@ -75,13 +75,13 @@ async def add_event(db, message):
 
     word_list = message.content.split('|')
 
-    if len(word_list) != 4:
+    if len(word_list) != 5:
         await message.channel.send('Incorrect command format.')
     else:
         if get_event_by_id(db, word_list[1]):
             await message.channel.send('An event with this id already exists.')
         else:
-            create_event(db, word_list[1], word_list[2], word_list[3])
+            create_event(db, word_list[1], word_list[2], word_list[3], word_list[4])
             await message.channel.send('Event created successfully.')
 
 
@@ -170,8 +170,8 @@ def run_discord_bot(db):
             event_list = get_all_events(db)
             found = False
             none_string = "It looks like there's no events right now... Check back soon!"
-            await message.channel.send(none_string)
-            return
+            # await message.channel.send(none_string)
+            # return
 
             final_string = ""
 
@@ -189,6 +189,8 @@ def run_discord_bot(db):
                     join_string = "**"+str(event['max_players']-event['spots_filled'])+" Spots Remaining**"
 
                 final_string = final_string+"**["+event['event_id']+"]** "+event['event_name']+" : "+ str(event['max_players']) +" Total Players : "+join_string
+                if event['needs_pass']:
+                    final_string += '***🎟️PRIORITY PASS REQUIRED🎟️***'
 
                 if not event_full:
                     final_string += " : To join event enter the command **!join "+event['event_id']+"**\n"
@@ -312,7 +314,7 @@ def run_discord_bot(db):
 
         elif lower_message.startswith("!addevent") and is_admin:
             
-            # !addevent|[event id]|[event name]|[max participants]
+            # !addevent|[event id]|[event name]|[max participants]|[0 for no pass, 1 for pass]
             await add_event(db, message)
 
         elif lower_message.startswith("!delevent") and is_admin:

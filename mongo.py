@@ -6,7 +6,7 @@ import constants
 from discord.utils import get
 from bracket import get_bracket_by_event_id, make_bracket_from_users
 from rewards import change_passes, change_tokens
-from user import user_exists
+from user import get_user_passes, user_exists
 
 
 def find_user_with_battle_tag(db, lower_tag):
@@ -68,9 +68,12 @@ def get_all_events(db):
 
 
 
-def create_event(db, event_id, event_name, max_players):
+def create_event(db, event_id, event_name, max_players, pass_required):
 
     events = db['events']
+    needs_pass = False
+    if pass_required == 1:
+        needs_pass = True
 
     new_event = {
         "event_id": event_id,
@@ -78,7 +81,8 @@ def create_event(db, event_id, event_name, max_players):
         "max_players": int(max_players),
         "spots_filled": 0,
         "entries": [],
-        "requests": []
+        "requests": [],
+        'needs_pass': needs_pass
     }
 
     events.insert_one(new_event)
@@ -117,6 +121,14 @@ async def try_join_event(db, message, event_id, discord_client):
                 if my_event['max_players'] == my_event['spots_filled']:
                     await message.channel.send('It looks like this event is full. Use the command **!events** to see if there are any events with remaining spots.')
                 else:
+
+                    if my_event['needs_pass']:
+                        if get_user_passes(existing_user) < 1:
+                            await message.channel.send('This event requires a Priority Pass🎟️ to join! Please get a Priority Pass first!')
+                            return
+                        else:
+                            await change_passes(db, existing_user, -1)
+
 
                     users = db['users']
 
