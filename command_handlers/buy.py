@@ -45,7 +45,7 @@ async def buy_handler(db, message):
     
         if buy_item == 5:
             # give player 1 priority pass
-            change_passes(db, user, 1)
+            await change_passes(db, user, 1)
             await message.channel.send('Success! You redeemed a priority pass!')
 
     else:
