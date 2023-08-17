@@ -1,7 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
-from rewards import change_tokens
+from rewards import change_passes, change_tokens
 from shop import get_redemptions_channel
 from user import get_user_tokens, user_exists
 import constants
@@ -42,7 +42,12 @@ async def buy_handler(db, message):
 
     await change_tokens(db, user, -1 * offer['price'])
     if offer['auto']:
-        pass
+    
+        if buy_item == 5:
+            # give player 1 priority pass
+            change_passes(db, user, 1)
+            await message.channel.send('Success! You redeemed a priority pass!')
+
     else:
         redemptions_channel = await get_redemptions_channel(message)
         await redemptions_channel.send('**User Redeemed Reward: '+offer['item_name']+'**\n'+'User ID: '+str(message.author.id)+'\nUser Name: '+message.author.display_name)
