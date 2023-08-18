@@ -1,7 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from teams import add_user_to_team, get_team_by_name, make_team_name_from_word_list, remove_team_invite, team_is_full, user_on_team
-from user import get_user_invites, get_user_teams, user_exists, user_invited_to_team
+from user import get_user_teams, user_exists, user_invited_to_team
 import constants
 
 

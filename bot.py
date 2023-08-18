@@ -297,7 +297,7 @@ def run_discord_bot(db):
         elif lower_message == '!myinvites':
             await my_invites_handler(db, message)
 
-        elif lower_message.startswith('!acceptinvite'):
+        elif lower_message.startswith('!acceptinvite '):
             await accept_invite_handler(db, message)
 
         elif lower_message.startswith('!denyinvite'):
