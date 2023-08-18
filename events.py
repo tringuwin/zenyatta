@@ -2,6 +2,8 @@
 
 import copy
 
+from teams import get_team_by_name
+
 
 def get_event_by_id(db, event_id):
 
@@ -42,6 +44,19 @@ async def add_user_to_event_entries(db, user, event):
     events.update_one({"event_id": event['event_id']}, {"$set": {"spots_filled": new_event['spots_filled']}})
 
 
+async def add_team_to_event(db, team, event):
+
+    events = db['events']
+
+    new_event = copy.deepcopy(event)
+
+    new_event['entires'].append(team['team_name'])
+    new_event['spots_filled'] += 1
+
+    events.update_one({"event_id": event['event_id']}, {"$set": {"entries": new_event['entires']}})
+    events.update_one({"event_id": event['event_id']}, {"$set": {"spots_filled": new_event['spots_filled']}})
+
+
 def team_in_event(event, team):
 
     team_name_lower = team['lower_team_name']
@@ -53,4 +68,31 @@ def team_in_event(event, team):
         
     return False
 
+
+def get_all_players_in_team_event(db, event):
+    
+    all_players = []
+
+    all_team_names = event['entries']
+    for team_name in all_team_names:
+        team = get_team_by_name(db, team_name)
+        if team:
+            for member in team['members']:
+                all_players.append(member)
+
+    return all_players
+
+
+async def player_on_team_in_event(db, event, team):
+    
+    all_players_in_event = get_all_players_in_team_event(db, event)
+
+    members = team['members']
+    
+    for member in members:
+        for player in all_players_in_event:
+            if member == player:
+                return True
+            
+    return False
 

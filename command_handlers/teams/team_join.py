@@ -1,6 +1,6 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from events import event_has_space, get_event_by_id, get_event_team_size, team_in_event
+from events import add_team_to_event, event_has_space, get_event_by_id, get_event_team_size, player_on_team_in_event, team_in_event
 from teams import get_team_by_name, make_team_name_from_word_list, team_is_full
 from user import user_exists
 
@@ -50,6 +50,10 @@ async def team_join_handler(db, message):
         await message.channel.send('This team is already in this event.')
         return
 
-    # team contains no player currently already in the event
+    if await player_on_team_in_event(db, event, team):
+        await message.channel.send('One or more players on this team is already participating in this event!')
+        return
 
-    pass
+    await add_team_to_event(db, team, event)
+
+    await message.channel.send('Success! This team has been registered for this event!')
