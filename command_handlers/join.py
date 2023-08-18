@@ -27,8 +27,6 @@ async def send_event_request_notif(message, event_id, discord_client, user):
         sent_message = await target_channel.send(embed=embed)
         await sent_message.add_reaction("✅")
 
-    await message.channel.send("Success! You've joined this event!")
-
 
 
 async def join_handler(db, message, client):
@@ -67,4 +65,6 @@ async def join_handler(db, message, client):
     await add_event_entry_to_user(db, user, event_id)
     await add_user_to_event_entries(db, user, event)
 
+    await message.channel.send("Success! You've joined this event!")
+    
     await send_event_request_notif(message, event['event_id'], client, user)
