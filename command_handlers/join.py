@@ -3,7 +3,7 @@
 
 import discord
 from common_messages import not_registered_response
-from events import add_user_to_requests, event_has_space, get_event_by_id
+from events import add_user_to_event_entries, add_user_to_requests, event_has_space, get_event_by_id
 from helpers import valid_number_of_params
 from rewards import change_passes
 import constants
@@ -65,6 +65,6 @@ async def join_handler(db, message, client):
             await change_passes(db, user, -1)
 
     await add_event_entry_to_user(db, user, event_id)
-    await add_user_to_requests(db, user, event)
+    await add_user_to_event_entries(db, user, event)
 
     await send_event_request_notif(message, event['event_id'], client, user)

@@ -29,14 +29,15 @@ def event_has_space(event):
     return True
 
 
-async def add_user_to_requests(db, user, event):
+async def add_user_to_event_entries(db, user, event):
 
     events = db['events']
 
     new_event = copy.deepcopy(event)
-    request_info = {
-        "discord_id": user['discord_id'],
-        "battle_tag": user['battle_tag']
-    }
-    new_event['requests'].append(request_info)
-    events.update_one({"event_id": event['event_id']}, {"$set": {"requests": new_event['requests']}})
+
+    new_event['entires'].append(user['discord_id'])
+    new_event['spots_filled'] += 1
+
+    events.update_one({"event_id": event['event_id']}, {"$set": {"entries": new_event['entires']}})
+    events.update_one({"event_id": event['event_id']}, {"$set": {"spots_filled": new_event['spots_filled']}})
+
