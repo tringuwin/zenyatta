@@ -1,3 +1,6 @@
+import copy
+
+
 def user_exists(db, discord_id):
     
     users = db['users']
@@ -55,3 +58,25 @@ def user_invited_to_team(team, user):
             return True
         
     return False
+
+def user_entered_event(user, event_id):
+
+    user_entries = user['entries']
+    for entry in user_entries:
+        if entry['event_id'] == event_id:
+            return True
+        
+    return False
+
+
+async def add_event_entry_to_user(db, user, event_id):
+    
+    users = db['users']
+
+    new_user = copy.deepcopy(user)
+    entry_info = {
+        "event_id": event_id,
+        "status": "Not Reviewed",
+    }
+    new_user['entries'].append(entry_info)
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"entries": new_user['entries']}})

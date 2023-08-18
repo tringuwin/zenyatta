@@ -8,6 +8,7 @@ from admin_handlers.update_shop import update_shop_handler
 from admin_handlers.wipe_teams import wipe_teams_handler
 from admin_handlers.add_item import add_item_handler
 from command_handlers.buy import buy_handler
+from command_handlers.join import join_handler
 from command_handlers.teams.accept_invite import accept_invite_handler
 from command_handlers.teams.delete_team import delete_team_handler
 from command_handlers.teams.deny_invite import deny_invite_handler
@@ -19,11 +20,12 @@ from command_handlers.teams.make_team import make_team_handler
 from command_handlers.hatch import hatch_handler
 from command_handlers.help import help_hanlder
 from command_handlers.teams.team_details import team_details_hanlder
+from command_handlers.teams.team_join import team_join_handler
 from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
 import constants
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
-from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches, try_join_event
+from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, event_status, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from user import user_exists
 
@@ -75,13 +77,13 @@ async def add_event(db, message):
 
     word_list = message.content.split('|')
 
-    if len(word_list) != 5:
+    if len(word_list) != 6:
         await message.channel.send('Incorrect command format.')
     else:
         if get_event_by_id(db, word_list[1]):
             await message.channel.send('An event with this id already exists.')
         else:
-            create_event(db, word_list[1], word_list[2], word_list[3], word_list[4])
+            create_event(db, word_list[1], word_list[2], word_list[3], word_list[4], word_list[5])
             await message.channel.send('Event created successfully.')
 
 
@@ -204,11 +206,7 @@ def run_discord_bot(db):
 
         elif lower_message.startswith("!join "):
 
-            word_list = message.content.split()
-            if len(word_list) == 2:
-                await try_join_event(db, message, word_list[1], client)
-            else:
-                message.channel.send("Command was not in the correct format. Please enter '!join' followed by the id of the event you want to join.")
+            await join_handler(db, message, client)
 
         elif lower_message.startswith("!status "):
 
@@ -304,6 +302,9 @@ def run_discord_bot(db):
         elif lower_message.startswith('!deleteteam'):
             await delete_team_handler(db, message)
 
+        #elif lower_message.startswith('!teamjoin'):
+            #await team_join_handler(db, message)
+
         elif lower_message.startswith('!helpteams'):
             await help_teams_hanlder(message)
 
@@ -314,7 +315,7 @@ def run_discord_bot(db):
 
         elif lower_message.startswith("!addevent") and is_admin:
             
-            # !addevent|[event id]|[event name]|[max participants]|[0 for no pass, 1 for pass]
+            # !addevent|[event id]|[event name]|[max participants]|[0 for no pass, 1 for pass]|[team size]
             await add_event(db, message)
 
         elif lower_message.startswith("!delevent") and is_admin:

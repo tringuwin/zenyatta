@@ -3,8 +3,8 @@ import random
 import time
 import discord
 import constants
-from discord.utils import get
 from bracket import get_bracket_by_event_id, make_bracket_from_users
+from events import get_event_by_id
 from rewards import change_passes, change_tokens
 from user import get_user_passes, user_exists
 
@@ -50,13 +50,6 @@ def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
         users.insert_one(new_user)
 
 
-def get_event_by_id(db, event_id):
-
-    events = db['events']
-
-    search_query = {"event_id": event_id}
-
-    return events.find_one(search_query)
 
 def get_all_events(db):
 
@@ -68,7 +61,7 @@ def get_all_events(db):
 
 
 
-def create_event(db, event_id, event_name, max_players, pass_required):
+def create_event(db, event_id, event_name, max_players, pass_required, team_size):
 
     events = db['events']
     needs_pass = False
@@ -82,95 +75,11 @@ def create_event(db, event_id, event_name, max_players, pass_required):
         "spots_filled": 0,
         "entries": [],
         "requests": [],
-        'needs_pass': needs_pass
+        'needs_pass': needs_pass,
+        'team_size': int(team_size)
     }
 
     events.insert_one(new_event)
-
-
-
-
-async def try_join_event(db, message, event_id, discord_client):
-
-    discord_id = message.author.id
-
-    # ensure user is registered
-    existing_user = user_exists(db, discord_id)
-    print(existing_user)
-    if existing_user:
-
-        # check if user has already attempted to join this event
-        user_entries = existing_user['entries']
-        already_joined = False
-        for entry in user_entries:
-            if entry['event_id'] == event_id:
-                already_joined = True
-                break
-        
-        if already_joined:
-            await message.channel.send("It looks like you've already tried to join this event. To see the status of your join request for this event enter the command **!status "+event_id+"**")
-
-        else:
-
-            # check if event exists / is full
-            events = db['events']
-
-            my_event = get_event_by_id(db, event_id)
-            if my_event:
-
-                if my_event['max_players'] == my_event['spots_filled']:
-                    await message.channel.send('It looks like this event is full. Use the command **!events** to see if there are any events with remaining spots.')
-                else:
-
-                    if my_event['needs_pass']:
-                        if get_user_passes(existing_user) < 1:
-                            await message.channel.send('This event requires a Priority Pass 🎟️ to join right now! Please get a Priority Pass first or wait until the event is open to everyone!')
-                            return
-                        else:
-                            await change_passes(db, existing_user, -1)
-
-
-                    users = db['users']
-
-                    # add event entry to user
-                    new_user = copy.deepcopy(existing_user)
-                    entry_info = {
-                        "event_id": event_id,
-                        "status": "Not Reviewed",
-                    }
-                    new_user['entries'].append(entry_info)
-                    users.update_one({"discord_id": discord_id}, {"$set": {"entries": new_user['entries']}})
-
-                    # add user to event
-                    new_event = copy.deepcopy(my_event)
-                    request_info = {
-                        "discord_id": discord_id,
-                        "battle_tag": existing_user['battle_tag']
-                    }
-                    new_event['requests'].append(request_info)
-                    events.update_one({"event_id": event_id}, {"$set": {"requests": new_event['requests']}})
-
-                    requests_channel_id = 1131281041454280784
-                    target_channel = discord_client.get_channel(requests_channel_id)
-                    if target_channel:
-
-                        embed = discord.Embed(
-                            title = "Event Join Request"
-                        )
-                        embed.add_field(name='Event ID', value=event_id, inline=False)
-                        embed.add_field(name='Discord ID', value=str(discord_id), inline=False)
-                        embed.add_field(name='Discord Name', value=message.author.name, inline=False)
-                        embed.add_field(name='Battle Tag', value=existing_user['battle_tag'], inline=False)
-                        sent_message = await target_channel.send(embed=embed)
-                        await sent_message.add_reaction("✅")
-
-                    await message.channel.send("Success! You've made a request to join this event. Your request will be manually verified and you will be given a special role in the discord server if you are accepted. Enter the command **!status "+ event_id+"** at any time to see the status of your join request.")
-
-            else:
-                await message.channel.send("I didn't find any events with that event ID. Use the command **!events** to see the current events.")
-
-    else:
-        await message.channel.send("You need to connect your Battle Tag to your discord account before you can join an event. Enter the command **!register** for more info.")
 
 
 async def event_status(db, message, event_id): 
