@@ -82,22 +82,22 @@ def create_event(db, event_id, event_name, max_players, pass_required, team_size
     events.insert_one(new_event)
 
 
-async def event_status(db, message, event_id): 
+# async def event_status(db, message, event_id): 
 
-    discord_id = message.author.id
+#     discord_id = message.author.id
 
-    existing_user = user_exists(db, discord_id)
-    if existing_user:
-        user_entries = existing_user['entries']
-        entry_found = False
-        for entry in user_entries:
-            if entry['event_id'] == event_id:
-                await message.channel.send("Status for join request for event "+event_id+": **"+entry['status']+"**")
-                entry_found = True
-        if not entry_found:
-            await message.channel.send("I couldn't find any event with ID '"+event_id+"'. Enter the command **!events** for a list of current events.")
-    else:
-        await message.channel.send("It looks like you have not connected your Battle Tag to your discord account yet. Please enter the command **!register** for more info.")
+#     existing_user = user_exists(db, discord_id)
+#     if existing_user:
+#         user_entries = existing_user['entries']
+#         entry_found = False
+#         for entry in user_entries:
+#             if entry['event_id'] == event_id:
+#                 await message.channel.send("Status for join request for event "+event_id+": **"+entry['status']+"**")
+#                 entry_found = True
+#         if not entry_found:
+#             await message.channel.send("I couldn't find any event with ID '"+event_id+"'. Enter the command **!events** for a list of current events.")
+#     else:
+#         await message.channel.send("It looks like you have not connected your Battle Tag to your discord account yet. Please enter the command **!register** for more info.")
 
     
 
