@@ -41,3 +41,16 @@ async def add_user_to_event_entries(db, user, event):
     events.update_one({"event_id": event['event_id']}, {"$set": {"entries": new_event['entires']}})
     events.update_one({"event_id": event['event_id']}, {"$set": {"spots_filled": new_event['spots_filled']}})
 
+
+def team_in_event(event, team):
+
+    team_name_lower = team['lower_team_name']
+
+    team_entries = event['entries']
+    for entry in team_entries:
+        if entry == team_name_lower:
+            return True
+        
+    return False
+
+
