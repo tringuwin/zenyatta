@@ -11,7 +11,7 @@ async def edit_item_name_handler(db, message):
         await invalid_number_of_params(message)
         return
     
-    item_id = word_parts[1]
+    item_id = int(word_parts[1])
 
     shop = db['shop']
     the_shop = shop.find_one({'shop_id': 1})
