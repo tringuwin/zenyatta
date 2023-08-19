@@ -184,8 +184,8 @@ def run_discord_bot(db):
 
             for event in event_list:
 
-                if 'test' in event['event_id']:
-                    continue
+                # if 'test' in event['event_id']:
+                #     continue
 
                 found = True
                 event_full = False
