@@ -39,8 +39,17 @@ async def update_shop(db, message):
 
     offer_num = 1
     for offer in the_shop['offers']:
-        offers_string += '\n**'+str(offer_num)+'.** '+offer['item_name']+' : **'+str(offer['price'])+' Tokens** : ['+str(offer['in_stock'])+'] in stock\n'
-        offers_string += '*To buy, use the command* **!buy '+str(offer_num)+'**\n'
+
+        in_stock = offer['in_stock']
+        if in_stock > 0:
+
+            offers_string += '\n**'+str(offer_num)+'.** '+offer['item_name']+' : **'+str(offer['price'])+' Tokens** : ['+str(offer['in_stock'])+'] in stock\n'
+            offers_string += '*To buy, use the command* **!buy '+str(offer_num)+'**\n'
+
+        else:
+
+            offers_string += '\n**'+str(offer_num)+'.** ~~'+offer['item_name']+' : '+str(offer['price'])+' Tokens~~ : OUT OF STOCK\n'
+
         offer_num += 1
 
     await offer_msg.edit(content=offers_string+guide_string)
