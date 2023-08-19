@@ -1,6 +1,6 @@
 
 from common_messages import invalid_number_of_params
-from events import get_event_by_id
+from events import close_event, get_event_by_id
 from helpers import valid_number_of_params
 
 
@@ -18,4 +18,4 @@ async def close_event_handler(db, message):
 
     close_event(db, event)
 
-    await message.channel.send('Event was made public.')
+    await message.channel.send('Event was closed.')
