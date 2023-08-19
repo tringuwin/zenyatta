@@ -206,9 +206,9 @@ def run_discord_bot(db):
                     final_string += ' : ***🎟️ PRIORITY PASS REQUIRED 🎟️***'
 
                 if not event_full:
-                    final_string += "\n*To join this event enter the command* **!join "+event['event_id']+"**\n"
+                    final_string += "\n*To join this event enter the command* **!join "+event['event_id']+"**\n\n"
                 else:
-                    final_string += "\n"
+                    final_string += "\n\n"
 
             if found:
                 await message.channel.send(final_string)
