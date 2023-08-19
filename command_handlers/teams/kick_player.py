@@ -23,7 +23,7 @@ async def kick_player_handler(db, message):
         await message.channel.send('There is no team with that name.')
         return
 
-    mentions = message.channel.mentions
+    mentions = message.mentions
     if len(mentions) != 1:
         await message.channel.send('Please mention one player to kick.')
         return
