@@ -214,7 +214,10 @@ def run_discord_bot(db):
                     final_string += ' : ***🎟️ PRIORITY PASS REQUIRED 🎟️***'
 
                 if not event_full:
-                    final_string += "\n*To join this event enter the command* **!join "+event['event_id']+"**\n\n"
+                    if num_players == 1:
+                        final_string += "\n*To join this event enter the command* **!join "+event['event_id']+"**\n\n"
+                    else:
+                        final_string += "\n*To join this event enter the command* **!teamjoin "+event['event_id']+" [team name here]**\n\n"
                 else:
                     final_string += "\n\n"
 
