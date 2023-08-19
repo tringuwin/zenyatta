@@ -12,7 +12,7 @@ async def kick_player_handler(db, message):
         await invalid_number_of_params(message)
         return 
 
-    user = user_exists(message.author.id)
+    user = user_exists(db, message.author.id)
     if not user:
         await not_registered_response(message)
         return
@@ -28,7 +28,7 @@ async def kick_player_handler(db, message):
         await message.channel.send('Please mention one player to kick.')
         return
     
-    kick_user = user_exists(mentions[0].id)
+    kick_user = user_exists(db, mentions[0].id)
     if not kick_user:
         await message.channel.send('That user is not on this team.')
         return
