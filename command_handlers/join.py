@@ -1,33 +1,12 @@
 
 
 
-import discord
 from common_messages import not_registered_response
 from events import add_user_to_event_entries, event_has_space, event_is_open, get_event_by_id
 from helpers import valid_number_of_params
 from rewards import change_passes
-import constants
 
 from user import add_event_entry_to_user, get_user_passes, user_entered_event, user_exists
-
-
-async def send_event_request_notif(message, event_id, discord_client, user):
-
-    requests_channel_id = constants.EVENT_REQUESTS_CHANNEL
-    target_channel = discord_client.get_channel(requests_channel_id)
-    if target_channel:
-
-        embed = discord.Embed(
-            title = "Event Join Request"
-        )
-        embed.add_field(name='Event ID', value=event_id, inline=False)
-        embed.add_field(name='Discord ID', value=str(user['discord_id']), inline=False)
-        embed.add_field(name='Discord Name', value=message.author.name, inline=False)
-        embed.add_field(name='Battle Tag', value=user['battle_tag'], inline=False)
-        sent_message = await target_channel.send(embed=embed)
-        await sent_message.add_reaction("✅")
-
-
 
 async def join_handler(db, message, client):
 
@@ -70,5 +49,3 @@ async def join_handler(db, message, client):
     await add_user_to_event_entries(db, user, event)
 
     await message.channel.send("Success! You've joined this event!")
-
-    await send_event_request_notif(message, event['event_id'], client, user)
