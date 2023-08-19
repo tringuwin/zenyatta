@@ -1,6 +1,7 @@
 import random
 import time
 import discord
+from admin_handlers.close_event import close_event_handler
 from admin_handlers.delete_item import delete_item_handler
 from admin_handlers.edit_item_name import edit_item_name_handler
 from admin_handlers.make_public import make_public_handler
@@ -27,7 +28,7 @@ from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
 import constants
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
-from events import get_event_team_size
+from events import event_is_open, get_event_team_size
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from user import get_user_passes, get_user_tokens, user_exists
@@ -184,8 +185,9 @@ def run_discord_bot(db):
 
             for event in event_list:
 
-                # if 'test' in event['event_id']:
-                #     continue
+
+                if not event_is_open(event):
+                    continue
 
                 found = True
                 event_full = False
@@ -564,6 +566,8 @@ def run_discord_bot(db):
             await edit_item_name_handler(db, message)
         elif lower_message.startswith('!makepublic') and is_admin:
             await make_public_handler(db, message)
+        elif lower_message.startswith('!closeevent') and is_admin:
+            await close_event_handler(db, message)
         else:
             await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 

@@ -3,7 +3,7 @@
 
 import discord
 from common_messages import not_registered_response
-from events import add_user_to_event_entries, event_has_space, get_event_by_id
+from events import add_user_to_event_entries, event_has_space, event_is_open, get_event_by_id
 from helpers import valid_number_of_params
 from rewards import change_passes
 import constants
@@ -51,6 +51,10 @@ async def join_handler(db, message, client):
         await message.channel.send("I didn't find any events with that event ID. Use the command **!events** to see the current events.")
         return
     
+    if not event_is_open(event):
+        await message.channel.send('This event is not currently open for registration.')
+        return
+
     if not event_has_space(event):
         await message.channel.send('It looks like this event is full. Use the command **!events** to see if there are any events with remaining spots.')
         return

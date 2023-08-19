@@ -21,6 +21,13 @@ def get_event_team_size(event):
         return 1
     
 
+def event_is_open(event):
+
+    if ('closed' in event) and event['closed']:
+        return False
+    
+    return True    
+
 def event_has_space(event):
     
     max_players = event['max_players']
@@ -101,6 +108,11 @@ def make_event_public(db, event):
 
     events = db['events']
     events.update_one({"event_id": event['event_id']}, {"$set": {"needs_pass": False}})
+
+def close_event(db, event):
+
+    events = db['events']
+    events.update_one({"event_id": event['event_id']}, {"$set": {"closed": True}})
 
     
 
