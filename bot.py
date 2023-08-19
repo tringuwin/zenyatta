@@ -218,14 +218,6 @@ def run_discord_bot(db):
 
             await join_handler(db, message, client)
 
-        # elif lower_message.startswith("!status "):
-
-        #     word_list = message.content.split()
-        #     if len(word_list) == 2:
-        #         await event_status(db, message, word_list[1])
-        #     else:
-        #         await message.channel.send("Command was not in the correct format. Please enter '!status' followed by the ID of the event.")
-
         elif lower_message.startswith("!suggestevent "):
             event_idea = message.content[len("!suggestevent "):].strip()
 

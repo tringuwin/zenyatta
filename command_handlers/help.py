@@ -9,7 +9,6 @@ async def help_hanlder(message):
     help_embed.add_field(name='!helpteams', value='Show a list of commands related to making teams.', inline=False)
     help_embed.add_field(name='!events', value='Show a list of current server events', inline=False)
     help_embed.add_field(name='!join [event id]', value='Join an upcoming event', inline=False)
-    #help_embed.add_field(name='!status [event id]', value='See the status of an event join request', inline=False)
     help_embed.add_field(name='!suggestevent [idea here]', value='Suggest an idea for a future event', inline=False)
     help_embed.add_field(name='!tokens', value='See your current number of tokens', inline=False)
     help_embed.add_field(name='!passes', value='See your current passes', inline=False)
