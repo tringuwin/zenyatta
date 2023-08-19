@@ -80,3 +80,5 @@ async def add_event_entry_to_user(db, user, event_id):
     }
     new_user['entries'].append(entry_info)
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"entries": new_user['entries']}})
+
+
