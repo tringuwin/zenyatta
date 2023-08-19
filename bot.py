@@ -561,6 +561,8 @@ def run_discord_bot(db):
             await update_shop_handler(db, message)
         elif lower_message.startswith('!edititemname') and is_admin:
             await edit_item_name_handler(db, message)
+        elif lower_message.startswith('!makepublic') and is_admin:
+            await make_public_handler(db, message)
         else:
             await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 

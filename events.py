@@ -96,3 +96,11 @@ async def player_on_team_in_event(db, event, team):
             
     return False
 
+
+def make_event_public(db, event):
+
+    events = db['events']
+    events.update_one({"event_id": event['event_id']}, {"$set": {"needs_pass": False}})
+
+    
+
