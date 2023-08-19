@@ -1,6 +1,8 @@
 
 
 import copy
+from discord_actions import get_user_from_guild, give_role_to_user
+import constants
 
 from teams import get_team_by_name
 
@@ -51,7 +53,7 @@ async def add_user_to_event_entries(db, user, event):
     events.update_one({"event_id": event['event_id']}, {"$set": {"spots_filled": new_event['spots_filled']}})
 
 
-async def add_team_to_event(db, team, event):
+async def add_team_to_event(client, db, team, event):
 
     events = db['events']
 
@@ -62,6 +64,11 @@ async def add_team_to_event(db, team, event):
 
     events.update_one({"event_id": event['event_id']}, {"$set": {"entries": new_event['entries']}})
     events.update_one({"event_id": event['event_id']}, {"$set": {"spots_filled": new_event['spots_filled']}})
+
+    for member in team['members']:
+        discord_user = get_user_from_guild(client, member)
+        if discord_user:
+            give_role_to_user(client, discord_user, constants.SQUISHY_ID)
 
 
 def team_in_event(event, team):

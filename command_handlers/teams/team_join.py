@@ -6,7 +6,7 @@ from teams import get_team_by_name, team_is_full
 from user import user_exists
 
 
-async def team_join_handler(db, message):
+async def team_join_handler(client, db, message):
 
     word_list = message.content.split(' ')
     if len(word_list) < 3:
@@ -59,6 +59,6 @@ async def team_join_handler(db, message):
         await message.channel.send('One or more players on this team is already participating in this event!')
         return
 
-    await add_team_to_event(db, team, event)
+    await add_team_to_event(client, db, team, event)
 
     await message.channel.send('Success! This team has been registered for this event!')
