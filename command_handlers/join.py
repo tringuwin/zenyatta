@@ -43,7 +43,7 @@ async def join_handler(db, message, client):
     
     event_id = params[1]
     if user_entered_event(user, event_id):
-        await message.channel.send("It looks like you've already tried to join this event. To see the status of your join request for this event enter the command **!status "+event_id+"**")
+        await message.channel.send("You've already joined this event.")
         return
     
     event = get_event_by_id(db, event_id)
