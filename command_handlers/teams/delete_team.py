@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from teams import delete_team, get_team_by_name, make_team_name_from_word_list
+from helpers import make_string_from_word_list
+from teams import delete_team, get_team_by_name
 from user import user_exists
 
 
@@ -16,7 +17,7 @@ async def delete_team_handler(db, message):
         await not_registered_response(message)
         return
 
-    team_name = make_team_name_from_word_list(word_list, 1)
+    team_name = make_string_from_word_list(word_list, 1)
     team = await get_team_by_name(db, team_name)
     if not team:
         await message.channel.send('There is no team with that name.')

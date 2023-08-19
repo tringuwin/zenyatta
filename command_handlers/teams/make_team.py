@@ -1,7 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from helpers import can_be_int
-from teams import get_team_by_name, make_team, make_team_name_from_word_list
+from helpers import can_be_int, make_string_from_word_list
+from teams import get_team_by_name, make_team
 from user import get_user_teams, user_exists
 import constants
 
@@ -28,7 +28,7 @@ async def make_team_handler(db, message):
                 await message.channel.send('Invalid team size. Teams must have between 2-5 players.')
                 return
 
-            team_name = make_team_name_from_word_list(word_list, 2)
+            team_name = make_string_from_word_list(word_list, 2)
             if len(team_name) > 30:
                 await message.channel.send('Team name must be 30 characters or less.')
             else:

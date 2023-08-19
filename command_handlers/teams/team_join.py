@@ -1,7 +1,8 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from events import add_team_to_event, event_has_space, event_is_open, get_event_by_id, get_event_team_size, player_on_team_in_event, team_in_event
-from teams import get_team_by_name, make_team_name_from_word_list, team_is_full
+from helpers import make_string_from_word_list
+from teams import get_team_by_name, team_is_full
 from user import user_exists
 
 
@@ -31,7 +32,7 @@ async def team_join_handler(db, message):
         await message.channel.send('This event is full!')
         return
 
-    team_name = make_team_name_from_word_list(word_list, 2)
+    team_name = make_string_from_word_list(word_list, 2)
     team = get_team_by_name(db, team_name)
     if not team:
         await message.channel.send('There is no team with that name.')

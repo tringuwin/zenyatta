@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from teams import add_user_to_team, get_team_by_name, make_team_name_from_word_list, remove_team_invite, team_is_full, user_on_team
+from helpers import make_string_from_word_list
+from teams import add_user_to_team, get_team_by_name, remove_team_invite, team_is_full, user_on_team
 from user import get_user_teams, user_exists, user_invited_to_team
 import constants
 
@@ -17,7 +18,7 @@ async def accept_invite_handler(db, message):
         await not_registered_response(message)
         return
     
-    team_name = make_team_name_from_word_list(word_list, 1)
+    team_name = make_string_from_word_list(word_list, 1)
     
     team = await get_team_by_name(db, team_name)
     if not team:

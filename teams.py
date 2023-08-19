@@ -3,9 +3,6 @@ from helpers import make_string_from_word_list
 from user import add_team_to_user, get_user_invites, get_user_teams, user_exists
 
 
-def make_team_name_from_word_list(word_list, start_index):
-
-    return make_string_from_word_list(word_list, start_index)
 
 async def get_team_by_name(db, team_name):
 
