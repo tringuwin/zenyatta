@@ -116,3 +116,8 @@ async def delete_team(db, team):
 
     teams = db['teams']
     teams.delete_one({'team_name': team['team_name']})
+
+
+def user_owns_team(team, user_id):
+    
+    return team['creator_id'] == user_id
