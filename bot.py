@@ -198,8 +198,13 @@ def run_discord_bot(db):
                 else:
                     join_string = "**"+str(event['max_players']-event['spots_filled'])+" Spots Remaining**"
 
-                final_string = final_string+"**["+event['event_id']+"]** "+event['event_name']+" : "+ str(event['max_players']) +" Total Players : "+join_string+' : '
                 num_players = get_event_team_size(event)
+                add_part = 'Players'
+                if num_players > 1:
+                    add_part = 'Teams'
+
+                final_string = final_string+"**["+event['event_id']+"]** "+event['event_name']+" : "+ str(event['max_players']) +" Total "+add_part+" : "+join_string+' : '
+                
                 if num_players == 1:
                     final_string += '1 player per team'
                 else:
