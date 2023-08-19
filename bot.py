@@ -198,12 +198,12 @@ def run_discord_bot(db):
                 final_string = final_string+"**["+event['event_id']+"]** "+event['event_name']+" : "+ str(event['max_players']) +" Total Players : "+join_string+' : '
                 num_players = get_event_team_size(event)
                 if num_players == 1:
-                    final_string += '1 player per team : '
+                    final_string += '1 player per team'
                 else:
-                    final_string += str(num_players)+' players per team : '
+                    final_string += str(num_players)+' players per team'
 
                 if ('needs_pass' in event) and (event['needs_pass']):
-                    final_string += '***🎟️ PRIORITY PASS REQUIRED 🎟️***'
+                    final_string += ' : ***🎟️ PRIORITY PASS REQUIRED 🎟️***'
 
                 if not event_full:
                     final_string += "\n*To join this event enter the command* **!join "+event['event_id']+"**\n"
