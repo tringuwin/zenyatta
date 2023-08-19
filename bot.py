@@ -308,8 +308,8 @@ def run_discord_bot(db):
         elif lower_message.startswith('!deleteteam'):
             await delete_team_handler(db, message)
 
-        #elif lower_message.startswith('!teamjoin'):
-            #await team_join_handler(db, message)
+        elif lower_message.startswith('!teamjoin'):
+            await team_join_handler(db, message)
 
         elif lower_message.startswith('!kickplayer'):
             await kick_player_handler(db, message)
