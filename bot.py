@@ -3,6 +3,7 @@ import time
 import discord
 from admin_handlers.delete_item import delete_item_handler
 from admin_handlers.edit_item_name import edit_item_name_handler
+from admin_handlers.make_public import make_public_handler
 from admin_handlers.make_shop import make_shop_handler
 from admin_handlers.total_tokens import total_tokens_handler
 from admin_handlers.update_shop import update_shop_handler
