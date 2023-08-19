@@ -1,6 +1,6 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from events import add_team_to_event, event_has_space, get_event_by_id, get_event_team_size, player_on_team_in_event, team_in_event
+from events import add_team_to_event, event_has_space, event_is_open, get_event_by_id, get_event_team_size, player_on_team_in_event, team_in_event
 from teams import get_team_by_name, make_team_name_from_word_list, team_is_full
 from user import user_exists
 
@@ -21,6 +21,10 @@ async def team_join_handler(db, message):
     event = get_event_by_id(db, event_id)
     if not event:
         await message.channel.send('There is no event with that ID.')
+        return
+
+    if not event_is_open(event):
+        await message.channel.send('This event is not currently open for registration.')
         return
 
     if not event_has_space(event):
