@@ -8,7 +8,7 @@ async def get_guild(client):
 
 async def give_role_to_user(client, discord_user, role_id):
     
-    guild = get_guild(client)
+    guild = await get_guild(client)
     role = guild.get_role(role_id)
 
     await discord_user.add_roles(role)
