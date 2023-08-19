@@ -44,10 +44,10 @@ async def add_user_to_event_entries(db, user, event):
 
     new_event = copy.deepcopy(event)
 
-    new_event['entires'].append(user['discord_id'])
+    new_event['entries'].append(user['discord_id'])
     new_event['spots_filled'] += 1
 
-    events.update_one({"event_id": event['event_id']}, {"$set": {"entries": new_event['entires']}})
+    events.update_one({"event_id": event['event_id']}, {"$set": {"entries": new_event['entries']}})
     events.update_one({"event_id": event['event_id']}, {"$set": {"spots_filled": new_event['spots_filled']}})
 
 
@@ -57,10 +57,10 @@ async def add_team_to_event(db, team, event):
 
     new_event = copy.deepcopy(event)
 
-    new_event['entires'].append(team['team_name'])
+    new_event['entries'].append(team['team_name'])
     new_event['spots_filled'] += 1
 
-    events.update_one({"event_id": event['event_id']}, {"$set": {"entries": new_event['entires']}})
+    events.update_one({"event_id": event['event_id']}, {"$set": {"entries": new_event['entries']}})
     events.update_one({"event_id": event['event_id']}, {"$set": {"spots_filled": new_event['spots_filled']}})
 
 
