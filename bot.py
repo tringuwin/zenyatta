@@ -591,7 +591,7 @@ def run_discord_bot(db):
                     final_entries.append(entry)
 
             events = db['events']
-            events.update_one({"event_id": event['event_id']}, {"$set": {"entries": event['entries']}})
+            events.update_one({"event_id": event['event_id']}, {"$set": {"entries": final_entries}})
         else:
             await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
