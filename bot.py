@@ -584,6 +584,13 @@ def run_discord_bot(db):
         elif lower_message == '!cleanteamevent' and is_admin:
             event = get_event_by_id(db, '5')
             print(event['entries'])
+
+            final_entries = []
+            for entry in event['entries']:
+                if not isinstance(entry, int):
+                    final_entries.append(entry)
+
+            print(final_entries)
         else:
             await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
