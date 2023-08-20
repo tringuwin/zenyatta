@@ -83,13 +83,13 @@ def team_in_event(event, team):
     return False
 
 
-def get_all_players_in_team_event(db, event):
+async def get_all_players_in_team_event(db, event):
     
     all_players = []
 
     all_team_names = event['entries']
     for team_name in all_team_names:
-        team = get_team_by_name(db, team_name)
+        team = await get_team_by_name(db, team_name)
         if team:
             for member in team['members']:
                 all_players.append(member)
@@ -99,7 +99,7 @@ def get_all_players_in_team_event(db, event):
 
 async def player_on_team_in_event(db, event, team):
     
-    all_players_in_event = get_all_players_in_team_event(db, event)
+    all_players_in_event = await get_all_players_in_team_event(db, event)
 
     members = team['members']
     
