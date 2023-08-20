@@ -32,6 +32,10 @@ async def join_handler(db, message, client):
         await message.channel.send("I didn't find any events with that event ID. Use the command **!events** to see the current events.")
         return
     
+    if event['team_size'] > 1:
+        await message.channel.send('This is a team event. Please use the !teamjoin command with a team of size '+str(event['team_size']))
+        return
+    
     if not event_is_open(event):
         await message.channel.send('This event is not currently open for registration.')
         return
