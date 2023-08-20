@@ -6,6 +6,7 @@ from admin_handlers.delete_item import delete_item_handler
 from admin_handlers.edit_item_name import edit_item_name_handler
 from admin_handlers.make_public import make_public_handler
 from admin_handlers.make_shop import make_shop_handler
+from admin_handlers.set_stock import set_stock_handler
 from admin_handlers.total_tokens import total_tokens_handler
 from admin_handlers.update_shop import update_shop_handler
 from admin_handlers.wipe_teams import wipe_teams_handler
@@ -581,17 +582,8 @@ def run_discord_bot(db):
             await make_public_handler(db, message)
         elif lower_message.startswith('!closeevent') and is_admin:
             await close_event_handler(db, message)
-        elif lower_message == '!cleanteamevent' and is_admin:
-            event = get_event_by_id(db, '5')
-            print(event['entries'])
-
-            final_entries = []
-            for entry in event['entries']:
-                if not isinstance(entry, int):
-                    final_entries.append(entry)
-
-            events = db['events']
-            events.update_one({"event_id": event['event_id']}, {"$set": {"entries": final_entries}})
+        elif lower_message.startswith('!setstock') and is_admin:
+            await set_stock_handler(db, message)
         else:
             await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
