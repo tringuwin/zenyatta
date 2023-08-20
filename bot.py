@@ -581,6 +581,9 @@ def run_discord_bot(db):
             await make_public_handler(db, message)
         elif lower_message.startswith('!closeevent') and is_admin:
             await close_event_handler(db, message)
+        elif lower_message == '!cleanteamevent' and is_admin:
+            event = get_event_by_id('5')
+            print(event['entries'])
         else:
             await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
