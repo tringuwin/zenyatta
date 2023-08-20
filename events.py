@@ -66,7 +66,7 @@ async def add_team_to_event(client, db, team, event):
     events.update_one({"event_id": event['event_id']}, {"$set": {"spots_filled": new_event['spots_filled']}})
 
     for member in team['members']:
-        discord_user = get_user_from_guild(client, member)
+        discord_user = await get_user_from_guild(client, member)
         if discord_user:
             give_role_to_user(client, discord_user, constants.SQUISHY_ID)
 
