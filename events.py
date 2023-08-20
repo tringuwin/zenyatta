@@ -68,7 +68,7 @@ async def add_team_to_event(client, db, team, event):
     for member in team['members']:
         discord_user = await get_user_from_guild(client, member)
         if discord_user:
-            give_role_to_user(client, discord_user, constants.SQUISHY_ID)
+            await give_role_to_user(client, discord_user, constants.SQUISHY_ID)
 
 
 def team_in_event(event, team):
