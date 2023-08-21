@@ -3,7 +3,7 @@
 
 from common_messages import not_registered_response
 from discord_actions import give_role_to_user
-from events import add_user_to_event_entries, event_has_space, event_is_open, get_event_by_id
+from events import add_user_to_event_entries, event_has_space, event_is_open, get_event_by_id, get_event_team_size
 from helpers import valid_number_of_params
 from rewards import change_passes
 import constants
@@ -32,7 +32,7 @@ async def join_handler(db, message, client):
         await message.channel.send("I didn't find any events with that event ID. Use the command **!events** to see the current events.")
         return
     
-    if event['team_size'] > 1:
+    if get_event_team_size(event) > 1:
         await message.channel.send('This is a team event. Please use the !teamjoin command with a team of size '+str(event['team_size']))
         return
     
