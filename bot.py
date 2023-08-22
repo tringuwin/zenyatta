@@ -590,8 +590,7 @@ def run_discord_bot(db):
                 tourney_notifs = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
                 twitch_notifs = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
 
-                all_members = await guild.fetch_members()
-                for member in all_members:
+                async for member in guild.fetch_members():
                     await member.add_roles(server_notifs, tourney_notifs, twitch_notifs)
 
                 await message.channel.send('Done giving roles')
