@@ -119,6 +119,7 @@ def run_discord_bot(db):
     @client.event
     async def on_ready():
         print(f'{client.user} is now running!')
+        print('menace to society')
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
 
     @client.event
