@@ -120,25 +120,26 @@ def run_discord_bot(db):
     @client.event
     async def on_ready():
         print(f'{client.user} is now running!')
-        print('menace to society')
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
 
     @client.event
-    async def on_raw_reaction_add(reaction, user):
+    async def on_reaction_add(payload):
+
         print('reaction added')
-        message_id = reaction.message.id
+        message_id = payload.message_id
+        member = payload.member
         if message_id == constants.SERVER_NOTIF_MSG:
             guild = await get_guild(client)
             role = guild.get_role(constants.SERVER_NOTIFS_ROLE)
-            await user.remove_roles(role)
+            await member.remove_roles(role)
         elif message_id ==  constants.TOURNEY_NOTIF_MSG:
             guild = await get_guild(client)
             role = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
-            await user.remove_roles(role)
+            await member.remove_roles(role)
         elif message_id ==  constants.TWITCH_NOTIF_MSG:
             guild = await get_guild(client)
             role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
-            await user.remove_roles(role)
+            await member.remove_roles(role)
 
     @client.event
     async def on_reaction_remove(reaction, user):
