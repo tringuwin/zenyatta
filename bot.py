@@ -145,7 +145,8 @@ def run_discord_bot(db):
         print('reaction remove')
         print(payload)
         message_id = payload.message_id
-        member = payload.member
+        user_id = payload.user_id
+        member = await client.fetch_user(user_id)
         if message_id == constants.SERVER_NOTIF_MSG:
             guild = await get_guild(client)
             role = guild.get_role(constants.SERVER_NOTIFS_ROLE)
