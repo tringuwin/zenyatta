@@ -121,6 +121,26 @@ def run_discord_bot(db):
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
 
     @client.event
+    async def on_reaction_add(reaction, user):
+        message_id = reaction.message.id
+        if message_id == constants.SERVER_NOTIF_MSG:
+            guild = await get_guild(client)
+            role = guild.get_role(constants.SERVER_NOTIFS_ROLE)
+            await user.remove_roles(role)
+        elif message_id ==  constants.TOURNEY_NOTIF_MSG:
+            guild = await get_guild(client)
+            role = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
+            await user.remove_roles(role)
+        elif message_id ==  constants.TWITCH_NOTIF_MSG:
+            guild = await get_guild(client)
+            role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
+            await user.remove_roles(role)
+
+    @client.event
+    async def on_reaction_remove(reaction, user):
+        pass
+
+    @client.event
     async def on_member_join(member):
         guild = client.get_guild(constants.GUILD_ID)
         role = guild.get_role(constants.MEMBER_ROLE_ID)
@@ -622,7 +642,7 @@ def run_discord_bot(db):
                 for role in reaction_roles:
                     discord_role = guild.get_role(role['id'])
                     
-                    message = await channel.send('Add emoji reaction to remove '+discord_role.mention+ ' role. Remove reaction to add it back. Default is **ON**.\n*'+role['extra']+'*')
+                    message = await channel.send('Add an emoji reaction to remove '+discord_role.mention+ ' role. Remove the reaction to add it back. Default is **ON**.\n*'+role['extra']+'*')
                     await message.add_reaction("❌")
 
             else:
