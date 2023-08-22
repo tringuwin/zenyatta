@@ -142,9 +142,22 @@ def run_discord_bot(db):
             await member.remove_roles(role)
 
     @client.event
-    async def on_reaction_remove(reaction, user):
+    async def on_raw_reaction_remove(payload):
         print('reaction remove')
-        pass
+        message_id = payload.message_id
+        member = payload.member
+        if message_id == constants.SERVER_NOTIF_MSG:
+            guild = await get_guild(client)
+            role = guild.get_role(constants.SERVER_NOTIFS_ROLE)
+            await member.add_roles(role)
+        elif message_id ==  constants.TOURNEY_NOTIF_MSG:
+            guild = await get_guild(client)
+            role = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
+            await member.add_roles(role)
+        elif message_id ==  constants.TWITCH_NOTIF_MSG:
+            guild = await get_guild(client)
+            role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
+            await member.add_roles(role)
 
     @client.event
     async def on_member_join(member):
