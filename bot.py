@@ -583,10 +583,17 @@ def run_discord_bot(db):
             elif lower_message.startswith('!setstock') and is_admin:
                 await set_stock_handler(db, message)
             elif lower_message == '!testerror' and is_admin:
-                break_it = {
-                    'sugma': 'balls'
-                }
-                print(break_it['fuck'])
+
+                guild = client.get_guild(constants.GUILD_ID)
+                server_notifs = guild.get_role(constants.SERVER_NOTIFS_ROLE)
+                tourney_notifs = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
+                twitch_notifs = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
+
+                all_members = await guild.fetch_members()
+                for member in all_members:
+                    await member.add_roles(server_notifs, tourney_notifs, twitch_notifs)
+
+                await message.channel.send('Done giving roles')
             else:
                 await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
         except:
