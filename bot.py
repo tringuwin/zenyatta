@@ -614,7 +614,7 @@ def run_discord_bot(db):
                     }
                 ]
                     
-                guild = await get_guild()
+                guild = await get_guild(client)
                 channel = await guild.get_channel(1143592783999926404)
                 for role in reaction_roles:
                     message = await channel.message.send('React to remove '+role['title']+ ' role.')
