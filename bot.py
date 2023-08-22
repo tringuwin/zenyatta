@@ -617,7 +617,8 @@ def run_discord_bot(db):
                 guild = await get_guild(client)
                 channel = guild.get_channel(1143592783999926404)
                 for role in reaction_roles:
-                    message = await channel.send('React to remove '+role['title']+ ' role.')
+                    discord_role = guild.get_role(role['id'])
+                    message = await channel.send('Add emoji reaction to remove '+discord_role.mention+ ' role. Remove reaction to add it back. Default is **ON**.')
                     await message.add_reaction("❌")
 
             else:
