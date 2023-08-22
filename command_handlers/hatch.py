@@ -8,8 +8,8 @@ import random
 
 gen1 = [
     [2, 3, 4, 6, 7, 9, 12, 13, 15, 17], #common
-    [1, 5, 8, 10, 16], #rare
-    [11, 14, 18], #mythical
+    [1, 5, 8, 11, 16], #rare
+    [10, 14, 18], #mythical
     [19, 20]  #epic
 ]
 
@@ -60,7 +60,7 @@ async def hatch_handler(db, message):
 
             await change_eggs(db, user, -1)
             creature_file = discord.File('spicemon/S'+str(creature_id)+'.png', filename='spicemon.png')
-            creature_embed = discord.Embed(title='You hacthed creature '+str(creature_id))
+            creature_embed = discord.Embed(title='You hacthed creature '+str(creature_id)+"!")
             creature_embed.set_image(url='attachment://spicemon.png')
             await message.channel.send(file=creature_file, embed=creature_embed)
         else:

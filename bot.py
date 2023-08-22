@@ -122,9 +122,12 @@ def run_discord_bot(db):
     async def on_member_join(member):
         guild = client.get_guild(constants.GUILD_ID)
         role = guild.get_role(constants.MEMBER_ROLE_ID)
+        server_notifs = guild.get_role(constants.SERVER_NOTIFS_ROLE)
+        tourney_notifs = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
+        twitch_notifs = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
 
         if role is not None:
-            await member.add_roles(role)
+            await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs)
 
 
     @client.event
