@@ -601,6 +601,7 @@ def run_discord_bot(db):
             spicy_member = guild.get_member(constants.SPICY_RAGU_ID)
             await message.channel.send('Whoops... An error occured. Let me notify staff. '+spicy_member.mention)
             print(e)
+            print(e.__traceback__)
 
 
     client.run(constants.DISCORD_TOKEN)
