@@ -112,6 +112,7 @@ async def delete_event(db, message, event_id):
 
 def run_discord_bot(db):
     intents = discord.Intents.all()
+    print(intents)
     intents.message_content = True
     client = discord.Client(intents=intents)
 
