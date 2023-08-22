@@ -114,6 +114,7 @@ def run_discord_bot(db):
     intents = discord.Intents.all()
     print(intents)
     intents.message_content = True
+    intents.reactions = True
     client = discord.Client(intents=intents)
 
     @client.event
