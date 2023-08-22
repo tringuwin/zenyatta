@@ -123,7 +123,7 @@ def run_discord_bot(db):
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
 
     @client.event
-    async def on_reaction_add(payload):
+    async def on_raw_reaction_add(payload):
 
         print('reaction added')
         message_id = payload.message_id
