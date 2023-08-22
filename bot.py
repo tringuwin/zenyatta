@@ -29,6 +29,7 @@ from command_handlers.teams.team_join import team_join_handler
 from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
 import constants
+import traceback
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from events import event_is_open, get_event_team_size
 from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
@@ -601,7 +602,7 @@ def run_discord_bot(db):
             spicy_member = guild.get_member(constants.SPICY_RAGU_ID)
             await message.channel.send('Whoops... An error occured. Let me notify staff. '+spicy_member.mention)
             print(e)
-            print(e.__traceback__)
+            traceback.print_exc()
 
 
     client.run(constants.DISCORD_TOKEN)
