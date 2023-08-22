@@ -122,6 +122,7 @@ def run_discord_bot(db):
 
     @client.event
     async def on_reaction_add(reaction, user):
+        print('reaction added')
         message_id = reaction.message.id
         if message_id == constants.SERVER_NOTIF_MSG:
             guild = await get_guild(client)
