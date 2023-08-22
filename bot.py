@@ -143,7 +143,6 @@ def run_discord_bot(db):
     @client.event
     async def on_raw_reaction_remove(payload):
         print('reaction remove')
-        print(payload)
         guild = await get_guild(client)
         message_id = payload.message_id
         user_id = payload.user_id
