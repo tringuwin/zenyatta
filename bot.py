@@ -596,11 +596,11 @@ def run_discord_bot(db):
                 await message.channel.send('Done giving roles')
             else:
                 await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
-        except Exception:
+        except Exception as e:
             guild = client.get_guild(constants.GUILD_ID)
             spicy_member = guild.get_member(constants.SPICY_RAGU_ID)
             await message.channel.send('Whoops... An error occured. Let me notify staff. '+spicy_member.mention)
-            print(Exception)
+            print(e)
 
 
     client.run(constants.DISCORD_TOKEN)
