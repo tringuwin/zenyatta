@@ -602,15 +602,18 @@ def run_discord_bot(db):
                     
                     {
                         'title': 'Server Notifications',
-                        'id': constants.SERVER_NOTIFS_ROLE
+                        'id': constants.SERVER_NOTIFS_ROLE,
+                        'extra': 'If you have this role you will be pinged about updates to this discord server such as new features.'
                     },
                     {
                         'title': 'Tourney Notifications',
-                        'id': constants.TOURNEY_NOTIFS_ROLE
+                        'id': constants.TOURNEY_NOTIFS_ROLE,
+                        'extra': 'If you have this role you will be pinged about upcoming tournaments as well as when a tournament goes live.'
                     },
                     {
                         'title': 'Twitch Notifications',
-                        'id': constants.TWITCH_NOTIFS_ROLE
+                        'id': constants.TWITCH_NOTIFS_ROLE,
+                        'extra': 'If you have this role you will be pinged whenever SpicyRagu is live on Twitch.'
                     }
                 ]
                     
@@ -618,7 +621,8 @@ def run_discord_bot(db):
                 channel = guild.get_channel(1143592783999926404)
                 for role in reaction_roles:
                     discord_role = guild.get_role(role['id'])
-                    message = await channel.send('Add emoji reaction to remove '+discord_role.mention+ ' role. Remove reaction to add it back. Default is **ON**.')
+                    
+                    message = await channel.send('Add emoji reaction to remove '+discord_role.mention+ ' role. Remove reaction to add it back. Default is **ON**.\n*'+role['extra']+'*')
                     await message.add_reaction("❌")
 
             else:
