@@ -112,7 +112,6 @@ async def delete_event(db, message, event_id):
 
 def run_discord_bot(db):
     intents = discord.Intents.all()
-    print(intents)
     intents.message_content = True
     intents.reactions = True
     client = discord.Client(intents=intents)
@@ -144,6 +143,7 @@ def run_discord_bot(db):
     @client.event
     async def on_raw_reaction_remove(payload):
         print('reaction remove')
+        print(payload)
         message_id = payload.message_id
         member = payload.member
         if message_id == constants.SERVER_NOTIF_MSG:
