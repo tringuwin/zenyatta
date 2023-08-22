@@ -139,6 +139,7 @@ def run_discord_bot(db):
 
     @client.event
     async def on_reaction_remove(reaction, user):
+        print('reaction remove')
         pass
 
     @client.event
