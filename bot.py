@@ -144,19 +144,17 @@ def run_discord_bot(db):
     async def on_raw_reaction_remove(payload):
         print('reaction remove')
         print(payload)
+        guild = await get_guild(client)
         message_id = payload.message_id
         user_id = payload.user_id
         member = guild.get_member(user_id)
         if message_id == constants.SERVER_NOTIF_MSG:
-            guild = await get_guild(client)
             role = guild.get_role(constants.SERVER_NOTIFS_ROLE)
             await member.add_roles(role)
         elif message_id ==  constants.TOURNEY_NOTIF_MSG:
-            guild = await get_guild(client)
             role = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
             await member.add_roles(role)
         elif message_id ==  constants.TWITCH_NOTIF_MSG:
-            guild = await get_guild(client)
             role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
             await member.add_roles(role)
 
