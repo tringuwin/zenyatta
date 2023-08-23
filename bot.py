@@ -12,6 +12,7 @@ from admin_handlers.update_shop import update_shop_handler
 from admin_handlers.wipe_teams import wipe_teams_handler
 from admin_handlers.add_item import add_item_handler
 from command_handlers.buy import buy_handler
+from command_handlers.events import events_handler
 from command_handlers.join import join_handler
 from command_handlers.teams.accept_invite import accept_invite_handler
 from command_handlers.teams.delete_team import delete_team_handler
@@ -32,8 +33,7 @@ import constants
 import traceback
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild
-from events import event_is_open, get_event_team_size
-from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, find_user_with_battle_tag, generate_bracket, get_all_events, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
+from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, find_user_with_battle_tag, generate_bracket, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from user import get_user_passes, get_user_tokens, user_exists
 
@@ -219,56 +219,7 @@ def run_discord_bot(db):
 
             elif lower_message == "!events":
 
-
-                event_list = get_all_events(db)
-                found = False
-                none_string = "It looks like there's no events right now... Check back soon!"
-                # await message.channel.send(none_string)
-                # return
-
-                final_string = ""
-
-                for event in event_list:
-
-
-                    if not event_is_open(event):
-                        continue
-
-                    found = True
-                    event_full = False
-                    if (event['max_players'] == event['spots_filled']):
-                        join_string = "FULL"
-                        event_full = True
-                    else:
-                        join_string = "**"+str(event['max_players']-event['spots_filled'])+" Spots Remaining**"
-
-                    num_players = get_event_team_size(event)
-                    add_part = 'Players'
-                    if num_players > 1:
-                        add_part = 'Teams'
-
-                    final_string = final_string+"**["+event['event_id']+"]** "+event['event_name']+" : "+ str(event['max_players']) +" Total "+add_part+" : "+join_string+' : '
-                    
-                    if num_players == 1:
-                        final_string += '1 player per team'
-                    else:
-                        final_string += str(num_players)+' players per team'
-
-                    if ('needs_pass' in event) and (event['needs_pass']):
-                        final_string += ' : ***🎟️ PRIORITY PASS REQUIRED 🎟️***'
-
-                    if not event_full:
-                        if num_players == 1:
-                            final_string += "\n*To join this event enter the command* **!join "+event['event_id']+"**\n\n"
-                        else:
-                            final_string += "\n*To join this event enter the command* **!teamjoin "+event['event_id']+" [team name here]**\n\n"
-                    else:
-                        final_string += "\n\n"
-
-                if found:
-                    await message.channel.send(final_string)
-                else:
-                    await message.channel.send(none_string)
+                events_handler(db, message)
 
             elif lower_message.startswith("!join "):
 
