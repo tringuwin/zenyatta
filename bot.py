@@ -672,6 +672,10 @@ def run_discord_bot(db):
             await message.channel.send('Whoops... An error occured. Let me notify staff. '+spicy_member.mention)
             print(e)
             traceback.print_exc()
+            traceback_str = traceback.format_exc()
+            err_channel = guild.get_channel(constants.ERROR_LOGS_CHANNEL)
+            err_channel.send(traceback_str)
+
 
 
     client.run(constants.DISCORD_TOKEN)
