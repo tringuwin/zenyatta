@@ -219,7 +219,7 @@ def run_discord_bot(db):
 
             elif lower_message == "!events":
 
-                events_handler(db, message)
+                await events_handler(db, message)
 
             elif lower_message.startswith("!join "):
 
