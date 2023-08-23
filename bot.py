@@ -623,15 +623,10 @@ def run_discord_bot(db):
                 await set_stock_handler(db, message)
             elif lower_message == '!testerror' and is_admin:
 
-                guild = client.get_guild(constants.GUILD_ID)
-                server_notifs = guild.get_role(constants.SERVER_NOTIFS_ROLE)
-                tourney_notifs = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
-                twitch_notifs = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
-
-                async for member in guild.fetch_members():
-                    await member.add_roles(server_notifs, tourney_notifs, twitch_notifs)
-
-                await message.channel.send('Done giving roles')
+                test = {
+                    'test': 1
+                }
+                test2 = test['test2']
 
             elif lower_message == '!makereactionroles' and is_admin:
 
