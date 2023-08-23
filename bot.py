@@ -669,7 +669,7 @@ def run_discord_bot(db):
             traceback.print_exc()
             traceback_str = traceback.format_exc()
             err_channel = guild.get_channel(constants.ERROR_LOGS_CHANNEL)
-            err_channel.send(traceback_str)
+            await err_channel.send(traceback_str)
 
 
 
