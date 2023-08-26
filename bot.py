@@ -446,6 +446,7 @@ def run_discord_bot(db):
             elif lower_message == '!bothnoshow' and is_admin:
 
                 event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
+                guild = client.get_guild(constants.GUILD_ID)
 
                 await both_no_show(message, db, guild, event_channel)
 
