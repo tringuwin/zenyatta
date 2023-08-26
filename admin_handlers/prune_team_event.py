@@ -31,6 +31,6 @@ async def prune_team_event_handler(db, message):
         else:
             print('invalid team: '+team_name)
 
-    print(valid_entries)
-
+    events = db['events']
+    events.update_one({"event_id": event['event_id']}, {"$set": {"entries": valid_entries}})
     
