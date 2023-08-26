@@ -4,7 +4,7 @@ import time
 import discord
 import constants
 from bracket import get_bracket_by_event_id, make_bracket_from_users
-from events import get_event_by_id
+from events import get_event_by_id, get_event_team_size
 from rewards import change_passes, change_tokens
 from user import get_user_passes, user_exists
 
@@ -162,29 +162,33 @@ async def approve_user(db, discord_id, event_id, discord_client, message):
 async def generate_bracket(db, message, event_id):
     
     event = get_event_by_id(db, event_id)
-
-    if event:
-
-        existing_bracket = await get_bracket_by_event_id(db, event_id)
-        if existing_bracket:
-            await message.channel.send("A bracket has already been generated for this event.")
-        else:
-            brackets = db['brackets']
-
-            round1 = event['entries'].copy()
-            random.shuffle(round1)
-
-            new_bracket = {
-                "event_id": event_id,
-                "bracket": await make_bracket_from_users(round1, db)
-            }
-
-            brackets.insert_one(new_bracket)
-
-            await message.channel.send("Bracket has been created for event "+event_id)
-
-    else:
+    if not event:
         await message.channel.send("I couldn't find any event with that ID.")
+        return
+
+
+    existing_bracket = await get_bracket_by_event_id(db, event_id)
+    if existing_bracket:
+        await message.channel.send("A bracket has already been generated for this event.")
+        return
+    
+   
+    brackets = db['brackets']
+
+    round1 = event['entries'].copy()
+    random.shuffle(round1)
+    event_size = get_event_team_size(event)
+
+    new_bracket = {
+        "event_id": event_id,
+        "bracket": await make_bracket_from_users(round1, db, event_size)
+    }
+
+    brackets.insert_one(new_bracket)
+
+    await message.channel.send("Bracket has been created for event "+event_id)
+    print(new_bracket)
+
 
 
 async def output_tokens(db, message):

@@ -23,13 +23,34 @@ async def add_user_to_match(user, match, users):
         'user': user,
         'username': user_obj['battle_tag'].split('#')[0],
         'is_bye': False,
-        'is_tbd': False
+        'is_tbd': False,
+        'is_team': False
     }
     match[user_index] = entry
 
-async def make_matches_from_users(users_in_round, db):
+async def add_team_to_match(team_name, match, teams):
+
+    user_index = 0
+    if not match[0]['is_bye']:
+        user_index = 1
+
+    team_obj = teams.find_one({'lower_team_name': team_name.lower()})
+
+    entry = {
+        'user': team_name,
+        'team_members': team_obj['members'],
+        'username': team_name,
+        'is_bye': False,
+        'is_tbd': False,
+        'it_team': True
+    }
+    match[user_index] = entry
+
+
+async def make_matches_from_users(users_in_round, db, event_size):
     
     users = db['users']
+    teams = db['teams']
 
     match_size = await get_match_size(len(users_in_round))
     print(match_size)
@@ -41,7 +62,10 @@ async def make_matches_from_users(users_in_round, db):
     
     match_index = 0
     for user in users_in_round:
-        await add_user_to_match(user, matches[match_index], users)
+        if event_size == 1:
+            await add_user_to_match(user, matches[match_index], users)
+        else:
+            await add_team_to_match(user, matches[match_index], teams)
 
         match_index += 1
         if match_index == len(matches):
@@ -60,9 +84,9 @@ async def gen_tbd_round(length_last_round):
 
     return matches
 
-async def make_bracket_from_users(all_users, db):
+async def make_bracket_from_users(all_users, db, event_size):
 
-    round1_matches = await make_matches_from_users(all_users, db)
+    round1_matches = await make_matches_from_users(all_users, db, event_size)
 
     rounds = [round1_matches]
 
