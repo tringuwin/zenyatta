@@ -13,7 +13,7 @@ async def prune_team_event_handler(db, message):
         return
     
     event_id = params[1]
-    event = get_event_by_id(event_id)
+    event = get_event_by_id(db, event_id)
     if not event:
         await message.channel.send('There is no event with that ID.')
         return
