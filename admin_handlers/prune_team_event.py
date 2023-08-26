@@ -28,6 +28,8 @@ async def prune_team_event_handler(db, message):
         team = await get_team_by_name(db, team_name)
         if team and len(team['members']) == event_team_size:
             valid_entries.append(team_name)
+        else:
+            print('invalid team: '+team_name)
 
     print(valid_entries)
 
