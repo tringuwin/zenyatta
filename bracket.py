@@ -174,6 +174,16 @@ async def notify_match(match, message, start_string, guild, event_channel):
         user1mention = "*BYE*"
     elif match[0]['is_tbd']:
         user1mention = '*TBD*'
+    elif match[0]['is_team']:
+        mentions = []
+        for member in match[0]['team_members']:
+            member_obj = guild.get_member(member)
+            if member_obj:
+                mentions.append(member_obj.mention)
+        user1mention = match[0]['user']+'( '
+        for mention in mentions:
+            user1mention += mention+" "
+        user1mention += ')'
     else:
         user1 = guild.get_member(match[0]['user'])
         if user1: 
@@ -183,6 +193,16 @@ async def notify_match(match, message, start_string, guild, event_channel):
         user2mention = "*BYE*"
     elif match[1]['is_tbd']:
         user2mention = '*TBD*'
+    elif match[1]['is_team']:
+        mentions = []
+        for member in match[1]['team_members']:
+            member_obj = guild.get_member(member)
+            if member_obj:
+                mentions.append(member_obj.mention)
+        user2mention = match[1]['user']+'( '
+        for mention in mentions:
+            user2mention += mention+" "
+        user2mention += ')'
     else:
         user2 = guild.get_member(match[1]['user'])
         if user2: 
