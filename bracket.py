@@ -406,6 +406,8 @@ async def send_next_info(db, message, guild, event_channel):
         # is it a bye for player2?
         elif match[0]['is_bye']:
             await won_match(2, message, db, guild, event_channel)
+        elif match[0]['is_team']:
+            await message.channel.send(match[0]['user']+" vs "+match[1]['user'])
         else:
             user1 = user_exists(db, match[0]['user'])
             user2 = user_exists(db, match[1]['user'])
