@@ -6,6 +6,7 @@ from admin_handlers.delete_item import delete_item_handler
 from admin_handlers.edit_item_name import edit_item_name_handler
 from admin_handlers.make_public import make_public_handler
 from admin_handlers.make_shop import make_shop_handler
+from admin_handlers.prune_team_event import prune_team_event_handler
 from admin_handlers.set_stock import set_stock_handler
 from admin_handlers.total_tokens import total_tokens_handler
 from admin_handlers.update_shop import update_shop_handler
@@ -358,6 +359,9 @@ def run_discord_bot(db):
                     await deny_user(db, int(word_list[1]), word_list[2], word_list[3], client, message)
                 else:
                     await message.channel.send("Invalid number of arguments.")
+
+            elif lower_message.startswith('!pruneteamevent') and is_admin:
+                await prune_team_event_handler(db, message)
 
             elif lower_message.startswith("!genbracket ") and is_admin:
 
