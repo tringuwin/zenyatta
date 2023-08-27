@@ -1,6 +1,7 @@
 import random
 import time
 import discord
+from command_handlers.hello import hello_handler
 import constants
 import traceback
 from admin_handlers.add_event import add_event_handler
@@ -125,16 +126,7 @@ async def handle_message(message, db, client):
         await add_fun_fact(message, fun_fact, db)
 
     elif lower_message == "!hello":
-
-        answers = [
-            'Greetings.',
-            'Hello.',
-            'I greet you.',
-            'Peace be upon you.'
-        ]
-
-        random_response = random.choice(answers)
-        await message.channel.send(random_response)
+        await hello_handler(message)
 
     elif lower_message == '!hatch':
         await hatch_handler(db, message)
