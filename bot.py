@@ -1,7 +1,9 @@
 import random
 import time
 import discord
+from admin_handlers.add_event import add_event_handler
 from admin_handlers.close_event import close_event_handler
+from admin_handlers.delete_event import delete_event_handler
 from admin_handlers.delete_item import delete_item_handler
 from admin_handlers.edit_item_name import edit_item_name_handler
 from admin_handlers.make_public import make_public_handler
@@ -38,40 +40,6 @@ from discord_actions import get_guild, is_dm_channel
 from mongo import add_fun_fact, approve_user, create_event, deny_user, generate_bracket, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from user import get_user_passes, get_user_tokens, user_exists
-
-
-
-    
-
-
-
-async def add_event(db, message): 
-
-    word_list = message.content.split('|')
-
-    if len(word_list) != 6:
-        await message.channel.send('Incorrect command format.')
-    else:
-        if get_event_by_id(db, word_list[1]):
-            await message.channel.send('An event with this id already exists.')
-        else:
-            create_event(db, word_list[1], word_list[2], word_list[3], word_list[4], word_list[5])
-            await message.channel.send('Event created successfully.')
-
-
-async def delete_event(db, message, event_id):
-
-    events = db['events']
-
-    filter_query = {"event_id": event_id}
-
-    result = events.delete_one(filter_query)
-
-    if result.deleted_count == 1:
-        await message.channel.send('Event with id '+event_id+' has been deleted')
-    else:
-        await message.channel.send('Event with id does not exist.')
-
 
 
 def run_discord_bot(db):
@@ -287,16 +255,12 @@ def run_discord_bot(db):
             elif lower_message.startswith("!addevent") and is_admin:
                 
                 # !addevent|[event id]|[event name]|[max participants]|[0 for no pass, 1 for pass]|[team size]
-                await add_event(db, message)
+                await add_event_handler(db, message)
 
             elif lower_message.startswith("!delevent") and is_admin:
 
                 # !delevent [event id]
-                word_list = message.content.split()
-                if len(word_list) == 2:
-                    await delete_event(db, message, word_list[1])
-                else:
-                    await message.channel.send('Invalid use of command')
+                await delete_event_handler(db, message)
 
             elif lower_message.startswith("!approve ") and is_admin:
 
