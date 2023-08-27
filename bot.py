@@ -12,6 +12,7 @@ from admin_handlers.total_tokens import total_tokens_handler
 from admin_handlers.update_shop import update_shop_handler
 from admin_handlers.wipe_teams import wipe_teams_handler
 from admin_handlers.add_item import add_item_handler
+from command_handlers.battle import battle_handler
 from command_handlers.buy import buy_handler
 from command_handlers.events import events_handler
 from command_handlers.join import join_handler
@@ -33,53 +34,15 @@ from command_handlers.wager import wager_handler
 import constants
 import traceback
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
-from discord_actions import get_guild
-from mongo import add_fun_fact, approve_user, create_event, create_or_update_battle_tag, deny_user, find_user_with_battle_tag, generate_bracket, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
+from discord_actions import get_guild, is_dm_channel
+from mongo import add_fun_fact, approve_user, create_event, deny_user, generate_bracket, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from user import get_user_passes, get_user_tokens, user_exists
 
 
-async def dm_user_register_info(author, message):
 
-    await message.channel.send(author.mention+' Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find and copy your Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
-
-def is_dm_channel(channel):
-
-    if isinstance(channel, discord.DMChannel):
-        return True
-    else:
-        return False
     
-async def register_battle_user(message, message_content, db):
 
-    word_list = message_content.split()
-
-    if len(word_list) == 2:
-        
-        battle_tag = word_list[1]
-        print(battle_tag)
-        
-        if len(battle_tag) > 100:
-            await message.channel.send('The battle tag you provided is not valid.')
-        else:
-
-            if '#' in battle_tag:
-                
-                lower_tag = battle_tag.lower()
-
-                if find_user_with_battle_tag(db, lower_tag):
-                    await message.channel.send("That Battle Tag has already been connected with a discord account. (Maybe you've already linked it?)")
-                else:
-                    create_or_update_battle_tag(db, battle_tag, lower_tag, message.author.id)
-                    await message.channel.send("Success! Your Battle Tag has been linked to the SpicyRagu server! (Please note: if you change your Battle Tag please use the !battle command again to update it!)")
-                    return True
-            else:
-                await message.channel.send("The Battle Tag you provided seems to be missing the # and numbers at the end. Please include that too.")
-
-    else:
-        await message.channel.send('This command was not formatted correctly. Please type !battle and then add your Battle Tag.')
-
-    return False
 
 
 async def add_event(db, message): 
@@ -190,7 +153,7 @@ def run_discord_bot(db):
 
             is_admin = (message.author.id == constants.SPICY_RAGU_ID)
 
-            valid_channel = is_admin or isinstance(message.channel, discord.DMChannel) or message.channel.id == constants.BOT_CHANNEL or (message.channel.id == constants.CASINO_CHANNEL and lower_message.startswith('!wager'))
+            valid_channel = is_admin or is_dm_channel(message.channel) or message.channel.id == constants.BOT_CHANNEL or (message.channel.id == constants.CASINO_CHANNEL and lower_message.startswith('!wager'))
             if (not valid_channel) and (message.channel.id == constants.CASINO_CHANNEL and lower_message == '!tokens'):
                 valid_channel = True
 
@@ -206,17 +169,11 @@ def run_discord_bot(db):
             if lower_message == '!help':
                 await help_hanlder(message)
             elif lower_message == '!register':
-                await dm_user_register_info(message.author, message)
+                await message.channel.send(message.author.mention+' Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find and copy your Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
 
             elif lower_message.startswith('!battle '):
                 
-                success = await register_battle_user(message, message.content, db)
-                if success:
-                    guild = client.get_guild(constants.GUILD_ID)
-                    reg_role = guild.get_role(constants.REGISTERED_ROLE)
-                    member = guild.get_member(message.author.id)
-                    if member and reg_role:
-                        await member.add_roles(reg_role)
+                await battle_handler(db, message, client)
 
             elif lower_message == "!events":
 

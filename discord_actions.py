@@ -1,5 +1,6 @@
 
 import constants
+import discord
 
 async def get_guild(client):
 
@@ -19,3 +20,10 @@ async def get_user_from_guild(client, user_id):
     discord_user = await guild.fetch_member(user_id)
 
     return discord_user
+
+def is_dm_channel(channel):
+
+    if isinstance(channel, discord.DMChannel):
+        return True
+    else:
+        return False
