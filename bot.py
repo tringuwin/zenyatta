@@ -1,6 +1,8 @@
 import random
 import time
 import discord
+import constants
+import traceback
 from admin_handlers.add_event import add_event_handler
 from admin_handlers.close_event import close_event_handler
 from admin_handlers.delete_event import delete_event_handler
@@ -33,13 +35,425 @@ from command_handlers.teams.team_details import team_details_hanlder
 from command_handlers.teams.team_join import team_join_handler
 from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
-import constants
-import traceback
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild, is_dm_channel
 from mongo import add_fun_fact, approve_user, create_event, deny_user, generate_bracket, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from user import get_user_passes, get_user_tokens, user_exists
+
+
+
+async def handle_message(message, db, client):
+
+    user_message = str(message.content)
+    is_command = len(user_message) > 0 and (user_message[0] == '!')
+    if not is_command:
+        return
+    
+    channel = str(message.channel)
+    lower_message = user_message.lower()
+
+    is_admin = (message.author.id == constants.SPICY_RAGU_ID)
+
+    valid_channel = is_admin or is_dm_channel(message.channel) or message.channel.id == constants.BOT_CHANNEL or (message.channel.id == constants.CASINO_CHANNEL and lower_message.startswith('!wager'))
+    if (not valid_channel) and (message.channel.id == constants.CASINO_CHANNEL and lower_message == '!tokens'):
+        valid_channel = True
+
+    if not valid_channel:
+        
+        await message.delete()
+        warning = await message.channel.send(message.author.mention+" Please only use commands in #bot-commands or in a Direct Message with me.")
+
+        time.sleep(10)
+        await warning.delete()
+        return
+    
+    if lower_message == '!help':
+        await help_hanlder(message)
+    
+    elif lower_message == '!register':
+        await message.channel.send(message.author.mention+' Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find and copy your Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
+    
+    elif lower_message.startswith('!battle '):
+        await battle_handler(db, message, client)
+
+    elif lower_message == "!events":
+        await events_handler(db, message)
+
+    elif lower_message.startswith("!join "):
+        await join_handler(db, message, client)
+    
+    elif lower_message.startswith("!suggestevent "):
+        event_idea = message.content[len("!suggestevent "):].strip()
+
+        event_channel = client.get_channel(constants.SUGGEST_CHANNEL)
+
+        embed_msg = discord.Embed(
+            title = "Event Idea From "+message.author.name,
+            description=event_idea
+        )
+        embed_msg.set_footer(text="Suggest your own idea using the command !suggestevent [event idea here]", icon_url=message.author.display_avatar)
+
+        event_idea_msg = await event_channel.send(embed=embed_msg)
+        await event_idea_msg.add_reaction("👍")
+
+        await message.delete()
+
+    elif lower_message == "!tokens":
+
+        await output_tokens(db, message)
+
+    elif lower_message == "!passes":
+
+        await output_passes(db, message)
+
+    elif lower_message == "!eggs":
+
+        await output_eggs(db, message)
+
+    elif lower_message == "!sellpass":
+
+        await sell_pass_for_tokens(db, message)
+
+    elif lower_message == '!dailygift' or lower_message == '!gift':
+
+        await give_daily_gift(db, message)
+
+    elif lower_message.startswith('!funfact '):
+
+        fun_fact = message.content[len("!funfact "):].strip()
+        await add_fun_fact(message, fun_fact, db)
+
+    elif lower_message == "!hello":
+
+        answers = [
+            'Greetings.',
+            'Hello.',
+            'I greet you.',
+            'Peace be upon you.'
+        ]
+
+        random_response = random.choice(answers)
+        await message.channel.send(random_response)
+
+    elif lower_message == '!hatch':
+        await hatch_handler(db, message)
+
+    elif lower_message.startswith('!wager'):
+        await wager_handler(db, message)
+
+    elif lower_message == '!teams':
+        await teams_handler(db, message)
+
+    elif lower_message.startswith('!teamdetails'):
+        await team_details_hanlder(db, message)
+
+    elif lower_message.startswith('!maketeam'):
+        await make_team_handler(db, message)
+
+    elif lower_message.startswith('!invite'):
+        await invite_handler(db, message)
+
+    elif lower_message == '!myinvites':
+        await my_invites_handler(db, message)
+
+    elif lower_message.startswith('!acceptinvite '):
+        await accept_invite_handler(db, message)
+
+    elif lower_message.startswith('!denyinvite'):
+        await deny_invite_handler(db, message)
+
+    elif lower_message.startswith('!leaveteam'):
+        await leave_team_handler(db, message)
+
+    elif lower_message.startswith('!deleteteam'):
+        await delete_team_handler(db, message)
+
+    elif lower_message.startswith('!teamjoin'):
+        await team_join_handler(client, db, message)
+
+    elif lower_message.startswith('!kickplayer'):
+        await kick_player_handler(db, message)
+
+    elif lower_message.startswith('!helpteams'):
+        await help_teams_hanlder(message)
+
+
+    elif lower_message.startswith('!buy'):
+        await buy_handler(db, message)
+
+    # ADMIN COMMANDS
+
+    elif lower_message.startswith("!addevent") and is_admin:
+        
+        # !addevent|[event id]|[event name]|[max participants]|[0 for no pass, 1 for pass]|[team size]
+        await add_event_handler(db, message)
+
+    elif lower_message.startswith("!delevent") and is_admin:
+
+        # !delevent [event id]
+        await delete_event_handler(db, message)
+
+    elif lower_message.startswith("!approve ") and is_admin:
+
+        # !approve [user_id] [event id]
+        word_list = message.content.split()
+        if len(word_list) == 3:
+            await approve_user(db, int(word_list[1]), word_list[2], client, message)
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
+
+    elif lower_message.startswith("!deny") and is_admin:
+
+        # !deny|[user id]|[event id]|[reason]
+        word_list = message.content.split('|')
+        if len(word_list) == 4:
+            await deny_user(db, int(word_list[1]), word_list[2], word_list[3], client, message)
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message.startswith('!pruneteamevent') and is_admin:
+        await prune_team_event_handler(db, message)
+
+    elif lower_message.startswith("!genbracket ") and is_admin:
+
+        # !bracket [event id]
+        word_list = message.content.split()
+        if len(word_list) == 2:
+            await generate_bracket(db, message, word_list[1])
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message.startswith("!wipebrackets") and is_admin:
+            
+        brackets = db['brackets']
+        brackets.delete_many({})
+        await message.channel.send('Brackets have been wiped')
+
+    elif lower_message.startswith("!switchmatches ") and is_admin:
+
+        # !switchmatches [event id] [switch match id 1] [switch match id 2]
+        word_list = message.content.split()
+        if len(word_list) == 4:
+            await switch_matches(db, message, word_list[1], word_list[2], word_list[3])
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message.startswith("!gentourney ") and is_admin:
+
+        # !gentourney [event id]
+        word_list = message.content.split()
+        if len(word_list) == 2:
+            await gen_tourney(db, word_list[1], message)
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message == '!wipetourney' and is_admin:
+
+        await wipe_tourney(db, message)
+
+    elif lower_message == '!starttourney' and is_admin:
+
+        guild = client.get_guild(constants.GUILD_ID)
+        tourney_role = guild.get_role(constants.EVENT_ROLE)
+        event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
+
+        await send_next_info(db, message, guild, event_channel)
+
+        await event_channel.send('**TOURNAMENT HAS STARTED** '+tourney_role.mention)
+        await notify_next_users(db, guild, message, event_channel)
+
+    elif lower_message == '!pausetourney' and is_admin:
+
+        guild = client.get_guild(constants.GUILD_ID)
+        tourney_role = guild.get_role(constants.EVENT_ROLE)
+        event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
+
+        await event_channel.send('**TOURNAMENT HAS PASUED** '+tourney_role.mention)
+
+    elif lower_message.startswith('!win ') and is_admin:
+        
+        event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
+
+        # !win [winner 1 or 2]
+        word_list = message.content.split()
+        if len(word_list) == 2:
+            guild = client.get_guild(constants.GUILD_ID)
+            await won_match(int(word_list[1]), message, db, guild, event_channel)
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message.startswith('!noshow ') and is_admin:
+
+        event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
+
+        # !noshow [loser 1 or 2]
+        word_list = message.content.split()
+        if len(word_list) == 2:
+            guild = client.get_guild(constants.GUILD_ID)
+            await no_show(int(word_list[1]), message, db, guild, event_channel)
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message == '!bothnoshow' and is_admin:
+
+        event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
+        guild = client.get_guild(constants.GUILD_ID)
+
+        await both_no_show(message, db, guild, event_channel)
+
+    elif lower_message.startswith('!giverewards') and is_admin:
+        
+        reward_per_round = [10, 10, 100, 200, 500, 0, 0]
+
+        bracket = db['brackets'].find_one({'event_id': '2'})
+
+        final_dict = {}
+
+        round_index = 0
+        for round in bracket['bracket']:
+            for match in round:
+                
+                for player in match:
+                    if 'no_show' in player:
+                        final_dict[str(player['user'])] = -1
+                    elif not (player['is_bye']) or (player['is_tbd']):
+                        final_dict[str(player['user'])] = round_index
+
+            round_index += 1
+
+        for player_id_string, highest_round in final_dict.items():
+
+            if highest_round > -1:
+                user = db['users'].find_one({'discord_id': int(player_id_string)})
+                if user:
+
+                    reward = reward_per_round[highest_round]
+                    await change_tokens(db, user, reward)
+
+        await message.channel.send('Rewards given')
+
+        
+    elif lower_message.startswith('!givetokens ') and is_admin:
+
+        # !givetokens [winner id] [tokens]
+        word_list = message.content.split()
+        if len(word_list) == 3:
+            await give_tokens_command(db, int(word_list[1]), int(word_list[2]), message)
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message.startswith('!givepasses ') and is_admin:
+
+        # !givepasses [winner id] [passes]
+        word_list = message.content.split()
+        if len(word_list) == 3:
+            await give_passes_command(db, int(word_list[1]), int(word_list[2]), message)
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message.startswith('!giveeggs ') and is_admin:
+
+        # !giveeggs [winner id] [eggs]
+        word_list = message.content.split()
+        if len(word_list) == 3:
+            await give_eggs_command(db, int(word_list[1]), int(word_list[2]), message)
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message == '!listids' and is_admin:
+
+        for member in client.get_all_members():
+
+            user = user_exists(db, member.id)
+            if user:
+
+                print(member.display_name+" : "+str(member.id) + " : "+user['battle_tag'])
+
+    elif lower_message.startswith('!getdetails ') and is_admin:
+
+        # !getdetails [username]
+        word_list = message.content.split()
+        if len(word_list) == 2:
+            
+            for member in client.get_all_members():
+
+                disc = member.discriminator
+                final_name = member.name
+                if disc != '0':
+                    final_name = final_name+"#"+disc
+
+                if word_list[1] == final_name:
+                    
+                    user = user_exists(db, member.id)
+                    if user:
+                        final_string = 'User ID: '+str(member.id)+"\nBattle Tag: "+user['battle_tag']
+                        final_string += '\nTokens: '+str(get_user_tokens(user))+'\n'+'Passes: '+str(get_user_passes(user))
+                        await message.channel.send(final_string)
+
+                    break
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message == '!wipeteams' and is_admin:
+        await wipe_teams_handler(db, message)
+    elif lower_message == '!totaltokens' and is_admin:
+        await total_tokens_handler(db, message)
+    elif lower_message == '!makeshop' and is_admin:
+        await make_shop_handler(db, message)
+    elif lower_message.startswith('!additem') and is_admin:
+        await add_item_handler(db, message)
+    elif lower_message.startswith('!delitem') and is_admin:
+        await delete_item_handler(db, message)
+    elif lower_message == '!updateshop' and is_admin:
+        await update_shop_handler(db, message)
+    elif lower_message.startswith('!edititemname') and is_admin:
+        await edit_item_name_handler(db, message)
+    elif lower_message.startswith('!makepublic') and is_admin:
+        await make_public_handler(db, message)
+    elif lower_message.startswith('!closeevent') and is_admin:
+        await close_event_handler(db, message)
+    elif lower_message.startswith('!setstock') and is_admin:
+        await set_stock_handler(db, message)
+    elif lower_message == '!testerror' and is_admin:
+
+        test = {
+            'test': 1
+        }
+        test2 = test['test2']
+
+    elif lower_message == '!makereactionroles' and is_admin:
+
+        reaction_roles = [
+            
+            {
+                'title': 'Server Notifications',
+                'id': constants.SERVER_NOTIFS_ROLE,
+                'extra': 'If you have this role you will be pinged about updates to this discord server such as new features.'
+            },
+            {
+                'title': 'Tourney Notifications',
+                'id': constants.TOURNEY_NOTIFS_ROLE,
+                'extra': 'If you have this role you will be pinged about upcoming tournaments as well as when a tournament goes live.'
+            },
+            {
+                'title': 'Twitch Notifications',
+                'id': constants.TWITCH_NOTIFS_ROLE,
+                'extra': 'If you have this role you will be pinged whenever SpicyRagu is live on Twitch.'
+            }
+        ]
+            
+        guild = await get_guild(client)
+        channel = guild.get_channel(1143592783999926404)
+        for role in reaction_roles:
+            discord_role = guild.get_role(role['id'])
+            
+            message = await channel.send('Add an emoji reaction to remove '+discord_role.mention+ ' role. Remove the reaction to add it back. Default is **ON**.\n*'+role['extra']+'*')
+            await message.add_reaction("❌")
+
+    else:
+        await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
 
 def run_discord_bot(db):
@@ -105,439 +519,8 @@ def run_discord_bot(db):
     async def on_message(message):
         if message.author == client.user:
             return
-
         try:
-
-            user_message = str(message.content)
-            is_command = len(user_message) > 0 and (user_message[0] == '!')
-            if not is_command:
-                return
-            
-            username = str(message.author)
-            channel = str(message.channel)
-
-            print(f'{username} said: "{user_message}" ({channel})')
-            lower_message = user_message.lower()
-
-            is_admin = (message.author.id == constants.SPICY_RAGU_ID)
-
-            valid_channel = is_admin or is_dm_channel(message.channel) or message.channel.id == constants.BOT_CHANNEL or (message.channel.id == constants.CASINO_CHANNEL and lower_message.startswith('!wager'))
-            if (not valid_channel) and (message.channel.id == constants.CASINO_CHANNEL and lower_message == '!tokens'):
-                valid_channel = True
-
-            if not valid_channel:
-                
-                await message.delete()
-                warning = await message.channel.send(message.author.mention+" Please only use commands in #bot-commands or in a Direct Message with me.")
-
-                time.sleep(10)
-                await warning.delete()
-                return
-            
-            if lower_message == '!help':
-                await help_hanlder(message)
-            elif lower_message == '!register':
-                await message.channel.send(message.author.mention+' Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find and copy your Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
-
-            elif lower_message.startswith('!battle '):
-                
-                await battle_handler(db, message, client)
-
-            elif lower_message == "!events":
-
-                await events_handler(db, message)
-
-            elif lower_message.startswith("!join "):
-
-                await join_handler(db, message, client)
-
-            elif lower_message.startswith("!suggestevent "):
-                event_idea = message.content[len("!suggestevent "):].strip()
-
-                event_channel = client.get_channel(constants.SUGGEST_CHANNEL)
-
-                embed_msg = discord.Embed(
-                    title = "Event Idea From "+message.author.name,
-                    description=event_idea
-                )
-                embed_msg.set_footer(text="Suggest your own idea using the command !suggestevent [event idea here]", icon_url=message.author.display_avatar)
-
-                event_idea_msg = await event_channel.send(embed=embed_msg)
-                await event_idea_msg.add_reaction("👍")
-
-                await message.delete()
-
-            elif lower_message == "!tokens":
-
-                await output_tokens(db, message)
-
-            elif lower_message == "!passes":
-
-                await output_passes(db, message)
-
-            elif lower_message == "!eggs":
-
-                await output_eggs(db, message)
-
-            elif lower_message == "!sellpass":
-
-                await sell_pass_for_tokens(db, message)
-
-            elif lower_message == '!dailygift' or lower_message == '!gift':
-
-                await give_daily_gift(db, message)
-
-            elif lower_message.startswith('!funfact '):
-
-                fun_fact = message.content[len("!funfact "):].strip()
-                await add_fun_fact(message, fun_fact, db)
-
-            elif lower_message == "!hello":
-
-                answers = [
-                    'Greetings.',
-                    'Hello.',
-                    'I greet you.',
-                    'Peace be upon you.'
-                ]
-
-                random_response = random.choice(answers)
-                await message.channel.send(random_response)
-
-            elif lower_message == '!hatch':
-                await hatch_handler(db, message)
-
-            elif lower_message.startswith('!wager'):
-                await wager_handler(db, message)
-
-            elif lower_message == '!teams':
-                await teams_handler(db, message)
-
-            elif lower_message.startswith('!teamdetails'):
-                await team_details_hanlder(db, message)
-
-            elif lower_message.startswith('!maketeam'):
-                await make_team_handler(db, message)
-
-            elif lower_message.startswith('!invite'):
-                await invite_handler(db, message)
-
-            elif lower_message == '!myinvites':
-                await my_invites_handler(db, message)
-
-            elif lower_message.startswith('!acceptinvite '):
-                await accept_invite_handler(db, message)
-
-            elif lower_message.startswith('!denyinvite'):
-                await deny_invite_handler(db, message)
-
-            elif lower_message.startswith('!leaveteam'):
-                await leave_team_handler(db, message)
-
-            elif lower_message.startswith('!deleteteam'):
-                await delete_team_handler(db, message)
-
-            elif lower_message.startswith('!teamjoin'):
-                await team_join_handler(client, db, message)
-
-            elif lower_message.startswith('!kickplayer'):
-                await kick_player_handler(db, message)
-
-            elif lower_message.startswith('!helpteams'):
-                await help_teams_hanlder(message)
-
-
-            elif lower_message.startswith('!buy'):
-                await buy_handler(db, message)
-
-            # ADMIN COMMANDS
-
-            elif lower_message.startswith("!addevent") and is_admin:
-                
-                # !addevent|[event id]|[event name]|[max participants]|[0 for no pass, 1 for pass]|[team size]
-                await add_event_handler(db, message)
-
-            elif lower_message.startswith("!delevent") and is_admin:
-
-                # !delevent [event id]
-                await delete_event_handler(db, message)
-
-            elif lower_message.startswith("!approve ") and is_admin:
-
-                # !approve [user_id] [event id]
-                word_list = message.content.split()
-                if len(word_list) == 3:
-                    await approve_user(db, int(word_list[1]), word_list[2], client, message)
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-
-            elif lower_message.startswith("!deny") and is_admin:
-
-                # !deny|[user id]|[event id]|[reason]
-                word_list = message.content.split('|')
-                if len(word_list) == 4:
-                    await deny_user(db, int(word_list[1]), word_list[2], word_list[3], client, message)
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-            elif lower_message.startswith('!pruneteamevent') and is_admin:
-                await prune_team_event_handler(db, message)
-
-            elif lower_message.startswith("!genbracket ") and is_admin:
-
-                # !bracket [event id]
-                word_list = message.content.split()
-                if len(word_list) == 2:
-                    await generate_bracket(db, message, word_list[1])
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-            elif lower_message.startswith("!wipebrackets") and is_admin:
-                    
-                brackets = db['brackets']
-                brackets.delete_many({})
-                await message.channel.send('Brackets have been wiped')
-
-            elif lower_message.startswith("!switchmatches ") and is_admin:
-
-                # !switchmatches [event id] [switch match id 1] [switch match id 2]
-                word_list = message.content.split()
-                if len(word_list) == 4:
-                    await switch_matches(db, message, word_list[1], word_list[2], word_list[3])
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-            elif lower_message.startswith("!gentourney ") and is_admin:
-
-                # !gentourney [event id]
-                word_list = message.content.split()
-                if len(word_list) == 2:
-                    await gen_tourney(db, word_list[1], message)
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-            elif lower_message == '!wipetourney' and is_admin:
-
-                await wipe_tourney(db, message)
-
-            elif lower_message == '!starttourney' and is_admin:
-
-                guild = client.get_guild(constants.GUILD_ID)
-                tourney_role = guild.get_role(constants.EVENT_ROLE)
-                event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
-
-                await send_next_info(db, message, guild, event_channel)
-
-                await event_channel.send('**TOURNAMENT HAS STARTED** '+tourney_role.mention)
-                await notify_next_users(db, guild, message, event_channel)
-
-            elif lower_message == '!pausetourney' and is_admin:
-
-                guild = client.get_guild(constants.GUILD_ID)
-                tourney_role = guild.get_role(constants.EVENT_ROLE)
-                event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
-
-                await event_channel.send('**TOURNAMENT HAS PASUED** '+tourney_role.mention)
-
-            elif lower_message.startswith('!win ') and is_admin:
-                
-                event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
-
-                # !win [winner 1 or 2]
-                word_list = message.content.split()
-                if len(word_list) == 2:
-                    guild = client.get_guild(constants.GUILD_ID)
-                    await won_match(int(word_list[1]), message, db, guild, event_channel)
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-            elif lower_message.startswith('!noshow ') and is_admin:
-
-                event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
-
-                # !noshow [loser 1 or 2]
-                word_list = message.content.split()
-                if len(word_list) == 2:
-                    guild = client.get_guild(constants.GUILD_ID)
-                    await no_show(int(word_list[1]), message, db, guild, event_channel)
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-            elif lower_message == '!bothnoshow' and is_admin:
-
-                event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
-                guild = client.get_guild(constants.GUILD_ID)
-
-                await both_no_show(message, db, guild, event_channel)
-
-            elif lower_message.startswith('!giverewards') and is_admin:
-                
-                reward_per_round = [10, 10, 100, 200, 500, 0, 0]
-
-                bracket = db['brackets'].find_one({'event_id': '2'})
-
-                final_dict = {}
-
-                round_index = 0
-                for round in bracket['bracket']:
-                    for match in round:
-                        
-                        for player in match:
-                            if 'no_show' in player:
-                                final_dict[str(player['user'])] = -1
-                            elif not (player['is_bye']) or (player['is_tbd']):
-                                final_dict[str(player['user'])] = round_index
-
-                    round_index += 1
-
-                for player_id_string, highest_round in final_dict.items():
-
-                    if highest_round > -1:
-                        user = db['users'].find_one({'discord_id': int(player_id_string)})
-                        if user:
-
-                            reward = reward_per_round[highest_round]
-                            await change_tokens(db, user, reward)
-
-                await message.channel.send('Rewards given')
-
-                
-            elif lower_message.startswith('!givetokens ') and is_admin:
-
-                # !givetokens [winner id] [tokens]
-                word_list = message.content.split()
-                if len(word_list) == 3:
-                    await give_tokens_command(db, int(word_list[1]), int(word_list[2]), message)
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-            elif lower_message.startswith('!givepasses ') and is_admin:
-
-                # !givepasses [winner id] [passes]
-                word_list = message.content.split()
-                if len(word_list) == 3:
-                    await give_passes_command(db, int(word_list[1]), int(word_list[2]), message)
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-            elif lower_message.startswith('!giveeggs ') and is_admin:
-
-                # !giveeggs [winner id] [eggs]
-                word_list = message.content.split()
-                if len(word_list) == 3:
-                    await give_eggs_command(db, int(word_list[1]), int(word_list[2]), message)
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-            elif lower_message == '!listids' and is_admin:
-
-                for member in client.get_all_members():
-
-                    user = user_exists(db, member.id)
-                    if user:
-
-                        print(member.display_name+" : "+str(member.id) + " : "+user['battle_tag'])
-
-            elif lower_message.startswith('!getdetails ') and is_admin:
-
-                # !getdetails [username]
-                word_list = message.content.split()
-                if len(word_list) == 2:
-                    
-                    for member in client.get_all_members():
-
-                        disc = member.discriminator
-                        final_name = member.name
-                        if disc != '0':
-                            final_name = final_name+"#"+disc
-
-                        if word_list[1] == final_name:
-                            
-                            user = user_exists(db, member.id)
-                            if user:
-                                final_string = 'User ID: '+str(member.id)+"\nBattle Tag: "+user['battle_tag']
-                                final_string += '\nTokens: '+str(get_user_tokens(user))+'\n'+'Passes: '+str(get_user_passes(user))
-                                await message.channel.send(final_string)
-
-                            break
-                else:
-                    await message.channel.send("Invalid number of arguments.")
-
-            elif lower_message == '!givereg' and is_admin:
-
-                guild = client.get_guild(constants.GUILD_ID)
-                reg_role = guild.get_role(constants.REGISTERED_ROLE)
-
-                if reg_role:
-                    for member in client.get_all_members():
-                        member_id = member.id
-                        existing_user = user_exists(db, member_id)
-                        if existing_user:
-                            await member.add_roles(reg_role)
-
-                    await message.channel.send('Reg roles given')
-
-            elif lower_message == '!wipeteams' and is_admin:
-                await wipe_teams_handler(db, message)
-            elif lower_message == '!totaltokens' and is_admin:
-                await total_tokens_handler(db, message)
-            elif lower_message == '!makeshop' and is_admin:
-                await make_shop_handler(db, message)
-            elif lower_message.startswith('!additem') and is_admin:
-                await add_item_handler(db, message)
-            elif lower_message.startswith('!delitem') and is_admin:
-                await delete_item_handler(db, message)
-            elif lower_message == '!updateshop' and is_admin:
-                await update_shop_handler(db, message)
-            elif lower_message.startswith('!edititemname') and is_admin:
-                await edit_item_name_handler(db, message)
-            elif lower_message.startswith('!makepublic') and is_admin:
-                await make_public_handler(db, message)
-            elif lower_message.startswith('!closeevent') and is_admin:
-                await close_event_handler(db, message)
-            elif lower_message.startswith('!setstock') and is_admin:
-                await set_stock_handler(db, message)
-            elif lower_message == '!testerror' and is_admin:
-
-                test = {
-                    'test': 1
-                }
-                test2 = test['test2']
-
-            elif lower_message == '!makereactionroles' and is_admin:
-
-                reaction_roles = [
-                    
-                    {
-                        'title': 'Server Notifications',
-                        'id': constants.SERVER_NOTIFS_ROLE,
-                        'extra': 'If you have this role you will be pinged about updates to this discord server such as new features.'
-                    },
-                    {
-                        'title': 'Tourney Notifications',
-                        'id': constants.TOURNEY_NOTIFS_ROLE,
-                        'extra': 'If you have this role you will be pinged about upcoming tournaments as well as when a tournament goes live.'
-                    },
-                    {
-                        'title': 'Twitch Notifications',
-                        'id': constants.TWITCH_NOTIFS_ROLE,
-                        'extra': 'If you have this role you will be pinged whenever SpicyRagu is live on Twitch.'
-                    }
-                ]
-                    
-                guild = await get_guild(client)
-                channel = guild.get_channel(1143592783999926404)
-                for role in reaction_roles:
-                    discord_role = guild.get_role(role['id'])
-                    
-                    message = await channel.send('Add an emoji reaction to remove '+discord_role.mention+ ' role. Remove the reaction to add it back. Default is **ON**.\n*'+role['extra']+'*')
-                    await message.add_reaction("❌")
-
-            else:
-                await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
-
-        
+            await handle_message(message, db, client)
         except Exception as e:
             guild = client.get_guild(constants.GUILD_ID)
             spicy_member = guild.get_member(constants.SPICY_RAGU_ID)
