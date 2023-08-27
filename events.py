@@ -65,10 +65,12 @@ async def add_team_to_event(client, db, team, event):
     events.update_one({"event_id": event['event_id']}, {"$set": {"entries": new_event['entries']}})
     events.update_one({"event_id": event['event_id']}, {"$set": {"spots_filled": new_event['spots_filled']}})
 
+    event_role_id = get_event_role_id(event)
+
     for member in team['members']:
         discord_user = await get_user_from_guild(client, member)
         if discord_user:
-            await give_role_to_user(client, discord_user, constants.SQUISHY_ID)
+            await give_role_to_user(client, discord_user, event_role_id)
 
 
 def team_in_event(event, team):
@@ -120,6 +122,14 @@ def close_event(db, event):
 
     events = db['events']
     events.update_one({"event_id": event['event_id']}, {"$set": {"closed": True}})
+
+
+def get_event_role_id(event):
+
+    if 'event_role_id' in event:
+        return event['event_role_id']
+    
+    return constants.SQUISHY_ID
 
     
 

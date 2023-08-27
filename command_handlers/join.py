@@ -3,7 +3,7 @@
 
 from common_messages import not_registered_response
 from discord_actions import give_role_to_user
-from events import add_user_to_event_entries, event_has_space, event_is_open, get_event_by_id, get_event_team_size
+from events import add_user_to_event_entries, event_has_space, event_is_open, get_event_by_id, get_event_role_id, get_event_team_size
 from helpers import valid_number_of_params
 from rewards import change_passes
 import constants
@@ -53,6 +53,7 @@ async def join_handler(db, message, client):
 
     await add_event_entry_to_user(db, user, event_id)
     await add_user_to_event_entries(db, user, event)
-    await give_role_to_user(client, message.author, constants.EVENT_ROLE)
+    event_role_id = get_event_role_id(event)
+    await give_role_to_user(client, message.author, event_role_id)
 
     await message.channel.send("Success! You've joined this event!")
