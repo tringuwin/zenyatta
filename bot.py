@@ -454,7 +454,7 @@ async def run_notifs(db, client):
     while True:
         print('i run every 60 seconds')
         await handle_notifs(db, client)
-        asyncio.sleep(60)
+        await asyncio.sleep(60)
 
 def run_notifs_runner(db, client):
     asyncio.run(run_notifs(db, client))
