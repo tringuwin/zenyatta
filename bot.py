@@ -448,6 +448,7 @@ async def handle_message(message, db, client):
         await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
 def run_notifs(client):
+    
     while True:
         print('I run every 10 seconds')
         time.sleep(10)
