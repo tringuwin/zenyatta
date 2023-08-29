@@ -1,6 +1,7 @@
 import threading
 import time
 import discord
+import asyncio
 from command_handlers.hello import hello_handler
 import constants
 import traceback
@@ -453,7 +454,10 @@ async def run_notifs(db, client):
     while True:
         print('i run every 60 seconds')
         await handle_notifs(db, client)
-        time.sleep(60)
+        asyncio.sleep(60)
+
+def run_notifs_runner(db, client):
+    asyncio.run(run_notifs(db, client))
 
 def run_discord_bot(db):
     intents = discord.Intents.all()
@@ -461,7 +465,7 @@ def run_discord_bot(db):
     intents.reactions = True
     client = discord.Client(intents=intents)
 
-    notif_thread = threading.Thread(target=run_notifs, args=(db, client,))
+    notif_thread = threading.Thread(target=run_notifs_runner, args=(db, client,))
     notif_thread.daemon = True
     notif_thread.start()
 
