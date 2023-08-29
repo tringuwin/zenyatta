@@ -456,8 +456,10 @@ async def run_notifs(db, client):
         await handle_notifs(db, client)
         await asyncio.sleep(60)
 
-def run_notifs_runner(db, client):
-    asyncio.run(run_notifs(db, client))
+def run_notifs_thread(db, client):
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+    loop.run_until_complete(run_notifs(db, client))
 
 def run_discord_bot(db):
     intents = discord.Intents.all()
@@ -465,7 +467,7 @@ def run_discord_bot(db):
     intents.reactions = True
     client = discord.Client(intents=intents)
 
-    notif_thread = threading.Thread(target=run_notifs_runner, args=(db, client,))
+    notif_thread = threading.Thread(target=run_notifs_thread, args=(db, client,))
     notif_thread.daemon = True
     notif_thread.start()
 
