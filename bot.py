@@ -467,9 +467,11 @@ def run_discord_bot(db):
     intents.reactions = True
     client = discord.Client(intents=intents)
 
-    notif_thread = threading.Thread(target=run_notifs_thread, args=(db, client,))
-    notif_thread.daemon = True
-    notif_thread.start()
+    # notif_thread = threading.Thread(target=run_notifs_thread, args=(db, client,))
+    # notif_thread.daemon = True
+    # notif_thread.start()
+
+    print('bro fuck')
 
     @client.event
     async def on_ready():
