@@ -452,9 +452,9 @@ async def handle_message(message, db, client):
 async def run_notifs(db, client):
 
     while True:
-        print('i run every 10 seconds')
+        print('i run every 60 seconds')
         await handle_notifs(db, client)
-        time.sleep(10)
+        time.sleep(60)
 
 def run_notifs_thread(db, client):
     loop = asyncio.new_event_loop()
