@@ -451,10 +451,10 @@ async def handle_message(message, db, client):
 
 async def run_notifs(db, client):
 
-    print('i run every 60 seconds')
+    print('i run every 10 seconds')
     await handle_notifs(db, client)
-    await asyncio.sleep(60)
-    print('i run every 60 seconds')
+    time.sleep(10)
+    print('i run every 10 seconds')
 
 def run_notifs_thread(db, client):
     loop = asyncio.new_event_loop()
@@ -470,8 +470,6 @@ def run_discord_bot(db):
     notif_thread = threading.Thread(target=run_notifs_thread, args=(db, client,))
     notif_thread.daemon = True
     notif_thread.start()
-
-    print('bro fuck')
 
     @client.event
     async def on_ready():
