@@ -1,4 +1,4 @@
-import random
+import threading
 import time
 import discord
 from command_handlers.hello import hello_handler
@@ -38,7 +38,7 @@ from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild, is_dm_channel
-from mongo import add_fun_fact, approve_user, create_event, deny_user, generate_bracket, get_event_by_id, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
+from mongo import add_fun_fact, approve_user, deny_user, generate_bracket, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from user import get_user_passes, get_user_tokens, user_exists
 
@@ -447,12 +447,20 @@ async def handle_message(message, db, client):
     else:
         await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
+def run_notifs(client):
+    while True:
+        print('I run every 10 seconds')
+        time.sleep(10)
 
 def run_discord_bot(db):
     intents = discord.Intents.all()
     intents.message_content = True
     intents.reactions = True
     client = discord.Client(intents=intents)
+
+    notif_thread = threading.Thread(target=run_notifs, args=(client))
+    notif_thread.daemon = True
+    notif_thread.start()
 
     @client.event
     async def on_ready():
