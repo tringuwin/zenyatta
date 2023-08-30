@@ -446,29 +446,14 @@ async def handle_message(message, db, client):
     else:
         await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
-async def fake_function():
-    print('this is a fake function')
-
-async def run_notifs(db, client):
-
-    while True:
-        print('i run every 60 seconds')
-        await handle_notifs(db, client)
-        time.sleep(60)
 
 async def check_database_and_send_messages(db, client):
     while True:
         
-        print('this is a test if i run every 60 seconds')
-        await fake_function()
-        #await handle_notifs(db, client)
+        print('i run every 60 seconds')
+        await handle_notifs(db, client)
         
         await asyncio.sleep(60)
-
-def run_notifs_thread(db, client):
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(run_notifs(db, client))
 
 def run_discord_bot(db):
     intents = discord.Intents.all()
