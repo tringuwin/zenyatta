@@ -467,14 +467,15 @@ def run_discord_bot(db):
     intents.reactions = True
     client = discord.Client(intents=intents)
 
-    notif_thread = threading.Thread(target=run_notifs_thread, args=(db, client,))
-    notif_thread.daemon = True
-    notif_thread.start()
-
     @client.event
     async def on_ready():
         print(f'{client.user} is now running!')
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
+
+        notif_thread = threading.Thread(target=run_notifs_thread, args=(db, client,))
+        notif_thread.daemon = True
+        notif_thread.start()
+        print('Thread started!')
 
     @client.event
     async def on_raw_reaction_add(payload):
