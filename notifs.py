@@ -34,6 +34,7 @@ async def handle_notifs(db, client):
             continue
 
         print(member.name + ' has gift notify')
+        print(user)
         if 'last_gift' in user:
             gift_notify = get_gift_notify(user)
             if gift_notify:
