@@ -55,6 +55,13 @@ def get_gift_notify(user):
         return user['gift_notify']
     else:
         return False
+    
+def toggle_off_gift_notify(db, user):
+
+    users = db['users']
+
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"gift_notify": False}})
+
 
 def user_invited_to_team(team, user):
     

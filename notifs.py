@@ -2,7 +2,7 @@ import discord
 from discord_actions import get_guild, get_role_by_id
 import constants
 from time_helpers import long_enough_for_gift
-from user import get_gift_notify, user_exists
+from user import get_gift_notify, toggle_off_gift_notify, user_exists
 
 
 async def contact_member_about_gift(member, bot_channel):
@@ -42,6 +42,8 @@ async def handle_notifs(db, client):
 
     bot_channel = guild.get_channel(constants.BOT_CHANNEL)
     for member in members_to_contact:
+        user = user_exists(db, member.id)
+        await toggle_off_gift_notify(db, user)
         await contact_member_about_gift(member, bot_channel)
 
 
