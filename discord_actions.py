@@ -9,7 +9,7 @@ async def get_guild(client):
 
 async def get_role_by_id(client, role_id):
 
-    guild = await get_guild()
+    guild = await get_guild(client)
     role = guild.get_role(role_id)
     return role
 
