@@ -38,12 +38,13 @@ async def handle_notifs(db, client):
             if gift_notify:
                 last_gift_time = user['last_gift']
                 if long_enough_for_gift(last_gift_time):
+                    print('We will contact '+member.name)
                     members_to_contact.append(member)
 
     bot_channel = guild.get_channel(constants.BOT_CHANNEL)
     for member in members_to_contact:
         user = user_exists(db, member.id)
-        await toggle_off_gift_notify(db, user)
+        toggle_off_gift_notify(db, user)
         await contact_member_about_gift(member, bot_channel)
 
 
