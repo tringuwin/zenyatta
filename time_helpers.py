@@ -30,10 +30,10 @@ def get_current_time():
     current_time = int(time.time())
     return current_time
 
-def long_enough_for_gift(user):
+def long_enough_for_gift(last_gift):
 
     current_time = get_current_time()
-    diff_in_time = current_time - user['last_gift']
+    diff_in_time = current_time - last_gift
 
     if diff_in_time >= constants.TIME_BETWEEN_GIFTS:
         return True, diff_in_time
