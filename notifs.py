@@ -5,12 +5,13 @@ from time_helpers import long_enough_for_gift
 from user import get_gift_notify, user_exists
 
 
-async def contact_member_about_gift(member):
+async def contact_member_about_gift(member, bot_channel):
     print('contacting '+member.name)
     try:
         await member.send('Your gift is ready in the Spicy Ragu server! Use the command **!gift** to claim it!')
     except discord.Forbidden:
         print('I could not dm the user')
+        await bot_channel.send(member.mention+" Your gift is ready! Use the command **!gift** to claim it! (I tried to DM you first but your privacy settings didn't let me).")
     except Exception as e:
         print(f'an unknown error occurred: {e}')
 
@@ -39,8 +40,9 @@ async def handle_notifs(db, client):
                 if long_enough_for_gift(last_gift_time):
                     members_to_contact.append(member)
 
+    bot_channel = guild.get_channel(constants.BOT_CHANNEL)
     for member in members_to_contact:
-        await contact_member_about_gift(member)
+        await contact_member_about_gift(member, bot_channel)
 
 
 
