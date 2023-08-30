@@ -283,7 +283,6 @@ async def give_daily_gift(db, message):
     if existing_user:
 
         current_time = int(time.time())
-        print(current_time)
 
         if 'last_gift' in existing_user:
             diff_in_time = current_time - existing_user['last_gift']

@@ -2,6 +2,7 @@ import threading
 import time
 import discord
 import asyncio
+from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
 import constants
 import traceback
@@ -120,7 +121,7 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!dailygift' or lower_message == '!gift':
 
-        await give_daily_gift(db, message)
+        await gift_handler(db, message)
 
     elif lower_message.startswith('!funfact '):
 

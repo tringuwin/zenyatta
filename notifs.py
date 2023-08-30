@@ -1,5 +1,6 @@
 from discord_actions import get_guild, get_role_by_id
 import constants
+from user import user_exists
 
 async def handle_notifs(db, client):
     
@@ -12,5 +13,9 @@ async def handle_notifs(db, client):
         if gift_role in member.roles:
             have_gift_notifs.append(member)
 
-    print(str(len(have_gift_notifs))+' people have gift notifs')
+    for member in have_gift_notifs:
+        user = user_exists(db, member.id)
+        if not user:
+            continue
+        
         
