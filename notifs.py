@@ -34,11 +34,11 @@ async def handle_notifs(db, client):
             continue
 
         print(member.name + ' has gift notify')
-        print(user)
         if 'last_gift' in user:
+            print(member.name+' has last gift')
             gift_notify = get_gift_notify(user)
             if gift_notify:
-                print(member.name+' has last gift')
+                print('gift notify is true')
                 last_gift_time = user['last_gift']
                 if long_enough_for_gift(last_gift_time):
                     print('We will contact '+member.name)
