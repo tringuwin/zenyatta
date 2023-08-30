@@ -7,6 +7,12 @@ async def get_guild(client):
     guild = client.get_guild(constants.GUILD_ID)
     return guild
 
+async def get_role_by_id(client, role_id):
+
+    guild = await get_guild()
+    role = guild.get_role(role_id)
+    return role
+
 async def give_role_to_user(client, discord_user, role_id):
     
     guild = await get_guild(client)
