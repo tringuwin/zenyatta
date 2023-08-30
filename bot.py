@@ -489,7 +489,7 @@ def run_discord_bot(db):
         elif message_id ==  constants.GIFT_NOTIF_MSG:
             guild = await get_guild(client)
             role = guild.get_role(constants.GIFT_ROLE_ID)
-            await member.remove_roles(role)
+            await member.add_roles(role)
 
     @client.event
     async def on_raw_reaction_remove(payload):
@@ -509,7 +509,7 @@ def run_discord_bot(db):
             await member.add_roles(role)
         elif message_id ==  constants.GIFT_NOTIF_MSG:
             role = guild.get_role(constants.GIFT_ROLE_ID)
-            await member.add_roles(role)
+            await member.remove(role)
 
     @client.event
     async def on_member_join(member):
