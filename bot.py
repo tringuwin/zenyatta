@@ -101,7 +101,13 @@ async def handle_message(message, db, client):
         event_idea_msg = await event_channel.send(embed=embed_msg)
         await event_idea_msg.add_reaction("👍")
 
-        await message.delete()
+        message_channel = message.channel
+        bot_response = await message_channel.send('Your event suggestion has been added!')
+        if not is_dm_channel(message_channel):
+            await message.delete()
+            time.sleep(5)
+            await bot_response.delete()
+
 
     elif lower_message == "!tokens":
 
