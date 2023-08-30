@@ -423,19 +423,9 @@ async def handle_message(message, db, client):
         reaction_roles = [
             
             {
-                'title': 'Server Notifications',
-                'id': constants.SERVER_NOTIFS_ROLE,
-                'extra': 'If you have this role you will be pinged about updates to this discord server such as new features.'
-            },
-            {
-                'title': 'Tourney Notifications',
-                'id': constants.TOURNEY_NOTIFS_ROLE,
-                'extra': 'If you have this role you will be pinged about upcoming tournaments as well as when a tournament goes live.'
-            },
-            {
-                'title': 'Twitch Notifications',
-                'id': constants.TWITCH_NOTIFS_ROLE,
-                'extra': 'If you have this role you will be pinged whenever SpicyRagu is live on Twitch.'
+                'title': 'Gift Notifications',
+                'id': constants.GIFT_ROLE_ID,
+                'extra': 'If you have this role you will be messaged by the bot when your daily gift is ready. This will not work if you are not registered.'
             }
         ]
             
@@ -444,8 +434,8 @@ async def handle_message(message, db, client):
         for role in reaction_roles:
             discord_role = guild.get_role(role['id'])
             
-            message = await channel.send('Add an emoji reaction to remove '+discord_role.mention+ ' role. Remove the reaction to add it back. Default is **ON**.\n*'+role['extra']+'*')
-            await message.add_reaction("❌")
+            message = await channel.send('Add an emoji reaction to get the '+discord_role.mention+ ' role. Remove the reaction to remove it. Default is **OFF**.\n*'+role['extra']+'*')
+            await message.add_reaction("✅")
 
     else:
         await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
@@ -496,6 +486,10 @@ def run_discord_bot(db):
             guild = await get_guild(client)
             role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
             await member.remove_roles(role)
+        elif message_id ==  constants.GIFT_NOTIF_MSG:
+            guild = await get_guild(client)
+            role = guild.get_role(constants.GIFT_ROLE_ID)
+            await member.remove_roles(role)
 
     @client.event
     async def on_raw_reaction_remove(payload):
@@ -512,6 +506,9 @@ def run_discord_bot(db):
             await member.add_roles(role)
         elif message_id ==  constants.TWITCH_NOTIF_MSG:
             role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
+            await member.add_roles(role)
+        elif message_id ==  constants.GIFT_NOTIF_MSG:
+            role = guild.get_role(constants.GIFT_ROLE_ID)
             await member.add_roles(role)
 
     @client.event
