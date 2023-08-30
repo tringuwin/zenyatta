@@ -40,7 +40,7 @@ from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild, is_dm_channel
-from mongo import add_fun_fact, approve_user, deny_user, generate_bracket, give_daily_gift, output_eggs, output_passes, output_tokens, switch_matches
+from mongo import add_fun_fact, approve_user, deny_user, generate_bracket, output_eggs, output_passes, output_tokens, switch_matches
 from notifs import handle_notifs
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from user import get_user_passes, get_user_tokens, user_exists
