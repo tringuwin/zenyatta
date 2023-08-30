@@ -481,7 +481,7 @@ def run_discord_bot(db):
         print(f'{client.user} is now running!')
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
 
-        client.loop.create_task(check_database_and_send_messages())
+        client.loop.create_task(check_database_and_send_messages(db, client))
 
         # notif_thread = threading.Thread(target=run_notifs_thread, args=(db, client,))
         # notif_thread.daemon = True
