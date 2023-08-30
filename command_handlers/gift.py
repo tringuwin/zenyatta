@@ -30,12 +30,12 @@ async def gift_handler(db, message):
         await message.channel.send(message.author.mention+" It looks like you're not registered yet. Please register first!")
         return
 
+    current_time = get_current_time()
     if 'last_gift' in existing_user:
         last_gift_time = existing_user['last_gift']
         long_enough, diff_in_time = long_enough_for_gift(last_gift_time)
        
         if long_enough:
-            current_time = get_current_time()
             await process_gift(db, current_time, existing_user, message)
         else:
             await message.channel.send(message.author.mention+" Your gift is not ready yet. Next gift in **"+time_to_gift(diff_in_time)+"**")
