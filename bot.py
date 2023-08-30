@@ -446,12 +446,24 @@ async def handle_message(message, db, client):
     else:
         await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
+async def fake_function():
+    print('this is a fake function')
+
 async def run_notifs(db, client):
 
     while True:
         print('i run every 60 seconds')
         await handle_notifs(db, client)
         time.sleep(60)
+
+async def check_database_and_send_messages(db, client):
+    while True:
+        
+        print('this is a test if i run every 60 seconds')
+        await fake_function()
+        #await handle_notifs(db, client)
+        
+        await asyncio.sleep(60)
 
 def run_notifs_thread(db, client):
     loop = asyncio.new_event_loop()
@@ -469,10 +481,12 @@ def run_discord_bot(db):
         print(f'{client.user} is now running!')
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
 
-        notif_thread = threading.Thread(target=run_notifs_thread, args=(db, client,))
-        notif_thread.daemon = True
-        notif_thread.start()
-        print('Thread started!')
+        client.loop.create_task(check_database_and_send_messages())
+
+        # notif_thread = threading.Thread(target=run_notifs_thread, args=(db, client,))
+        # notif_thread.daemon = True
+        # notif_thread.start()
+        # print('Thread started!')
 
     @client.event
     async def on_raw_reaction_add(payload):
