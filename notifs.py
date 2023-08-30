@@ -1,3 +1,4 @@
+import discord
 from discord_actions import get_guild, get_role_by_id
 import constants
 from time_helpers import long_enough_for_gift
@@ -6,6 +7,12 @@ from user import get_gift_notify, user_exists
 
 async def contact_member_about_gift(member):
     print('contacting '+member.name)
+    try:
+        await member.send('Your gift is ready in the Spicy Ragu server! Use the command **!gift** to claim it!')
+    except discord.Forbidden:
+        print('I could not dm the user')
+    except Exception as e:
+        print(f'an unknown error occurred: {e}')
 
 
 async def handle_notifs(db, client):
