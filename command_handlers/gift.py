@@ -6,7 +6,7 @@ import random
 
 async def process_gift(db, current_time, existing_user, message):
     users = db['users']
-    users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"last_gift": current_time}})
+    users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"last_gift": current_time, "gift_notify": True}})
     general_info = '\n*Come back in 8 hours for another gift!*'
 
     prize_index = random.randint(1, 100)
