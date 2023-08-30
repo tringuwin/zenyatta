@@ -233,69 +233,7 @@ async def output_eggs(db, message):
             users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"eggs": 0}})
             await message.channel.send("Your Eggs: 🥚**0**")
 
-async def process_gift(db, current_time, existing_user, message):
-    users = db['users']
-    users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"last_gift": current_time}})
-    general_info = '\n*Come back in 8 hours for another gift!*'
 
-    prize_index = random.randint(1, 100)
-    if prize_index == 1:
-        await change_tokens(db, existing_user, 100)
-        await message.channel.send(message.author.mention+" 🪙 **YOU FOUND 100 TOKENS!!** 🪙"+general_info)
-    elif prize_index <= 10:
-        await change_passes(db, existing_user, 1)
-        await message.channel.send(message.author.mention+" 🎟️ You found a **Priority Pass!** 🎟️"+general_info)
-    else:
-        tokens = random.randint(2, 5)
-        await change_tokens(db, existing_user, tokens)
-        await message.channel.send(message.author.mention+" 🪙 You found **"+ str(tokens)+" Tokens** 🪙"+general_info)
-
-
-
-def format_time(num, title):
-
-    if num == 0:
-        return ''
-
-    return str(num)+' '+title+' '
-
-def time_to_gift(diff_in_time):
-
-    time_to_gift = constants.TIME_BETWEEN_GIFTS - diff_in_time
-
-    hours = 0
-    minutes = 0
-
-    while time_to_gift > 3600:
-        hours += 1
-        time_to_gift -= 3600
-    while time_to_gift >= 60:
-        minutes += 1
-        time_to_gift -= 60
-
-    return format_time(hours, 'hours')+format_time(minutes, 'minutes')+format_time(time_to_gift, 'seconds')
-
-
-async def give_daily_gift(db, message):
-
-    existing_user = user_exists(db, message.author.id)
-
-    if existing_user:
-
-        current_time = int(time.time())
-
-        if 'last_gift' in existing_user:
-            diff_in_time = current_time - existing_user['last_gift']
-            if diff_in_time >= constants.TIME_BETWEEN_GIFTS:
-                await process_gift(db, current_time, existing_user, message)
-            else:
-                await message.channel.send(message.author.mention+" Your gift is not ready yet. Next gift in **"+time_to_gift(diff_in_time)+"**")
-
-        else:
-            await process_gift(db, current_time, existing_user, message)
-
-    else:
-        await message.channel.send(message.author.mention+" It looks like you're not registered yet. Please register first!")
 
 
 

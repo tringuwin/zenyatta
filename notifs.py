@@ -1,6 +1,12 @@
 from discord_actions import get_guild, get_role_by_id
 import constants
-from user import user_exists
+from time_helpers import long_enough_for_gift
+from user import get_gift_notify, user_exists
+
+
+async def contact_member_about_gift(member):
+    print('contacting '+member.name)
+
 
 async def handle_notifs(db, client):
     
@@ -13,9 +19,22 @@ async def handle_notifs(db, client):
         if gift_role in member.roles:
             have_gift_notifs.append(member)
 
+    members_to_contact = []
     for member in have_gift_notifs:
         user = user_exists(db, member.id)
         if not user:
             continue
-        
+
+        if 'last_gift' in user:
+            gift_notify = get_gift_notify(user)
+            if gift_notify:
+                last_gift_time = user['last_gift']
+                if long_enough_for_gift(last_gift_time):
+                    members_to_contact.append(member)
+
+    for member in members_to_contact:
+        await contact_member_about_gift(member)
+
+
+
         

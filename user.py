@@ -48,6 +48,13 @@ def get_user_teams(user):
         return user['teams']
     else:
         return []
+    
+def get_gift_notify(user):
+
+    if 'gift_notify' in user:
+        return user['gift_notify']
+    else:
+        return False
 
 def user_invited_to_team(team, user):
     
