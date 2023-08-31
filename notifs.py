@@ -40,7 +40,8 @@ async def handle_notifs(db, client):
             if gift_notify:
                 print('gift notify is true')
                 last_gift_time = user['last_gift']
-                if long_enough_for_gift(last_gift_time):
+                long_enough, diff_in_time = long_enough_for_gift(last_gift_time)
+                if long_enough:
                     print('We will contact '+member.name)
                     members_to_contact.append(member)
 
