@@ -4,7 +4,6 @@ import discord
 from discord_actions import is_dm_channel
 import constants
 
-
 async def suggest_event_handler(message, client):
     
     event_idea = message.content[len("!suggestevent "):].strip()

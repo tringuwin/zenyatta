@@ -257,21 +257,3 @@ async def switch_matches(db, message, event_id, match1, match2):
         await message.channel.send('Matches moved.')
     else:
         await message.channel.send("Could not find a bracket with that event id.")
-
-async def add_fun_fact(message, fun_fact, db):
-
-    existing_user = user_exists(db, message.author.id)
-
-    if existing_user:
-
-        users = db['users']
-
-        users.update_one({'discord_id': existing_user['discord_id']}, {"$set": {"fun_fact": fun_fact}})
-        print(existing_user)
-        await message.delete()
-        del_msg = await message.channel.send('Your fun fact has been added!')
-        time.sleep(5)
-        await del_msg.delete()
-
-    else:
-        await message.channel.send("It looks like you're not registered yet. Please register your battle tag before adding a fun fact.")

@@ -1,6 +1,7 @@
 import time
 import discord
 import asyncio
+from command_handlers.fun_fact import fun_fact_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
 from command_handlers.suggest_event import suggest_event_handler
@@ -104,9 +105,7 @@ async def handle_message(message, db, client):
         await gift_handler(db, message)
 
     elif lower_message.startswith('!funfact '):
-
-        fun_fact = message.content[len("!funfact "):].strip()
-        await add_fun_fact(message, fun_fact, db)
+        await fun_fact_handler(db, message)
 
     elif lower_message == "!hello":
         await hello_handler(message)
@@ -154,7 +153,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!helpteams'):
         await help_teams_hanlder(message)
-
 
     elif lower_message.startswith('!buy'):
         await buy_handler(db, message)
