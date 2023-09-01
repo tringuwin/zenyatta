@@ -4,7 +4,6 @@ import discord
 async def help_hanlder(message):
 
     help_embed = discord.Embed(title='List of commands:')
-    help_embed.add_field(name='!register', value='Show instructions to register', inline=False)
     help_embed.add_field(name='!battle BattleTagHere#1234', value='Register your battle tag with the SpicyRagu server', inline=False)
     help_embed.add_field(name='!helpteams', value='Show a list of commands related to making teams.', inline=False)
     help_embed.add_field(name='!events', value='Show a list of current server events', inline=False)

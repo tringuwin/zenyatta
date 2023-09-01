@@ -75,9 +75,6 @@ async def handle_message(message, db, client):
     if lower_message == '!help':
         await help_hanlder(message)
     
-    elif lower_message == '!register':
-        await message.channel.send(message.author.mention+' Hi! Thanks for registering. Please use the !battle command in this channel to input your Battle Tag. (Hint: you can find and copy your Battle Tag in the Battle Net app.) **Command example: !battle SpicyRagu#1708**')
-    
     elif lower_message.startswith('!battle '):
         await battle_handler(db, message, client)
 
