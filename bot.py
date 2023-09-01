@@ -1,6 +1,7 @@
 import time
 import discord
 import asyncio
+from admin_handlers.gen_bracket import gen_bracket_handler
 from command_handlers.fun_fact import fun_fact_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
@@ -41,7 +42,7 @@ from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild, is_dm_channel
-from mongo import generate_bracket, output_eggs, output_passes, output_tokens, switch_matches
+from mongo import output_eggs, output_passes, output_tokens, switch_matches
 from notifs import handle_notifs
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from user import get_user_passes, get_user_tokens, user_exists
@@ -160,27 +161,19 @@ async def handle_message(message, db, client):
     # ADMIN COMMANDS
 
     elif lower_message.startswith("!addevent") and is_admin:
-        
         # !addevent|[event id]|[event name]|[max participants]|[0 for no pass, 1 for pass]|[team size]|[event role id]
         await add_event_handler(db, message)
 
     elif lower_message.startswith("!delevent") and is_admin:
-
         # !delevent [event id]
         await delete_event_handler(db, message)
-
 
     elif lower_message.startswith('!pruneteamevent') and is_admin:
         await prune_team_event_handler(db, message)
 
     elif lower_message.startswith("!genbracket ") and is_admin:
-
-        # !bracket [event id]
-        word_list = message.content.split()
-        if len(word_list) == 2:
-            await generate_bracket(db, message, word_list[1])
-        else:
-            await message.channel.send("Invalid number of arguments.")
+        # !genbracket [event id]
+        await gen_bracket_handler(db, message)
 
     elif lower_message.startswith("!wipebrackets") and is_admin:
             

@@ -91,36 +91,6 @@ async def give_event_role(client, member_id):
         if member:
             await member.add_roles(role)
 
-async def generate_bracket(db, message, event_id):
-    
-    event = get_event_by_id(db, event_id)
-    if not event:
-        await message.channel.send("I couldn't find any event with that ID.")
-        return
-
-
-    existing_bracket = await get_bracket_by_event_id(db, event_id)
-    if existing_bracket:
-        await message.channel.send("A bracket has already been generated for this event.")
-        return
-    
-   
-    brackets = db['brackets']
-
-    round1 = event['entries'].copy()
-    random.shuffle(round1)
-    event_size = get_event_team_size(event)
-
-    new_bracket = {
-        "event_id": event_id,
-        "bracket": await make_bracket_from_users(round1, db, event_size)
-    }
-
-    brackets.insert_one(new_bracket)
-
-    await message.channel.send("Bracket has been created for event "+event_id)
-    print(new_bracket)
-
 
 
 async def output_tokens(db, message):
