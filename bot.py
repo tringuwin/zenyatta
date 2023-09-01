@@ -466,11 +466,6 @@ def run_discord_bot(db):
 
         client.loop.create_task(check_database_and_send_messages(db, client))
 
-        # notif_thread = threading.Thread(target=run_notifs_thread, args=(db, client,))
-        # notif_thread.daemon = True
-        # notif_thread.start()
-        # print('Thread started!')
-
     @client.event
     async def on_raw_reaction_add(payload):
 
