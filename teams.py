@@ -135,7 +135,7 @@ def add_invite_to_team(db, team, user_id):
 
     teams = db['teams']
 
-    invites = get_team_invites()
+    invites = get_team_invites(team)
     invites.append(user_id)
 
     teams.update_one({'team_name': team['team_name']}, {"$set": {"invites": invites}})
