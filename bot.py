@@ -450,9 +450,7 @@ async def handle_message(message, db, client):
 async def check_database_and_send_messages(db, client):
     while True:
         
-        print('i run every 60 seconds')
         await handle_notifs(db, client)
-        
         await asyncio.sleep(60)
 
 def run_discord_bot(db):
