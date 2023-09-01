@@ -34,6 +34,7 @@ async def make_team(db, creator, team_size, team_name):
         'lower_team_name': team_name.lower(),
         'team_size': team_size,
         'members': [creator['discord_id']],
+        'invites': []
     }
     teams.insert_one(new_team)
     add_team_to_user(db, creator, team_name)
@@ -121,3 +122,21 @@ async def delete_team(db, team):
 def user_owns_team(team, user_id):
     
     return team['creator_id'] == user_id
+
+
+def get_team_invites(team):
+
+    if 'invites' in team:
+        return team['invites']
+    else:
+        return []
+
+
+def add_invite_to_team(db, team, user_id):
+
+    teams = db['teams']
+
+    invites = get_team_invites()
+    invites.append(user_id)
+
+    teams.update_one({'team_name': team['team_name']}, {"$set": {"invites": invites}})

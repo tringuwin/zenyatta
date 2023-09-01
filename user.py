@@ -1,5 +1,7 @@
 import copy
 
+from teams import get_team_invites
+
 
 def user_exists(db, discord_id):
     
@@ -66,9 +68,13 @@ def toggle_off_gift_notify(db, user):
 def user_invited_to_team(team, user):
     
     user_invites = get_user_invites(user)
-
     for invite in user_invites:
         if invite.lower() == team['lower_team_name']:
+            return True
+        
+    team_invites = get_team_invites(team)
+    for invite in team_invites:
+        if user['discord_id'] == invite:
             return True
         
     return False

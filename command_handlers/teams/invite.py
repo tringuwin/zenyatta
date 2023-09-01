@@ -1,7 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import make_string_from_word_list
-from teams import get_team_by_name, invite_user_to_team, team_is_full, user_on_team
+from teams import add_invite_to_team, get_team_by_name, invite_user_to_team, team_is_full, user_on_team
 from user import user_exists, user_invited_to_team
 
 
@@ -51,4 +51,5 @@ async def invite_handler(db, message):
         return
     
     await invite_user_to_team(db, team, invited_user)
+    add_invite_to_team(db, team, invited_user['discord_id'])
     await message.channel.send('User was successfully invited to the team!')
