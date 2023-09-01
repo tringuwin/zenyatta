@@ -1,9 +1,9 @@
-import threading
 import time
 import discord
 import asyncio
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
+from command_handlers.suggest_event import suggest_event_handler
 import constants
 import traceback
 from admin_handlers.add_event import add_event_handler
@@ -72,6 +72,7 @@ async def handle_message(message, db, client):
         await warning.delete()
         return
     
+
     if lower_message == '!help':
         await help_hanlder(message)
     
@@ -85,45 +86,21 @@ async def handle_message(message, db, client):
         await join_handler(db, message, client)
     
     elif lower_message.startswith("!suggestevent "):
-        event_idea = message.content[len("!suggestevent "):].strip()
-
-        event_channel = client.get_channel(constants.SUGGEST_CHANNEL)
-
-        embed_msg = discord.Embed(
-            title = "Event Idea From "+message.author.name,
-            description=event_idea
-        )
-        embed_msg.set_footer(text="Suggest your own idea using the command !suggestevent [event idea here]", icon_url=message.author.display_avatar)
-
-        event_idea_msg = await event_channel.send(embed=embed_msg)
-        await event_idea_msg.add_reaction("👍")
-
-        message_channel = message.channel
-        bot_response = await message_channel.send('Your event suggestion has been added!')
-        if not is_dm_channel(message_channel):
-            await message.delete()
-            time.sleep(5)
-            await bot_response.delete()
-
+        await suggest_event_handler(message, client)
 
     elif lower_message == "!tokens":
-
         await output_tokens(db, message)
 
     elif lower_message == "!passes":
-
         await output_passes(db, message)
 
     elif lower_message == "!eggs":
-
         await output_eggs(db, message)
 
     elif lower_message == "!sellpass":
-
         await sell_pass_for_tokens(db, message)
 
     elif lower_message == '!dailygift' or lower_message == '!gift':
-
         await gift_handler(db, message)
 
     elif lower_message.startswith('!funfact '):
@@ -139,6 +116,8 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!wager'):
         await wager_handler(db, message)
+
+    # TEAM COMMANDS
 
     elif lower_message == '!teams':
         await teams_handler(db, message)
