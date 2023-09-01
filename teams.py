@@ -114,6 +114,11 @@ async def delete_team(db, team):
         if user:
             await remove_user_from_team(db, user, team)
 
+    for invite in get_team_invites(team):
+        user = user_exists(db, invite)
+        if user:
+            await remove_team_invite(db, user, team['team_name'])
+
     teams = db['teams']
     teams.delete_one({'team_name': team['team_name']})
 
