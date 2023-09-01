@@ -140,6 +140,18 @@ def add_invite_to_team(db, team, user_id):
 
     teams.update_one({'team_name': team['team_name']}, {"$set": {"invites": invites}})
 
+def remove_invite_from_team(db, team, user_id):
+
+    teams = db['teams']
+
+    invites = get_team_invites(team)
+    final_team_invites = []
+    for invite in invites:
+        if not (invite == user_id):
+            final_team_invites.append(invite)
+
+    teams.update_one({'team_name': team['team_name']}, {"$set": {"invites": final_team_invites}})
+
 def user_invited_to_team(team, user):
     
     user_invites = get_user_invites(user)
