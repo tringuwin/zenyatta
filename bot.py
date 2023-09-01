@@ -41,7 +41,7 @@ from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild, is_dm_channel
-from mongo import approve_user, deny_user, generate_bracket, output_eggs, output_passes, output_tokens, switch_matches
+from mongo import generate_bracket, output_eggs, output_passes, output_tokens, switch_matches
 from notifs import handle_notifs
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from user import get_user_passes, get_user_tokens, user_exists
@@ -169,24 +169,6 @@ async def handle_message(message, db, client):
         # !delevent [event id]
         await delete_event_handler(db, message)
 
-    elif lower_message.startswith("!approve ") and is_admin:
-
-        # !approve [user_id] [event id]
-        word_list = message.content.split()
-        if len(word_list) == 3:
-            await approve_user(db, int(word_list[1]), word_list[2], client, message)
-        else:
-            await message.channel.send("Invalid number of arguments.")
-
-
-    elif lower_message.startswith("!deny") and is_admin:
-
-        # !deny|[user id]|[event id]|[reason]
-        word_list = message.content.split('|')
-        if len(word_list) == 4:
-            await deny_user(db, int(word_list[1]), word_list[2], word_list[3], client, message)
-        else:
-            await message.channel.send("Invalid number of arguments.")
 
     elif lower_message.startswith('!pruneteamevent') and is_admin:
         await prune_team_event_handler(db, message)

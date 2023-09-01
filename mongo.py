@@ -82,34 +82,6 @@ def create_event(db, event_id, event_name, max_players, pass_required, team_size
 
     events.insert_one(new_event)
 
-
-async def deny_user(db, discord_id, event_id, deny_reason, discord_client, message):
-
-    existing_user = user_exists(db, discord_id)
-    if existing_user:
-
-        users = db['users']
-
-        new_user = copy.deepcopy(existing_user)
-        new_user_entries = new_user['entries']
-        for entry in new_user_entries:
-            if entry['event_id'] == event_id:
-                entry['status'] = "Denied with the following reason: "+deny_reason
-        users.update_one({"discord_id": discord_id}, {"$set": {"entries": new_user['entries']}})
-
-        user = await discord_client.fetch_user(int(discord_id))
-        if user:
-            try:
-                await user.send("Update for your request to join event "+event_id+": **You were denied with the following reason: "+deny_reason+"**\nWe encourage you to join future events!")
-                await message.channel.send("The user was notified of their denial.")
-            except discord.Forbidden:
-                await message.channel.send('I was not able to DM the user.')
-        else:
-            await message.channel.send("I couldn't find any discord user with that discord ID.")
-
-    else:
-        await message.channel.send("I didn't find any registered user with that discord ID")
-
 async def give_event_role(client, member_id):
     guild = client.get_guild(constants.GUILD_ID)
     role = guild.get_role(constants.EVENT_ROLE)
@@ -118,47 +90,6 @@ async def give_event_role(client, member_id):
         member = guild.get_member(member_id)
         if member:
             await member.add_roles(role)
-
-async def approve_user(db, discord_id, event_id, discord_client, message):
-
-    existing_user = user_exists(db, discord_id)
-    if existing_user:
-
-        events = db['events']
-        my_event = get_event_by_id(db, event_id)
-        if my_event:
-
-            new_event = copy.deepcopy(my_event)
-            new_event['entries'].append(discord_id)
-            events.update_one({"event_id": event_id}, {"$set": {"entries": new_event['entries']}})
-            events.update_one({"event_id": event_id}, {"$set": {"spots_filled": new_event['spots_filled'] + 1}})
-            print(get_event_by_id(db, event_id))
-
-            users = db['users']
-            new_user = copy.deepcopy(existing_user)
-            new_user_entries = new_user['entries']
-            for entry in new_user_entries:
-                if entry['event_id'] == event_id:
-                    entry['status'] = "Approved"
-            users.update_one({"discord_id": discord_id}, {"$set": {"entries": new_user['entries']}})
-
-            user = await discord_client.fetch_user(int(discord_id))
-            if user:
-                try:
-                    await give_event_role(discord_client, int(discord_id))
-                    await user.send("You're in! You were approved for participation in **event "+event_id+"**!! Make sure to keep up to date on information so you don't miss it!")
-                    await message.channel.send("The user was notified of their approval.")
-                except discord.Forbidden:
-                    await message.channel.send('I was not able to DM the user.')
-            else:
-                await message.channel.send("I couldn't find any discord user with that discord ID.")
-        else:
-            await message.channel.send("I could not find an event with that ID.")
-
-    else:
-        await message.channel.send("I didn't find any registered user with that discord ID")
-
-
 
 async def generate_bracket(db, message, event_id):
     
