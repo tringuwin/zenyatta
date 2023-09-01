@@ -445,7 +445,6 @@ def run_discord_bot(db):
     @client.event
     async def on_raw_reaction_add(payload):
 
-        print('reaction added')
         message_id = payload.message_id
         member = payload.member
         if message_id == constants.SERVER_NOTIF_MSG:
@@ -467,7 +466,6 @@ def run_discord_bot(db):
 
     @client.event
     async def on_raw_reaction_remove(payload):
-        print('reaction remove')
         guild = await get_guild(client)
         message_id = payload.message_id
         user_id = payload.user_id
