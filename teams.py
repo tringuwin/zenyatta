@@ -1,5 +1,4 @@
 
-from helpers import make_string_from_word_list
 from user import add_team_to_user, get_user_invites, get_user_teams, user_exists
 
 
@@ -140,3 +139,17 @@ def add_invite_to_team(db, team, user_id):
     invites.append(user_id)
 
     teams.update_one({'team_name': team['team_name']}, {"$set": {"invites": invites}})
+
+def user_invited_to_team(team, user):
+    
+    user_invites = get_user_invites(user)
+    for invite in user_invites:
+        if invite.lower() == team['lower_team_name']:
+            return True
+        
+    team_invites = get_team_invites(team)
+    for invite in team_invites:
+        if user['discord_id'] == invite:
+            return True
+        
+    return False

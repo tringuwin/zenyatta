@@ -1,8 +1,8 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import make_string_from_word_list
-from teams import get_team_by_name, remove_team_invite
-from user import user_exists, user_invited_to_team
+from teams import get_team_by_name, remove_team_invite, user_invited_to_team
+from user import user_exists
 
 
 async def deny_invite_handler(db, message):

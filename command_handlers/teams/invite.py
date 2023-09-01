@@ -1,8 +1,8 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import make_string_from_word_list
-from teams import add_invite_to_team, get_team_by_name, invite_user_to_team, team_is_full, user_on_team
-from user import user_exists, user_invited_to_team
+from teams import add_invite_to_team, get_team_by_name, invite_user_to_team, team_is_full, user_invited_to_team, user_on_team
+from user import user_exists
 
 
 async def invite_handler(db, message):
