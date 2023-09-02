@@ -26,7 +26,7 @@ guide_string += '- Gift command once every 8 hours (!gift)\n'
 guide_string += '- Use Twitch "Sauce Points" (Look under the twitch chat and find custom rewards)\n'
 guide_string += '- Subscribe on Twitch (🪙 300)\n'
 guide_string += '- Gift a sub on Twitch (🪙 300)\n'
-guide_string += '- Invite a friend to this server (🪙 100 for you and 🪙 100 for your friend) **[DM me to claim when your friend joins]**\n'
+guide_string += '- Invite a friend to this server (🪙 100 for you and 🪙 100 for your friend) **[DM SpicyRagu to claim when your friend joins]**\n'
 
 async def update_shop(db, message):
     shop = db['shop']
