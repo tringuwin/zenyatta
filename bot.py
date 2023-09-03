@@ -2,6 +2,7 @@ import time
 import discord
 import asyncio
 from admin_handlers.gen_bracket import gen_bracket_handler
+from command_handlers.donate import donate_handler
 from command_handlers.fun_fact import fun_fact_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
@@ -117,6 +118,12 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!wager'):
         await wager_handler(db, message)
 
+    elif lower_message.startswith('!buy'):
+        await buy_handler(db, message)
+
+    elif lower_message.startswith('!donate'):
+        await donate_handler(db, message)
+
     # TEAM COMMANDS
 
     elif lower_message == '!teams':
@@ -154,9 +161,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!helpteams'):
         await help_teams_hanlder(message)
-
-    elif lower_message.startswith('!buy'):
-        await buy_handler(db, message)
 
     # ADMIN COMMANDS
 
