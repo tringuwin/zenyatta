@@ -122,7 +122,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!buy'):
         await buy_handler(db, message)
 
-    elif lower_message.startswith('!donate'):
+    elif lower_message.startswith('!donate '):
         await donate_handler(db, message)
 
     elif lower_message.startswith('!donatepass'):
