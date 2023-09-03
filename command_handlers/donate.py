@@ -23,6 +23,8 @@ async def donate_handler(db, message):
         return
     
     int_tokens = int(num_tokens_to_give)
+    if int_tokens <= 0:
+        await message.channel.send("What? Umm, no you can't do that.")
 
     user_tokens = get_user_tokens(user)
     if user_tokens < int_tokens:
