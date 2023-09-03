@@ -34,8 +34,11 @@ async def donate_handler(db, message):
         return
     
     account_age = datetime.now(timezone.utc) - message.author.created_at
-    print(account_age)
-    print(type(account_age))
+    account_days = account_age.days
+    if account_days < 60:
+        await message.channel.send('Your discord account was created less than 60 days ago. To prevent alt account spam, only accounts 60 days or older can use the donate command.')
+        return
+
 
     mentions = message.mentions
     if len(mentions) != 1:
