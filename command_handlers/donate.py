@@ -3,7 +3,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
 from user import get_user_tokens, user_exists
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 async def donate_handler(db, message):
@@ -33,7 +33,7 @@ async def donate_handler(db, message):
         await message.channel.send('You do not have enough tokens for this donation.')
         return
     
-    account_age = datetime.now() - message.author.created_at
+    account_age = datetime.now(timezone.utc) - message.author.created_at
     print(account_age)
     print(type(account_age))
 
