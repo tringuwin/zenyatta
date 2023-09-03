@@ -43,12 +43,12 @@ def get_roulette_details():
 
 def roulette_spin_to_emojis(spin_array):
 
-    final_string = '⬜⬜⬜⬜⬇️⬜⬜⬜⬜\n'
+    final_string = '-⬜⬜⬜⬜⬇️⬜⬜⬜⬜-\n-'
 
     for color in spin_array:
         final_string += color_to_emoji[color]
 
-    final_string += '\n⬜⬜⬜⬜⬆️⬜⬜⬜⬜'
+    final_string += '-\n-⬜⬜⬜⬜⬆️⬜⬜⬜⬜-'
 
     return final_string
 
