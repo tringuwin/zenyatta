@@ -33,7 +33,7 @@ async def donate_handler(db, message):
         await message.channel.send('You do not have enough tokens for this donation.')
         return
     
-    account_age = datetime.now() - user.created_at
+    account_age = datetime.now() - message.author.created_at
     print(account_age)
     print(type(account_age))
 
