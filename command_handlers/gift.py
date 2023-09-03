@@ -1,3 +1,4 @@
+from common_messages import not_registered_response
 from rewards import change_passes, change_tokens
 from time_helpers import get_current_time, long_enough_for_gift, time_to_gift
 from user import user_exists
@@ -27,7 +28,7 @@ async def gift_handler(db, message):
 
     existing_user = user_exists(db, message.author.id)
     if not existing_user:
-        await message.channel.send(message.author.mention+" It looks like you're not registered yet. Please register first!")
+        await not_registered_response(message)
         return
 
     current_time = get_current_time()
