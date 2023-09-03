@@ -3,6 +3,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
 from user import get_user_tokens, user_exists
+from datetime import datetime
 
 
 async def donate_handler(db, message):
@@ -31,6 +32,10 @@ async def donate_handler(db, message):
     if user_tokens < int_tokens:
         await message.channel.send('You do not have enough tokens for this donation.')
         return
+    
+    account_age = datetime.now() - user.created_at
+    print(account_age)
+    print(type(account_age))
 
     mentions = message.mentions
     if len(mentions) != 1:
