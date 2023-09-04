@@ -377,7 +377,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!say') and is_admin:
         
         rest = message.content[len("!say "):].strip()
-        guild = get_guild()
+        guild = get_guild(client)
         chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
         await chat_channel.send(rest)
 
