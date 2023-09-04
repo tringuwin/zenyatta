@@ -374,6 +374,13 @@ async def handle_message(message, db, client):
         await close_event_handler(db, message)
     elif lower_message.startswith('!setstock') and is_admin:
         await set_stock_handler(db, message)
+    elif lower_message.startswith('!say') and is_admin:
+        
+        rest = message.content[len("!say "):].strip()
+        guild = get_guild()
+        chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
+        await chat_channel.send(rest)
+
     elif lower_message == '!testerror' and is_admin:
 
         test = {
