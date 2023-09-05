@@ -43,7 +43,7 @@ from command_handlers.teams.team_join import team_join_handler
 from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
-from discord_actions import get_guild, is_dm_channel
+from discord_actions import get_guild, get_member_by_username, is_dm_channel
 from mongo import output_eggs, output_passes, output_tokens, switch_matches
 from notifs import handle_notifs
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
@@ -298,7 +298,7 @@ async def handle_message(message, db, client):
         # !givetokens [winner id] [tokens]
         word_list = message.content.split()
         if len(word_list) == 3:
-            await give_tokens_command(db, int(word_list[1]), int(word_list[2]), message)
+            await give_tokens_command(client, db, int(word_list[1]), int(word_list[2]), message)
         else:
             await message.channel.send("Invalid number of arguments.")
 
@@ -335,22 +335,14 @@ async def handle_message(message, db, client):
         word_list = message.content.split()
         if len(word_list) == 2:
             
-            for member in client.get_all_members():
+            member = get_member_by_username(client, word_list[1])
+            user = user_exists(db, member.id)
+            if user:
+                final_string = 'User ID: '+str(member.id)+"\nBattle Tag: "+user['battle_tag']
+                final_string += '\nTokens: '+str(get_user_tokens(user))+'\n'+'Passes: '+str(get_user_passes(user))
+                await message.channel.send(final_string)
 
-                disc = member.discriminator
-                final_name = member.name
-                if disc != '0':
-                    final_name = final_name+"#"+disc
-
-                if word_list[1] == final_name:
-                    
-                    user = user_exists(db, member.id)
-                    if user:
-                        final_string = 'User ID: '+str(member.id)+"\nBattle Tag: "+user['battle_tag']
-                        final_string += '\nTokens: '+str(get_user_tokens(user))+'\n'+'Passes: '+str(get_user_passes(user))
-                        await message.channel.send(final_string)
-
-                    break
+            
         else:
             await message.channel.send("Invalid number of arguments.")
 

@@ -1,5 +1,7 @@
 
 
+from discord_actions import get_member_by_username
+from helpers import can_be_int
 from user import user_exists
 
 
@@ -16,17 +18,22 @@ async def change_tokens(db, user, num):
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"tokens": num}})
 
 
-async def give_tokens_command(db, user_id, num, message):
+async def give_tokens_command(client, db, user_id, num, message):
 
-    user = user_exists(db, int(user_id))
-
+    user = None
+    if can_be_int(user_id):
+        user = user_exists(db, int(user_id))
     if user:
-        print('user exists')
         await change_tokens(db, user, num)
-
-        await message.channel.send('Tokens given')
     else:
-        await message.channel.send('Could not find user with that ID')
+        member = get_member_by_username(client, user_id)
+        user = None
+        if member:
+            user = user_exists(member.id)
+        if user:
+            await change_tokens(db, user, num)
+        else:
+            await message.channel.send('Could not find user with that ID')
 
 async def change_passes(db, user, num):
 

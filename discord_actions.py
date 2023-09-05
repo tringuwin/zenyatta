@@ -27,6 +27,20 @@ async def get_user_from_guild(client, user_id):
 
     return discord_user
 
+async def get_member_by_username(client, username):
+
+    for member in client.get_all_members():
+
+        disc = member.discriminator
+        final_name = member.name
+        if disc != '0':
+            final_name = final_name+"#"+disc
+
+        if username == final_name:
+            return member
+
+    return None
+
 def is_dm_channel(channel):
 
     if isinstance(channel, discord.DMChannel):
