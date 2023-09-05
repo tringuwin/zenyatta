@@ -335,7 +335,7 @@ async def handle_message(message, db, client):
         word_list = message.content.split()
         if len(word_list) == 2:
             
-            member = get_member_by_username(client, word_list[1])
+            member = await get_member_by_username(client, word_list[1])
             user = user_exists(db, member.id)
             if user:
                 final_string = 'User ID: '+str(member.id)+"\nBattle Tag: "+user['battle_tag']

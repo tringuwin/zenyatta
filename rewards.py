@@ -26,7 +26,7 @@ async def give_tokens_command(client, db, user_id, num, message):
     if user:
         await change_tokens(db, user, num)
     else:
-        member = get_member_by_username(client, user_id)
+        member = await get_member_by_username(client, user_id)
         user = None
         if member:
             user = user_exists(member.id)
