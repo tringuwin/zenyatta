@@ -25,6 +25,7 @@ async def give_tokens_command(client, db, user_id, num, message):
         user = user_exists(db, int(user_id))
     if user:
         await change_tokens(db, user, num)
+        await message.channel.send('Tokens given')
     else:
         member = await get_member_by_username(client, user_id)
         user = None
@@ -32,6 +33,7 @@ async def give_tokens_command(client, db, user_id, num, message):
             user = user_exists(member.id)
         if user:
             await change_tokens(db, user, num)
+            await message.channel.send('Tokens given')
         else:
             await message.channel.send('Could not find user with that ID')
 
