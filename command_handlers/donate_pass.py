@@ -40,6 +40,10 @@ async def donate_pass_handler(db, message):
         await message.channel.send('That user is not registered yet.')
         return
     
+    if donate_to_user == user:
+        await message.channel.send("You can't donate to yourself...")
+        return
+    
     await change_passes(db, user, -1)
     await change_passes(db, donate_to_user, 1)
     await message.channel.send('Donation successful!')
