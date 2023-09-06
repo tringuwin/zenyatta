@@ -38,7 +38,7 @@ async def prune_team_event_handler(db, message, client):
     guild = await get_guild(client)
     for team in valid_teams:
         for team_member in team['members']:
-            member = get_member_by_id(guild, team_member)
+            member = await get_member_by_id(guild, team_member)
             print('add role for '+member.name)
             #await member.add_roles(event_role)
 
