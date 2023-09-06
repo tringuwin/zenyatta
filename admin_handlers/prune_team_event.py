@@ -43,7 +43,7 @@ async def prune_team_event_handler(db, message, client):
             #await member.add_roles(event_role)
 
 
-
+    print(len(valid_teams))
     # events = db['events']
-    # events.update_one({"event_id": event['event_id']}, {"$set": {"entries": valid_entries}})
+    # events.update_one({"event_id": event['event_id']}, {"$set": {"entries": valid_entries, "spots_filled": len(valid_teams)}})
     
