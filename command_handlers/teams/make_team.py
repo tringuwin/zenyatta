@@ -38,7 +38,7 @@ async def make_team_handler(db, message):
                     await message.channel.send('A team with this name already exists. Try another name!')
                 else:
                     await make_team(db, user, team_size, team_name)
-                    await message.channel.send('Success! Your new team has been created.')
+                    await message.channel.send('Success! Your new team has been created. To invite someone to your team use the command **!invite @Player '+team_name+'**')
 
         else:
             await not_registered_response(message)
