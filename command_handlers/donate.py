@@ -52,6 +52,7 @@ async def donate_handler(db, message):
     
     if donate_to_user == user:
         await message.channel.send("You can't donate to yourself...")
+        return
     
     await change_tokens(db, user, -1*int_tokens)
     await change_tokens(db, donate_to_user, int_tokens)
