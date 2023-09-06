@@ -298,7 +298,7 @@ async def handle_message(message, db, client):
         # !givetokens [winner id] [tokens]
         word_list = message.content.split()
         if len(word_list) == 3:
-            await give_tokens_command(client, db, int(word_list[1]), int(word_list[2]), message)
+            await give_tokens_command(client, db, word_list[1], int(word_list[2]), message)
         else:
             await message.channel.send("Invalid number of arguments.")
 
