@@ -20,6 +20,7 @@ async def give_role_to_user(client, discord_user, role_id):
 
     await discord_user.add_roles(role)
 
+
 async def get_user_from_guild(client, user_id):
 
     guild = await get_guild(client)
@@ -40,6 +41,10 @@ async def get_member_by_username(client, username):
             return member
 
     return None
+
+async def get_member_by_id(guild, id):
+
+    return await guild.fetch_member(id)
 
 def is_dm_channel(channel):
 
