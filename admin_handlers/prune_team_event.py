@@ -40,10 +40,9 @@ async def prune_team_event_handler(db, message, client):
         for team_member in team['members']:
             member = await get_member_by_id(guild, team_member)
             print('add role for '+member.name)
-            #await member.add_roles(event_role)
+            await member.add_roles(event_role)
 
 
-    print(len(valid_teams))
-    # events = db['events']
-    # events.update_one({"event_id": event['event_id']}, {"$set": {"entries": valid_entries, "spots_filled": len(valid_teams)}})
+    events = db['events']
+    events.update_one({"event_id": event['event_id']}, {"$set": {"entries": valid_entries, "spots_filled": len(valid_teams)}})
     
