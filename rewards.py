@@ -48,16 +48,24 @@ async def change_passes(db, user, num):
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"passes": num}})
 
 
-async def give_passes_command(db, user_id, num, message):
+async def give_passes_command(client, db, user_id, num, message):
 
-    user = user_exists(db, int(user_id))
-
+    user = None
+    if can_be_int(user_id):
+        user = user_exists(db, int(user_id))
     if user:
         await change_passes(db, user, num)
         await message.channel.send('Passes given')
     else:
-        await message.channel.send('Could not find user with that ID')
-
+        member = await get_member_by_username(client, user_id)
+        user = None
+        if member:
+            user = user_exists(db, member.id)
+        if user:
+            await change_passes(db, user, num)
+            await message.channel.send('Passes given')
+        else:
+            await message.channel.send('Could not find user with that ID')
 
 async def sell_pass_for_tokens(db, message):
 
