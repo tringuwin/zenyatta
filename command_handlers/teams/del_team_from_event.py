@@ -26,6 +26,6 @@ async def del_team_from_event_handler(db, message):
             final_entries.append(entry)
     print(str(len(final_entries)))
 
-    # events = db['events']
-    # events.update_one({"event_id": event['event_id']}, {"$set": {"entries": final_entries, "spots_filled": len(final_entries)}})
+    events = db['events']
+    events.update_one({"event_id": event['event_id']}, {"$set": {"entries": final_entries, "spots_filled": len(final_entries)}})
     await message.channel.send('command done')
