@@ -8,6 +8,7 @@ from command_handlers.fun_fact import fun_fact_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
 from command_handlers.suggest_event import suggest_event_handler
+from command_handlers.teams.get_teams import get_teams_handler
 import constants
 import traceback
 from admin_handlers.add_event import add_event_handler
@@ -132,6 +133,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!teams':
         await teams_handler(db, message)
+
+    elif lower_message.startswith('!getteams ') and is_admin:
+        await get_teams_handler(db, message)
 
     elif lower_message.startswith('!teamdetails'):
         await team_details_hanlder(db, message)
