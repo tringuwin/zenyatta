@@ -1,6 +1,6 @@
 import discord
 
-async def help_teams_hanlder(message):
+async def help_teams_handler(message):
 
     help_embed = discord.Embed(title='List of teams commands:')
     help_embed.add_field(name='!teams', value='See the teams that you are currenrly part of.', inline=False)

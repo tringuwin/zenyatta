@@ -8,6 +8,7 @@ from command_handlers.fun_fact import fun_fact_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
 from command_handlers.suggest_event import suggest_event_handler
+from command_handlers.teams.del_team_from_event import del_team_from_event_handler
 from command_handlers.teams.get_teams import get_teams_handler
 import constants
 import traceback
@@ -31,7 +32,7 @@ from command_handlers.join import join_handler
 from command_handlers.teams.accept_invite import accept_invite_handler
 from command_handlers.teams.delete_team import delete_team_handler
 from command_handlers.teams.deny_invite import deny_invite_handler
-from command_handlers.teams.help_teams import help_teams_hanlder
+from command_handlers.teams.help_teams import help_teams_handler
 from command_handlers.teams.invite import invite_handler
 from command_handlers.teams.kick_player import kick_player_handler
 from command_handlers.teams.leave_team import leave_team_handler
@@ -168,7 +169,10 @@ async def handle_message(message, db, client):
         await kick_player_handler(db, message)
 
     elif lower_message.startswith('!helpteams'):
-        await help_teams_hanlder(message)
+        await help_teams_handler(message)
+
+    elif lower_message.startswith('!delteamfromevent') and is_admin:
+        await del_team_from_event_handler(db, message)
 
     # ADMIN COMMANDS
 
