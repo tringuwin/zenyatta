@@ -5,7 +5,7 @@ from helpers import make_string_from_word_list
 
 async def del_team_from_event_handler(db, message):
 
-    word_list = message.split()
+    word_list = message.content.split()
     if len(word_list) < 2: 
         await message.channel.send('Not enough parameters')
         return
