@@ -58,8 +58,6 @@ async def handle_message(message, db, client):
     if not is_command:
         return
     
-    print(user_message)
-    
     channel = str(message.channel)
     lower_message = user_message.lower()
 
