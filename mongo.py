@@ -2,6 +2,7 @@ import copy
 import random
 import time
 import discord
+from common_messages import not_registered_response
 import constants
 from bracket import get_bracket_by_event_id, make_bracket_from_users
 from events import get_event_by_id, get_event_team_size
@@ -107,6 +108,10 @@ async def output_tokens(db, message):
             users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"tokens": 0}})
             await message.channel.send("Your tokens: 🪙**0**")
 
+    else:
+        await not_registered_response(message)
+        
+
 
 async def output_passes(db, message):
 
@@ -120,6 +125,9 @@ async def output_passes(db, message):
             users = db['users']
             users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"passes": 0}})
             await message.channel.send("Your Priority Passes: 🎟️**0**")
+    
+    else:
+        await not_registered_response(message)
 
 async def output_eggs(db, message):
 
@@ -133,6 +141,9 @@ async def output_eggs(db, message):
             users = db['users']
             users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"eggs": 0}})
             await message.channel.send("Your Eggs: 🥚**0**")
+
+    else:
+        await not_registered_response(message)
 
 
 
