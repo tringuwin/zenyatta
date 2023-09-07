@@ -180,6 +180,7 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!pruneteamevent') and is_admin:
         await prune_team_event_handler(db, message, client)
+        
 
     elif lower_message.startswith("!genbracket ") and is_admin:
         # !genbracket [event id]
