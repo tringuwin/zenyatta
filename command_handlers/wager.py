@@ -187,7 +187,7 @@ async def twager_handler(db, message):
         if result == lower_bet:
 
             if result == 'yellow':
-                token_change += int(wager * 100)
+                token_change += int(wager * 101)
             else:
                 token_change += int(wager * 2)
 
