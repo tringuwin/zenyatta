@@ -248,9 +248,6 @@ async def notify_next_users(db, guild, message, event_channel):
             start_string = start_strings[i]
 
             if round_index > -1:
-                print(round_index)
-                print(match_index)
-                print(bracket)
                 next_match = bracket['bracket'][round_index][match_index]
                 next_string = await notify_match(next_match, message, start_string, guild, event_channel)
                 final_string += '\n'+next_string
@@ -407,16 +404,18 @@ async def send_next_info(db, message, guild, event_channel):
         elif match[0]['is_bye']:
             await won_match(2, message, db, guild, event_channel)
         elif match[0]['it_team']:
-
+            final_string = ''
             team_array = [match[0], match[1]]
             for team in team_array:
-                await message.channel.send('------------- '+team['user']+' -------------')
+                final_string += '------------- '+team['user']+' -------------\n'
                 for member_id in team['team_members']:
                     user = user_exists(db, member_id)
                     if user:
-                        await message.channel.send(user['battle_tag'])
+                        final_string += user['battle_tag']+'\n'
                     else:
-                        await message.channel.send('unknown user')
+                        final_string += 'unknown user\n'
+
+            await message.channel.send(final_string)
 
         else:
             user1 = user_exists(db, match[0]['user'])
