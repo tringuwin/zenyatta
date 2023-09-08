@@ -303,7 +303,7 @@ async def won_match(win_index, message, db, guild, event_channel):
 
     advance_match_obj = copy.deepcopy(bracket['bracket'][advance_round][advance_match])
     advance_pos = 1
-    if advance_match_obj[0]['is_tbd']:
+    if ('is_tbd' in advance_match_obj[0]) and advance_match_obj[0]['is_tbd']:
         advance_pos = 0
     advance_match_obj[advance_pos] = winner
 
@@ -341,7 +341,7 @@ async def no_show(lose_index, message, db, guild, event_channel):
 
     advance_match_obj = copy.deepcopy(bracket['bracket'][advance_round][advance_match])
     advance_pos = 1
-    if advance_match_obj[0]['is_tbd']:
+    if ('is_tbd' in advance_match_obj[0]) and advance_match_obj[0]['is_tbd']:
         advance_pos = 0
     advance_match_obj[advance_pos] = winner
 
