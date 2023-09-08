@@ -178,7 +178,7 @@ async def notify_match(match, message, start_string, guild, event_channel):
             member_obj = guild.get_member(member)
             if member_obj:
                 mentions.append(member_obj.mention)
-        user1mention = match[0]['user']+'( '
+        user1mention = match[0]['user']+' ( '
         for mention in mentions:
             user1mention += mention+" "
         user1mention += ')'
@@ -197,7 +197,7 @@ async def notify_match(match, message, start_string, guild, event_channel):
             member_obj = guild.get_member(member)
             if member_obj:
                 mentions.append(member_obj.mention)
-        user2mention = match[1]['user']+'( '
+        user2mention = match[1]['user']+' ( '
         for mention in mentions:
             user2mention += mention+" "
         user2mention += ')'
@@ -406,7 +406,18 @@ async def send_next_info(db, message, guild, event_channel):
         elif match[0]['is_bye']:
             await won_match(2, message, db, guild, event_channel)
         elif match[0]['it_team']:
-            await message.channel.send(match[0]['user']+" vs "+match[1]['user'])
+
+            team_array = [match[0], match[1]]
+            for team in team_array:
+                await message.channel.send('-------------')
+                for member_id in team['team_members']:
+                    user = user_exists(member_id)
+                    if user:
+                        await message.channel.send(user['battle_tag'])
+                    else:
+                        await message.channel.send('unknown user')
+
+            #await message.channel.send(match[0]['user']+" vs "+match[1]['user'])
         else:
             user1 = user_exists(db, match[0]['user'])
             user2 = user_exists(db, match[1]['user'])
