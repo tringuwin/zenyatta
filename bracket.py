@@ -206,7 +206,7 @@ async def notify_match(match, message, start_string, guild, event_channel):
         if user2: 
             user2mention = user2.mention
 
-    await event_channel.send(start_string+user1mention+' VS '+user2mention)
+    return start_string+user1mention+' VS '+user2mention
 
 
 async def increment_tourney_index(round_index, match_index, bracket):
@@ -242,7 +242,7 @@ async def notify_next_users(db, guild, message, event_channel):
             '**2 MATCHES AWAY:** ' 
         ]
 
-        await event_channel.send('--------------------------------------------')
+        final_string = '--------------------------------------------'
         for i in range(0, 3):
             
             start_string = start_strings[i]
@@ -252,13 +252,14 @@ async def notify_next_users(db, guild, message, event_channel):
                 print(match_index)
                 print(bracket)
                 next_match = bracket['bracket'][round_index][match_index]
-                await notify_match(next_match, message, start_string, guild, event_channel)
+                next_string = await notify_match(next_match, message, start_string, guild, event_channel)
+                final_string += '\n'+next_string
                 round_index, match_index = await increment_tourney_index(round_index, match_index, bracket['bracket'])
             else:
                 break
-        await event_channel.send('--------------------------------------------')
+        final_string += '\n--------------------------------------------'
+        await event_channel.send(final_string)
         
-
     else:
         await message.channel.send('An error occurred.')
 
