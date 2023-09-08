@@ -24,7 +24,7 @@ async def add_user_to_match(user, match, users):
         'username': user_obj['battle_tag'].split('#')[0],
         'is_bye': False,
         'is_tbd': False,
-        'is_team': False
+        'it_team': False
     }
     match[user_index] = entry
 
@@ -172,7 +172,7 @@ async def notify_match(match, message, start_string, guild, event_channel):
         user1mention = "*BYE*"
     elif match[0]['is_tbd']:
         user1mention = '*TBD*'
-    elif match[0]['is_team']:
+    elif match[0]['it_team']:
         mentions = []
         for member in match[0]['team_members']:
             member_obj = guild.get_member(member)
@@ -191,7 +191,7 @@ async def notify_match(match, message, start_string, guild, event_channel):
         user2mention = "*BYE*"
     elif match[1]['is_tbd']:
         user2mention = '*TBD*'
-    elif match[1]['is_team']:
+    elif match[1]['it_team']:
         mentions = []
         for member in match[1]['team_members']:
             member_obj = guild.get_member(member)
@@ -405,7 +405,7 @@ async def send_next_info(db, message, guild, event_channel):
         # is it a bye for player2?
         elif match[0]['is_bye']:
             await won_match(2, message, db, guild, event_channel)
-        elif match[0]['is_team']:
+        elif match[0]['it_team']:
             await message.channel.send(match[0]['user']+" vs "+match[1]['user'])
         else:
             user1 = user_exists(db, match[0]['user'])
