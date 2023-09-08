@@ -46,6 +46,15 @@ async def get_member_by_id(guild, id):
 
     return await guild.fetch_member(id)
 
+def member_has_role(member, role_id):
+
+    for role in member.roles:
+        if role.id == role_id:
+            return True
+    
+    return False
+
+
 def is_dm_channel(channel):
 
     if isinstance(channel, discord.DMChannel):

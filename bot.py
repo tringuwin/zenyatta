@@ -43,7 +43,7 @@ from command_handlers.help import help_hanlder
 from command_handlers.teams.team_details import team_details_hanlder
 from command_handlers.teams.team_join import team_join_handler
 from command_handlers.teams.teams import teams_handler
-from command_handlers.wager import wager_handler
+from command_handlers.wager import twager_handler, wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild, get_member_by_username, is_dm_channel
 from mongo import output_eggs, output_passes, output_tokens, switch_matches
@@ -65,7 +65,7 @@ async def handle_message(message, db, client):
 
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
 
-    valid_channel = is_admin or is_dm_channel(message.channel) or message.channel.id == constants.BOT_CHANNEL or (message.channel.id == constants.CASINO_CHANNEL and lower_message.startswith('!wager'))
+    valid_channel = is_admin or is_dm_channel(message.channel) or message.channel.id == constants.BOT_CHANNEL or (message.channel.id == constants.CASINO_CHANNEL and (lower_message.startswith('!wager') or lower_message.startswith('!twager')))
     if (not valid_channel) and (message.channel.id == constants.CASINO_CHANNEL and lower_message == '!tokens'):
         valid_channel = True
 
@@ -120,6 +120,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!wager'):
         await wager_handler(db, message)
+
+    elif lower_message.startswith('!twager'):
+        await twager_handler(db, message)
 
     elif lower_message.startswith('!buy'):
         await buy_handler(db, message)
