@@ -137,8 +137,6 @@ async def gen_tourney(db, event_id, message):
         await message.channel.send('There is already a tournament in progress.')
         return
     
-
-
     bracket = await get_bracket_by_event_id(db, event_id)
     if bracket:
 
@@ -400,6 +398,7 @@ async def send_next_info(db, message, guild, event_channel):
 
         match = bracket['bracket'][round_index][match_index]
         
+        print(match[0])
         # is it a bye for player1?
         if match[1]['is_bye']:
             await won_match(1, message, db, guild, event_channel)
