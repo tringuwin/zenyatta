@@ -411,7 +411,7 @@ async def send_next_info(db, message, guild, event_channel):
             for team in team_array:
                 await message.channel.send('-------------')
                 for member_id in team['team_members']:
-                    user = user_exists(member_id)
+                    user = user_exists(db, member_id)
                     if user:
                         await message.channel.send(user['battle_tag'])
                     else:
