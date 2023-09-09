@@ -2,6 +2,7 @@
 from bracket import get_bracket_by_event_id
 from events import get_event_by_id
 from helpers import make_string_from_word_list
+from teams import get_team_by_name
 
 
 async def switch_event_teams(db, message):
@@ -31,10 +32,20 @@ async def switch_event_teams(db, message):
     spot = match[spot_num]
     
     new_team_name = make_string_from_word_list(word_list, 4)
-
+    new_team = await get_team_by_name(db, new_team_name)
+    if not new_team:
+        await message.channel.send('No team with that name exists')
+        return
+    
     print('Replacing... ')
     print(spot)
-    print('with '+new_team_name)
+
+    spot['user'] = new_team['team_name']
+    spot['username'] = new_team['team_name']
+    spot['team_members'] = new_team['members']
+    
+    print('with...')
+    print(spot)
 
     await message.channel.send('command done')
 
