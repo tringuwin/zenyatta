@@ -43,9 +43,12 @@ async def switch_event_teams(db, message):
     spot['user'] = new_team['team_name']
     spot['username'] = new_team['team_name']
     spot['team_members'] = new_team['members']
+    actual_bracket[0][match_num][spot_num] = spot
     
     print('with...')
     print(spot)
+    brackets = db['brackets']
+    brackets.update_one({"event_id": event_id}, {"$set": {"bracket": actual_bracket}})
 
     await message.channel.send('command done')
 
