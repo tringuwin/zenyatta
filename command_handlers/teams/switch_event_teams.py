@@ -17,7 +17,7 @@ async def switch_event_teams(db, message):
         await message.channel.send('Invalid event id')
         return
     
-    bracket = get_bracket_by_event_id(db, event_id)
+    bracket = await get_bracket_by_event_id(db, event_id)
     if not bracket:
         await message.channel.send('Bracket does not exist for this event')
         return
