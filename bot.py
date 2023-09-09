@@ -10,6 +10,7 @@ from command_handlers.hello import hello_handler
 from command_handlers.suggest_event import suggest_event_handler
 from command_handlers.teams.del_team_from_event import del_team_from_event_handler
 from command_handlers.teams.get_teams import get_teams_handler
+from command_handlers.teams.switch_event_teams import switch_event_teams
 import constants
 import traceback
 from admin_handlers.add_event import add_event_handler
@@ -176,6 +177,10 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!delteamfromevent') and is_admin:
         await del_team_from_event_handler(db, message)
+
+    elif lower_message.startswith('!switcheventteams ') and is_admin:
+        # !switcheventteams [event id] [match id] [spot id (1 or 2)] [new team name]
+        await switch_event_teams(db, message)
 
     # ADMIN COMMANDS
 
