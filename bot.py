@@ -82,6 +82,9 @@ async def handle_message(message, db, client):
 
     if lower_message == '!help':
         await help_hanlder(message)
+
+    elif lower_message == '!version':
+        await message.channel.send(constants.VERSION)
     
     elif lower_message.startswith('!battle '):
         await battle_handler(db, message, client)
