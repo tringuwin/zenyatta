@@ -33,6 +33,10 @@ suit_to_emoji = {
     'Spades': '♠️'
 }
 
+def card_to_text(card):
+
+    return '**['+suit_to_emoji[card['suit']]+card['value']+']**'
+
 
 async def blackjack_handler(db, message):
     
@@ -66,17 +70,21 @@ async def blackjack_handler(db, message):
     deck = create_deck()
     player_card1, deck = draw_card(deck)
     player_card2, deck = draw_card(deck)
-    initial_player_cards = [player_card1, player_card2]
+    player_cards = [player_card1, player_card2]
     holecard, deck = draw_card(deck)
     upcard, deck = draw_card(deck)
     dealer_hand = [holecard, upcard]
     
     #check for blackjack
-    print(dealer_hand)
-    dealer_string = 'Dealers Hand: **[?]** **['+suit_to_emoji[dealer_hand[1]['suit']]+dealer_hand[1]['value']+']**'
-    await message.channel.send(dealer_string)
-
-
+    final_string = ''
+    final_string += 'Dealers Hand: **[?]** '+card_to_text(upcard)
+    final_string += '\nYour Hand: '+card_to_text(player_card1)+' '+card_to_text(player_card2)
+    final_string += '\n----------------------'
+    final_string += '\n To **hit** react with 🇭'
+    final_string += '\n To **stand** react with 🇸'
+    bj_message = await message.channel.send(final_string)
+    await bj_message.add_reaction('🇭')
+    await bj_message.add_reaction('🇸')
 
     await message.channel.send('(this command is in progress and not ready yet)')
 
