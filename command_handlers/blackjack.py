@@ -102,6 +102,15 @@ def get_blackjack_by_user_id(db, user_id):
     return blackjack.find_one(search_query)
 
 
+def get_blackjack_by_msg_id(db, message_id):
+    
+    blackjack = db['blackjack']
+    
+    search_query = {"message_id": message_id}
+
+    return blackjack.find_one(search_query)
+
+
 async def blackjack_handler(db, message, client):
     
     user = user_exists(db, message.author.id)
@@ -191,6 +200,17 @@ async def blackjack_handler(db, message, client):
     await message.channel.send('(this command is in progress and not ready yet)')
 
 
+
 async def check_for_black_jack(db, channel_id, message_id, member, emoji):
 
-    pass
+    blackjack_game = get_blackjack_by_msg_id(message_id)
+    if not blackjack_game:
+        return
+    
+    if member.id != blackjack_game['user_id']:
+        return
+    
+    if emoji == '🇭':
+        print('Player chose to hit')
+    elif emoji == '🇸':
+        print('Player chose to stand')
