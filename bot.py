@@ -2,6 +2,7 @@ import time
 import discord
 import asyncio
 from admin_handlers.gen_bracket import gen_bracket_handler
+from command_handlers.blackjack import blackjack_handler
 from command_handlers.donate import donate_handler
 from command_handlers.donate_pass import donate_pass_handler
 from command_handlers.fun_fact import fun_fact_handler
@@ -66,12 +67,11 @@ async def handle_message(message, db, client):
         await message.channel.send("Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy Ragu Discord server. ")
         return
 
-
     lower_message = user_message.lower()
 
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
 
-    valid_channel = is_admin or is_dm_channel(message.channel) or message.channel.id == constants.BOT_CHANNEL or (message.channel.id == constants.CASINO_CHANNEL and (lower_message.startswith('!wager') or lower_message.startswith('!twager')))
+    valid_channel = is_admin or message.channel.id == constants.BOT_CHANNEL or (message.channel.id == constants.CASINO_CHANNEL and (lower_message.startswith('!wager') or lower_message.startswith('!twager')))
     if (not valid_channel) and (message.channel.id == constants.CASINO_CHANNEL and lower_message == '!tokens'):
         valid_channel = True
 
@@ -132,6 +132,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!twager'):
         await twager_handler(db, message)
+
+    elif lower_message.startswith('!blackjack'):
+        await blackjack_handler(db, message)
 
     elif lower_message.startswith('!buy'):
         await buy_handler(db, message)
