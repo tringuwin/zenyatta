@@ -22,12 +22,12 @@ async def blackjack_handler(db, message):
         await message.channel.send('Please enter a numerical value for your wager.')
         return
     
+    token_wager = int(token_wager)
     user_tokens = get_user_tokens(user)
     if user_tokens < token_wager:
         await message.channel.send('You do not have enough tokens for this wager.')
         return
     
-    token_wager = int(token_wager)
     if token_wager > 100 or token_wager < 1:
         await message.channel.send('Wager amount must be between 1 and 100 tokens.')
         return
