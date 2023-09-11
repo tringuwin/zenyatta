@@ -1,8 +1,37 @@
 
-
+import copy
+import random
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
 from user import get_user_tokens, user_exists
+
+def create_deck():
+    suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
+    values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+    deck = [{'suit': suit, 'value': value} for suit in suits for value in values]
+    return deck
+
+def shuffle_deck(deck):
+    random.shuffle(deck)
+    return deck
+
+def make_deck():
+
+    deck = create_deck()
+    deck = shuffle_deck(deck)
+    return copy.deepcopy(deck)
+
+def draw_card(deck):
+
+    drawn_card = deck.pop(0)
+    return drawn_card, deck
+
+suit_to_emoji = {
+    'Hearts': '♥️',
+    'Diamonds': '♦️',
+    'Clubs': '♣️',
+    'Spades': '♠️'
+}
 
 
 async def blackjack_handler(db, message):
@@ -34,5 +63,19 @@ async def blackjack_handler(db, message):
     
     # check for an existing game
 
-    await message.channel.send('blackjack')
+    deck = create_deck()
+    player_card1, deck = draw_card(deck)
+    player_card2, deck = draw_card(deck)
+    initial_player_cards = [player_card1, player_card2]
+    holecard, deck = draw_card(deck)
+    upcard, deck = draw_card(deck)
+    dealer_hand = [holecard, upcard]
+    
+    #check for blackjack
+    dealer_string = 'Dealers Hand: **[?]** **['+suit_to_emoji(dealer_hand[1]['suit'])+dealer_hand[1]['value']+']**'
+    await message.channel.send(dealer_string)
+
+
+
+    await message.channel.send('(this command is in progress and not ready yet)')
 
