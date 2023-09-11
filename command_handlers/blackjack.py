@@ -131,7 +131,7 @@ async def blackjack_handler(db, message, client):
     
     existing_game = get_blackjack_by_user_id(db, user['discord_id'])
     if existing_game:
-        original_bj_message = get_message_by_channel_and_id(client, existing_game['channel_id'], existing_game['message_id'])
+        original_bj_message = await get_message_by_channel_and_id(client, existing_game['channel_id'], existing_game['message_id'])
         await message.channel.send('It seems like you already have a game in progress. Please finish the game here: '+original_bj_message.jump_url)
         return
 
