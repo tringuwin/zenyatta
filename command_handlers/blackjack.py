@@ -73,7 +73,7 @@ async def blackjack_handler(db, message):
     
     #check for blackjack
     print(dealer_hand)
-    dealer_string = 'Dealers Hand: **[?]** **['+suit_to_emoji(dealer_hand[1]['suit'])+dealer_hand[1]['value']+']**'
+    dealer_string = 'Dealers Hand: **[?]** **['+suit_to_emoji[dealer_hand[1]['suit']]+dealer_hand[1]['value']+']**'
     await message.channel.send(dealer_string)
 
 
