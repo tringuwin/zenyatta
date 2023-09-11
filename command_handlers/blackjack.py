@@ -4,6 +4,7 @@ import random
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
 from user import get_user_tokens, user_exists
+import math
 
 def create_deck():
     suits = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
@@ -129,16 +130,18 @@ async def blackjack_handler(db, message):
     upcard, deck = draw_card(deck)
     dealer_hand = [holecard, upcard]
 
-
-
     # does dealer have blackjack
     dealer_bj = False
     if highest_hand_value(dealer_hand) == 21:
         dealer_bj = True
 
+    player_bj = False
+    if highest_hand_value(player_cards) == 21:
+        player_bj = True
+
     final_string = ''+message.author.mention
-    
-    if dealer_bj:
+
+    if dealer_bj or player_bj:
         final_string += '\nDealers Hand: '+card_to_text(holecard)+' '+card_to_text(upcard)
     else:
         final_string += '\nDealers Hand: **[?]** '+card_to_text(upcard)
@@ -147,7 +150,11 @@ async def blackjack_handler(db, message):
     final_string += '\nYour Hand Value: '+player_hand_value(player_cards)
     final_string += '\n----------------------'
     if dealer_bj:
-        final_string +='\nThe Dealer got Black-Jack! You lose.'
+        final_string +='\nThe Dealer got Black-Jack! You lost '+str(token_wager)+' tokens.'
+    elif player_bj:
+        raw_profit = (float(token_wager) * 3.0) / 2.0
+        final_profit = int(math.floor(raw_profit))
+        final_string +='\nYou got Black-Jack and beat the Dealer. **You won '+str(final_profit)+' tokens!**'
     else:
         final_string += '\nTo **hit** react with 🇭'
         final_string += '\nTo **stand** react with 🇸'
@@ -155,8 +162,9 @@ async def blackjack_handler(db, message):
 
     # send message
     bj_message = await message.channel.send(final_string)
-    await bj_message.add_reaction('🇭')
-    await bj_message.add_reaction('🇸')
+    if not dealer_bj:
+        await bj_message.add_reaction('🇭')
+        await bj_message.add_reaction('🇸')
 
     await message.channel.send('(this command is in progress and not ready yet)')
 
