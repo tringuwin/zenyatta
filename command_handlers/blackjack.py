@@ -67,7 +67,7 @@ async def blackjack_handler(db, message):
     
     # check for an existing game
 
-    deck = create_deck()
+    deck = make_deck()
     player_card1, deck = draw_card(deck)
     player_card2, deck = draw_card(deck)
     player_cards = [player_card1, player_card2]
