@@ -137,10 +137,12 @@ async def blackjack_handler(db, message):
         dealer_bj = True
 
     final_string = ''+message.author.mention
+    
     if dealer_bj:
-        final_string += '\nDealers Hand: **[?]** '+card_to_text(upcard)
-    else:
         final_string += '\nDealers Hand: '+card_to_text(holecard)+' '+card_to_text(upcard)
+    else:
+        final_string += '\nDealers Hand: **[?]** '+card_to_text(upcard)
+
     final_string += '\nYour Hand: '+card_to_text(player_card1)+' '+card_to_text(player_card2)
     final_string += '\nYour Hand Value: '+player_hand_value(player_cards)
     final_string += '\n----------------------'
