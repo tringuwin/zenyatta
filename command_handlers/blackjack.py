@@ -59,7 +59,7 @@ def player_hand_value(cards):
 
     v_final = []
     for val in possible_hand_values:
-        if val < 21:
+        if val <= 21:
             v_final.append(val)
 
     if len(v_final) == 1:
