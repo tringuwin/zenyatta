@@ -37,6 +37,43 @@ def card_to_text(card):
 
     return '**['+suit_to_emoji[card['suit']]+card['value']+']**'
 
+def player_hand_value(cards):
+
+    aces_in_hand = 0
+    total_normal = 0
+
+    for card in cards:
+        if card['value'] == 'A':
+            aces_in_hand += 1
+            total_normal += 11
+        elif card['value'] == 'K' or card['value'] == 'Q' or card['value'] == 'J':
+            total_normal += 10
+        else:
+            total_normal += int(card['value'])
+
+    possible_hand_values = [total_normal]
+    total_normal_copy = total_normal
+    for i in range(0, aces_in_hand):
+        total_normal_copy -= 10
+        possible_hand_values.append(total_normal_copy)
+
+    v_final = []
+    for val in possible_hand_values:
+        if val < 21:
+            v_final.append(val)
+
+    if len(v_final) == 1:
+        return str(v_final[0])
+    elif len(v_final) == 2:
+        return str(v_final[0])+' or '+str(v_final[1])
+    elif len(v_final) == 3:
+        return str(v_final[0])+' or '+str(v_final[1])+' or '+str(v_final[2])
+    elif len(v_final) == 4:
+        return str(v_final[0])+' or '+str(v_final[1])+' or '+str(v_final[2])+' or '+str(v_final[3])
+    else:
+        return str(v_final[0])+' or '+str(v_final[1])+' or '+str(v_final[2])+' or '+str(v_final[3])+' or '+str(v_final[4])
+
+
 
 async def blackjack_handler(db, message):
     
@@ -79,6 +116,7 @@ async def blackjack_handler(db, message):
     final_string = ''
     final_string += 'Dealers Hand: **[?]** '+card_to_text(upcard)
     final_string += '\nYour Hand: '+card_to_text(player_card1)+' '+card_to_text(player_card2)
+    final_string += '\nYour Hand Value: '+player_hand_value(player_cards)
     final_string += '\n----------------------'
     final_string += '\n To **hit** react with 🇭'
     final_string += '\n To **stand** react with 🇸'
