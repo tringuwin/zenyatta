@@ -97,7 +97,7 @@ def get_blackjack_by_user_id(db, user_id):
 
     blackjack = db['blackjack']
     
-    search_query = {"discord_id": user_id}
+    search_query = {"user_id": user_id}
 
     return blackjack.find_one(search_query)
 
