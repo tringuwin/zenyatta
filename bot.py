@@ -62,6 +62,11 @@ async def handle_message(message, db, client):
         return
     
     channel = str(message.channel)
+    if is_dm_channel(channel):
+        await message.channel.send("Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy Ragu Discord server. ")
+        return
+
+
     lower_message = user_message.lower()
 
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
@@ -73,7 +78,7 @@ async def handle_message(message, db, client):
     if not valid_channel:
         
         await message.delete()
-        warning = await message.channel.send(message.author.mention+" Please only use commands in #bot-commands or in a Direct Message with me.")
+        warning = await message.channel.send(message.author.mention+" Please only use commands in the #bot-commands channel.")
 
         time.sleep(10)
         await warning.delete()
