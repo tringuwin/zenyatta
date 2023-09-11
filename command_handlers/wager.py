@@ -134,8 +134,7 @@ async def wager_handler(db, message):
         
         spin_response = roulette_spin_to_emojis(roulette_details['array'])
         await change_tokens(db, user, token_change)
-        await message.channel.send(spin_response)
-        await message.channel.send(final_message_start+final_message_end)
+        await message.channel.send(spin_response+'\n'+final_message_start+final_message_end)
     else:
         await invalid_number_of_params(message)
 
@@ -195,7 +194,6 @@ async def twager_handler(db, message):
         
         spin_response = roulette_spin_to_emojis(roulette_details['array'])
         await change_tokens(db, user, token_change)
-        await message.channel.send(spin_response)
-        await message.channel.send(final_message_start+final_message_end)
+        await message.channel.send(spin_response+'\n'+final_message_start+final_message_end)
     else:
         await invalid_number_of_params(message)
