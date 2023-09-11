@@ -61,3 +61,12 @@ def is_dm_channel(channel):
         return True
     else:
         return False
+    
+
+async def get_message_by_channel_and_id(client, channel_id, message_id):
+
+    channel = client.get_channel(channel_id)
+    if channel:
+        message = await channel.fetch_message(message_id)
+        return message
+

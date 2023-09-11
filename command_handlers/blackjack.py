@@ -2,6 +2,7 @@
 import copy
 import random
 from common_messages import invalid_number_of_params, not_registered_response
+from discord_actions import get_message_by_channel_and_id
 from helpers import can_be_int, valid_number_of_params
 from user import get_user_tokens, user_exists
 import math
@@ -92,8 +93,16 @@ def highest_hand_value(cards):
         return max(v_final)
 
 
+def get_blackjack_by_user_id(db, user_id):
 
-async def blackjack_handler(db, message):
+    blackjack = db['blackjack']
+    
+    search_query = {"discord_id": user_id}
+
+    return blackjack.find_one(search_query)
+
+
+async def blackjack_handler(db, message, client):
     
     user = user_exists(db, message.author.id)
     if not user:
@@ -120,7 +129,11 @@ async def blackjack_handler(db, message):
         await message.channel.send('Wager amount must be between 1 and 100 tokens.')
         return
     
-    # check for an existing game
+    existing_game = get_blackjack_by_user_id(db, user['discord_id'])
+    if existing_game:
+        original_bj_message = get_message_by_channel_and_id(client, existing_game['channel_id'], existing_game['message_id'])
+        await message.channel.send('It seems like you already have a game in progress. Please finish the game here: '+original_bj_message.jump_url)
+        return
 
     deck = make_deck()
     player_card1, deck = draw_card(deck)
@@ -159,12 +172,25 @@ async def blackjack_handler(db, message):
         final_string += '\nTo **hit** react with 🇭'
         final_string += '\nTo **stand** react with 🇸'
 
-
-    # send message
     bj_message = await message.channel.send(final_string)
     if not dealer_bj:
         await bj_message.add_reaction('🇭')
         await bj_message.add_reaction('🇸')
 
+        blackjack = db['blackjack']
+        new_game = {
+            'user_id': user['discord_id'],
+            'player_hand': player_cards,
+            'dealer_hand': dealer_hand,
+            'wager': token_wager,
+            'channel_id': message.channel.id,
+            'message_id': bj_message.id
+        }
+        blackjack.insert_one(new_game)
+
     await message.channel.send('(this command is in progress and not ready yet)')
 
+
+async def check_for_black_jack(db, channel_id, message_id, member, emoji):
+
+    pass

@@ -2,7 +2,7 @@ import time
 import discord
 import asyncio
 from admin_handlers.gen_bracket import gen_bracket_handler
-from command_handlers.blackjack import blackjack_handler
+from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.donate import donate_handler
 from command_handlers.donate_pass import donate_pass_handler
 from command_handlers.fun_fact import fun_fact_handler
@@ -134,7 +134,7 @@ async def handle_message(message, db, client):
         await twager_handler(db, message)
 
     elif lower_message.startswith('!blackjack'):
-        await blackjack_handler(db, message)
+        await blackjack_handler(db, message, client)
 
     elif lower_message.startswith('!buy'):
         await buy_handler(db, message)
@@ -471,6 +471,8 @@ def run_discord_bot(db):
             guild = await get_guild(client)
             role = guild.get_role(constants.GIFT_ROLE_ID)
             await member.add_roles(role)
+        else:
+            await check_for_black_jack(db, payload.channel_id, message_id, member, payload.emoji)
 
     @client.event
     async def on_raw_reaction_remove(payload):
