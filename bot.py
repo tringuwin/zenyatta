@@ -61,12 +61,12 @@ async def handle_message(message, db, client):
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if not is_command:
-        if message.channel.id == constants.BOT_CHANNEL and (not is_admin):
-            await message.delete()
-            warning = await message.channel.send(message.author.mention+" Please only use commands in this channel.")
+        # if message.channel.id == constants.BOT_CHANNEL and (not is_admin):
+        #     await message.delete()
+        #     warning = await message.channel.send(message.author.mention+" Please only use commands in this channel.")
 
-            time.sleep(10)
-            await warning.delete()
+        #     time.sleep(10)
+        #     await warning.delete()
         return
             
     channel = str(message.channel)
