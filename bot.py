@@ -51,6 +51,7 @@ from discord_actions import get_guild, get_member_by_username, is_dm_channel
 from mongo import output_eggs, output_passes, output_tokens, switch_matches
 from notifs import handle_notifs
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
+from teams import get_team_by_name
 from user import get_user_passes, get_user_tokens, user_exists
 
 
@@ -61,12 +62,6 @@ async def handle_message(message, db, client):
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if not is_command:
-        # if message.channel.id == constants.BOT_CHANNEL and (not is_admin):
-        #     await message.delete()
-        #     warning = await message.channel.send(message.author.mention+" Please only use commands in this channel.")
-
-        #     time.sleep(10)
-        #     await warning.delete()
         return
             
     channel = str(message.channel)
@@ -298,21 +293,39 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!giverewards') and is_admin:
         
-        reward_per_round = [10, 10, 100, 200, 500, 0, 0]
+        reward_per_round = [10, 10, 50, 100, 500, 1000, 0]
 
-        bracket = db['brackets'].find_one({'event_id': '2'})
+        bracket = db['brackets'].find_one({'event_id': '6'})
 
         final_dict = {}
+
+        # round_index = 0
+        # for round in bracket['bracket']:
+        #     for match in round:
+        #         for player in match:
+        #             if 'no_show' in player:
+        #                 final_dict[str(player['user'])] = -1
+        #             elif not (player['is_bye']) or (player['is_tbd']):
+        #                 final_dict[str(player['user'])] = round_index
+
+        #     round_index += 1
 
         round_index = 0
         for round in bracket['bracket']:
             for match in round:
-                
-                for player in match:
-                    if 'no_show' in player:
-                        final_dict[str(player['user'])] = -1
-                    elif not (player['is_bye']) or (player['is_tbd']):
-                        final_dict[str(player['user'])] = round_index
+                for bracket_team in match:
+                    if 'no_show' in bracket_team:
+                        team = await get_team_by_name(bracket_team['user'])
+                        for team_member in team['members']:
+                            team_user = user_exists(team_member)
+                            if team_user:
+                                final_dict[str(team_user['discord_id'])] = -1
+                    elif not (bracket_team['is_bye']) or (bracket_team['is_tbd']):
+                        team = await get_team_by_name(bracket_team['user'])
+                        for team_member in team['members']:
+                            team_user = user_exists(team_member)
+                            if team_user:
+                                final_dict[str(team_user['discord_id'])] = round_index
 
             round_index += 1
 
@@ -323,7 +336,8 @@ async def handle_message(message, db, client):
                 if user:
 
                     reward = reward_per_round[highest_round]
-                    await change_tokens(db, user, reward)
+                    #await change_tokens(db, user, reward)
+                    print('Giving '+str(reward)+' tokens to '+user['battle_tag'])
 
         await message.channel.send('Rewards given')
 
