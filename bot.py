@@ -314,6 +314,7 @@ async def handle_message(message, db, client):
         for round in bracket['bracket']:
             for match in round:
                 for bracket_team in match:
+                    print(bracket_team)
                     if bracket_team['is_bye']:
                         continue
                     elif 'no_show' in bracket_team:
