@@ -337,12 +337,14 @@ async def handle_message(message, db, client):
 
         for player_id_string, highest_round in final_dict.items():
 
+            is_valid = True
             for invalid in invalid_gifts:
                 if player_id_string == invalid:
-                    print('ivalid player '+str(invalid))
-                    continue
+                    print('invalid player '+str(invalid))
+                    is_valid = False
+                    break
 
-            if highest_round > -1:
+            if is_valid and highest_round > -1:
                 user = db['users'].find_one({'discord_id': int(player_id_string)})
                 if user:
 
