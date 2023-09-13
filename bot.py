@@ -349,7 +349,7 @@ async def handle_message(message, db, client):
                 if user:
 
                     reward = reward_per_round[highest_round]
-                    #await change_tokens(db, user, reward)
+                    await change_tokens(db, user, reward)
                     print('Giving '+str(reward)+' tokens to '+user['battle_tag'])
 
         await message.channel.send('Rewards given')
