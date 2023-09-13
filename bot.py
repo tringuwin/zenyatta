@@ -314,8 +314,9 @@ async def handle_message(message, db, client):
         for round in bracket['bracket']:
             for match in round:
                 for bracket_team in match:
-                    print(bracket_team)
-                    if 'no_show' in bracket_team:
+                    if bracket_team['is_bye']:
+                        continue
+                    elif 'no_show' in bracket_team:
                         team = await get_team_by_name(db, bracket_team['user'])
                         for team_member in team['members']:
                             team_user = user_exists(db, team_member)
