@@ -315,13 +315,13 @@ async def handle_message(message, db, client):
             for match in round:
                 for bracket_team in match:
                     if 'no_show' in bracket_team:
-                        team = await get_team_by_name(bracket_team['user'])
+                        team = await get_team_by_name(db, bracket_team['user'])
                         for team_member in team['members']:
                             team_user = user_exists(team_member)
                             if team_user:
                                 final_dict[str(team_user['discord_id'])] = -1
                     elif not (bracket_team['is_bye']) or (bracket_team['is_tbd']):
-                        team = await get_team_by_name(bracket_team['user'])
+                        team = await get_team_by_name(db, bracket_team['user'])
                         for team_member in team['members']:
                             team_user = user_exists(team_member)
                             if team_user:
