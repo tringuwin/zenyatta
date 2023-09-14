@@ -205,9 +205,11 @@ async def check_for_black_jack(db, channel_id, message_id, member, emoji):
 
     blackjack_game = get_blackjack_by_msg_id(db, message_id)
     if not blackjack_game:
+        print('blackjack game not found')
         return
     
     if member.id != blackjack_game['user_id']:
+        print('user is not the owner of the blackjack game')
         return
     
     if emoji == '🇭':
