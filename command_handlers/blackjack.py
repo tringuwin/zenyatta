@@ -212,9 +212,9 @@ async def check_for_black_jack(db, channel_id, message_id, member, emoji):
         print('user is not the owner of the blackjack game')
         return
     
-    if emoji == '🇭':
+    if emoji.name == '🇭':
         print('Player chose to hit')
-    elif emoji == '🇸':
+    elif emoji.name == '🇸':
         print('Player chose to stand')
     else:
         print('Not blackjack emoji. User reacted with: '+emoji.name)
