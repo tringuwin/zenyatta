@@ -56,6 +56,13 @@ def get_gift_notify(user):
     else:
         return False
     
+def get_invited_valid(user):
+
+    if 'invited_valid' in user:
+        return user['invited_valid']
+    else:
+        return False
+    
 def toggle_off_gift_notify(db, user):
 
     users = db['users']
