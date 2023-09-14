@@ -5,6 +5,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from helpers import valid_number_of_params
 from rewards import change_passes
 from user import get_user_passes, user_exists
+import constants
 
 
 async def donate_pass_handler(db, message):
@@ -44,6 +45,10 @@ async def donate_pass_handler(db, message):
     
     if donate_to_user == user:
         await message.channel.send("You can't donate to yourself...")
+        return
+    
+    if donate_to_user['discord_id'] == constants.SPICY_RAGU_ID:
+        await message.channel.send("Thank you! But Spicy doesn't need tokens since he owns the server!")
         return
     
     await change_passes(db, user, -1)
