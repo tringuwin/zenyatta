@@ -538,7 +538,13 @@ def run_discord_bot(db):
         twitch_notifs = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
 
         if role is not None:
-            await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs)
+
+            registered_user = user_exists(db, member.id)
+            if registered_user:
+                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs)
+            else:
+                registered_role = guild.get_role(constants.REGISTERED_ROLE)
+                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs, registered_role)
 
 
     @client.event
