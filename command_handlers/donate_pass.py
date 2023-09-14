@@ -1,5 +1,6 @@
 
 from datetime import datetime, timezone
+import math
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import valid_number_of_params
 from rewards import change_passes
@@ -26,7 +27,8 @@ async def donate_pass_handler(db, message):
     account_age = datetime.now(timezone.utc) - message.author.created_at
     account_days = account_age.days
     if account_days < 60:
-        await message.channel.send('Your discord account was created less than 60 days ago. To prevent alt account spam, only accounts 60 days or older can use the donate command.')
+        account_days = int(math.floor(account_days))
+        await message.channel.send('Your Discord account is **'+str(account_days)+' days** old. To prevent alt account spam, only accounts 60 days or older can use the donate command.')
         return
 
     mentions = message.mentions
