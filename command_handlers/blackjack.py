@@ -216,3 +216,5 @@ async def check_for_black_jack(db, channel_id, message_id, member, emoji):
         print('Player chose to hit')
     elif emoji == '🇸':
         print('Player chose to stand')
+    else:
+        print('Not blackjack emoji. User reacted with: '+emoji)
