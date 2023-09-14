@@ -203,7 +203,7 @@ async def blackjack_handler(db, message, client):
 
 async def check_for_black_jack(db, channel_id, message_id, member, emoji):
 
-    blackjack_game = get_blackjack_by_msg_id(message_id)
+    blackjack_game = get_blackjack_by_msg_id(db, message_id)
     if not blackjack_game:
         return
     
