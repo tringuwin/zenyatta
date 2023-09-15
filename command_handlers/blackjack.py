@@ -294,7 +294,7 @@ async def blackjack_hit(db, blackjack_game, member, client, channel_id):
     best_player_score = highest_hand_value(player_hand_copy)
 
     if best_player_score == 0:
-        dealer_wins(True, False, member, blackjack_game, db, client, channel_id)
+        await dealer_wins(True, False, member, blackjack_game, db, client, channel_id)
     else:
 
         final_string = ''+member.mention
