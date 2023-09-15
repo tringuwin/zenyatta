@@ -282,10 +282,35 @@ async def player_wins(by_bust, member, blackjack_game, db, client, channel_id):
     await same_channel.send(final_string)
 
 
-async def blackjack_hit(db, blackjack_game):
+async def blackjack_hit(db, blackjack_game, member, client, channel_id):
 
 
-    pass
+    incomplete_deck = make_incomplete_deck(blackjack_game['player_hand'], blackjack_game['dealer_hand'])
+    new_card = draw_card(incomplete_deck)
+    player_hand_copy = copy.deepcopy(blackjack_game['player_hand'])
+    player_hand_copy.append(new_card)
+    blackjack_game['player_hand'] = player_hand_copy
+
+    best_player_score = highest_hand_value(player_hand_copy)
+
+    if best_player_score == 0:
+        dealer_wins(True, False, member, blackjack_game, db, client, channel_id)
+    else:
+
+        final_string = ''+member.mention
+        final_string += '\nDealers Hand: **[?]** '+card_to_text(blackjack_game['dealer_hand'][1])
+        final_string += '\nYour Hand: '+concat_cards(blackjack_game['player_hand'])
+        final_string += '\nYour Hand Value: '+player_hand_value(blackjack_game['player_hand'])
+        final_string += '\n----------------------'
+
+        same_channel = client.get_channel(channel_id)
+        new_bj_msg = await same_channel.send('')
+
+        blackjack = db['blackjack']
+        blackjack.update_one({'message_id': blackjack_game['message_id']}, {"$set": {"message_id": new_bj_msg, 'player_hand': player_hand_copy}})
+
+        await new_bj_msg.add_reaction('🇭')
+        await new_bj_msg.add_reaction('🇸')
 
 
 
@@ -330,7 +355,7 @@ async def check_for_black_jack(db, channel_id, message_id, member, emoji, client
     
     if emoji.name == '🇭':
         print('Player chose to hit')
-        await blackjack_hit(db, blackjack_game)
+        await blackjack_hit(db, blackjack_game, member, client, channel_id)
     elif emoji.name == '🇸':
         print('Player chose to stand')
         await blackjack_stand(db, blackjack_game, member, client, channel_id)
