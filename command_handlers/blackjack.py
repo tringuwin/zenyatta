@@ -23,6 +23,29 @@ def make_deck():
     deck = shuffle_deck(deck)
     return copy.deepcopy(deck)
 
+def make_incomplete_deck(player_hand, dealer_hand):
+
+    player_dealer_combined = []
+    for card in player_hand:
+        player_dealer_combined.append(card)
+    for card in dealer_hand:
+        player_dealer_combined.append(card)
+    
+    basic_deck = create_deck()
+    final_deck = []
+    for card in basic_deck:
+        already_used = False
+        for used_card in player_dealer_combined:
+            if card['suit'] == used_card['suit'] and card['value'] == used_card['value']:
+                already_used = True
+                break
+        
+        if not already_used:
+            final_deck.append(card)
+
+    final_deck = shuffle_deck(final_deck)
+    return copy.deepcopy(final_deck)
+
 def draw_card(deck):
 
     drawn_card = deck.pop(0)
@@ -213,6 +236,12 @@ def concat_cards(cards):
     return final_string
 
 
+def delete_game_by_msg_id(db, message_id):
+
+    blackjack = db['blackjack']
+    blackjack.delete_one({'message_id': message_id})
+
+
 async def dealer_wins(by_bust, is_tie, member, blackjack_game, db, client, channel_id):
 
     final_string = ''+member.mention
@@ -229,12 +258,30 @@ async def dealer_wins(by_bust, is_tie, member, blackjack_game, db, client, chann
         final_string += '\nThe Dealer has a higher score so the Dealer wins.'
     final_string += ' You lost '+str(blackjack_game['wager'])+' tokens.'
 
-    blackjack = db['blackjack']
-    blackjack.delete_one({'message_id': blackjack_game['message_id']})
+    delete_game_by_msg_id(db, blackjack_game['message_id'])
 
     same_channel = client.get_channel(channel_id)
     await same_channel.send(final_string)
+
+
+async def player_wins(by_bust, member, blackjack_game, db, client, channel_id):
     
+    final_string = ''+member.mention
+    final_string += '\nDealers Hand: '+concat_cards(blackjack_game['dealer_hand'])
+    final_string += '\nDealers Hand Value: '+str(highest_hand_value(blackjack_game['dealer_hand']))
+    final_string += '\nYour Hand: '+concat_cards(blackjack_game['player_hand'])
+    final_string += '\nYour Hand Value: '+player_hand_value(blackjack_game['player_hand'])
+    final_string += '\n----------------------'
+    if by_bust:
+        final_string += '\nThe Dealer busted! You win!'
+    else:
+        final_string += '\nYou have a higher score than the Dealer so you win!'
+    final_string += ' You won '+str(blackjack_game['wager'])+' tokens!'
+
+    delete_game_by_msg_id(db, blackjack_game['message_id'])
+
+    same_channel = client.get_channel(channel_id)
+    await same_channel.send(final_string)
 
 
 async def blackjack_hit(db, blackjack_game):
@@ -243,18 +290,42 @@ async def blackjack_hit(db, blackjack_game):
     pass
 
 
+
+
+
 async def blackjack_stand(db, blackjack_game, member, client, channel_id):
 
     dealer_hand_value = highest_hand_value(blackjack_game['dealer_hand'])
     player_hand_value = highest_hand_value(blackjack_game['player_hand'])
 
     if dealer_hand_value > player_hand_value:
-        # dealer wins
         await dealer_wins(False, False, member, blackjack_game, db, client, channel_id)
+        return
     elif dealer_hand_value == player_hand_value:
         await dealer_wins(False, True, member, blackjack_game, db, client, channel_id)
+        return
+    
+    copy_dealer_hand = copy.deepcopy(blackjack_game['dealer_hand'])
+    incomplete_deck = make_incomplete_deck(blackjack_game['player_hand'], blackjack_game['dealer_hand'])
+    print('Incomplete deck length:')
+    print(len(incomplete_deck))
+    while dealer_hand_value < 17 or dealer_hand_value == 0:
 
-    # dealer finishes their turn
+        drawn_card, incomplete_deck = draw_card(incomplete_deck)
+        copy_dealer_hand.append(drawn_card)
+        dealer_hand_value = highest_hand_value(copy_dealer_hand)
+
+    if dealer_hand_value == 0:
+        await player_wins(True, member, blackjack_game, db, client, channel_id)
+    else:
+        if dealer_hand_value > player_hand_value:
+            blackjack_game['dealer_hand'] = copy_dealer_hand
+            await dealer_wins(False, False, member, blackjack_game, db, client, channel_id)
+        elif dealer_hand_value == player_hand_value:
+            blackjack_game['dealer_hand'] = copy_dealer_hand
+            await dealer_wins(False, True, member, blackjack_game, db, client, channel_id)
+        else:
+            await player_wins(False, member, blackjack_game, db, client, channel_id)
 
 
 async def check_for_black_jack(db, channel_id, message_id, member, emoji, client):
