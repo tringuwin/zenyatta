@@ -6,6 +6,7 @@ from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.donate import donate_handler
 from command_handlers.donate_pass import donate_pass_handler
 from command_handlers.fun_fact import fun_fact_handler
+from command_handlers.getdetails import get_details_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
 from command_handlers.invited_by import invited_by_handler
@@ -396,25 +397,8 @@ async def handle_message(message, db, client):
                 print(member.display_name+" : "+str(member.id) + " : "+user['battle_tag'])
 
     elif lower_message.startswith('!getdetails '):
-
         # !getdetails [username]
-        word_list = message.content.split()
-        if len(word_list) == 2:
-            
-            member = await get_member_by_username(client, word_list[1])
-            if is_admin or (member.id == message.author.id):
-                user = user_exists(db, member.id)
-                if user:
-                    final_string = 'User ID: '+str(member.id)+"\nBattle Tag: "+user['battle_tag']
-                    final_string += '\nTokens: '+str(get_user_tokens(user))+'\n'+'Passes: '+str(get_user_passes(user))
-                    await message.channel.send(final_string)
-            else:
-                await message.channel.send('You can only use this command to get your own details.')
-
-            
-        else:
-            await message.channel.send("Invalid number of arguments.")
-
+        await get_details_handler(db, message, client, is_admin)
     elif lower_message == '!wipeteams' and is_admin:
         await wipe_teams_handler(db, message)
     elif lower_message == '!totaltokens' and is_admin:
