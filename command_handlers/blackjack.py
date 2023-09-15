@@ -229,6 +229,9 @@ async def dealer_wins(by_bust, is_tie, member, blackjack_game, db, client, chann
         final_string += '\nThe Dealer has a higher score so the Dealer wins.'
     final_string += ' You lost '+str(blackjack_game['wager'])+' tokens.'
 
+    blackjack = db['blackjack']
+    blackjack.delete_one({'message_id': blackjack_game['message_id']})
+
     same_channel = client.get_channel(channel_id)
     await same_channel.send(final_string)
     
