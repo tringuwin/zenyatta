@@ -217,7 +217,7 @@ async def dealer_wins(by_bust, is_tie, member, blackjack_game, db, client, chann
 
     final_string = ''+member.mention
     final_string += '\nDealers Hand: '+concat_cards(blackjack_game['dealer_hand'])
-    final_string += '\nDealers Hand Value: '+str(highest_hand_value['dealer_hand'])
+    final_string += '\nDealers Hand Value: '+str(highest_hand_value(blackjack_game['dealer_hand']))
     final_string += '\nYour Hand: '+concat_cards(blackjack_game['player_hand'])
     final_string += '\nYour Hand Value: '+player_hand_value(blackjack_game['player_hand'])
     final_string += '\n----------------------'
