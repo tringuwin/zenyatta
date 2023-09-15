@@ -201,6 +201,24 @@ async def blackjack_handler(db, message, client):
 
 
 
+
+async def blackjack_hit(db, blackjack_game):
+
+    pass
+
+
+async def blackjack_stand(db, blackjack_game):
+
+    dealer_hand_value = highest_hand_value(blackjack_game['dealer_hand'])
+    player_hand_value = highest_hand_value(blackjack_game['player_hand'])
+
+    if dealer_hand_value > player_hand_value:
+        # dealer wins
+        print('dealer wins')
+
+    # dealer finishes their turn
+
+
 async def check_for_black_jack(db, channel_id, message_id, member, emoji):
 
     blackjack_game = get_blackjack_by_msg_id(db, message_id)
@@ -214,7 +232,9 @@ async def check_for_black_jack(db, channel_id, message_id, member, emoji):
     
     if emoji.name == '🇭':
         print('Player chose to hit')
+        await blackjack_hit(db, blackjack_game)
     elif emoji.name == '🇸':
         print('Player chose to stand')
+        await blackjack_stand(db, blackjack_game)
     else:
         print('Not blackjack emoji. User reacted with: '+emoji.name)
