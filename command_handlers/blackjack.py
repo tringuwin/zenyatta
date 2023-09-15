@@ -307,14 +307,13 @@ async def blackjack_stand(db, blackjack_game, member, client, channel_id):
         dealer_hand_value = highest_hand_value(copy_dealer_hand)
         print(dealer_hand_value)
 
+    blackjack_game['dealer_hand'] = copy_dealer_hand
     if dealer_hand_value == 0:
         await player_wins(True, member, blackjack_game, db, client, channel_id)
     else:
         if dealer_hand_value > player_hand_value:
-            blackjack_game['dealer_hand'] = copy_dealer_hand
             await dealer_wins(False, False, member, blackjack_game, db, client, channel_id)
         elif dealer_hand_value == player_hand_value:
-            blackjack_game['dealer_hand'] = copy_dealer_hand
             await dealer_wins(False, True, member, blackjack_game, db, client, channel_id)
         else:
             await player_wins(False, member, blackjack_game, db, client, channel_id)
