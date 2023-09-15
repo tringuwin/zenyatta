@@ -137,7 +137,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!twager'):
         await twager_handler(db, message)
 
-    elif lower_message.startswith('!blackjack'):
+    elif lower_message.startswith('!blackjack') and is_admin:
         await blackjack_handler(db, message, client)
 
     elif lower_message.startswith('!buy'):

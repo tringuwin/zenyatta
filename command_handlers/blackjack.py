@@ -220,8 +220,6 @@ async def blackjack_handler(db, message, client):
         }
         blackjack.insert_one(new_game)
 
-    await message.channel.send('(this command is in progress and not ready yet)')
-
 
 
 def concat_cards(cards):
