@@ -297,17 +297,10 @@ async def blackjack_stand(db, blackjack_game, member, client, channel_id):
 
     dealer_hand_value = highest_hand_value(blackjack_game['dealer_hand'])
     player_hand_value = highest_hand_value(blackjack_game['player_hand'])
-
-    # if dealer_hand_value > player_hand_value:
-    #     await dealer_wins(False, False, member, blackjack_game, db, client, channel_id)
-    #     return
-    # elif dealer_hand_value == player_hand_value:
-    #     await dealer_wins(False, True, member, blackjack_game, db, client, channel_id)
-    #     return
     
     copy_dealer_hand = copy.deepcopy(blackjack_game['dealer_hand'])
     incomplete_deck = make_incomplete_deck(blackjack_game['player_hand'], blackjack_game['dealer_hand'])
-    while dealer_hand_value < 17 or dealer_hand_value == 0:
+    while dealer_hand_value < 17 and dealer_hand_value != 0:
         print('dealer drawing')
         drawn_card, incomplete_deck = draw_card(incomplete_deck)
         copy_dealer_hand.append(drawn_card)
