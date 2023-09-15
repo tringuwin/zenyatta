@@ -286,7 +286,7 @@ async def blackjack_hit(db, blackjack_game, member, client, channel_id):
 
 
     incomplete_deck = make_incomplete_deck(blackjack_game['player_hand'], blackjack_game['dealer_hand'])
-    new_card = draw_card(incomplete_deck)
+    new_card, incomplete_deck = draw_card(incomplete_deck)
     player_hand_copy = copy.deepcopy(blackjack_game['player_hand'])
     player_hand_copy.append(new_card)
     blackjack_game['player_hand'] = player_hand_copy
