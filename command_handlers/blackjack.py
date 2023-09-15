@@ -95,6 +95,8 @@ def player_hand_value(cards):
 
     v_final = hand_values(cards)
 
+    if len(v_final) == 0:
+        return 'BUST'
     if len(v_final) == 1:
         return str(v_final[0])
     elif len(v_final) == 2:
