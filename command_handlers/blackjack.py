@@ -207,7 +207,7 @@ async def blackjack_handler(db, message, client):
         final_string += '\nTo **stand** react with 🇸'
 
     bj_message = await message.channel.send(final_string)
-    if not dealer_bj:
+    if not (dealer_bj or player_bj):
         await bj_message.add_reaction('🇭')
         await bj_message.add_reaction('🇸')
 
