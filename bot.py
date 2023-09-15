@@ -499,7 +499,7 @@ def run_discord_bot(db):
             await member.add_roles(role)
         else:
             print('checking for blackjack')
-            await check_for_black_jack(db, payload.channel_id, message_id, member, payload.emoji)
+            await check_for_black_jack(db, payload.channel_id, message_id, member, payload.emoji, client)
 
     @client.event
     async def on_raw_reaction_remove(payload):

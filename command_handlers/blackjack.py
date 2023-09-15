@@ -201,25 +201,60 @@ async def blackjack_handler(db, message, client):
 
 
 
+def concat_cards(cards):
+
+    if len(cards) == 0:
+        return ''
+    
+    final_string = ''
+    for card in cards:
+        final_string += card_to_text(card)+' '
+
+    return final_string
+
+
+async def dealer_wins(by_bust, is_tie, member, blackjack_game, db, client, channel_id):
+
+    final_string = ''+member.mention
+    final_string += '\nDealers Hand: '+concat_cards(blackjack_game['dealer_hand'])
+    final_string += '\nDealers Hand Value: '+str(highest_hand_value['dealer_hand'])
+    final_string += '\nYour Hand: '+concat_cards(blackjack_game['player_hand'])
+    final_string += '\nYour Hand Value: '+player_hand_value(blackjack_game['player_hand'])
+    final_string += '\n----------------------'
+    if by_bust:
+        final_string += '\nYou busted! The Dealer wins.'
+    elif is_tie:
+        final_string += '\nYou tied with the Dealer, so the Dealer wins.'
+    else:
+        final_string += '\nThe Dealer has a higher score so the Dealer wins.'
+    final_string += ' You lost '+str(blackjack_game['wager'])+' tokens.'
+
+    same_channel = client.get_channel(channel_id)
+    await same_channel.send(final_string)
+    
+
 
 async def blackjack_hit(db, blackjack_game):
+
 
     pass
 
 
-async def blackjack_stand(db, blackjack_game):
+async def blackjack_stand(db, blackjack_game, member, client, channel_id):
 
     dealer_hand_value = highest_hand_value(blackjack_game['dealer_hand'])
     player_hand_value = highest_hand_value(blackjack_game['player_hand'])
 
     if dealer_hand_value > player_hand_value:
         # dealer wins
-        print('dealer wins')
+        await dealer_wins(False, False, member, blackjack_game, db, client, channel_id)
+    elif dealer_hand_value == player_hand_value:
+        await dealer_wins(False, True, member, blackjack_game, db, client, channel_id)
 
     # dealer finishes their turn
 
 
-async def check_for_black_jack(db, channel_id, message_id, member, emoji):
+async def check_for_black_jack(db, channel_id, message_id, member, emoji, client):
 
     blackjack_game = get_blackjack_by_msg_id(db, message_id)
     if not blackjack_game:
@@ -235,6 +270,6 @@ async def check_for_black_jack(db, channel_id, message_id, member, emoji):
         await blackjack_hit(db, blackjack_game)
     elif emoji.name == '🇸':
         print('Player chose to stand')
-        await blackjack_stand(db, blackjack_game)
+        await blackjack_stand(db, blackjack_game, member, client, channel_id)
     else:
         print('Not blackjack emoji. User reacted with: '+emoji.name)
