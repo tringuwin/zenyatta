@@ -304,9 +304,11 @@ async def blackjack_hit(db, blackjack_game, member, client, channel_id):
         final_string += '\nYour Hand: '+concat_cards(blackjack_game['player_hand'])
         final_string += '\nYour Hand Value: '+player_hand_value(blackjack_game['player_hand'])
         final_string += '\n----------------------'
+        final_string += '\nTo **hit** react with 🇭'
+        final_string += '\nTo **stand** react with 🇸'
 
         same_channel = client.get_channel(channel_id)
-        new_bj_msg = await same_channel.send('')
+        new_bj_msg = await same_channel.send(final_string)
 
         blackjack = db['blackjack']
         blackjack.update_one({'message_id': blackjack_game['message_id']}, {"$set": {"message_id": new_bj_msg, 'player_hand': player_hand_copy}})
