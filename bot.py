@@ -254,7 +254,7 @@ async def handle_message(message, db, client):
 
         await send_next_info(db, message, guild, event_channel)
 
-        await event_channel.send('**TOURNAMENT HAS STARTED** '+tourney_role.mention)
+        # await event_channel.send('**TOURNAMENT HAS STARTED** '+tourney_role.mention)
         await notify_next_users(db, guild, message, event_channel)
 
     elif lower_message == '!pausetourney' and is_admin:
