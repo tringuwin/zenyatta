@@ -4,6 +4,7 @@ import random
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_message_by_channel_and_id
 from helpers import can_be_int, valid_number_of_params
+from rewards import change_tokens
 from user import get_user_tokens, user_exists
 import math
 
@@ -198,13 +199,16 @@ async def blackjack_handler(db, message, client):
     final_string += '\n----------------------'
     if dealer_bj:
         final_string +='\nThe Dealer got Black-Jack! You lost '+str(token_wager)+' tokens.'
+        await change_tokens(db, user, -1*token_wager)
     elif player_bj:
         raw_profit = (float(token_wager) * 3.0) / 2.0
         final_profit = int(math.floor(raw_profit))
         final_string +='\nYou got Black-Jack and beat the Dealer. **You won '+str(final_profit)+' tokens!**'
+        await change_tokens(db, user, final_profit)
     else:
         final_string += '\nTo **hit** react with 🇭'
         final_string += '\nTo **stand** react with 🇸'
+        await change_tokens(db, user, -1*token_wager)
 
     bj_message = await message.channel.send(final_string)
     if not (dealer_bj or player_bj):
@@ -277,6 +281,8 @@ async def player_wins(by_bust, member, blackjack_game, db, client, channel_id):
     else:
         final_string += '\nYou have a higher score than the Dealer so you win!'
     final_string += ' You won '+str(blackjack_game['wager'])+' tokens!'
+    user = user_exists(db, member.id)
+    await change_tokens(db, user, blackjack_game['wager'])
 
     delete_game_by_msg_id(db, blackjack_game['message_id'])
 
@@ -285,7 +291,6 @@ async def player_wins(by_bust, member, blackjack_game, db, client, channel_id):
 
 
 async def blackjack_hit(db, blackjack_game, member, client, channel_id):
-
 
     incomplete_deck = make_incomplete_deck(blackjack_game['player_hand'], blackjack_game['dealer_hand'])
     new_card, incomplete_deck = draw_card(incomplete_deck)
