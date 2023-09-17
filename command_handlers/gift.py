@@ -21,7 +21,7 @@ async def process_gift(db, current_time, existing_user, message):
         if prize_index <= 3:
             await change_tokens(db, existing_user, 100)
             await message.channel.send(message.author.mention+" 🪙 **YOU FOUND 100 TOKENS!!** 🪙"+general_info)
-        elif prize_index <= 15:
+        elif prize_index <= 9:
             await change_passes(db, existing_user, 1)
             await message.channel.send(message.author.mention+" 🎟️ You found a **Priority Pass!** 🎟️"+general_info)
         else:
@@ -32,7 +32,7 @@ async def process_gift(db, current_time, existing_user, message):
         if prize_index == 1:
             await change_tokens(db, existing_user, 100)
             await message.channel.send(message.author.mention+" 🪙 **YOU FOUND 100 TOKENS!!** 🪙"+general_info)
-        elif prize_index <= 10:
+        elif prize_index <= 5:
             await change_passes(db, existing_user, 1)
             await message.channel.send(message.author.mention+" 🎟️ You found a **Priority Pass!** 🎟️"+general_info)
         else:
