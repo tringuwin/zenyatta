@@ -282,7 +282,7 @@ async def player_wins(by_bust, member, blackjack_game, db, client, channel_id):
         final_string += '\nYou have a higher score than the Dealer so you win!'
     final_string += ' You won '+str(blackjack_game['wager'])+' tokens!'
     user = user_exists(db, member.id)
-    await change_tokens(db, user, blackjack_game['wager'])
+    await change_tokens(db, user, blackjack_game['wager']*2)
 
     delete_game_by_msg_id(db, blackjack_game['message_id'])
 
