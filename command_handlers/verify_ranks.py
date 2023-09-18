@@ -16,9 +16,7 @@ async def verify_ranks_handler(db, message):
     web_page = 'https://overwatch.blizzard.com/en-us/career/'
     tag_parts = battle_tag.split('#')
     web_page += tag_parts[0]+'-'+tag_parts[1]
-    print(web_page)
     response = requests.get(web_page)
-    print(response.text)
 
     if response:
 
@@ -28,5 +26,8 @@ async def verify_ranks_handler(db, message):
         soup = BeautifulSoup(content, 'html.parser')
 
         # Step 3: Find the div by its class name
-        target_div = soup.find('div', class_='Profile-player--info')
-        print(str(target_div))
+        target_div = soup.find('div', class_='mouseKeyboard-view Profile-playerSummary--rankWrapper')
+        child_divs = target_div.find_all('div', recursive=False)
+        for child_div in child_divs:
+            img_class = child_div.find('img')
+            print(img_class)
