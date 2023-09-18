@@ -19,14 +19,14 @@ async def verify_ranks_handler(db, message):
     response = requests.get(web_page)
 
     if response:
-
+        print(response)
         content = response.content
 
         # Step 2: Parse content with BeautifulSoup
         soup = BeautifulSoup(content, 'html.parser')
 
         # Step 3: Find the div by its class name
-        target_div = soup.find('div', class_='mouseKeyboard-view Profile-playerSummary--rankWrapper')
+        target_div = soup.find('div', class_='mouseKeyboard-view')
         child_divs = target_div.find_all('div', recursive=False)
         for child_div in child_divs:
             img_class = child_div.find('img')
