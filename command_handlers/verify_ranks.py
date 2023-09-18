@@ -17,4 +17,4 @@ async def verify_ranks_handler(db, message):
     web_page += tag_parts[0]+'-'+tag_parts[1]
     print(web_page)
     response = requests.get(web_page)
-    print(response)
+    print(response.text)
