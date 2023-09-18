@@ -56,5 +56,14 @@ async def verify_ranks_handler(db, message):
         target_div = soup.find('div', class_='mouseKeyboard-view')
         child_divs = target_div.find_all('div', recursive=False)
         for child_div in child_divs:
+            role_holder = child_div.find('div', class_='Profile-playerSummary--role')
+            role = role_holder.find('img')
+            role_text = role['src']
             rank = child_div.find('img', class_='Profile-playerSummary--rank')
-            print(rank['src'])
+            rank_text = rank['src']
+
+            print('---')
+            print('role: '+role_text)
+            print('rank: '+rank_text)
+
+
