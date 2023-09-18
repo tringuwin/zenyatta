@@ -2,6 +2,7 @@
 from common_messages import not_registered_response
 from user import user_exists
 import requests
+from bs4 import BeautifulSoup
 
 
 async def verify_ranks_handler(db, message):
@@ -18,3 +19,14 @@ async def verify_ranks_handler(db, message):
     print(web_page)
     response = requests.get(web_page)
     print(response.text)
+
+    if response:
+
+        content = response.content
+
+        # Step 2: Parse content with BeautifulSoup
+        soup = BeautifulSoup(content, 'html.parser')
+
+        # Step 3: Find the div by its class name
+        target_div = soup.find('div', class_='Profile-player--info')
+        print(str(target_div))
