@@ -197,7 +197,9 @@ async def blackjack_handler(db, message, client):
     final_string += '\nYour Hand: '+card_to_text(player_card1)+' '+card_to_text(player_card2)
     final_string += '\nYour Hand Value: '+player_hand_value(player_cards)
     final_string += '\n----------------------'
-    if dealer_bj:
+    if dealer_bj and player_bj:
+        final_string +='\nBoth you and the Dealer got Black-Jack, so you get your bet back.'
+    elif dealer_bj:
         final_string +='\nThe Dealer got Black-Jack! You lost '+str(token_wager)+' tokens.'
         await change_tokens(db, user, -1*token_wager)
     elif player_bj:
@@ -254,13 +256,17 @@ async def dealer_wins(by_bust, is_tie, member, blackjack_game, db, client, chann
     final_string += '\nYour Hand: '+concat_cards(blackjack_game['player_hand'])
     final_string += '\nYour Hand Value: '+player_hand_value(blackjack_game['player_hand'])
     final_string += '\n----------------------'
-    if by_bust:
-        final_string += '\nYou busted! The Dealer wins.'
-    elif is_tie:
-        final_string += '\nYou tied with the Dealer, so the Dealer wins.'
+
+    if is_tie:
+        final_string += '\nYou tied with the Dealer, so you get your bet back.'
+        user = user_exists(db, member.id)
+        await change_tokens(db, user, blackjack_game['wager'])
     else:
-        final_string += '\nThe Dealer has a higher score so the Dealer wins.'
-    final_string += ' You lost '+str(blackjack_game['wager'])+' tokens.'
+        if by_bust:
+            final_string += '\nYou busted! The Dealer wins.'
+        else:
+            final_string += '\nThe Dealer has a higher score so the Dealer wins.'
+        final_string += ' You lost '+str(blackjack_game['wager'])+' tokens.'
 
     delete_game_by_msg_id(db, blackjack_game['message_id'])
 

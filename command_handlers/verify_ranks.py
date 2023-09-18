@@ -5,6 +5,33 @@ import requests
 from bs4 import BeautifulSoup
 
 
+
+ranks = [
+    'BronzeTier-1',
+    'BronzeTier-2',
+    'BronzeTier-3',
+    'BronzeTier-4',
+    'BronzeTier-5',
+    'SilverTier-1',
+    'SilverTier-2',
+    'SilverTier-3',
+    'SilverTier-4',
+    'SilverTier-5',
+    'GoldTier-1',
+    'GoldTier-2',
+    'GoldTier-3',
+    'GoldTier-4',
+    'GoldTier-5',
+    'PlatinumTier-1',
+    'PlatinumTier-2',
+    'PlatinumTier-3',
+    'PlatinumTier-4',
+    'PlatinumTier-5',
+    'DiamondTier-1',
+    
+]
+
+
 async def verify_ranks_handler(db, message):
 
     user = user_exists(db, message.author.id)
