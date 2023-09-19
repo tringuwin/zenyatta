@@ -55,7 +55,7 @@ async def buy_handler(db, message):
 
     else:
         redemptions_channel = await get_redemptions_channel(message)
-        await redemptions_channel.send('**User Redeemed Reward: '+offer['item_name']+'**\n'+'User ID: '+str(message.author.id)+'\nUser Name: '+message.author.display_name)
+        await redemptions_channel.send('**User Redeemed Reward: '+offer['item_name']+'**\n'+'User ID: '+str(message.author.id)+'\nUser Name: '+message.author.display_name+'\nBattle Tag: '+user['battle_tag'])
         await message.channel.send('Success! Your reward "'+offer['item_name']+'" has been redeemed. SpicyRagu will contact you soon to get you your reward!')
 
     # send back confirm message
