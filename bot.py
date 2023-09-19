@@ -145,7 +145,8 @@ async def handle_message(message, db, client):
         await buy_handler(db, message)
 
     elif lower_message.startswith('!donate '):
-        await donate_handler(db, message)
+        await message.channel.send('This command is currently disabled.')
+        #await donate_handler(db, message)
 
     elif lower_message.startswith('!donatepass'):
         await donate_pass_handler(db, message)
