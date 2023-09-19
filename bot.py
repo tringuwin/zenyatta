@@ -145,14 +145,13 @@ async def handle_message(message, db, client):
         await buy_handler(db, message)
 
     elif lower_message.startswith('!donate '):
-        await message.channel.send('This command is currently disabled.')
-        #await donate_handler(db, message)
+        await donate_handler(db, message)
 
     elif lower_message.startswith('!donatepass'):
         await donate_pass_handler(db, message)
 
-    elif lower_message.startswith('!invitedby'):
-        await invited_by_handler(db, message)
+    # elif lower_message.startswith('!invitedby'):
+    #     await invited_by_handler(db, message)
 
     elif lower_message == '!verifyranks' and is_admin:
         await verify_ranks_handler(db, message)
