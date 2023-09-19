@@ -75,8 +75,13 @@ async def handle_message(message, db, client):
     lower_message = user_message.lower()
 
 
-    valid_channel = is_admin or message.channel.id == constants.BOT_CHANNEL or (message.channel.id == constants.CASINO_CHANNEL and (lower_message.startswith('!wager') or lower_message.startswith('!twager') or lower_message.startswith('!blackjack')))
+
+    valid_channel = is_admin or message.channel.id == constants.BOT_CHANNEL or (message.channel.id == constants.CASINO_CHANNEL and (lower_message.startswith('!wager') or lower_message.startswith('!twager')))
     if (not valid_channel) and (message.channel.id == constants.CASINO_CHANNEL and lower_message == '!tokens'):
+        valid_channel = True
+    if (not valid_channel) and (message.channel.id == constants.BLACKJACK_CHANNEL and lower_message == '!tokens'):
+        valid_channel = True
+    if (not valid_channel) and (message.channel.id == constants.BLACKJACK_CHANNEL and lower_message.startswith('!blackjack')):
         valid_channel = True
 
     if not valid_channel:
