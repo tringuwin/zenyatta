@@ -18,6 +18,6 @@ async def delete_by_tag_handler(db, message):
         return
     
     users = db['users']
-    users.delete_one({'lower_battle_tag': lower_tag})
+    users.delete_one({'lower_tag': lower_tag})
 
     await message.channel.send('User with battle tag '+lower_tag+' has been deleted.')

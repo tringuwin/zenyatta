@@ -13,7 +13,7 @@ def get_user_by_tag(db, lower_tag):
 
     users = db['users']
 
-    search_query = {"lower_battle_tag": lower_tag}
+    search_query = {"lower_tag": lower_tag}
 
     return users.find_one(search_query)
 
