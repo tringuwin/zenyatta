@@ -59,6 +59,38 @@ from teams import get_team_by_name
 from user import get_user_passes, get_user_tokens, user_exists
 
 
+def is_valid_channel(message, lower_message, is_admin):
+
+    if is_admin:
+        return True, None
+
+    if message.channel.id == constants.BOT_CHANNEL:
+
+        if lower_message.startswith('!wager'):
+            return False, 'Please only use the wager command in the Roulette Channel.'
+        elif lower_message.startswith('!twager'):
+            return False, 'Please only use the twager command in the Roulette Channel.'
+        elif lower_message.startswith('!blackjack'):
+            return False, 'Please only use the blackjack command in the Blackjack Channel.'
+        else:
+            return True, None
+        
+    elif message.channel.id == constants.CASINO_CHANNEL:
+
+        if lower_message.startswith('!wager') or lower_message.startswith('!twager') or lower_message.startswith('!tokens'):
+            return True, None
+        else:
+            return False, 'Only these commands are allowed in the Roulette Channel: !wager, !twager, !tokens'
+        
+    elif message.channel.id == constants.BLACKJACK_CHANNEL:
+
+        if lower_message.startswith('!blackjack') or lower_message.startswith('!tokens'):
+            return True, None
+        else:
+            return False, 'Only these commands are allowed in the Blackjack Channel: !blackjack, !tokens'
+        
+    return False, 'Please only use commands in a valid channel'
+
 
 async def handle_message(message, db, client):
 
@@ -75,27 +107,18 @@ async def handle_message(message, db, client):
 
     lower_message = user_message.lower()
 
-
-
-    valid_channel = is_admin or message.channel.id == constants.BOT_CHANNEL or (message.channel.id == constants.CASINO_CHANNEL and (lower_message.startswith('!wager') or lower_message.startswith('!twager')))
-    if (not valid_channel) and (message.channel.id == constants.CASINO_CHANNEL and lower_message == '!tokens'):
-        valid_channel = True
-    if (not valid_channel) and (message.channel.id == constants.BLACKJACK_CHANNEL and lower_message == '!tokens'):
-        valid_channel = True
-    if (not valid_channel) and (message.channel.id == constants.BLACKJACK_CHANNEL and lower_message.startswith('!blackjack')):
-        valid_channel = True
+    valid_channel, response = is_valid_channel(message, lower_message)
 
     if not valid_channel:
         
         await message.delete()
-        warning = await message.channel.send(message.author.mention+" Please only use commands in the #bot-commands channel.")
+        warning = await message.channel.send(message.author.mention+" "+response)
 
         time.sleep(10)
         await warning.delete()
         return
 
     
-
     if lower_message == '!help':
         await help_hanlder(message)
 
