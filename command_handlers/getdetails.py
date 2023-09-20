@@ -32,7 +32,7 @@ async def get_details_handler(db, message, client, is_admin):
         await message.channel.send('You can only use this command to get your own details.')
         return
 
-    final_string = 'User ID: '+str(user.id)+"\nBattle Tag: "+user['battle_tag']
+    final_string = 'User ID: '+str(user['discord_id'])+"\nBattle Tag: "+user['battle_tag']
     final_string += '\nTokens: '+str(get_user_tokens(user))+'\n'+'Passes: '+str(get_user_passes(user))
     await message.channel.send(final_string)
    
