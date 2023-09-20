@@ -11,6 +11,7 @@ from command_handlers.getdetails import get_details_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
 from command_handlers.invited_by import invited_by_handler
+from command_handlers.solo_join import solo_join_handler
 from command_handlers.suggest_event import suggest_event_handler
 from command_handlers.teams.del_team_from_event import del_team_from_event_handler
 from command_handlers.teams.get_teams import get_teams_handler
@@ -178,6 +179,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!donatepass'):
         await donate_pass_handler(db, message)
+
+    elif lower_message.startswith('!solojoin'):
+        await solo_join_handler(db, message, client)
 
     # elif lower_message.startswith('!invitedby'):
     #     await invited_by_handler(db, message)
