@@ -1,6 +1,7 @@
 import time
 import discord
 import asyncio
+from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.donate import donate_handler
@@ -434,6 +435,9 @@ async def handle_message(message, db, client):
         guild = await get_guild(client)
         chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
         await chat_channel.send(rest)
+
+    elif lower_message.startswith('!deletebytag ') and is_admin:
+        await delete_by_tag_handler(db, message)
 
     elif lower_message == '!testerror' and is_admin:
 
