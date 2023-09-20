@@ -107,7 +107,7 @@ async def handle_message(message, db, client):
 
     lower_message = user_message.lower()
 
-    valid_channel, response = is_valid_channel(message, lower_message)
+    valid_channel, response = is_valid_channel(message, lower_message, is_admin)
 
     if not valid_channel:
         
