@@ -1,5 +1,6 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
+from discord_actions import give_role_to_user
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_passes, change_tokens
 from shop import get_redemptions_channel, update_shop
@@ -7,7 +8,7 @@ from user import get_user_tokens, user_exists
 import constants
 
 
-async def buy_handler(db, message):
+async def buy_handler(db, message, client):
 
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
@@ -52,6 +53,10 @@ async def buy_handler(db, message):
             # give player 1 priority pass
             await change_passes(db, user, 1)
             await message.channel.send('Success! You redeemed a priority pass!')
+        elif buy_item == 9:
+            # give player mudae role
+            await give_role_to_user(client, message.author, constants.MUDAE_ROLE_ID)
+            await message.channel.send('Success! You can now access the Mudae channel!')
 
     else:
         redemptions_channel = await get_redemptions_channel(message)

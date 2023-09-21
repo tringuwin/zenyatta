@@ -172,7 +172,7 @@ async def handle_message(message, db, client):
         await blackjack_handler(db, message, client)
 
     elif lower_message.startswith('!buy'):
-        await buy_handler(db, message)
+        await buy_handler(db, message, client)
 
     elif lower_message.startswith('!donate '):
         await donate_handler(db, message)
