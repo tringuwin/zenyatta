@@ -3,6 +3,7 @@ import discord
 import asyncio
 from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
+from admin_handlers.set_item_price import set_item_price_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.donate import donate_handler
 from command_handlers.donate_pass import donate_pass_handler
@@ -450,6 +451,8 @@ async def handle_message(message, db, client):
         await update_shop_handler(db, message)
     elif lower_message.startswith('!edititemname') and is_admin:
         await edit_item_name_handler(db, message)
+    elif lower_message.startswith('!setitemprice') and is_admin:
+        await set_item_price_handler(db, message)
     elif lower_message.startswith('!makepublic') and is_admin:
         await make_public_handler(db, message)
     elif lower_message.startswith('!closeevent') and is_admin:
