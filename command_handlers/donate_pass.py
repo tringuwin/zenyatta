@@ -2,7 +2,7 @@
 from datetime import datetime, timezone
 import math
 from common_messages import invalid_number_of_params, not_registered_response
-from helpers import valid_number_of_params
+from helpers import valid_params_ignore_whitespace
 from rewards import change_passes
 from user import get_user_passes, user_exists
 import constants
@@ -10,7 +10,7 @@ import constants
 
 async def donate_pass_handler(db, message):
 
-    valid_params, params = valid_number_of_params(message, 2)
+    valid_params, params = valid_params_ignore_whitespace(message, 2)
     if not valid_params:
         await invalid_number_of_params(message)
         return
