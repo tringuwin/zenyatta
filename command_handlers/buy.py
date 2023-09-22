@@ -53,10 +53,6 @@ async def buy_handler(db, message, client):
             # give player 1 priority pass
             await change_passes(db, user, 1)
             await message.channel.send('Success! You redeemed a priority pass!')
-        elif buy_item == 9:
-            # give player mudae role
-            await give_role_to_user(client, message.author, constants.MUDAE_ROLE_ID)
-            await message.channel.send('Success! You can now access the Mudae channel!')
 
     else:
         redemptions_channel = await get_redemptions_channel(message)

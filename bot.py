@@ -13,6 +13,7 @@ from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.solo_join import solo_join_handler
+from command_handlers.suggest import suggest_handler
 from command_handlers.suggest_event import suggest_event_handler
 from command_handlers.teams.del_team_from_event import del_team_from_event_handler
 from command_handlers.teams.get_teams import get_teams_handler
@@ -138,6 +139,9 @@ async def handle_message(message, db, client):
     
     elif lower_message.startswith("!suggestevent "):
         await suggest_event_handler(message, client)
+
+    elif lower_message.startswith("!suggest "):
+        await suggest_handler(message, client)
 
     elif lower_message == "!tokens":
         await output_tokens(db, message)
