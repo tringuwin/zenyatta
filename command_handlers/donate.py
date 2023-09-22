@@ -1,6 +1,6 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from helpers import can_be_int, valid_number_of_params
+from helpers import can_be_int, valid_params_ignore_whitespace
 from rewards import change_tokens
 from user import get_user_tokens, user_exists
 from datetime import datetime, timezone
@@ -9,7 +9,7 @@ import constants
 
 async def donate_handler(db, message):
     
-    valid_params, params = valid_number_of_params(message, 3)
+    valid_params, params = valid_params_ignore_whitespace(message, 3)
     if not valid_params:
         await invalid_number_of_params(message)
         return
