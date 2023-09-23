@@ -2,7 +2,8 @@
 import random
 from bracket import get_bracket_by_event_id, make_bracket_from_users
 from common_messages import invalid_number_of_params
-from events import get_event_by_id, get_event_team_size
+from events import get_event_team_size
+from getters.event_getters import get_event_by_id
 from helpers import valid_number_of_params
 
 async def gen_bracket_handler(db, message):

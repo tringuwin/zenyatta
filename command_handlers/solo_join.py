@@ -1,6 +1,6 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from events import get_event_by_id
+from getters.event_getters import get_event_by_id
 from helpers import valid_number_of_params
 from user import user_exists
 import constants

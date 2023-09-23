@@ -7,14 +7,6 @@ from getters.event_getters import get_event_role_id
 from teams import get_in_events, get_team_by_name
 
 
-def get_event_by_id(db, event_id):
-
-    events = db['events']
-
-    search_query = {"event_id": event_id}
-
-    return events.find_one(search_query)
-
 def get_event_team_size(event):
 
     if 'team_size' in event:

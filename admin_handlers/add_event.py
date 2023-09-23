@@ -1,5 +1,5 @@
 
-from events import get_event_by_id
+from getters.event_getters import get_event_by_id
 from mongo import create_event
 
 

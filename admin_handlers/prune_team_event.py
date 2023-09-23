@@ -1,7 +1,8 @@
 
 from common_messages import invalid_number_of_params
 from discord_actions import get_guild, get_member_by_id, get_role_by_id
-from events import get_event_by_id, get_event_team_size
+from events import get_event_team_size
+from getters.event_getters import get_event_by_id
 from helpers import valid_number_of_params
 from teams import get_team_by_name
 

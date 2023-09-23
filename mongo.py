@@ -5,7 +5,6 @@ import discord
 from common_messages import not_registered_response
 import constants
 from bracket import get_bracket_by_event_id, make_bracket_from_users
-from events import get_event_by_id, get_event_team_size
 from rewards import change_passes, change_tokens
 from user import get_user_passes, user_exists
 

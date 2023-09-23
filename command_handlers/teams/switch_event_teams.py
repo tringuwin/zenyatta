@@ -1,6 +1,6 @@
 
 from bracket import get_bracket_by_event_id
-from events import get_event_by_id
+from getters.event_getters import get_event_by_id
 from helpers import make_string_from_word_list
 from teams import get_team_by_name
 

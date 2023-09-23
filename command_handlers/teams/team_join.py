@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from events import add_team_to_event, event_has_space, event_is_open, get_event_by_id, get_event_team_size, player_on_team_in_event, team_in_event
+from events import add_team_to_event, event_has_space, event_is_open, get_event_team_size, player_on_team_in_event, team_in_event
+from getters.event_getters import get_event_by_id
 from helpers import make_string_from_word_list
 from rewards import change_passes
 from teams import get_team_by_name, team_is_full

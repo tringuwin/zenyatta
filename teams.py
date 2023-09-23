@@ -1,6 +1,6 @@
 
 from discord_actions import give_role_to_user, remove_role_from_user
-from getters.event_getters import get_event_role_id
+from getters.event_getters import get_event_by_id, get_event_role_id
 from user import add_team_to_user, get_user_invites, get_user_teams, user_exists
 
 def user_owns_team(team, user_id):
@@ -128,10 +128,12 @@ async def remove_user_from_team(db, user, team, client):
     team['members'] = remove_user_from_member_list(user['discord_id'], team['members'])
 
     team_events = get_in_events(team)
-    for event in team_events:
-        print('checking event '+event)
+    for event_id in team_events:
+        print('checking event '+event_id)
+        event = get_event_by_id(event_id)
         event_role_id = get_event_role_id(event)
         if event_role_id:
+            print('event role id exists')
             await remove_role_from_user(client, user, event_role_id)
 
     teams.update_one({'team_name': team['team_name']}, {"$set": {"members": team['members']}})
