@@ -131,10 +131,12 @@ async def remove_user_from_team(db, user, team, client):
     for event_id in team_events:
         print('checking event '+event_id)
         event = get_event_by_id(db, event_id)
-        event_role_id = get_event_role_id(event)
-        if event_role_id:
-            print('event role id exists')
-            await remove_role_from_user(client, user, event_role_id)
+        if event:
+            print('event exists')
+            event_role_id = get_event_role_id(event)
+            if event_role_id:
+                print('event role id exists')
+                await remove_role_from_user(client, user, event_role_id)
 
     teams.update_one({'team_name': team['team_name']}, {"$set": {"members": team['members']}})
 
