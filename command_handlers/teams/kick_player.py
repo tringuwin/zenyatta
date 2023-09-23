@@ -5,7 +5,7 @@ from teams import get_team_by_name, remove_user_from_team, user_on_team, user_ow
 from user import user_exists
 
 
-async def kick_player_handler(db, message):
+async def kick_player_handler(db, message, client):
     
     word_list = message.content.split(' ')
     if len(word_list) < 3:
@@ -41,6 +41,6 @@ async def kick_player_handler(db, message):
         await message.channel.send('You do not own this team.')
         return
 
-    await remove_user_from_team(db, kick_user, team)
+    await remove_user_from_team(db, kick_user, team, client)
 
     await message.channel.send('Player was successfully kicked.')

@@ -5,7 +5,7 @@ from teams import delete_team, get_team_by_name
 from user import user_exists
 
 
-async def delete_team_handler(db, message):
+async def delete_team_handler(db, message, client):
     
     word_list = message.content.split(' ')
     if len(word_list) < 2:
@@ -27,7 +27,7 @@ async def delete_team_handler(db, message):
         await message.channel.send('You are not the owner of this team. Only the owner can delete the team.')
         return
 
-    await delete_team(db, team)
+    await delete_team(db, team, client)
 
     await message.channel.send('Team was successfully deleted.')
 

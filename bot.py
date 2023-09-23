@@ -221,16 +221,16 @@ async def handle_message(message, db, client):
         await deny_invite_handler(db, message)
 
     elif lower_message.startswith('!leaveteam'):
-        await leave_team_handler(db, message)
+        await leave_team_handler(db, message, client)
 
     elif lower_message.startswith('!deleteteam'):
-        await delete_team_handler(db, message)
+        await delete_team_handler(db, message, client)
 
     elif lower_message.startswith('!teamjoin'):
         await team_join_handler(client, db, message)
 
     elif lower_message.startswith('!kickplayer'):
-        await kick_player_handler(db, message)
+        await kick_player_handler(db, message, client)
 
     elif lower_message.startswith('!helpteams'):
         await help_teams_handler(message)

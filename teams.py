@@ -1,6 +1,26 @@
 
+from discord_actions import give_role_to_user, remove_role_from_user
+from events import get_event_role_id
 from user import add_team_to_user, get_user_invites, get_user_teams, user_exists
 
+def user_owns_team(team, user_id):
+    
+    return team['creator_id'] == user_id
+
+
+def get_team_invites(team):
+
+    if 'invites' in team:
+        return team['invites']
+    else:
+        return []
+    
+def get_in_events(team):
+
+    if 'in_events' in team:
+        return team['in_events']
+    else:
+        return [] 
 
 
 async def get_team_by_name(db, team_name):
@@ -97,7 +117,7 @@ def remove_user_from_member_list(user_id, member_list):
     return final_member_list
 
 
-async def remove_user_from_team(db, user, team):
+async def remove_user_from_team(db, user, team, client):
 
     users = db['users']
     user_teams = get_user_teams(user)
@@ -107,18 +127,23 @@ async def remove_user_from_team(db, user, team):
     teams = db['teams']
     team['members'] = remove_user_from_member_list(user['discord_id'], team['members'])
 
+    team_events = get_in_events(team)
+    for event in team_events:
+        event_role_id = get_event_role_id(event)
+        if event_role_id:
+            await remove_role_from_user(client, user, event_role_id)
 
 
     teams.update_one({'team_name': team['team_name']}, {"$set": {"members": team['members']}})
 
 
 
-async def delete_team(db, team):
+async def delete_team(db, team, client):
     team_members = team['members']
     for member in team_members:
         user = user_exists(db, member)
         if user:
-            await remove_user_from_team(db, user, team)
+            await remove_user_from_team(db, user, team, client)
 
     for invite in get_team_invites(team):
         user = user_exists(db, invite)
@@ -127,27 +152,6 @@ async def delete_team(db, team):
 
     teams = db['teams']
     teams.delete_one({'team_name': team['team_name']})
-
-
-def user_owns_team(team, user_id):
-    
-    return team['creator_id'] == user_id
-
-
-def get_team_invites(team):
-
-    if 'invites' in team:
-        return team['invites']
-    else:
-        return []
-    
-def get_in_events(team):
-
-    if 'in_events' in team:
-        return team['in_events']
-    else:
-        return [] 
-
 
 def add_invite_to_team(db, team, user_id):
 

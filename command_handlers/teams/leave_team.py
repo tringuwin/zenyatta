@@ -5,7 +5,7 @@ from teams import get_team_by_name, remove_user_from_team, user_on_team
 from user import user_exists
 
 
-async def leave_team_handler(db, message):
+async def leave_team_handler(db, message, client):
     
     word_list = message.content.split(' ')
     if len(word_list) < 2:
@@ -31,6 +31,6 @@ async def leave_team_handler(db, message):
         await message.channel.send('You are the creator of this team. Please delete the team instead of leaving.')
         return
 
-    await remove_user_from_team(db, user, team)
+    await remove_user_from_team(db, user, team, client)
 
     await message.channel.send('You have successfully left the team.')
