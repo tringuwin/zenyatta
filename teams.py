@@ -1,6 +1,6 @@
 
 from discord_actions import give_role_to_user, remove_role_from_user
-from events import get_event_role_id
+from getters.event_getters import get_event_role_id
 from user import add_team_to_user, get_user_invites, get_user_teams, user_exists
 
 def user_owns_team(team, user_id):

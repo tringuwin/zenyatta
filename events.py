@@ -3,7 +3,7 @@
 import copy
 from discord_actions import get_user_from_guild, give_role_to_user
 import constants
-
+from getters.event_getters import get_event_role_id
 from teams import get_in_events, get_team_by_name
 
 
@@ -136,12 +136,6 @@ def close_event(db, event):
     events.update_one({"event_id": event['event_id']}, {"$set": {"closed": True}})
 
 
-def get_event_role_id(event):
-
-    if 'event_role_id' in event:
-        return event['event_role_id']
-    
-    return None
 
     
 
