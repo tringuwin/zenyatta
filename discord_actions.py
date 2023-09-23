@@ -25,7 +25,7 @@ async def remove_role_from_user(client, discord_user, role_id):
     guild = await get_guild(client)
     role = guild.get_role(role_id)
     if role:
-        await discord_user.add_roles(role)
+        await discord_user.remove_roles(role)
 
 
 async def get_user_from_guild(client, user_id):
