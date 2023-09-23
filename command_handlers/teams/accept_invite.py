@@ -6,7 +6,7 @@ from user import get_user_teams, user_exists
 import constants
 
 
-async def accept_invite_handler(db, message):
+async def accept_invite_handler(db, message, client):
     
     word_list = message.content.split(' ')
     if len(word_list) < 2:
@@ -43,7 +43,7 @@ async def accept_invite_handler(db, message):
         await message.channel.send('This team is currently full')
         return
 
-    await add_user_to_team(db, user, team)
+    await add_user_to_team(db, user, team, client)
     await remove_team_invite(db, user, team_name)
     remove_invite_from_team(db, team, user['discord_id'])
 

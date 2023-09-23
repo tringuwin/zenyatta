@@ -215,7 +215,7 @@ async def handle_message(message, db, client):
         await my_invites_handler(db, message)
 
     elif lower_message.startswith('!acceptinvite '):
-        await accept_invite_handler(db, message)
+        await accept_invite_handler(db, message, client)
 
     elif lower_message.startswith('!denyinvite'):
         await deny_invite_handler(db, message)

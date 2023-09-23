@@ -85,7 +85,7 @@ async def remove_team_invite(db, user, team_name):
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"invites": final_invites}})
 
 
-async def add_user_to_team(db, user, team):
+async def add_user_to_team(db, user, team, client):
     
     users = db['users']
     user_teams = get_user_teams(user)
@@ -94,6 +94,18 @@ async def add_user_to_team(db, user, team):
 
     teams = db['teams']
     team['members'].append(user['discord_id'])
+
+    discord_user = await get_user_from_guild(client, user['discord_id'])
+
+    if discord_user:
+        team_events = get_in_events(team)
+        for event_id in team_events:
+            event = get_event_by_id(db, event_id)
+            if event:
+                event_role_id = get_event_role_id(event)
+                if event_role_id:
+                    await give_role_to_user(client, discord_user, event_role_id)
+
     teams.update_one({'team_name': team['team_name']}, {"$set": {"members": team['members']}})
 
 
@@ -132,13 +144,10 @@ async def remove_user_from_team(db, user, team, client):
     if discord_user:
         team_events = get_in_events(team)
         for event_id in team_events:
-            print('checking event '+event_id)
             event = get_event_by_id(db, event_id)
             if event:
-                print('event exists')
                 event_role_id = get_event_role_id(event)
                 if event_role_id:
-                    print('event role id exists')
                     await remove_role_from_user(client, discord_user, event_role_id)
 
     teams.update_one({'team_name': team['team_name']}, {"$set": {"members": team['members']}})
