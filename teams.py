@@ -140,6 +140,13 @@ def get_team_invites(team):
         return team['invites']
     else:
         return []
+    
+def get_in_events(team):
+
+    if 'in_events' in team:
+        return team['in_events']
+    else:
+        return [] 
 
 
 def add_invite_to_team(db, team, user_id):

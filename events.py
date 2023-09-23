@@ -4,7 +4,7 @@ import copy
 from discord_actions import get_user_from_guild, give_role_to_user
 import constants
 
-from teams import get_team_by_name
+from teams import get_in_events, get_team_by_name
 
 
 def get_event_by_id(db, event_id):
@@ -71,9 +71,9 @@ async def add_team_to_event(client, db, team, event):
     )
 
     teams = db['teams']
-    if 'in_events' in team:
-        team['in_events'].append(event['event_id'])
-        teams.update_one({'team_name': team['team_name']}, {'$set': {'in_events': team['in_events']}})
+    team_in_events = get_in_events(team)
+    team_in_events.append(event['event_id'])
+    teams.update_one({'team_name': team['team_name']}, {'$set': {'in_events': team_in_events}})
 
     print(team['in_events'])
 
