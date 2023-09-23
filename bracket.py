@@ -162,53 +162,50 @@ async def wipe_tourney(db, message):
     await message.channel.send('Current tourney has been wiped.')
 
 
-async def notify_match(match, message, start_string, guild, event_channel, db):
 
 
-    user1mention = '[User Not Found]'
-    user2mention = '[User Not Found]'
+async def make_mention(match_half, db, guild):
 
-    if match[0]['is_bye']:
-        user1mention = "*BYE*"
-    elif match[0]['is_tbd']:
-        user1mention = '*TBD*'
-    elif match[0]['it_team']:
+    mention = '[User Not Found]'
+
+    if match_half['is_bye']:
+        mention = "*BYE*"
+    elif match_half['is_tbd']:
+        mention = '*TBD*'
+    elif match_half['it_team']:
         mentions = []
-        match_0_team = await get_team_by_name(db, match[0]['user'])
+        match_0_team = await get_team_by_name(db, match_half['user'])
         match_0_members = match_0_team['members']
         for member in match_0_members:
             member_obj = guild.get_member(member)
             if member_obj:
                 mentions.append(member_obj.mention)
-        user1mention = match[0]['user']+' ( '
+        mention = match_half['user']+' ( '
         for mention in mentions:
-            user1mention += mention+" "
-        user1mention += ')'
+            mention += mention+" "
+        mention += ')'
     else:
-        user1 = guild.get_member(match[0]['user'])
-        if user1: 
-            user1mention = user1.mention
+        player = guild.get_member(match_half['user'])
+        if player: 
+            mention = player.mention
 
-    if match[1]['is_bye']:
-        user2mention = "*BYE*"
-    elif match[1]['is_tbd']:
-        user2mention = '*TBD*'
-    elif match[1]['it_team']:
-        mentions = []
-        match_1_team = await get_team_by_name(db, match[1]['user'])
-        match_1_members = match_1_team['members']
-        for member in match_1_members:
-            member_obj = guild.get_member(member)
-            if member_obj:
-                mentions.append(member_obj.mention)
-        user2mention = match[1]['user']+' ( '
-        for mention in mentions:
-            user2mention += mention+" "
-        user2mention += ')'
-    else:
-        user2 = guild.get_member(match[1]['user'])
-        if user2: 
-            user2mention = user2.mention
+    return mention
+
+
+async def notify_match(match, message, start_string, guild, event_channel, db):
+
+    side1 = match[0]
+    side2 = match[1]
+
+    if side1['is_bye'] and side2['is_bye']:
+        return '*Empty Match*'
+    elif side1['is_bye']:
+        return side2['user'] + ' will recieve a bye and advance to the next round.'
+    elif side2['is_bye']:
+        return side1['user'] + ' will recieve a bye and advance to the next round.'
+
+    user1mention = await make_mention(side1, db, guild)
+    user2mention = await make_mention(side2, db, guild)
 
     return start_string+user1mention+' VS '+user2mention
 
