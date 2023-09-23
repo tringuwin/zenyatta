@@ -63,7 +63,7 @@ def get_all_events(db):
 
 
 
-def create_event(db, event_id, event_name, max_players, pass_required, team_size, event_role_id):
+def create_event(db, event_id, event_name, max_players, pass_required, team_size, event_role_id, event_channel_id):
 
     events = db['events']
     needs_pass = False
@@ -79,7 +79,8 @@ def create_event(db, event_id, event_name, max_players, pass_required, team_size
         "requests": [],
         'needs_pass': needs_pass,
         'team_size': int(team_size),
-        'event_role_id': int(event_role_id)
+        'event_role_id': int(event_role_id),
+        'event_channel_id': int(event_channel_id)
     }
 
     events.insert_one(new_event)
