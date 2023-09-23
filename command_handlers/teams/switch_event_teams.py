@@ -42,7 +42,6 @@ async def switch_event_teams(db, message):
 
     spot['user'] = new_team['team_name']
     spot['username'] = new_team['team_name']
-    spot['team_members'] = new_team['members']
     actual_bracket[0][match_num][spot_num] = spot
     
     print('with...')

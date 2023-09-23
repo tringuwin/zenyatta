@@ -1,4 +1,5 @@
 import copy
+from teams import get_team_by_name
 
 from user import user_exists
 
@@ -39,7 +40,6 @@ async def add_team_to_match(team_name, match, teams):
 
     entry = {
         'user': team_name,
-        'team_members': team_obj['members'],
         'username': team_name,
         'is_bye': False,
         'is_tbd': False,
@@ -162,7 +162,7 @@ async def wipe_tourney(db, message):
     await message.channel.send('Current tourney has been wiped.')
 
 
-async def notify_match(match, message, start_string, guild, event_channel):
+async def notify_match(match, message, start_string, guild, event_channel, db):
 
 
     user1mention = '[User Not Found]'
@@ -174,7 +174,9 @@ async def notify_match(match, message, start_string, guild, event_channel):
         user1mention = '*TBD*'
     elif match[0]['it_team']:
         mentions = []
-        for member in match[0]['team_members']:
+        match_0_team = await get_team_by_name(db, match[0]['user'])
+        match_0_members = match_0_team['members']
+        for member in match_0_members:
             member_obj = guild.get_member(member)
             if member_obj:
                 mentions.append(member_obj.mention)
@@ -193,7 +195,9 @@ async def notify_match(match, message, start_string, guild, event_channel):
         user2mention = '*TBD*'
     elif match[1]['it_team']:
         mentions = []
-        for member in match[1]['team_members']:
+        match_1_team = await get_team_by_name(db, match[1]['user'])
+        match_1_members = match_1_team['members']
+        for member in match_1_members:
             member_obj = guild.get_member(member)
             if member_obj:
                 mentions.append(member_obj.mention)
@@ -249,7 +253,7 @@ async def notify_next_users(db, guild, message, event_channel):
 
             if round_index > -1:
                 next_match = bracket['bracket'][round_index][match_index]
-                next_string = await notify_match(next_match, message, start_string, guild, event_channel)
+                next_string = await notify_match(next_match, message, start_string, guild, event_channel, db)
                 final_string += '\n'+next_string
                 round_index, match_index = await increment_tourney_index(round_index, match_index, bracket['bracket'])
             else:
@@ -408,7 +412,9 @@ async def send_next_info(db, message, guild, event_channel):
             team_array = [match[0], match[1]]
             for team in team_array:
                 final_string += '------------- '+team['user']+' -------------\n'
-                for member_id in team['team_members']:
+                team_obj = await get_team_by_name(db, team['user'])
+                team_members = team_obj['members']
+                for member_id in team_members:
                     user = user_exists(db, member_id)
                     if user:
                         final_string += user['battle_tag']+'\n'
