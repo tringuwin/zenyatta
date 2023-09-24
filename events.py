@@ -77,6 +77,37 @@ async def add_team_to_event(client, db, team, event):
             await give_role_to_user(client, discord_user, event_role_id)
 
 
+async def remove_team_from_event(client, db, team, event):
+
+    events = db['events']
+
+    new_event = copy.deepcopy(event)
+
+    final_entries = []
+    for entry in new_event['entries']:
+        if entry['team_name'] != team['team_name']:
+            final_entries.append(entry)
+
+    new_event['entries'] = final_entries
+    new_event['spots_filled'] = len(final_entries)
+
+    events.update_one(
+        {"event_id": event['event_id']},
+        {"$set": {
+            "entries": new_event['entries'],
+            "spots_filled": new_event['spots_filled']
+        }}
+    )
+
+    event_role_id = get_event_role_id(event)
+
+    for member in team['members']:
+        discord_user = await get_user_from_guild(client, member)
+        if discord_user:
+            await give_role_to_user(client, discord_user, event_role_id)
+
+
+
 def team_in_event(event, team):
 
     team_name_lower = team['lower_team_name']
