@@ -3,7 +3,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from events import remove_team_from_event
 from getters.event_getters import get_event_by_id
 from helpers import make_string_from_word_list
-from teams import delete_team, get_in_events, get_team_by_name, get_team_invites, remove_team_invite, remove_user_from_team
+from teams import get_in_events, get_team_by_name, get_team_invites, remove_team_invite, remove_user_from_team
 from user import user_exists
 
 async def delete_team(db, team, client):
