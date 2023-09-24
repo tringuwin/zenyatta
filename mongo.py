@@ -46,7 +46,9 @@ def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
             "fun_fact": '',
             'teams': [],
             'passes': 1,
-            'invited_valid': True
+            'invited_valid': True,
+            'level': 1,
+            'xp': 0
         }
         print(new_user)
         users.insert_one(new_user)

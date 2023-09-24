@@ -12,6 +12,7 @@ from command_handlers.getdetails import get_details_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
 from command_handlers.invited_by import invited_by_handler
+from command_handlers.level import level_handler
 from command_handlers.solo_join import solo_join_handler
 from command_handlers.suggest import suggest_handler
 from command_handlers.suggest_event import suggest_event_handler
@@ -193,6 +194,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!verifyranks' and is_admin:
         await verify_ranks_handler(db, message)
+
+    elif lower_message == '!level':
+        await level_handler(db, message)
 
     # TEAM COMMANDS
 

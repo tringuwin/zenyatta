@@ -32,6 +32,18 @@ def get_user_passes(user):
     
     return 0
 
+def get_lvl_info(user):
+
+    level = 1
+    xp = 0
+    if 'level' in user:
+        level = user['level']
+    if 'xp' in user:
+        xp = user['xp']
+
+    return level, xp
+
+
 def add_team_to_user(db, user, team_name):
 
     users = db['users']
