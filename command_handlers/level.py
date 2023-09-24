@@ -11,5 +11,5 @@ async def level_handler(db, message):
         return
     
     level, xp = get_lvl_info(user)
-    await message.channel.send('You are level **'+str(level)+"**. XP required for next level: ("+str(xp)/str(level*100)+")")
+    await message.channel.send('You are level **'+str(level)+"**. XP required for next level: ("+str(xp)+"/"+str(level*100)+")")
     
