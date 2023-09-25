@@ -192,7 +192,7 @@ async def make_mention(match_half, db, guild):
     return mention
 
 
-async def notify_match(match, message, start_string, guild, event_channel, db):
+async def notify_match(match, start_string, guild, db):
 
     side1 = match[0]
     side2 = match[1]
@@ -228,7 +228,7 @@ async def increment_tourney_index(round_index, match_index, bracket):
 
 
 
-async def notify_next_users(db, guild, message, event_channel):
+async def notify_next_users(db, guild, message):
 
     tourney_details = await get_tourney_details(db)
     if tourney_details:
@@ -237,6 +237,7 @@ async def notify_next_users(db, guild, message, event_channel):
         match_index = tourney_details['match_index']
 
         bracket = await get_bracket_by_event_id(db, tourney_details['event_id'])
+        event_channel_id = bracket['event_channel_id']
         start_strings = [
             '**UP NEXT:** ',
             '**1 MATCH AWAY:** ',
@@ -250,12 +251,13 @@ async def notify_next_users(db, guild, message, event_channel):
 
             if round_index > -1:
                 next_match = bracket['bracket'][round_index][match_index]
-                next_string = await notify_match(next_match, message, start_string, guild, event_channel, db)
+                next_string = await notify_match(next_match, start_string, guild, db)
                 final_string += '\n'+next_string
                 round_index, match_index = await increment_tourney_index(round_index, match_index, bracket['bracket'])
             else:
                 break
         final_string += '\n--------------------------------------------'
+        event_channel = guild.get_channel(event_channel_id)
         await event_channel.send(final_string)
         
     else:
@@ -271,19 +273,19 @@ def get_next_round_match_from_match(match_index):
     return parent_match_id
 
 
-async def advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild, event_channel):
+async def advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild):
 
     new_round_index, new_match_index = await increment_tourney_index(round_index, match_index, bracket_copy['bracket'])
     db['tourney'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"round_index": new_round_index}})
     db['tourney'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"match_index": new_match_index}})
     await message.channel.send("Updates made")
 
-    await notify_next_users(db, guild, message, event_channel)
-    await send_next_info(db, message, guild, event_channel)
+    await notify_next_users(db, guild, message)
+    await send_next_info(db, message, guild)
 
 
 # 1 or 2 is input
-async def won_match(win_index, message, db, guild, event_channel):
+async def won_match(win_index, message, db, guild):
     
     #normalize for database
     win_index = win_index - 1
@@ -312,9 +314,9 @@ async def won_match(win_index, message, db, guild, event_channel):
 
     db['brackets'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"bracket": bracket_copy['bracket']}})
 
-    await advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild, event_channel)
+    await advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild)
 
-async def no_show(lose_index, message, db, guild, event_channel):
+async def no_show(lose_index, message, db, guild):
 
     #normalize for database
     lose_index = lose_index - 1
@@ -350,9 +352,9 @@ async def no_show(lose_index, message, db, guild, event_channel):
 
     db['brackets'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"bracket": bracket_copy['bracket']}})
 
-    await advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild, event_channel)
+    await advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild)
 
-async def both_no_show(message, db, guild, event_channel):
+async def both_no_show(message, db, guild):
     
     tourney = await get_tourney_details(db)
     bracket = await get_bracket_by_event_id(db, tourney['event_id'])
@@ -380,11 +382,11 @@ async def both_no_show(message, db, guild, event_channel):
 
     db['brackets'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"bracket": bracket_copy['bracket']}})
 
-    await advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild, event_channel)
+    await advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild)
 
 
 
-async def send_next_info(db, message, guild, event_channel):
+async def send_next_info(db, message, guild):
 
     tourney_details = await get_tourney_details(db)
 
@@ -400,10 +402,10 @@ async def send_next_info(db, message, guild, event_channel):
         print(match[0])
         # is it a bye for player1?
         if match[1]['is_bye']:
-            await won_match(1, message, db, guild, event_channel)
+            await won_match(1, message, db, guild)
         # is it a bye for player2?
         elif match[0]['is_bye']:
-            await won_match(2, message, db, guild, event_channel)
+            await won_match(2, message, db, guild)
         elif match[0]['it_team']:
             final_string = ''
             team_array = [match[0], match[1]]

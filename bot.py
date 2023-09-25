@@ -55,12 +55,12 @@ from command_handlers.teams.team_join import team_join_handler
 from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import twager_handler, wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
-from discord_actions import get_guild, get_member_by_username, is_dm_channel
+from discord_actions import get_guild, is_dm_channel
 from mongo import output_eggs, output_passes, output_tokens, switch_matches
 from notifs import handle_notifs
 from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from teams import get_team_by_name
-from user import get_user_passes, get_user_tokens, user_exists
+from user import user_exists
 
 
 def is_valid_channel(message, lower_message, is_admin):
@@ -295,52 +295,35 @@ async def handle_message(message, db, client):
     elif lower_message == '!starttourney' and is_admin:
 
         guild = client.get_guild(constants.GUILD_ID)
-        tourney_role = guild.get_role(constants.EVENT_ROLE)
-        event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
 
-        await send_next_info(db, message, guild, event_channel)
-
-        # await event_channel.send('**TOURNAMENT HAS STARTED** '+tourney_role.mention)
-        await notify_next_users(db, guild, message, event_channel)
-
-    elif lower_message == '!pausetourney' and is_admin:
-
-        guild = client.get_guild(constants.GUILD_ID)
-        tourney_role = guild.get_role(constants.EVENT_ROLE)
-        event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
-
-        await event_channel.send('**TOURNAMENT HAS PASUED** '+tourney_role.mention)
+        await send_next_info(db, message, guild)
+        await notify_next_users(db, guild, message)
 
     elif lower_message.startswith('!win ') and is_admin:
-        
-        event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
 
         # !win [winner 1 or 2]
         word_list = message.content.split()
         if len(word_list) == 2:
             guild = client.get_guild(constants.GUILD_ID)
-            await won_match(int(word_list[1]), message, db, guild, event_channel)
+            await won_match(int(word_list[1]), message, db, guild)
         else:
             await message.channel.send("Invalid number of arguments.")
 
     elif lower_message.startswith('!noshow ') and is_admin:
 
-        event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
-
         # !noshow [loser 1 or 2]
         word_list = message.content.split()
         if len(word_list) == 2:
             guild = client.get_guild(constants.GUILD_ID)
-            await no_show(int(word_list[1]), message, db, guild, event_channel)
+            await no_show(int(word_list[1]), message, db, guild)
         else:
             await message.channel.send("Invalid number of arguments.")
 
     elif lower_message == '!bothnoshow' and is_admin:
 
-        event_channel = client.get_channel(constants.EVENT_CHANNEL_ID)
         guild = client.get_guild(constants.GUILD_ID)
 
-        await both_no_show(message, db, guild, event_channel)
+        await both_no_show(message, db, guild)
 
     elif lower_message.startswith('!giverewards') and is_admin:
         

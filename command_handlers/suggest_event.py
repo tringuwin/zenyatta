@@ -8,7 +8,7 @@ async def suggest_event_handler(message, client):
     
     event_idea = message.content[len("!suggestevent "):].strip()
 
-    event_channel = client.get_channel(constants.SUGGEST_CHANNEL)
+    event_suggest_channel = client.get_channel(constants.SUGGEST_CHANNEL)
 
     embed_msg = discord.Embed(
         title = "Event Idea From "+message.author.name,
@@ -16,7 +16,7 @@ async def suggest_event_handler(message, client):
     )
     embed_msg.set_footer(text="Suggest your own idea using the command !suggestevent [event idea here]", icon_url=message.author.display_avatar)
 
-    event_idea_msg = await event_channel.send(embed=embed_msg)
+    event_idea_msg = await event_suggest_channel.send(embed=embed_msg)
     await event_idea_msg.add_reaction("👍")
 
     message_channel = message.channel
