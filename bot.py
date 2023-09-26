@@ -82,6 +82,7 @@ def is_valid_channel(message, lower_message, is_admin):
     elif message.channel.id == constants.CASINO_CHANNEL:
 
         if lower_message.startswith('!wager') or lower_message.startswith('!twager') or lower_message.startswith('!tokens'):
+            print('valid wager channel')
             return True, None
         else:
             return False, 'Only these commands are allowed in the Roulette Channel: !wager, !twager, !tokens'
@@ -99,6 +100,7 @@ def is_valid_channel(message, lower_message, is_admin):
 async def handle_message(message, db, client):
 
     user_message = str(message.content)
+    print(user_message)
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if not is_command:
@@ -169,6 +171,7 @@ async def handle_message(message, db, client):
         await hatch_handler(db, message)
 
     elif lower_message.startswith('!wager'):
+        print('handling wager')
         await wager_handler(db, message)
 
     elif lower_message.startswith('!twager'):
