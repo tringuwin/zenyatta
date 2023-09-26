@@ -67,8 +67,6 @@ async def add_team_to_event(client, db, team, event):
     team_in_events.append(event['event_id'])
     teams.update_one({'team_name': team['team_name']}, {'$set': {'in_events': team_in_events}})
 
-    print(team['in_events'])
-
     event_role_id = get_event_role_id(event)
 
     for member in team['members']:
