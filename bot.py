@@ -82,7 +82,6 @@ def is_valid_channel(message, lower_message, is_admin):
     elif message.channel.id == constants.CASINO_CHANNEL:
 
         if lower_message.startswith('!wager') or lower_message.startswith('!twager') or lower_message.startswith('!tokens'):
-            print('valid wager channel')
             return True, None
         else:
             return False, 'Only these commands are allowed in the Roulette Channel: !wager, !twager, !tokens'
