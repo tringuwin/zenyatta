@@ -94,6 +94,13 @@ def is_valid_channel(message, lower_message, is_admin):
         else:
             return False, 'Only these commands are allowed in the Blackjack Channel: !blackjack, !tokens'
         
+    elif message.channel.id == constants.MINE_CHANNEL:
+
+        if lower_message.startswith('!mine') or lower_message.startswith('!tokens'):
+            return True, None
+        else:
+            return False, 'Only these commands are allowed in the Mineshaft Channel: !mine, !tokens'
+        
     return False, 'Please only use commands in a valid channel'
 
 
