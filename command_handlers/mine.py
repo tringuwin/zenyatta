@@ -8,12 +8,23 @@ import random
 results = {
     'Copper': 3,
     'Silver': 5,
-    'Gold':25,
+    'Gold': 25,
     'Sapphire': 30,
     'Ruby': 60,
     'Emerald': 100,
     'Diamond': 200,
     'Sauce Stone': 2000
+}
+
+flair = {
+    'Copper': '🟤',
+    'Silver': '⚪️',
+    'Gold': '🟡',
+    'Sapphire': '🔵',
+    'Ruby': '🔴',
+    'Emerald': '🟢',
+    'Diamond': '💎',
+    'Sauce Stone': '🍅'
 }
 
 async def mine_handler(db, message):
@@ -54,8 +65,10 @@ async def mine_handler(db, message):
 
     await change_tokens(db, user, net_change)
 
+    my_flair = flair[result]
+
     final_string = message.author.mention+' You paid 20 Tokens to go mining...\n'
-    final_string += 'You found **'+result+"**! You sold it for **"+str(payout)+' Tokens**'
+    final_string += 'You found '+str(my_flair)+' **'+result+"** "+str(my_flair)+" ! You sold it for **"+str(payout)+' Tokens**'
 
     await message.channel.send(final_string)
 
