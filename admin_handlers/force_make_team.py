@@ -29,7 +29,7 @@ async def force_make_team_handler(db, message, client):
     await make_team(db, team_owner_user, len(parts), team_name)
     parts.pop(0)
 
-    team_obj = get_team_by_name(db, team_name)
+    team_obj = await get_team_by_name(db, team_name)
     for member_id in parts:
         user_obj = user_exists(db, member_id)
         await add_user_to_team(db, user_obj, team_obj, client)
