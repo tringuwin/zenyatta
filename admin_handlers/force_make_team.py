@@ -32,7 +32,7 @@ async def force_make_team_handler(db, message, client):
     team_obj = get_team_by_name(db, team_name)
     for member_id in parts:
         user_obj = user_exists(db, member_id)
-        add_user_to_team(db, user_obj, team_obj, client)
+        await add_user_to_team(db, user_obj, team_obj, client)
 
     await message.channel.send('Force team made')
 
