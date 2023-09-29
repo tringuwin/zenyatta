@@ -7,7 +7,7 @@ async def add_event_handler(db, message):
 
     word_list = message.content.split('|')
 
-    if len(word_list) != 7:
+    if len(word_list) != 8:
         await message.channel.send('Incorrect command format.')
         return
     
