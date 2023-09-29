@@ -27,6 +27,7 @@ flair = {
     'Sauce Stone': '🍅'
 }
 
+
 async def mine_handler(db, message):
 
     user = user_exists(db, message.author.id)
