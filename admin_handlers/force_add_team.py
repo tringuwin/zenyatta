@@ -26,5 +26,5 @@ async def force_add_team_handler(db, message, client):
         await message.channel.send('There is no team with that name.')
         return
     
-    add_team_to_event(client, db, team, event)
+    await add_team_to_event(client, db, team, event)
     await message.channel.send('Team was added to the event.')
