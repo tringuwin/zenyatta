@@ -2,6 +2,7 @@ import time
 import discord
 import asyncio
 from admin_handlers.delete_by_tag import delete_by_tag_handler
+from admin_handlers.force_make_team import force_make_team_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
@@ -311,6 +312,9 @@ async def handle_message(message, db, client):
 
         await send_next_info(db, message, guild)
         await notify_next_users(db, guild, message)
+
+    elif lower_message.startswith('!forcemaketeam') and is_admin:
+        await force_make_team_handler(db, message, client)
 
     elif lower_message.startswith('!win ') and is_admin:
 
