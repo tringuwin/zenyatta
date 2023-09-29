@@ -7,10 +7,11 @@ async def force_make_team_handler(db, message, client):
 
     parts = message.content.split('|')
 
-    if len(parts) < 3:
+    if len(parts) < 4:
         await message.channel.send('Not enough parameters')
         return
     
+    parts.pop(0)
     team_name = parts.pop(0)
 
     missing_user = 0
