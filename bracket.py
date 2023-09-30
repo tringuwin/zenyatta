@@ -173,17 +173,17 @@ async def make_mention(match_half, db, guild):
     elif match_half['is_tbd']:
         mention = '*TBD*'
     elif match_half['it_team']:
-        mentions = []
+        users_to_mention = []
         match_0_team = await get_team_by_name(db, match_half['user'])
         match_0_members = match_0_team['members']
         for member in match_0_members:
             member_obj = guild.get_member(member)
             if member_obj:
-                mentions.append(member_obj.mention)
-        mention = match_half['user']+' ( '
-        for mention in mentions:
-            mention += mention+" "
-        mention += ')'
+                users_to_mention.append(member_obj.mention)
+        mention_list = match_half['user']+' ( '
+        for mention in users_to_mention:
+            mention_list += mention+" "
+        mention_list += ')'
     else:
         player = guild.get_member(match_half['user'])
         if player: 
@@ -237,7 +237,7 @@ async def notify_next_users(db, guild, message):
         match_index = tourney_details['match_index']
 
         bracket = await get_bracket_by_event_id(db, tourney_details['event_id'])
-        event_channel_id = bracket['event_channel_id']
+        #event_channel_id = bracket['event_channel_id']
         start_strings = [
             '**UP NEXT:** ',
             '**1 MATCH AWAY:** ',
