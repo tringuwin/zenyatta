@@ -31,7 +31,7 @@ async def teams_handler(db, message):
     if len(active_teams) == 0:
         await message.channel.send('You are not currently part of any teams.')
     else:
-        output_string = '**YOUR TEAMS**\n'
+        output_string = '**YOUR TEAMS** ('+str(len(active_teams))+' teams)\n'
         for team in active_teams:
 
             output_string += str(team_index)+'. '+team['team_name']+' : '+str(len(team['members']))+'/'+str(team['team_size'])+' Players\n'
