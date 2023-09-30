@@ -198,11 +198,11 @@ async def notify_match(match, start_string, guild, db):
     side2 = match[1]
 
     if side1['is_bye'] and side2['is_bye']:
-        return '*Empty Match*'
+        return start_string+' *Empty Match*'
     elif side1['is_bye']:
-        return side2['user'] + ' will recieve a bye and advance to the next round.'
+        return start_string+" "+side2['user'] + ' will recieve a bye and advance to the next round.'
     elif side2['is_bye']:
-        return side1['user'] + ' will recieve a bye and advance to the next round.'
+        return start_string+" "+side1['user'] + ' will recieve a bye and advance to the next round.'
 
     user1mention = await make_mention(side1, db, guild)
     user2mention = await make_mention(side2, db, guild)
