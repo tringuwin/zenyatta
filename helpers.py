@@ -1,4 +1,8 @@
 
+from discord_actions import get_member_by_username
+from user import user_exists
+
+
 def valid_number_of_params(message, num_params):
     
     message_parts = message.content.split(' ')
@@ -32,3 +36,18 @@ def make_string_from_word_list(word_list, start_index):
             info += ' '
 
     return info
+
+
+async def generic_find_user(client, db, user_id):
+
+    if can_be_int(user_id):
+        user = user_exists(db, int(user_id))
+        if user:
+            return user
+
+    member = await get_member_by_username(client, user_id)
+    user = None
+    if member:
+        user = user_exists(db, member.id)
+    
+    return user

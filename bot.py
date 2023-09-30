@@ -5,6 +5,7 @@ from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_make_team import force_make_team_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
+from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.donate import donate_handler
@@ -418,6 +419,9 @@ async def handle_message(message, db, client):
             await give_tokens_command(client, db, word_list[1], int(word_list[2]), message)
         else:
             await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message.startswith('!givexp ') and is_admin:
+        await give_xp_handler(client, db, message)
 
     elif lower_message.startswith('!givepasses ') and is_admin:
 

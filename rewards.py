@@ -2,7 +2,7 @@
 
 from discord_actions import get_member_by_username
 from helpers import can_be_int
-from user import user_exists
+from user import get_lvl_info, user_exists
 
 
 async def change_tokens(db, user, num):
@@ -105,3 +105,20 @@ async def give_eggs_command(db, user_id, num, message):
         await message.channel.send('Eggs given')
     else:
         await message.channel.send('Could not find user with that ID')
+
+
+async def change_xp(db, user, num):
+
+    print('giving '+str(num)+' xp to user '+user['battle_tag'])
+    users = db['users']
+    
+    xp, level = get_lvl_info(user)
+
+    xp += num
+    xp_needed_for_level_up = level * 100
+    while xp >= xp_needed_for_level_up:
+        level += 1
+        xp -= xp_needed_for_level_up
+        xp_needed_for_level_up = level * 100
+
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"xp": xp, "level": level}})
