@@ -7,6 +7,7 @@ from admin_handlers.force_make_team import force_make_team_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
 from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.set_item_price import set_item_price_handler
+from admin_handlers.set_level import set_level_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.donate import donate_handler
 from command_handlers.donate_pass import donate_pass_handler
@@ -422,6 +423,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!givexp ') and is_admin:
         await give_xp_handler(client, db, message)
+
+    elif lower_message.startswith('!setlevel ') and is_admin:
+        await set_level_handler(client, db, message)
 
     elif lower_message.startswith('!givepasses ') and is_admin:
 

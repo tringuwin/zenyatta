@@ -112,7 +112,7 @@ async def change_xp(db, user, num):
     print('giving '+str(num)+' xp to user '+user['battle_tag'])
     users = db['users']
     
-    xp, level = get_lvl_info(user)
+    level, xp = get_lvl_info(user)
 
     xp += num
     xp_needed_for_level_up = level * 100
