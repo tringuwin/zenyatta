@@ -173,10 +173,13 @@ async def make_mention(match_half, db, guild):
     elif match_half['is_tbd']:
         mention = '*TBD*'
     elif match_half['it_team']:
+        print('is team in mention')
         users_to_mention = []
-        match_0_team = await get_team_by_name(db, match_half['user'])
-        match_0_members = match_0_team['members']
-        for member in match_0_members:
+        match_team = await get_team_by_name(db, match_half['user'])
+        if not match_team:
+            return '[Team Not Found]'
+        match_members = match_team['members']
+        for member in match_members:
             member_obj = guild.get_member(member)
             if member_obj:
                 users_to_mention.append(member_obj.mention)
@@ -184,6 +187,7 @@ async def make_mention(match_half, db, guild):
         for mention in users_to_mention:
             mention_list += mention+" "
         mention_list += ')'
+        return mention_list
     else:
         player = guild.get_member(match_half['user'])
         if player: 
