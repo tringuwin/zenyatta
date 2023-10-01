@@ -416,13 +416,16 @@ async def send_next_info(db, message, guild):
             for team in team_array:
                 final_string += '------------- '+team['user']+' -------------\n'
                 team_obj = await get_team_by_name(db, team['user'])
-                team_members = team_obj['members']
-                for member_id in team_members:
-                    user = user_exists(db, member_id)
-                    if user:
-                        final_string += user['battle_tag']+'\n'
-                    else:
-                        final_string += 'unknown user\n'
+                if team_obj:
+                    team_members = team_obj['members']
+                    for member_id in team_members:
+                        user = user_exists(db, member_id)
+                        if user:
+                            final_string += user['battle_tag']+'\n'
+                        else:
+                            final_string += 'unknown user\n'
+                else:
+                    final_string += '[TEAM NOT FOUND]\n'
 
             await message.channel.send(final_string)
 
