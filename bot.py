@@ -409,6 +409,51 @@ async def handle_message(message, db, client):
 
         await message.channel.send('Rewards given')
 
+    elif lower_message.startswith('!givexprewards') and is_admin:
+        
+        xp_per_round = [100, 400, 700, 1000, 1300, 1600, 0]
+
+        bracket = db['brackets'].find_one({'event_id': '9'})
+
+        final_dict = {}
+
+        round_index = 0
+        for round in bracket['bracket']:
+            for match in round:
+                for bracket_team in match:
+                    print(bracket_team)
+                    if bracket_team['is_bye'] or ('is_tbd' in bracket_team and bracket_team['is_tbd']):
+                        continue
+                    elif 'no_show' in bracket_team:
+                        team = await get_team_by_name(db, bracket_team['user'])
+                        for team_member in team['members']:
+                            team_user = user_exists(db, team_member)
+                            if team_user:
+                                final_dict[str(team_user['discord_id'])] = -1
+                    else:
+                        team = await get_team_by_name(db, bracket_team['user'])
+                        if team:
+                            for team_member in team['members']:
+                                team_user = user_exists(db, team_member)
+                                if team_user:
+                                    final_dict[str(team_user['discord_id'])] = round_index
+
+            round_index += 1
+
+        for player_id_string, highest_round in final_dict.items():
+
+            if highest_round > -1:
+                user = db['users'].find_one({'discord_id': int(player_id_string)})
+                if user:
+
+                    reward = xp_per_round[highest_round]
+                    #give xp
+                    print('Giving '+str(reward)+' xp to '+user['battle_tag'])
+
+        await message.channel.send('xp given')
+
+    
+
         
     elif lower_message.startswith('!givetokens ') and is_admin:
 
