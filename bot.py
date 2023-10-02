@@ -63,7 +63,7 @@ from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_
 from discord_actions import get_guild, is_dm_channel
 from mongo import output_eggs, output_passes, output_tokens, switch_matches
 from notifs import handle_notifs
-from rewards import give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
+from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from teams import get_team_by_name
 from user import user_exists
 
@@ -447,7 +447,7 @@ async def handle_message(message, db, client):
                 if user:
 
                     reward = xp_per_round[highest_round]
-                    #give xp
+                    await change_xp(db, user, reward)
                     print('Giving '+str(reward)+' xp to '+user['battle_tag'])
 
         await message.channel.send('xp given')
