@@ -350,9 +350,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!giverewards') and is_admin:
         
-        reward_per_round = [10, 10, 50, 100, 500, 1000, 0]
+        reward_per_round = [10, 50, 150, 300, 500, 800, 1400]
 
-        bracket = db['brackets'].find_one({'event_id': '6'})
+        bracket = db['brackets'].find_one({'event_id': '9'})
 
         final_dict = {}
 
@@ -390,23 +390,21 @@ async def handle_message(message, db, client):
 
             round_index += 1
 
-        invalid_gifts = ['691833691202256958', '795043894165110787', '305773079726915605']    
-
         for player_id_string, highest_round in final_dict.items():
 
             is_valid = True
-            for invalid in invalid_gifts:
-                if player_id_string == invalid:
-                    print('invalid player '+str(invalid))
-                    is_valid = False
-                    break
+            # for invalid in invalid_gifts:
+            #     if player_id_string == invalid:
+            #         print('invalid player '+str(invalid))
+            #         is_valid = False
+            #         break
 
             if is_valid and highest_round > -1:
                 user = db['users'].find_one({'discord_id': int(player_id_string)})
                 if user:
 
                     reward = reward_per_round[highest_round]
-                    await change_tokens(db, user, reward)
+                    # await change_tokens(db, user, reward)
                     print('Giving '+str(reward)+' tokens to '+user['battle_tag'])
 
         await message.channel.send('Rewards given')
