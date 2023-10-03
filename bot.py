@@ -536,13 +536,16 @@ async def handle_message(message, db, client):
 
         guild = await get_guild(client)
         for member in client.get_all_members():
-
+            print('found user')
             user = user_exists(db, member.id)
             if user:
                 level, _ = get_lvl_info(user)
                 level_role_id = get_role_id_by_level(level)
                 level_role = guild.get_role(level_role_id)
                 await member.add_roles(level_role)
+                print('gave role')
+
+        await message.channel.send('all done')
 
 
     elif lower_message == '!testerror' and is_admin:
