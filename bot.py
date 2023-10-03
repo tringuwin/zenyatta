@@ -534,6 +534,7 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!givealllevels' and is_admin:
 
+        guild = await get_guild(client)
         for member in client.get_all_members():
 
             user = user_exists(db, member.id)
