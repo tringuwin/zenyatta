@@ -43,6 +43,22 @@ def get_lvl_info(user):
 
     return level, xp
 
+role_ids = [
+    1158465269014990938,
+    1158773998142898257,
+    1158774082574241933,
+    1158774161435541566,
+    1158774254746222733, # level 5
+    1158774311545487380,
+    1158774408635228210,
+    1158774701095653428,
+    1158774811229704284,
+    1158774883438821418 # level 10
+]
+
+def get_role_id_by_level(level_num):
+    role_id_index = level_num - 1
+    return role_ids[role_id_index]
 
 def add_team_to_user(db, user, team_name):
 

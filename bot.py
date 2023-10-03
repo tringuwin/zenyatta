@@ -65,7 +65,7 @@ from mongo import output_eggs, output_passes, output_tokens, switch_matches
 from notifs import handle_notifs
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
 from teams import get_team_by_name
-from user import user_exists
+from user import get_lvl_info, get_role_id_by_level, user_exists
 
 
 def is_valid_channel(message, lower_message, is_admin):
@@ -532,6 +532,18 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!deletebytag ') and is_admin:
         await delete_by_tag_handler(db, message)
 
+    elif lower_message == '!givealllevels' and is_admin:
+
+        for member in client.get_all_members():
+
+            user = user_exists(db, member.id)
+            if user:
+                level, _ = get_lvl_info(user)
+                level_role_id = get_role_id_by_level(level)
+                level_role = guild.get_role(level_role_id)
+                await member.add_roles(level_role)
+
+
     elif lower_message == '!testerror' and is_admin:
 
         test = {
@@ -633,15 +645,17 @@ def run_discord_bot(db):
         server_notifs = guild.get_role(constants.SERVER_NOTIFS_ROLE)
         tourney_notifs = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
         twitch_notifs = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
+        level_1_id = get_role_id_by_level(1)
+        level_1_role = guild.get_role(level_1_id)
 
         if role is not None:
 
             registered_user = user_exists(db, member.id)
             if registered_user:
                 registered_role = guild.get_role(constants.REGISTERED_ROLE)
-                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs, registered_role)
+                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs, level_1_role, registered_role)
             else:
-                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs)
+                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs, level_1_role)
 
 
     @client.event
