@@ -1,7 +1,7 @@
 
 from common_messages import not_registered_response
-from rewards import change_tokens
-from user import get_user_tokens, user_exists
+from rewards import change_pickaxes, change_tokens
+from user import get_user_pickaxes, get_user_tokens, user_exists
 import random
 
 
@@ -35,12 +35,23 @@ async def mine_handler(db, message):
         await not_registered_response(message)
         return
     
-    tokens = get_user_tokens(user)
-    if tokens < 20:
-        await message.channel.send('Mining costs 20 tokens. Please try again once you have 20 tokens.')
-        return
-    
+    valid_mine = False
+    mine_was_pickaxe = False
+
+    user_pickaxes = get_user_pickaxes(user)
+
     change_in_tokens = -20
+
+    if user_pickaxes > 0:
+        valid_mine = True
+        mine_was_pickaxe = True
+        change_in_tokens = 0
+        await change_pickaxes(db, user, -1)
+
+    tokens = get_user_tokens(user)
+    if (not valid_mine) and tokens < 20:
+        await message.channel.send('Mining costs 20 tokens or a Pickaxe. Please try again once you have 20 tokens or a Pickaxe.')
+        return
 
     random_result = random.randint(1, 1000)
     result = None
@@ -68,7 +79,11 @@ async def mine_handler(db, message):
 
     my_flair = flair[result]
 
-    final_string = message.author.mention+' You paid 20 Tokens to go mining...\n'
+    final_string = ''
+    if mine_was_pickaxe:
+        final_string += message.author.mention+' You used a Pickaxe Item ⛏️ to go mining...\n'
+    else:
+        final_string += message.author.mention+' You paid 20 Tokens to go mining...\n'
     final_string += 'You found '+str(my_flair)+' **'+result+"** "+str(my_flair)+" ! You sold it for **"+str(payout)+' Tokens**'
 
     await message.channel.send(final_string)

@@ -106,6 +106,17 @@ async def give_eggs_command(db, user_id, num, message):
     else:
         await message.channel.send('Could not find user with that ID')
 
+async def give_pickaxes_command(db, user_id, num, message):
+
+    user = user_exists(db, int(user_id))
+
+    if user:
+        await change_pickaxes(db, user, num)
+
+        await message.channel.send('Pickaxes given')
+    else:
+        await message.channel.send('Could not find user with that ID')
+
 
 async def change_xp(db, user, num):
 
@@ -122,3 +133,14 @@ async def change_xp(db, user, num):
         xp_needed_for_level_up = level * 100
 
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"xp": xp, "level": level}})
+
+
+async def change_pickaxes(db, user, num):
+
+    users = db['users']
+    
+    if "pickaxes" in user:
+        new_pickaxes = user['pickaxes'] + num
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"pickaxes": new_pickaxes}})
+    else:
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"pickaxes": num}})

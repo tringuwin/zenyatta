@@ -32,6 +32,13 @@ def get_user_passes(user):
     
     return 0
 
+def get_user_pickaxes(user):
+
+    if 'pickaxes' in user:
+        return user['pickaxes']
+    
+    return 0
+
 def get_lvl_info(user):
 
     level = 1

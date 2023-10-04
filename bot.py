@@ -61,9 +61,9 @@ from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import twager_handler, wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild, is_dm_channel
-from mongo import output_eggs, output_passes, output_tokens, switch_matches
+from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
 from notifs import handle_notifs
-from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_tokens_command, sell_pass_for_tokens
+from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
 from teams import get_team_by_name
 from user import get_lvl_info, get_role_id_by_level, user_exists
 
@@ -165,6 +165,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == "!eggs":
         await output_eggs(db, message)
+
+    elif lower_message == '!pickaxes':
+        await output_pickaxes(db, message)
 
     elif lower_message == "!sellpass":
         await sell_pass_for_tokens(db, message)
@@ -488,6 +491,15 @@ async def handle_message(message, db, client):
         else:
             await message.channel.send("Invalid number of arguments.")
 
+    elif lower_message.startswith('!givepickaxes ') and is_admin:
+
+        # !givepickaxes [winner id] [pickaxes]
+        word_list = message.content.split()
+        if len(word_list) == 3:
+            await give_pickaxes_command(db, int(word_list[1]), int(word_list[2]), message)
+        else:
+            await message.channel.send("Invalid number of arguments.")
+
     elif lower_message == '!listids' and is_admin:
 
         for member in client.get_all_members():
@@ -546,7 +558,6 @@ async def handle_message(message, db, client):
                 print('gave role')
 
         await message.channel.send('all done')
-
 
     elif lower_message == '!testerror' and is_admin:
 

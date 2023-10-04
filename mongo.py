@@ -6,7 +6,7 @@ from common_messages import not_registered_response
 import constants
 from bracket import get_bracket_by_event_id, make_bracket_from_users
 from rewards import change_passes, change_tokens
-from user import get_user_passes, user_exists
+from user import get_user_passes, get_user_pickaxes, user_exists
 
 
 def find_user_with_battle_tag(db, lower_tag):
@@ -46,6 +46,7 @@ def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
             "fun_fact": '',
             'teams': [],
             'passes': 1,
+            'pickaxes': 0,
             'invited_valid': True,
             'level': 1,
             'xp': 0
@@ -149,6 +150,17 @@ async def output_eggs(db, message):
     else:
         await not_registered_response(message)
 
+
+async def output_pickaxes(db, message):
+
+    existing_user = user_exists(db, message.author.id)
+
+    if not existing_user:
+        await not_registered_response(message)
+        return
+    
+    user_pickaxes = get_user_pickaxes(existing_user)
+    await message.channel.send('Your Pickaxes: ⛏️**'+str(user_pickaxes)+'**')
 
 
 
