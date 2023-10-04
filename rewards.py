@@ -1,7 +1,7 @@
 
 
 from discord_actions import get_member_by_username
-from helpers import can_be_int
+from helpers import can_be_int, generic_find_user
 from user import get_lvl_info, user_exists
 
 
@@ -106,9 +106,9 @@ async def give_eggs_command(db, user_id, num, message):
     else:
         await message.channel.send('Could not find user with that ID')
 
-async def give_pickaxes_command(db, user_id, num, message):
+async def give_pickaxes_command(client, db, user_id, num, message):
 
-    user = user_exists(db, int(user_id))
+    user = await generic_find_user(client, db, user_id)
 
     if user:
         await change_pickaxes(db, user, num)

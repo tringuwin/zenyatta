@@ -496,7 +496,7 @@ async def handle_message(message, db, client):
         # !givepickaxes [winner id] [pickaxes]
         word_list = message.content.split()
         if len(word_list) == 3:
-            await give_pickaxes_command(db, int(word_list[1]), int(word_list[2]), message)
+            await give_pickaxes_command(client, db, word_list[1], int(word_list[2]), message)
         else:
             await message.channel.send("Invalid number of arguments.")
 
