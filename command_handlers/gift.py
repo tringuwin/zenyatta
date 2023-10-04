@@ -1,6 +1,6 @@
 from common_messages import not_registered_response
 from discord_actions import member_has_role
-from rewards import change_passes, change_tokens
+from rewards import change_passes, change_pickaxes, change_tokens
 from time_helpers import get_current_time, long_enough_for_gift, time_to_gift
 from user import user_exists
 import random
@@ -24,6 +24,9 @@ async def process_gift(db, current_time, existing_user, message):
         elif prize_index <= 9:
             await change_passes(db, existing_user, 1)
             await message.channel.send(message.author.mention+" 🎟️ You found a **Priority Pass!** 🎟️"+general_info)
+        elif prize_index <= 20:
+            await change_pickaxes(db, existing_user, 1)
+            await message.channel.send(message.author.mention+" ⛏️ You found a **Pickaxe!** ⛏️ Use it in the Mineshaft! "+general_info)
         else:
             tokens = random.randint(10, 20)
             await change_tokens(db, existing_user, tokens)
@@ -35,6 +38,9 @@ async def process_gift(db, current_time, existing_user, message):
         elif prize_index <= 5:
             await change_passes(db, existing_user, 1)
             await message.channel.send(message.author.mention+" 🎟️ You found a **Priority Pass!** 🎟️"+general_info)
+        elif prize_index <= 10:
+            await change_pickaxes(db, existing_user, 1)
+            await message.channel.send(message.author.mention+" ⛏️ You found a **Pickaxe!** ⛏️ Use it in the Mineshaft! "+general_info)
         else:
             tokens = random.randint(2, 5)
             await change_tokens(db, existing_user, tokens)

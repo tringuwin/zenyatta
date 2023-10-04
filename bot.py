@@ -81,6 +81,8 @@ def is_valid_channel(message, lower_message, is_admin):
             return False, 'Please only use the twager command in the Roulette Channel.'
         elif lower_message.startswith('!blackjack'):
             return False, 'Please only use the blackjack command in the Blackjack Channel.'
+        elif lower_message.startswith('!mine'):
+            return False, 'Please only use the mine command in the Mineshaft Channel.'
         else:
             return True, None
         
@@ -100,10 +102,10 @@ def is_valid_channel(message, lower_message, is_admin):
         
     elif message.channel.id == constants.MINE_CHANNEL:
 
-        if lower_message.startswith('!mine') or lower_message.startswith('!tokens'):
+        if lower_message.startswith('!mine') or lower_message.startswith('!tokens') or lower_message.startswith('!pickaxes'):
             return True, None
         else:
-            return False, 'Only these commands are allowed in the Mineshaft Channel: !mine, !tokens'
+            return False, 'Only these commands are allowed in the Mineshaft Channel: !mine, !tokens, !pickaxes'
         
     return False, 'Please only use commands in a valid channel'
 
