@@ -28,7 +28,7 @@ async def gems_handler(db, message, guild):
     for color, amount in user_gems.items():
         emoji_id = color_to_emoji_id[color]
         gem_emoji = guild.get_emoji(emoji_id)
-        final_string += gem_emoji+' '+color+': **'+str(amount)+'**\n'
+        final_string += str(gem_emoji)+' '+color+': **'+str(amount)+'**\n'
 
     await message.channel.send(final_string)
 
