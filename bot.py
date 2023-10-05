@@ -5,6 +5,7 @@ from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_make_team import force_make_team_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
+from admin_handlers.give_gems import give_gems_handler
 from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
@@ -506,6 +507,9 @@ async def handle_message(message, db, client):
             await give_pickaxes_command(client, db, word_list[1], int(word_list[2]), message)
         else:
             await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message.startswith('!givegems ') and is_admin:
+        await give_gems_handler(db, message, client)
 
     elif lower_message == '!listids' and is_admin:
 
