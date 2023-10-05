@@ -1,5 +1,5 @@
 import copy
-
+import constants
 
 def user_exists(db, discord_id):
     
@@ -105,6 +105,14 @@ def get_invited_valid(user):
         return user['invited_valid']
     else:
         return False
+    
+def get_user_gems(user):
+
+    if 'gems' in user:
+        return user['gems']
+    else:
+        return copy.deepcopy(constants.DEFAULT_GEMS)
+
     
 def toggle_off_gift_notify(db, user):
 

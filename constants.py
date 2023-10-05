@@ -1,5 +1,5 @@
 
-VERSION = '1.2.58'
+VERSION = '1.2.59'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -38,3 +38,15 @@ CHAT_CHANNEL = 1130553450279747606
 ADMIN_COMMAND_CHANNEL = 1131625086722523297
 SERVER_SUGGEST_CHANNEL = 1154822833768235200
 
+DEFAULT_GEMS = {
+    'red': 0,
+    'blue': 0,
+    'yellow': 0,
+    'green': 0,
+    'purple': 0,
+    'orange': 0,
+    'pink': 0,
+    'teal': 0,
+    'white': 0,
+    'black': 0
+}

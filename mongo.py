@@ -49,7 +49,8 @@ def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
             'pickaxes': 0,
             'invited_valid': True,
             'level': 1,
-            'xp': 0
+            'xp': 0,
+            'gems': copy.deepcopy(constants.DEFAULT_GEMS)
         }
         print(new_user)
         users.insert_one(new_user)

@@ -12,6 +12,7 @@ from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.donate import donate_handler
 from command_handlers.donate_pass import donate_pass_handler
 from command_handlers.fun_fact import fun_fact_handler
+from command_handlers.gems import gems_handler
 from command_handlers.getdetails import get_details_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
@@ -164,6 +165,10 @@ async def handle_message(message, db, client):
 
     elif lower_message == "!passes":
         await output_passes(db, message)
+
+    elif lower_message == '!gems':
+        guild = await get_guild(client)
+        await gems_handler(db, message, guild)
 
     elif lower_message == "!eggs":
         await output_eggs(db, message)
