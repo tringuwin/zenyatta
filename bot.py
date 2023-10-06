@@ -512,7 +512,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!givegems ') and is_admin:
         await give_gems_handler(db, message, client)
 
-    elif lower_message.startswith('!sellgem ') and is_admin:
+    elif lower_message.startswith('!sellgems ') and is_admin:
         await sell_gems_handler(db, message)
 
     elif lower_message == '!listids' and is_admin:
