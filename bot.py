@@ -27,6 +27,7 @@ from command_handlers.suggest_event import suggest_event_handler
 from command_handlers.teams.del_team_from_event import del_team_from_event_handler
 from command_handlers.teams.get_teams import get_teams_handler
 from command_handlers.teams.switch_event_teams import switch_event_teams
+from command_handlers.trade_gems import trade_gems_handler
 from command_handlers.verify_ranks import verify_ranks_handler
 import constants
 import traceback
@@ -512,8 +513,11 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!givegems ') and is_admin:
         await give_gems_handler(db, message, client)
 
-    elif lower_message.startswith('!sellgems ') and is_admin:
+    elif lower_message.startswith('!sellgems '):
         await sell_gems_handler(db, message)
+
+    elif lower_message == '!tradegems':
+        await trade_gems_handler(db, message)
 
     elif lower_message == '!listids' and is_admin:
 
