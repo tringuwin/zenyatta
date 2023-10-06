@@ -42,7 +42,7 @@ async def sell_gems_handler(db, message):
         await message.channel.send('You do not have enough of this color gem for this sale.')
         return
     
-    tokens_to_give = num_to_sell_string * 50
+    tokens_to_give = num_to_sell * 50
     users_gems[color_to_sell] -= num_to_sell
 
     users = db['users']
