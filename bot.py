@@ -20,6 +20,7 @@ from command_handlers.hello import hello_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.level import level_handler
 from command_handlers.mine import mine_handler
+from command_handlers.sell_gem import sell_gem_handler
 from command_handlers.solo_join import solo_join_handler
 from command_handlers.suggest import suggest_handler
 from command_handlers.suggest_event import suggest_event_handler
@@ -510,6 +511,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!givegems ') and is_admin:
         await give_gems_handler(db, message, client)
+
+    elif lower_message.startswith('!sellgem ') and is_admin:
+        await sell_gem_handler(db, message)
 
     elif lower_message == '!listids' and is_admin:
 
