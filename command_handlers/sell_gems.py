@@ -6,7 +6,7 @@ from user import get_user_gems, user_exists
 import constants
 
 
-async def sell_gem_handler(db, message):
+async def sell_gems_handler(db, message):
 
     user = user_exists(db, message.author.id)
     if not user:
