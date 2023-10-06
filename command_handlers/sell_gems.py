@@ -21,14 +21,14 @@ async def sell_gems_handler(db, message):
     color_to_sell = word_parts[1].lower()
 
     if not color_to_sell in constants.DEFAULT_GEMS:
-        message.channel.send(color_to_sell+' is not a valid gem color.')
+        await message.channel.send(color_to_sell+' is not a valid gem color.')
         return 
 
     num_to_sell = 1
     if len(word_parts) == 3:
         num_to_sell_string = word_parts[2]
         if not can_be_int(num_to_sell_string):
-            message.channel.send('Please enter a number of gems to sell like: **!sellgem red 3**')
+            await message.channel.send('Please enter a number of gems to sell like: **!sellgem red 3**')
             return 
         num_to_sell = int(num_to_sell_string)
 
