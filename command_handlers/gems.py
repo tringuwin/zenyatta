@@ -30,5 +30,9 @@ async def gems_handler(db, message, guild):
         gem_emoji = guild.get_emoji(emoji_id)
         final_string += str(gem_emoji)+' '+color+': **'+str(amount)+'**\n'
 
+    final_string += '--------------\n'
+    final_string += 'Each gem is worth 50 Tokens seperately.\n'
+    final_string += 'Or turn in a set of all 10 for 1,000 Tokens!'
+
     await message.channel.send(final_string)
 
