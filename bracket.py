@@ -210,9 +210,9 @@ async def notify_match(match, start_string, guild, db):
         print(side2)
         print(type(start_string))
         print(type(side2['user']))
-        return start_string+" "+side2['user'] + ' will recieve a bye and advance to the next round.'
+        return start_string+" "+side2['username'] + ' will recieve a bye and advance to the next round.'
     elif side2['is_bye']:
-        return start_string+" "+side1['user'] + ' will recieve a bye and advance to the next round.'
+        return start_string+" "+side1['username'] + ' will recieve a bye and advance to the next round.'
 
     user1mention = await make_mention(side1, db, guild)
     user2mention = await make_mention(side2, db, guild)
