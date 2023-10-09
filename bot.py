@@ -375,7 +375,7 @@ async def handle_message(message, db, client):
                 for player in match:
                     if 'no_show' in player:
                         final_dict[str(player['user'])] = -1
-                    elif not (player['is_bye']) or (player['is_tbd']):
+                    elif not ((player['is_bye']) or ('is_tbd' in player and player['is_tbd'])):
                         final_dict[str(player['user'])] = round_index
 
             round_index += 1
