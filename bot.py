@@ -363,9 +363,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!giverewards') and is_admin:
         
-        reward_per_round = [10, 50, 150, 300, 500, 800, 1400]
+        reward_per_round = [100, 200, 300, 500, 700, 1000, 2000]
 
-        bracket = db['brackets'].find_one({'event_id': '9'})
+        bracket = db['brackets'].find_one({'event_id': '10'})
 
         final_dict = {}
 
@@ -417,7 +417,7 @@ async def handle_message(message, db, client):
                 if user:
 
                     reward = reward_per_round[highest_round]
-                    await change_tokens(db, user, reward)
+                    #await change_tokens(db, user, reward)
                     print('Giving '+str(reward)+' tokens to '+user['battle_tag'])
 
         await message.channel.send('Rewards given')
