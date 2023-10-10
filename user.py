@@ -112,6 +112,13 @@ def get_user_gems(user):
         return user['gems']
     else:
         return copy.deepcopy(constants.DEFAULT_GEMS)
+    
+def get_user_lootboxes(user):
+
+    if 'lootboxes' in user:
+        return user['lootboxes']
+    else:
+        return []
 
     
 def toggle_off_gift_notify(db, user):
