@@ -541,7 +541,7 @@ async def handle_message(message, db, client):
             print('to '+member.display_name)
             users.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
 
-            await message.channel.send('boxes given')
+        await message.channel.send('boxes given')
 
             
 
