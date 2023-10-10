@@ -523,6 +523,8 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!giveallboxes') and is_admin:
 
+        users = db['users']
+
         for member in client.get_all_members():
             user = user_exists(db, member.id)
             if not user:
@@ -537,6 +539,9 @@ async def handle_message(message, db, client):
             print("Giving")
             print(user_boxes)
             print('to '+member.display_name)
+            users.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
+
+            await message.channel.send('boxes given')
 
             
 
