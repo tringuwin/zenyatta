@@ -521,6 +521,28 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!givelootbox ') and is_admin:
         await give_lootbox_handler(db, message, client)
 
+    elif lower_message.startswith('!giveallboxes') and is_admin:
+
+        for member in client.get_all_members():
+            user = user_exists(db, member.id)
+            if not user:
+                continue
+            user_boxes = []
+            level, _ = get_lvl_info(user)
+            increase_int = 2
+            while level >= increase_int:
+                user_boxes.append(increase_int)
+                increase_int += 1
+
+            print("Giving")
+            print(user_boxes)
+            print('to '+member.display_name)
+
+            
+
+    elif lower_message.startswith('!open '):
+        await message.channel.send('Sorry this command is not ready yet!')
+
     elif lower_message.startswith('!sellgems '):
         await sell_gems_handler(db, message)
 
