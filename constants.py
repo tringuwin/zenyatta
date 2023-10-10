@@ -1,5 +1,5 @@
 
-VERSION = '1.2.70'
+VERSION = '1.2.71'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -49,4 +49,30 @@ DEFAULT_GEMS = {
     'teal': 0,
     'white': 0,
     'black': 0
+}
+
+GEM_COLORS = [
+    'red',
+    'blue',
+    'yellow',
+    'green',
+    'purple',
+    'orange',
+    'pink',
+    'teal',
+    'white',
+    'black'
+]
+
+COLOR_TO_EMOJI_ID = {
+    'red': 1159202371998597211,
+    'blue': 1159202447676424292,
+    'yellow': 1159202451652624495,
+    'green': 1159202443947679885,
+    'purple': 1159202449068916837,
+    'orange': 1159202446128730153,
+    'teal': 1159202442559361104,
+    'pink': 1159202453028360334,
+    'white': 1159202441116516362,
+    'black': 1159202439031959643
 }

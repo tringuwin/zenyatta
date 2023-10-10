@@ -202,7 +202,7 @@ async def handle_message(message, db, client):
         await twager_handler(db, message)
 
     elif lower_message == '!mine':
-        await mine_handler(db, message)
+        await mine_handler(db, message, client)
 
     elif lower_message.startswith('!blackjack'):
         await blackjack_handler(db, message, client)

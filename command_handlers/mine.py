@@ -1,8 +1,10 @@
 
 from common_messages import not_registered_response
+from discord_actions import get_guild
 from rewards import change_pickaxes, change_tokens
-from user import get_user_pickaxes, get_user_tokens, user_exists
+from user import get_user_gems, get_user_pickaxes, get_user_tokens, user_exists
 import random
+import constants
 
 
 results = {
@@ -28,7 +30,7 @@ flair = {
 }
 
 
-async def mine_handler(db, message):
+async def mine_handler(db, message, client):
 
     user = user_exists(db, message.author.id)
     if not user:
@@ -55,36 +57,58 @@ async def mine_handler(db, message):
 
     random_result = random.randint(1, 1000)
     result = None
-    if random_result <= 400:
+    is_gem = False
+    gem_color = None
+    if random_result <= 500:
         result = 'Copper'
-    elif random_result <= 700:
+    elif random_result <= 769:
         result = 'Silver'
-    elif random_result <= 830:
+    elif random_result <= 859:
         result = 'Gold'
-    elif random_result <= 910:
+    elif random_result <= 894:
         result = 'Sapphire'
-    elif random_result <= 950:
+    elif random_result <= 919:
         result = 'Ruby'
-    elif random_result <= 985:
+    elif random_result <= 939:
         result = 'Emerald'
-    elif random_result <= 999:
+    elif random_result <= 949:
         result = 'Diamond'
+    elif random_result <= 999:
+        result = 'Gem'
+        is_gem = True
+        gem_color = random.choice(constants.GEM_COLORS)
     elif random_result == 1000:
         result = 'Sauce Stone'
 
-    payout = results[result]
+
+    if is_gem:
+        payout = 0
+        my_gem_id = constants.COLOR_TO_EMOJI_ID[gem_color]
+        guild = await get_guild(client)
+        gem_emoji = guild.get_emoji(my_gem_id)
+        my_flair = str(gem_emoji)
+        user_gems = get_user_gems(user)
+        user_gems[gem_color] += 1
+        users = db['users']
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"gems": user_gems}})
+    else:
+        payout = results[result]
+        my_flair = flair[result]
+
+
     net_change = change_in_tokens + payout
-
     await change_tokens(db, user, net_change)
-
-    my_flair = flair[result]
 
     final_string = ''
     if mine_was_pickaxe:
         final_string += message.author.mention+' You used a Pickaxe Item ⛏️ to go mining...\n'
     else:
         final_string += message.author.mention+' You paid 20 Tokens to go mining...\n'
-    final_string += 'You found '+str(my_flair)+' **'+result+"** "+str(my_flair)+" ! You sold it for **"+str(payout)+' Tokens**'
+
+    if is_gem:
+        final_string += 'You found '+str(my_flair)+' **'+result+"** "+str(my_flair)+" !"
+    else:
+        final_string += 'You found '+str(my_flair)+' **'+result+"** "+str(my_flair)+" ! You sold it for **"+str(payout)+' Tokens**'
 
     await message.channel.send(final_string)
 
