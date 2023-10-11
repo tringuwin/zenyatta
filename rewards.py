@@ -1,6 +1,6 @@
 
 
-from discord_actions import get_member_by_username, get_user_from_guild
+from discord_actions import get_guild, get_member_by_username, get_user_from_guild
 from helpers import can_be_int, generic_find_user
 from user import get_lvl_info, get_user_lootboxes, user_exists
 import constants
@@ -121,12 +121,6 @@ async def give_pickaxes_command(client, db, user_id, num, message):
 
 async def level_up(user, orig_level, new_level, client, db):
 
-    adjusted_orig_level = orig_level - 1
-    orig_level_id = constants.LEVEL_ROLE_IDS[adjusted_orig_level]
-
-    adjusted_new_level = new_level - 1
-    new_level_id = constants.LEVEL_ROLE_IDS[adjusted_new_level]
-
     user_boxes = get_user_lootboxes(user)
 
     move_up = orig_level + 1
@@ -139,8 +133,19 @@ async def level_up(user, orig_level, new_level, client, db):
 
     member = await get_user_from_guild(client, user['discord_id'])
     if member:
-        await member.add_roles(new_level_id)
-        await member.remove_roles(orig_level_id)
+
+        guild = await get_guild(client)
+
+        adjusted_orig_level = orig_level - 1
+        orig_level_id = constants.LEVEL_ROLE_IDS[adjusted_orig_level]
+        orig_level_role = guild.get_role(orig_level_id)
+
+        adjusted_new_level = new_level - 1
+        new_level_id = constants.LEVEL_ROLE_IDS[adjusted_new_level]
+        new_level_role = guild.get_role(new_level_id)
+
+        await member.add_roles(new_level_role)
+        await member.remove_roles(orig_level_role)
 
 
 
