@@ -109,10 +109,10 @@ def is_valid_channel(message, lower_message, is_admin):
         
     elif message.channel.id == constants.MINE_CHANNEL:
 
-        if lower_message.startswith('!mine') or lower_message.startswith('!tokens') or lower_message.startswith('!pickaxes'):
+        if lower_message.startswith('!mine') or lower_message.startswith('!tokens') or lower_message.startswith('!pickaxes') or lower_message.startswith('!gems'):
             return True, None
         else:
-            return False, 'Only these commands are allowed in the Mineshaft Channel: !mine, !tokens, !pickaxes'
+            return False, 'Only these commands are allowed in the Mineshaft Channel: !mine, !tokens, !pickaxes, !gems'
         
     return False, 'Please only use commands in a valid channel'
 
