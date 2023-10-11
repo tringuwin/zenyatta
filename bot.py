@@ -16,6 +16,7 @@ from command_handlers.donate_pass import donate_pass_handler
 from command_handlers.fun_fact import fun_fact_handler
 from command_handlers.gems import gems_handler
 from command_handlers.getdetails import get_details_handler
+from command_handlers.gg_ez import gg_ez_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
 from command_handlers.invited_by import invited_by_handler
@@ -78,6 +79,9 @@ from user import get_lvl_info, get_role_id_by_level, user_exists
 def is_valid_channel(message, lower_message, is_admin):
 
     if is_admin:
+        return True, None
+    
+    if lower_message == '!hello' or lower_message == '!gg ez':
         return True, None
 
     if message.channel.id == constants.BOT_CHANNEL:
@@ -196,6 +200,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == "!hello":
         await hello_handler(message)
+
+    elif lower_message == '!gg ez':
+        await gg_ez_handler(message)
 
     elif lower_message == '!hatch':
         await hatch_handler(db, message)
