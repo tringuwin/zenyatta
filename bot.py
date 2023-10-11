@@ -557,7 +557,7 @@ async def handle_message(message, db, client):
 
             
 
-    elif lower_message.startswith('!open ') and is_admin:
+    elif lower_message.startswith('!open '):
         await open_handler(db, message, client)
 
     elif lower_message.startswith('!sellgems '):
