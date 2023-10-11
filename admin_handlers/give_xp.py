@@ -19,5 +19,5 @@ async def give_xp_handler(client, db, message):
         await message.channel.send('Could not find a matching user.')
         return
     
-    await change_xp(db, user, num_xp)
+    await change_xp(db, user, num_xp, client)
     await message.channel.send('XP given')

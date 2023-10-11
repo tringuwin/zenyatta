@@ -1,8 +1,9 @@
 
 
-from discord_actions import get_member_by_username
+from discord_actions import get_member_by_username, get_user_from_guild
 from helpers import can_be_int, generic_find_user
-from user import get_lvl_info, user_exists
+from user import get_lvl_info, get_user_lootboxes, user_exists
+import constants
 
 
 async def change_tokens(db, user, num):
@@ -118,13 +119,40 @@ async def give_pickaxes_command(client, db, user_id, num, message):
         await message.channel.send('Could not find user with that ID')
 
 
-async def change_xp(db, user, num):
+async def level_up(user, orig_level, new_level, client, db):
+
+    adjusted_orig_level = orig_level - 1
+    orig_level_id = constants.LEVEL_ROLE_IDS[adjusted_orig_level]
+
+    adjusted_new_level = new_level - 1
+    new_level_id = constants.LEVEL_ROLE_IDS[adjusted_new_level]
+
+    user_boxes = get_user_lootboxes(user)
+
+    move_up = orig_level + 1
+    while move_up <= new_level:
+        user_boxes.append(move_up)
+        move_up += 1
+    
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
+
+    member = await get_user_from_guild(client, user['discord_id'])
+    if member:
+        await member.add_roles(new_level_id)
+        await member.remove_roles(orig_level_id)
+
+
+
+
+async def change_xp(db, user, num, client):
 
     print('giving '+str(num)+' xp to user '+user['battle_tag'])
     users = db['users']
     
     level, xp = get_lvl_info(user)
 
+    orig_level = level
     xp += num
     xp_needed_for_level_up = level * 100
     while xp >= xp_needed_for_level_up:
@@ -133,6 +161,9 @@ async def change_xp(db, user, num):
         xp_needed_for_level_up = level * 100
 
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"xp": xp, "level": level}})
+
+    if orig_level != level:
+        await level_up(user, orig_level, level, client, db)
 
 
 async def change_pickaxes(db, user, num):
