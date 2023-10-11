@@ -476,7 +476,7 @@ async def handle_message(message, db, client):
                 if user:
 
                     reward = xp_per_round[highest_round]
-                    #await change_xp(db, user, reward, client)
+                    await change_xp(db, user, reward, client)
                     print('Giving '+str(reward)+' xp to '+user['battle_tag'])
 
         await message.channel.send('xp given')
