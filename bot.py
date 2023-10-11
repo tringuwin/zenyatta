@@ -22,6 +22,7 @@ from command_handlers.invited_by import invited_by_handler
 from command_handlers.level import level_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
+from command_handlers.open import open_handler
 from command_handlers.sell_gems import sell_gems_handler
 from command_handlers.solo_join import solo_join_handler
 from command_handlers.suggest import suggest_handler
@@ -556,8 +557,8 @@ async def handle_message(message, db, client):
 
             
 
-    elif lower_message.startswith('!open '):
-        await message.channel.send('Sorry this command is not ready yet!')
+    elif lower_message.startswith('!open ') and is_admin:
+        await open_handler(db, message)
 
     elif lower_message.startswith('!sellgems '):
         await sell_gems_handler(db, message)
