@@ -18,7 +18,68 @@ lootboxes = {
     ],
 
     '3': [
+        ['Pickaxe', 3, 50],
+        ['Gem', 1, 80],
+        ['Gem', 2, 95],
+        ['Token', 200, 100]
+    ],
 
+    '4': [
+        ['Pickaxe', 3, 40],
+        ['Pickaxe', 5, 65],
+        ['Gem', 1, 80],
+        ['Gem', 2, 95],
+        ['Token', 200, 100]
+    ],
+
+    '5': [
+        ['Pickaxe', 5, 50],
+        ['Pickaxe', 10, 77],
+        ['Gem', 2, 92],
+        ['Gem', 3, 97],
+        ['Token', 300, 100]
+    ],
+
+    '6': [
+        ['Pickaxe', 5, 35],
+        ['Pickaxe', 10, 65],
+        ['Gem', 2, 85],
+        ['Gem', 3, 95],
+        ['Token', 300, 100]
+    ],
+
+    '7': [
+        ['Pickaxe', 10, 50],
+        ['Pickaxe', 15, 70],
+        ['Gem', 2, 90],
+        ['Gem', 3, 95],
+        ['Token', 300, 100]
+    ],
+
+    '8': [
+        ['Pickaxe', 10, 35],
+        ['Pickaxe', 15, 65],
+        ['Gem', 3, 85],
+        ['Gem', 4, 95],
+        ['Token', 400, 100]
+    ],
+
+    '9': [
+        ['Pickaxe', 15, 30],
+        ['Pickaxe', 20, 50],
+        ['Gem', 3, 65],
+        ['Gem', 4, 80],
+        ['Token', 200, 95],
+        ['Token', 400, 100]
+    ],
+
+    '10': [
+        ['Pickaxe', 15, 25],
+        ['Pickaxe', 20, 50],
+        ['Gem', 3, 65],
+        ['Gem', 4, 80],
+        ['Token', 300, 90],
+        ['Token', 400, 100]
     ]
 
 
@@ -62,9 +123,9 @@ async def open_handler(db, message, client):
             prize = possible_prize
             break
 
-    final_string = 'You opened your Level '+str(box_num)+' Lootbox and found... '
+    final_string = 'You opened your Level '+str(box_num)+' Lootbox and found... **'
     if prize[0] == 'Token':
-        final_string += str(prize[1])+" Tokens!! 🪙"
+        final_string += str(prize[1])+" Tokens!!** 🪙"
         await change_tokens(db, user, prize[1])
     elif prize[0] == 'Gem':
 
@@ -79,7 +140,7 @@ async def open_handler(db, message, client):
         else:
             final_string += str(prize[1])+' Gems!! '
 
-        final_string += str(gem_emoji)
+        final_string += "**"+str(gem_emoji)
 
         user_gems = get_user_gems(user)
         user_gems[gem_color] += prize[1]
@@ -87,9 +148,9 @@ async def open_handler(db, message, client):
     elif prize[0] == 'Pickaxe':
         
         if prize[1] == 1:
-            final_string += '1 Pickaxe!! ⛏️'
+            final_string += '1 Pickaxe!!** ⛏️'
         else:
-            final_string += str(prize[1])+' Pickaxes!! ⛏️'
+            final_string += str(prize[1])+' Pickaxes!!** ⛏️'
 
         await change_pickaxes(db, user, prize[1])
 
