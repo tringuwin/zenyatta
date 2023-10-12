@@ -193,7 +193,7 @@ async def handle_message(message, db, client):
         await sell_pass_for_tokens(db, message)
 
     elif lower_message == '!dailygift' or lower_message == '!gift':
-        await gift_handler(db, message)
+        await gift_handler(db, message, client, is_admin)
 
     elif lower_message.startswith('!funfact '):
         await fun_fact_handler(db, message)
