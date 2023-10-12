@@ -18,10 +18,10 @@ async def delete_team(db, team, client):
         if user:
             await remove_team_invite(db, user, team['team_name'])
 
-    for event_id in get_in_events(team):
-        event = get_event_by_id(db, event_id)
-        if event:
-            await remove_team_from_event(client, db, team, event)
+    # for event_id in get_in_events(team):
+    #     event = get_event_by_id(db, event_id)
+    #     if event:
+    #         await remove_team_from_event(client, db, team, event)
 
     teams = db['teams']
     teams.delete_one({'team_name': team['team_name']})
