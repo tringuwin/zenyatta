@@ -11,7 +11,13 @@ async def leaderboard_handler(db, message):
     top_10_users = sorted_users[:10]
 
     final_string = '**SERVER LEVEL LEADERBOARD:**\n'
+    user_index = 1
     for user in top_10_users:
-        final_string += user['battle_tag']+'\n'
+
+        user_tag = user['battle_tag']
+        first_part = user_tag.split('#')[0]
+
+        final_string += "**"+str(user_index)+".** "+first_part+'\n'
+        user_index += 1
 
     await message.channel.send(final_string)
