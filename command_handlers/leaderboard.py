@@ -17,7 +17,8 @@ async def leaderboard_handler(db, message):
         user_tag = user['battle_tag']
         first_part = user_tag.split('#')[0]
 
-        final_string += "**"+str(user_index)+".** "+first_part+'\n'
+        final_string += "**"+str(user_index)+".** "+first_part
+        final_string += ' | Level '+str(user['level'])+" XP "+str(user['xp'])+'\n'
         user_index += 1
 
     await message.channel.send(final_string)
