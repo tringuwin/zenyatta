@@ -4,6 +4,7 @@ import asyncio
 from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_make_team import force_make_team_handler
+from admin_handlers.force_remove_team import force_remove_team_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
 from admin_handlers.give_gems import give_gems_handler
 from admin_handlers.give_lootbox import give_lootbox_handler
@@ -351,6 +352,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forceaddteam') and is_admin:
         await force_add_team_handler(db, message, client)
+
+    elif lower_message.startswith('!forceremoveteam') and is_admin:
+        await force_remove_team_handler(db, message, client)
 
     elif lower_message.startswith('!win ') and is_admin:
 
