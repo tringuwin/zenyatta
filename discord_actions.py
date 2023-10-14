@@ -32,9 +32,15 @@ async def remove_role_from_user(client, discord_user, role_id):
 async def get_user_from_guild(client, user_id):
 
     guild = await get_guild(client)
-    discord_user = await guild.fetch_member(user_id)
-
-    return discord_user
+    discord_user = None
+    try:
+        discord_user = await guild.fetch_member(user_id)
+        if discord_user:
+            return discord_user
+    except discord.errors.NotFound:
+        return None
+    
+    return None
 
 async def get_member_by_username(client, username):
 
