@@ -3,6 +3,7 @@ import discord
 import asyncio
 from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.force_add_team import force_add_team_handler
+from admin_handlers.force_delete_team import force_delete_team_handler
 from admin_handlers.force_make_team import force_make_team_handler
 from admin_handlers.force_remove_team import force_remove_team_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
@@ -349,6 +350,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forcemaketeam') and is_admin:
         await force_make_team_handler(db, message, client)
+
+    elif lower_message.startswith('!forcedeleteteam') and is_admin:
+        await force_delete_team_handler(db, message, client)
 
     elif lower_message.startswith('!forceaddteam') and is_admin:
         await force_add_team_handler(db, message, client)
