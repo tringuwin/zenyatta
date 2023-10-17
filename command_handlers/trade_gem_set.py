@@ -5,7 +5,7 @@ from rewards import change_tokens
 from user import get_user_gems, user_exists
 import constants
 
-async def trade_gems_handler(db, message):
+async def trade_gem_set_handler(db, message):
 
     user = user_exists(db, message.author.id)
     if not user:
