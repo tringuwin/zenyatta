@@ -30,7 +30,7 @@ async def join_handler(db, message, client):
         return
     
     if get_event_team_size(event) > 1:
-        await message.channel.send('This is a team event. Please use the !teamjoin command with a team of size '+str(event['team_size']))
+        await message.channel.send('This is a team event. Please use the **!teamjoin** command with a team of size '+str(event['team_size'])+". Example: **!teamjoin "+event_id+" Team Name Here")
         return
     
     if not event_is_open(event):
