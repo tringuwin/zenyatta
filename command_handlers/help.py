@@ -1,7 +1,7 @@
 
 import discord
 
-async def help_hanlder(message):
+async def help_handler(message):
 
     help_embed = discord.Embed(title='List of commands:')
     help_embed.add_field(name='!battle BattleTagHere#1234', value='Register your battle tag with the SpicyRagu server', inline=False)
