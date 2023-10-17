@@ -39,7 +39,7 @@ async def invite_handler(db, message):
     invited_member = mentions[0]
     invited_user = user_exists(db, invited_member.id)
     if not invited_user:
-        await message.channel.send('That user is not registered.')
+        await message.channel.send('That user is not registered. Please have them register with this command: **!battle BattleTagHere#1234**')
         return
 
     if user_on_team(team, invited_user['discord_id']):
