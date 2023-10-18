@@ -23,7 +23,7 @@ async def team_join_handler(client, db, message):
     event_id = word_list[1]
     event = get_event_by_id(db, event_id)
     if not event:
-        await message.channel.send('There is no event with that ID.')
+        await message.channel.send('There is no event with that ID. To see the current events and their IDs use the command **!events**')
         return
 
     if not event_is_open(event):
@@ -36,15 +36,15 @@ async def team_join_handler(client, db, message):
 
     team_name = make_string_from_word_list(word_list, 2)
     team = await get_team_by_name(db, team_name)
+    event_team_size = get_event_team_size(event)
     if not team:
-        await message.channel.send('There is no team with that name.')
+        await message.channel.send('There is no team with that name. You can make this team by saying **!maketeam '+str(event_team_size)+" "+team_name+'**')
         return
 
     if not (team['creator_id'] == user['discord_id']):
         await message.channel.send('You do not own this team. Only the owner can join events.')
         return
 
-    event_team_size = get_event_team_size(event)
     if event_team_size != team['team_size']:
         await message.channel.send('This team is not the correct size for this event. This event is only for teams of size '+str(event_team_size))
         return
