@@ -52,4 +52,4 @@ async def invite_handler(db, message):
     
     await invite_user_to_team(db, team, invited_user)
     add_invite_to_team(db, team, invited_user['discord_id'])
-    await message.channel.send('User was successfully invited to the team!')
+    await message.channel.send('User was successfully invited to the team! '+invited_member.mention+' to accept this invite, please say **!acceptinvite '+team['team_name']+'**')
