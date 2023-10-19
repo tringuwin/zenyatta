@@ -353,7 +353,7 @@ async def handle_message(message, db, client):
 
         guild = client.get_guild(constants.GUILD_ID)
 
-        await send_next_info(db, message, guild)
+        await send_next_info(db, message, guild, client)
         await notify_next_users(db, guild, message)
 
     elif lower_message.startswith('!forcemaketeam') and is_admin:
@@ -374,7 +374,7 @@ async def handle_message(message, db, client):
         word_list = message.content.split()
         if len(word_list) == 2:
             guild = client.get_guild(constants.GUILD_ID)
-            await won_match(int(word_list[1]), message, db, guild)
+            await won_match(int(word_list[1]), message, db, guild, client)
         else:
             await message.channel.send("Invalid number of arguments.")
 
@@ -384,7 +384,7 @@ async def handle_message(message, db, client):
         word_list = message.content.split()
         if len(word_list) == 2:
             guild = client.get_guild(constants.GUILD_ID)
-            await no_show(int(word_list[1]), message, db, guild)
+            await no_show(int(word_list[1]), message, db, guild, client)
         else:
             await message.channel.send("Invalid number of arguments.")
 
@@ -392,7 +392,7 @@ async def handle_message(message, db, client):
 
         guild = client.get_guild(constants.GUILD_ID)
 
-        await both_no_show(message, db, guild)
+        await both_no_show(message, db, guild, client)
 
     elif lower_message.startswith('!giverewards') and is_admin:
         
