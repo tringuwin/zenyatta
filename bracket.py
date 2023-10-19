@@ -36,9 +36,6 @@ async def add_team_to_match(team_name, match, teams):
     if not match[0]['is_bye']:
         user_index = 1
 
-    print(team_name)
-    team_obj = teams.find_one({'lower_team_name': team_name.lower()})
-
     entry = {
         'user': team_name,
         'username': team_name,

@@ -5,7 +5,7 @@ from teams import add_invite_to_team, get_team_by_name, invite_user_to_team, tea
 from user import user_exists
 
 
-async def invite_handler(db, message):
+async def invite_handler(db, message, is_admin):
 
     user = user_exists(db, message.author.id)
     if not user:
@@ -23,7 +23,7 @@ async def invite_handler(db, message):
         await message.channel.send('There is no team with that name.')
         return
     
-    if team['creator_id'] != user['discord_id']:
+    if team['creator_id'] != user['discord_id'] and (not is_admin):
         await message.channel.send('You are not the owner of this team.')
         return
     

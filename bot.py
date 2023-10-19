@@ -270,7 +270,7 @@ async def handle_message(message, db, client):
         await make_team_handler(db, message)
 
     elif lower_message.startswith('!invite '):
-        await invite_handler(db, message)
+        await invite_handler(db, message, is_admin)
 
     elif lower_message == '!myinvites':
         await my_invites_handler(db, message)
