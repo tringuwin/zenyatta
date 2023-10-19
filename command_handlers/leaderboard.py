@@ -21,4 +21,7 @@ async def leaderboard_handler(db, message):
         final_string += ' | Level '+str(user['level'])+" XP "+str(user['xp'])+'\n'
         user_index += 1
 
+    final_string += '------------------------\n'
+    final_string += 'See the full leaderboard here!\nhttps://spicyragu.netlify.app/leaderboard'
+
     await message.channel.send(final_string)
