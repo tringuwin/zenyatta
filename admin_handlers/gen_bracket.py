@@ -29,7 +29,6 @@ async def gen_bracket_handler(db, message):
 
     print(event['entries'])
     print(len(event['entries']))
-    return
 
     round1 = event['entries'].copy()
     random.shuffle(round1)
