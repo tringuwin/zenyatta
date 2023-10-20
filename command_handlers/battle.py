@@ -18,7 +18,7 @@ async def battle_link(db, message, client, user, battle_tag):
         await message.channel.send("That Battle Tag has already been connected with a discord account. (Maybe you've already linked it?)")
         return
     
-    create_or_update_battle_tag(db, battle_tag, lower_tag, message.author.id)
+    create_or_update_battle_tag(db, battle_tag, lower_tag, user.id)
 
     guild = client.get_guild(constants.GUILD_ID)
     reg_role = guild.get_role(constants.REGISTERED_ROLE)
