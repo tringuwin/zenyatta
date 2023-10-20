@@ -3,6 +3,7 @@ import discord
 import asyncio
 from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.force_add_team import force_add_team_handler
+from admin_handlers.force_battle_handler import force_battle_handler
 from admin_handlers.force_delete_team import force_delete_team_handler
 from admin_handlers.force_make_team import force_make_team_handler
 from admin_handlers.force_remove_team import force_remove_team_handler
@@ -356,6 +357,9 @@ async def handle_message(message, db, client):
         await send_next_info(db, message, guild, client)
         await notify_next_users(db, guild, message)
 
+    elif lower_message.startswith('!forcebattle') and is_admin:
+        await force_battle_handler(db, message, client)
+
     elif lower_message.startswith('!forcemaketeam') and is_admin:
         await force_make_team_handler(db, message, client)
 
@@ -367,6 +371,7 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forceremoveteam') and is_admin:
         await force_remove_team_handler(db, message, client)
+
 
     elif lower_message.startswith('!win ') and is_admin:
 
