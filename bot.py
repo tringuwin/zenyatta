@@ -1,6 +1,7 @@
 import time
 import discord
 import asyncio
+import copy
 from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_battle_handler import force_battle_handler
@@ -371,6 +372,21 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forceremoveteam') and is_admin:
         await force_remove_team_handler(db, message, client)
+
+    elif lower_message == '!cheese' and is_admin:
+
+        brackets = db['brackets']
+        my_bracket = brackets.find_one({"event_id", 11})
+
+        silly = copy.deepcopy(my_bracket['bracket'][0][7][1])
+        artic = copy.deepcopy(my_bracket['bracket'][0][29][0])
+
+        my_bracket['bracket'][0][7][1] = artic
+        my_bracket['bracket'][0][29][0] = silly
+
+        brackets.update_one({"event_id": 11}, {"$set": {"bracket": my_bracket['bracket']}})
+
+        await message.channel.send('done')
 
 
     elif lower_message.startswith('!win ') and is_admin:
