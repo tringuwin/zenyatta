@@ -27,6 +27,10 @@ async def gen_bracket_handler(db, message):
    
     brackets = db['brackets']
 
+    print(event['entries'])
+    print(len(event['entries']))
+    return
+
     round1 = event['entries'].copy()
     random.shuffle(round1)
     event_size = get_event_team_size(event)
