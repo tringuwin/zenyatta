@@ -376,7 +376,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!cheese' and is_admin:
 
         brackets = db['brackets']
-        my_bracket = brackets.find_one({"event_id", 11})
+        my_bracket = brackets.find_one({"event_id": 11})
 
         silly = copy.deepcopy(my_bracket['bracket'][0][7][1])
         artic = copy.deepcopy(my_bracket['bracket'][0][29][0])
