@@ -15,6 +15,8 @@ async def help_handler(message):
     help_embed.add_field(name='!passes', value='See your current passes', inline=False)
     help_embed.add_field(name='!sellpass', value='Sell 1 Priority Pass for 10 tokens', inline=False)
     help_embed.add_field(name='!gift', value='Earn a free gift every 8 hours!', inline=False)
+    help_embed.add_field(name='!profile', value='Shows your profile for this Discord Server.', inline=False)
+    help_embed.add_field(name='!leaderboard', value='Shows the Top 10 players by Level/XP and links to the full server leaderboard.', inline=False)
     help_embed.add_field(name='!wager [number of tokens] [red, black, or green]', value='Use in the roulette channel. Wager your tokens with European Roulette rules.', inline=False)
     help_embed.add_field(name='!twager [number of tokens] [purple, black, or yellow]', value='Use in the roulette channel. Wager your tokens with custom roulette rules. Slightly better odds, Twitch Sub only command.', inline=False)
     help_embed.add_field(name='!blackjack [number of tokens]', value='Use in the blackjack channel. Play simplified blackjack and win tokens if you beat the dealer!', inline=False)
