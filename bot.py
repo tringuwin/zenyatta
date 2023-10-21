@@ -38,6 +38,7 @@ from command_handlers.teams.get_teams import get_teams_handler
 from command_handlers.teams.switch_event_teams import switch_event_teams
 from command_handlers.trade_gem_set import trade_gem_set_handler
 from command_handlers.verify_ranks import verify_ranks_handler
+from command_handlers.which_hero_handler import which_hero_handler
 import constants
 import traceback
 from admin_handlers.add_event import add_event_handler
@@ -86,7 +87,7 @@ def is_valid_channel(message, lower_message, is_admin):
     if is_admin:
         return True, None
     
-    if lower_message == '!hello' or lower_message == '!gg ez':
+    if lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichhero'):
         return True, None
 
     if message.channel.id == constants.BOT_CHANNEL:
@@ -208,6 +209,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!gg ez':
         await gg_ez_handler(message)
+
+    elif lower_message == '!whichhero':
+        await which_hero_handler(message)
 
     elif lower_message == '!hatch':
         await hatch_handler(db, message)
