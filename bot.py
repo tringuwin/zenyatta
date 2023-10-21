@@ -25,7 +25,6 @@ from command_handlers.hello import hello_handler
 from command_handlers.help_gems import help_gems_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
-from command_handlers.level import level_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
@@ -243,9 +242,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!verifyranks' and is_admin:
         await verify_ranks_handler(db, message)
-
-    elif lower_message == '!level':
-        await level_handler(db, message)
 
     elif lower_message == '!leaderboard':
         await leaderboard_handler(db, message)
