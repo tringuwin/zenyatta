@@ -21,7 +21,6 @@ async def help_handler(message):
     help_embed.add_field(name='!mine', value='Use in the mineshaft channel. Spend 20 tokens to go mining and look for treasure!', inline=False)
     help_embed.add_field(name='!donate [@user] [number of tokens]', value='Donate tokens to another user in this server!', inline=False)
     help_embed.add_field(name='!donatepass [@user]', value='Donate 1 Priority Pass another user in this server!', inline=False)
-    help_embed.add_field(name='!funfact [fun fact here]', value='Add a fun fact about yourself that might be mentioned during livestreamed events', inline=False)
     # help_embed.add_field(name='!invitedby [@user]', value='Mention the user that invited you for you both to get the invite reward.', inline=False)
     help_embed.add_field(name='!hello', value='Say hi to the Zenyatta bot', inline=False)
 

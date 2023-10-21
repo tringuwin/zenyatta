@@ -43,7 +43,6 @@ def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
             "lower_tag": lower_tag,
             "discord_id": discord_id,
             "entries": [],
-            "fun_fact": '',
             'teams': [],
             'passes': 1,
             'pickaxes': 0,

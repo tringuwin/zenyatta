@@ -17,7 +17,6 @@ from admin_handlers.set_level import set_level_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.donate import donate_handler
 from command_handlers.donate_pass import donate_pass_handler
-from command_handlers.fun_fact import fun_fact_handler
 from command_handlers.gems import gems_handler
 from command_handlers.getdetails import get_details_handler
 from command_handlers.gg_ez import gg_ez_handler
@@ -204,9 +203,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!dailygift' or lower_message == '!gift':
         await gift_handler(db, message, client, is_admin)
-
-    elif lower_message.startswith('!funfact '):
-        await fun_fact_handler(db, message)
 
     elif lower_message == "!hello":
         await hello_handler(message)

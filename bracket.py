@@ -456,15 +456,10 @@ async def send_next_info(db, message, guild, client):
         else:
             user1 = user_exists(db, match[0]['user'])
             user2 = user_exists(db, match[1]['user'])
-            user1fact = ''
-            user2fact = ''
-            if 'fun_fact' in user1:
-                user1fact = user1['fun_fact']
-            if 'fun_fact' in user2:
-                user2fact = user2['fun_fact']
 
-            await message.channel.send("**USER 1**\nBattle Tag: "+user1['battle_tag']+"\n"+user1fact)
-            await message.channel.send("**USER 2**\nBattle Tag: "+user2['battle_tag']+"\n"+user2fact)
+
+            await message.channel.send("**USER 1**\nBattle Tag: "+user1['battle_tag']+"\n")
+            await message.channel.send("**USER 2**\nBattle Tag: "+user2['battle_tag']+"\n")
 
 
     else:
