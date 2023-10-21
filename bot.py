@@ -210,7 +210,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!gg ez':
         await gg_ez_handler(message)
 
-    elif lower_message == '!whichhero':
+    elif lower_message.startswith('!whichhero'):
         await which_hero_handler(message)
 
     elif lower_message == '!hatch':
