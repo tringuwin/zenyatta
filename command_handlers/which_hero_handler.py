@@ -1,6 +1,6 @@
 import random
 
-hero_list = []
+hero_list = ['Ana', 'Ashe']
 
 async def which_hero_handler(message):
 
