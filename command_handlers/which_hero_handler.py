@@ -1,7 +1,7 @@
 import random
 
 hero_list = ['Ana', 'Ashe', 'Baptiste', 'Bastion', 'Brigitte', 'Cassidy',
-             'D.va', 'Doomfist', 'Echo', 'Gneji', 'Hanzo', 'Illari',
+             'D.va', 'Doomfist', 'Echo', 'Genji', 'Hanzo', 'Illari',
              'Junker Queen', 'Junkrat', 'Kiriko', 'Lifeweaver', 'Lucio', 'Mei',
              'Mercy', 'Moira', 'Orisa', 'Pharah', 'Ramattra', 'Reaper',
              'Reinhardt', 'Roadhog', 'Sigma', 'Sojourn', 'Soldier: 76', 'Sombra',
