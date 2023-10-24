@@ -1,6 +1,6 @@
 async def force_remove_player_handler(db, message):
     
-    word_parts = message.split()
+    word_parts = message.content.split()
 
     event_id = word_parts[1]
     user_id = int(word_parts[2])
