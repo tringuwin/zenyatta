@@ -7,6 +7,7 @@ from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_battle_handler import force_battle_handler
 from admin_handlers.force_delete_team import force_delete_team_handler
 from admin_handlers.force_make_team import force_make_team_handler
+from admin_handlers.force_remove_player import force_remove_player_handler
 from admin_handlers.force_remove_team import force_remove_team_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
 from admin_handlers.give_gems import give_gems_handler
@@ -368,6 +369,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forceremoveteam') and is_admin:
         await force_remove_team_handler(db, message, client)
+
+    elif lower_message.startswith('!forceremoveplayer') and is_admin:
+        await force_remove_player_handler(db, message)
 
     elif lower_message == '!cheese' and is_admin:
 
