@@ -265,10 +265,10 @@ async def notify_next_users(db, guild, message):
     else:
         await message.channel.send('An error occurred.')
 
-async def give_earned_xp(team_entry, num_xp, db, client):
+async def give_earned_xp(entry, num_xp, db, client):
     
-    if ('it_team' in team_entry) and team_entry['it_team']:
-        team_name = team_entry['username']
+    if ('it_team' in entry) and entry['it_team']:
+        team_name = entry['username']
         team = await get_team_by_name(db, team_name)
 
         if not team:
@@ -278,6 +278,12 @@ async def give_earned_xp(team_entry, num_xp, db, client):
             user = user_exists(db, member_id)
             if user:
                 await change_xp(db, user, num_xp, client)
+
+    else:
+        user_id = entry['user']
+        user = user_exists(db, user_id)
+        if user:
+            await change_xp(db, user, num_xp, client)
 
 
 
