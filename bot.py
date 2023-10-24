@@ -134,7 +134,7 @@ async def handle_message(message, db, client):
     user_message = str(message.content)
     print(user_message)
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
-    is_helper = member_has_role(member, constants.HELPER_ROLE_ID)
+    is_helper = member_has_role(message.author, constants.HELPER_ROLE_ID)
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if not is_command:
         return
