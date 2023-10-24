@@ -75,7 +75,8 @@ from command_handlers.teams.team_join import team_join_handler
 from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import twager_handler, wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
-from discord_actions import get_guild, is_dm_channel
+from discord_actions import get_guild, is_dm_channel, member_has_role
+from helper_handlers.twitch_tokens import twitch_tokens_handler
 from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
 from notifs import handle_notifs
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
@@ -133,6 +134,7 @@ async def handle_message(message, db, client):
     user_message = str(message.content)
     print(user_message)
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
+    is_helper = member_has_role(member, constants.HELPER_ROLE_ID)
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if not is_command:
         return
@@ -372,6 +374,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forceremoveplayer') and is_admin:
         await force_remove_player_handler(db, message)
+
+    elif lower_message.startswith('!twitchtokens') and is_helper:
+        await twitch_tokens_handler(db, message)
 
     elif lower_message == '!cheese' and is_admin:
 
@@ -699,6 +704,8 @@ async def handle_message(message, db, client):
             
             message = await channel.send('Add an emoji reaction to get the '+discord_role.mention+ ' role. Remove the reaction to remove it. Default is **OFF**.\n*'+role['extra']+'*')
             await message.add_reaction("✅")
+
+    
 
     else:
         await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
