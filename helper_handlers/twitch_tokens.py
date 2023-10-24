@@ -4,7 +4,7 @@ from user import user_exists
 
 async def twitch_tokens_handler(db, message):
 
-    word_parts = message.cotent.split(' ')
+    word_parts = message.content.split(' ')
     if len(word_parts) != 2:
         await message.channel.send('Invalid number of parameters.')
         return
