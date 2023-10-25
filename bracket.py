@@ -259,7 +259,7 @@ async def notify_next_users(db, guild, message):
             else:
                 break
         final_string += '\n--------------------------------------------'
-        event_channel = guild.get_channel(1162089296719777945)
+        event_channel = guild.get_channel(1164666944415346760)
         await event_channel.send(final_string)
         
     else:
