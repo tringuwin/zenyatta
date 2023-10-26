@@ -18,6 +18,7 @@ async def suggest_event_handler(message, client):
 
     event_idea_msg = await event_suggest_channel.send(embed=embed_msg)
     await event_idea_msg.add_reaction("👍")
+    await event_idea_msg.add_reaction("👎")
 
     message_channel = message.channel
     bot_response = await message_channel.send('Your event suggestion has been added!')
