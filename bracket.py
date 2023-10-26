@@ -280,10 +280,11 @@ async def give_earned_xp(entry, num_xp, db, client):
                 await change_xp(db, user, num_xp, client)
 
     else:
-        user_id = entry['user']
-        user = user_exists(db, user_id)
-        if user:
-            await change_xp(db, user, num_xp, client)
+        if 'user' in entry:
+            user_id = entry['user']
+            user = user_exists(db, user_id)
+            if user:
+                await change_xp(db, user, num_xp, client)
 
 
 
