@@ -29,6 +29,7 @@ async def give_gem(db, user, client):
 async def process_gift(db, current_time, existing_user, message, client):
 
     is_sub = member_has_role(message.author, constants.TWITCH_SUB_ROLE)
+    is_booster = member_has_role(message.author, constants.SERVER_BOOSTER_ROLE)
 
     users = db['users']
     users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"last_gift": current_time, "gift_notify": True}})
@@ -69,16 +70,19 @@ async def process_gift(db, current_time, existing_user, message, client):
             message_string += message_part
         else:
             tokens = random.randint(2, 5)
-            total_tokens_to_give += 100
+            total_tokens_to_give += tokens
             message_string += "🪙 You found **"+ str(tokens)+" Tokens** 🪙"
 
-    if total_tokens_to_give > 0:
-        await change_tokens(db, existing_user, total_tokens_to_give)
 
-
+    if is_booster:
+        message_string += "\n~ You also found **5 Bonus Tokens** 🪙 for being a Server Booster! ~"
+        total_tokens_to_give += 5
     if is_sub:
         message_string += "\n~ Since you're a Twitch Sub, you get better gift rewards! ~"
     message_string += '\n*Come back in 8 hours for another gift!*'
+
+    if total_tokens_to_give > 0:
+        await change_tokens(db, existing_user, total_tokens_to_give)
 
     await message.channel.send(message_string)
 
