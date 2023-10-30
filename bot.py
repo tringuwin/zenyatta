@@ -24,6 +24,7 @@ from command_handlers.getdetails import get_details_handler
 from command_handlers.gg_ez import gg_ez_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
+from command_handlers.help_bonus import help_bonus_handler
 from command_handlers.help_gems import help_gems_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
@@ -165,6 +166,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!helpgems':
         await help_gems_handler(message)
+
+    elif lower_message == '!helpbonus':
+        await help_bonus_handler(message)
 
     elif lower_message == '!version':
         await message.channel.send(constants.VERSION)
