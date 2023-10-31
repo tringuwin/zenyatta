@@ -24,8 +24,8 @@ from command_handlers.getdetails import get_details_handler
 from command_handlers.gg_ez import gg_ez_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
-from command_handlers.help_bonus import help_bonus_handler
-from command_handlers.help_gems import help_gems_handler
+from command_handlers.help.help_bonus import help_bonus_handler
+from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.lootboxes import lootboxes_handler
@@ -71,7 +71,7 @@ from command_handlers.teams.leave_team import leave_team_handler
 from command_handlers.teams.my_invites import my_invites_handler
 from command_handlers.teams.make_team import make_team_handler
 from command_handlers.hatch import hatch_handler
-from command_handlers.help import help_handler
+from command_handlers.help.help import help_handler
 from command_handlers.teams.team_details import team_details_hanlder
 from command_handlers.teams.team_join import team_join_handler
 from command_handlers.teams.teams import teams_handler
