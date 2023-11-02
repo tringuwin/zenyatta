@@ -10,10 +10,12 @@ def get_all_tickets(db):
     users = db['users']
     all_users = users.find()
 
-    total_tokens = 0
+    total_tickets = 0
     for user in all_users:
         if 'tickets' in user:
-            total_tokens += user['tickets']
+            total_tickets += user['tickets']
+
+    return total_tickets
 
 
 async def buy_ticket_handler(db, message):
