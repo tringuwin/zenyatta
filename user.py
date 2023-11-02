@@ -39,6 +39,13 @@ def get_user_pickaxes(user):
     
     return 0
 
+def get_user_tickets(user):
+
+    if 'tickets' in user:
+        return user['tickets']
+    
+    return 0
+
 def get_lvl_info(user):
 
     level = 1

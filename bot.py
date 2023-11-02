@@ -17,6 +17,7 @@ from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.bracket import bracket_handler
+from command_handlers.buy_ticket import buy_ticket_handler
 from command_handlers.donate import donate_handler
 from command_handlers.donate_pass import donate_pass_handler
 from command_handlers.gems import gems_handler
@@ -264,6 +265,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!profile'):
         await profile_handler(db, message, client)
+
+    elif lower_message == '!buyticket':
+        await buy_ticket_handler(db, message)
 
     # TEAM COMMANDS
 
