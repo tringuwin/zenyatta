@@ -29,7 +29,7 @@ async def buy_ticket_handler(db, message, amount):
     
     user_tokens = get_user_tokens(user)
     if user_tokens < cost:
-        await message.channel.send(message.author.mention+' You do not have enough tokens for this. You only have **'+str(user_tokens)+ 'tokens** right now and you need **'+str(cost)+'** for this purchase.')
+        await message.channel.send(message.author.mention+' You do not have enough tokens for this. You only have **'+str(user_tokens)+ ' tokens** right now and you need **'+str(cost)+'** for this purchase.')
         return
     
     await change_tokens(db, user, -1*cost)
