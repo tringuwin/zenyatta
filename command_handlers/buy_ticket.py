@@ -39,6 +39,6 @@ async def buy_ticket_handler(db, message):
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"tickets": user_tickets}})
 
     percentage_win = float(user_tickets) / float(all_tickets)
-    rounded_percent = round(percentage_win, 3)
+    rounded_percent = round(percentage_win * 100.0, 3)
 
-    await message.channel.send(message.author.mention+' You bought a raffle ticket! You now have '+str(user_tickets)+' and your chance to win is **'+str(rounded_percent)+'**')
+    await message.channel.send(message.author.mention+' You bought a raffle ticket! You now have '+str(user_tickets)+' and your chance to win is **'+str(rounded_percent)+'%**')
