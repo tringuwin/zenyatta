@@ -18,22 +18,24 @@ def get_all_tickets(db):
     return total_tickets
 
 
-async def buy_ticket_handler(db, message):
+async def buy_ticket_handler(db, message, amount):
 
     user = user_exists(db, message.author.id)
     if not user:
         await not_registered_response(message)
         return
     
+    cost = amount * 10
+    
     user_tokens = get_user_tokens(user)
-    if user_tokens < 10:
-        await message.channel.send(message.author.mention+' buying a raffle ticket costs 10 Tokens. You only have '+str(user_tokens)+' right now.')
+    if user_tokens < cost:
+        await message.channel.send(message.author.mention+' You do not have enough tokens for this. You only have **'+str(user_tokens)+ 'tokens** right now and you need **'+str(cost)+'** for this purchase.')
         return
     
-    await change_tokens(db, user, -10)
+    await change_tokens(db, user, -1*cost)
 
-    all_tickets = get_all_tickets(db) + 1
-    user_tickets = get_user_tickets(user) + 1
+    all_tickets = get_all_tickets(db) + amount
+    user_tickets = get_user_tickets(user) + amount
 
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"tickets": user_tickets}})
@@ -41,4 +43,4 @@ async def buy_ticket_handler(db, message):
     percentage_win = float(user_tickets) / float(all_tickets)
     rounded_percent = round(percentage_win * 100.0, 3)
 
-    await message.channel.send(message.author.mention+' You bought a raffle ticket! You now have '+str(user_tickets)+' and your chance to win is **'+str(rounded_percent)+'%**')
+    await message.channel.send(message.author.mention+' You bought '+str(amount)+' raffle tickets! You now have '+str(user_tickets)+' and your chance to win is **'+str(rounded_percent)+'%**')

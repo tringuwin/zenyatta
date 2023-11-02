@@ -81,6 +81,7 @@ from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_
 from discord_actions import get_guild, is_dm_channel, member_has_role
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
+from helpers import can_be_int
 from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
 from notifs import handle_notifs
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
@@ -267,7 +268,18 @@ async def handle_message(message, db, client):
         await profile_handler(db, message, client)
 
     elif lower_message == '!buyticket':
-        await buy_ticket_handler(db, message)
+        await buy_ticket_handler(db, message, 1)
+    
+    elif lower_message.startswith('!buyticket '):
+        params = lower_message.split()
+        if len(params) == 2:
+            raw_amount = params[1]
+            if can_be_int(raw_amount):
+                await buy_ticket_handler(db, message, int(raw_amount))
+            else:
+                await message.channel.send(message.author.mention+' Please enter a number of tickets to buy.')
+        else:
+            await message.channel.send(message.author.mention+' Invalid number of parameters.')
 
     # TEAM COMMANDS
 
