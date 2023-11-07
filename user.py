@@ -124,7 +124,7 @@ def get_league_team(user):
     
 def get_league_invites(user):
 
-    if 'league_invites':
+    if 'league_invites' in user:
         return user['league_invites']
     else:
         return []
