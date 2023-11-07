@@ -48,7 +48,7 @@ async def change_tpp_handler(db, message, client):
         if member['discord_id'] == member_to_find.id:
             at_member = member
             at_member_index = cur_index
-            old_tpp = member['tpp']
+            old_tpp = member['TPP']
             break
         cur_index += 1
 
@@ -69,13 +69,13 @@ async def change_tpp_handler(db, message, client):
     available_tpp = 100
     for member in team_members:
         if member['discord_id'] != at_member['discord_id']:
-            available_tpp -= member['tpp']
+            available_tpp -= member['TPP']
 
     if available_tpp < tpp_offer:
         await message.channel.send('There is not enough available TPP for this team. This team only has '+str(available_tpp)+' TPP available.')
         return
     
-    my_team['members'][at_member_index]['tpp'] = tpp_offer
+    my_team['members'][at_member_index]['TPP'] = tpp_offer
     league_teams.update_one({'team_name': user_team}, {"$set": {"members": my_team['members']}})
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
