@@ -29,6 +29,7 @@ from command_handlers.help.help_bonus import help_bonus_handler
 from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
+from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
@@ -328,6 +329,12 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!switcheventteams ') and is_admin:
         # !switcheventteams [event id] [match id] [spot id (1 or 2)] [new team name]
         await switch_event_teams(db, message)
+
+    # LEAGUE COMMANDS
+
+    elif lower_message.startswith('!makeleagueteam') and is_admin:
+        # !makeleagueteam [team role id] @Owner [Team Name]
+        await make_league_team_handler(db, message, client) 
 
     # ADMIN COMMANDS
 
