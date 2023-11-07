@@ -115,6 +115,19 @@ def get_user_lootboxes(user):
         return user['lootboxes']
     else:
         return []
+    
+def get_league_team(user):
+    if 'league_team' in user:
+        return user['league_team']
+    else:
+        return 'None'
+    
+def get_league_invites(user):
+
+    if 'league_invites':
+        return user['league_invites']
+    else:
+        return []
 
     
 def toggle_off_gift_notify(db, user):
@@ -122,6 +135,11 @@ def toggle_off_gift_notify(db, user):
     users = db['users']
 
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"gift_notify": False}})
+
+def set_user_league_team(db, user, team):
+
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": team}})
 
 
 def user_entered_event(user, event_id):

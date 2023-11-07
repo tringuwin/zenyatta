@@ -50,7 +50,9 @@ def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
             'level': 1,
             'xp': 0,
             'gems': copy.deepcopy(constants.DEFAULT_GEMS),
-            'lootboxes': []
+            'lootboxes': [],
+            'league_team': 'None',
+            'league_invites': []
         }
         print(new_user)
         users.insert_one(new_user)

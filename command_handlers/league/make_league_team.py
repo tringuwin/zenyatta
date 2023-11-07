@@ -1,7 +1,7 @@
 
 from discord_actions import get_role_by_id
 from helpers import make_string_from_word_list
-from user import user_exists
+from user import set_user_league_team, user_exists
 import constants
 
 
@@ -33,6 +33,7 @@ async def make_league_team_handler(db, message, client):
     league_teams = db['leagueteams']
 
     new_team = {
+        'team_name': team_name,
         'owner_id': team_owner.id,
         'members': [
             {
@@ -47,6 +48,8 @@ async def make_league_team_handler(db, message, client):
     }
 
     league_teams.insert_one(new_team)
+
+    set_user_league_team(db, owner_user, team_name)
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
     await league_notifs_channel.send('New Team Created: "'+team_name+'". Owner is '+team_owner.mention)

@@ -29,7 +29,9 @@ from command_handlers.help.help_bonus import help_bonus_handler
 from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
+from command_handlers.league.change_tpp import change_tpp_handler
 from command_handlers.league.make_league_team import make_league_team_handler
+from command_handlers.league.set_league_team import set_league_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
@@ -334,7 +336,18 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!makeleagueteam') and is_admin:
         # !makeleagueteam [team role id] @Owner [Team Name]
-        await make_league_team_handler(db, message, client) 
+        await make_league_team_handler(db, message, client)
+
+    elif lower_message.startswith('!changetpp'):
+        # !changetpp @Player [new tpp]
+        await change_tpp_handler(db, message, client)
+
+    elif lower_message.startswith('!wipeleagueteams') and is_admin:
+        
+        league_teams = db['league_teams']
+        league_teams.delete_many({})
+
+        await message.channel.send('All league teams deleted')
 
     # ADMIN COMMANDS
 
