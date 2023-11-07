@@ -1,7 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, valid_number_of_params
-from league import update_team_info
+from league import update_team_info, validate_admin
 from user import get_league_team, set_user_league_team, user_exists
 import constants
 
@@ -13,28 +13,17 @@ async def change_tpp_handler(db, message, client):
         await invalid_number_of_params(message)
         return
     
-    user = user_exists(db, message.author.id)
-    if not user:
-        await message.channel.send('You are not an admin of a league team.')
+    if len(message.mentions) < 1:
+        await message.channel.send('Please mention the player to change their TPP.')
         return
     
-    user_team = get_league_team(user)
-    if user_team == "None":
+    is_admin, my_team, team_name = await validate_admin(db, message)
+
+    if not is_admin:
         await message.channel.send('You are not an admin of a league team.')
         return
 
-    league_teams = db['leagueteams']
-    my_team = league_teams.find_one({'team_name': user_team})
-    if not my_team:
-        await message.channel.send('You are not an admin of a league team.')
-        return
-
-    is_admin = False
     team_members = my_team['members']
-    for member in team_members:
-        if member['discord_id'] == user['discord_id'] and member['is_admin']:
-            is_admin = True
-            break
 
     if not is_admin:
         await message.channel.send('You are not an admin of this league team. Please ask the team owner to be an admin.')
@@ -77,10 +66,11 @@ async def change_tpp_handler(db, message, client):
         return
     
     my_team['members'][at_member_index]['TPP'] = tpp_offer
-    league_teams.update_one({'team_name': user_team}, {"$set": {"members": my_team['members']}})
+    league_teams = db['leagueteams']
+    league_teams.update_one({'team_name': team_name}, {"$set": {"members": my_team['members']}})
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
-    await league_notifs_channel.send('Team Update for '+user_team+": "+member_to_find.mention+"'s TPP has been updated from "+str(old_tpp)+' to '+str(tpp_offer))
+    await league_notifs_channel.send('Team Update for '+team_name+": "+member_to_find.mention+"'s TPP has been updated from "+str(old_tpp)+' to '+str(tpp_offer))
 
     await update_team_info(client, my_team)
 

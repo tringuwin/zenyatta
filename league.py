@@ -1,6 +1,32 @@
 
 import constants
 from discord_actions import get_guild
+from user import get_league_team, user_exists
+
+
+async def validate_admin(db, message):
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        return None, None, None
+    
+    user_team = get_league_team(user)
+    if user_team == "None":
+        return None, None, None
+
+    league_teams = db['leagueteams']
+    my_team = league_teams.find_one({'team_name': user_team})
+    if not my_team:
+        return None, None, None
+
+    is_admin = False
+    team_members = my_team['members']
+    for member in team_members:
+        if member['discord_id'] == user['discord_id'] and member['is_admin']:
+            is_admin = True
+            break
+
+    return is_admin, my_team, my_team['team_name']
 
 async def update_team_info(client, team):
 
