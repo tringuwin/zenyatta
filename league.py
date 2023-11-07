@@ -28,4 +28,4 @@ async def update_team_info(client, team):
 
     final_string += '\n--------------------------\nAvailable TPP: '+str(available_tpp)
 
-    await info_message.update(content=final_string)
+    await info_message.edit(content=final_string)
