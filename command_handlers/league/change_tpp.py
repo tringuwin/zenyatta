@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, valid_number_of_params
+from league import update_team_info
 from user import get_league_team, set_user_league_team, user_exists
 import constants
 
@@ -80,6 +81,8 @@ async def change_tpp_handler(db, message, client):
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
     await league_notifs_channel.send('Team Update for '+user_team+": "+member_to_find.mention+"'s TPP has been updated from "+str(old_tpp)+' to '+str(tpp_offer))
+
+    await update_team_info(client, my_team)
 
     await message.channel.send("User's TPP was successfully updated.")
 
