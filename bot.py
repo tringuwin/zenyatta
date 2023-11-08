@@ -31,6 +31,7 @@ from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.change_tpp import change_tpp_handler
 from command_handlers.league.league_invite import league_invite_handler
+from command_handlers.league.league_invites import league_invites_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
@@ -345,6 +346,10 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!leagueinvite '):
         # !leagueinvite @player
         await league_invite_handler(db, message)
+
+    elif lower_message == '!leagueinvites':
+        
+        await league_invites_handler(db, message)
 
     elif lower_message.startswith('!wipeleagueteams') and is_admin:
         
