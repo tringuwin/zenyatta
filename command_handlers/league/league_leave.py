@@ -37,6 +37,7 @@ async def league_leave_handler(db, message, client):
             final_members.append(member)
 
     league_teams.update_one({'team_name': team_object['team_name']}, {"$set": {"members": final_members}})
+    team_object['members'] = final_members
 
     await update_team_info(client, team_object)
 
