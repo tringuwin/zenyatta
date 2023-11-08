@@ -52,7 +52,7 @@ async def league_accept_handler(db, message, client):
         }
     )
 
-    league_teams.update_one({'team_name': team_name_to_join}, {"$set": {"members": league_teams['members']}})
+    league_teams.update_one({'team_name': team_name_to_join}, {"$set": {"members": league_team['members']}})
 
     role = await get_role_by_id(client, league_team['team_role_id'])
     if role:
