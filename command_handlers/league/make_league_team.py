@@ -44,7 +44,8 @@ async def make_league_team_handler(db, message, client):
                 'TPP': 10,
             }
         ],
-        'team_info_msg_id': new_team_message.id
+        'team_info_msg_id': new_team_message.id,
+        'team_role_id': team_role
     }
 
     league_teams.insert_one(new_team)

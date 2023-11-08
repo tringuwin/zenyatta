@@ -1,7 +1,7 @@
 
 import constants
 from discord_actions import get_guild
-from user import get_league_team, user_exists
+from user import get_league_invites, get_league_team, user_exists
 
 
 async def validate_admin(db, message):
@@ -55,3 +55,16 @@ async def update_team_info(client, team):
     final_string += '\n--------------------------\nAvailable TPP: '+str(available_tpp)
 
     await info_message.edit(content=final_string)
+
+
+def remove_league_invite(user, team_name, db):
+
+    league_invites = get_league_invites(user)
+    final_invites = []
+
+    for invite in league_invites:
+        if invite != team_name:
+            final_invites.append(invite)
+
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_invites": final_invites}})

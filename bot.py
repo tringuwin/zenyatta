@@ -30,6 +30,7 @@ from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.change_tpp import change_tpp_handler
+from command_handlers.league.league_accept import league_accept_handler
 from command_handlers.league.league_invite import league_invite_handler
 from command_handlers.league.league_invites import league_invites_handler
 from command_handlers.league.make_league_team import make_league_team_handler
@@ -348,8 +349,10 @@ async def handle_message(message, db, client):
         await league_invite_handler(db, message)
 
     elif lower_message == '!leagueinvites':
-        
         await league_invites_handler(db, message)
+
+    elif lower_message == '!leagueaccpet ':
+        await league_accept_handler(db, message, client)
 
     elif lower_message.startswith('!wipeleagueteams') and is_admin:
         
