@@ -38,6 +38,8 @@ async def league_accept_handler(db, message, client):
         return
     
     remove_league_invite(user, team_name_to_join, db)
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": team_name_to_join}})
 
     league_teams = db['leagueteams']
     league_team = league_teams.find_one({'team_name': team_name_to_join})
