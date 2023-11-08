@@ -356,7 +356,7 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!wipeleagueteams') and is_admin:
         
-        league_teams = db['league_teams']
+        league_teams = db['leagueteams']
         league_teams.delete_many({})
 
         await message.channel.send('All league teams deleted')
