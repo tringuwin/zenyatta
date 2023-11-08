@@ -351,7 +351,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!leagueinvites':
         await league_invites_handler(db, message)
 
-    elif lower_message == '!leagueaccpet ':
+    elif lower_message == '!leagueaccept ':
         await league_accept_handler(db, message, client)
 
     elif lower_message.startswith('!wipeleagueteams') and is_admin:
