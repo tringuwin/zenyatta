@@ -38,7 +38,7 @@ async def league_leave_handler(db, message, client):
 
     league_teams.update_one({'team_name': team_object['team_name']}, {"$set": {"members": final_members}})
 
-    await update_team_info(client, league_team)
+    await update_team_info(client, team_object)
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
     await league_notifs_channel.send('User '+message.author.mention+' has left the team "'+team_object['team_name']+'".')
