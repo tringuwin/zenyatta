@@ -29,6 +29,7 @@ from command_handlers.help.help_bonus import help_bonus_handler
 from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
+from command_handlers.league.change_role import change_role_handler
 from command_handlers.league.change_tpp import change_tpp_handler
 from command_handlers.league.league_accept import league_accept_handler
 from command_handlers.league.league_invite import league_invite_handler
@@ -346,6 +347,10 @@ async def handle_message(message, db, client):
         # !changetpp @Player [new tpp]
         await change_tpp_handler(db, message, client)
 
+    elif lower_message.startswith('!changerole'):
+        # !changerole @Player [new role]
+        await change_role_handler(db, message, client)
+
     elif lower_message.startswith('!leagueinvite '):
         # !leagueinvite @player
         await league_invite_handler(db, message)
@@ -369,12 +374,6 @@ async def handle_message(message, db, client):
         league_teams.delete_many({})
 
         await message.channel.send('All league teams deleted')
-
-    elif lower_message == '!ticketfix' and is_admin:
-
-        users = db['users']
-        users.update_one({"discord_id": 1112204092723441724}, {"$set": {"tickets": 0}})
-        await message.channel.send('done')
 
     # ADMIN COMMANDS
 

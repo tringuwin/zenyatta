@@ -19,10 +19,6 @@ async def change_tpp_handler(db, message, client):
     
     is_admin, my_team, team_name = await validate_admin(db, message)
 
-    if not is_admin:
-        await message.channel.send('You are not an admin of a league team.')
-        return
-
     team_members = my_team['members']
 
     if not is_admin:
