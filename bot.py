@@ -370,6 +370,12 @@ async def handle_message(message, db, client):
 
         await message.channel.send('All league teams deleted')
 
+    elif lower_message == '!ticketfix' and is_admin:
+
+        users = db['users']
+        users.update_one({"discord_id": 1112204092723441724}, {"$set": {"tickets": 0}})
+        await message.channel.send('done')
+
     # ADMIN COMMANDS
 
     elif lower_message.startswith("!addevent") and is_admin:
