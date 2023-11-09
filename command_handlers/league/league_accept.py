@@ -27,7 +27,7 @@ async def league_accept_handler(db, message, client):
     team_name_to_join = make_string_from_word_list(word_list, 1)
     user_invites = get_league_invites(user)
 
-    found_team = True
+    found_team = False
     for invite in user_invites:
         if invite == team_name_to_join:
             found_team = True
