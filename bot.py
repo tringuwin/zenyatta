@@ -36,6 +36,7 @@ from command_handlers.league.league_invite import league_invite_handler
 from command_handlers.league.league_invites import league_invites_handler
 from command_handlers.league.league_leave import league_leave_handler
 from command_handlers.league.make_league_team import make_league_team_handler
+from command_handlers.league.make_team_admin import make_team_admin_handler
 from command_handlers.league.set_league_team import set_league_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
@@ -350,6 +351,10 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!changerole'):
         # !changerole @Player [new role]
         await change_role_handler(db, message, client)
+
+    elif lower_message.startswith('!maketeamadmin'):
+        # !maketeamadmin @Player
+        await make_team_admin_handler(db, message, client)
 
     elif lower_message.startswith('!leagueinvite '):
         # !leagueinvite @player

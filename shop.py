@@ -26,6 +26,7 @@ guide_string += '- Gift command once every 8 hours (!gift)\n'
 guide_string += '- Use Twitch "Sauce Points" (Look under the twitch chat and find custom rewards)\n'
 guide_string += '- Subscribe on Twitch (🪙 300)\n'
 guide_string += '- Gift a sub on Twitch (🪙 300)\n'
+guide_string += '- Tip Online ($1 = 🪙 90): https://streamlabs.com/spicyraguow/tip\n' 
 
 async def update_shop(db, message):
     shop = db['shop']
