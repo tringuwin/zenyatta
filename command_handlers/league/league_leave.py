@@ -35,6 +35,9 @@ async def league_leave_handler(db, message, client):
     for member in team_object['members']:
         if member['discord_id'] != user['discord_id']:
             final_members.append(member)
+            print('valid member')
+        else:
+            print('member removed')
 
     league_teams.update_one({'team_name': team_object['team_name']}, {"$set": {"members": final_members}})
     team_object['members'] = final_members
