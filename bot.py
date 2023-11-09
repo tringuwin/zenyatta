@@ -35,6 +35,7 @@ from command_handlers.league.league_invite import league_invite_handler
 from command_handlers.league.league_invites import league_invites_handler
 from command_handlers.league.league_leave import league_leave_handler
 from command_handlers.league.make_league_team import make_league_team_handler
+from command_handlers.league.set_league_team import set_league_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
@@ -357,6 +358,10 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!leagueleave':
         await league_leave_handler(db, message, client)
+
+    elif lower_message.startswith('!setleagueteam ') and is_admin:
+        # !setleagueteam [user_id] [team name]
+        await set_league_team_handler(db, message)
 
     elif lower_message.startswith('!wipeleagueteams') and is_admin:
         
