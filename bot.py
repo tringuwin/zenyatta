@@ -32,6 +32,7 @@ from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.change_role import change_role_handler
 from command_handlers.league.change_tpp import change_tpp_handler
+from command_handlers.league.force_delete_league_team import force_delete_league_team_handler
 from command_handlers.league.league_accept import league_accept_handler
 from command_handlers.league.league_invite import league_invite_handler
 from command_handlers.league.league_invites import league_invites_handler
@@ -382,6 +383,9 @@ async def handle_message(message, db, client):
         league_teams.delete_many({})
 
         await message.channel.send('All league teams deleted')
+
+    elif lower_message.startswith('!forcedelleagueteam ') and is_admin:
+        await force_delete_league_team_handler(db, message)
 
     # ADMIN COMMANDS
 
