@@ -1,3 +1,4 @@
+import random
 import time
 import discord
 import asyncio
@@ -277,18 +278,20 @@ async def handle_message(message, db, client):
         await profile_handler(db, message, client)
 
     elif lower_message == '!buyticket':
-        await buy_ticket_handler(db, message, 1)
+        await message.channel.send('There is no raffle at the moment.')
+        #await buy_ticket_handler(db, message, 1)
     
     elif lower_message.startswith('!buyticket '):
-        params = lower_message.split()
-        if len(params) == 2:
-            raw_amount = params[1]
-            if can_be_int(raw_amount):
-                await buy_ticket_handler(db, message, int(raw_amount))
-            else:
-                await message.channel.send(message.author.mention+' Please enter a number of tickets to buy.')
-        else:
-            await message.channel.send(message.author.mention+' Invalid number of parameters.')
+        await message.channel.send('There is no raffle at the moment.')
+        # params = lower_message.split()
+        # if len(params) == 2:
+        #     raw_amount = params[1]
+        #     if can_be_int(raw_amount):
+        #         await buy_ticket_handler(db, message, int(raw_amount))
+        #     else:
+        #         await message.channel.send(message.author.mention+' Please enter a number of tickets to buy.')
+        # else:
+        #     await message.channel.send(message.author.mention+' Invalid number of parameters.')
 
     # TEAM COMMANDS
 
@@ -498,6 +501,22 @@ async def handle_message(message, db, client):
         guild = client.get_guild(constants.GUILD_ID)
 
         await both_no_show(message, db, guild, client)
+
+    elif lower_message == '!rafflewinner' and is_admin:
+
+        giant_array = []
+
+        users = db['users']
+        all_users = users.find()
+
+        for user in all_users:
+            if 'tickets' in user:
+                for i in range(user['tickets']):
+                    giant_array.append(user['battle_tag'])
+
+        lucky_winner = random.choice(giant_array)
+
+        await message.channel.send('The winner of the raffle is the user with the battle tag: '+lucky_winner)
 
     elif lower_message.startswith('!giverewards') and is_admin:
         
