@@ -134,10 +134,11 @@ def get_gem_offer(user):
 
     if 'gem_offer' in user:
 
+        offer = user['gem_offer']
+
         if (not offer) or offer == None:
             return None 
 
-        offer = user['gem_offer']
         current_time = time.time()
 
         if (current_time - offer['time_sent']) > 300:
