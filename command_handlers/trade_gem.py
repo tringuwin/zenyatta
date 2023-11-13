@@ -62,6 +62,6 @@ async def trade_gem_handler(db, message):
     }
 
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"gem_offer": new_offer}})
+    users.update_one({"discord_id": other_user['discord_id']}, {"$set": {"gem_offer": new_offer}})
 
     await message.channel.send('Gem trade offer sent! It will expire in 5 minutes.')
