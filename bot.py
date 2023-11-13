@@ -16,6 +16,7 @@ from admin_handlers.give_lootbox import give_lootbox_handler
 from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
+from command_handlers.accept_gem_trade import accept_gem_trade_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.bracket import bracket_handler
 from command_handlers.buy_ticket import buy_ticket_handler
@@ -727,9 +728,11 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!tradegem '):
         await trade_gem_handler(db, message)
 
-    elif lower_message == ('!denygemtrade'):
+    elif lower_message == '!denygemtrade':
         await deny_gem_trade_handler(db, message)
 
+    elif lower_message == '!acceptgemtrade':
+        await accept_gem_trade_handler(db, message)
 
     elif lower_message == '!listids' and is_admin:
 
