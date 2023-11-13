@@ -5,7 +5,7 @@ from user import get_gem_offer, user_exists
 
 async def deny_gem_trade_handler(db, message):
 
-    user = user_exists(message.author.id)
+    user = user_exists(db, message.author.id)
     if not user:
         await not_registered_response(message)
         return
