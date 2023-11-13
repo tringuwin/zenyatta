@@ -1,5 +1,6 @@
 import copy
 import constants
+import time
 
 def user_exists(db, discord_id):
     
@@ -128,6 +129,20 @@ def get_league_invites(user):
         return user['league_invites']
     else:
         return []
+    
+def get_gem_offer(user):
+
+    if 'gem_offer' in user:
+
+        offer = user['gem_offer']
+        current_time = time.time()
+
+        if (current_time - offer['time_sent']) > 300:
+            return None
+
+        return user['gem_offer']
+    else:
+        return None
 
     
 def toggle_off_gift_notify(db, user):
