@@ -1,3 +1,47 @@
 
+from league import user_admin_on_team, validate_admin
+from user import get_league_team, user_exists
+
+
 async def make_team_admin_handler(db, message, client):
-    pass
+    
+    _, _, team_name, is_owner = await validate_admin(db, message)
+
+    if not is_owner:
+        await message.channel.send('You are not the owner of a league team.')
+        return
+    
+    if len(message.mentions) < 1:
+        await message.channel.send('Please mention the user to make then an admin.')
+        return
+    
+    mentioned_member = message.mentions[0]
+    
+    user = user_exists(db, mentioned_member.id)
+    if not user:
+        await message.channel.send('That user is not registered yet.')
+        return
+    
+    user_league_team = get_league_team(user)
+    if user_league_team != team_name:
+        await message.channel.send('That user is not on your team.')
+        return
+    
+    league_teams = db['leagueteams']
+    team_object = league_teams.find_one({'team_name': team_name})
+    if not team_object:
+        await message.channel.send('Team was not found.')
+        return
+    
+    if user_admin_on_team(mentioned_member.id, team_object):
+        await message.channel.send('That user is already on admin on your team.')
+        return
+    
+    new_members = team_object['members']
+    for member in new_members:
+        if member['discord_id'] == mentioned_member.id:
+            member['is_admin'] = True
+
+    league_teams.update_one({'team_name': team_name}, {"$set": {"members": new_members}})
+    await message.channel.send('User was made an admin of your league team')
+

@@ -17,7 +17,7 @@ async def change_tpp_handler(db, message, client):
         await message.channel.send('Please mention the player to change their TPP.')
         return
     
-    is_admin, my_team, team_name = await validate_admin(db, message)
+    is_admin, my_team, team_name, _ = await validate_admin(db, message)
 
     team_members = my_team['members']
 

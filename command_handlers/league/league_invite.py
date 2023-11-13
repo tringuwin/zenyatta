@@ -5,7 +5,7 @@ from user import get_league_invites, get_league_team, user_exists
 
 async def league_invite_handler(db, message):
 
-    valid_admin, _, team_name = await validate_admin(db, message)
+    valid_admin, _, team_name, _ = await validate_admin(db, message)
 
     if not valid_admin:
         await message.channel.send('You are not an admin of a league team.')

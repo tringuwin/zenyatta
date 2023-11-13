@@ -8,16 +8,16 @@ async def validate_admin(db, message):
 
     user = user_exists(db, message.author.id)
     if not user:
-        return None, None, None
+        return None, None, None, None
     
     user_team = get_league_team(user)
     if user_team == "None":
-        return None, None, None
+        return None, None, None, None
 
     league_teams = db['leagueteams']
     my_team = league_teams.find_one({'team_name': user_team})
     if not my_team:
-        return None, None, None
+        return None, None, None, None
 
     is_admin = False
     team_members = my_team['members']
@@ -26,7 +26,11 @@ async def validate_admin(db, message):
             is_admin = True
             break
 
-    return is_admin, my_team, my_team['team_name']
+    is_owner = False
+    if my_team['owner_id'] == user['discord_id']:
+        is_owner = True
+
+    return is_admin, my_team, my_team['team_name'], is_owner
 
 async def update_team_info(client, team):
 
@@ -68,3 +72,16 @@ def remove_league_invite(user, team_name, db):
 
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_invites": final_invites}})
+
+
+def user_admin_on_team(user_id, league_team):
+
+    for member in league_team['members']:
+
+        if member['discord_id'] == user_id:
+            if member['is_admin']:
+                return True
+            else:
+                return False
+
+    return False
