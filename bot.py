@@ -305,7 +305,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!teamdetails'):
         await team_details_hanlder(db, message)
 
-    elif lower_message.startswith('!maketeam'):
+    elif lower_message.startswith('!maketeam '):
         await make_team_handler(db, message)
 
     elif lower_message.startswith('!invite '):
