@@ -41,7 +41,7 @@ team_name_to_color = {
     'Ragu': discord.Colour(0xFF0000)
 }
 
-async def update_team_info(client, team):
+async def update_team_info(client, team, db):
 
     team_message_id = team['team_info_msg_id']
     team_info_channel = client.get_channel(constants.TEAM_INFO_CHANNEL)
@@ -73,13 +73,19 @@ async def update_team_info(client, team):
     for member in team['members']:
 
         guild_member = await guild.fetch_member(member['discord_id'])
-        member_mention = '*User not found*'
+        member_mention = '[User not found]'
         if guild_member:
             member_mention = guild_member.mention
 
-        member_string = member['role']+' : '+str(member['TPP'])+' TPP'
+        member_battle_tag = '[Battle Tag Not Found]'
+        user = user_exists(db, member['discord_id'])
+        if user:
+            member_battle_tag = user['battle_tag']
 
-        embed.add_field(name=member_string, value=member_mention, inline=False)
+        name_string = member_battle_tag+' - '+member['role']
+        value_string = member_mention+' : '+str(member['TPP'])+' TPP'
+
+        embed.add_field(name=name_string, value=value_string, inline=False)
 
     await info_message.edit(embed=embed, content='')
 

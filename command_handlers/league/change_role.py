@@ -46,6 +46,6 @@ async def change_role_handler(db, message, client):
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
     await league_notifs_channel.send('Team Update for '+team_name+": "+member_to_find.mention+"'s role has been changed to "+new_role)
 
-    await update_team_info(client, my_team)
+    await update_team_info(client, my_team, db)
 
     await message.channel.send("User's role was successfully updated.")

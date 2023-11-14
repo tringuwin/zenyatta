@@ -49,7 +49,7 @@ async def make_team_admin_handler(db, message, client):
     await league_notifs_channel.send('Team Update for '+team_name+": "+mentioned_member.mention+" is now a team admin.")
 
     team_object['members'] = new_members
-    await update_team_info(client, team_object)
+    await update_team_info(client, team_object, db)
     
     await message.channel.send('User was made an admin of your league team')
 

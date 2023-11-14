@@ -60,7 +60,7 @@ async def league_accept_handler(db, message, client):
     if role:
         await message.author.add_roles(role)
 
-    await update_team_info(client, league_team)
+    await update_team_info(client, league_team, db)
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
     await league_notifs_channel.send('User '+message.author.mention+' has joined the team "'+team_name_to_join+'".')
