@@ -77,6 +77,7 @@ async def update_team_info(client, team, db):
 
     embed = discord.Embed(title=team['team_name'].upper()+' TEAM DETAILS', color=team_name_to_color[team['team_name']])
     embed.set_thumbnail(url=team_name_to_thumbnail[team['team_name']])
+    embed.set_footer(text='Available TPP: '+str(available_tpp))
 
     for member in team['members']:
 
