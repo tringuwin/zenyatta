@@ -69,7 +69,7 @@ async def update_team_info(client, team):
 
     embed = discord.Embed(title=team['team_name']+' Team Details', color=team_name_to_color[team['team_name']])
 
-    await info_message.edit(embed=embed)
+    await info_message.edit(embed=embed, content='')
 
 
 def remove_league_invite(user, team_name, db):
