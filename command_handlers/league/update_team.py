@@ -14,3 +14,5 @@ async def update_team_handler(db, message, client):
         return
     
     await update_team_info(client, team_object, db)
+
+    await message.channel.send('Team details updated.')
