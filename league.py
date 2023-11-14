@@ -2,7 +2,7 @@
 import constants
 from discord_actions import get_guild
 from user import get_league_invites, get_league_team, user_exists
-
+import discord
 
 async def validate_admin(db, message):
 
@@ -32,6 +32,15 @@ async def validate_admin(db, message):
 
     return is_admin, my_team, my_team['team_name'], is_owner
 
+
+team_name_to_color = {
+    'Polar': discord.Colour(0xFF0000),
+    'Olympians': discord.Colour(0xFF0000),
+    'Eclipse': discord.Colour(0xFF0000),
+    'Saviors': discord.Colour(0xFF0000),
+    'Ragu': discord.Colour(0xFF0000)
+}
+
 async def update_team_info(client, team):
 
     team_message_id = team['team_info_msg_id']
@@ -58,7 +67,9 @@ async def update_team_info(client, team):
 
     final_string += '\n--------------------------\nAvailable TPP: '+str(available_tpp)
 
-    await info_message.edit(content=final_string)
+    embed = discord.Embed(title=team['team_name']+' Team Details', color=team_name_to_color[team['team_name']])
+
+    await info_message.edit(embed=embed)
 
 
 def remove_league_invite(user, team_name, db):
