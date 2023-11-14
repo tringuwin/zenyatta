@@ -42,6 +42,7 @@ from command_handlers.league.league_leave import league_leave_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
 from command_handlers.league.set_league_team import set_league_team_handler
+from command_handlers.league.update_team import update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
@@ -389,6 +390,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forcedelleagueteam ') and is_admin:
         await force_delete_league_team_handler(db, message)
+
+    elif lower_message.startswith('!updateteam ') and is_admin:
+        await update_team_handler(db, message, client)
 
     # ADMIN COMMANDS
 
