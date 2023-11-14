@@ -68,7 +68,7 @@ async def update_team_info(client, team):
     final_string += '\n--------------------------\nAvailable TPP: '+str(available_tpp)
 
     embed = discord.Embed(title=team['team_name']+' Team Details', color=team_name_to_color[team['team_name']])
-    embed.set_thumbnail(url='https://imgur.com/mkbwgaD')
+    embed.set_thumbnail(url='https://i.imgur.com/mkbwgaD.png')
 
     for member in team['members']:
 
@@ -77,9 +77,9 @@ async def update_team_info(client, team):
         if guild_member:
             member_mention = guild_member.mention
 
-        member_string += member['role']+' : '+str(member['TPP'])+' TPP'
+        member_string = member['role']+' : '+str(member['TPP'])+' TPP'
 
-        embed.add_field(name=member_mention, value=member_string, inline=False)
+        embed.add_field(name=member_string, value=member_mention, inline=False)
 
     await info_message.edit(embed=embed, content='')
 
