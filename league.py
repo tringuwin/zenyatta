@@ -41,6 +41,14 @@ team_name_to_color = {
     'Ragu': discord.Colour(0xFF0000)
 }
 
+team_name_to_thumbnail = {
+    'Polar': 'https://i.imgur.com/mkbwgaD.png',
+    'Olympians': '',
+    'Eclipse': '',
+    'Saviors': '',
+    'Ragu': ''
+}
+
 async def update_team_info(client, team, db):
 
     team_message_id = team['team_info_msg_id']
@@ -67,8 +75,8 @@ async def update_team_info(client, team, db):
 
     final_string += '\n--------------------------\nAvailable TPP: '+str(available_tpp)
 
-    embed = discord.Embed(title=team['team_name']+' Team Details', color=team_name_to_color[team['team_name']])
-    embed.set_thumbnail(url='https://i.imgur.com/mkbwgaD.png')
+    embed = discord.Embed(title=team['team_name'].upper()+' TEAM DETAILS', color=team_name_to_color[team['team_name']])
+    embed.set_thumbnail(url=team_name_to_thumbnail[team['team_name']])
 
     for member in team['members']:
 
@@ -80,10 +88,10 @@ async def update_team_info(client, team, db):
         member_battle_tag = '[Battle Tag Not Found]'
         user = user_exists(db, member['discord_id'])
         if user:
-            member_battle_tag = user['battle_tag']
+            member_battle_tag = user['battle_tag'].split('#')[0]
 
         name_string = member_battle_tag+' - '+member['role']
-        value_string = member_mention+' : '+str(member['TPP'])+' TPP'
+        value_string = member_mention+' | '+str(member['TPP'])+' TPP'
 
         embed.add_field(name=name_string, value=value_string, inline=False)
 
