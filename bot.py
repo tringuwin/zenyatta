@@ -156,16 +156,16 @@ def is_valid_channel(message, lower_message, is_admin):
 
 async def handle_message(message, db, client):
 
+    channel = str(message.channel)
+    if is_dm_channel(message.channel):
+        await message.channel.send("Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy Ragu Discord server. ")
+        return
+
     user_message = str(message.content)
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
     is_helper = (not message.author.bot) and member_has_role(message.author, constants.HELPER_ROLE_ID)
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if not is_command:
-        return
-            
-    channel = str(message.channel)
-    if is_dm_channel(message.channel):
-        await message.channel.send("Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy Ragu Discord server. ")
         return
 
     lower_message = user_message.lower()
