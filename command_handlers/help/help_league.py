@@ -10,6 +10,7 @@ async def help_league_handler(message):
     help_embed.add_field(name='!changetpp @Player [tpp number]', value='Admin command to change the TPP of a player on your league team.', inline=False)
     help_embed.add_field(name='!changerole @Player [role info]', value='Admin command to change the role of a player on your league team.', inline=False)
     help_embed.add_field(name='!maketeamadmin @Player', value='Owner command to make a member of your league team an admin.', inline=False)
+    help_embed.add_field(name='!removeteamadmin @Player', value='Owner command to remove admin role from a member of your league team.', inline=False)
     help_embed.add_field(name='!leagueleave', value='Leave your current league team.', inline=False)
 
     await message.channel.send(embed=help_embed)
