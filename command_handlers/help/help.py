@@ -9,6 +9,7 @@ async def help_handler(message):
     help_embed.add_field(name='!helpgems', value='Show a list of commands related to gems.', inline=False)
     help_embed.add_field(name='!helpbonus', value='Show a list of bonus commands.', inline=False)
     help_embed.add_field(name='!events', value='Show a list of current server events', inline=False)
+    help_embed.add_field(name='!bracket', value='Show the bracket for the next/current event.', inline=False)
     help_embed.add_field(name='!join [event id]', value='Join an upcoming event', inline=False)
     help_embed.add_field(name='!suggest [idea here]', value='Suggest an idea for this Discord server', inline=False)
     help_embed.add_field(name='!suggestevent [idea here]', value='Suggest an idea for a future event', inline=False)
