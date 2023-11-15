@@ -27,7 +27,8 @@ guide_string += '- Use Twitch "Sauce Points" (Look under the twitch chat and fin
 guide_string += '- Subscribe on Twitch (🪙 300)\n'
 guide_string += '- Gift a sub on Twitch (🪙 300)\n'
 guide_string += '- Tip Online ($1 = 🪙 90): https://streamlabs.com/spicyraguow/tip\n'
-guide_string += '- Tip on Venmo ($1 = 🪙 90): Venmo user: L-S-1738' 
+guide_string += '- Tip on Venmo ($1 = 🪙 90): Venmo user: L-S-1738\n'
+guide_string += '- Tip on CashApp ($1 = 🪙 90): CashApp Tag: $spicyow'  
 
 async def update_shop(db, message):
     shop = db['shop']
