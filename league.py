@@ -78,9 +78,9 @@ async def update_team_info(client, team, db):
 
         value_string = ''
         if member['is_owner']:
-            value_string = '👑|'
+            value_string = '👑 | '
         elif member['is_admin']:
-            value_string = '🛡️|'
+            value_string = '🛡️ | '
 
         value_string += member_mention+' | '+str(member['TPP'])+' TPP'
 
