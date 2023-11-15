@@ -39,7 +39,7 @@ team_name_to_color = {
     'Eclipse': discord.Colour(0x0040ff),
     'Saviors': discord.Colour(0xa639fd),
     'Ragu': discord.Colour(0xE20006),
-    'Instigators': discord.Colour(0x000000)
+    'Instigators': discord.Colour(0x0c0c0c)
 }
 
 team_name_to_thumbnail = {
