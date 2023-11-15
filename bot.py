@@ -37,6 +37,7 @@ from command_handlers.league.change_role import change_role_handler
 from command_handlers.league.change_tpp import change_tpp_handler
 from command_handlers.league.force_delete_league_team import force_delete_league_team_handler
 from command_handlers.league.league_accept import league_accept_handler
+from command_handlers.league.league_cancel_invite import league_cancel_invite_handler
 from command_handlers.league.league_invite import league_invite_handler
 from command_handlers.league.league_invites import league_invites_handler
 from command_handlers.league.league_leave import league_leave_handler
@@ -375,6 +376,11 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!leagueinvite '):
         # !leagueinvite @player
         await league_invite_handler(db, message)
+
+    elif lower_message.startswith('!leaguecancelinvite '):
+        # !leaguecancelinvite @player
+        await league_cancel_invite_handler(db, message)
+
 
     elif lower_message == '!leagueinvites':
         await league_invites_handler(db, message)
