@@ -158,7 +158,7 @@ async def handle_message(message, db, client):
 
     channel = str(message.channel)
     if is_dm_channel(message.channel):
-        await message.channel.send("Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy Ragu Discord server. ")
+        await message.channel.send("Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server. ")
         return
 
     user_message = str(message.content)
