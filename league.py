@@ -56,28 +56,11 @@ async def update_team_info(client, team, db):
 
     info_message = await team_info_channel.fetch_message(team_message_id)
 
-    final_string = '**'+team['team_name']+' Team Details**\nMembers:'
-
     guild = await get_guild(client)
 
     available_tpp = 100
-    for member in team['members']:
-
-        guild_member = await guild.fetch_member(member['discord_id'])
-        member_string = '*User not found*'
-        if guild_member:
-            member_string = guild_member.mention
-
-        member_string += ' : '+member['role']+' : '+str(member['TPP'])+' TPP'
-
-        available_tpp -= member['TPP']
-        final_string += '\n'+member_string
-
-    final_string += '\n--------------------------\nAvailable TPP: '+str(available_tpp)
-
     embed = discord.Embed(title=team['team_name'].upper()+' TEAM DETAILS', color=team_name_to_color[team['team_name']])
     embed.set_thumbnail(url=team_name_to_thumbnail[team['team_name']])
-    embed.set_footer(text='Available TPP: '+str(available_tpp))
 
     for member in team['members']:
 
@@ -94,7 +77,11 @@ async def update_team_info(client, team, db):
         name_string = member_battle_tag+' - '+member['role']
         value_string = member_mention+' | '+str(member['TPP'])+' TPP'
 
+        available_tpp -= member['TPP']
+
         embed.add_field(name=name_string, value=value_string, inline=False)
+
+    embed.set_footer(text='Available TPP: '+str(available_tpp))
 
     await info_message.edit(embed=embed, content='')
 
