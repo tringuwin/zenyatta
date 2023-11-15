@@ -38,7 +38,8 @@ team_name_to_color = {
     'Olympians': discord.Colour(0xa06b00),
     'Eclipse': discord.Colour(0x0040ff),
     'Saviors': discord.Colour(0xa639fd),
-    'Ragu': discord.Colour(0xE20006)
+    'Ragu': discord.Colour(0xE20006),
+    'Instigators': discord.Colour(0x000000)
 }
 
 team_name_to_thumbnail = {
@@ -46,7 +47,8 @@ team_name_to_thumbnail = {
     'Olympians': 'https://i.imgur.com/rx8y0DM.png',
     'Eclipse': '',
     'Saviors': '',
-    'Ragu': ''
+    'Ragu': '',
+    'Instigators': ''
 }
 
 async def update_team_info(client, team, db):
