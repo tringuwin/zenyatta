@@ -31,6 +31,7 @@ from command_handlers.hello import hello_handler
 from command_handlers.help.help_bonus import help_bonus_handler
 from command_handlers.help.help_casino import help_casino_handler
 from command_handlers.help.help_gems import help_gems_handler
+from command_handlers.help.help_league import help_league_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.change_role import change_role_handler
@@ -182,6 +183,9 @@ async def handle_message(message, db, client):
     
     if lower_message == '!help':
         await help_handler(message)
+
+    elif lower_message == '!helpleague':
+        await help_league_handler(message)
 
     elif lower_message == '!helpgems':
         await help_gems_handler(message)

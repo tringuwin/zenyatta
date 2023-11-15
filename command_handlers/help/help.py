@@ -7,6 +7,7 @@ async def help_handler(message):
     help_embed.add_field(name='!battle BattleTagHere#1234', value='Register your battle tag with the SpicyRagu server', inline=False)
     help_embed.add_field(name='!helpteams', value='Show a list of commands related to making teams.', inline=False)
     help_embed.add_field(name='!helpcasino', value='Show a list of commands related to the casino channels.', inline=False)
+    help_embed.add_field(name='!helpleague', value='Show a list of commands related to the Spicy Overwatch League.', inline=False)
     help_embed.add_field(name='!helpgems', value='Show a list of commands related to gems.', inline=False)
     help_embed.add_field(name='!helpbonus', value='Show a list of bonus commands.', inline=False)
     help_embed.add_field(name='!events', value='Show a list of current server events', inline=False)
