@@ -75,7 +75,14 @@ async def update_team_info(client, team, db):
             member_battle_tag = user['battle_tag'].split('#')[0]
 
         name_string = member_battle_tag+' - '+member['role']
-        value_string = member_mention+' | '+str(member['TPP'])+' TPP'
+
+        value_string = ''
+        if member['is_owner']:
+            value_string = '👑|'
+        elif member['is_admin']:
+            value_string = '🛡️|'
+
+        value_string += member_mention+' | '+str(member['TPP'])+' TPP'
 
         available_tpp -= member['TPP']
 
