@@ -239,7 +239,7 @@ async def notify_next_users(db, guild, message):
         match_index = tourney_details['match_index']
 
         bracket = await get_bracket_by_event_id(db, tourney_details['event_id'])
-        #event_channel_id = bracket['event_channel_id']
+        event_channel_id = bracket['event_channel_id']
         start_strings = [
             '**UP NEXT:** ',
             '**1 MATCH AWAY:** ',
@@ -259,7 +259,7 @@ async def notify_next_users(db, guild, message):
             else:
                 break
         final_string += '\n--------------------------------------------'
-        event_channel = guild.get_channel(1172300952724832296)
+        event_channel = guild.get_channel(event_channel_id)
         await event_channel.send(final_string)
         
     else:
