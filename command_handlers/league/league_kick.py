@@ -60,6 +60,7 @@ async def league_kick_handler(db, message, client):
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
     await league_notifs_channel.send('Team Update for '+team_name+": "+member_to_find.mention+" was kicked by "+message.author.mention)
 
+    my_team['members'] = final_members
     await update_team_info(client, my_team, db)
 
     await message.channel.send("User was kicked from the league team.")
