@@ -27,6 +27,10 @@ async def trade_gem_handler(db, message):
         await message.channel.send('The user you mentioned is not registered yet.')
         return
     
+    if mentioned_member.id == message.author.id:
+        await message.channel.send('You cannot send a trade request to yourself...')
+        return
+    
     color_to_give = params[1].lower()
     if not color_to_give in constants.DEFAULT_GEMS:
         await message.channel.send(color_to_give+' is not a valid gem color')
