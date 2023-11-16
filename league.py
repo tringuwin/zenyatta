@@ -45,7 +45,7 @@ team_name_to_color = {
 team_name_to_thumbnail = {
     'Polar': 'https://i.imgur.com/mkbwgaD.png',
     'Olympians': 'https://i.imgur.com/rx8y0DM.png',
-    'Eclipse': '',
+    'Eclipse': 'https://i.imgur.com/yuKFoDF.png',
     'Saviors': '',
     'Ragu': '',
     'Instigators': ''
