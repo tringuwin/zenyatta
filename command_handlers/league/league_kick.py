@@ -1,51 +1,65 @@
 
 from common_messages import invalid_number_of_params
-from league import validate_admin
-
+from league import update_team_info, validate_admin
+import constants
 
 async def league_kick_handler(db, message, client):
     
-    # word_list = message.content.split()
-    # if len(word_list) != 2:
-    #     await invalid_number_of_params(message)
-    #     return
+    word_list = message.content.split()
+    if len(word_list) != 2:
+        await invalid_number_of_params(message)
+        return
     
-    # if len(message.mentions) < 1:
-    #     await message.channel.send('Please mention the player to kick.')
-    #     return
+    if len(message.mentions) < 1:
+        await message.channel.send('Please mention the player to kick.')
+        return
     
-    # is_admin, my_team, team_name, _ = await validate_admin(db, message)
-    # team_members = my_team['members']
+    is_admin, my_team, team_name, is_owner = await validate_admin(db, message)
+    team_members = my_team['members']
 
-    # if not is_admin:
-    #     await message.channel.send('You are not an admin of this league team. Please ask the team owner to be an admin.')
-    #     return
+    if not is_admin:
+        await message.channel.send('You are not an admin of this league team. Please ask the team owner to be an admin.')
+        return
     
-    # member_to_find = message.mentions[0]
-    # at_member = None
-    # at_member_index = 0
-    # cur_index = 0
-    # for member in team_members:
-    #     if member['discord_id'] == member_to_find.id:
-    #         at_member = member
-    #         at_member_index = cur_index
-    #         break
-    #     cur_index += 1
+    member_to_find = message.mentions[0]
+    at_member = None
+    cur_index = 0
+    kick_user_is_admin = False
+    kick_user_is_owner = False
 
-    # if not at_member:
-    #     await message.channel.send('That member is not part of your team.')
-    #     return
+    for member in team_members:
+        if member['discord_id'] == member_to_find.id:
+            at_member = member
+            if member['is_admin']:
+                kick_user_is_admin = True
+            if member['is_owner']:
+                kick_user_is_owner = True
+            break
+        cur_index += 1
+
+    if not at_member:
+        await message.channel.send('That member is not part of your team.')
+        return
     
-    # new_role = make_string_from_word_list(word_list, 2)
+    if kick_user_is_owner:
+        await message.channel.send('The owner of the team cannot be kicked.')
+        return
     
-    # my_team['members'][at_member_index]['role'] = new_role
-    # league_teams = db['leagueteams']
-    # league_teams.update_one({'team_name': team_name}, {"$set": {"members": my_team['members']}})
+    if kick_user_is_admin and (not is_owner):
+        await message.channel.send('Only the owner of a team can kick admins.')
+        return
 
-    # league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
-    # await league_notifs_channel.send('Team Update for '+team_name+": "+member_to_find.mention+"'s role has been changed to "+new_role)
+    final_members = []
+    for member in my_team['members']:
+        if member['discord_id'] != member_to_find.id:
+            final_members.append(member)
 
-    # await update_team_info(client, my_team, db)
+    league_teams = db['leagueteams']
+    league_teams.update_one({'team_name': team_name}, {"$set": {"members": final_members}})
 
-    # await message.channel.send("User's role was successfully updated.")
-    pass
+    league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
+    await league_notifs_channel.send('Team Update for '+team_name+": "+member_to_find.mention+" was kicked by "+message.author.mention)
+
+    await update_team_info(client, my_team, db)
+
+    await message.channel.send("User was kicked from the league team.")
