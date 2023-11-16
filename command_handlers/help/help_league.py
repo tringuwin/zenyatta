@@ -12,5 +12,6 @@ async def help_league_handler(message):
     help_embed.add_field(name='!maketeamadmin @Player', value='Owner command to make a member of your league team an admin.', inline=False)
     help_embed.add_field(name='!removeteamadmin @Player', value='Owner command to remove admin role from a member of your league team.', inline=False)
     help_embed.add_field(name='!leagueleave', value='Leave your current league team.', inline=False)
+    help_embed.add_field(name='!leaguekick', value='Admin command to kick a player from your league team.', inline=False)
 
     await message.channel.send(embed=help_embed)
