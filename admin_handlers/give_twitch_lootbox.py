@@ -24,4 +24,4 @@ async def give_twitch_lootbox_handler(db, message, client):
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"sub_lootboxes": sub_boxes+number_to_give}})
 
-    await message.channel.send('Lootbox given')
+    await message.channel.send('Lootboxes given')

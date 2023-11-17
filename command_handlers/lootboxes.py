@@ -21,7 +21,7 @@ async def lootboxes_handler(db, message):
     for box in user_lootboxes:
         final_string += '📦 **Level '+str(box)+" Lootbox:** - To open, use the command **!open "+str(box)+"**\n"
     for _ in range(twitch_lootboxes):
-        final_string += "🟣 **Twitch Sub Lootbox:** - To open, use the command **!open twitch**"
+        final_string += "🟣 **Twitch Sub Lootbox:** - To open, use the command **!open twitch**\n"
 
     await message.channel.send(final_string)
     
