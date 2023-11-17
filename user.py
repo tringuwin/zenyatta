@@ -117,6 +117,13 @@ def get_user_lootboxes(user):
     else:
         return []
     
+def get_sub_lootboxes(user):
+
+    if 'sub_lootboxes' in user:
+        return user['sub_lootboxes']
+    else:
+        return 0
+    
 def get_league_team(user):
     if 'league_team' in user:
         return user['league_team']

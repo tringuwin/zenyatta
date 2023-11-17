@@ -3,13 +3,26 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_pickaxes, change_tokens
-from user import get_user_gems, get_user_lootboxes, user_exists
+from user import get_sub_lootboxes, get_user_gems, get_user_lootboxes, user_exists
 import random
 import constants
 
 
 
 lootboxes = {
+
+    'twitch': [
+        ['Gem', 1, 20],
+        ['Gem', 2, 35],
+        ['Gem', 3, 45],
+        ['Gem', 4, 50],
+        ['Gem', 5, 55],
+        ['Token', 100, 75],
+        ['Token', 200, 85],
+        ['Token', 300, 90],
+        ['Token', 400, 95],
+        ['Token', 500, 100]
+    ],
 
     '2': [
         ['Pickaxe', 1, 50],
@@ -135,23 +148,37 @@ async def open_handler(db, message, client):
         return
     
     box_num = params[1]
-    if not can_be_int(box_num):
-        await message.channel.send(box_num+' is not a valid lootbox number.')
-        return
-    
-    box_num = int(box_num)
-    user_boxes = get_user_lootboxes(user)
-    if not (box_num in user_boxes):
-        await message.channel.send('You do not have that lootbox!')
-        return
-    
-    user_boxes.remove(box_num)
-    users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
+    dict_key = ''
+    is_sub_box = False
 
-    random_int = random.randint(1, 100)
+    if box_num.lower() == 'twitch':
+        is_sub_box = True
+
+        sub_lootboxes = get_sub_lootboxes(user)
+        if sub_lootboxes < 1:
+            await message.channel.send('You do not have any twitch lootboxes right now.')
+            return
+
+    else:
+
+        if not can_be_int(box_num):
+            await message.channel.send(box_num+' is not a valid lootbox number.')
+            return
+        
+        box_num = int(box_num)
+        user_boxes = get_user_lootboxes(user)
+        if not (box_num in user_boxes):
+            await message.channel.send('You do not have that lootbox!')
+            return
+        
+        user_boxes.remove(box_num)
+        users = db['users']
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
+
+        random_int = random.randint(1, 100)
+        dict_key = str(box_num)
     
-    lootbox_info = lootboxes[str(box_num)]
+    lootbox_info = lootboxes[dict_key]
 
     prize = None
     for possible_prize in lootbox_info:
