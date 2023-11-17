@@ -124,6 +124,13 @@ def get_sub_lootboxes(user):
     else:
         return 0
     
+def get_last_sub_box(user):
+
+    if 'last_sub_box' in user:
+        return user['last_sub_box']
+    else:
+        return 0
+
 def get_league_team(user):
     if 'league_team' in user:
         return user['league_team']
