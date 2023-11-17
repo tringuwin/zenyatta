@@ -151,6 +151,8 @@ async def open_handler(db, message, client):
     dict_key = ''
     is_sub_box = False
 
+    users = db['users']
+
     if box_num.lower() == 'twitch':
         is_sub_box = True
 
@@ -158,6 +160,11 @@ async def open_handler(db, message, client):
         if sub_lootboxes < 1:
             await message.channel.send('You do not have any twitch lootboxes right now.')
             return
+        
+        sub_lootboxes -= 1
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"sub_lootboxes": sub_lootboxes}})
+
+        dict_key = 'twitch'
 
     else:
 
@@ -172,12 +179,11 @@ async def open_handler(db, message, client):
             return
         
         user_boxes.remove(box_num)
-        users = db['users']
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
 
-        random_int = random.randint(1, 100)
         dict_key = str(box_num)
     
+    random_int = random.randint(1, 100)
     lootbox_info = lootboxes[dict_key]
 
     prize = None
@@ -186,7 +192,10 @@ async def open_handler(db, message, client):
             prize = possible_prize
             break
 
-    final_string = 'You opened your Level '+str(box_num)+' Lootbox and found... **'
+    final_string = 'You openened your Twitch Lootbox and found... **'
+    if not is_sub_box:
+        final_string = 'You opened your Level '+str(box_num)+' Lootbox and found... **'
+
     if prize[0] == 'Token':
         final_string += str(prize[1])+" Tokens!!** 🪙"
         await change_tokens(db, user, prize[1])
