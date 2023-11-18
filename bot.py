@@ -280,8 +280,8 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!solojoin'):
         await solo_join_handler(db, message, client)
 
-    # elif lower_message.startswith('!invitedby'):
-    #     await invited_by_handler(db, message)
+    elif lower_message.startswith('!invitedby'):
+        await invited_by_handler(db, message)
 
     elif lower_message == '!verifyranks' and is_admin:
         await verify_ranks_handler(db, message)
