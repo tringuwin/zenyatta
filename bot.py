@@ -3,6 +3,7 @@ import time
 import discord
 import asyncio
 import copy
+import aiohttp
 from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_battle_handler import force_battle_handler
@@ -952,6 +953,9 @@ def run_discord_bot(db):
             return
         try:
             await handle_message(message, db, client)
+        except aiohttp.client_exceptions.ClientOSError as e:
+            if e.errno == 104:
+                await message.channel.send('Network error. Please try your command again.')
         except Exception as e:
             print(e)
             traceback.print_exc()
