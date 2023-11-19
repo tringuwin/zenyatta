@@ -155,6 +155,14 @@ def is_valid_channel(message, lower_message, is_admin):
         else:
             return False, 'Only these commands are allowed in the Mineshaft Channel: !mine, !tokens, !pickaxes, !gems, !helpcasino'
         
+    elif message.channel.id == constants.GEM_TRADING_CHANNEL:
+
+        if lower_message.find('gem') != -1:
+            return True, None
+        else:
+            return False, 'Only gem related commands are allowed in the Gem Trading channel.'
+
+        
     return False, 'Please only use commands in a valid channel'
 
 
