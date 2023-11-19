@@ -14,6 +14,7 @@ from admin_handlers.force_remove_team import force_remove_team_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
 from admin_handlers.give_gems import give_gems_handler
 from admin_handlers.give_lootbox import give_lootbox_handler
+from admin_handlers.give_random_gem import give_random_gem_handler
 from admin_handlers.give_sub_boxes import give_sub_boxes_handler
 from admin_handlers.give_twitch_lootbox import give_twitch_lootbox_handler
 from admin_handlers.give_xp import give_xp_handler
@@ -730,6 +731,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!givegems ') and is_admin:
         await give_gems_handler(db, message, client)
+
+    elif lower_message.startswith('!giverandomgem ') and is_admin:
+        await give_random_gem_handler(db, message, client)
 
     elif lower_message.startswith('!givelootbox ') and is_admin:
         await give_lootbox_handler(db, message, client)
