@@ -34,9 +34,9 @@ async def validate_admin(db, message):
 
 
 team_name_to_color = {
-    'Polar': discord.Colour(0x00d2ff),
-    'Olympians': discord.Colour(0xa06b00),
-    'Eclipse': discord.Colour(0x0040ff),
+    'Polar': discord.Colour(0x00c9eb),
+    'Olympians': discord.Colour(0xf9c429),
+    'Eclipse': discord.Colour(0x005fe8),
     'Saviors': discord.Colour(0xfff200),
     'Ragu': discord.Colour(0xE20006),
     'Instigators': discord.Colour(0x0c0c0c)
