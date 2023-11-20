@@ -47,4 +47,4 @@ async def random_map_handler(message):
     game_mode = random.choice(MAPS)
     map = random.choice(game_mode)
 
-    message.channel.send(map)
+    await message.channel.send(map)
