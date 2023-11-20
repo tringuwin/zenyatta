@@ -5,6 +5,10 @@ from rewards import change_tokens
 from user import get_invited_valid, user_exists
 import constants
 
+invited_by_blacklist = [
+    513207840878624776, #kaz
+    607788667833942035 #lucioisblack
+]
 
 async def invited_by_handler(db, message):
 
@@ -41,6 +45,16 @@ async def invited_by_handler(db, message):
     
     if inviter_user['discord_id'] == constants.SPICY_RAGU_ID:
         await message.channel.send('Sorry, SpicyRagu does not count as a valid inviter!')
+        return
+    
+    on_black_list = False
+    for black in invited_by_blacklist:
+        if black == inviter_user['discord_id']:
+            on_black_list = True
+            break
+
+    if on_black_list:
+        await message.channel.send('That user is not allowed to recieve token bonuses for inviting due to abusing this command.')
         return
     
     users = db['users']
