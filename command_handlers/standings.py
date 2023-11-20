@@ -20,15 +20,19 @@ async def standings_handler(db, message):
             win_percent = float(team[0]) / float(total_matches)
             win_percent = str(round(win_percent, 2))
 
-        final_teams[team_name] = {
-            'team': team,
-            'win_percent': win_percent
-        }
+        final_teams.append(
+            {
+                'team': team,
+                'win_percent': win_percent,
+                'team_name': team_name
+            }
+        )
+        
 
     sorted_teams = sorted(final_teams, key=lambda x: x["win_percent"], reverse=True)
     final_string = '**LEAGUE STANDINGS**\n-----------------------'
-    for team_name in sorted_teams:
-        final_string += '\n'+pad_string_to_length(team_name, 20)+'|'
+    for team in sorted_teams:
+        final_string += '\n'+pad_string_to_length(team['team_name'], 20)+'|'
 
     await message.channel.send(final_string)
     
