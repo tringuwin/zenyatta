@@ -12,7 +12,7 @@ async def standings_handler(db, message):
 
     teams = season_object['teams']
     for team_name in teams:
-        team = teams['team_name']
+        team = teams[team_name]
         total_matches = team[0] + team[1]
         win_percent = 0
         if total_matches != 0:
