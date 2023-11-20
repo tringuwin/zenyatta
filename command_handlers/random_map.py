@@ -2,7 +2,7 @@ import random
 
 MAPS = [
 
-    { #control
+    [ #control
         'Busan',
         'Nepal',
         'Ilios',
@@ -10,8 +10,8 @@ MAPS = [
         'Lijang Tower',
         'Antarctic Peninsula',
         'Samoa'
-    },
-    { #Escort
+    ],
+    [ #Escort
         'Circuit Royal',
         'Dorado',
         'Route 66',
@@ -20,8 +20,8 @@ MAPS = [
         'Havana',
         'Watchpoint: Gibraltar',
         'Shambali Monastery'
-    },
-    { #Hybrid
+    ],
+    [ #Hybrid
         'Blizzard World',
         'Numbani',
         'Hollywood',
@@ -29,16 +29,16 @@ MAPS = [
         "King's Row",
         'Midtown',
         'Paraiso'
-    },
-    { # Push
+    ],
+    [ # Push
         'Colosseo',
         'Esperanca',
         'New Queen Street'
-    },
-    { # Flashpoint
+    ],
+    [ # Flashpoint
         'New Junk City',
         'Survasa'
-    }
+    ]
 
 ]
 
