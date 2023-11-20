@@ -59,6 +59,7 @@ from command_handlers.profile import profile_handler
 from command_handlers.random_map import random_map_handler
 from command_handlers.sell_gems import sell_gems_handler
 from command_handlers.solo_join import solo_join_handler
+from command_handlers.standings import standings_handler
 from command_handlers.suggest import suggest_handler
 from command_handlers.suggest_event import suggest_event_handler
 from command_handlers.teams.del_team_from_event import del_team_from_event_handler
@@ -311,6 +312,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!randommap':
         await random_map_handler(message)
+
+    elif lower_message == '!standings':
+        await standings_handler(db, message)
 
     elif lower_message == '!buyticket':
         await message.channel.send('There is no raffle at the moment.')
