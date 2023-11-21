@@ -656,50 +656,56 @@ async def handle_message(message, db, client):
         await message.channel.send('standings initated')
 
     elif lower_message == 'initschedule' and is_admin:
-        pass
 
-        new_schedule = [
-            {
-                'week': 1,
-                'date': 'November 25th',
-                'matches': [
-                    ['Polar', 'Eclipse']
-                    ['Olympians', 'Saviors']
-                ]
-            },
-            {
-                'week': 2,
-                'date': 'December 2nd',
-                'matches': [
-                    ['Ragu', 'Saviors']
-                    ['Eclipse', 'Olympians']
-                ]
-            },
-            {
-                'week': 3,
-                'date': 'December 9th',
-                'matches': [
-                    ['Olympians', 'Polar']
-                    ['Eclipse', 'Ragu']
-                ]
-            },
-            {
-                'week': 4,
-                'date': 'December 16th',
-                'matches': [
-                    ['Olympians', 'Ragu']
-                    ['Polar', 'Saviors']
-                ]
-            },
-            {
-                'week': 5,
-                'date': 'December 23rd',
-                'matches': [
-                    ['Eclipse', 'Saviors']
-                    ['Polar', 'Ragu']
-                ]
-            }
-        ]
+        new_schedule = {
+            'season': 1,
+            'weeks': [
+                {
+                    'week': 1,
+                    'date': 'November 25th',
+                    'matches': [
+                        ['Polar', 'Eclipse']
+                        ['Olympians', 'Saviors']
+                    ]
+                },
+                {
+                    'week': 2,
+                    'date': 'December 2nd',
+                    'matches': [
+                        ['Ragu', 'Saviors']
+                        ['Eclipse', 'Olympians']
+                    ]
+                },
+                {
+                    'week': 3,
+                    'date': 'December 9th',
+                    'matches': [
+                        ['Olympians', 'Polar']
+                        ['Eclipse', 'Ragu']
+                    ]
+                },
+                {
+                    'week': 4,
+                    'date': 'December 16th',
+                    'matches': [
+                        ['Olympians', 'Ragu']
+                        ['Polar', 'Saviors']
+                    ]
+                },
+                {
+                    'week': 5,
+                    'date': 'December 23rd',
+                    'matches': [
+                        ['Eclipse', 'Saviors']
+                        ['Polar', 'Ragu']
+                    ]
+                }
+            ]
+        }
+
+        schedule = db['schedule']
+        schedule.insert_one(new_schedule)
+        await message.channel.send('Schedule inserted')
         
     elif lower_message.startswith('!givetokens ') and is_admin:
 
