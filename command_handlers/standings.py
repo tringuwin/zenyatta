@@ -10,7 +10,7 @@ async def standings_handler(db, message):
     standings = db['standings']
     season_object = standings.find_one({'season': season})
 
-    final_teams = {}
+    final_teams = []
     teams = season_object['teams']
     for team_name in teams:
         team = teams[team_name]
