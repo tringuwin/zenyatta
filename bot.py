@@ -664,7 +664,7 @@ async def handle_message(message, db, client):
                     'week': 1,
                     'date': 'November 25th',
                     'matches': [
-                        ['Polar', 'Eclipse']
+                        ['Polar', 'Eclipse'],
                         ['Olympians', 'Saviors']
                     ]
                 },
@@ -672,7 +672,7 @@ async def handle_message(message, db, client):
                     'week': 2,
                     'date': 'December 2nd',
                     'matches': [
-                        ['Ragu', 'Saviors']
+                        ['Ragu', 'Saviors'],
                         ['Eclipse', 'Olympians']
                     ]
                 },
@@ -680,7 +680,7 @@ async def handle_message(message, db, client):
                     'week': 3,
                     'date': 'December 9th',
                     'matches': [
-                        ['Olympians', 'Polar']
+                        ['Olympians', 'Polar'],
                         ['Eclipse', 'Ragu']
                     ]
                 },
@@ -688,7 +688,7 @@ async def handle_message(message, db, client):
                     'week': 4,
                     'date': 'December 16th',
                     'matches': [
-                        ['Olympians', 'Ragu']
+                        ['Olympians', 'Ragu'],
                         ['Polar', 'Saviors']
                     ]
                 },
@@ -696,7 +696,7 @@ async def handle_message(message, db, client):
                     'week': 5,
                     'date': 'December 23rd',
                     'matches': [
-                        ['Eclipse', 'Saviors']
+                        ['Eclipse', 'Saviors'],
                         ['Polar', 'Ragu']
                     ]
                 }
