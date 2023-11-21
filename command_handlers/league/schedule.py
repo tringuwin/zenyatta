@@ -18,7 +18,7 @@ async def schedule_handler(db, message, client):
     guild = await get_guild(client)
 
     final_string = '**~ LEAGUE SCHEDULE ~**'
-    for week in schedule['weeks']:
+    for week in season_schedule['weeks']:
 
         final_string += '\n----------------'
         final_string += '\n**WEEK '+str(week['week'])+' - '+week['date']+' - 3:00 PM EST**'
