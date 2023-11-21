@@ -655,7 +655,7 @@ async def handle_message(message, db, client):
         standings.insert_one(new_standings)
         await message.channel.send('standings initated')
 
-    elif lower_message == 'initschedule' and is_admin:
+    elif lower_message == '!initschedule' and is_admin:
 
         new_schedule = {
             'season': 1,

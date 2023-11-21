@@ -38,7 +38,7 @@ async def standings_handler(db, message, client):
     for team in sorted_teams:
         team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team['team_name']]
         team_emoji = guild.get_emoji(team_emoji_id)
-        final_string += '\n'+str(index)+'. '+str(team_emoji)+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'%'
+        final_string += '\n'+str(index)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'%'
         index += 1
 
     await message.channel.send(final_string)
