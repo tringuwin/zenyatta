@@ -31,8 +31,10 @@ async def standings_handler(db, message):
 
     sorted_teams = sorted(final_teams, key=lambda x: x["win_percent"], reverse=True)
     final_string = '**LEAGUE STANDINGS**\n-----------------------'
+    index = 1 
     for team in sorted_teams:
-        final_string += '\n'+pad_string_to_length(team['team_name'], 20)+'|'
+        final_string += '\n'+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'%'
+        index += 1
 
     await message.channel.send(final_string)
     
