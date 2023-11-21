@@ -37,7 +37,7 @@ team_name_to_color = {
     'Polar': discord.Colour(0x00c9eb),
     'Olympians': discord.Colour(0xf9c429),
     'Eclipse': discord.Colour(0x005fe8),
-    'Saviors': discord.Colour(0xfff200),
+    'Saviors': discord.Colour(0x771da7),
     'Ragu': discord.Colour(0xE20006),
     'Instigators': discord.Colour(0x0c0c0c)
 }
@@ -46,7 +46,7 @@ team_name_to_thumbnail = {
     'Polar': 'https://i.imgur.com/mkbwgaD.png',
     'Olympians': 'https://i.imgur.com/rx8y0DM.png',
     'Eclipse': 'https://i.imgur.com/yuKFoDF.png',
-    'Saviors': 'https://i.imgur.com/MK5rqZn.png',
+    'Saviors': 'https://i.imgur.com/nrjx29Z.png',
     'Ragu': '',
     'Instigators': ''
 }
