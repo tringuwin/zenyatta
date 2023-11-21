@@ -50,6 +50,7 @@ from command_handlers.league.league_leave import league_leave_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
 from command_handlers.league.remove_team_admin import remove_team_admin_handler
+from command_handlers.league.schedule import schedule_handler
 from command_handlers.league.set_league_team import set_league_team_handler
 from command_handlers.league.update_team import update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
@@ -315,6 +316,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!standings':
         await standings_handler(db, message, client)
+
+    elif lower_message == '!schedule':
+        await schedule_handler(db, message, client)
 
     elif lower_message == '!buyticket':
         await message.channel.send('There is no raffle at the moment.')
