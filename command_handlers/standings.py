@@ -1,11 +1,13 @@
 
 
+from discord_actions import get_guild
 from helpers import pad_string_to_length
+import constants
 
 
 season = 1
 
-async def standings_handler(db, message):
+async def standings_handler(db, message, client):
 
     standings = db['standings']
     season_object = standings.find_one({'season': season})
@@ -32,8 +34,11 @@ async def standings_handler(db, message):
     sorted_teams = sorted(final_teams, key=lambda x: x["win_percent"], reverse=True)
     final_string = '**LEAGUE STANDINGS**\n-----------------------'
     index = 1 
+    guild = await get_guild(client)
     for team in sorted_teams:
-        final_string += '\n'+str(index)+'. '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'%'
+        team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team['team_name']]
+        team_emoji = guild.get_emoji(team_emoji_id)
+        final_string += '\n'+str(index)+'. '+str(team_emoji)+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'%'
         index += 1
 
     await message.channel.send(final_string)

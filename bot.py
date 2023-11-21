@@ -314,7 +314,7 @@ async def handle_message(message, db, client):
         await random_map_handler(message)
 
     elif lower_message == '!standings':
-        await standings_handler(db, message)
+        await standings_handler(db, message, client)
 
     elif lower_message == '!buyticket':
         await message.channel.send('There is no raffle at the moment.')
