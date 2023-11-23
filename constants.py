@@ -1,5 +1,5 @@
 
-VERSION = '1.4.71'
+VERSION = '1.4.72'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -149,3 +149,5 @@ MAP_NAME_TO_IMAGE = {
     'New Queen Street': 'https://i.postimg.cc/fRdNsby2/New-Queen-Street.webp'
 
 }
+
+NO_MAP_IMAGE = 'https://i.postimg.cc/7ZGSyLRW/NoMap.png'
