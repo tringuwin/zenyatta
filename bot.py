@@ -39,6 +39,7 @@ from command_handlers.help.help_league import help_league_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.change_role import change_role_handler
+from command_handlers.league.change_team_owner import change_team_owner_handler
 from command_handlers.league.change_tpp import change_tpp_handler
 from command_handlers.league.force_delete_league_team import force_delete_league_team_handler
 from command_handlers.league.league_accept import league_accept_handler
@@ -392,6 +393,10 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!makeleagueteam') and is_admin:
         # !makeleagueteam [team role id] @Owner [Team Name]
         await make_league_team_handler(db, message, client)
+
+    elif lower_message.startswith('!changeteamowner') and is_admin:
+        # !changeteamowner @player team name
+        await change_team_owner_handler(db, message, client)
 
     elif lower_message.startswith('!changetpp'):
         # !changetpp @Player [new tpp]

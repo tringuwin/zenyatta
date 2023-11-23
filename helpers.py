@@ -51,12 +51,3 @@ async def generic_find_user(client, db, user_id):
         user = user_exists(db, member.id)
     
     return user
-
-def pad_string_to_length(input_string, target_length=20):
-    if len(input_string) < target_length:
-        padding_length = target_length - len(input_string)
-        padded_string = input_string + ' ' * padding_length
-    else:
-        padded_string = input_string
-    
-    return padded_string
