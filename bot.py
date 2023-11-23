@@ -52,6 +52,7 @@ from command_handlers.league.make_team_admin import make_team_admin_handler
 from command_handlers.league.remove_team_admin import remove_team_admin_handler
 from command_handlers.league.schedule import schedule_handler
 from command_handlers.league.set_league_team import set_league_team_handler
+from command_handlers.league.set_map import set_map_handler
 from command_handlers.league.update_team import update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
@@ -676,6 +677,9 @@ async def handle_message(message, db, client):
         }
         maps.insert_one(new_maps)
         await message.channel.send('maps initated')
+
+    elif lower_message.startswith('!setmap') and is_admin:
+        await set_map_handler(db, message)
 
     elif lower_message == '!initschedule' and is_admin:
 
