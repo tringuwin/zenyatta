@@ -6,7 +6,7 @@ import constants
 
 async def set_map_handler(db, message):
 
-    parts = message.split('|')
+    parts = message.content.split('|')
     if len(parts) != 3:
         await invalid_number_of_params(message)
         return
