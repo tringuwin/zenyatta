@@ -659,6 +659,24 @@ async def handle_message(message, db, client):
         standings.insert_one(new_standings)
         await message.channel.send('standings initated')
 
+    elif lower_message == '!initmaps' and is_admin:
+
+        maps = db['maps']
+        new_maps = {
+            'maps_id': 1,
+            'maps': {
+                'map1': 'https://i.postimg.cc/zfLR8KKm/Samoa.webp',
+                'map2': '',
+                'map3': '',
+                'map4': '',
+                'map5': '',
+                'map6': '',
+                'map7': ''
+            }
+        }
+        maps.insert_one(new_maps)
+        await message.channel.send('maps initated')
+
     elif lower_message == '!initschedule' and is_admin:
 
         new_schedule = {

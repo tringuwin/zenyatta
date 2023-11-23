@@ -2,8 +2,8 @@ import random
 
 MAPS = [
 
-    [ #control
-        'Busan',
+    [ #Control
+        'Busan', 
         'Nepal',
         'Ilios',
         'Oasis',

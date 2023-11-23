@@ -108,3 +108,44 @@ LEVEL_ROLE_IDS = [
     1167885624498454578,
     1167885710922108989, # level 15
 ]
+
+MAP_NAME_TO_IMAGE = {
+
+    # Control
+    'Antarctic Peninsula': 'https://i.postimg.cc/Y0NWT7gh/Antarctic-Peninsula.webp',
+    'Busan': 'https://i.postimg.cc/X7858V4P/Busan.webp',
+    'Ilios': 'https://i.postimg.cc/jdKNPW0N/Ilios.webp',
+    'Lijang Tower': 'https://i.postimg.cc/SQcCn65k/Lijang-Tower.webp',
+    'Nepal': 'https://i.postimg.cc/pLcnwq9Y/Nepal.webp',
+    'Oasis': 'https://i.postimg.cc/MppQ3hGp/Oasis.webp',
+    'Samoa': 'https://i.postimg.cc/zfLR8KKm/Samoa.webp',
+
+    # Escort
+    'Circuit Royal': 'https://i.postimg.cc/52yXSLPH/Circuit-Royal.webp',
+    'Dorado': 'https://i.postimg.cc/13dfCXTv/Dorado.webp',
+    'Havana': 'https://i.postimg.cc/B69t3yJD/Havana.webp',
+    'Junkertown': 'https://i.postimg.cc/wM9vymyj/Junkertown.webp',
+    'Rialto': 'https://i.postimg.cc/d3n08Vrm/Rialto.webp',
+    'Route 66': 'https://i.postimg.cc/rm1sw-JpH/Route-66.webp',
+    'Shambali Monastery': 'https://i.postimg.cc/hPpJmp0W/Shambali-Monastery.webp',
+    'Watchpoint Gibraltar': 'https://i.postimg.cc/DzbmtF3n/Watchpoint-Gibraltar.webp',
+
+    # Flashpoint
+    'New Junk City': 'https://i.postimg.cc/C1sMgxPT/New-Junk-City.webp',
+    'Survasa': 'https://i.postimg.cc/hv4DPR6J/Survasa.webp',
+
+    # Hybrid
+    'Blizzard World': 'https://i.postimg.cc/pdDRfdth/Blizzard-World.webp',
+    'Eichenwalde': 'https://i.postimg.cc/90f2HtwZ/Eichenwalde.webp',
+    'Hollywood': 'https://i.postimg.cc/9f3cw7sH/Hollywood.webp',
+    "King's Row": 'https://i.postimg.cc/3R1hqbN3/King-s-Row.webp',
+    'Midtown': 'https://i.postimg.cc/sDNjy8cX/Midtown.webp',
+    'Numbani': 'https://i.postimg.cc/MpfWGDPY/Numbani.webp',
+    'Paraiso': 'https://i.postimg.cc/26rm2fzH/Paraiso.webp',
+
+    # Push
+    'Colosseo': 'https://i.postimg.cc/k5ddgdtn/Colosseo.webp',
+    'Esperanca': 'https://i.postimg.cc/jjQYWkzy/Esperanca.webp',
+    'New Queen Street': 'https://i.postimg.cc/fRdNsby2/New-Queen-Street.webp'
+
+}
