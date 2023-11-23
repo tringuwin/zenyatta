@@ -705,13 +705,16 @@ async def handle_message(message, db, client):
             'files_id': 1,
             'files': {
                 'map_wins': {
-                    'map1': 'None',
-                    'map2': 'None',
-                    'map3': 'None',
-                    'map4': 'None',
-                    'map5': 'None',
-                    'map6': 'None',
-                    'map7': 'None'
+                    'version': 1,
+                    'data': {
+                        'map1': 'None',
+                        'map2': 'None',
+                        'map3': 'None',
+                        'map4': 'None',
+                        'map5': 'None',
+                        'map6': 'None',
+                        'map7': 'None'
+                    }
                 }
             }
         }
