@@ -1,5 +1,5 @@
 
-VERSION = '1.4.73'
+VERSION = '1.4.74'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -151,3 +151,46 @@ MAP_NAME_TO_IMAGE = {
 }
 
 NO_MAP_IMAGE = 'https://i.postimg.cc/7ZGSyLRW/NoMap.png'
+
+MAP_NAME_TO_NAME_IMG = {
+
+    # Control
+    'Antarctic Peninsula': 'https://i.postimg.cc/65X5WnXD/Antartic-Peninsula.png',
+    'Busan': 'https://i.postimg.cc/MGvzPY7j/Busan.png',
+    'Ilios': 'https://i.postimg.cc/pLVW8vyC/Ilios.png',
+    'Lijang Tower': 'https://i.postimg.cc/3JFrdNrW/Lijang-Tower.png',
+    'Nepal': 'https://i.postimg.cc/FHP9V6L4/Nepal.png',
+    'Oasis': 'https://i.postimg.cc/xCmnYTFf/Oasis.png',
+    'Samoa': 'https://i.postimg.cc/fbpD60Cq/Samoa.png',
+
+    # Escort
+    'Circuit Royal': 'https://i.postimg.cc/HLhXR3fG/Circuit-Royal.png',
+    'Dorado': 'https://i.postimg.cc/cHtwSw-Sv/Dorado.png',
+    'Havana': 'https://i.postimg.cc/J0bXy8tm/Havana.png',
+    'Junkertown': 'https://i.postimg.cc/NGTmC6DV/Junkertown.png',
+    'Rialto': 'https://i.postimg.cc/Y0cgq0rb/Rialto.png',
+    'Route 66': 'https://i.postimg.cc/MKmRqzhm/Route-66.png',
+    'Shambali Monastery': 'https://i.postimg.cc/wTpJC1bB/Shambali-Monastery.png',
+    'Watchpoint Gibraltar': 'https://i.postimg.cc/dVQC0zFP/Watchpoint-Gibraltar.png',
+
+    # Flashpoint
+    'New Junk City': 'https://i.postimg.cc/3NpqdkgR/New-Junk-City.png',
+    'Survasa': 'https://i.postimg.cc/9XqKxnvh/Survasa.png',
+
+    # Hybrid
+    'Blizzard World': 'https://i.postimg.cc/T2rQ5Mzp/Blizzard-World.png',
+    'Eichenwalde': 'https://i.postimg.cc/fTCK57Ts/Eichenwalde.png',
+    'Hollywood': 'https://i.postimg.cc/HkPt1pyP/Hollywood.png',
+    "King's Row": 'https://i.postimg.cc/xTn5KpQg/King-s-Row.png',
+    'Midtown': 'https://i.postimg.cc/52tmrH6C/Midtown.png',
+    'Numbani': 'https://i.postimg.cc/FKMg1DGy/Numbani.png',
+    'Paraiso': 'https://i.postimg.cc/ZqBxT1PY/Paraiso.png',
+
+    # Push
+    'Colosseo': 'https://i.postimg.cc/Y2bGsdgd/Colosseo.png',
+    'Esperanca': 'https://i.postimg.cc/HsncDb9d/Esperanca.png',
+    'New Queen Street': 'https://i.postimg.cc/NMP4BBS0/New-Queen-Street.png'
+
+}
+
+NO_MAP_NAME = 'https://i.postimg.cc/hPNGk6G1/No-Map.png'

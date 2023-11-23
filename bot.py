@@ -680,6 +680,24 @@ async def handle_message(message, db, client):
         maps.insert_one(new_maps)
         await message.channel.send('maps initated')
 
+    elif lower_message == '!initmapnames' and is_admin:
+
+        map_names = db['mapnames']
+        new_map_names = {
+            'maps_id': 1,
+            'maps': {
+                'map1': '',
+                'map2': '',
+                'map3': '',
+                'map4': '',
+                'map5': '',
+                'map6': '',
+                'map7': ''
+            }
+        }
+        map_names.insert_one(new_map_names)
+        await message.channel.send('map names initated')
+
     elif lower_message.startswith('!setmap') and is_admin:
         await set_map_handler(db, message)
 

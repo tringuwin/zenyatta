@@ -25,7 +25,11 @@ async def reset_map_handler(db, message):
     maps = db['maps']
     map_group = maps.find_one({'maps_id': 1})
     map_group['maps']['map'+str(map_num)] = constants.NO_MAP_IMAGE
-
     maps.update_one({"maps_id": 1}, {"$set": {"maps": map_group['maps']}})
+
+    map_names = db['mapnames']
+    map_name_group = map_names.find_one({'maps_id': 1})
+    map_name_group['maps']['map'+str(map_num)] = constants.NO_MAP_NAME
+    map_names.update_one({"maps_id": 1}, {"$set": {"maps": map_name_group['maps']}})
 
     await message.channel.send('Map '+str(map_num)+' reset')
