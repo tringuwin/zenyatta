@@ -698,6 +698,27 @@ async def handle_message(message, db, client):
         map_names.insert_one(new_map_names)
         await message.channel.send('map names initated')
 
+    elif lower_message == '!initlocalfiles' and is_admin:
+
+        local_files = db['localfiles']
+        new_local_files = {
+            'files_id': 1,
+            'files': {
+                'map_wins': {
+                    'map1': 'None',
+                    'map2': 'None',
+                    'map3': 'None',
+                    'map4': 'None',
+                    'map5': 'None',
+                    'map6': 'None',
+                    'map7': 'None'
+                }
+            }
+        }
+
+        local_files.insert_one(new_local_files)
+        await message.channel.send('local files initated')
+
     elif lower_message.startswith('!setmap') and is_admin:
         await set_map_handler(db, message)
 
