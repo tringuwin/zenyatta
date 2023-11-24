@@ -12,5 +12,4 @@ async def reset_wins_handler(db, message):
 
     local_files.update_one({"files_id": 1}, {"$set": {"files": files['files']}})
 
-
-    message.channel.send('wins reset')
+    await message.channel.send('wins reset')
