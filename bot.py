@@ -708,26 +708,37 @@ async def handle_message(message, db, client):
     elif lower_message == '!initlocalfiles' and is_admin:
 
         local_files = db['localfiles']
-        new_local_files = {
-            'files_id': 1,
-            'files': {
-                'map_wins': {
-                    'version': 1,
-                    'data': {
-                        'map1': 'None',
-                        'map2': 'None',
-                        'map3': 'None',
-                        'map4': 'None',
-                        'map5': 'None',
-                        'map6': 'None',
-                        'map7': 'None'
-                    }
-                }
+        # new_local_files = {
+        #     'files_id': 1,
+        #     'files': {
+        #         'map_wins': {
+        #             'version': 1,
+        #             'data': {
+        #                 'map1': 'None',
+        #                 'map2': 'None',
+        #                 'map3': 'None',
+        #                 'map4': 'None',
+        #                 'map5': 'None',
+        #                 'map6': 'None',
+        #                 'map7': 'None'
+        #             }
+        #         }
+        #     }
+        # }
+        files = local_files.find_one({'files_id': 1})
+        scores = {
+            'version': 1,
+            'data': {
+                'score1': 0,
+                'score2': 0,
+                'score3': 8,
+                'score4': 0
             }
         }
+        files['files']['scores'] = scores
 
-        local_files.insert_one(new_local_files)
-        await message.channel.send('local files initated')
+        local_files.update_one({"files_id": 1}, {"$set": {"files": files['files']}})
+        await message.channel.send('local files updated')
 
     elif lower_message.startswith('!setmap') and is_admin:
         await set_map_handler(db, message)
