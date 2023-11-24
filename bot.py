@@ -56,6 +56,7 @@ from command_handlers.league.reset_maps import reset_maps_handler
 from command_handlers.league.schedule import schedule_handler
 from command_handlers.league.set_league_team import set_league_team_handler
 from command_handlers.league.set_map import set_map_handler
+from command_handlers.league.set_win import set_win_handler
 from command_handlers.league.update_team import update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
@@ -735,6 +736,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!resetmap ') and is_admin:
         await reset_map_handler(db, message)
+
+    elif lower_message.startswith('!setwin') and is_admin:
+        await set_win_handler(db, message)
 
     elif lower_message == '!initschedule' and is_admin:
 
