@@ -13,7 +13,7 @@ async def set_win_handler(db, message):
         return
     
     team_name = make_string_from_word_list(word_parts, 2)
-    if not team_name in constants.TEAM_LIST:
+    if (team_name != 'None') and (not team_name in constants.TEAM_LIST):
         await message.channel.send(team_name+' is not a valid team name')
         return
     
