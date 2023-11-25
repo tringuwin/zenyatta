@@ -38,6 +38,7 @@ from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.help.help_league import help_league_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
+from command_handlers.league.add_win import add_win_handler
 from command_handlers.league.change_role import change_role_handler
 from command_handlers.league.change_team_owner import change_team_owner_handler
 from command_handlers.league.change_tpp import change_tpp_handler
@@ -675,6 +676,9 @@ async def handle_message(message, db, client):
         }
         standings.insert_one(new_standings)
         await message.channel.send('standings initated')
+
+    elif lower_message.startswith('!addwin') and is_admin:
+        await add_win_handler(db, message)
 
     elif lower_message == '!initmaps' and is_admin:
 
