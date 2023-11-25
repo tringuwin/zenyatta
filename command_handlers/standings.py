@@ -16,7 +16,7 @@ async def standings_handler(db, message, client):
     for team_name in teams:
         team = teams[team_name]
         total_matches = team[0] + team[1]
-        win_percent = 0
+        win_percent = 0.0
         if total_matches != 0:
             win_percent = float(team[0]) / float(total_matches)
             win_percent = round(win_percent*100, 2)
