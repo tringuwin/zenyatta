@@ -113,7 +113,7 @@ async def wager_handler(db, message):
 
         lower_bet = params[2].lower()
         if not (lower_bet == 'red' or lower_bet == 'black' or lower_bet == 'green'):
-            await message.channel.send('Your can only bet on red, black, or green')
+            await message.channel.send('You can only bet on red, black, or green')
             return
 
         token_change = int(-1 * wager)
@@ -174,7 +174,7 @@ async def twager_handler(db, message):
 
         lower_bet = params[2].lower()
         if not (lower_bet == 'purple' or lower_bet == 'black' or lower_bet == 'yellow'):
-            await message.channel.send('Your can only bet on purple, black, or yellow')
+            await message.channel.send('You can only bet on purple, black, or yellow')
             return
 
         token_change = int(-1 * wager)
