@@ -19,7 +19,7 @@ async def standings_handler(db, message, client):
         win_percent = 0
         if total_matches != 0:
             win_percent = float(team[0]) / float(total_matches)
-            win_percent = str(round(win_percent, 2))
+            win_percent = round(win_percent, 2)
 
         final_teams.append(
             {
