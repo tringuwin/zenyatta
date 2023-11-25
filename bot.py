@@ -42,6 +42,7 @@ from command_handlers.league.change_role import change_role_handler
 from command_handlers.league.change_team_owner import change_team_owner_handler
 from command_handlers.league.change_tpp import change_tpp_handler
 from command_handlers.league.force_delete_league_team import force_delete_league_team_handler
+from command_handlers.league.give_team_tokens import give_team_tokens_handler
 from command_handlers.league.league_accept import league_accept_handler
 from command_handlers.league.league_cancel_invite import league_cancel_invite_handler
 from command_handlers.league.league_invite import league_invite_handler
@@ -456,6 +457,10 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!updateteam ') and is_admin:
         await update_team_handler(db, message, client)
+
+    elif lower_message.startswith('!giveteamtokens ') and is_admin:
+        await give_team_tokens_handler(db, message)
+
 
     # ADMIN COMMANDS
 
