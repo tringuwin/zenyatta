@@ -51,7 +51,7 @@ async def give_team_tokens_handler(db, message):
         final_tokens = math.floor(tokens_to_get_raw)
         user = user_exists(db, member['discord_id'])
         print('giving '+str(final_tokens)+' to '+user['battle_tag'])
-        #await change_tokens(db, user, final_tokens) 
+        await change_tokens(db, user, final_tokens) 
 
 
     await message.channel.send('Done')
