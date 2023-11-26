@@ -1,8 +1,8 @@
 
-from discord_actions import get_member_by_username
+from discord_actions import get_guild, get_member_by_username
 from helpers import make_string_from_word_list
-from user import get_league_team, get_lvl_info, get_user_passes, get_user_pickaxes, get_user_tokens, user_exists
-
+from user import get_league_team, get_lvl_info, get_user_gems, get_user_passes, get_user_pickaxes, get_user_tokens, user_exists
+import constants
 
 async def profile_handler(db, message, client):
 
@@ -34,5 +34,23 @@ async def profile_handler(db, message, client):
     final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
     final_string += 'League Team: **'+league_team+"**\n"
     final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+'\n'
+
+
+    gems = get_user_gems(user)
+    gem_line_1 = ''
+    gem_line_2 = ''
+
+    guild = await get_guild(client)
+    gem_index = 1
+    for color, amount in gems.items():
+        emoji_id = constants.COLOR_TO_EMOJI_ID[color]
+        gem_emoji = guild.get_emoji(emoji_id)
+        if gem_index < 6:
+            gem_line_1 += str(gem_emoji)+' '+str(amount)+' '
+        else:
+            gem_line_2 += str(gem_emoji)+' '+str(amount)+' '
+        gem_index +=1
+
+    final_string += gem_line_1+'\n'+gem_line_2
 
     await message.channel.send(final_string)
