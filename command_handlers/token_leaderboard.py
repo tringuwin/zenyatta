@@ -21,4 +21,7 @@ async def token_leaderboard_handler(db, message):
         final_string += ' | Tokens: '+str(user['tokens'])+'\n'
         user_index += 1
 
+    final_string += '------------------------\n'
+    final_string += 'See the full token leaderboard here!\nhttps://spicyragu.netlify.app/token-leaderboard'
+
     await message.channel.send(final_string)
