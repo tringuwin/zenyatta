@@ -18,9 +18,9 @@ async def add_win_handler(db, message):
         return
     
     standings = db['standings']
-    standings_obj = standings.find_one({'season': 1})
+    standings_obj = standings.find_one({'season': constants.LEAGUE_SEASON})
     standings_obj['teams'][team_name][0] += 1
 
-    standings.update_one({"season": 1}, {"$set": {"teams": standings_obj['teams']}})
+    standings.update_one({"season": constants.LEAGUE_SEASON}, {"$set": {"teams": standings_obj['teams']}})
 
     await message.channel.send('team win added')

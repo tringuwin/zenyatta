@@ -1,5 +1,5 @@
 
-VERSION = '1.4.96'
+VERSION = '1.4.97'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -197,4 +197,5 @@ NO_MAP_NAME = 'https://i.postimg.cc/hPNGk6G1/No-Map.png'
 
 TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu']
 
+LEAGUE_SEASON = 1
 LEAGUE_WEEK = 2

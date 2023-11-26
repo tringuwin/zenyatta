@@ -1,5 +1,5 @@
 
-current_season = 1
+
 import constants
 from discord_actions import get_guild
 
@@ -13,7 +13,7 @@ def team_name_to_emoji(team_name, guild):
 async def schedule_handler(db, message, client):
 
     schedule = db['schedule']
-    season_schedule = schedule.find_one({'season': current_season})
+    season_schedule = schedule.find_one({'season': constants.LEAGUE_SEASON})
 
     guild = await get_guild(client)
 

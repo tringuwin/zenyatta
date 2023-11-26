@@ -4,12 +4,10 @@ from discord_actions import get_guild
 import constants
 
 
-season = 1
-
 async def standings_handler(db, message, client):
 
     standings = db['standings']
-    season_object = standings.find_one({'season': season})
+    season_object = standings.find_one({'season': constants.LEAGUE_SEASON})
 
     final_teams = []
     teams = season_object['teams']
