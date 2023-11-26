@@ -63,6 +63,7 @@ from command_handlers.league.set_league_team import set_league_team_handler
 from command_handlers.league.set_map import set_map_handler
 from command_handlers.league.set_score import set_score_handler
 from command_handlers.league.set_win import set_win_handler
+from command_handlers.league.standings import standings_handler
 from command_handlers.league.update_team import update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
@@ -71,7 +72,6 @@ from command_handlers.profile import profile_handler
 from command_handlers.random_map import random_map_handler
 from command_handlers.sell_gems import sell_gems_handler
 from command_handlers.solo_join import solo_join_handler
-from command_handlers.standings import standings_handler
 from command_handlers.suggest import suggest_handler
 from command_handlers.suggest_event import suggest_event_handler
 from command_handlers.teams.del_team_from_event import del_team_from_event_handler
