@@ -34,6 +34,7 @@ async def profile_handler(db, message, client):
     final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
     final_string += 'League Team: **'+league_team+"**\n"
     final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+'\n'
+    final_string +='\n'
 
 
     gems = get_user_gems(user)
@@ -51,6 +52,7 @@ async def profile_handler(db, message, client):
             gem_line_2 += str(gem_emoji)+' '+str(amount)+' '
         gem_index +=1
 
+    final_string +='\n'
     final_string += gem_line_1+'\n'+gem_line_2
 
     await message.channel.send(final_string)
