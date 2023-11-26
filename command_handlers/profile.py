@@ -1,7 +1,7 @@
 
 from discord_actions import get_member_by_username
 from helpers import make_string_from_word_list
-from user import get_league_team, get_lvl_info, get_user_tokens, user_exists
+from user import get_league_team, get_lvl_info, get_user_passes, get_user_tokens, user_exists
 
 
 async def profile_handler(db, message, client):
@@ -28,10 +28,12 @@ async def profile_handler(db, message, client):
     level, xp = get_lvl_info(user)
     league_team = get_league_team(user)
     tokens = get_user_tokens(user)
+    passes = get_user_passes(user)
     final_string = "**USER PROFILE FOR "+user['battle_tag']+':**\n'
     final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
     final_string += 'League Team: **'+league_team+"**\n"
     final_string += '------------\n'
-    final_string += '🪙 '+str(tokens)
+    final_string += '🪙 '+str(tokens)+'\n'
+    final_string += '🎟️ '+str(passes)
 
     await message.channel.send(final_string)
