@@ -18,7 +18,13 @@ async def schedule_handler(db, message, client):
     guild = await get_guild(client)
 
     final_string = '**~ LEAGUE SCHEDULE ~**'
+    index = 1
     for week in season_schedule['weeks']:
+
+        if index < constants.LEAGUE_WEEK:
+            index += 1
+            continue
+
 
         final_string += '\n----------------'
         final_string += '\n**WEEK '+str(week['week'])+' - '+week['date']+' - 3:00 PM EST**'
@@ -30,6 +36,8 @@ async def schedule_handler(db, message, client):
             team2_emoji = team_name_to_emoji(team2, guild)
 
             final_string += '\n'+str(team1_emoji)+' **'+team1+'** VS '+str(team2_emoji)+' **'+team2+'**'
+
+        index += 1
 
     await message.channel.send(final_string)
 
