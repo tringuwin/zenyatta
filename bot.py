@@ -43,6 +43,7 @@ from command_handlers.league.add_win import add_win_handler
 from command_handlers.league.change_role import change_role_handler
 from command_handlers.league.change_team_owner import change_team_owner_handler
 from command_handlers.league.change_tpp import change_tpp_handler
+from command_handlers.league.fan_of import fan_of_handler
 from command_handlers.league.force_delete_league_team import force_delete_league_team_handler
 from command_handlers.league.give_team_tokens import give_team_tokens_handler
 from command_handlers.league.league_accept import league_accept_handler
@@ -462,6 +463,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!giveteamtokens ') and is_admin:
         await give_team_tokens_handler(db, message)
+
+    elif lower_message.startswith('!fanof'):
+        await fan_of_handler(db, message)
 
 
     # ADMIN COMMANDS

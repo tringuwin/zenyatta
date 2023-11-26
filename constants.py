@@ -195,7 +195,7 @@ MAP_NAME_TO_NAME_IMG = {
 
 NO_MAP_NAME = 'https://i.postimg.cc/hPNGk6G1/No-Map.png'
 
-TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu']
+TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators']
 
 LEAGUE_SEASON = 1
 LEAGUE_WEEK = 2
