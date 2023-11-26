@@ -43,7 +43,7 @@ async def standings_handler(db, message, client):
         final_string += '\n'+str(index)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'%'
         index += 1
 
-    final_string += '\n-------------------'
+    final_string += '\n-----------------------'
     final_string += '\nTeams ranked 1-3 will make it to the playoffs.'
     final_string += '\nTeam ranked 5th will be demoted to division 2 next season.'
 
