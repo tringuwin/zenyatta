@@ -5,6 +5,7 @@ async def help_league_handler(message):
     help_embed = discord.Embed(title='List of commands:')
     help_embed.add_field(name='!schedule', value='See the current league schedule.', inline=False)
     help_embed.add_field(name='!standings', value='See the current league standings.', inline=False)
+    help_embed.add_field(name='!fanof [team name]', value='Set which league team you are a fan of!', inline=False)
     help_embed.add_field(name='!leagueinvite @User', value='Admin command to invite a user to your league team', inline=False)
     help_embed.add_field(name='!leaguecancelinvite @User', value="Admin command to cancel a user's pending invite to your team.", inline=False)
     help_embed.add_field(name='!leagueinvites', value='See a list of league teams that you are invited to.', inline=False)

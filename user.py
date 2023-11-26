@@ -161,6 +161,12 @@ def get_gem_offer(user):
         return user['gem_offer']
     else:
         return None
+    
+def get_fan_of(user):
+
+    if 'fan_of' in user:
+        return user['fan_of']
+    return 'None'
 
     
 def toggle_off_gift_notify(db, user):
