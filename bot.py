@@ -1092,7 +1092,7 @@ def run_discord_bot(db):
             role = guild.get_role(constants.GIFT_ROLE_ID)
             await member.remove_roles(role)
         elif channel_id == constants.REACTION_ROLE_CHANNEL:
-            if message_id in constants.HERO_MESSAGE_TO_ROLE[message_id]:
+            if message_id in constants.HERO_MESSAGE_TO_ROLE:
                 role = guild.get_role(constants.HERO_MESSAGE_TO_ROLE[message_id])
                 await member.remove_roles(role)
 
