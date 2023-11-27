@@ -1065,6 +1065,7 @@ def run_discord_bot(db):
         elif channel_id == constants.REACTION_ROLE_CHANNEL:
             if message_id in constants.HERO_MESSAGE_TO_ROLE:
                 role_id = constants.HERO_MESSAGE_TO_ROLE[message_id]
+                guild = await get_guild(client)
                 role = guild.get_role(role_id)
                 await member.add_roles(role)
         else:
