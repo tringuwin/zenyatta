@@ -1044,6 +1044,7 @@ def run_discord_bot(db):
     
         message_id = payload.message_id
         member = payload.member
+        channel_id = payload.channel_id
         print('Raw reaction add by '+member.name)
         if message_id == constants.SERVER_NOTIF_MSG:
             guild = await get_guild(client)
@@ -1061,6 +1062,11 @@ def run_discord_bot(db):
             guild = await get_guild(client)
             role = guild.get_role(constants.GIFT_ROLE_ID)
             await member.add_roles(role)
+        elif channel_id == constants.REACTION_ROLE_CHANNEL:
+            if message_id in constants.HERO_MESSAGE_TO_ROLE:
+                role_id = constants.HERO_MESSAGE_TO_ROLE[message_id]
+                role = guild.get_role(role_id)
+                await member.add_roles(role)
         else:
             print('checking for blackjack')
             await check_for_black_jack(db, payload.channel_id, message_id, member, payload.emoji, client)
