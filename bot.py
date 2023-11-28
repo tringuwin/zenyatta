@@ -11,6 +11,7 @@ from admin_handlers.force_delete_team import force_delete_team_handler
 from admin_handlers.force_make_team import force_make_team_handler
 from admin_handlers.force_remove_player import force_remove_player_handler
 from admin_handlers.force_remove_team import force_remove_team_handler
+from admin_handlers.full_events import full_events_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
 from admin_handlers.give_gems import give_gems_handler
 from admin_handlers.give_lootbox import give_lootbox_handler
@@ -473,6 +474,9 @@ async def handle_message(message, db, client):
 
 
     # ADMIN COMMANDS
+
+    elif lower_message.startswith('!fullevents') and is_admin:
+        await full_events_handler(db, message)
 
     elif lower_message.startswith("!addevent") and is_admin:
         # !addevent|[event id]|[event name]|[max participants]|[0 for no pass, 1 for pass]|[team size]|[event role id]|[event channel id]
