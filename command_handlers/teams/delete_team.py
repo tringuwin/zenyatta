@@ -3,6 +3,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from events import remove_team_from_event
 from getters.event_getters import get_event_by_id
 from helpers import make_string_from_word_list
+from mongo import get_all_events
 from teams import get_in_events, get_team_by_name, get_team_invites, remove_team_invite, remove_user_from_team
 from user import user_exists
 
@@ -47,6 +48,21 @@ async def delete_team_handler(db, message, client):
 
     if not (team['creator_id'] == user['discord_id']):
         await message.channel.send('You are not the owner of this team. Only the owner can delete the team.')
+        return
+
+    team_in_event = False
+
+    team_name = team['team_name']
+    all_events = get_all_events(db)
+    for event in all_events:
+        if event['team_size'] == team['team_size']:
+            for entry in event['entries']:
+                if entry == team_name:
+                    team_in_event = True
+                    break
+
+    if team_in_event:
+        await message.channel.send('This team cannot be deleted right now because it is registered for an event.')
         return
 
     await delete_team(db, team, client)
