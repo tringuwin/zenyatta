@@ -168,6 +168,13 @@ def get_fan_of(user):
         return user['fan_of']
     return 'None'
 
+def get_rival_of(user):
+
+    if 'rival_of' in user:
+        return user['rival_of']
+    return 'None'
+
+
     
 def toggle_off_gift_notify(db, user):
 
