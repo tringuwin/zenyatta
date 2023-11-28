@@ -59,6 +59,7 @@ from command_handlers.league.reset_map import reset_map_handler
 from command_handlers.league.reset_maps import reset_maps_handler
 from command_handlers.league.reset_scores import reset_scores_handler
 from command_handlers.league.reset_wins import reset_wins_handler
+from command_handlers.league.rival_of import rival_of_handler
 from command_handlers.league.schedule import schedule_handler
 from command_handlers.league.set_league_team import set_league_team_handler
 from command_handlers.league.set_map import set_map_handler
@@ -466,6 +467,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!fanof'):
         await fan_of_handler(db, message)
+
+    elif lower_message.startswith('!rivalof'):
+        await rival_of_handler(db, message)
 
 
     # ADMIN COMMANDS
