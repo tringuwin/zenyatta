@@ -1,7 +1,7 @@
 
 from discord_actions import get_guild, get_member_by_username
 from helpers import make_string_from_word_list
-from user import get_fan_of, get_league_team, get_lvl_info, get_user_gems, get_user_passes, get_user_pickaxes, get_user_tokens, user_exists
+from user import get_fan_of, get_league_team, get_lvl_info, get_rival_of, get_user_gems, get_user_passes, get_user_pickaxes, get_user_tokens, user_exists
 import constants
 
 async def profile_handler(db, message, client):
@@ -28,6 +28,7 @@ async def profile_handler(db, message, client):
     level, xp = get_lvl_info(user)
     league_team = get_league_team(user)
     fan_of = get_fan_of(user)
+    rival_of = get_rival_of(user)
     tokens = get_user_tokens(user)
     passes = get_user_passes(user)
     pickaxes = get_user_pickaxes(user)
@@ -35,6 +36,7 @@ async def profile_handler(db, message, client):
     final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
     final_string += 'League Team: **'+league_team+"**\n"
     final_string += 'Fan of Team: **'+fan_of+'**\n'
+    final_string += 'Rival of Team: **'+rival_of+'**\n'
 
     final_string +='\n'
     final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+'\n'
