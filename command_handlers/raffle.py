@@ -16,7 +16,10 @@ async def raffle_handler(db, message):
 
     total_tickets = get_all_tickets(db)
 
-    percentage_win = float(tickets) / float(total_tickets)
+    percentage_win = 0
+
+    if total_tickets != 0:
+        percentage_win = float(tickets) / float(total_tickets)
     rounded_percent = round(percentage_win * 100.0, 3)
 
     final_string = 'You own **'+str(tickets)+'** tickets in the current raffle.\n'
