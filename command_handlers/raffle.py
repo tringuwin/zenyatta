@@ -24,7 +24,7 @@ async def raffle_handler(db, message):
 
     final_string = 'You own **'+str(tickets)+'** tickets in the current raffle.\n'
     final_string += 'There are **'+str(total_tickets)+'** total tickets in the raffle.\n'
-    final_string += 'Your current chance to win is **'+str(rounded_percent)+'**\n'
+    final_string += 'Your current chance to win is **'+str(rounded_percent)+'%**\n'
     final_string += 'You can buy more tickets by using the command **!buyticket [number of tickets]**'
 
     await message.channel.send(final_string)
