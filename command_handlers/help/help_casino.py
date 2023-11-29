@@ -7,5 +7,6 @@ async def help_casino_handler(message):
     help_embed.add_field(name='!twager [number of tokens] [purple, black, or yellow]', value='Use in the roulette channel. Wager your tokens with custom roulette rules. Slightly better odds, Twitch Sub only command.', inline=False)
     help_embed.add_field(name='!blackjack [number of tokens]', value='Use in the blackjack channel. Play simplified blackjack and win tokens if you beat the dealer!', inline=False)
     help_embed.add_field(name='!mine', value='Use in the mineshaft channel. Spend 20 tokens or a pickaxe to go mining and look for treasure!', inline=False)
+    help_embed.add_field(name='!rps [number of tokens] [rock, paper, or scissors]', value='Play rock paper scissors with Zenyatta and wager tokens! If you win, you get 1.9x your bet back.', inline=False)
 
     await message.channel.send(embed=help_embed)
