@@ -38,7 +38,7 @@ team_name_to_color = {
     'Olympians': discord.Colour(0xf9c429),
     'Eclipse': discord.Colour(0x005fe8),
     'Saviors': discord.Colour(0x771da7),
-    'Ragu': discord.Colour(0xE20006),
+    'Ragu': discord.Colour(0xE02814),
     'Instigators': discord.Colour(0x0c0c0c)
 }
 
