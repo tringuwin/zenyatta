@@ -553,20 +553,19 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!twitchpass') and is_helper:
         await twitch_pass_handler(db, message)
 
-    elif lower_message == '!cheese' and is_admin:
+    elif lower_message.startswith('!initraffleconst') and is_admin:
+        
+        db_constants = db['constants']
+        new_entry = {
+            'name': 'raffle_total',
+            'value': 0
+        }
+        db_constants.insert_one(new_entry)
 
-        brackets = db['brackets']
-        my_bracket = brackets.find_one({"event_id": '11'})
+    elif lower_message == '!resetraffle' and is_admin:
+        pass
+        # db_constants = db['constants']
 
-        silly = copy.deepcopy(my_bracket['bracket'][0][7][1])
-        artic = copy.deepcopy(my_bracket['bracket'][0][29][0])
-
-        my_bracket['bracket'][0][7][1] = artic
-        my_bracket['bracket'][0][29][0] = silly
-
-        brackets.update_one({"event_id": '11'}, {"$set": {"bracket": my_bracket['bracket']}})
-
-        await message.channel.send('done')
 
 
     elif lower_message.startswith('!win ') and is_admin:
