@@ -47,7 +47,7 @@ team_name_to_thumbnail = {
     'Olympians': 'https://i.imgur.com/rx8y0DM.png',
     'Eclipse': 'https://i.imgur.com/yuKFoDF.png',
     'Saviors': 'https://i.imgur.com/nrjx29Z.png',
-    'Ragu': '',
+    'Ragu': 'https://i.postimg.cc/5y2cSTFg/RAGU-FINAL-file.png',
     'Instigators': ''
 }
 
