@@ -348,23 +348,23 @@ async def handle_message(message, db, client):
         await schedule_handler(db, message, client)
 
     elif lower_message == '!buyticket':
-        await message.channel.send('There is no raffle at the moment.')
-        #await buy_ticket_handler(db, message, 1)
+        #await message.channel.send('There is no raffle at the moment.')
+        await buy_ticket_handler(db, message, 1)
+    
+    elif lower_message.startswith('!buyticket '):
+        #await message.channel.send('There is no raffle at the moment.')
+        params = lower_message.split()
+        if len(params) == 2:
+            raw_amount = params[1]
+            if can_be_int(raw_amount):
+                await buy_ticket_handler(db, message, int(raw_amount))
+            else:
+                await message.channel.send(message.author.mention+' Please enter a number of tickets to buy.')
+        else:
+            await message.channel.send(message.author.mention+' Invalid number of parameters.')
 
     elif lower_message == '!raffle':
         await raffle_handler(db, message)
-    
-    elif lower_message.startswith('!buyticket '):
-        await message.channel.send('There is no raffle at the moment.')
-        # params = lower_message.split()
-        # if len(params) == 2:
-        #     raw_amount = params[1]
-        #     if can_be_int(raw_amount):
-        #         await buy_ticket_handler(db, message, int(raw_amount))
-        #     else:
-        #         await message.channel.send(message.author.mention+' Please enter a number of tickets to buy.')
-        # else:
-        #     await message.channel.send(message.author.mention+' Invalid number of parameters.')
 
     # TEAM COMMANDS
 
