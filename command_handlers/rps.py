@@ -35,8 +35,8 @@ async def rps_handler(db, message):
         return
     
     bet = int(bet)
-    if bet > 1000 or bet < 10:
-        await message.channel.send('Your bet must be a number between 10 and 1000.')
+    if bet > 1000 or bet < 2:
+        await message.channel.send('Your bet must be a number between 2 and 1000.')
         return
     
     user_tokens = get_user_tokens(user)
@@ -84,10 +84,9 @@ async def rps_handler(db, message):
         final_string += 'You lose. You lost '+str(bet)+' tokens.'
         await change_tokens(db, user, -1*bet)
     else:
-        payout_raw = float(bet) * 0.9
-        payout_int = int(payout_raw)
-        final_string += 'You win! You won **'+str(payout_int)+' Tokens!**'
-        await change_tokens(db, user, payout_int)
+        payout = bet - 1
+        final_string += 'You win! You won **'+str(payout)+' Tokens!**'
+        await change_tokens(db, user, payout)
 
     await message.channel.send(final_string)
 
