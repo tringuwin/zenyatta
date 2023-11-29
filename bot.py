@@ -72,6 +72,7 @@ from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
 from command_handlers.profile import profile_handler
+from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
 from command_handlers.sell_gems import sell_gems_handler
 from command_handlers.solo_join import solo_join_handler
@@ -337,6 +338,9 @@ async def handle_message(message, db, client):
     elif lower_message == '!buyticket':
         await message.channel.send('There is no raffle at the moment.')
         #await buy_ticket_handler(db, message, 1)
+
+    elif lower_message == '!raffle':
+        await raffle_handler(db, message)
     
     elif lower_message.startswith('!buyticket '):
         await message.channel.send('There is no raffle at the moment.')
