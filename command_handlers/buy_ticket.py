@@ -7,13 +7,9 @@ from user import get_user_tickets, get_user_tokens, user_exists
 
 def get_all_tickets(db):
 
-    users = db['users']
-    all_users = users.find()
-
-    total_tickets = 0
-    for user in all_users:
-        if 'tickets' in user:
-            total_tickets += user['tickets']
+    db_constants = db['constants']
+    raffle_total_obj = db_constants.find_one({'name': 'raffle_total'})
+    total_tickets = raffle_total_obj['value']
 
     return total_tickets
 
@@ -39,6 +35,10 @@ async def buy_ticket_handler(db, message, amount):
 
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"tickets": user_tickets}})
+
+    db_constants = db['constants']
+    raffle_total_obj = db_constants.find_one({'name': 'raffle_total'})
+    db_constants.update_one({"name": 'raffle_total'}, {"$set": {"value": raffle_total_obj['value'] + amount}})
 
     percentage_win = float(user_tickets) / float(all_tickets)
     rounded_percent = round(percentage_win * 100.0, 3)

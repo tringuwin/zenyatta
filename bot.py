@@ -566,7 +566,7 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']
-        db_constants.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
+        db_constants.update_one({"name": 'raffle_total'}, {"$set": {"value": 0}})
 
         users = db['users']
         all_users = users.find()
