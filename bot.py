@@ -562,10 +562,20 @@ async def handle_message(message, db, client):
         }
         db_constants.insert_one(new_entry)
 
-    elif lower_message == '!resetraffle' and is_admin:
-        pass
-        # db_constants = db['constants']
+        await message.channel.send('init success')
 
+    elif lower_message == '!resetraffle' and is_admin:
+        db_constants = db['constants']
+        db_constants.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
+
+        users = db['users']
+        all_users = users.find()
+
+        for user in all_users:
+            if 'tickets' in user:
+                users.update_one({"discord_id": user['discord_id']}, {"$set": {"tickets": 0}})
+
+        await message.channel.send('Raffle reset')
 
 
     elif lower_message.startswith('!win ') and is_admin:
