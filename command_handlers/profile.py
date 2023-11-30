@@ -52,7 +52,7 @@ async def profile_handler(db, message, client):
         fan_of_string = str(fan_emoji)+' '+fan_of_string
 
     rival_of_string = rival_of
-    if league_team in constants.EMOJI_TEAMS:
+    if rival_of in constants.EMOJI_TEAMS:
         rival_emoji_id = constants.LEAGUE_TO_EMOJI_ID[rival_of]
         rival_emoji = guild.get_emoji(rival_emoji_id)
         rival_of_string = str(rival_emoji)+' '+rival_of_string
