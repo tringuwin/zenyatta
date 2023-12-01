@@ -18,7 +18,7 @@ async def get_shop_message(the_shop, channel, message_id_label):
         shop_msg = await channel.fetch_message(1141808871652987064)
         return shop_msg
 
-guide_string = '**HOW TO EARN TOKENS**\n'
+guide_string = '\n**HOW TO EARN TOKENS**\n'
 guide_string += '- Prizes for participating in events\n'
 guide_string += '- Gift command once every 8 hours (!gift)\n'
 guide_string += '- Use Twitch "Sauce Points" (Look under the twitch chat and find custom rewards)\n'
