@@ -638,9 +638,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!giverewards') and is_admin:
         
-        reward_per_round = [25, 50, 100, 200, 500, 1000, 2000, 2000]
+        reward_per_round = [25, 50, 100, 300, 500, 1000, 2000, 2000]
 
-        bracket = db['brackets'].find_one({'event_id': '17'})
+        bracket = db['brackets'].find_one({'event_id': '18'})
 
         final_dict = {}
 
