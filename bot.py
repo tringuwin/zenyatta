@@ -156,35 +156,35 @@ def is_valid_channel(message, lower_message, is_admin):
         
     elif message.channel.id == constants.CASINO_CHANNEL:
 
-        if lower_message.startswith('!wager') or lower_message.startswith('!twager') or lower_message.startswith('!tokens') or lower_message.startswith('!helpcasino'):
+        if lower_message.startswith('!wager') or lower_message.startswith('!twager') or lower_message.startswith('!tokens') or lower_message.startswith('!help'):
             return True, None
         else:
-            return False, 'Only these commands are allowed in the Roulette Channel: !wager, !twager, !tokens, !helpcasino'
+            return False, 'Only these commands are allowed in the Roulette Channel: !wager, !twager, !tokens, !helpcasino, !help'
         
     elif message.channel.id == constants.BLACKJACK_CHANNEL:
 
-        if lower_message.startswith('!blackjack') or lower_message.startswith('!tokens') or lower_message.startswith('!helpcasino'):
+        if lower_message.startswith('!blackjack') or lower_message.startswith('!tokens') or lower_message.startswith('!help'):
             return True, None
         else:
             return False, 'Only these commands are allowed in the Blackjack Channel: !blackjack, !tokens, !helpcasino'
         
     elif message.channel.id == constants.MINE_CHANNEL:
 
-        if lower_message.startswith('!mine') or lower_message.startswith('!tokens') or lower_message.startswith('!pickaxes') or lower_message.startswith('!gems') or lower_message.startswith('!sellgems') or lower_message.startswith('!tradegemset') or lower_message.startswith('!helpgems') or lower_message.startswith('!helpcasino'):
+        if lower_message.startswith('!mine') or lower_message.startswith('!tokens') or lower_message.startswith('!pickaxes') or lower_message.startswith('!gems') or lower_message.startswith('!sellgems') or lower_message.startswith('!tradegemset') or lower_message.startswith('!help'):
             return True, None
         else:
             return False, 'Only these commands are allowed in the Mineshaft Channel: !mine, !tokens, !pickaxes, !gems, !helpcasino'
         
     elif message.channel.id == constants.RPS_CHANNEL:
 
-        if lower_message.startswith('!rps') or lower_message.startswith('!tokens') or lower_message.startswith('!helpcasino'):
+        if lower_message.startswith('!rps') or lower_message.startswith('!tokens') or lower_message.startswith('!help'):
             return True, None
         else:
             return False, 'Only these commands are allowed in the RPS Channel: !rps, !tokens, !helpcasino'
         
     elif message.channel.id == constants.GEM_TRADING_CHANNEL:
 
-        if lower_message.find('gem') != -1:
+        if lower_message.startswith('!help') or lower_message.find('gem') != -1:
             return True, None
         else:
             return False, 'Only gem related commands are allowed in the Gem Trading channel.'
