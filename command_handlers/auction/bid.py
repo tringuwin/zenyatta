@@ -52,7 +52,7 @@ async def bid_handler(db, message, client):
     bot_channel = guild.get_channel(constants.BOT_CHANNEL)
 
     final_string = '--------------------------------\n'
-    final_string = '[player name] bid **'+str(bid_amount)+' Tokens** on '+data['item_name']+' (Previous Bidder: [player name])\n'
+    final_string += '[player name] bid **'+str(bid_amount)+' Tokens** on '+data['item_name']+' (Previous Bidder: [player name])\n'
     final_string += 'To bid on this item use the command **!bid [number of tokens]** in '+bot_channel.mention
     await auction_channel.send(final_string)
     
