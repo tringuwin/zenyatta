@@ -34,9 +34,12 @@ async def start_auction_handler(db, message, client):
 
     guild = await get_guild(client)
     auction_channel = guild.get_channel(constants.DAILY_AUCTION_CHANNEL)
+    bot_channel = guild.get_channel(constants.BOT_CHANNEL)
 
     final_string = 'NEW AUCTION STARTED FOR: **'+item_name+'**\n'
-    final_string += 'Starting bid is **10 Tokens**'
+    final_string += 'Starting bid is **10 Tokens**\n'
+    final_string += 'To bid on this item use the command **!bid [number of tokens]** in '+bot_channel.mention +'\n'
+    final_string += '--------------------------------'
 
     await auction_channel.send(final_string)
 

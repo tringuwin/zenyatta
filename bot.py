@@ -22,6 +22,7 @@ from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
+from command_handlers.auction.end_auction import end_auction_handler
 from command_handlers.auction.start_auction import start_auction_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.bracket import bracket_handler
@@ -494,6 +495,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!startauction') and is_admin:
         await start_auction_handler(db, message, client)
+
+    elif lower_message == '!endauction' and is_admin:
+        await end_auction_handler(db, message, client)
 
     elif lower_message.startswith('!fullevents') and is_admin:
         await full_events_handler(db, message)
