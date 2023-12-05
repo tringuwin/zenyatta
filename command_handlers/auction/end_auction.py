@@ -18,10 +18,10 @@ async def end_auction_handler(db, message, client):
     guild = await get_guild(client)
     auction_channel = guild.get_channel(constants.DAILY_AUCTION_CHANNEL)
 
-    final_string = 'Auction Ended!\n'
-    final_string += '[player name] won '+data['item_name']+' with a bid of '+str(data['highest_bid'])+' Tokens!\n'
-    final_string += '--------------------------------'
-
+    final_string = '--------------------------------\n'
+    final_string += 'Auction Ended!\n'
+    final_string += '[player name] won '+data['item_name']+' with a bid of '+str(data['highest_bid'])+' Tokens!'
+    
     await auction_channel.send(final_string)
 
     await message.channel.send('Auction ended.')
