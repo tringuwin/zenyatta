@@ -493,7 +493,7 @@ async def handle_message(message, db, client):
     # ADMIN COMMANDS
 
     elif lower_message.startswith('!startauction') and is_admin:
-        await start_auction_handler(db, message)
+        await start_auction_handler(db, message, client)
 
     elif lower_message.startswith('!fullevents') and is_admin:
         await full_events_handler(db, message)
