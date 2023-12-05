@@ -715,6 +715,19 @@ async def handle_message(message, db, client):
         standings.insert_one(new_standings)
         await message.channel.send('standings initated')
 
+    elif lower_message == '!initauction' and is_admin:
+
+        auction = db['auction']
+        new_auction = {
+            'auction_id': 1,
+            'is_open': False,
+            'item_name': 'NONE',
+            'highest_bid': 0,
+            'highest_bidder_id': 0
+        }
+        auction.insert_one(new_auction)
+        await message.channel.send('auction data initated')
+
     elif lower_message.startswith('!addwin') and is_admin:
         await add_win_handler(db, message)
 
