@@ -17,7 +17,7 @@ async def start_auction_handler(db, message, client):
     data = auction.find_one({'auction_id': 1})
 
     if data['is_open']:
-        await message.channel.send('An auction is currentl open. Please end the current auction first.')
+        await message.channel.send('An auction is currently open. Please end the current auction first.')
         return
     
     item_name = make_string_from_word_list(word_parts, 1)

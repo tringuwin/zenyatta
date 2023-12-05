@@ -22,6 +22,7 @@ from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
+from command_handlers.auction.bid import bid_handler
 from command_handlers.auction.end_auction import end_auction_handler
 from command_handlers.auction.start_auction import start_auction_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
@@ -367,6 +368,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!raffle':
         await raffle_handler(db, message)
+
+    elif lower_message.startswith('!bid '):
+        await bid_handler(db, message, client)
 
     # TEAM COMMANDS
 
