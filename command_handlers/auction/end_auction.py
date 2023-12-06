@@ -20,7 +20,13 @@ async def end_auction_handler(db, message, client):
 
     won_string = 'No one bid on the item!'
     if data['highest_bidder_id'] != 0:
-        won_string = '[player name] won '+data['item_name']+' with a bid of '+str(data['highest_bid'])+' Tokens!'
+
+        player_mention = '[PLAYER NOT FOUND]'
+        member = guild.get_member(data['highest_bidder_id'])
+        if member:
+            player_mention = member.mention
+
+        won_string = player_mention+' won '+data['item_name']+' with a bid of '+str(data['highest_bid'])+' Tokens!'
 
     final_string = '--------------------------------\n'
     final_string += 'Auction Ended!\n'
