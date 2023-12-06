@@ -39,7 +39,19 @@ async def bid_handler(db, message, client):
     if user_tokens < bid_amount:
         await message.channel.send('You do not have enough tokens for that bid.')
         return
-    
+
+    guild = await get_guild(client)
+    auction_channel = guild.get_channel(constants.DAILY_AUCTION_CHANNEL)
+    bot_channel = guild.get_channel(constants.BOT_CHANNEL)
+
+    previous_bid_string = ''
+    if data['highest_bidder_id'] != 0:
+        previous_bidder_mention = '[PLAYER NOT FOUND]'
+        previous_bidder = guild.get_member(data['highest_bidder_id'])
+        if previous_bidder:
+            previous_bidder_mention = previous_bidder.mention
+        previous_bid_string = '(Previous Bidder: '+previous_bidder_mention+')'
+
     auction.update_one({"auction_id": 1}, {"$set": 
         {
         'highest_bid': bid_amount,
@@ -47,12 +59,8 @@ async def bid_handler(db, message, client):
         }
     })
 
-    guild = await get_guild(client)
-    auction_channel = guild.get_channel(constants.DAILY_AUCTION_CHANNEL)
-    bot_channel = guild.get_channel(constants.BOT_CHANNEL)
-
     final_string = '--------------------------------\n'
-    final_string += '[player name] bid **'+str(bid_amount)+' Tokens** on '+data['item_name']+' (Previous Bidder: [player name])\n'
+    final_string += message.author.mention+' bid **'+str(bid_amount)+' Tokens** on '+data['item_name']+' '+previous_bid_string+'\n'
     final_string += 'To bid on this item use the command **!bid [number of tokens]** in '+bot_channel.mention
     await auction_channel.send(final_string)
     
