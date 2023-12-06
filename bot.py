@@ -373,7 +373,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!bid '):
         await bid_handler(db, message, client)
 
-    elif lower_message.startswith('!subtimer '):
+    elif lower_message == '!subtimer':
         await sub_timer_handler(db, message)
 
     # TEAM COMMANDS
