@@ -43,7 +43,7 @@ async def bid_handler(db, message, client):
     auction.update_one({"auction_id": 1}, {"$set": 
         {
         'highest_bid': bid_amount,
-        'highest_bidden_id': user['discord_id']
+        'highest_bidder_id': user['discord_id']
         }
     })
 
