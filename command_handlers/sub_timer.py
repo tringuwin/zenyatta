@@ -23,7 +23,7 @@ async def sub_timer_handler(db, message):
     else:
 
         seconds_left = TIME_IN_30_DAYS - difference
-        days = seconds_left / 86400.0
+        days = round(seconds_left / 86400.0, 2)
 
         await message.channel.send('Your next Twitch Sub Lootbox will be ready in '+str(days)+' days, if you are still subscribed at that time.')
     
