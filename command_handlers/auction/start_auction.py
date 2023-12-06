@@ -28,7 +28,7 @@ async def start_auction_handler(db, message, client):
         'item_name': item_name,
         'is_open': True,
         'highest_bid': 10,
-        'highest_bidden_id': 0
+        'highest_bidder_id': 0
         }
     })
 
