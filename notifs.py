@@ -7,7 +7,7 @@ from user import get_gift_notify, toggle_off_gift_notify, user_exists
 
 async def contact_member_about_gift(member, bot_channel):
     try:
-        await member.send('Your gift is ready in the Spicy Ragu server! Use the command **!gift** to claim it!')
+        await member.send('Your gift is ready in the Spicy OW server! Use the command **!gift** to claim it!')
     except discord.Forbidden:
         await bot_channel.send(member.mention+" Your gift is ready! Use the command **!gift** to claim it! (I tried to DM you first but your privacy settings didn't let me).")
     except Exception as e:
