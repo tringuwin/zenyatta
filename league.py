@@ -40,7 +40,7 @@ team_name_to_color = {
     'Saviors': discord.Colour(0x771da7),
     'Ragu': discord.Colour(0xE02814),
     'Instigators': discord.Colour(0x0c0c0c),
-    'Guardians': discord.Color(0xeb6e34)
+    'Guardians': discord.Color(0xeb34d1)
 }
 
 team_name_to_thumbnail = {
