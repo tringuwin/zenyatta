@@ -1134,9 +1134,9 @@ def run_discord_bot(db):
                 guild = await get_guild(client)
                 role = guild.get_role(role_id)
                 await member.add_roles(role)
-        # else:
-        #     print('checking for blackjack')
-        #     await check_for_black_jack(db, payload.channel_id, message_id, member, payload.emoji, client)
+        else:
+            print('checking for blackjack')
+            await check_for_black_jack(db, payload.channel_id, message_id, member, payload.emoji, client)
 
     @client.event
     async def on_raw_reaction_remove(payload):
