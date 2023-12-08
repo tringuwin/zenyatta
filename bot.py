@@ -503,7 +503,7 @@ async def handle_message(message, db, client):
     # ADMIN COMMANDS
 
     elif lower_message.startswith('!givesac ') and is_admin:
-        give_sac_handler(db, message, client)
+        await give_sac_handler(db, message, client)
 
     elif lower_message.startswith('!startauction') and is_admin:
         await start_auction_handler(db, message, client)
