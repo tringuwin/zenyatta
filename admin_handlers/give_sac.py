@@ -16,12 +16,12 @@ async def give_sac_handler(db, message, client):
         return
     
     user_info = params[1]
-    user = generic_find_user(client, db, user_info)
+    user = await generic_find_user(client, db, user_info)
     if not user:
         await message.channel.send('User not found. Maybe they have not registered yet?')
         return
     
-    user_obj = get_user_from_guild(client, user['discord_id'])
+    user_obj = await get_user_from_guild(client, user['discord_id'])
     if not user_obj:
         await message.channel.send('Error finding user.')
         return
