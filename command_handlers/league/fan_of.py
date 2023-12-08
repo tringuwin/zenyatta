@@ -27,11 +27,6 @@ async def fan_of_handler(db, message):
         await message.channel.send('There is no team named '+str(raw_team))
         return
     
-    league_team = get_league_team(user)
-    if (league_team != 'None') and (league_team != found_team):
-        await message.channel.send('You are a member of the team '+league_team+'. You cannot be a fan of another team.')
-        return
-    
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"fan_of": found_team}})
 
