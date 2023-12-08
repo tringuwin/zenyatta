@@ -16,6 +16,7 @@ from admin_handlers.gen_bracket import gen_bracket_handler
 from admin_handlers.give_gems import give_gems_handler
 from admin_handlers.give_lootbox import give_lootbox_handler
 from admin_handlers.give_random_gem import give_random_gem_handler
+from admin_handlers.give_sac import give_sac_handler
 from admin_handlers.give_sub_boxes import give_sub_boxes_handler
 from admin_handlers.give_twitch_lootbox import give_twitch_lootbox_handler
 from admin_handlers.give_xp import give_xp_handler
@@ -500,6 +501,9 @@ async def handle_message(message, db, client):
 
 
     # ADMIN COMMANDS
+
+    elif lower_message.startswith('!givesac ') and is_admin:
+        give_sac_handler(db, message, client)
 
     elif lower_message.startswith('!startauction') and is_admin:
         await start_auction_handler(db, message, client)
