@@ -26,6 +26,7 @@ from command_handlers.accept_gem_trade import accept_gem_trade_handler
 from command_handlers.auction.bid import bid_handler
 from command_handlers.auction.end_auction import end_auction_handler
 from command_handlers.auction.start_auction import start_auction_handler
+from command_handlers.auction_timer import auction_timer_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.bracket import bracket_handler
 from command_handlers.buy_ticket import buy_ticket_handler
@@ -376,6 +377,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!subtimer':
         await sub_timer_handler(db, message)
+
+    elif lower_message == '!auctiontimer':
+        await auction_timer_handler(db, message)
 
     # TEAM COMMANDS
 
