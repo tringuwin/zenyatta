@@ -58,8 +58,6 @@ async def make_team(db, creator, team_size, team_name):
     }
     teams.insert_one(new_team)
     add_team_to_user(db, creator, team_name)
-    print('New team made:')
-    print(team_name)
 
 
 async def invite_user_to_team(db, team, user):
@@ -67,7 +65,6 @@ async def invite_user_to_team(db, team, user):
     users = db['users']
     user_invites = get_user_invites(user)
     user_invites.append(team['team_name'])
-    print(user_invites)
 
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"invites": user_invites}})
 

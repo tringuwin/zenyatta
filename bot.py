@@ -132,6 +132,7 @@ from discord_actions import get_guild, is_dm_channel, member_has_role
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import can_be_int
+from messenger import send_msg
 from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
 from notifs import handle_notifs
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
@@ -244,7 +245,7 @@ async def handle_message(message, db, client):
         await help_bonus_handler(message)
 
     elif lower_message == '!version':
-        await message.channel.send(constants.VERSION)
+        await send_msg(message.channel, constants.VERSION, '!version')
     
     elif lower_message.startswith('!battle '):
         await battle_handler(db, message, client)
@@ -299,7 +300,6 @@ async def handle_message(message, db, client):
         await hatch_handler(db, message)
 
     elif lower_message.startswith('!wager'):
-        print('handling wager')
         await wager_handler(db, message)
 
     elif lower_message.startswith('!twager'):

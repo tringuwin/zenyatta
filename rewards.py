@@ -8,13 +8,11 @@ import constants
 
 async def change_tokens(db, user, num):
 
-    print('giving '+str(num)+' tokens to user '+user['battle_tag'])
     users = db['users']
     
     if "tokens" in user:
         new_tokens = user['tokens'] + num
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"tokens": new_tokens}})
-        print('new tokens is '+str(new_tokens))
     else:
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"tokens": num}})
 
