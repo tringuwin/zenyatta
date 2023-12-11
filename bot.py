@@ -1,8 +1,6 @@
 import random
 import time
 import discord
-import asyncio
-import copy
 import aiohttp
 from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.force_add_team import force_add_team_handler
@@ -134,7 +132,6 @@ from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import can_be_int
 from api import give_role, send_msg
 from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
-from notifs import handle_notifs
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
 from teams import get_team_by_name
 from user import get_lvl_info, get_role_id_by_level, user_exists
@@ -1089,13 +1086,6 @@ async def handle_message(message, db, client):
     else:
         await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
 
-
-async def check_database_and_send_messages(db, client):
-    while True:
-        
-        await handle_notifs(db, client)
-        await asyncio.sleep(60)
-
 def run_discord_bot(db):
     intents = discord.Intents.all()
     intents.message_content = True
@@ -1106,8 +1096,6 @@ def run_discord_bot(db):
     async def on_ready():
         print(f'{client.user} is now running!')
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='!help'))
-
-        client.loop.create_task(check_database_and_send_messages(db, client))
 
     @client.event
     async def on_raw_reaction_add(payload):
@@ -1127,10 +1115,6 @@ def run_discord_bot(db):
             guild = await get_guild(client)
             role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
             await member.remove_roles(role)
-        elif message_id ==  constants.GIFT_NOTIF_MSG:
-            guild = await get_guild(client)
-            role = guild.get_role(constants.GIFT_ROLE_ID)
-            await member.add_roles(role)
         elif channel_id == constants.REACTION_ROLE_CHANNEL:
             if message_id in constants.HERO_MESSAGE_TO_ROLE:
                 role_id = constants.HERO_MESSAGE_TO_ROLE[message_id]
@@ -1152,13 +1136,10 @@ def run_discord_bot(db):
             await give_role(member, role, 'Notifs Settings')
         elif message_id ==  constants.TOURNEY_NOTIF_MSG:
             role = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
-            await member.add_roles(role)
+            await give_role(member, role, 'Notifs Settings')
         elif message_id ==  constants.TWITCH_NOTIF_MSG:
             role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
-            await member.add_roles(role)
-        elif message_id ==  constants.GIFT_NOTIF_MSG:
-            role = guild.get_role(constants.GIFT_ROLE_ID)
-            await member.remove_roles(role)
+            await give_role(member, role, 'Notifs Settings')
         elif channel_id == constants.REACTION_ROLE_CHANNEL:
             if message_id in constants.HERO_MESSAGE_TO_ROLE:
                 role = guild.get_role(constants.HERO_MESSAGE_TO_ROLE[message_id])
