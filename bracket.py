@@ -53,7 +53,6 @@ async def make_matches_from_users(users_in_round, db, event_size):
     teams = db['teams']
 
     match_size = await get_match_size(len(users_in_round))
-    print(match_size)
 
     matches = []
 
@@ -116,7 +115,6 @@ async def get_tourney(db):
     num_tourney = tourney.count_documents({})
 
     if num_tourney > 0:
-        print(num_tourney)
         return True
     else:
         return False
@@ -172,7 +170,6 @@ async def make_mention(match_half, db, guild):
     elif match_half['is_tbd']:
         mention = '*TBD*'
     elif match_half['it_team']:
-        print('is team in mention')
         users_to_mention = []
         match_team = await get_team_by_name(db, match_half['user'])
         if not match_team:
@@ -341,7 +338,6 @@ async def won_match(win_index, message, db, guild, client):
 
     bracket_copy = copy.deepcopy(bracket)
     bracket_copy['bracket'][advance_round][advance_match] = advance_match_obj
-    print(bracket_copy)
 
     db['brackets'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"bracket": bracket_copy['bracket']}})
 
@@ -435,7 +431,6 @@ async def send_next_info(db, message, guild, client):
 
         match = bracket['bracket'][round_index][match_index]
         
-        print(match[0])
         # is it a bye for player1?
         if match[1]['is_bye']:
             await won_match(1, message, db, guild, client)

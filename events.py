@@ -84,7 +84,6 @@ async def remove_team_from_event(client, db, team, event):
     final_entries = []
     for entry in new_event['entries']:
         print('entry is:')
-        print(entry)
         if entry != team['team_name']:
             final_entries.append(entry)
 

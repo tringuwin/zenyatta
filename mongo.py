@@ -36,7 +36,6 @@ def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
         new_user['lower_tag'] = lower_tag
 
         users.update_one({"discord_id": discord_id}, {"$set": {"battle_tag": battle_tag, "lower_tag": lower_tag}})
-        print(users.find_one(search_query))
     else:
 
         new_user = {
@@ -55,7 +54,6 @@ def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
             'league_team': 'None',
             'league_invites': []
         }
-        print(new_user)
         users.insert_one(new_user)
 
 

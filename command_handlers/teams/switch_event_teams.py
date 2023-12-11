@@ -36,16 +36,11 @@ async def switch_event_teams(db, message):
     if not new_team:
         await message.channel.send('No team with that name exists')
         return
-    
-    print('Replacing... ')
-    print(spot)
 
     spot['user'] = new_team['team_name']
     spot['username'] = new_team['team_name']
     actual_bracket[0][match_num][spot_num] = spot
     
-    print('with...')
-    print(spot)
     brackets = db['brackets']
     brackets.update_one({"event_id": event_id}, {"$set": {"bracket": actual_bracket}})
 

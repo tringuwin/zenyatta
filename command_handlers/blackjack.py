@@ -339,11 +339,9 @@ async def blackjack_stand(db, blackjack_game, member, client, channel_id):
     copy_dealer_hand = copy.deepcopy(blackjack_game['dealer_hand'])
     incomplete_deck = make_incomplete_deck(blackjack_game['player_hand'], blackjack_game['dealer_hand'])
     while dealer_hand_value < 17 and dealer_hand_value != 0:
-        print('dealer drawing')
         drawn_card, incomplete_deck = draw_card(incomplete_deck)
         copy_dealer_hand.append(drawn_card)
         dealer_hand_value = highest_hand_value(copy_dealer_hand)
-        print(dealer_hand_value)
 
     blackjack_game['dealer_hand'] = copy_dealer_hand
     if dealer_hand_value == 0:
@@ -367,10 +365,6 @@ async def check_for_black_jack(db, channel_id, message_id, member, emoji, client
         return
     
     if emoji.name == '🇭':
-        print('Player chose to hit')
         await blackjack_hit(db, blackjack_game, member, client, channel_id)
     elif emoji.name == '🇸':
-        print('Player chose to stand')
         await blackjack_stand(db, blackjack_game, member, client, channel_id)
-    else:
-        print('Not blackjack emoji. User reacted with: '+emoji.name)

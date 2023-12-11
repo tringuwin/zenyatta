@@ -150,7 +150,6 @@ async def level_up(user, orig_level, new_level, client, db):
 
 async def change_xp(db, user, num, client):
 
-    print('giving '+str(num)+' xp to user '+user['battle_tag'])
     users = db['users']
     
     level, xp = get_lvl_info(user)
