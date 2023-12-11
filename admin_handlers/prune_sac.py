@@ -4,8 +4,6 @@ import time
 
 from user import get_last_sac, user_exists
 
-TIME_IN_30_DAYS = 2592000
-
 async def prune_sac_handler(db, message, client):
 
     guild = await get_guild(client)
@@ -21,7 +19,7 @@ async def prune_sac_handler(db, message, client):
             if user:
                 last_sac = get_last_sac(user)
                 difference = current_time - last_sac
-                if difference >= TIME_IN_30_DAYS:
+                if difference >= constants.TIME_IN_30_DAYS:
                     await member.remove_roles(sac_role)
                     roles_removed += 1
 

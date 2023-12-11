@@ -4,8 +4,6 @@ import constants
 from user import get_last_sub_box, get_sub_lootboxes, user_exists
 import time
 
-TIME_IN_30_DAYS = 2592000
-
 async def give_sub_boxes_handler(db, message, client):
 
     guild = await get_guild(client)
@@ -23,7 +21,7 @@ async def give_sub_boxes_handler(db, message, client):
                 user_boxes = get_sub_lootboxes(user)
                 current_time = time.time()
                 difference = current_time - last_sub_box
-                if difference >= TIME_IN_30_DAYS:
+                if difference >= constants.TIME_IN_30_DAYS:
                     boxes_given += 1
                     user_boxes += 1
                     users.update_one({"discord_id": user['discord_id']}, {"$set": {"sub_lootboxes": user_boxes, 'last_sub_box': current_time}})
