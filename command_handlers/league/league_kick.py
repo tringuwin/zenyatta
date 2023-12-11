@@ -59,7 +59,7 @@ async def league_kick_handler(db, message, client):
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": final_members}})
 
     users = db['users']
-    users.update_one({"discord_id": member_to_find['discord_id']}, {"$set": {"league_team": 'None'}})
+    users.update_one({"discord_id": member_to_find.id}, {"$set": {"league_team": 'None'}})
     role = await get_role_by_id(client, my_team['team_role_id'])
     if role:
         await member_to_find.remove_roles(role)
