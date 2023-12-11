@@ -132,7 +132,7 @@ from discord_actions import get_guild, is_dm_channel, member_has_role
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import can_be_int
-from messenger import send_msg
+from api import give_role, send_msg
 from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
 from notifs import handle_notifs
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
@@ -1115,7 +1115,6 @@ def run_discord_bot(db):
         message_id = payload.message_id
         member = payload.member
         channel_id = payload.channel_id
-        print('Raw reaction add by '+member.name)
         if message_id == constants.SERVER_NOTIF_MSG:
             guild = await get_guild(client)
             role = guild.get_role(constants.SERVER_NOTIFS_ROLE)
@@ -1139,7 +1138,6 @@ def run_discord_bot(db):
                 role = guild.get_role(role_id)
                 await member.add_roles(role)
         else:
-            print('checking for blackjack')
             await check_for_black_jack(db, payload.channel_id, message_id, member, payload.emoji, client)
 
     @client.event
@@ -1151,7 +1149,7 @@ def run_discord_bot(db):
         member = guild.get_member(user_id)
         if message_id == constants.SERVER_NOTIF_MSG:
             role = guild.get_role(constants.SERVER_NOTIFS_ROLE)
-            await member.add_roles(role)
+            await give_role(member, role, 'Notifs Settings')
         elif message_id ==  constants.TOURNEY_NOTIF_MSG:
             role = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
             await member.add_roles(role)
