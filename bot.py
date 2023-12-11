@@ -313,7 +313,8 @@ async def handle_message(message, db, client):
         await rps_handler(db, message)
 
     elif lower_message.startswith('!buy '):
-        await buy_handler(db, message, client)
+        await message.channel.send('This command has been removed. Check out the Daily Auction!')
+        #await buy_handler(db, message, client)
 
     elif lower_message.startswith('!donate '):
         await donate_handler(db, message)
