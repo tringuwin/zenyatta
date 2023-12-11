@@ -1,4 +1,5 @@
 import copy
+from api import get_member
 from rewards import change_xp
 from teams import get_team_by_name
 
@@ -178,7 +179,7 @@ async def make_mention(match_half, db, guild):
             return '[Team Not Found]'
         match_members = match_team['members']
         for member in match_members:
-            member_obj = guild.get_member(member)
+            member_obj = get_member(guild, member, 'Make Mention')
             if member_obj:
                 users_to_mention.append(member_obj.mention)
         mention_list = match_half['user']+' ( '
@@ -187,7 +188,7 @@ async def make_mention(match_half, db, guild):
         mention_list += ')'
         return mention_list
     else:
-        player = guild.get_member(match_half['user'])
+        player = get_member(guild, match_half['user'], 'Make Mention 2')
         if player: 
             mention = player.mention
 

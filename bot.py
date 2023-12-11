@@ -130,7 +130,7 @@ from discord_actions import get_guild, is_dm_channel, member_has_role
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import can_be_int
-from api import give_role, send_msg
+from api import get_member, give_role, send_msg
 from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
 from teams import get_team_by_name
@@ -1130,17 +1130,20 @@ def run_discord_bot(db):
         message_id = payload.message_id
         channel_id = payload.channel_id
         user_id = payload.user_id
-        member = guild.get_member(user_id)
         if message_id == constants.SERVER_NOTIF_MSG:
+            member = get_member(guild, user_id, 'Raw Reaction Remove')
             role = guild.get_role(constants.SERVER_NOTIFS_ROLE)
             await give_role(member, role, 'Notifs Settings')
         elif message_id ==  constants.TOURNEY_NOTIF_MSG:
+            member = get_member(guild, user_id, 'Raw Reaction Remove')
             role = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
             await give_role(member, role, 'Notifs Settings')
         elif message_id ==  constants.TWITCH_NOTIF_MSG:
+            member = get_member(guild, user_id, 'Raw Reaction Remove')
             role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
             await give_role(member, role, 'Notifs Settings')
         elif channel_id == constants.REACTION_ROLE_CHANNEL:
+            member = get_member(guild, user_id, 'Raw Reaction Remove')
             if message_id in constants.HERO_MESSAGE_TO_ROLE:
                 role = guild.get_role(constants.HERO_MESSAGE_TO_ROLE[message_id])
                 await member.remove_roles(role)
@@ -1178,7 +1181,7 @@ def run_discord_bot(db):
             print(e)
             traceback.print_exc()
             guild = client.get_guild(constants.GUILD_ID)
-            spicy_member = guild.get_member(constants.SPICY_RAGU_ID)
+            spicy_member = get_member(guild, constants.SPICY_RAGU_ID, 'Error Notify') 
             await message.channel.send('Whoops... An error occured. Let me notify staff. '+spicy_member.mention)
             err_channel = guild.get_channel(constants.ERROR_LOGS_CHANNEL)
             traceback_str = traceback.format_exc()

@@ -1,4 +1,5 @@
 
+from api import get_member
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
@@ -47,7 +48,7 @@ async def bid_handler(db, message, client):
     previous_bid_string = ''
     if data['highest_bidder_id'] != 0:
         previous_bidder_mention = '[PLAYER NOT FOUND]'
-        previous_bidder = guild.get_member(data['highest_bidder_id'])
+        previous_bidder = get_member(guild, data['highest_bidder_id'], 'Bid Handler')
         if previous_bidder:
             previous_bidder_mention = previous_bidder.mention
         previous_bid_string = '(Previous Bidder: '+previous_bidder_mention+')'

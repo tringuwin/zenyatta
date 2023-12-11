@@ -2,6 +2,7 @@ import copy
 import random
 import time
 import discord
+from api import get_member
 from common_messages import not_registered_response
 import constants
 from bracket import get_bracket_by_event_id, make_bracket_from_users
@@ -96,7 +97,7 @@ async def give_event_role(client, member_id):
     role = guild.get_role(constants.EVENT_ROLE)
 
     if role is not None:
-        member = guild.get_member(member_id)
+        member = get_member(guild, member_id, 'Give Event Role')
         if member:
             await member.add_roles(role)
 

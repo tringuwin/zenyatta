@@ -11,3 +11,8 @@ async def give_role(member, role, source):
 
 async def give_many_roles(member, role_array):
     print('')
+
+
+async def get_member(guild, user_id, source):
+    print('Get member from source: '+source)
+    return guild.get_member(user_id)

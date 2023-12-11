@@ -1,5 +1,6 @@
 
 
+from api import get_member
 from discord_actions import get_guild
 
 import constants
@@ -22,7 +23,7 @@ async def end_auction_handler(db, message, client):
     if data['highest_bidder_id'] != 0:
 
         player_mention = '[PLAYER NOT FOUND]'
-        member = guild.get_member(data['highest_bidder_id'])
+        member = get_member(guild, data['highest_bidder_id'], 'End Auction')
         if member:
             player_mention = member.mention
 

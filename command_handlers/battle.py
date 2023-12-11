@@ -1,3 +1,4 @@
+from api import get_member
 import constants
 from helpers import valid_number_of_params
 from mongo import create_or_update_battle_tag, find_user_with_battle_tag
@@ -22,7 +23,7 @@ async def battle_link(db, message, client, user, battle_tag):
 
     guild = client.get_guild(constants.GUILD_ID)
     reg_role = guild.get_role(constants.REGISTERED_ROLE)
-    member = guild.get_member(user.id)
+    member = get_member(guild, user.id, 'Battle Link')
     if member and reg_role:
         await member.add_roles(reg_role)
 
