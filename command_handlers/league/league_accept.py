@@ -1,5 +1,6 @@
 
 
+from api import give_role
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_role_by_id
 from helpers import make_string_from_word_list
@@ -58,7 +59,7 @@ async def league_accept_handler(db, message, client):
 
     role = await get_role_by_id(client, league_team['team_role_id'])
     if role:
-        await message.author.add_roles(role)
+        await give_role(message.author, role, 'League Accept')
 
     await update_team_info(client, league_team, db)
 

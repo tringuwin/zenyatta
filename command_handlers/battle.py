@@ -1,4 +1,4 @@
-from api import get_member
+from api import get_member, give_role
 import constants
 from helpers import valid_number_of_params
 from mongo import create_or_update_battle_tag, find_user_with_battle_tag
@@ -25,7 +25,7 @@ async def battle_link(db, message, client, user, battle_tag):
     reg_role = guild.get_role(constants.REGISTERED_ROLE)
     member = get_member(guild, user.id, 'Battle Link')
     if member and reg_role:
-        await member.add_roles(reg_role)
+        await give_role(member, reg_role, 'Battle Link')
 
     await message.channel.send("Success! Your Battle Tag has been linked to the Spicy OW server! (Please note: if you change your Battle Tag please use the !battle command again to update it!)")
 

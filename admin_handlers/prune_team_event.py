@@ -1,4 +1,5 @@
 
+from api import give_role
 from common_messages import invalid_number_of_params
 from discord_actions import get_guild, get_member_by_id, get_role_by_id
 from events import get_event_team_size
@@ -40,7 +41,7 @@ async def prune_team_event_handler(db, message, client):
     for team in valid_teams:
         for team_member in team['members']:
             member = await get_member_by_id(guild, team_member)
-            await member.add_roles(event_role)
+            await give_role(member, event_role, 'Prune Team Event')
 
 
     events = db['events']

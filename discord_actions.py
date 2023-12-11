@@ -1,4 +1,5 @@
 
+from api import give_role
 import constants
 import discord
 
@@ -18,7 +19,7 @@ async def give_role_to_user(client, discord_user, role_id):
     guild = await get_guild(client)
     role = guild.get_role(role_id)
     if role:
-        await discord_user.add_roles(role)
+        await give_role(discord_user, role, 'Give Role to User')
 
 async def remove_role_from_user(client, discord_user, role_id):
 

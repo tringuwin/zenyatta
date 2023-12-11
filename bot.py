@@ -1050,7 +1050,7 @@ async def handle_message(message, db, client):
                 level, _ = get_lvl_info(user)
                 level_role_id = get_role_id_by_level(level)
                 level_role = guild.get_role(level_role_id)
-                await member.add_roles(level_role)
+                await give_role(member, level_role, 'Give All Levels')
 
         await message.channel.send('all done')
 
@@ -1119,7 +1119,7 @@ def run_discord_bot(db):
                 role_id = constants.HERO_MESSAGE_TO_ROLE[message_id]
                 guild = await get_guild(client)
                 role = guild.get_role(role_id)
-                await member.add_roles(role)
+                await give_role(member, role, 'Reaction Roles')
         else:
             await check_for_black_jack(db, payload.channel_id, message_id, member, payload.emoji, client)
 

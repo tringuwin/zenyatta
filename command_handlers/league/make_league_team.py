@@ -1,4 +1,5 @@
 
+from api import give_role
 from discord_actions import get_role_by_id
 from helpers import make_string_from_word_list
 from user import set_user_league_team, user_exists
@@ -28,7 +29,7 @@ async def make_league_team_handler(db, message, client):
     end_string = '\n--------------------------\nAvailable TPP: 90'
     new_team_message = await team_info_channel.send('**'+team_name+' Team Details**\nMembers:\n'+player_string+end_string)
 
-    await team_owner.add_roles(role)
+    await give_role(team_owner, role, 'Make League Team')
     
     league_teams = db['leagueteams']
 
