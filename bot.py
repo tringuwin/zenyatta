@@ -18,6 +18,7 @@ from admin_handlers.give_sac import give_sac_handler
 from admin_handlers.give_sub_boxes import give_sub_boxes_handler
 from admin_handlers.give_twitch_lootbox import give_twitch_lootbox_handler
 from admin_handlers.give_xp import give_xp_handler
+from admin_handlers.prune_sac import prune_sac_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
@@ -974,6 +975,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!givesubboxes' and is_admin:
         await give_sub_boxes_handler(db, message, client)
+
+    elif lower_message == '!prunesac' and is_admin:
+        await prune_sac_handler(db, message, client)
 
     elif lower_message.startswith('!open '):
         await open_handler(db, message, client)
