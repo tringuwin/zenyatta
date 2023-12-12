@@ -131,7 +131,7 @@ from discord_actions import get_guild, is_dm_channel, member_has_role
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import can_be_int
-from api import get_member, give_role, send_msg
+from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
 from teams import get_team_by_name
@@ -1106,15 +1106,15 @@ def run_discord_bot(db):
         if message_id == constants.SERVER_NOTIF_MSG:
             guild = await get_guild(client)
             role = guild.get_role(constants.SERVER_NOTIFS_ROLE)
-            await member.remove_roles(role)
+            await remove_role(member, role, 'Raw Reaction Add')
         elif message_id ==  constants.TOURNEY_NOTIF_MSG:
             guild = await get_guild(client)
             role = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
-            await member.remove_roles(role)
+            await remove_role(member, role, 'Raw Reaction Add')
         elif message_id ==  constants.TWITCH_NOTIF_MSG:
             guild = await get_guild(client)
             role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
-            await member.remove_roles(role)
+            await remove_role(member, role, 'Raw Reaction Add')
         elif channel_id == constants.REACTION_ROLE_CHANNEL:
             if message_id in constants.HERO_MESSAGE_TO_ROLE:
                 role_id = constants.HERO_MESSAGE_TO_ROLE[message_id]
@@ -1146,7 +1146,7 @@ def run_discord_bot(db):
             member = get_member(guild, user_id, 'Raw Reaction Remove')
             if message_id in constants.HERO_MESSAGE_TO_ROLE:
                 role = guild.get_role(constants.HERO_MESSAGE_TO_ROLE[message_id])
-                await member.remove_roles(role)
+                await remove_role(member, role, 'Raw Reaction Add')
 
     @client.event
     async def on_member_join(member):

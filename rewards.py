@@ -1,6 +1,6 @@
 
 
-from api import give_role
+from api import give_role, remove_role
 from discord_actions import get_guild, get_member_by_username, get_user_from_guild
 from helpers import can_be_int, generic_find_user
 from user import get_lvl_info, get_user_lootboxes, user_exists
@@ -144,7 +144,7 @@ async def level_up(user, orig_level, new_level, client, db):
         new_level_role = guild.get_role(new_level_id)
 
         await give_role(member, new_level_role, 'Level Up')
-        await member.remove_roles(orig_level_role)
+        await remove_role(member, orig_level_role, 'Level Up')
 
 
 

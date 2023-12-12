@@ -1,5 +1,6 @@
 
 
+from api import remove_role
 from common_messages import not_registered_response
 from discord_actions import get_role_by_id
 from league import update_team_info
@@ -29,7 +30,7 @@ async def league_leave_handler(db, message, client):
     
     team_role_id = team_object['team_role_id']
     team_role = await get_role_by_id(client, team_role_id)
-    await message.author.remove_roles(team_role)
+    await remove_role(message.author, team_role, 'League Leave')
 
     final_members = []
     for member in team_object['members']:

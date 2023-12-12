@@ -1,3 +1,4 @@
+from api import remove_role
 from discord_actions import get_guild, get_role_by_id
 import constants
 import time
@@ -20,7 +21,7 @@ async def prune_sac_handler(db, message, client):
                 last_sac = get_last_sac(user)
                 difference = current_time - last_sac
                 if difference >= constants.TIME_IN_30_DAYS:
-                    await member.remove_roles(sac_role)
+                    await remove_role(member, sac_role, 'Prune SAC')
                     roles_removed += 1
 
     await message.channel.send('Command complete. '+str(roles_removed)+' total roles removed.')
