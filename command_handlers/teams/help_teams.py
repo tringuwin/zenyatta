@@ -3,7 +3,7 @@ import discord
 async def help_teams_handler(message):
 
     help_embed = discord.Embed(title='List of teams commands:')
-    help_embed.add_field(name='!teams', value='See the teams that you are currenrly part of.', inline=False)
+    help_embed.add_field(name='!teams', value='See the teams that you are currently part of.', inline=False)
     help_embed.add_field(name='!teamdetails [team name]', value='See the details of a specific team.', inline=False)
     help_embed.add_field(name='!maketeam [team size] [team name]', value='Make a new team.', inline=False)
     help_embed.add_field(name='!invite [@player] [team name]', value='Invite a user to a team you own by mentioning them.', inline=False)
