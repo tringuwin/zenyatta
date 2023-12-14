@@ -203,7 +203,7 @@ async def handle_message(message, db, client):
 
     channel = str(message.channel)
     if is_dm_channel(message.channel):
-        await message.channel.send("Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server. ")
+        await send_msg(channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
         return
 
     user_message = str(message.content)
@@ -313,8 +313,7 @@ async def handle_message(message, db, client):
         await rps_handler(db, message)
 
     elif lower_message.startswith('!buy '):
-        await message.channel.send('This command has been removed. Check out the Daily Auction!')
-        #await buy_handler(db, message, client)
+        await send_msg(message.channel, 'This command has been removed. Check out the Daily Auction!', '!buy')
 
     elif lower_message.startswith('!donate '):
         await donate_handler(db, message)
@@ -364,9 +363,10 @@ async def handle_message(message, db, client):
             if can_be_int(raw_amount):
                 await buy_ticket_handler(db, message, int(raw_amount))
             else:
-                await message.channel.send(message.author.mention+' Please enter a number of tickets to buy.')
+                await send_msg(message.channel, message.author.mention+' Please enter a number of tickets to buy.', '!buyticket')
         else:
-            await message.channel.send(message.author.mention+' Invalid number of parameters.')
+            await send_msg(message.channel, message.author.mention+' Invalid number of parameters.', '!buyticket')
+
 
     elif lower_message == '!raffle':
         await raffle_handler(db, message)
@@ -485,7 +485,7 @@ async def handle_message(message, db, client):
         league_teams = db['leagueteams']
         league_teams.delete_many({})
 
-        await message.channel.send('All league teams deleted')
+        await send_msg(message.channel, 'All league teams deleted', '!wipeleagueteams')
 
     elif lower_message.startswith('!forcedelleagueteam ') and is_admin:
         await force_delete_league_team_handler(db, message)
@@ -537,7 +537,7 @@ async def handle_message(message, db, client):
             
         brackets = db['brackets']
         brackets.delete_many({})
-        await message.channel.send('Brackets have been wiped')
+        await send_msg(message.channel, 'Brackets have been wiped', '!wipebrackets')
 
     elif lower_message.startswith("!switchmatches ") and is_admin:
 
@@ -661,7 +661,7 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!giverewards') and is_admin:
         
-        reward_per_round = [25, 50, 100, 300, 500, 1000, 2000, 2000]
+        reward_per_round = [30, 50, 100, 300, 500, 1000, 2000, 2000]
 
         bracket = db['brackets'].find_one({'event_id': '18'})
 
@@ -1053,7 +1053,7 @@ async def handle_message(message, db, client):
                 level_role = guild.get_role(level_role_id)
                 await give_role(member, level_role, 'Give All Levels')
 
-        await message.channel.send('all done')
+        await send_msg(message.channel, 'all done', '!givealllevels')
 
     elif lower_message == '!testerror' and is_admin:
 
@@ -1084,7 +1084,7 @@ async def handle_message(message, db, client):
     
 
     else:
-        await message.channel.send('Invalid command. Please see **!help** for a list of commands.')
+        await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
 
 def run_discord_bot(db):
     intents = discord.Intents.all()
@@ -1176,16 +1176,16 @@ def run_discord_bot(db):
             await handle_message(message, db, client)
         except aiohttp.client_exceptions.ClientOSError as e:
             if e.errno == 104:
-                await message.channel.send('Network error. Please try your command again.')
+                await send_msg(message.channel, 'Network error. Please try your command again.', 'Network Error')
         except Exception as e:
             print(e)
             traceback.print_exc()
             guild = client.get_guild(constants.GUILD_ID)
             spicy_member = get_member(guild, constants.SPICY_RAGU_ID, 'Error Notify') 
-            await message.channel.send('Whoops... An error occured. Let me notify staff. '+spicy_member.mention)
+            await send_msg(message.channel, 'Whoops... An error occured. Let me notify staff. '+spicy_member.mention, 'Whoops message')
             err_channel = guild.get_channel(constants.ERROR_LOGS_CHANNEL)
             traceback_str = traceback.format_exc()
-            await err_channel.send(traceback_str)
+            await send_msg(err_channel, traceback_str, 'Error Channel')
 
 
 
