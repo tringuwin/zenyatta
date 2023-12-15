@@ -211,7 +211,7 @@ async def handle_message(message, db, client):
     is_helper = (not message.author.bot) and member_has_role(message.author, constants.HELPER_ROLE_ID)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
     is_command = len(user_message) > 0 and (user_message[0] == '!')
-    if not is_command:
+    if (not is_command) and (not is_push_bot):
         return
 
     lower_message = user_message.lower()
