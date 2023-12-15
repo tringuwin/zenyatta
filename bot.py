@@ -1086,6 +1086,7 @@ async def handle_message(message, db, client):
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
         await bot_channel.send('Checking sub lootboxes and SAC')
         await give_sub_boxes_handler(db, message, client)
+        await prune_sac_handler(db, message, client)
 
 
 
