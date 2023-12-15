@@ -209,6 +209,7 @@ async def handle_message(message, db, client):
     user_message = str(message.content)
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
     is_helper = (not message.author.bot) and member_has_role(message.author, constants.HELPER_ROLE_ID)
+    is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if not is_command:
         return
@@ -1080,6 +1081,13 @@ async def handle_message(message, db, client):
             
             message = await channel.send('Add an emoji reaction to get the '+discord_role.mention+ ' role. Remove the reaction to remove it. Default is **OFF**.\n*'+role['extra']+'*')
             await message.add_reaction("✅")
+
+    elif lower_message == 'check long' and is_push_bot:
+        bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
+        await bot_channel.send('Checking sub lootboxes and SAC')
+        await give_sub_boxes_handler(db, message, client)
+
+
 
     
 
