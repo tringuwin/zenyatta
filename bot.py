@@ -138,9 +138,9 @@ from teams import get_team_by_name
 from user import get_lvl_info, get_role_id_by_level, user_exists
 
 
-def is_valid_channel(message, lower_message, is_admin):
+def is_valid_channel(message, lower_message, is_admin, is_push_bot):
 
-    if is_admin:
+    if is_admin or is_push_bot:
         return True, None
     
     if lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichhero'):
