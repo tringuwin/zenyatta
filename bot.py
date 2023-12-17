@@ -1089,32 +1089,37 @@ async def handle_message(message, db, client):
         await give_sub_boxes_handler(db, message, client)
         await prune_sac_handler(db, message, client)
 
-    # elif lower_message == 'check gifts' and is_push_bot:
-    #     bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
-    #     await bot_channel.send('Checking gifts')
-    #     guild = await get_guild(client)
-    #     gift_notifs_role_id = constants.GIFT_ROLE_ID
-    #     twitch_sub_role = await get_role_by_id(client, gift_notifs_role_id)
+    elif lower_message == 'check gifts' and is_push_bot:
+        bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
+        await bot_channel.send('Checking gifts')
+        guild = await get_guild(client)
+        gift_notifs_role_id = constants.GIFT_ROLE_ID
+        gift_notifs_role = await get_role_by_id(client, gift_notifs_role_id)
 
-    #     users = db['users']
-    #     users_notified = 0
+        users = db['users']
+        users_notified = 0
 
-    #     bot_coms_channel = guild.get_channel(constants.BOT_CHANNEL)
+        bot_coms_channel = guild.get_channel(constants.BOT_CHANNEL)
 
-    #     for member in guild.members:
-    #         if twitch_sub_role in member.roles:
-    #             user = user_exists(db, member.id)
-    #             if user:
-    #                 knows = get_knows_gift(user)
-    #                 if not knows:
-    #                     last_gift = get_last_gift(user)
-    #                     if long_enough_for_gift(last_gift):
-    #                         print('Notify '+user['battle_tag']+' that they got a gift.')
-    #                         await notify_user_of_gift(member, bot_coms_channel)
-    #                         users.update_one({"discord_id": user['discord_id']}, {"$set": {"knows_gift": True}})
-    #                         users_notified += 1
+        for member in guild.members:
+            if gift_notifs_role in member.roles:
+                print(user['battle_tag']+' has gift notifs')
+                user = user_exists(db, member.id)
+                if user:
+                    knows = get_knows_gift(user)
+                    if not knows:
+                        print(user['battle_tag']+' has not been notified yet')
+                        last_gift = get_last_gift(user)
+                        if long_enough_for_gift(last_gift):
+                            print(user['battle_tag']+' been long enough for their gift')
+                            if user['discord_id'] == constants.SPICY_RAGU_ID:
+                                print('Settings knows gift to ture')
+                                users.update_one({"discord_id": user['discord_id']}, {"$set": {"knows_gift": True}})
+                                print('Notify '+user['battle_tag']+' that they got a gift.')
+                                await notify_user_of_gift(member, bot_coms_channel)
+                                users_notified += 1
 
-    #     await message.channel.send(str(users_notified)+' users notified of having a gift')
+        await message.channel.send(str(users_notified)+' users notified of having a gift')
 
 
 
