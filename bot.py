@@ -1110,7 +1110,8 @@ async def handle_message(message, db, client):
                     if not knows:
                         print(user['battle_tag']+' has not been notified yet')
                         last_gift = get_last_gift(user)
-                        if long_enough_for_gift(last_gift):
+                        long_enough, _ = long_enough_for_gift(last_gift)
+                        if long_enough:
                             print(user['battle_tag']+' been long enough for their gift')
                             if user['discord_id'] == constants.SPICY_RAGU_ID:
                                 print('Settings knows gift to ture')
