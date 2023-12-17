@@ -210,7 +210,7 @@ TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators']
 EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu']
 
 LEAGUE_SEASON = 1
-LEAGUE_WEEK = 4
+LEAGUE_WEEK = 5
 
 REACTION_ROLE_CHANNEL = 1178440747817631784
 

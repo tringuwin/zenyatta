@@ -1103,8 +1103,8 @@ async def handle_message(message, db, client):
 
         for member in guild.members:
             if gift_notifs_role in member.roles:
-                print(user['battle_tag']+' has gift notifs')
                 user = user_exists(db, member.id)
+                print(user['battle_tag']+' has gift notifs')
                 if user:
                     knows = get_knows_gift(user)
                     if not knows:
