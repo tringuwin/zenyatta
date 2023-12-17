@@ -943,7 +943,7 @@ async def handle_message(message, db, client):
         if len(word_list) == 3:
             await give_pickaxes_command(client, db, word_list[1], int(word_list[2]), message)
         else:
-            await message.channel.send("Invalid number of arguments.")
+            await send_msg(message.channel, 'Invalid number of arguments.', '!givepickaxes')
 
     elif lower_message.startswith('!givegems ') and is_admin:
         await give_gems_handler(db, message, client)
@@ -974,7 +974,7 @@ async def handle_message(message, db, client):
 
             users.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
 
-        await message.channel.send('boxes given')
+        await send_msg(message.channel, 'boxes given', '!giveallboxes')
 
     elif lower_message == '!givesubboxes' and is_admin:
         await give_sub_boxes_handler(db, message, client)
@@ -1039,7 +1039,7 @@ async def handle_message(message, db, client):
         rest = message.content[len("!say "):].strip()
         guild = await get_guild(client)
         chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
-        await chat_channel.send(rest)
+        await send_msg(chat_channel, rest, '!say')
 
     elif lower_message.startswith('!deletebytag ') and is_admin:
         await delete_by_tag_handler(db, message)
@@ -1085,13 +1085,13 @@ async def handle_message(message, db, client):
 
     elif lower_message == 'check long' and is_push_bot:
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
-        await bot_channel.send('Checking sub lootboxes and SAC')
+        await send_msg(bot_channel, 'Checking sub lootboxes and SAC', 'Check Long')
         await give_sub_boxes_handler(db, message, client)
         await prune_sac_handler(db, message, client)
 
     elif lower_message == 'check gifts' and is_push_bot:
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
-        await bot_channel.send('Checking gifts')
+        await send_msg(bot_channel, 'Checking gifts', 'Check Gifts')
         guild = await get_guild(client)
         gift_notifs_role_id = constants.GIFT_ROLE_ID
         gift_notifs_role = await get_role_by_id(client, gift_notifs_role_id)
@@ -1120,7 +1120,7 @@ async def handle_message(message, db, client):
                                 await notify_user_of_gift(member, bot_coms_channel)
                                 users_notified += 1
 
-        await message.channel.send(str(users_notified)+' users notified of having a gift')
+        await send_msg(message.channel, str(users_notified)+' users notified of having a gift', 'Check Gifts')
 
 
 
