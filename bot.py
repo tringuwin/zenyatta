@@ -204,7 +204,7 @@ async def handle_message(message, db, client):
 
     channel = str(message.channel)
     if is_dm_channel(message.channel):
-        await send_msg(channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
+        await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
         return
 
     user_message = str(message.content)
@@ -1109,11 +1109,10 @@ async def handle_message(message, db, client):
                     if not knows:
                         last_gift = get_last_gift(user)
                         if long_enough_for_gift(last_gift):
-                            if member.id == constants.SPICY_RAGU_ID:
-                                print('Notify '+user['battle_tag']+' that they got a gift.')
-                                await notify_user_of_gift(member, bot_coms_channel)
-                                users.update_one({"discord_id": user['discord_id']}, {"$set": {"knows_gift": True}})
-                                users_notified += 1
+                            print('Notify '+user['battle_tag']+' that they got a gift.')
+                            await notify_user_of_gift(member, bot_coms_channel)
+                            users.update_one({"discord_id": user['discord_id']}, {"$set": {"knows_gift": True}})
+                            users_notified += 1
 
         await message.channel.send(str(users_notified)+' users notified of having a gift')
 

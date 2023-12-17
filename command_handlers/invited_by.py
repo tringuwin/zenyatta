@@ -6,8 +6,9 @@ from user import get_invited_valid, user_exists
 import constants
 
 invited_by_blacklist = [
-    513207840878624776, #kaz
-    607788667833942035 #lucioisblack
+    0,
+    # 513207840878624776, #kaz
+    # 607788667833942035 #lucioisblack
 ]
 
 async def invited_by_handler(db, message):
