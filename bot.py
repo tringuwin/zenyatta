@@ -136,7 +136,7 @@ from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, sw
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
 from teams import get_team_by_name
 from time_helpers import long_enough_for_gift
-from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, user_exists
+from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, notify_user_of_gift, user_exists
 
 
 def is_valid_channel(message, lower_message, is_admin, is_push_bot):
@@ -1099,6 +1099,8 @@ async def handle_message(message, db, client):
         users = db['users']
         users_notified = 0
 
+        bot_coms_channel = guild.get_channel(constants.BOT_CHANNEL)
+
         for member in guild.members:
             if twitch_sub_role in member.roles:
                 user = user_exists(db, member.id)
@@ -1107,8 +1109,11 @@ async def handle_message(message, db, client):
                     if not knows:
                         last_gift = get_last_gift(user)
                         if long_enough_for_gift(last_gift):
-                            print('Notify '+user['battle_tag']+' that they got a gift.')
-                            users_notified += 1
+                            if member.id == constants.SPICY_RAGU_ID:
+                                print('Notify '+user['battle_tag']+' that they got a gift.')
+                                await notify_user_of_gift(member, bot_coms_channel)
+                                users.update_one({"discord_id": user['discord_id']}, {"$set": {"knows_gift": True}})
+                                users_notified += 1
 
         await message.channel.send(str(users_notified)+' users notified of having a gift')
 

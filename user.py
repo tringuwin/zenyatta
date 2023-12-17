@@ -1,4 +1,6 @@
 import copy
+
+import discord
 import constants
 import time
 
@@ -228,3 +230,15 @@ async def add_event_entry_to_user(db, user, event_id):
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"entries": new_user['entries']}})
 
 
+async def notify_user_of_gift(member):
+
+    pass
+
+
+async def notify_user_of_gift(member, bot_coms_channel):
+    try:
+        # Try to send a DM
+        await member.send('Your gift is ready in the Spicy OW server!')
+    except discord.Forbidden:
+        # If DM can't be sent, mention the member in the channel
+        await bot_coms_channel.send(f'Your gift is ready, {member.mention}! (I tried to DM you but your privacy settings did not allow me to)')
