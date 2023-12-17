@@ -127,7 +127,7 @@ from command_handlers.teams.team_join import team_join_handler
 from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import twager_handler, wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
-from discord_actions import get_guild, is_dm_channel, member_has_role
+from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has_role
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import can_be_int
@@ -135,7 +135,8 @@ from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
 from teams import get_team_by_name
-from user import get_lvl_info, get_role_id_by_level, user_exists
+from time_helpers import long_enough_for_gift
+from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, user_exists
 
 
 def is_valid_channel(message, lower_message, is_admin, is_push_bot):
@@ -1087,6 +1088,31 @@ async def handle_message(message, db, client):
         await bot_channel.send('Checking sub lootboxes and SAC')
         await give_sub_boxes_handler(db, message, client)
         await prune_sac_handler(db, message, client)
+
+    elif lower_message == 'check gifts' and is_push_bot:
+        bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
+        await bot_channel.send('Checking gifts')
+        guild = await get_guild(client)
+        gift_notifs_role_id = constants.GIFT_ROLE_ID
+        twitch_sub_role = await get_role_by_id(client, gift_notifs_role_id)
+
+        users = db['users']
+        users_notified = 0
+
+        for member in guild.members:
+            if twitch_sub_role in member.roles:
+                user = user_exists(db, member.id)
+                if user:
+                    knows = get_knows_gift(user)
+                    if not knows:
+                        last_gift = get_last_gift(user)
+                        if long_enough_for_gift(last_gift):
+                            print('Notify '+user['battle_tag']+' that they got a gift.')
+                            users_notified += 1
+
+        await message.channel.send(str(users_notified)+' users notified of having a gift')
+
+
 
 
 

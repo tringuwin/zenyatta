@@ -33,7 +33,7 @@ async def process_gift(db, current_time, existing_user, message, client):
     is_sac = member_has_role(message.author, constants.SAC_ROLE)
 
     users = db['users']
-    users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"last_gift": current_time, "gift_notify": True}})
+    users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"last_gift": current_time, "knows_gift": False}})
     message_string = message.author.mention+' '
 
     total_tokens_to_give = 0

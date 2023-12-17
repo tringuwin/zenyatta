@@ -96,12 +96,22 @@ def get_user_teams(user):
     else:
         return []
     
-def get_gift_notify(user):
+    
+def get_knows_gift(user):
 
-    if 'gift_notify' in user:
-        return user['gift_notify']
+    if 'knows_gift' in user:
+        return user['knows_gift']
     else:
         return False
+    
+def get_last_gift(user):
+
+    if 'last_gift' in user:
+        return user['last_gift']
+
+    else:
+        return 0
+
     
 def get_invited_valid(user):
 
