@@ -1,3 +1,4 @@
+import asyncio
 import random
 import time
 import discord
@@ -1118,6 +1119,7 @@ async def handle_message(message, db, client):
                             print('Notify '+user['battle_tag']+' that they got a gift.')
                             await notify_user_of_gift(member, bot_coms_channel)
                             users_notified += 1
+                            await asyncio.sleep(1)
 
         await send_msg(message.channel, str(users_notified)+' users notified of having a gift', 'Check Gifts')
 
