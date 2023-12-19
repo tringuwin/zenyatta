@@ -590,7 +590,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!forceremoveplayer') and is_admin:
         await force_remove_player_handler(db, message)
 
-    elif lower_message.startswith('!forceleagueremvoe') and is_admin:
+    elif lower_message.startswith('!forceleagueremove') and is_admin:
         await force_league_remove_handler(db, message, client)
 
     elif lower_message.startswith('!twitchtokens') and is_helper:
