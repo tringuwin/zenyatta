@@ -21,16 +21,16 @@ async def change_role_handler(db, message, client):
         return
     
     user_to_change_role = None
-    member = None
+    mentioned_member = None
     username = None
 
     if len(message.mentions) == 1:
         user_to_change_role = user_exists(db, message.mentions[0].id)
-        member = message.mentions[0]
+        mentioned_member = message.mentions[0]
     else:
         username = word_list[1]
         user_to_change_role = await generic_find_user(client, db, username)
-        member = await get_member_by_username(client, username)
+        mentioned_member = await get_member_by_username(client, username)
     
     if not user_to_change_role:
         await message.channel.send('User not found.')
@@ -57,8 +57,8 @@ async def change_role_handler(db, message, client):
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": my_team['members']}})
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
-    if member:
-        await league_notifs_channel.send('Team Update for '+team_name+": "+member.mention+"'s role has been changed to "+new_role)
+    if mentioned_member:
+        await league_notifs_channel.send('Team Update for '+team_name+": "+mentioned_member.mention+"'s role has been changed to "+new_role)
     else:
         await league_notifs_channel.send('Team Update for '+team_name+": "+username+"'s role has been changed to "+new_role)
 
