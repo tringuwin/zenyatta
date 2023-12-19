@@ -7,6 +7,7 @@ from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_battle_handler import force_battle_handler
 from admin_handlers.force_delete_team import force_delete_team_handler
+from admin_handlers.force_league_remove import force_league_remove_handler
 from admin_handlers.force_make_team import force_make_team_handler
 from admin_handlers.force_remove_player import force_remove_player_handler
 from admin_handlers.force_remove_team import force_remove_team_handler
@@ -588,6 +589,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forceremoveplayer') and is_admin:
         await force_remove_player_handler(db, message)
+
+    elif lower_message.startswith('!forceleagueremvoe') and is_admin:
+        await force_league_remove_handler(db, message, client)
 
     elif lower_message.startswith('!twitchtokens') and is_helper:
         await twitch_tokens_handler(db, message)
