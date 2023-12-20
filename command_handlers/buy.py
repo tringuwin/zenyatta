@@ -18,10 +18,6 @@ async def buy_handler(db, message, client):
         await message.channel.send('The Token Shop can only be used by Twitch Subscribers.')
         return
 
-    if message.author.id != constants.SPICY_RAGU_ID:
-        await send_msg(message.channel, 'This command has been removed. Check out the Daily Auction!', '!buy')
-        return
-
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
         await invalid_number_of_params(message)
