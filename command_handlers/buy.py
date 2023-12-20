@@ -27,7 +27,7 @@ async def buy_handler(db, message, client):
         return
 
     shop = db['shop']
-    the_shop = shop.find_one({'shop_id': 1})
+    the_shop = shop.find_one({'shop_id': 2})
     if buy_item < 1 or buy_item > len(the_shop['offers']):
         await message.channel.send('There is no item with that id.')
         return
@@ -43,7 +43,7 @@ async def buy_handler(db, message, client):
 
     offer['in_stock'] -= 1
     the_shop['offers'][buy_item-1] = offer
-    shop.update_one({"shop_id":1}, {"$set": {"offers": the_shop['offers']}})
+    shop.update_one({"shop_id":2}, {"$set": {"offers": the_shop['offers']}})
 
     await update_shop(db, message)
     await change_tokens(db, user, -1 * offer['price'])

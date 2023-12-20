@@ -20,7 +20,7 @@ async def add_item_handler(db, message):
 
 
     shop = db['shop']
-    the_shop = shop.find_one({'shop_id': 1})
+    the_shop = shop.find_one({'shop_id': 2})
 
     new_offer = {
         'item_name': item_name,
@@ -30,7 +30,7 @@ async def add_item_handler(db, message):
     }
 
     the_shop['offers'].append(new_offer)
-    shop.update_one({"shop_id":1}, {"$set": {"offers": the_shop['offers']}})
+    shop.update_one({"shop_id":2}, {"$set": {"offers": the_shop['offers']}})
 
     await update_shop(db, message)
 

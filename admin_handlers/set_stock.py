@@ -15,11 +15,11 @@ async def set_stock_handler(db, message):
     real_item_id = raw_item_id - 1
 
     shop = db['shop']
-    the_shop = shop.find_one({'shop_id': 1})
+    the_shop = shop.find_one({'shop_id': 2})
 
     the_shop['offers'][real_item_id]['in_stock'] = int(params[2])
 
-    shop.update_one({"shop_id":1}, {"$set": {"offers": the_shop['offers']}})
+    shop.update_one({"shop_id":2}, {"$set": {"offers": the_shop['offers']}})
 
     await update_shop(db, message)
 

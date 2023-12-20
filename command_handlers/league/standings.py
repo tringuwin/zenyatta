@@ -29,7 +29,6 @@ async def standings_handler(db, message, client):
                 'score': score
             }
         )
-        
 
     sorted_teams = sorted(final_teams, key=lambda x: x["score"], reverse=True)
     final_string = '**LEAGUE STANDINGS**\n-----------------------'

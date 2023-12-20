@@ -29,7 +29,7 @@ guide_string += '- Invite a friend to the server. (ðŸª™ 100 Tokens for you AND ð
 
 async def update_shop(db, message):
     shop = db['shop']
-    the_shop = shop.find_one({'shop_id': 1})
+    the_shop = shop.find_one({'shop_id': 2})
 
     channel = await get_shop_channel(message)
     offer_msg = await get_shop_message(the_shop, channel, 'offers_message_id')

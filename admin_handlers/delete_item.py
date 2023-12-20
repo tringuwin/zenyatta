@@ -13,7 +13,7 @@ async def delete_item_handler(db, message):
         item_to_delete_index = item_to_delete - 1
 
         shop = db['shop']
-        the_shop = shop.find_one({'shop_id': 1})
+        the_shop = shop.find_one({'shop_id': 2})
 
         final_offers = []
         index = 0
@@ -22,7 +22,7 @@ async def delete_item_handler(db, message):
                 final_offers.append(offer)
             index += 1
 
-        shop.update_one({"shop_id":1}, {"$set": {"offers": final_offers}})
+        shop.update_one({"shop_id":2}, {"$set": {"offers": final_offers}})
 
         await update_shop(db, message)
 

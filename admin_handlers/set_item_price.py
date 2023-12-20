@@ -17,7 +17,7 @@ async def set_item_price_handler(db, message):
     item_id = int(params[1])
 
     shop = db['shop']
-    the_shop = shop.find_one({'shop_id': 1})
+    the_shop = shop.find_one({'shop_id': 2})
 
     if len(the_shop['offers']) < item_id:
         await message.channel.send('There is no item in the shop with that id.')
@@ -30,7 +30,7 @@ async def set_item_price_handler(db, message):
     current_offer['price'] = new_item_price
     the_shop['offers'][actual_index] = current_offer
 
-    shop.update_one({"shop_id":1}, {"$set": {"offers": the_shop['offers']}})
+    shop.update_one({"shop_id":2}, {"$set": {"offers": the_shop['offers']}})
 
     await update_shop(db, message)
 
