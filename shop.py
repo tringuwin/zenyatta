@@ -15,7 +15,7 @@ async def get_shop_message(the_shop, channel, message_id_label):
     
     if message_id_label in the_shop:
 
-        shop_msg = await channel.fetch_message(1141808871652987064)
+        shop_msg = await channel.fetch_message(1187063565039976589)
         return shop_msg
 
 guide_string = '\n**HOW TO EARN TOKENS**\n'
