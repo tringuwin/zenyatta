@@ -1,6 +1,7 @@
 
+from api import send_msg
 from common_messages import invalid_number_of_params, not_registered_response
-from discord_actions import give_role_to_user
+from discord_actions import get_role_by_id, give_role_to_user
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_passes, change_tokens
 from shop import get_redemptions_channel, update_shop
@@ -9,6 +10,14 @@ import constants
 
 
 async def buy_handler(db, message, client):
+
+    twitch_sub_role = await get_role_by_id(client, constants.TWITCH_SUB_ROLE)
+    if not twitch_sub_role in message.author.roles:
+        await message.channel.send('The Token Shop can only be used by Twitch Subscribers.')
+        return
+
+    await send_msg(message.channel, 'This command has been removed. Check out the Daily Auction!', '!buy')
+    return
 
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
