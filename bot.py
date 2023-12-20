@@ -1110,17 +1110,12 @@ async def handle_message(message, db, client):
             if gift_notifs_role in member.roles:
                 user = user_exists(db, member.id)
                 if user:
-                    print(user['battle_tag']+' has gift notifs')
                     knows = get_knows_gift(user)
                     if not knows:
-                        print(user['battle_tag']+' has not been notified yet')
                         last_gift = get_last_gift(user)
                         long_enough, _ = long_enough_for_gift(last_gift)
                         if long_enough:
-                            print(user['battle_tag']+' been long enough for their gift')
-                            print('Settings knows gift to ture')
                             users.update_one({"discord_id": user['discord_id']}, {"$set": {"knows_gift": True}})
-                            print('Notify '+user['battle_tag']+' that they got a gift.')
                             await notify_user_of_gift(member, bot_coms_channel)
                             users_notified += 1
                             await asyncio.sleep(1)
