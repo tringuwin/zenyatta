@@ -193,6 +193,13 @@ def get_rival_of(user):
         return user['rival_of']
     return 'None'
 
+def get_last_token_shop(user):
+
+    if 'last_token_shop' in user:
+        return user['last_token_shop']
+    
+    return 0
+
 
     
 def toggle_off_gift_notify(db, user):

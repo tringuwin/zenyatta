@@ -1,11 +1,13 @@
 
+import time
 from api import send_msg
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_role_by_id, give_role_to_user
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_passes, change_tokens
 from shop import get_redemptions_channel, update_shop
-from user import get_user_tokens, user_exists
+from time_helpers import long_enough_for_shop, time_to_shop
+from user import get_last_token_shop, get_user_tokens, user_exists
 import constants
 
 
@@ -16,8 +18,9 @@ async def buy_handler(db, message, client):
         await message.channel.send('The Token Shop can only be used by Twitch Subscribers.')
         return
 
-    await send_msg(message.channel, 'This command has been removed. Check out the Daily Auction!', '!buy')
-    return
+    if message.author.id != constants.SPICY_RAGU_ID:
+        await send_msg(message.channel, 'This command has been removed. Check out the Daily Auction!', '!buy')
+        return
 
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
@@ -45,6 +48,13 @@ async def buy_handler(db, message, client):
     if offer['in_stock'] < 1:
         await message.channel.send('That item is not currently in stock.')
         return
+    
+    last_token_shop = get_last_token_shop(user)
+    long_enough, time_diff = long_enough_for_shop(last_token_shop)
+    if not long_enough:
+        time_left = time_to_shop(time_diff)
+        await message.channel.send('You have used the Token Shop less than a week ago. You can use the shop again in **'+time_left+'**')
+        return
 
     if offer['price'] > get_user_tokens(user):
         await message.channel.send('You do not have enough tokens to redeem this reward.')
@@ -56,6 +66,9 @@ async def buy_handler(db, message, client):
 
     await update_shop(db, message)
     await change_tokens(db, user, -1 * offer['price'])
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"last_token_shop": time.time()}})
+
     if offer['auto']:
     
         if buy_item == 5:
