@@ -36,6 +36,7 @@ def time_to_shop(diff_in_time):
 
     while time_to_gift > 86400:
         days += 1
+        time_to_gift -= 86400
     while time_to_gift > 3600:
         hours += 1
         time_to_gift -= 3600
