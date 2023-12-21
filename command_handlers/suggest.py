@@ -6,7 +6,7 @@ import constants
 async def suggest_handler(message, client):
     
     idea = message.content[len("!suggest "):].strip()
-    if idea.lower.find('club') != -1:
+    if idea.lower().find('club') != -1:
         await message.channel.send('Invalid suggestion.')
         return
 
