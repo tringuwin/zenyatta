@@ -214,6 +214,15 @@ async def handle_message(message, db, client):
     is_helper = (not message.author.bot) and member_has_role(message.author, constants.HELPER_ROLE_ID)
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
+
+    if (not has_image_perms) and (lower_message.find('discord.gg') != -1 or lower_message.find('http') != -1):
+        await message.delete()
+        warning = await message.channel.send(message.author.mention+' '+' users without Image Perms are not allowed to post links. Please ask a Helper for Image Perms.')
+
+        time.sleep(10)
+        await warning.delete()
+        return
+
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if (not is_command) and (not is_push_bot):
         return
@@ -226,14 +235,6 @@ async def handle_message(message, db, client):
         
         await message.delete()
         warning = await message.channel.send(message.author.mention+" "+response)
-
-        time.sleep(10)
-        await warning.delete()
-        return
-
-    if (not has_image_perms) and (lower_message.find('discord.gg') != -1 or lower_message.find('http') != -1) :
-        await message.delete()
-        warning = await message.channel.send(message.author.mention+' '+' users without Image Perms are not allowed to post links. Please ask a Helper for Image Perms.')
 
         time.sleep(10)
         await warning.delete()
