@@ -215,6 +215,7 @@ async def handle_message(message, db, client):
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
 
+    lower_message = user_message.lower()
     if (not has_image_perms) and (lower_message.find('discord.gg') != -1 or lower_message.find('http') != -1):
         await message.delete()
         warning = await message.channel.send(message.author.mention+' '+' users without Image Perms are not allowed to post links. Please ask a Helper for Image Perms.')
@@ -226,8 +227,6 @@ async def handle_message(message, db, client):
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if (not is_command) and (not is_push_bot):
         return
-
-    lower_message = user_message.lower()
 
     valid_channel, response = is_valid_channel(message, lower_message, is_admin, is_push_bot)
 
