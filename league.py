@@ -42,7 +42,8 @@ team_name_to_color = {
     'Instigators': discord.Colour(0x0c0c0c),
     'Guardians': discord.Colour(0xeb34d1),
     'Phoenix': discord.Colour(0xfc633d),
-    'Fresas': discord.Colour(0xc33d3c)
+    'Fresas': discord.Colour(0xc33d3c),
+    'Outliers': discord.Colour(0x1d0035)
 }
 
 team_name_to_thumbnail = {
@@ -54,7 +55,8 @@ team_name_to_thumbnail = {
     'Instigators': '',
     'Guardians': '',
     'Phoenix': '',
-    'Fresas': ''
+    'Fresas': '',
+    'Outliers': ''
 }
 
 async def update_team_info(client, team, db):
