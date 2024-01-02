@@ -68,11 +68,13 @@ from command_handlers.league.reset_scores import reset_scores_handler
 from command_handlers.league.reset_wins import reset_wins_handler
 from command_handlers.league.rival_of import rival_of_handler
 from command_handlers.league.schedule import schedule_handler
+from command_handlers.league.set_apps_link import set_apps_link_handler
 from command_handlers.league.set_league_team import set_league_team_handler
 from command_handlers.league.set_map import set_map_handler
 from command_handlers.league.set_score import set_score_handler
 from command_handlers.league.set_win import set_win_handler
 from command_handlers.league.standings import standings_handler
+from command_handlers.league.toggle_apps import toggle_apps_handler
 from command_handlers.league.update_team import update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
@@ -488,6 +490,12 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!leagueleave':
         await league_leave_handler(db, message, client)
+
+    elif lower_message == '!setappslink':
+        await set_apps_link_handler(db, message)
+
+    elif lower_message == '!toggleapps':
+        await toggle_apps_handler(db, message)
 
     elif lower_message.startswith('!setleagueteam ') and is_admin:
         # !setleagueteam [user_id] [team name]
