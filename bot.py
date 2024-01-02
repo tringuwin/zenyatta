@@ -491,7 +491,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!leagueleave':
         await league_leave_handler(db, message, client)
 
-    elif lower_message == '!setappslink':
+    elif lower_message.startswith('!setappslink'):
         await set_apps_link_handler(db, message)
 
     elif lower_message == '!toggleapps':
