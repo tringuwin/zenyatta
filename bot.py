@@ -754,6 +754,68 @@ async def handle_message(message, db, client):
         standings.insert_one(new_standings)
         await message.channel.send('standings initated')
 
+    elif lower_message == '!initapps' and is_admin:
+
+        applications = db['applications']
+        new_apps = {
+            'teams': [
+                {
+                    'team': 'Polar',
+                    'appsOpen': False,
+                    'appsLink': 'None'
+                },
+                {
+                    'team': 'Olympians',
+                    'appsOpen': False,
+                    'appsLink': 'None'
+                },
+                {
+                    'team': 'Eclipse',
+                    'appsOpen': False,
+                    'appsLink': 'None'
+                },
+                {
+                    'team': 'Ragu',
+                    'appsOpen': False,
+                    'appsLink': 'None'
+                },
+                {
+                    'team': 'Saviors',
+                    'appsOpen': False,
+                    'appsLink': 'None'
+                },
+                {
+                    'team': 'Instigators',
+                    'appsOpen': False,
+                    'appsLink': 'None'
+                },
+                {
+                    'team': 'Guardians',
+                    'appsOpen': False,
+                    'appsLink': 'None'
+                },
+                {
+                    'team': 'Outliers',
+                    'appsOpen': False,
+                    'appsLink': 'None'
+                },
+                {
+                    'team': 'Fresas',
+                    'appsOpen': False,
+                    'appsLink': 'None'
+                },
+                {
+                    'team': 'Phoenix',
+                    'appsOpen': False,
+                    'appsLink': 'None'
+                },
+            ]
+        }
+
+        applications.insert_one(new_apps)
+        await message.channel.send('applications initated')
+
+
     elif lower_message == '!initauction' and is_admin:
 
         auction = db['auction']
