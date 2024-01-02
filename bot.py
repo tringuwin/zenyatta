@@ -758,6 +758,7 @@ async def handle_message(message, db, client):
 
         applications = db['applications']
         new_apps = {
+            'teams_id': 1,
             'teams': [
                 {
                     'team': 'Polar',
