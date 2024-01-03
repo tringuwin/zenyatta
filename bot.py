@@ -1142,6 +1142,14 @@ async def handle_message(message, db, client):
 
         await send_msg(message.channel, 'all done', '!givealllevels')
 
+    elif lower_message == '!getavatar':
+        avatar = message.author.display_avatar
+        if avatar:
+            avatar_link = avatar.url
+            await message.channel.send(avatar_link)
+        else:
+            await message.channel.send('Problem getting avatar')
+
     elif lower_message == '!testerror' and is_admin:
 
         test = {
