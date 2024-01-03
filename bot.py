@@ -1146,7 +1146,7 @@ async def handle_message(message, db, client):
         avatar = message.author.display_avatar
         if avatar:
             avatar_link = avatar.url
-            await message.channel.send(avatar_link)
+            await message.channel.send('('+avatar_link+')')
         else:
             await message.channel.send('Problem getting avatar')
 
