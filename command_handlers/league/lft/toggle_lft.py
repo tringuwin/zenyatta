@@ -22,8 +22,8 @@ async def toggle_lft_handler(db, message):
         lft_users.update_one({"user_id": lft_user['user_id']}, {"$set": {"is_on": new_is_on}})
 
     if new_is_on:
-        await message.channel.send('Looking For Team is no **ON**. You will appear in the list of players looking for a team here: https://spicyragu.netlify.app/sol/lft')
+        await message.channel.send('Looking For Team is now **ON**. You will appear in the list of players looking for a team here: https://spicyragu.netlify.app/sol/lft')
     else:
-        await message.channel.send('Looking For Team is no **OFF**. You will no longer appear on the list of players looking for a team')
+        await message.channel.send('Looking For Team is now **OFF**. You will no longer appear on the list of players looking for a team')
 
 
