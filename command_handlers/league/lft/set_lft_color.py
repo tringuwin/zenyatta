@@ -39,7 +39,7 @@ async def set_lft_color_handler(db, message):
         await message.channel.send(hex_code+' is not a valid hex code.')
         return
 
-    created, lft_user = get_lft_user(db, message.author.id, user)
+    created, lft_user = get_lft_user(db, message.author, user)
 
     lft_users = db['lft_users']
     if created:
