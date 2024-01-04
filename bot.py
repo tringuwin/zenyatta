@@ -481,7 +481,6 @@ async def handle_message(message, db, client):
         # !leaguecancelinvite @player
         await league_cancel_invite_handler(db, message)
 
-
     elif lower_message == '!leagueinvites':
         await league_invites_handler(db, message)
 
@@ -496,6 +495,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!toggleapps':
         await toggle_apps_handler(db, message)
+
+    elif lower_message == '!togglelft':
+        await toggle_lft_handler(db, message)
 
     elif lower_message.startswith('!setleagueteam ') and is_admin:
         # !setleagueteam [user_id] [team name]
