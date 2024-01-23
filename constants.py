@@ -212,6 +212,11 @@ TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators']
 
 EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu']
 
+LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassidy', 'dva', 'doomfist', 'echo', 'genji', 'hanzo', 'illari', 
+                        'junker queen', 'junkrat', 'kiriko', 'lifeweaver', 'lucio', 'mei', 'mercy', 'moira', 'orisa', 'ramattra', 'reaper', 
+                        'reinhardt', 'roadhog', 'sigma', 'sojourn', 'soldier 76', 'sombra', 'symmetra', 'torbjorn', 'tracer', 'widowmaker', 
+                        'winston', 'wrecking ball', 'zarya', 'zenyatta']
+
 LEAGUE_SEASON = 1
 LEAGUE_WEEK = 5
 

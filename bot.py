@@ -60,6 +60,7 @@ from command_handlers.league.league_invites import league_invites_handler
 from command_handlers.league.league_kick import league_kick_handler
 from command_handlers.league.league_leave import league_leave_handler
 from command_handlers.league.lft.set_lft_color import set_lft_color_handler
+from command_handlers.league.lft.set_lft_hero import set_lft_hero_handler
 from command_handlers.league.lft.toggle_lft import toggle_lft_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
@@ -504,6 +505,9 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!setlftcolor'): 
         await set_lft_color_handler(db, message)
 
+    elif lower_message.startswith('!setlfthero'):
+        await set_lft_hero_handler(db, message)
+
     elif lower_message.startswith('!setleagueteam ') and is_admin:
         # !setleagueteam [user_id] [team name]
         await set_league_team_handler(db, message)
@@ -533,7 +537,7 @@ async def handle_message(message, db, client):
 
     # ADMIN COMMANDS
 
-    elif lower_message.startswith('!givesac ') and is_admin:
+    elif lower_message.startswith('!givesac ') and is_helper:
         await give_sac_handler(db, message, client)
 
     elif lower_message.startswith('!startauction') and is_admin:
