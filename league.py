@@ -73,7 +73,6 @@ async def update_team_info(client, team, db):
     embed.set_thumbnail(url=team_name_to_thumbnail[team['team_name']])
 
     for member in team['members']:
-        print('member')
 
         try:
             guild_member = await guild.fetch_member(member['discord_id'])
