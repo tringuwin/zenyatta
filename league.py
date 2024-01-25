@@ -55,7 +55,7 @@ team_name_to_thumbnail = {
     'Instigators': 'https://i.postimg.cc/wv9xTQRB/Instigators.png',
     'Guardians': 'https://i.postimg.cc/zf2gmRXm/Guardians.png',
     'Phoenix': '',
-    'Fresas': '',
+    'Fresas': 'https://i.postimg.cc/CLBr99Ms/Fresas.png',
     'Outliers': ''
 }
 
