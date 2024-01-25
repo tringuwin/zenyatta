@@ -102,7 +102,7 @@ async def wager_handler(db, message):
             return
         wager = int(wager)
 
-        if wager > 1000 or wager < 1:
+        if wager > 25000 or wager < 1:
             await message.channel.send('Wager must be between 1 and 1000 tokens')
             return
         
@@ -163,7 +163,7 @@ async def twager_handler(db, message):
             return
         wager = int(wager)
 
-        if wager > 1000 or wager < 1:
+        if wager > 25000 or wager < 1:
             await message.channel.send('Wager must be between 1 and 1000 tokens')
             return
         
