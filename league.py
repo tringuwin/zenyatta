@@ -53,7 +53,7 @@ team_name_to_thumbnail = {
     'Saviors': 'https://i.imgur.com/nrjx29Z.png',
     'Ragu': 'https://i.postimg.cc/5y2cSTFg/RAGU-FINAL-file.png',
     'Instigators': 'https://i.postimg.cc/mD8dSq2Y/Instigators.png',
-    'Guardians': '',
+    'Guardians': 'https://i.postimg.cc/zf2gmRXm/Guardians.png',
     'Phoenix': '',
     'Fresas': '',
     'Outliers': ''
@@ -79,7 +79,7 @@ async def update_team_info(client, team, db):
             guild_member = await guild.fetch_member(member['discord_id'])
         except discord.NotFound:
             guild_member = None
-            
+
         member_mention = '[User not found]'
         if guild_member:
             member_mention = guild_member.mention
