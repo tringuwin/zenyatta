@@ -208,9 +208,9 @@ MAP_NAME_TO_NAME_IMG = {
 
 NO_MAP_NAME = 'https://i.postimg.cc/hPNGk6G1/No-Map.png'
 
-TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators']
+TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians',  'Fresas', 'Outliers', 'Phoenix']
 
-EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu']
+EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians']
 
 LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassidy', 'dva', 'doomfist', 'echo', 'genji', 'hanzo', 'illari', 
                         'junker queen', 'junkrat', 'kiriko', 'lifeweaver', 'lucio', 'mei', 'mercy', 'moira', 'orisa', 'ramattra', 'reaper', 
