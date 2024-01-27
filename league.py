@@ -54,9 +54,9 @@ team_name_to_thumbnail = {
     'Ragu': 'https://i.postimg.cc/5y2cSTFg/RAGU-FINAL-file.png',
     'Instigators': 'https://i.postimg.cc/wv9xTQRB/Instigators.png',
     'Guardians': 'https://i.postimg.cc/zf2gmRXm/Guardians.png',
-    'Phoenix': '',
+    'Phoenix': 'https://i.postimg.cc/DyXZH04q/Phoenix.png',
     'Fresas': 'https://i.postimg.cc/CLBr99Ms/Fresas.png',
-    'Outliers': ''
+    'Outliers': 'https://i.postimg.cc/CLgGc3zL/Outliers.png'
 }
 
 async def update_team_info(client, team, db):
