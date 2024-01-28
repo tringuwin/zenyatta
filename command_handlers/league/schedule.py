@@ -41,8 +41,11 @@ async def schedule_handler(db, message, client):
 
         index += 1
         weeks += 1
-        if weeks == 3:
+        if weeks == 5:
             break
+
+    final_string += '\n----------------'
+    final_string += '\n9 Total Weeks'
 
     await message.channel.send(final_string)
 
