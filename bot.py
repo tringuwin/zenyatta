@@ -772,13 +772,18 @@ async def handle_message(message, db, client):
         standings = db['standings']
         new_standings = {
             # [win, loss]
-            'season': 1,
+            'season': 2,
             'teams': {
                 'Olympians': [0, 0],
                 'Polar': [0, 0],
                 'Eclipse': [0, 0],
                 'Saviors': [0, 0],
-                'Ragu': [0, 0]
+                'Ragu': [0, 0],
+                'Instigators': [0, 0],
+                'Guardians': [0, 0],
+                'Fresas': [0, 0],
+                'Outliers': [0, 0],
+                'Phoenix': [0, 0]
             }
         }
         standings.insert_one(new_standings)
