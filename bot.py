@@ -629,6 +629,7 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!testdm' and is_admin:
 
+        guild = await get_guild(client)
         spicy_emoji = guild.get_emoji(1168952409125556304)
         default_msg = "Welcome to the Spicy OW "+str(spicy_emoji)+" Discord Server! I'm *Zenyatta*, the server's helper bot. "
         default_msg += "\n\nIf you're interested in joining a **League Team**, you can see which teams have applications open here: https://spicyragu.netlify.app/sol/apply"
