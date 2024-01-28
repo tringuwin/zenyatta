@@ -19,6 +19,7 @@ async def schedule_handler(db, message, client):
 
     final_string = '**~ LEAGUE SCHEDULE ~**'
     index = 1
+    weeks = 0
     for week in season_schedule['weeks']:
 
         if index < constants.LEAGUE_WEEK:
@@ -39,6 +40,9 @@ async def schedule_handler(db, message, client):
             final_string += '\n'+str(team1_emoji)+' **'+team1+'** VS '+str(team2_emoji)+' **'+team2+'**'
 
         index += 1
+        weeks += 1
+        if weeks == 3:
+            break
 
     await message.channel.send(final_string)
 
