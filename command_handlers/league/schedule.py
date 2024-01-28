@@ -35,7 +35,7 @@ async def schedule_handler(db, message, client):
 
             team1_emoji = team_name_to_emoji(team1, guild)
             team2_emoji = team_name_to_emoji(team2, guild)
-            final_string += '\n'+date
+            # final_string += '\n'+date
             final_string += '\n'+str(team1_emoji)+' **'+team1+'** VS '+str(team2_emoji)+' **'+team2+'**'
 
         index += 1
