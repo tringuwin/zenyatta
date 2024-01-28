@@ -627,6 +627,15 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!twitchpass') and is_helper:
         await twitch_pass_handler(db, message)
 
+    elif lower_message == '!testdm' and is_admin:
+
+        default_msg = "Welcome to the Spicy OW Discord Server! I'm *Zenyatta*, the server's helper bot."
+        default_msg += "\n\nIf you're interested in joining a **League Team**, you can see which teams have applications open here: https://spicyragu.netlify.app/sol/apply"
+        default_msg += '\n\nYou can also find more information about our League here: https://discord.com/channels/1130553449491210442/1178427939453411469'
+        default_msg += '\n\nThank you for joining! If you have any questions, feel free to ask here: https://discord.com/channels/1130553449491210442/1166410753184632933'
+
+        await message.channel.send(default_msg)
+
     elif lower_message.startswith('!initraffleconst') and is_admin:
         
         db_constants = db['constants']
