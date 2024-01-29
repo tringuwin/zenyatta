@@ -64,6 +64,7 @@ from command_handlers.league.lft.set_lft_hero import set_lft_hero_handler
 from command_handlers.league.lft.toggle_lft import toggle_lft_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
+from command_handlers.league.ping_team import ping_team_handler
 from command_handlers.league.remove_team_admin import remove_team_admin_handler
 from command_handlers.league.reset_map import reset_map_handler
 from command_handlers.league.reset_maps import reset_maps_handler
@@ -151,7 +152,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot):
     if is_helper or is_push_bot:
         return True, None
     
-    if lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichhero'):
+    if lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichhero') or lower_message=='!pingteam':
         return True, None
 
     if message.channel.id == constants.BOT_CHANNEL:
@@ -492,6 +493,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!leagueleave':
         await league_leave_handler(db, message, client)
+
+    elif lower_message == '!pingteam':
+        await ping_team_handler(db, message, client)
 
     elif lower_message.startswith('!setappslink'):
         await set_apps_link_handler(db, message)
