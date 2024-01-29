@@ -46,6 +46,7 @@ async def schedule_handler(db, message, client):
 
     final_string += '\n----------------'
     final_string += '\n9 Total Weeks'
+    final_string += '\nSee the full Schedule here: https://spicyragu.netlify.app/sol/schedule'
 
     await message.channel.send(final_string)
 
