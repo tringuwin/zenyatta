@@ -40,10 +40,10 @@ team_name_to_color = {
     'Saviors': discord.Colour(0x771da7),
     'Ragu': discord.Colour(0xE02814),
     'Instigators': discord.Colour(0x0c0c0c),
-    'Guardians': discord.Colour(0xeb34d1),
-    'Phoenix': discord.Colour(0xfc633d),
-    'Fresas': discord.Colour(0xc33d3c),
-    'Outliers': discord.Colour(0x1d0035)
+    'Guardians': discord.Colour(0xff2af5),
+    'Phoenix': discord.Colour(0xf15a29),
+    'Fresas': discord.Colour(0xf92446),
+    'Outliers': discord.Colour(0x361c89)
 }
 
 team_name_to_thumbnail = {
