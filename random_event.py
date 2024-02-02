@@ -10,16 +10,16 @@ SECONDS_IN_A_HOUR = 3600
 
 random_event_list = [
 
-    ['Gem', 'purple', 'Ana Gave You a Nano Boost! **(:gempurple:)**'],
-    ['Gem', 'blue', 'Baptiste Saved You with an Immortality Field! **(:gemblue:)**'],
-    ['Gem', 'yellow', 'You rallied with Brigitte! **(:gemyellow:)**'],
-    ['Gem', 'orange', 'Junkrat gave you some loot from his last Heist! **(:gemorange:)**'],
-    ['Gem', 'red', 'Kiriko gave you something that the Fox Spirit found! **(:gemred:)**'],
-    ['Gem', 'pink', 'Lifeweaver gave you a someone he made with light! **(:gempink:)**'],
-    ['Gem', 'green', 'Lucio gave you a cool souvenir at his concert! **(:gemgreen:)**'],
-    ['Gem', 'teal', 'Mei gave you somethign she found frozen in the ice! **(:gemteal:)**'],
-    ['Gem', 'black', 'Pharah gave you something she found in Egypt! **(:gemblack:)**'],
-    ['Gem', 'white', 'Mercy pocketed you! **(:gemwhite:)**'],
+    ['Gem', 'purple', 'Ana Gave You a Nano Boost! **(<:gempurple:1159202449068916837>)**'],
+    ['Gem', 'blue', 'Baptiste Saved You with an Immortality Field! **(<:gemblue:1159202447676424292>)**'],
+    ['Gem', 'yellow', 'You rallied with Brigitte! **(<:gemyellow:1159202451652624495>)**'],
+    ['Gem', 'orange', 'Junkrat gave you some loot from his last Heist! **(<:gemorange:1159202446128730153>)**'],
+    ['Gem', 'red', 'Kiriko gave you something that the Fox Spirit found! **(<:gemred:1159202371998597211>)**'],
+    ['Gem', 'pink', 'Lifeweaver gave you a someone he made with light! **(<:gempink:1159202453028360334>)**'],
+    ['Gem', 'green', 'Lucio gave you a cool souvenir at his concert! **(<:gemgreen:1159202443947679885>)**'],
+    ['Gem', 'teal', 'Mei gave you somethign she found frozen in the ice! **(<:gemteal:1159202442559361104>)**'],
+    ['Gem', 'black', 'Pharah gave you something she found in Egypt! **(<:gemblack:1159202439031959643>)**'],
+    ['Gem', 'white', 'Mercy pocketed you! **(<:gemwhite:1159202441116516362>)**'],
 
     ['Token', 100, 'You got a Nano-Cola from D.Va! **(🪙 100)**'],
     ['Token', 70, 'You took a trip to England to visit Tracer! **(🪙 70)**'],
