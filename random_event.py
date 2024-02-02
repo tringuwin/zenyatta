@@ -4,7 +4,7 @@ from discord_actions import get_guild
 from rewards import change_tokens
 from user import user_exists
 
-SECONDS_IN_A_HOUR = 300 #3600
+SECONDS_IN_A_HOUR = 3600
 
 async def try_random_event(db, client):
     print('trying random event')
@@ -18,12 +18,10 @@ async def try_random_event(db, client):
     if current_time - last_event < SECONDS_IN_A_HOUR:
         print('not long enough')
         return
-    
-    '🎁 A RANDOM PRESENT HAS SPAWNED! CLICK THE KEY FIRST TO OPEN IT! (this feature does not work yet) 🎁'
 
     guild = await get_guild(client)
     chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
-    event_msg = await chat_channel.send('🎁 A RANDOM PRESENT HAS SPAWNED! CLICK THE KEY FIRST TO OPEN IT!🎁')
+    event_msg = await chat_channel.send('🎁 A RANDOM PRESENT HAS SPAWNED! CLICK THE KEY FIRST TO OPEN IT! 🎁')
     
     random_event['last_event'] = current_time
     random_event['event_msg_id'] = event_msg.id

@@ -1336,7 +1336,7 @@ def run_discord_bot(db):
         member = payload.member
         channel_id = payload.channel_id
 
-        if channel_id == constants.CHAT_CHANNEL:
+        if channel_id == constants.CHAT_CHANNEL and member.id != 1130225436006305946:
             emoji = payload.emoji
             if str(emoji) == '🔑':
                 await react_to_event(db, client, message_id, member)
