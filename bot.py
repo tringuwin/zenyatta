@@ -653,6 +653,17 @@ async def handle_message(message, db, client):
 
         await message.channel.send('init success')
 
+    elif lower_message.startswith('!initchatevent') and is_admin:
+
+        db_constants = db['constants']
+        new_entry = {
+            'name': 'chat_event',
+            'value': 0
+        }
+        db_constants.insert_one(new_entry)
+
+        await message.channel.send('init success')
+
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']
         db_constants.update_one({"name": 'raffle_total'}, {"$set": {"value": 0}})
