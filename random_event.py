@@ -4,7 +4,7 @@ from discord_actions import get_guild
 from rewards import change_tokens
 from user import user_exists
 
-SECONDS_IN_A_HOUR = 3600
+SECONDS_IN_A_HOUR = 300 #3600
 
 async def try_random_event(db, client):
 
