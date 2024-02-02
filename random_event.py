@@ -21,7 +21,7 @@ async def try_random_event(db, client):
 
     guild = await get_guild(client)
     chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
-    event_msg = await chat_channel.send('🎁 A RANDOM PRESENT HAS SPAWNED! CLICK THE KEY FIRST TO OPEN IT! (this feature does not work yet) 🎁')
+    event_msg = await chat_channel.send('🎁 A RANDOM PRESENT HAS SPAWNED! CLICK THE KEY FIRST TO OPEN IT!🎁')
     
     random_event['last_event'] = current_time
     random_event['event_msg_id'] = event_msg.id
@@ -29,7 +29,7 @@ async def try_random_event(db, client):
 
     db_constants.update_one({"name": 'random_event'}, {"$set": {"last_event": random_event['last_event'], "event_msg_id": random_event['event_msg_id'], "claimed": random_event['claimed']}})
 
-    await event_msg.add_reaction('🗝️')
+    await event_msg.add_reaction('🔑')
 
 
 async def react_to_event(db, client, message_id, member):
