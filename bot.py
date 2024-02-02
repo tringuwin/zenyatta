@@ -141,6 +141,7 @@ from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import can_be_int
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
+from random_event import try_random_event
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
 from teams import get_team_by_name
 from time_helpers import long_enough_for_gift
@@ -209,6 +210,10 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot):
 
 
 async def handle_message(message, db, client):
+
+    random_event_chance = random.randint(1, 100)
+    if random_event_chance == 100:
+        await try_random_event(db, client)
 
     channel = str(message.channel)
     if is_dm_channel(message.channel):
@@ -653,12 +658,14 @@ async def handle_message(message, db, client):
 
         await message.channel.send('init success')
 
-    elif lower_message.startswith('!initchatevent') and is_admin:
+    elif lower_message.startswith('!initrandomevent') and is_admin:
 
         db_constants = db['constants']
         new_entry = {
-            'name': 'chat_event',
-            'value': 0
+            'name': 'random_event',
+            'last_event': 0,
+            'event_msg_id': 0,
+            'claimed': 0
         }
         db_constants.insert_one(new_entry)
 
