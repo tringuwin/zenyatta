@@ -7,6 +7,7 @@ from user import user_exists
 SECONDS_IN_A_HOUR = 300 #3600
 
 async def try_random_event(db, client):
+    print('trying random event')
 
     db_constants = db['constants']
     random_event = db_constants.find_one({'name': 'random_event'})
@@ -15,6 +16,7 @@ async def try_random_event(db, client):
 
     current_time = time.time()
     if current_time - last_event < SECONDS_IN_A_HOUR:
+        print('not long enough')
         return
     
     '🎁 A RANDOM PRESENT HAS SPAWNED! CLICK THE KEY FIRST TO OPEN IT! (this feature does not work yet) 🎁'
