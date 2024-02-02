@@ -141,7 +141,7 @@ from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import can_be_int
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
-from random_event import try_random_event
+from random_event import react_to_event, try_random_event
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
 from teams import get_team_by_name
 from time_helpers import long_enough_for_gift
@@ -1335,6 +1335,12 @@ def run_discord_bot(db):
         message_id = payload.message_id
         member = payload.member
         channel_id = payload.channel_id
+
+        if channel_id == constants.CHAT_CHANNEL:
+            emoji = payload.emoji
+            if str(emoji) == '🗝️':
+                await react_to_event(db, client, message_id, member)
+
         if message_id == constants.SERVER_NOTIF_MSG:
             guild = await get_guild(client)
             role = guild.get_role(constants.SERVER_NOTIFS_ROLE)
