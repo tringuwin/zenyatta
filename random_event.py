@@ -49,7 +49,7 @@ async def react_to_event(db, client, message_id, member):
     guild = await get_guild(client)
     chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
 
-    user = user_exists(db, member)
+    user = user_exists(db, member.id)
     if not user:
         await chat_channel.send(member.mention+" You're not registered yet. Please register before trying to claim a gift.")
         return
