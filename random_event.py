@@ -8,7 +8,7 @@ from user import get_user_gems, user_exists
 SECONDS_IN_A_HOUR = 3600
 
 
-random_event_list = {
+random_event_list = [
 
     ['Gem', 'purple', 'Ana Gave You a Nano Boost! **(:gempurple:)**'],
     ['Gem', 'blue', 'Baptiste Saved You with an Immortality Field! **(:gemblue:)**'],
@@ -51,7 +51,7 @@ random_event_list = {
     ['Token', -25, 'Genji deflected your ult... **(🪙 -25)**'],
     ['Token', -30, 'Hanzo 1 shot you from accross the map... **(🪙 -30)**'],
 
-}
+]
 
 
 async def try_random_event(db, client):
