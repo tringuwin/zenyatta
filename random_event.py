@@ -15,7 +15,7 @@ random_event_list = [
     ['Gem', 'yellow', 'You rallied with Brigitte! **(<:gemyellow:1159202451652624495>)**'],
     ['Gem', 'orange', 'Junkrat gave you some loot from his last Heist! **(<:gemorange:1159202446128730153>)**'],
     ['Gem', 'red', 'Kiriko gave you something that the Fox Spirit found! **(<:gemred:1159202371998597211>)**'],
-    ['Gem', 'pink', 'Lifeweaver gave you a someone he made with light! **(<:gempink:1159202453028360334>)**'],
+    ['Gem', 'pink', 'Lifeweaver gave you a something he made with light! **(<:gempink:1159202453028360334>)**'],
     ['Gem', 'green', 'Lucio gave you a cool souvenir at his concert! **(<:gemgreen:1159202443947679885>)**'],
     ['Gem', 'teal', 'Mei gave you somethign she found frozen in the ice! **(<:gemteal:1159202442559361104>)**'],
     ['Gem', 'black', 'Pharah gave you something she found in Egypt! **(<:gemblack:1159202439031959643>)**'],
