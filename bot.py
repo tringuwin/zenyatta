@@ -312,6 +312,13 @@ async def handle_message(message, db, client):
     elif lower_message == "!hello":
         await hello_handler(message)
 
+    elif lower_message == '!spicyowrank':
+
+        response = 'Spicy OW is the **63rd** highest ranked Overwatch Discord Server'
+        response += '\nNext Server to Beat: **Brigitte Mains**'
+
+        await message.channel.send(response)
+
     elif lower_message == '!gg ez':
         await gg_ez_handler(message)
 
