@@ -523,6 +523,7 @@ async def handle_message(message, db, client):
         await set_lft_color_handler(db, message)
 
     elif lower_message.startswith('!setlfthero'):
+        # !setlfthero index hero
         await set_lft_hero_handler(db, message)
 
     elif lower_message.startswith('!setleagueteam ') and is_admin:
