@@ -77,26 +77,44 @@ async def verify_ranks_handler(db, message):
     # Step 2: Parse content with BeautifulSoup
     soup = BeautifulSoup(content, 'html.parser')
 
-    # Step 3: Find the div by its class name
-    target_div = soup.find('div', class_='mouseKeyboard-view')
-    child_divs = target_div.find_all('div', recursive=False)
-
     roles_and_ranks = []
 
-    for child_div in child_divs:
-        role_holders = child_div.find_all('div', class_='Profile-playerSummary--role')
-        for role_holder in role_holders:
-            role = role_holder.find('img')
-            role_text = role['src']
-            rank = child_div.find('img', class_='Profile-playerSummary--rank')
-            rank_text = rank['src']
-            roles_and_ranks.append({
-                'role': role_text,
-                'rank': rank_text
-            })
-            print('---')
-            print('role: '+role_text)
-            print('rank: '+rank_text)
+    # Step 3: Find the div by its class name
+    pc_target_div = soup.find('div', class_='mouseKeyboard-view')
+    pc_child_divs = pc_target_div.find_all('div', recursive=False)
+
+    for pc_child_div in pc_child_divs:
+        role_holder = pc_child_div.find('div', class_='Profile-playerSummary--role')
+        role = role_holder.find('img')
+        role_text = role['src']
+        rank = pc_child_div.find('img', class_='Profile-playerSummary--rank')
+        rank_text = rank['src']
+        roles_and_ranks.append({
+            'role': role_text,
+            'rank': rank_text
+        })
+        print('pc')
+        print('---')
+        print('role: '+role_text)
+        print('rank: '+rank_text)
+
+    pc_target_div = soup.find('div', class_='controller-view')
+    pc_child_divs = pc_target_div.find_all('div', recursive=False)
+
+    for pc_child_div in pc_child_divs:
+        role_holder = pc_child_div.find('div', class_='Profile-playerSummary--role')
+        role = role_holder.find('img')
+        role_text = role['src']
+        rank = pc_child_div.find('img', class_='Profile-playerSummary--rank')
+        rank_text = rank['src']
+        roles_and_ranks.append({
+            'role': role_text,
+            'rank': rank_text
+        })
+        print('console')
+        print('---')
+        print('role: '+role_text)
+        print('rank: '+rank_text)
 
     player_roles = {
         'tank': None,
