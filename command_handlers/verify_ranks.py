@@ -44,6 +44,8 @@ async def verify_ranks_handler(db, message):
     tag_parts = battle_tag.split('#')
     web_page += tag_parts[0]+'-'+tag_parts[1]
     response = requests.get(web_page)
+    print('response is:')
+    print(response)
 
     if response:
         print(response)
