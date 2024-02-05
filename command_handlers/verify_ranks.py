@@ -45,7 +45,11 @@ async def verify_ranks_handler(db, message):
     web_page += tag_parts[0]+'-'+tag_parts[1]
     response = requests.get(web_page)
     print('response is:')
-    print(response)
+    print(response.status_code)
+
+    if response.status_code == 404:
+        await message.channel.send("I couldn't find your Overwatch Profile. You may have a private profile, or you may have linked the wrong battle tag. Try **!profile** to see the battle tag you currently have linked.")
+        return
 
     if response:
         print(response)
