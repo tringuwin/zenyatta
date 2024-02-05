@@ -4,33 +4,49 @@ from user import user_exists
 import requests
 from bs4 import BeautifulSoup
 
+ranks_and_value = {
+    'BronzeTier-5': 1,
+    'BronzeTier-4': 2,
+    'BronzeTier-3': 3,
+    'BronzeTier-2': 4,
+    'BronzeTier-1': 5,
+    'SilverTier-5': 6,
+    'SilverTier-4': 7,
+    'SilverTier-3': 8,
+    'SilverTier-2': 9,
+    'SilverTier-1': 10,
+    'GoldTier-5': 11,
+    'GoldTier-4': 12,
+    'GoldTier-3': 13,
+    'GoldTier-2': 14,
+    'GoldTier-1': 15,
+    'PlatinumTier-5': 16,
+    'PlatinumTier-4': 17,
+    'PlatinumTier-3': 18,
+    'PlatinumTier-2': 19,
+    'PlatinumTier-1': 20,
+    'DiamondTier-5': 21,
+    'DiamondTier-4': 22,
+    'DiamondTier-3': 23,
+    'DiamondTier-2': 24,
+    'DiamondTier-1': 25,
+    'MasterTier-5': 26,
+    'MasterTier-4': 27,
+    'MasterTier-3': 28,
+    'MasterTier-2': 29,
+    'MasterTier-1': 30,
+    'GrandMasterTier-5': 31,
+    'GrandMasterTier-4': 32,
+    'GrandMasterTier-3': 33,
+    'GrandMasterTier-2': 34,
+    'GrandMasterTier-1': 35,
+}
 
-
-ranks = [
-    'BronzeTier-1',
-    'BronzeTier-2',
-    'BronzeTier-3',
-    'BronzeTier-4',
-    'BronzeTier-5',
-    'SilverTier-1',
-    'SilverTier-2',
-    'SilverTier-3',
-    'SilverTier-4',
-    'SilverTier-5',
-    'GoldTier-1',
-    'GoldTier-2',
-    'GoldTier-3',
-    'GoldTier-4',
-    'GoldTier-5',
-    'PlatinumTier-1',
-    'PlatinumTier-2',
-    'PlatinumTier-3',
-    'PlatinumTier-4',
-    'PlatinumTier-5',
-    'DiamondTier-1',
-    
+role_list = [
+    'tank',
+    'offense',
+    'support'
 ]
-
 
 async def verify_ranks_handler(db, message):
 
@@ -43,7 +59,8 @@ async def verify_ranks_handler(db, message):
     web_page = 'https://overwatch.blizzard.com/en-us/career/'
     tag_parts = battle_tag.split('#')
     web_page += tag_parts[0]+'-'+tag_parts[1]
-    response = requests.get(web_page)
+    #response = requests.get(web_page)
+    response = requests.get('https://overwatch.blizzard.com/en-us/career/DVa-13431/')
     print('response is:')
     print(response.status_code)
 
@@ -51,25 +68,57 @@ async def verify_ranks_handler(db, message):
         await message.channel.send("I couldn't find your Overwatch Profile. You may have a private profile, or you may have linked the wrong battle tag. Try **!profile** to see the battle tag you currently have linked.")
         return
 
-    if response:
-        print(response)
-        content = response.content
+    if not response:
+        await message.channel.send('Something went wrong! Please try again later.')
+        return
 
-        # Step 2: Parse content with BeautifulSoup
-        soup = BeautifulSoup(content, 'html.parser')
+    content = response.content
 
-        # Step 3: Find the div by its class name
-        target_div = soup.find('div', class_='mouseKeyboard-view')
-        child_divs = target_div.find_all('div', recursive=False)
-        for child_div in child_divs:
-            role_holder = child_div.find('div', class_='Profile-playerSummary--role')
+    # Step 2: Parse content with BeautifulSoup
+    soup = BeautifulSoup(content, 'html.parser')
+
+    # Step 3: Find the div by its class name
+    target_div = soup.find('div', class_='mouseKeyboard-view')
+    child_divs = target_div.find_all('div', recursive=False)
+
+    roles_and_ranks = []
+
+    for child_div in child_divs:
+        role_holders = child_div.find_all('div', class_='Profile-playerSummary--role')
+        for role_holder in role_holders:
             role = role_holder.find('img')
             role_text = role['src']
             rank = child_div.find('img', class_='Profile-playerSummary--rank')
             rank_text = rank['src']
-
+            roles_and_ranks.append({
+                'role': role_text,
+                'rank': rank_text
+            })
             print('---')
             print('role: '+role_text)
             print('rank: '+rank_text)
+
+    player_roles = {
+        'tank': None,
+        'offense': None,
+        'support': None
+    }
+
+    for group in roles_and_ranks:
+
+        this_role = 'none'
+        role_text = group['role']
+        for example_role in role_list:
+            if role_text.find(example_role) != -1:
+                this_role = example_role
+                break
+
+        if this_role == 'none':
+            raise Exception('Could not find role for role string: '+role_text)
+
+
+
+
+    
 
 
