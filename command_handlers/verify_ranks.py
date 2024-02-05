@@ -98,14 +98,14 @@ async def verify_ranks_handler(db, message):
         print('role: '+role_text)
         print('rank: '+rank_text)
 
-    pc_target_div = soup.find('div', class_='controller-view')
-    pc_child_divs = pc_target_div.find_all('div', recursive=False)
+    cs_target_div = soup.find('div', class_='controller-view')
+    cs_child_divs = cs_target_div.find_all('div', recursive=False)
 
-    for pc_child_div in pc_child_divs:
-        role_holder = pc_child_div.find('div', class_='Profile-playerSummary--role')
+    for cs_child_div in cs_child_divs:
+        role_holder = cs_child_div.find('div', class_='Profile-playerSummary--role')
         role = role_holder.find('img')
         role_text = role['src']
-        rank = pc_child_div.find('img', class_='Profile-playerSummary--rank')
+        rank = cs_child_div.find('img', class_='Profile-playerSummary--rank')
         rank_text = rank['src']
         roles_and_ranks.append({
             'role': role_text,
