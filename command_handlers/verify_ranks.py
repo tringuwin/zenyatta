@@ -59,8 +59,8 @@ async def verify_ranks_handler(db, message):
     web_page = 'https://overwatch.blizzard.com/en-us/career/'
     tag_parts = battle_tag.split('#')
     web_page += tag_parts[0]+'-'+tag_parts[1]
-    #response = requests.get(web_page)
-    response = requests.get('https://overwatch.blizzard.com/en-us/career/DVa-13431/')
+    response = requests.get(web_page)
+    #response = requests.get('https://overwatch.blizzard.com/en-us/career/DVa-13431/')
     print('response is:')
     print(response.status_code)
 
@@ -156,7 +156,9 @@ async def verify_ranks_handler(db, message):
 
         final_value = player_roles[final_role_name]
         if final_value[1] != 0:
-            print('FINAL ROLE FOR '+final_role_name+': '+final_value[0])
+            final_info = 'Rank for '+final_role_name+': '+final_value[0]
+            print(final_info)
+            await message.channel.send(final_info)
 
         
 
