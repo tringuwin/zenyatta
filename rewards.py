@@ -94,7 +94,7 @@ async def sell_pickaxe_for_tokens(db, message):
     if 'pickaxes' in user and user['pickaxes'] > 0:
         await change_pickaxes(db, user, -1)
         await change_tokens(db, user, 15)
-        await message.channel.send('You sold 1 Priority Pass for **15 Tokens!**')
+        await message.channel.send('You sold 1 Pickaxe for **15 Tokens!**')
     else:
         await message.channel.send('You do not have any pickaxes to sell.')
 
