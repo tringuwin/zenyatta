@@ -30,16 +30,19 @@ ranks_and_value = {
     'DiamondTier-3': 23,
     'DiamondTier-2': 24,
     'DiamondTier-1': 25,
-    'MasterTier-5': 26,
-    'MasterTier-4': 27,
-    'MasterTier-3': 28,
-    'MasterTier-2': 29,
-    'MasterTier-1': 30,
     'GrandMasterTier-5': 31,
     'GrandMasterTier-4': 32,
     'GrandMasterTier-3': 33,
     'GrandMasterTier-2': 34,
     'GrandMasterTier-1': 35,
+}
+
+master_tiers = {
+    'MasterTier-5': 26,
+    'MasterTier-4': 27,
+    'MasterTier-3': 28,
+    'MasterTier-2': 29,
+    'MasterTier-1': 30,
 }
 
 role_list = [
@@ -142,6 +145,13 @@ async def verify_ranks_handler(db, message):
                 rank = rank_name
                 rank_value = ranks_and_value[rank_name]
                 break
+
+        if rank == 'none':
+            for rank_name in master_tiers:
+                if rank_text.find(rank_name.lower()) != -1:
+                    rank = rank_name
+                    rank_value = ranks_and_value[rank_name]
+                    break
 
         if rank == 'none':
             raise Exception('Could not find rank for rank string: '+rank_text)
