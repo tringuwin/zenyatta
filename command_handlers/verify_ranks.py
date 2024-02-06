@@ -117,9 +117,9 @@ async def verify_ranks_handler(db, message):
         print('rank: '+rank_text)
 
     player_roles = {
-        'tank': None,
-        'offense': None,
-        'support': None
+        'tank': ['none', 0],
+        'offense': ['none', 0],
+        'support': ['none', 0]
     }
 
     for group in roles_and_ranks:
@@ -133,6 +133,37 @@ async def verify_ranks_handler(db, message):
 
         if this_role == 'none':
             raise Exception('Could not find role for role string: '+role_text)
+        
+        rank_text = group['rank'].lower()
+        rank = 'none'
+        rank_value = 0
+        for rank_name in ranks_and_value:
+            if rank_text.find(rank_name.lower()) != -1:
+                rank = rank_name
+                rank_value = ranks_and_value[rank_name]
+                break
+
+        if rank == 'none':
+            raise Exception('Could not find rank for rank string: '+rank_text)
+        
+        if player_roles[this_role][1] == 0:
+            player_roles[this_role] = [rank, rank_value]
+        else:
+            if player_roles[this_role][1] < rank_value:
+                 player_roles[this_role] = [rank, rank_value]
+
+    for final_role_name in player_roles:
+
+        final_value = player_roles[final_role_name]
+        if final_value[1] != 0:
+            print('FINAL ROLE FOR '+final_role_name+': '+final_value[0])
+
+        
+
+        
+
+
+
 
 
 
