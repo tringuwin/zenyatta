@@ -102,7 +102,7 @@ async def verify_ranks_handler(db, message):
     cs_child_divs = cs_target_div.find_all('div', recursive=False)
 
     for cs_child_div in cs_child_divs:
-        role_holder = cs_child_div.find('div', class_='Profile-playerSummary--role')
+        role_holder = cs_child_div.find('svg', class_='Profile-playerSummary--role')
         role = role_holder.find('use')
         role_text = role['xlink:href']
         rank = cs_child_div.find('img', class_='Profile-playerSummary--rank')
