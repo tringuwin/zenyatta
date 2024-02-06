@@ -45,6 +45,8 @@ master_tiers = {
     'MasterTier-1': 30,
 }
 
+
+
 role_list = [
     'tank',
     'offense',
@@ -150,7 +152,7 @@ async def verify_ranks_handler(db, message):
             for rank_name in master_tiers:
                 if rank_text.find(rank_name.lower()) != -1:
                     rank = rank_name
-                    rank_value = ranks_and_value[rank_name]
+                    rank_value = master_tiers[rank_name]
                     break
 
         if rank == 'none':
