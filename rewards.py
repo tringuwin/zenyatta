@@ -1,6 +1,7 @@
 
 
 from api import give_role, remove_role
+from common_messages import not_registered_response
 from discord_actions import get_guild, get_member_by_username, get_user_from_guild
 from helpers import can_be_int, generic_find_user
 from user import get_lvl_info, get_user_lootboxes, user_exists
@@ -71,17 +72,31 @@ async def sell_pass_for_tokens(db, message):
 
     user = user_exists(db, int(message.author.id))
 
-    if user_exists:
+    if not user:
+        await not_registered_response(message)
 
-       if 'passes' in user and user['passes'] > 0:
-           await change_passes(db, user, -1)
-           await change_tokens(db, user, 10)
-           await message.channel.send('You sold 1 Priority Pass for **10 Tokens!**')
-       else:
-           await message.channel.send('You do not have any priority passes to sell.')
-        
+    if 'passes' in user and user['passes'] > 0:
+        await change_passes(db, user, -1)
+        await change_tokens(db, user, 10)
+        await message.channel.send('You sold 1 Priority Pass for **10 Tokens!**')
     else:
-        await message.channel.send('It looks like you are not registered yet. Please register first.')
+        await message.channel.send('You do not have any priority passes to sell.')
+
+        
+
+async def sell_pickaxe_for_tokens(db, message):
+
+    user = user_exists(db, int(message.author.id))
+
+    if not user:
+        await not_registered_response(message)
+
+    if 'pickaxes' in user and user['pickaxes'] > 0:
+        await change_pickaxes(db, user, -1)
+        await change_tokens(db, user, 15)
+        await message.channel.send('You sold 1 Priority Pass for **15 Tokens!**')
+    else:
+        await message.channel.send('You do not have any pickaxes to sell.')
 
 
 async def change_eggs(db, user, num):

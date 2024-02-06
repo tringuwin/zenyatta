@@ -142,7 +142,7 @@ from helpers import can_be_int
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
 from random_event import react_to_event, try_random_event
-from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens
+from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from teams import get_team_by_name
 from time_helpers import long_enough_for_gift
 from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, notify_user_of_gift, user_exists
@@ -305,6 +305,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == "!sellpass":
         await sell_pass_for_tokens(db, message)
+
+    elif lower_message == '!sellpickaxe':
+        await sell_pickaxe_for_tokens(db, message)
 
     elif lower_message == '!dailygift' or lower_message == '!gift':
         await gift_handler(db, message, client, is_admin)
