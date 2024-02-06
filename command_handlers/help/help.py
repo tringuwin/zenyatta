@@ -18,6 +18,7 @@ async def help_handler(message):
     help_embed.add_field(name='!tokens', value='See your current number of tokens', inline=False)
     help_embed.add_field(name='!passes', value='See your current passes', inline=False)
     help_embed.add_field(name='!sellpass', value='Sell 1 Priority Pass for 10 tokens', inline=False)
+    help_embed.add_field(name='!sellpickaxe', value='Sell 1 Pickaxe for 15 tokens', inline=False)
     help_embed.add_field(name='!gift', value='Earn a free gift every 8 hours!', inline=False)
     help_embed.add_field(name='!bid [number of tokens]', value='Bid on the current daily auction with your Tokens!', inline=False)
     help_embed.add_field(name='!profile', value='Shows your profile for this Discord Server.', inline=False)
