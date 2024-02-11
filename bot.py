@@ -328,6 +328,9 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!whichhero'):
         await which_hero_handler(message)
 
+    elif lower_message == '!whichteam':
+        await which_hero_handler(message)
+
     elif lower_message == '!hatch':
         await hatch_handler(db, message)
 
