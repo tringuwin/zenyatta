@@ -153,7 +153,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot):
     if is_helper or is_push_bot:
         return True, None
     
-    if lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichhero') or lower_message=='!pingteam':
+    if lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile'):
         return True, None
 
     if message.channel.id == constants.BOT_CHANNEL:
