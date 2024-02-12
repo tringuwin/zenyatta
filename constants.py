@@ -223,7 +223,7 @@ LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassi
                         'winston', 'wrecking ball', 'zarya', 'zenyatta']
 
 LEAGUE_SEASON = 2
-LEAGUE_WEEK = 1
+LEAGUE_WEEK = 2
 
 REACTION_ROLE_CHANNEL = 1178440747817631784
 
