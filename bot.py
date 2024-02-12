@@ -100,6 +100,7 @@ from command_handlers.trade_gem import trade_gem_handler
 from command_handlers.trade_gem_set import trade_gem_set_handler
 from command_handlers.verify_ranks import verify_ranks_handler
 from command_handlers.which_hero_handler import which_hero_handler
+from command_handlers.which_team import which_team_handler
 import constants
 import traceback
 from admin_handlers.add_event import add_event_handler
@@ -329,7 +330,7 @@ async def handle_message(message, db, client):
         await which_hero_handler(message)
 
     elif lower_message == '!whichteam':
-        await which_hero_handler(message)
+        await which_team_handler(message)
 
     elif lower_message == '!hatch':
         await hatch_handler(db, message)
