@@ -141,7 +141,7 @@ from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import can_be_int
 from api import get_member, give_role, remove_role, send_msg
-from mongo import output_eggs, output_passes, output_pickaxes, output_tokens, switch_matches
+from mongo import output_eggs, output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
 from random_event import react_to_event, try_random_event
 from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from teams import get_team_by_name
@@ -290,6 +290,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == "!passes":
         await output_passes(db, message)
+
+    elif lower_message == '!packs':
+        await output_packs(db, message)
 
     elif lower_message == '!gems':
         guild = await get_guild(client)

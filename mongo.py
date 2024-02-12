@@ -136,6 +136,22 @@ async def output_passes(db, message):
     else:
         await not_registered_response(message)
 
+async def output_packs(db, message):
+
+    existing_user = user_exists(db, message.author.id)
+
+    if existing_user:
+
+        if "packs" in existing_user:
+            await message.channel.send("Your SOL Card Packs: <:pack:1206654460735258654>**"+str(existing_user['packs'])+"**")
+        else:
+            users = db['users']
+            users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"packs": 0}})
+            await message.channel.send("Your SOL Card Packs: <:pack:1206654460735258654>**0**")
+    
+    else:
+        await not_registered_response(message)
+
 async def output_eggs(db, message):
 
     existing_user = user_exists(db, message.author.id)
