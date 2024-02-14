@@ -105,8 +105,6 @@ async def init_card_handler(db, message):
             'signed': 0,
         })
 
-    print('Cards databse:')
-    print(edit_cards)
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
 
     await message.channel.send('success')
