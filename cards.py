@@ -114,4 +114,4 @@ async def wipe_card_database_handler(db, message):
     card_database = db['cards']
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": []}})
 
-    message.channel.send('Card database wiped.')
+    await message.channel.send('Card database wiped.')
