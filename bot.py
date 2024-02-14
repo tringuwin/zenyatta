@@ -1259,7 +1259,7 @@ async def handle_message(message, db, client):
         await close_event_handler(db, message)
     elif lower_message.startswith('!setstock') and is_admin:
         await set_stock_handler(db, message)
-    elif lower_message.startswith('!say') and is_admin:
+    elif lower_message.startswith('!say') and is_helper:
         
         rest = message.content[len("!say "):].strip()
         guild = await get_guild(client)
