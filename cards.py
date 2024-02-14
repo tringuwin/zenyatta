@@ -3,6 +3,7 @@
 import discord
 from cards_data import ALL_CARDS
 from common_messages import not_registered_response
+from helpers import can_be_int
 from rewards import change_packs
 from user import get_user_cards, get_user_packs, user_exists
 import random
@@ -117,6 +118,29 @@ async def wipe_card_database_handler(db, message):
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": []}})
 
     await message.channel.send('Card database wiped.')
+
+async def wipe_player_cards_handler(db, message):
+
+    word_parts = message.content.split()
+    if len(word_parts) != 2:
+        await message.channel.send('Invalid number of params.')
+        return
+    
+    user_id_raw = word_parts[1]
+    if not can_be_int(user_id_raw):
+        await message.channel.send(user_id_raw+' is not an integer.')
+        return
+    
+    user_id = int(user_id_raw)
+    found_user = user_exists(db, user_id)
+    if not found_user:
+        await message.channel.send('User not found.')
+        return
+    
+    users = db['users']
+    users.update_one({"discord_id": user_id}, {"$set": {"cards": []}})
+
+    await message.channel.send('Users cards were wiped.')
 
 
 async def open_pack_handler(db, message):
