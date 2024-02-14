@@ -133,6 +133,17 @@ async def give_pickaxes_command(client, db, user_id, num, message):
         await message.channel.send('Could not find user with that ID')
 
 
+async def give_packs_command(client, db, user_id, num, message):
+
+    user = await generic_find_user(client, db, user_id)
+
+    if user:
+        await change_packs(db, user, num)
+
+        await message.channel.send('Packs given')
+    else:
+        await message.channel.send('Could not find user with that ID')
+
 async def level_up(user, orig_level, new_level, client, db):
 
     user_boxes = get_user_lootboxes(user)
@@ -193,3 +204,14 @@ async def change_pickaxes(db, user, num):
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"pickaxes": new_pickaxes}})
     else:
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"pickaxes": num}})
+
+
+async def change_packs(db, user, num):
+
+    users = db['users']
+    
+    if "packs" in user:
+        new_packs = user['packs'] + num
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"packs": new_packs}})
+    else:
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"packs": num}})

@@ -145,7 +145,7 @@ from helpers import can_be_int
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
 from random_event import react_to_event, try_random_event
-from rewards import change_xp, give_eggs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
+from rewards import change_xp, give_eggs_command, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from teams import get_team_by_name
 from time_helpers import long_enough_for_gift
 from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, notify_user_of_gift, user_exists
@@ -1169,6 +1169,15 @@ async def handle_message(message, db, client):
             await give_pickaxes_command(client, db, word_list[1], int(word_list[2]), message)
         else:
             await send_msg(message.channel, 'Invalid number of arguments.', '!givepickaxes')
+
+    elif lower_message.startswith('!givepacks ') and is_admin:
+
+        # !givepacks [winner id] [packs]
+        word_list = message.content.split()
+        if len(word_list) == 3:
+            await give_packs_command(client, db, word_list[1], int(word_list[2]), message)
+        else:
+            await send_msg(message.channel, 'Invalid number of arguments.', '!givepacks')
 
     elif lower_message.startswith('!givegems ') and is_admin:
         await give_gems_handler(db, message, client)
