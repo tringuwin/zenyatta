@@ -53,6 +53,7 @@ from command_handlers.league.change_team_owner import change_team_owner_handler
 from command_handlers.league.change_tpp import change_tpp_handler
 from command_handlers.league.fan_of import fan_of_handler
 from command_handlers.league.force_delete_league_team import force_delete_league_team_handler
+from command_handlers.league.force_league_add import force_league_add_handler
 from command_handlers.league.give_team_tokens import give_team_tokens_handler
 from command_handlers.league.league_accept import league_accept_handler
 from command_handlers.league.league_cancel_invite import league_cancel_invite_handler
@@ -652,6 +653,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forceleagueremove') and is_admin:
         await force_league_remove_handler(db, message, client)
+
+    elif lower_message.startswith('!forceleagueadd') and is_admin:
+        await force_league_add_handler(db, message, client)
 
     elif lower_message.startswith('!twitchtokens') and is_helper:
         await twitch_tokens_handler(db, message)
