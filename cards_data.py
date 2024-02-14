@@ -78,8 +78,8 @@ ALL_CARDS = {
     },
     '2': {
         'player_id': ALL_PLAYERS['robynn'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/d0WqTdvp/rick.jpg',
+        'special_img': 'https://i.postimg.cc/d0WqTdvp/rick.jpg'
     },
     '3': {
         'player_id': ALL_PLAYERS['squishey'],
