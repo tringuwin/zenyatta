@@ -1,5 +1,6 @@
 
 
+import discord
 from cards_data import ALL_CARDS
 from common_messages import not_registered_response
 from user import get_user_cards, user_exists
@@ -14,11 +15,22 @@ async def cards_handler(db, message):
     
     user_cards = get_user_cards(user)
 
-    final_string = '**YOUR CARDS:**'
-    for card in user_cards:
-        final_string += '\n'+card['card_display']
+    if len(user_cards) == 0:
+        await message.channel.send('You do not have any cards at the moment... Open packs to get cards!')
+        return
 
-    await message.channel.send(final_string)
+    display_card = user_cards[0]
+    card_variant = display_card['variant_id']
+    card_id = display_card['card_id']
+    if card_variant == 'S':
+        card_img = ALL_CARDS[card_id]['special_img']
+    else:
+        card_img = ALL_CARDS[card_id]['normal_img']
+
+    embed = discord.Embed(title='YOUR CARDS')
+    embed.set_image(url=card_img)
+
+    await message.channel.send(embed=embed)
 
 
 def add_card_to_database():
