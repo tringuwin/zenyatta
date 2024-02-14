@@ -257,7 +257,7 @@ ALL_CARDS = {
         'special_img': ''
     },
     '38': {
-        'player_id': ALL_PLAYERS['Bigj5'],
+        'player_id': ALL_PLAYERS['BigJ5'],
         'normal_img': '',
         'special_img': ''
     },
