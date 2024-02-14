@@ -61,7 +61,7 @@ async def init_card_handler(db, message):
 
     user = user_exists(db, user_id_in_card)
     if user:
-        await message.channel.send('User found, giving them 1 copy.')
+        await message.channel.send('User found ('+user['battle_tag']+'), giving them 1 copy.')
         normal_copies -= 1
         normal_copy_index = 2
         user_cards = get_user_cards(user)
