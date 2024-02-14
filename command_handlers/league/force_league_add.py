@@ -20,7 +20,7 @@ async def force_league_add_handler(db, message, client):
     
     team_name_to_join = word_parts[2]
     
-    user = user_exists(db, mentioned_user)
+    user = user_exists(db, mentioned_user.id)
     if not user:
         await message.channel.send('user not reg')
         return
