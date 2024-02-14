@@ -295,7 +295,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!packs':
         await output_packs(db, message)
 
-    elif lower_message == '!packs':
+    elif lower_message == '!cards':
         await cards_handler(db, message)
 
     elif lower_message == '!gems':
