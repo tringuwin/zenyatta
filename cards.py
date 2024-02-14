@@ -60,7 +60,7 @@ async def init_card_handler(db, message):
             'signed': 0,
         })
         users = db['users']
-        users.update_one({"name": 'discord_id'}, {"$set": {"cards": user_cards}})
+        users.update_one({"discord_id": message.author.id}, {"$set": {"cards": user_cards}})
 
     if not user:
         await message.channel.send('User not found, no copy for them.')
