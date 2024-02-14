@@ -23,7 +23,7 @@ from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.prune_sac import prune_sac_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
-from cards import cards_handler, init_card_handler
+from cards import cards_handler, init_card_handler, wipe_card_database_handler
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
 from command_handlers.auction.bid import bid_handler
 from command_handlers.auction.end_auction import end_auction_handler
@@ -698,7 +698,7 @@ async def handle_message(message, db, client):
 
         await message.channel.send('init success')
 
-    elif lower_message.startswith('!initcarddatabase') and is_admin:
+    elif lower_message == '!initcarddatabase' and is_admin:
 
         db_cards = db['cards']
         new_entry = {
@@ -708,7 +708,10 @@ async def handle_message(message, db, client):
         db_cards.insert_one(new_entry)
         await message.channel.send('init success')
 
-    elif lower_message.startswith('!initcard') and is_admin:
+    elif lower_message == '!wipecarddatabase' and is_admin:
+        await wipe_card_database_handler(db, message)
+
+    elif lower_message.startswith('!initcard ') and is_admin:
 
         await init_card_handler(db, message)
 

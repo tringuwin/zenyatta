@@ -37,6 +37,9 @@ def add_card_to_database():
 
     pass
 
+CARD_VARIANTS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+
+USED_CARD_VARIANTS = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 
 async def init_card_handler(db, message):
 
@@ -56,32 +59,59 @@ async def init_card_handler(db, message):
     user_id_in_card = card_info['player_id']
 
     normal_copies = 9
-    special_copies = 1
-    normal_copy_index = 1
-
-    user = user_exists(db, user_id_in_card)
-    if user:
-        await message.channel.send('User found ('+user['battle_tag']+'), giving them 1 copy.')
-        normal_copies -= 1
-        normal_copy_index = 2
-        user_cards = get_user_cards(user)
-        user_cards.append({
-            'card_display': card_id+'-1',
-            'card_id': card_id,
-            'variant_id': '1',
-            'signed': 0,
-        })
-        users = db['users']
-        users.update_one({"discord_id": user_id_in_card}, {"$set": {"cards": user_cards}})
-
-    if not user:
-        await message.channel.send('User not found, no copy for them.')
+    variant_list = CARD_VARIANTS
 
     card_database = db['cards']
     card_group = card_database.find_one({'cards_id': 1})
     if not card_group:
         await message.channel.send('Something went wrong getting the card database.')
         return
-    
+
+    user = user_exists(db, user_id_in_card)
+    if user:
+        variant_list = USED_CARD_VARIANTS
+        await message.channel.send('User found ('+user['battle_tag']+'), giving them 1 copy.')
+        user_cards = get_user_cards(user)
+        user_cards.append({
+            'card_display': card_id+'-A',
+            'card_id': card_id,
+            'variant_id': 'A',
+            'signed': 0,
+        })
+        users = db['users']
+        users.update_one({"discord_id": user_id_in_card}, {"$set": {"cards": user_cards}})
+    else:
+        await message.channel.send('User not found, no copy for them.')
+
+    edit_cards = card_group['cards']
+
+    # add special copy
+    edit_cards.append({
+        'card_display': card_id+'-S',
+        'card_id': card_id,
+        'variant_id': 'S',
+        'signed': 0,
+    })
+        
+    # add normal copies
+    for variant in variant_list:
+        edit_cards.append({
+            'card_display': card_id+'-'+variant,
+            'card_id': card_id,
+            'variant_id': variant,
+            'signed': 0,
+        })
+
+    print('Cards databse:')
+    print(edit_cards)
+    card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
+
     await message.channel.send('success')
 
+
+async def wipe_card_database_handler(db, message):
+
+    card_database = db['cards']
+    card_database.update_one({"cards_id": 1}, {"$set": {"cards": []}})
+
+    message.channel.send('Card database wiped.')
