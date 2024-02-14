@@ -200,6 +200,13 @@ def get_last_token_shop(user):
     
     return 0
 
+def get_user_cards(user):
+
+    if 'cards' in user:
+        return user['cards']
+    
+    return []
+
 
     
 def toggle_off_gift_notify(db, user):

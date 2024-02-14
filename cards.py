@@ -1,7 +1,24 @@
 
 
 from cards_data import ALL_CARDS
-from user import user_exists
+from common_messages import not_registered_response
+from user import get_user_cards, user_exists
+
+
+async def cards_handler(db, message):
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+    
+    user_cards = get_user_cards(user)
+
+    final_string = '**YOUR CARDS:**'
+    for card in user_cards:
+        final_string += '\n'+card['card_display']
+
+    await message.channel.send(final_string)
 
 
 def add_card_to_database():
@@ -35,6 +52,15 @@ async def init_card_handler(db, message):
         await message.channel.send('User found, giving them 1 copy.')
         normal_copies -= 1
         normal_copy_index = 2
+        user_cards = get_user_cards(user)
+        user_cards.append({
+            'card_display': card_id+'-1',
+            'card_id': card_id,
+            'variant_id': '1',
+            'signed': 0,
+        })
+        users = db['users']
+        users.update_one({"name": 'discord_id'}, {"$set": {"cards": user_cards}})
 
     if not user:
         await message.channel.send('User not found, no copy for them.')
