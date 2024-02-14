@@ -148,4 +148,14 @@ async def open_pack_handler(db, message):
 
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
 
-    await message.channel.send('You opened card '+removed_item['card_display'])
+    card_variant = removed_item['variant_id']
+    card_id = removed_item['card_id']
+    if card_variant == 'S':
+        card_img = ALL_CARDS[card_id]['special_img']
+    else:
+        card_img = ALL_CARDS[card_id]['normal_img']
+
+    embed = discord.Embed(title='YOU OPENED CARD '+removed_item['card_display'])
+    embed.set_image(url=card_img)
+
+    await message.channel.send(embed=embed)
