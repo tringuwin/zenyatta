@@ -42,6 +42,13 @@ def get_user_pickaxes(user):
     
     return 0
 
+def get_user_packs(user):
+
+    if 'packs' in user:
+        return user['packs']
+    
+    return 0
+
 def get_user_tickets(user):
 
     if 'tickets' in user:

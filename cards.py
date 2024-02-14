@@ -3,7 +3,9 @@
 import discord
 from cards_data import ALL_CARDS
 from common_messages import not_registered_response
-from user import get_user_cards, user_exists
+from rewards import change_packs
+from user import get_user_cards, get_user_packs, user_exists
+import random
 
 
 async def cards_handler(db, message):
@@ -115,3 +117,35 @@ async def wipe_card_database_handler(db, message):
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": []}})
 
     await message.channel.send('Card database wiped.')
+
+
+async def open_pack_handler(db, message):
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+    
+    user_packs = get_user_packs(user)
+    if user_packs < 1:
+        await message.channel.send('You do not have any packs to open.')
+        return
+    
+    await change_packs(db, user, -1)
+
+    card_database = db['cards']
+    card_group = card_database.find_one({'cards_id': 1})
+
+    edit_cards = card_group['cards']
+    index = random.randrange(len(edit_cards))
+
+    removed_item = edit_cards.pop(index)
+
+    user_cards = get_user_cards(user)
+    user_cards.append(removed_item)
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": user_cards}})
+
+    card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
+
+    await message.channel.send('You opened card '+removed_item['card_display'])
