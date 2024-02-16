@@ -718,7 +718,7 @@ async def handle_message(message, db, client):
 
         await init_card_handler(db, message)
 
-    elif lower_message == '!openpack' and is_admin:
+    elif lower_message == '!openpack':
         await open_pack_handler(db, message)
 
 
