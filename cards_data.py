@@ -223,28 +223,28 @@ ALL_CARDS = {
     },
     '31': {
         'player_id': ALL_PLAYERS['mrbustdown'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/kGnbnVhp/Cards-9.png',
+        'special_img': 'https://i.postimg.cc/5Nsw-23Jq/Cards-10.png'
     },
     '32': {
         'player_id': ALL_PLAYERS['justtoosus'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/LXFPbQkR/Cards-8.png',
+        'special_img': 'https://i.postimg.cc/wTqXzrCj/Cards-7.png'
     },
     '33': {
         'player_id': ALL_PLAYERS['slushy'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/505zd5pz/Cards-5.png',
+        'special_img': 'https://i.postimg.cc/qBXs9rZF/Cards-6.png'
     },
     '34': {
         'player_id': ALL_PLAYERS['mangomemes'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/L5NZhHc6/Cards-12.png',
+        'special_img': 'https://i.postimg.cc/KYMLQhMJ/Cards-11.png'
     },
     '35': {
         'player_id': ALL_PLAYERS['cheems'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/fRkYt9T4/Cards-4.png',
+        'special_img': 'https://i.postimg.cc/NF4RT8Ht/Cards-3.png'
     },
     '36': {
         'player_id': ALL_PLAYERS['kuda'],
