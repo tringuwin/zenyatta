@@ -198,28 +198,28 @@ ALL_CARDS = {
     },
     '26': {
         'player_id': ALL_PLAYERS['ssolaced'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/x1HSw-Z5p/Cards-4.png',
+        'special_img': 'https://i.postimg.cc/65kkf0Kr/Cards-3.png'
     },
     '27': {
         'player_id': ALL_PLAYERS['cherrybee'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/fbfQL06x/Cards-9.png',
+        'special_img': 'https://i.postimg.cc/j29G967r/Cards-10.png'
     },
     '28': {
         'player_id': ALL_PLAYERS['graded'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/C5d3mrdN/Cards-8.png',
+        'special_img': 'https://i.postimg.cc/KcHSRbss/Cards-7.png'
     },
     '29': {
         'player_id': ALL_PLAYERS['luffy'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/FRPtbXFz/Cards-5.png',
+        'special_img': 'https://i.postimg.cc/636JGpXF/Cards-6.png'
     },
     '30': {
         'player_id': ALL_PLAYERS['buttermilk'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/zXyNjvgr/Cards-12.png',
+        'special_img': 'https://i.postimg.cc/3wTHYZb8/Cards-11.png'
     },
     '31': {
         'player_id': ALL_PLAYERS['mrbustdown'],
