@@ -73,28 +73,28 @@ ALL_CARDS = {
     },
     '1': {
         'player_id': ALL_PLAYERS['deja'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/4y1tdwXz/Cards-4.png',
+        'special_img': 'https://i.postimg.cc/Hkn5YQRy/Cards-3.png'
     },
     '2': {
         'player_id': ALL_PLAYERS['robynn'],
-        'normal_img': 'https://i.postimg.cc/d0WqTdvp/rick.jpg',
-        'special_img': 'https://i.postimg.cc/d0WqTdvp/rick.jpg'
+        'normal_img': 'https://i.postimg.cc/rFQx2hnT/Cards-5.png',
+        'special_img': 'https://i.postimg.cc/902ZCsHm/Cards-6.png'
     },
     '3': {
         'player_id': ALL_PLAYERS['squishey'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/FK20n7PJ/Cards-9.png',
+        'special_img': 'https://i.postimg.cc/d078B89Y/Cards-10.png'
     },
     '4': {
         'player_id': ALL_PLAYERS['dulla'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/qMkyYfGQ/Cards-8.png',
+        'special_img': 'https://i.postimg.cc/xCMLrn7p/Cards-7.png'
     },
     '5': {
         'player_id': ALL_PLAYERS['thaimermaid'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/DwwQWVJm/Cards-12.png',
+        'special_img': 'https://i.postimg.cc/Kc7tJctR/Cards-11.png'
     },
     '6': {
         'player_id': ALL_PLAYERS['ionalien'],
