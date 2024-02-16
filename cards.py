@@ -22,18 +22,22 @@ async def cards_handler(db, message):
         await message.channel.send('You do not have any cards at the moment... Open packs to get cards!')
         return
 
-    display_card = user_cards[0]
-    card_variant = display_card['variant_id']
-    card_id = display_card['card_id']
-    if card_variant == 'S':
-        card_img = ALL_CARDS[card_id]['special_img']
-    else:
-        card_img = ALL_CARDS[card_id]['normal_img']
+    # display_card = user_cards[0]
+    # card_variant = display_card['variant_id']
+    # card_id = display_card['card_id']
+    # if card_variant == 'S':
+    #     card_img = ALL_CARDS[card_id]['special_img']
+    # else:
+    #     card_img = ALL_CARDS[card_id]['normal_img']
 
-    embed = discord.Embed(title='YOUR CARDS')
-    embed.set_image(url=card_img)
+    # embed = discord.Embed(title='YOUR CARDS')
+    # embed.set_image(url=card_img)
 
-    await message.channel.send(embed=embed)
+    final_string = '**YOUR CARDS:**'
+    for card in user_cards:
+        final_string += '\n'+card['card_display']
+
+    await message.channel.send(final_string)
 
 
 def add_card_to_database():
