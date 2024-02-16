@@ -248,28 +248,28 @@ ALL_CARDS = {
     },
     '36': {
         'player_id': ALL_PLAYERS['kuda'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/HngnC32g/Cards-5.png',
+        'special_img': 'https://i.postimg.cc/QNQVqG8x/Cards-6.png'
     },
     '37': {
         'player_id': ALL_PLAYERS['snoopy'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/wT9MffM5/Cards-4.png',
+        'special_img': 'https://i.postimg.cc/vZBBM4Wc/Cards-3.png'
     },
     '38': {
         'player_id': ALL_PLAYERS['BigJ5'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/wB1751vS/Cards-8.png',
+        'special_img': 'https://i.postimg.cc/sXSx8b5m/Cards-7.png'
     },
     '39': {
         'player_id': ALL_PLAYERS['Bless'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/zXkbqm6P/Cards-12.png',
+        'special_img': 'https://i.postimg.cc/6QFTMB4T/Cards-11.png'
     },
     '40': {
         'player_id': ALL_PLAYERS['Kyrios'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/fT5L6cSG/Cards-9.png',
+        'special_img': 'https://i.postimg.cc/nrGzV7RQ/Cards-10.png'
     },
     '41': {
         'player_id': ALL_PLAYERS['bakora'],
