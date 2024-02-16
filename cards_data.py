@@ -273,28 +273,28 @@ ALL_CARDS = {
     },
     '41': {
         'player_id': ALL_PLAYERS['bakora'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/kg4N2FrC/Cards-4.png',
+        'special_img': 'https://i.postimg.cc/MGfyD6Kr/Cards-3.png'
     },
     '42': {
         'player_id': ALL_PLAYERS['masiax'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/q7WGVt5T/Cards-9.png',
+        'special_img': 'https://i.postimg.cc/tJjtJKbv/Cards-10.png'
     },
     '43': {
         'player_id': ALL_PLAYERS['kazzy'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/pXPJHMqp/Cards-5.png',
+        'special_img': 'https://i.postimg.cc/L8btLYR1/Cards-6.png'
     },
     '44': {
         'player_id': ALL_PLAYERS['kittenmaster'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/SKnGvLVd/Cards-12.png',
+        'special_img': 'https://i.postimg.cc/Y0zNWdqr/Cards-11.png'
     },
     '45': {
         'player_id': ALL_PLAYERS['g0ast'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/yYnX6pbn/Cards-8.png',
+        'special_img': 'https://i.postimg.cc/RFfLMMkn/Cards-7.png'
     },
     '46': {
         'player_id': ALL_PLAYERS['abyx'],
