@@ -173,28 +173,28 @@ ALL_CARDS = {
     },
     '21': {
         'player_id': ALL_PLAYERS['anakin'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/KjMCLk1c/Cards-14.png',
+        'special_img': 'https://i.postimg.cc/nVjyN538/Cards-13.png'
     },
     '22': {
         'player_id': ALL_PLAYERS['truexotic'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/XvNMhYzx/Cards-15.png',
+        'special_img': 'https://i.postimg.cc/G29WLSry/Cards-16.png'
     },
     '23': {
         'player_id': ALL_PLAYERS['chris'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/nLd8tt8x/Cards-18.png',
+        'special_img': 'https://i.postimg.cc/cLByXnXr/Cards-17.png'
     },
     '24': {
         'player_id': ALL_PLAYERS['heavenly'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/J4JWHgX3/Cards-19.png',
+        'special_img': 'https://i.postimg.cc/BZR06sjQ/Cards-20.png'
     },
     '25': {
         'player_id': ALL_PLAYERS['trixx'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/PfCHTNrR/Cards-22.png',
+        'special_img': 'https://i.postimg.cc/P5jnW4bg/Cards-21.png'
     },
     '26': {
         'player_id': ALL_PLAYERS['ssolaced'],
