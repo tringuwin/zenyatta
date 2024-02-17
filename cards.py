@@ -90,26 +90,26 @@ async def init_card_handler(db, message):
     else:
         await message.channel.send('User not found, no copy for them.')
 
-    # edit_cards = card_group['cards']
+    edit_cards = card_group['cards']
 
-    # # add special copy
-    # edit_cards.append({
-    #     'card_display': card_id+'-S',
-    #     'card_id': card_id,
-    #     'variant_id': 'S',
-    #     'signed': 0,
-    # })
+    # add special copy
+    edit_cards.append({
+        'card_display': card_id+'-S',
+        'card_id': card_id,
+        'variant_id': 'S',
+        'signed': 0,
+    })
         
-    # # add normal copies
-    # for variant in variant_list:
-    #     edit_cards.append({
-    #         'card_display': card_id+'-'+variant,
-    #         'card_id': card_id,
-    #         'variant_id': variant,
-    #         'signed': 0,
-    #     })
+    # add normal copies
+    for variant in variant_list:
+        edit_cards.append({
+            'card_display': card_id+'-'+variant,
+            'card_id': card_id,
+            'variant_id': variant,
+            'signed': 0,
+        })
 
-    # card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
+    card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
 
     await message.channel.send('success')
 
