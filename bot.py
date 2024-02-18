@@ -44,6 +44,7 @@ from command_handlers.help.help_bonus import help_bonus_handler
 from command_handlers.help.help_casino import help_casino_handler
 from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.help.help_league import help_league_handler
+from command_handlers.helper_salary import helper_salary_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.add_loss import add_loss_handler
@@ -1150,6 +1151,9 @@ async def handle_message(message, db, client):
             await give_tokens_command(client, db, word_list[1], int(word_list[2]), message)
         else:
             await message.channel.send("Invalid number of arguments.")
+
+    elif lower_message == '!helpersalary' and is_helper:
+        await helper_salary_handler(db, message, client)
 
     elif lower_message.startswith('!givexp ') and is_admin:
         await give_xp_handler(client, db, message)
