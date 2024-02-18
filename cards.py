@@ -223,6 +223,19 @@ async def view_card_handler(message):
     await message.channel.send(embed=embed)
 
 
+def get_card_index(cards, input_card):
+
+    cur_index = 0
+    for card in cards:
+        if card['card_display'] == input_card:
+            return cur_index
+
+        cur_index += 1
+
+    return -1
+
+
+
 async def sell_card_handler(db, message):
 
     word_parts = message.content.split()
@@ -237,19 +250,9 @@ async def sell_card_handler(db, message):
     
     input_card = word_parts[1].upper()
     cards = get_user_cards(user)
-    has_card = False
-    card_index = -1
 
-    cur_index = 0
-    for card in cards:
-        if card['card_display'] == input_card:
-            has_card = True
-            card_index = cur_index
-            break
-
-        cur_index += 1
-
-    if not has_card:
+    card_index = get_card_index(cards, input_card)
+    if card_index == -1:
         await message.channel.send('I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
         return
     
@@ -267,5 +270,45 @@ async def sell_card_handler(db, message):
     
     await message.channel.send('You sold the card "'+input_card+'" for 20 tokens!')
 
+
+async def give_hard_handler(db, message):
+
+    word_parts = message.content.split()
+    if len(word_parts) != 3:
+        await invalid_number_of_params(message)
+        return
+    
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+    
+    if len(message.mentions) != 1:
+        await message.channel.send('Please mention 1 user to give this card to.')
+        return
+    
+    give_mention = message.mentions[0]
+    give_user = user_exists(db, give_mention.id)
+    if not give_user:
+        await message.channel.send('That user is not registered.')
+        return
+
+    cards = get_user_cards(user)
+    input_card = word_parts[2]
+
+    card_index = get_card_index(cards, input_card)
+    if card_index == -1:
+        await message.channel.send('I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
+        return
+    
+    removed_card = cards.pop(card_index)
+    give_cards = get_user_cards(give_user)
+    give_cards.append(removed_card)
+
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": cards}})
+    users.update_one({"discord_id": give_user['discord_id']}, {"$set": {"cards": give_cards}})
+
+    await message.channel.send('Card was given!')
     
 
