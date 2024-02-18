@@ -227,6 +227,7 @@ async def handle_message(message, db, client):
     user_message = str(message.content)
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
     is_helper = (not message.author.bot) and member_has_role(message.author, constants.HELPER_ROLE_ID)
+    is_league_helper = (not message.author.bot) and member_has_role(message.author, constants.LEAGUE_REWARDS_ROLE_ID)
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
 
@@ -1161,7 +1162,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!helpersalary' and is_helper:
         await helper_salary_handler(db, message, client)
 
-    elif lower_message.startswith('!givexp ') and is_admin:
+    elif lower_message.startswith('!givexp ') and (is_admin or is_league_helper):
         await give_xp_handler(client, db, message)
 
     elif lower_message.startswith('!setlevel ') and is_admin:
