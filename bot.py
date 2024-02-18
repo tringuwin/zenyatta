@@ -23,7 +23,7 @@ from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.prune_sac import prune_sac_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
-from cards import cards_handler, init_card_handler, open_pack_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
+from cards import cards_handler, init_card_handler, open_pack_handler, sell_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
 from command_handlers.auction.bid import bid_handler
 from command_handlers.auction.end_auction import end_auction_handler
@@ -722,6 +722,9 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!viewcard '):
 
         await view_card_handler(message)
+
+    elif lower_message.startswith('!sellcard ') and is_admin:
+        await sell_card_handler(db, message)
 
     elif lower_message == '!openpack':
         await open_pack_handler(db, message)

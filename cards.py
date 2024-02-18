@@ -4,7 +4,7 @@ import discord
 from cards_data import ALL_CARDS
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int
-from rewards import change_packs
+from rewards import change_packs, change_tokens
 from user import get_user_cards, get_user_packs, user_exists
 import random
 
@@ -221,4 +221,51 @@ async def view_card_handler(message):
     embed.set_image(url=card_img)
 
     await message.channel.send(embed=embed)
+
+
+async def sell_card_handler(db, message):
+
+    word_parts = message.content.split()
+    if len(word_parts) != 2:
+        await invalid_number_of_params(message)
+        return
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+    
+    input_card = word_parts[1].upper()
+    cards = get_user_cards(user)
+    has_card = False
+    card_index = -1
+
+    cur_index = 0
+    for card in cards:
+        if card['card_display'] == input_card:
+            has_card = True
+            card_index = cur_index
+            return
+
+        cur_index += 1
+
+    if not has_card:
+        await message.channel.send('I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
+        return
+    
+    removed_card = cards.pop(card_index)
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": cards}})
+    await change_tokens(db, user, 20)
+
+    card_database = db['cards']
+    card_group = card_database.find_one({'cards_id': 1})
+    edit_cards = card_group['cards']
+    edit_cards.append(removed_card)
+
+    card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
+    
+    await message.channel.send('You sold the card "'+input_card+'" for 20 tokens!')
+
+    
 
