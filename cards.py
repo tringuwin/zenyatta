@@ -2,7 +2,7 @@
 
 import discord
 from cards_data import ALL_CARDS
-from common_messages import not_registered_response
+from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int
 from rewards import change_packs
 from user import get_user_cards, get_user_packs, user_exists
@@ -185,3 +185,40 @@ async def open_pack_handler(db, message):
     embed.set_image(url=card_img)
 
     await message.channel.send(embed=embed)
+
+
+async def view_card_handler(db, message):
+
+    word_parts = message.content.split()
+
+    if len(word_parts) != 2:
+        await invalid_number_of_params(message)
+        return
+    
+    card_info = word_parts[1]
+    card_info_parts = card_info.split('-')
+
+    if len(card_info_parts) != 2:
+        await message.channel.send('Card is not in the correct format. (Example 1-A)')
+        return
+
+    card_id = card_info_parts[0]
+    if not (card_id in ALL_CARDS):
+        await message.channel.send('There is no card with the ID: '+card_id)
+        return
+    
+    card_variant = card_info_parts[1]
+    if not (card_variant.upper() in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']):
+        await message.channel.send('"'+card_variant+'" is not a valid card variant. Valid variants are letters A-I or S')
+        return
+    
+    card_details = ALL_CARDS[card_id]
+    card_img = card_details['normal_img']
+    if card_variant.upper() == 'S':
+        card_img = card_details['special_img']
+
+    embed = discord.Embed(title='CARD '+card_id+'-'+card_variant.upper()+':')
+    embed.set_image(url=card_img)
+
+    await message.channel.send(embed=embed)
+
