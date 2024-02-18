@@ -726,7 +726,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!sellcard '):
         await sell_card_handler(db, message)
 
-    elif lower_message.startswith('!givecard ') and is_admin:
+    elif lower_message.startswith('!givecard '):
         await give_hard_handler(db, message)
 
     elif lower_message == '!openpack':
