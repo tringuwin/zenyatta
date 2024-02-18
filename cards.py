@@ -245,7 +245,7 @@ async def sell_card_handler(db, message):
         if card['card_display'] == input_card:
             has_card = True
             card_index = cur_index
-            return
+            break
 
         cur_index += 1
 
