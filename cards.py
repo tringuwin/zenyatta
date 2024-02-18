@@ -187,7 +187,7 @@ async def open_pack_handler(db, message):
     await message.channel.send(embed=embed)
 
 
-async def view_card_handler(db, message):
+async def view_card_handler(message):
 
     word_parts = message.content.split()
 
