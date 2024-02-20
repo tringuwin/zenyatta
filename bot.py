@@ -572,8 +572,8 @@ async def handle_message(message, db, client):
 
     # ADMIN COMMANDS
 
-    elif lower_message.startswith('!givesac ') and is_helper:
-        await give_sac_handler(db, message, client)
+    # elif lower_message.startswith('!givesac ') and is_helper:
+    #     await give_sac_handler(db, message, client)
 
     elif lower_message.startswith('!startauction') and is_admin:
         await start_auction_handler(db, message, client)
@@ -1354,7 +1354,7 @@ async def handle_message(message, db, client):
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
         await send_msg(bot_channel, 'Checking sub lootboxes and SAC', 'Check Long')
         await give_sub_boxes_handler(db, message, client)
-        await prune_sac_handler(db, message, client)
+        # await prune_sac_handler(db, message, client)
 
     elif lower_message == 'check gifts' and is_push_bot:
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
