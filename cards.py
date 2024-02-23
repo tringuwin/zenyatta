@@ -374,6 +374,6 @@ async def list_card_handler(db, message):
     print('user for sale cards is')
     print(for_sale_cards)
 
-    await message.channel.send('')
+    await message.channel.send('Success! Your card was put on sale for **'+str(cost)+' Tokens!**')
 
 
