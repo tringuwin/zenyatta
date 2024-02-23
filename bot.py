@@ -713,6 +713,16 @@ async def handle_message(message, db, client):
     elif lower_message == '!wipecarddatabase' and is_admin:
         await wipe_card_database_handler(db, message)
 
+    elif lower_message == '!initreselldatabase' and is_admin:
+
+        db_cards = db['resell']
+        new_entry = {
+            'cards': {},
+            'cards_id': 1
+        }
+        db_cards.insert_one(new_entry)
+        await message.channel.send('init success')
+
     elif lower_message.startswith('!wipeplayercards ') and is_admin:
         await wipe_player_cards_handler(db, message)
 
