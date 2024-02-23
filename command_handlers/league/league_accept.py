@@ -38,12 +38,17 @@ async def league_accept_handler(db, message, client):
         await message.channel.send('You do not have a team invite from the team "'+team_name_to_join+'". Please check the spelling and capitilzation of the team name.')
         return
     
+    league_teams = db['leagueteams']
+    league_team = league_teams.find_one({'team_name': team_name_to_join})
+
+    if len(league_team['members']) >= 25:
+        await message.channel.send('This League Team already has 25 players, which is the maximum allowed. Please contact an admin of this team if you think this is a mistake.')
+        return
+    
     remove_league_invite(user, team_name_to_join, db)
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": team_name_to_join}})
 
-    league_teams = db['leagueteams']
-    league_team = league_teams.find_one({'team_name': team_name_to_join})
 
     league_team['members'].append(
         {
