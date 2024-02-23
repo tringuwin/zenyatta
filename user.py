@@ -214,6 +214,12 @@ def get_user_cards(user):
     
     return []
 
+def get_user_for_sale_cards(user):
+
+    if 'for_sale_cards' in user:
+        return user['for_sale_cards']
+    
+    return []
 
     
 def toggle_off_gift_notify(db, user):

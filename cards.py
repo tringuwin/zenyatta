@@ -5,7 +5,7 @@ from cards_data import ALL_CARDS
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int
 from rewards import change_packs, change_tokens
-from user import get_user_cards, get_user_packs, user_exists
+from user import get_user_cards, get_user_packs, user_exists, get_user_for_sale_cards
 import random
 
 
@@ -311,4 +311,69 @@ async def give_hard_handler(db, message):
 
     await message.channel.send('Card was given!')
     
+
+async def list_card_handler(db, message):
+
+    word_list = message.content.split()
+    if len(word_list) != 3:
+        await invalid_number_of_params(message)
+        return
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+    
+    cost = word_list[2]
+    if not can_be_int(cost):
+        await message.channel.send(cost+' is not a number.')
+        return
+    
+    cost = int(cost)
+    if cost <= 20 or cost > 1000000:
+        await message.channel.send('Resell cost must be between 21 and 1,000,000.')
+        return
+    
+    input_card = word_list[1].upper()
+    cards = get_user_cards(user)
+    for_sale_cards = get_user_for_sale_cards(user)
+
+    card_index = get_card_index(cards, input_card)
+    if card_index == -1:
+        await message.channel.send('I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
+        return
+
+    removed_card = cards.pop(card_index)
+    for_sale_cards.append(removed_card['card_display'])
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": cards}})
+
+    card_id = removed_card['card_id']
+    card_variant = removed_card['variant_id']
+    card_details = ALL_CARDS[card_id]
+    card_img = card_details['normal_img']
+    if card_variant.upper() == 'S':
+        card_img = card_details['special_img']
+
+    resell_db = db['resell']
+    resell_group = resell_db.find_one({'cards_id': 1})
+    edit_group = resell_group['cards']
+    is_rare = card_variant == 'S'
+    edit_group[removed_card['card_display']] = {
+        'card_display': removed_card['card_display'],
+        'owner_id': user['discord_id'],
+        'image_link': card_img,
+        'cost': cost,
+        'is_rare': is_rare
+    }
+
+    resell_db.update_one({"cards_id": 1}, {"$set": {"cards": edit_group}})
+
+    print('resell db is')
+    print(edit_group)
+    print('user for sale cards is')
+    print(for_sale_cards)
+
+    await message.channel.send('')
+
 
