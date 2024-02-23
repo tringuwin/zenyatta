@@ -69,7 +69,8 @@ async def update_team_info(client, team, db):
     guild = await get_guild(client)
 
     available_tpp = 100
-    embed = discord.Embed(title=team['team_name'].upper()+' TEAM DETAILS', color=team_name_to_color[team['team_name']])
+    num_members_on_team = str(len(team['members']))
+    embed = discord.Embed(title=team['team_name'].upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', color=team_name_to_color[team['team_name']])
     embed.set_thumbnail(url=team_name_to_thumbnail[team['team_name']])
 
     for member in team['members']:
