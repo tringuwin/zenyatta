@@ -752,6 +752,9 @@ async def handle_message(message, db, client):
     elif lower_message == '!openpack':
         await open_pack_handler(db, message)
 
+    elif lower_message == '!cardmarket':
+        await message.channel.send('Check out the SOL Card Market here!\n\nhttps://spicyragu.netlify.app/sol/card-market')
+
 
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']
