@@ -457,7 +457,7 @@ async def buy_card_handler(db, message):
         return
 
     # verify user
-    user = user_exists(db, user)
+    user = user_exists(db, message.author.id)
     if not user:
         await not_registered_response(message)
         return
