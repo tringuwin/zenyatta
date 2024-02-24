@@ -17,8 +17,9 @@ async def cards_handler(db, message):
         return
     
     user_cards = get_user_cards(user)
+    user_for_sale_cards = get_user_for_sale_cards(user)
 
-    if len(user_cards) == 0:
+    if len(user_cards) == 0 and len(user_for_sale_cards) == 0:
         await message.channel.send('You do not have any cards at the moment... Open packs to get cards!')
         return
 
@@ -33,9 +34,24 @@ async def cards_handler(db, message):
     # embed = discord.Embed(title='YOUR CARDS')
     # embed.set_image(url=card_img)
 
-    final_string = '**YOUR CARDS:**'
-    for card in user_cards:
-        final_string += '\n'+card['card_display']
+    final_string = 'none'
+
+    if len(user_cards) > 0:
+
+        final_string = '**YOUR CARDS:**'
+        for card in user_cards:
+            final_string += '\n'+card['card_display']
+
+    if len(user_for_sale_cards) > 0:
+
+        if final_string == 'none':
+            final_string = '**YOUR LISTED CARDS:**'
+        else:
+            final_string += '\n**YOUR LISTED CARDS:**'
+
+        for card in user_for_sale_cards:
+            final_string += '\n'+card
+
 
     await message.channel.send(final_string)
 
