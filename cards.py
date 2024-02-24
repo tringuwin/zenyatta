@@ -385,11 +385,67 @@ async def list_card_handler(db, message):
 
     resell_db.update_one({"cards_id": 1}, {"$set": {"cards": edit_group}})
 
-    print('resell db is')
-    print(edit_group)
-    print('user for sale cards is')
-    print(for_sale_cards)
-
     await message.channel.send('Success! Your card was put on sale for **'+str(cost)+' Tokens!**')
 
+
+async def unlist_card_handler(db, message):
+
+    word_parts = message.content.split()
+
+    if len(word_parts) != 2:
+        await invalid_number_of_params(message)
+        return
+    
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+    
+    user_card = word_parts[1].upper()
+
+    resell_db = db['resell']
+    resell_group = resell_db.find_one({'cards_id': 1})
+    edit_group = resell_group['cards']
+    if not (user_card in edit_group):
+        await message.channel.send('I did not find any listed cards with that ID.')
+        return
+
+    # player is owner
+    listed_card = edit_group[user_card]
+    if not (listed_card['owner_id'] == message.author.id):
+        await message.channel.send('You are not the owner of this card. Only the owner can unlist it.')
+        return
+
+    # remove from global listed cards
+    del edit_group[user_card]
+    resell_db.update_one({"cards_id": 1}, {"$set": {"cards": edit_group}})
+
+    # remove from players listings
+    user_for_sale_cards = get_user_for_sale_cards(user)
+    final_user_for_sale_cards = []
+    for sale_card in user_for_sale_cards:
+        if sale_card != user_card:
+            final_user_for_sale_cards.append(sale_card)
+
+    # add to player cards
+    user_cards = get_user_cards(user)
+    card_parts = user_card.split('-')
+    card_id = card_parts[0]
+    variant = card_parts[1]
+    readded_card = {
+        'card_display': user_card,
+        'card_id': card_id,
+        'variant_id': variant,
+        'signed': 0,
+    }
+    user_cards.append(readded_card)
+
+    # commit user changes
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": user_cards, 'for_sale_cards': final_user_for_sale_cards}})
+
+    # confirmation message
+    await message.channel.send('Card was successfully unlisted!')
+
+    
 
