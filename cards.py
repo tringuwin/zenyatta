@@ -5,7 +5,7 @@ from cards_data import ALL_CARDS
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int
 from rewards import change_packs, change_tokens
-from user import get_user_cards, get_user_packs, user_exists, get_user_for_sale_cards
+from user import get_user_cards, get_user_packs, get_user_tokens, user_exists, get_user_for_sale_cards
 import random
 
 
@@ -447,5 +447,89 @@ async def unlist_card_handler(db, message):
     # confirmation message
     await message.channel.send('Card was successfully unlisted!')
 
+
+async def buy_card_handler(db, message):
+
+    # verify word parts
+    word_parts = message.content.split()
+    if len(word_parts) != 2:
+        await invalid_number_of_params(message)
+        return
+
+    # verify user
+    user = user_exists(db, user)
+    if not user:
+        await not_registered_response(message)
+        return
+
+    # verify card is listed
+    buy_card = word_parts[1].upper()
+    resell_db = db['resell']
+    resell_group = resell_db.find_one({'cards_id': 1})
+    edit_group = resell_group['cards']
+    if not (buy_card in edit_group):
+        await message.channel.send('I did not find any listed cards with that ID.')
+        return
+
+    # verify lister isn't user
+    # listed_card_data = edit_group[buy_card]
+    # seller_id = listed_card_data['owner_id']
+    # if message.author.id == seller_id:
+    #     await message.channel.send("You can't buy your own card. Use the **!unlistcard** command to remove it from the card listings.")
+    #     return
+
+    # verify user has enough money
+    card_price = listed_card_data['cost']
+    buyer_tokens = get_user_tokens(user)
+    if card_price > buyer_tokens:
+        await message.channel.send('You do not have enough tokens to buy this card.')
+        return
+
+    # take tokens from buyer
+    buyer_final_tokens = buyer_tokens - card_price
+
+    # give tokens to seller
+    seller_user = user_exists(db, seller_id)
+    if not seller_user:
+        await message.channel.send('Something went very very wrong :(')
+        return
+    seller_tokens = get_user_tokens(seller_user)
+    seller_final_tokens = seller_tokens + card_price
+
+    # remove card from global lists
+    del edit_group[buy_card]
+
+    # commit global list
+    resell_db.update_one({"cards_id": 1}, {"$set": {"cards": edit_group}})
+
+    # remove card from seller listings
+    seller_for_sale_cards = get_user_for_sale_cards(seller_user)
+    final_seller_for_sale_cards = []
+    for sale_card in seller_for_sale_cards:
+        if sale_card != buy_card:
+            final_seller_for_sale_cards.append(sale_card)
+
+    # add card to buyer cards
+    buyer_cards = get_user_cards(user)
+    card_parts = buy_card.split('-')
+    card_id = card_parts[0]
+    variant = card_parts[1]
+    bought_card = {
+        'card_display': buy_card,
+        'card_id': card_id,
+        'variant_id': variant,
+        'signed': 0,
+    }
+    buyer_cards.append(bought_card)
+
+    # commit buyer details
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": buyer_cards, 'tokens': buyer_final_tokens}})
+
+    # commit seller details
+    users.update_one({"discord_id": seller_user['discord_id']}, {"$set": {"for_sale_cards": final_seller_for_sale_cards, 'tokens': seller_final_tokens}})
+
+    # confirmation message
+    await message.channel.send('You bought the card '+buy_card+'!!')
     
 
