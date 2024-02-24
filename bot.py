@@ -746,7 +746,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!cardhotfix' and is_admin:
 
         users = db['users']
-        for_sale_real = ['71-I', '75-G']
+        for_sale_real = ['71-I', '75-G', '37-S']
         users.update_one({"discord_id": message.author.id}, {"$set": {'for_sale_cards': for_sale_real}})
 
 
