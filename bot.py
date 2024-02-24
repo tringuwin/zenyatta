@@ -743,6 +743,13 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!listcard ') and is_admin:
         await list_card_handler(db, message)
 
+    elif lower_message == '!cardhotfix' and is_admin:
+
+        users = db['users']
+        for_sale_real = ['71-I', '75-G']
+        users.update_one({"discord_id": message.author.id}, {"$set": {'for_sale_cards': for_sale_real}})
+
+
     elif lower_message == '!openpack':
         await open_pack_handler(db, message)
 

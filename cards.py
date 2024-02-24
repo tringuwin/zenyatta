@@ -346,7 +346,7 @@ async def list_card_handler(db, message):
     removed_card = cards.pop(card_index)
     for_sale_cards.append(removed_card['card_display'])
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": cards}})
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": cards, 'for_sale_cards': for_sale_cards}})
 
     card_id = removed_card['card_id']
     card_variant = removed_card['variant_id']
