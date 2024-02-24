@@ -472,8 +472,8 @@ async def buy_card_handler(db, message):
         return
 
     # verify lister isn't user
-    # listed_card_data = edit_group[buy_card]
-    # seller_id = listed_card_data['owner_id']
+    listed_card_data = edit_group[buy_card]
+    seller_id = listed_card_data['owner_id']
     # if message.author.id == seller_id:
     #     await message.channel.send("You can't buy your own card. Use the **!unlistcard** command to remove it from the card listings.")
     #     return
