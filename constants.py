@@ -1,5 +1,5 @@
 
-VERSION = '1.6.41'
+VERSION = '1.6.42'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -224,7 +224,7 @@ LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassi
                         'winston', 'wrecking ball', 'zarya', 'zenyatta']
 
 LEAGUE_SEASON = 2
-LEAGUE_WEEK = 3
+LEAGUE_WEEK = 4
 
 REACTION_ROLE_CHANNEL = 1178440747817631784
 
