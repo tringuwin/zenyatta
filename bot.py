@@ -743,10 +743,10 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!listcard '):
         await list_card_handler(db, message)
 
-    elif lower_message.startswith('!unlistcard ') and is_admin:
+    elif lower_message.startswith('!unlistcard '):
         await unlist_card_handler(db, message)
 
-    elif lower_message.startswith('!buycard ') and is_admin:
+    elif lower_message.startswith('!buycard '):
         await buy_card_handler(db, message)
 
     elif lower_message == '!openpack':
