@@ -208,7 +208,10 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot):
         else:
             return False, 'Only gem related commands are allowed in the Gem Trading channel.'
         
+    elif message.channel.id == constants.CARD_TRADING_CHANNEL:
 
+        if lower_message.find('card') != -1 or lower_message.find('pack') != -1 or lower_message.find('token') != -1 or lower_message.find('donate') != -1:
+            return True, None
         
     return False, 'Please only use commands in a valid channel'
 
