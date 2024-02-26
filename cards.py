@@ -533,3 +533,10 @@ async def buy_card_handler(db, message):
     await message.channel.send('You bought the card '+buy_card+'!!')
     
 
+async def total_packs_handler(db, message):
+
+    db_cards = db['cards']
+    card_group = db_cards.find_one({'cards_id': 1})
+    all_cards = card_group['cards']
+
+    await message.channel.send('There are a total of **'+str(len(all_cards))+' Cards** left in packs.')
