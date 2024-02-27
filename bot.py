@@ -41,6 +41,7 @@ from command_handlers.gg_ez import gg_ez_handler
 from command_handlers.gift import gift_handler
 from command_handlers.hello import hello_handler
 from command_handlers.help.help_bonus import help_bonus_handler
+from command_handlers.help.help_cards import help_cards_handler
 from command_handlers.help.help_casino import help_casino_handler
 from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.help.help_league import help_league_handler
@@ -270,6 +271,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!helpcasino':
         await help_casino_handler(message)
+
+    elif lower_message == '!helpcards':
+        await help_cards_handler(message)
 
     elif lower_message == '!helpbonus':
         await help_bonus_handler(message)
