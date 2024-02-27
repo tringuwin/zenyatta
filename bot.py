@@ -232,6 +232,7 @@ async def handle_message(message, db, client):
     is_admin = (message.author.id == constants.SPICY_RAGU_ID)
     is_helper = (not message.author.bot) and member_has_role(message.author, constants.HELPER_ROLE_ID)
     is_league_helper = (not message.author.bot) and member_has_role(message.author, constants.LEAGUE_REWARDS_ROLE_ID)
+    is_cp_helper = (not message.author.bot) and member_has_role(message.author, constants.CHANNEL_POINTS_ROLE_ID)
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
 
@@ -666,10 +667,13 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!forceleagueadd') and is_admin:
         await force_league_add_handler(db, message, client)
 
-    elif lower_message.startswith('!twitchtokens') and is_helper:
-        await twitch_tokens_handler(db, message)
+    elif lower_message.startswith('!twitch10') and is_cp_helper:
+        await twitch_tokens_handler(db, message, 10)
 
-    elif lower_message.startswith('!twitchpass') and is_helper:
+    elif lower_message.startswith('!twitch50') and is_cp_helper:
+        await twitch_tokens_handler(db, message, 50)
+
+    elif lower_message.startswith('!twitchpass') and is_cp_helper:
         await twitch_pass_handler(db, message)
 
     elif lower_message == '!testdm' and is_admin:

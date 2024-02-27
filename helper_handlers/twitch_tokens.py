@@ -2,7 +2,7 @@ from rewards import change_tokens
 from user import user_exists
 
 
-async def twitch_tokens_handler(db, message):
+async def twitch_tokens_handler(db, message, num):
 
     word_parts = message.content.split(' ')
     if len(word_parts) != 2:
@@ -19,6 +19,6 @@ async def twitch_tokens_handler(db, message):
         await message.channel.send("I could not find that user. (Maybe they're not registered yet?)")
         return
     
-    await change_tokens(db, user, 10)
+    await change_tokens(db, user, num)
     await message.channel.send('Token redemption successfully given to user!')
     
