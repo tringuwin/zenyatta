@@ -1,8 +1,8 @@
 from helpers import generic_find_user
-from rewards import change_passes
+from rewards import change_packs
 
 
-async def twitch_pass_handler(client, db, message):
+async def twitch_pack_handler(client, db, message):
 
     word_parts = message.content.split(' ')
     if len(word_parts) != 2:
@@ -15,5 +15,5 @@ async def twitch_pass_handler(client, db, message):
         await message.channel.send("I could not find that user. (Maybe they're not registered yet?)")
         return
     
-    await change_passes(db, user, 1)
-    await message.channel.send('Priority Pass redemption successfully given to user!')
+    await change_packs(db, user, 1)
+    await message.channel.send('SOL Card Pack redemption successfully given to user!')
