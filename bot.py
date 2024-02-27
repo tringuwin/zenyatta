@@ -668,13 +668,13 @@ async def handle_message(message, db, client):
         await force_league_add_handler(db, message, client)
 
     elif lower_message.startswith('!twitch10') and is_cp_helper:
-        await twitch_tokens_handler(db, message, 10)
+        await twitch_tokens_handler(client, db, message, 10)
 
     elif lower_message.startswith('!twitch50') and is_cp_helper:
-        await twitch_tokens_handler(db, message, 50)
+        await twitch_tokens_handler(client, db, message, 50)
 
     elif lower_message.startswith('!twitchpass') and is_cp_helper:
-        await twitch_pass_handler(db, message)
+        await twitch_pass_handler(client, db, message)
 
     elif lower_message == '!testdm' and is_admin:
 
