@@ -599,3 +599,12 @@ ALL_CARDS = {
     
 
 }
+
+async def init_card_data_db(db, message):
+
+    carddata = db['carddata']
+    insert_obj = {'cards_id': 1, 'data': ALL_CARDS}
+
+    carddata.insert_one(insert_obj)
+    await message.channel.send('card data initiated')
+
