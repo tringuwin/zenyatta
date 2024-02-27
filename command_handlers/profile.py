@@ -1,7 +1,7 @@
 
 from discord_actions import get_guild, get_member_by_username
 from helpers import make_string_from_word_list
-from user import get_fan_of, get_league_team, get_lvl_info, get_rival_of, get_user_gems, get_user_passes, get_user_pickaxes, get_user_tokens, user_exists
+from user import get_fan_of, get_league_team, get_lvl_info, get_rival_of, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_tokens, user_exists
 import constants
 
 
@@ -36,6 +36,7 @@ async def profile_handler(db, message, client):
     tokens = get_user_tokens(user)
     passes = get_user_passes(user)
     pickaxes = get_user_pickaxes(user)
+    packs = get_user_packs(user)
     final_string = "**USER PROFILE FOR "+user['battle_tag']+':**\n'
     final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
 
@@ -61,8 +62,9 @@ async def profile_handler(db, message, client):
     final_string += 'Fan of Team: **'+fan_of_string+'**\n'
     final_string += 'Rival of Team: **'+rival_of_string+'**\n'
 
+    pack_emoji = guild.get_emoji(constants.PACK_EMOJI_ID)
     final_string +='\n'
-    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+'\n'
+    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+'\n'
 
     gems = get_user_gems(user)
     gem_line_1 = ''
