@@ -830,7 +830,7 @@ ALL_CARDS = {
         'special_img': 'https://i.postimg.cc/3JmYz1qL/Cards-18.png'
     },
     '145': {
-        'player_id': ALL_PLAYERS['swiss'],
+        'player_id': ALL_PLAYERS['swissy'],
         'normal_img': 'https://i.postimg.cc/t4zy4TpW/Cards-16.png',
         'special_img': 'https://i.postimg.cc/RCjvPyg6/Cards-17.png'
     },
