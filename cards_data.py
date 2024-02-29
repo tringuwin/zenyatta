@@ -411,28 +411,28 @@ ALL_CARDS = {
     },
     '61': {
         'player_id': ALL_PLAYERS['mike'],
-        'normal_img': 'https://i.postimg.cc/y80t3VsL/Cards-18.png',
-        'special_img': 'https://i.postimg.cc/26SKthvt/Cards-19.png'
+        'normal_img': 'https://i.postimg.cc/cHKn0vNw/Cards-20.png',
+        'special_img': 'https://i.postimg.cc/LsQ1czGm/Cards-23.png'
     },
     '62': {
         'player_id': ALL_PLAYERS['graded'],
-        'normal_img': 'https://i.postimg.cc/pdx7DgdR/Cards-21.png',
-        'special_img': 'https://i.postimg.cc/cCj2wCvb/Cards-20.png'
+        'normal_img': 'https://i.postimg.cc/YS04zv0Z/Cards-15.png',
+        'special_img': 'https://i.postimg.cc/zvKHH4vf/Cards-16.png'
     },
     '63': {
         'player_id': ALL_PLAYERS['buttermilk'],
-        'normal_img': 'https://i.postimg.cc/x1HDGvyy/Cards-14.png',
-        'special_img': 'https://i.postimg.cc/pXhgxf7b/Cards-15.png'
+        'normal_img': 'https://i.postimg.cc/ryrrHRjL/Cards-17.png',
+        'special_img': 'https://i.postimg.cc/9MvqMcWS/Cards-14.png'
     },
     '64': {
         'player_id': ALL_PLAYERS['cherrybee'],
-        'normal_img': 'https://i.postimg.cc/rpJHgQdW/Cards-22.png',
-        'special_img': 'https://i.postimg.cc/4yKFfGWb/Cards-23.png'
+        'normal_img': 'https://i.postimg.cc/xTVzVjpN/Cards-18.png',
+        'special_img': 'https://i.postimg.cc/YqNmrcTn/Cards-19.png'
     },
     '65': {
         'player_id': ALL_PLAYERS['ssolaced'],
-        'normal_img': 'https://i.postimg.cc/sDkb2BdB/Cards-17.png',
-        'special_img': 'https://i.postimg.cc/CM6WWPcs/Cards-16.png'
+        'normal_img': 'https://i.postimg.cc/pL25yGH2/Cards-22.png',
+        'special_img': 'https://i.postimg.cc/CxmB8Ghb/Cards-21.png'
     },
     '66': {
         'player_id': ALL_PLAYERS['ionalien'],
