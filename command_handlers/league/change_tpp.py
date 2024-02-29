@@ -20,7 +20,7 @@ async def change_tpp_handler(db, message, client):
         return
     
     user_mentioned = params[1]
-    user_obj = generic_find_user(client, db, user_mentioned)
+    user_obj = await generic_find_user(client, db, user_mentioned)
     if not user_obj:
         await message.channel.send('I could not find any user with that username/user id.')
         return
