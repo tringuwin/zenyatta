@@ -1249,7 +1249,7 @@ async def handle_message(message, db, client):
         # !givepacks [winner id] [packs]
         word_list = message.content.split()
         if len(word_list) == 3:
-            await give_packs_command(client, db, word_list[1], int(word_list[2]), message)
+            await give_packs_command(client, db, word_list[1], float(word_list[2]), message)
         else:
             await send_msg(message.channel, 'Invalid number of arguments.', '!givepacks')
 
