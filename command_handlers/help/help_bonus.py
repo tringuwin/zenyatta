@@ -4,6 +4,7 @@ import discord
 async def help_bonus_handler(message):
     
     help_embed = discord.Embed(title='List of bonus commands:')
+    help_embed.add_field(name='!store', value='Get a link to the official SOL Merch Store.', inline=False)
     help_embed.add_field(name='!auctiontimer', value='Shows how much time is left until the Daily Auction ends.', inline=False)
     help_embed.add_field(name='!subtimer', value='Shows how many days are left for your Twitch Sub Lootbox (if you are a Twitch Sub).', inline=False)
     help_embed.add_field(name='!leaderboard', value='Shows the Top 10 players by Level/XP and links to the full server leaderboard.', inline=False)
