@@ -235,6 +235,7 @@ async def handle_message(message, db, client):
     is_helper = (not message.author.bot) and member_has_role(message.author, constants.HELPER_ROLE_ID)
     is_league_helper = (not message.author.bot) and member_has_role(message.author, constants.LEAGUE_REWARDS_ROLE_ID)
     is_cp_helper = (not message.author.bot) and member_has_role(message.author, constants.CHANNEL_POINTS_ROLE_ID)
+    is_tp_helper = (not message.author.bot) and member_has_role(message.author, constants.TWITCH_PACKS_ROLE_ID)
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
 
@@ -1244,7 +1245,7 @@ async def handle_message(message, db, client):
         else:
             await send_msg(message.channel, 'Invalid number of arguments.', '!givepickaxes')
 
-    elif lower_message.startswith('!givepacks ') and is_admin:
+    elif lower_message.startswith('!givepacks ') and (is_admin or is_tp_helper):
 
         # !givepacks [winner id] [packs]
         word_list = message.content.split()
