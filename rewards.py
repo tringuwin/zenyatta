@@ -212,6 +212,8 @@ async def change_packs(db, user, num):
     
     if "packs" in user:
         new_packs = user['packs'] + num
-        users.update_one({"discord_id": user['discord_id']}, {"$set": {"packs": new_packs}})
+        final_packs = round(new_packs, 2)
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"packs": final_packs}})
     else:
+        final_packs = round(num, 2)
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"packs": num}})
