@@ -310,7 +310,7 @@ async def give_hard_handler(db, message):
         return
 
     cards = get_user_cards(user)
-    input_card = word_parts[2]
+    input_card = word_parts[2].upper()
 
     card_index = get_card_index(cards, input_card)
     if card_index == -1:
