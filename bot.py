@@ -350,6 +350,9 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!whichhero'):
         await which_hero_handler(message)
 
+    elif lower_message == '!store':
+        await message.channel.send('Check out the official SOL Merch Store here! https://exclaim.gg/store/spicyow')
+
     elif lower_message.startswith('!whichteam'):
         await which_team_handler(message)
 
