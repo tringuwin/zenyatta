@@ -847,44 +847,44 @@ async def handle_message(message, db, client):
         
         reward_per_round = [50, 100, 300, 500, 1000, 2000, 2000, 2000]
 
-        bracket = db['brackets'].find_one({'event_id': '25'})
+        bracket = db['brackets'].find_one({'event_id': '26'})
 
         final_dict = {}
-
-        # round_index = 0
-        # for round in bracket['bracket']:
-        #     for match in round:
-        #         for player in match:
-        #             if 'no_show' in player:
-        #                 final_dict[str(player['user'])] = -1
-        #             elif not ((player['is_bye']) or ('is_tbd' in player and player['is_tbd'])):
-        #                 final_dict[str(player['user'])] = round_index
-
-        #     round_index += 1
 
         round_index = 0
         for round in bracket['bracket']:
             for match in round:
-                for bracket_team in match:
-                    print(bracket_team)
-                    if bracket_team['is_bye'] or ('is_tbd' in bracket_team and bracket_team['is_tbd']):
-                        continue
-                    elif 'no_show' in bracket_team:
-                        team = await get_team_by_name(db, bracket_team['user'])
-                        if team and 'members' in team:
-                            for team_member in team['members']:
-                                team_user = user_exists(db, team_member)
-                                if team_user:
-                                    final_dict[str(team_user['discord_id'])] = -1
-                    else:
-                        team = await get_team_by_name(db, bracket_team['user'])
-                        if team and 'members' in team:
-                            for team_member in team['members']:
-                                team_user = user_exists(db, team_member)
-                                if team_user:
-                                    final_dict[str(team_user['discord_id'])] = round_index
+                for player in match:
+                    if 'no_show' in player:
+                        final_dict[str(player['user'])] = -1
+                    elif not ((player['is_bye']) or ('is_tbd' in player and player['is_tbd'])):
+                        final_dict[str(player['user'])] = round_index
 
             round_index += 1
+
+        # round_index = 0
+        # for round in bracket['bracket']:
+        #     for match in round:
+        #         for bracket_team in match:
+        #             print(bracket_team)
+        #             if bracket_team['is_bye'] or ('is_tbd' in bracket_team and bracket_team['is_tbd']):
+        #                 continue
+        #             elif 'no_show' in bracket_team:
+        #                 team = await get_team_by_name(db, bracket_team['user'])
+        #                 if team and 'members' in team:
+        #                     for team_member in team['members']:
+        #                         team_user = user_exists(db, team_member)
+        #                         if team_user:
+        #                             final_dict[str(team_user['discord_id'])] = -1
+        #             else:
+        #                 team = await get_team_by_name(db, bracket_team['user'])
+        #                 if team and 'members' in team:
+        #                     for team_member in team['members']:
+        #                         team_user = user_exists(db, team_member)
+        #                         if team_user:
+        #                             final_dict[str(team_user['discord_id'])] = round_index
+
+        #     round_index += 1
 
         for player_id_string, highest_round in final_dict.items():
 
