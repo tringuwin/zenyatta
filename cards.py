@@ -39,8 +39,11 @@ async def cards_handler(db, message):
     if len(user_cards) > 0:
 
         final_string = '**YOUR CARDS:**'
+        all_card_displays = []
         for card in user_cards:
-            final_string += '\n'+card['card_display']
+            all_card_displays.append(card['card_display'])
+        comma_separated_string = ", ".join(all_card_displays)
+        final_string += '\n'+comma_separated_string
 
     if len(user_for_sale_cards) > 0:
 
@@ -49,8 +52,11 @@ async def cards_handler(db, message):
         else:
             final_string += '\n**YOUR LISTED CARDS:**'
 
+        all_card_displays = []
         for card in user_for_sale_cards:
-            final_string += '\n'+card
+            all_card_displays.append(card['card_display'])
+        comma_separated_string = ", ".join(all_card_displays)
+        final_string += '\n'+comma_separated_string
 
 
     await message.channel.send(final_string)
