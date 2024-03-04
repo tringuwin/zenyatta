@@ -72,8 +72,11 @@ def create_event(db, event_id, event_name, max_players, pass_required, team_size
 
     events = db['events']
     needs_pass = False
+    needs_sub = False
     if pass_required == '1':
         needs_pass = True
+    elif pass_required == '2':
+        needs_sub = True
 
     new_event = {
         "event_id": event_id,
@@ -83,6 +86,7 @@ def create_event(db, event_id, event_name, max_players, pass_required, team_size
         "entries": [],
         "requests": [],
         'needs_pass': needs_pass,
+        'needs_sub': needs_sub,
         'team_size': int(team_size),
         'event_role_id': int(event_role_id),
         'event_channel_id': int(event_channel_id)

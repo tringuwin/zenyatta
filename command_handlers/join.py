@@ -42,9 +42,8 @@ async def join_handler(db, message, client):
         await message.channel.send('It looks like this event is full. Use the command **!events** to see if there are any events with remaining spots.')
         return
 
+    is_twitch_sub = member_has_role(message.author, constants.TWITCH_SUB_ROLE)
     if event['needs_pass']:
-
-        is_twitch_sub = member_has_role(message.author, constants.TWITCH_SUB_ROLE)
 
         if not is_twitch_sub:
 
@@ -53,6 +52,11 @@ async def join_handler(db, message, client):
                 return
             else:
                 await change_passes(db, user, -1)
+
+    if event['needs_sub']:
+        if not is_twitch_sub:
+            await message.channel.send('This event is only open to Twitch Subscribers.')
+            return
 
     await add_event_entry_to_user(db, user, event_id)
     await add_user_to_event_entries(db, user, event)

@@ -36,6 +36,8 @@ async def full_events_handler(db, message):
 
         if ('needs_pass' in event) and (event['needs_pass']):
             final_string += ' : ***🎟️ PRIORITY PASS REQUIRED 🎟️***'
+        elif ('needs_sub' in event) and (event['needs_sub']):
+            final_string += ' : ***🟣 TWITCH SUBSCRIBERS ONLY 🟣***'
 
         if not event_full:
             if num_players == 1:
