@@ -6,7 +6,6 @@ import constants
 BLACK_LIST = [
     533360089793298442, #acid
     762166801378443305, #chiaki
-    1112204092723441724, # me test
 ]
 
 async def suggest_handler(message, client):
