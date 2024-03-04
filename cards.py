@@ -54,7 +54,7 @@ async def cards_handler(db, message):
 
         all_card_displays = []
         for card in user_for_sale_cards:
-            all_card_displays.append(card['card_display'])
+            all_card_displays.append(card)
         comma_separated_string = ", ".join(all_card_displays)
         final_string += '\n'+comma_separated_string
 
