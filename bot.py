@@ -599,7 +599,7 @@ async def handle_message(message, db, client):
         await full_events_handler(db, message)
 
     elif lower_message.startswith("!addevent") and is_admin:
-        # !addevent|[event id]|[event name]|[max participants]|[0 for no pass, 1 for pass]|[team size]|[event role id]|[event channel id]
+        # !addevent|[event id]|[event name]|[max participants]|[0 for no pass, 1 for pass, 2 for subs]|[team size]|[event role id]|[event channel id]
         await add_event_handler(db, message)
 
     elif lower_message.startswith("!delevent") and is_admin:

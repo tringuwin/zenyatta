@@ -11,6 +11,7 @@ async def suggest_handler(message, client):
         return
 
     suggest_channel = client.get_channel(constants.SERVER_SUGGEST_CHANNEL)
+    admin_channel = client.get_channel(constants.ADMIN_COMMAND_CHANNEL)
 
     embed_msg = discord.Embed(
         title = "Suggestion",
@@ -24,6 +25,7 @@ async def suggest_handler(message, client):
 
     message_channel = message.channel
     bot_response = await message_channel.send('Your suggestion has been added!')
+    await admin_channel.send('Suggestion made by '+str(message.author.name)+'\n'+idea)
     if not is_dm_channel(message_channel):
         await message.delete()
         time.sleep(5)
