@@ -1,6 +1,6 @@
 
 from common_messages import not_registered_response
-from user import user_exists
+from user import get_user_ranks, user_exists
 import requests
 from bs4 import BeautifulSoup
 
@@ -175,18 +175,33 @@ async def verify_ranks_handler(db, message):
         rank = tier+' '+div
         
         if player_roles[this_role][1] == 0:
-            player_roles[this_role] = [rank, rank_value]
+            player_roles[this_role] = [rank, rank_value, tier, div]
         else:
             if player_roles[this_role][1] < rank_value:
-                 player_roles[this_role] = [rank, rank_value]
+                 player_roles[this_role] = [rank, rank_value, tier, div]
 
-    for final_role_name in player_roles:
+    user_ranks = get_user_ranks(user)
+    print('before ranks')
+    print(user_ranks)
 
-        final_value = player_roles[final_role_name]
-        if final_value[1] != 0:
-            final_info = 'Rank for '+final_role_name+': '+final_value[0]
-            print(final_info)
-            await message.channel.send(final_info)
+    for role_id in role_list:
+        if role_id in player_roles:
+            user_ranks[role_id] = {
+                'tier': player_roles[2],
+                'div': player_roles[3]
+            }
+        else:
+            user_ranks[role_id] = {
+                'tier': 'none',
+                'div': 'none'
+            }
+
+    print('after ranks')
+    print(user_ranks)
+
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"ranks": user_ranks}})
+    await message.channel.send('Roles updated successfully!')
 
         
 

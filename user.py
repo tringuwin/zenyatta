@@ -221,6 +221,25 @@ def get_user_for_sale_cards(user):
     
     return []
 
+def get_user_ranks(user):
+
+    if 'ranks' in user:
+        return user['ranks']
+    
+    return {
+        'tank': {
+            'tier': 'none',
+            'div': 'none'
+        },
+        'offense': {
+            'tier': 'none',
+            'div': 'none'
+        },
+        'support': {
+            'tier': 'none',
+            'div': 'none'
+        },
+    }
     
 def toggle_off_gift_notify(db, user):
 
