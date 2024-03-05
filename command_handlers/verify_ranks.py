@@ -118,12 +118,19 @@ async def verify_ranks_handler(db, message):
 
         this_role = 'none'
         role_text = group['role']
+        print('doing group')
+        print(group)
+
+        if role_text.find('open') != -1:
+            print('skipping open')
+            continue
+
         for example_role in role_list:
             if role_text.find(example_role) != -1:
                 this_role = example_role
                 break
 
-        if this_role == 'none' and (not role_text.find('open') != -1):
+        if this_role == 'none':
             raise Exception('Could not find role for role string: '+role_text)
         
 
