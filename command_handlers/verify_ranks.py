@@ -90,23 +90,35 @@ async def verify_ranks_handler(db, message):
         print('tier: '+tier_text)
         print('div: '+div_text)
 
-    # cs_target_div = soup.find('div', class_='controller-view')
-    # cs_child_divs = cs_target_div.find_all('div', recursive=False)
+    cs_target_div = soup.find('div', class_='controller-view')
+    cs_child_divs = cs_target_div.find_all('div', recursive=False)
 
-    # for cs_child_div in cs_child_divs:
-    #     role_holder = cs_child_div.find('svg', class_='Profile-playerSummary--role')
-    #     role = role_holder.find('use')
-    #     role_text = role['xlink:href']
-    #     rank = cs_child_div.find('img', class_='Profile-playerSummary--rank')
-    #     rank_text = rank['src']
-    #     roles_and_ranks.append({
-    #         'role': role_text,
-    #         'rank': rank_text
-    #     })
-    #     print('console')
-    #     print('---')
-    #     print('role: '+role_text)
-    #     print('rank: '+rank_text)
+    for cs_child_div in cs_child_divs:
+        role_holder = cs_child_div.find('div', class_='Profile-playerSummary--role')
+        role = role_holder.find('img')
+        role_text = role['src']
+        rank_parts = cs_child_div.find_all('img', class_='Profile-playerSummary--rank')
+        rank_tier = rank_parts[0]
+        tier_text = rank_tier['src']
+        rank_div = rank_parts[1]
+        div_text = rank_div['src']
+ 
+        print('-----------')
+        print('tier_text')
+        print(tier_text)
+        print('div_text')
+        print(div_text)
+
+        roles_and_ranks.append({
+            'role': role_text,
+            'tier': tier_text,
+            'div': div_text
+        })
+        print('cs')
+        print('---')
+        print('role: '+role_text)
+        print('tier: '+tier_text)
+        print('div: '+div_text)
 
     player_roles = {
         'tank': ['none', 0],
