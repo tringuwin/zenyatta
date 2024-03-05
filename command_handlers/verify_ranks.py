@@ -186,9 +186,10 @@ async def verify_ranks_handler(db, message):
 
     for role_id in role_list:
         if role_id in player_roles:
+            role_info = player_roles[role_id]
             user_ranks[role_id] = {
-                'tier': player_roles[2],
-                'div': player_roles[3]
+                'tier': role_info[2],
+                'div': role_info[3]
             }
         else:
             user_ranks[role_id] = {
