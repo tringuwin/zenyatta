@@ -15,11 +15,11 @@ tiers_and_value = {
 }
 
 divs_and_value = {
-    'Division 5': 1,
-    'Division 4': 2,
-    'Division 3': 3,
-    'Division 2': 2,
-    'Division 1': 1
+    'Division_5': 1,
+    'Division_4': 2,
+    'Division_3': 3,
+    'Division_2': 2,
+    'Division_1': 1
 }
 
 role_list = [
