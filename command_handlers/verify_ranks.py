@@ -116,9 +116,6 @@ async def verify_ranks_handler(db, message):
 
     for group in roles_and_ranks:
 
-        if role_text.find('open'):
-            continue
-
         this_role = 'none'
         role_text = group['role']
         for example_role in role_list:
@@ -126,7 +123,7 @@ async def verify_ranks_handler(db, message):
                 this_role = example_role
                 break
 
-        if this_role == 'none':
+        if this_role == 'none' and (not role_text.find('open') != -1):
             raise Exception('Could not find role for role string: '+role_text)
         
 
