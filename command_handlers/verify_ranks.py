@@ -202,7 +202,7 @@ async def verify_ranks_handler(db, message):
 
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"ranks": user_ranks}})
-    await message.channel.send('Roles updated successfully!')
+    await message.channel.send('Ranks updated successfully!')
 
         
 
