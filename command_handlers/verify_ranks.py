@@ -116,6 +116,9 @@ async def verify_ranks_handler(db, message):
 
     for group in roles_and_ranks:
 
+        if role_text.find('open'):
+            continue
+
         this_role = 'none'
         role_text = group['role']
         for example_role in role_list:
