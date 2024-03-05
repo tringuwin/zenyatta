@@ -4,48 +4,23 @@ from user import user_exists
 import requests
 from bs4 import BeautifulSoup
 
-ranks_and_value = {
-    'BronzeTier-5': 1,
-    'BronzeTier-4': 2,
-    'BronzeTier-3': 3,
-    'BronzeTier-2': 4,
-    'BronzeTier-1': 5,
-    'SilverTier-5': 6,
-    'SilverTier-4': 7,
-    'SilverTier-3': 8,
-    'SilverTier-2': 9,
-    'SilverTier-1': 10,
-    'GoldTier-5': 11,
-    'GoldTier-4': 12,
-    'GoldTier-3': 13,
-    'GoldTier-2': 14,
-    'GoldTier-1': 15,
-    'PlatinumTier-5': 16,
-    'PlatinumTier-4': 17,
-    'PlatinumTier-3': 18,
-    'PlatinumTier-2': 19,
-    'PlatinumTier-1': 20,
-    'DiamondTier-5': 21,
-    'DiamondTier-4': 22,
-    'DiamondTier-3': 23,
-    'DiamondTier-2': 24,
-    'DiamondTier-1': 25,
-    'GrandMasterTier-5': 31,
-    'GrandMasterTier-4': 32,
-    'GrandMasterTier-3': 33,
-    'GrandMasterTier-2': 34,
-    'GrandMasterTier-1': 35,
+tiers_and_value = {
+    'Rank_Bronze': 100,
+    'Rank_Silver': 200,
+    'Rank_Gold': 300,
+    'Rank_Platinum': 400,
+    'Rank_Diamond': 500,
+    'Rank_Master': 600,
+    'Rank_GrandMaster': 700
 }
 
-master_tiers = {
-    'MasterTier-5': 26,
-    'MasterTier-4': 27,
-    'MasterTier-3': 28,
-    'MasterTier-2': 29,
-    'MasterTier-1': 30,
+divs_and_value = {
+    'Division 5': 1,
+    'Division 4': 2,
+    'Division 3': 3,
+    'Division 2': 2,
+    'Division 1': 1
 }
-
-
 
 role_list = [
     'tank',
@@ -115,28 +90,28 @@ async def verify_ranks_handler(db, message):
         print('tier: '+tier_text)
         print('div: '+div_text)
 
-    cs_target_div = soup.find('div', class_='controller-view')
-    cs_child_divs = cs_target_div.find_all('div', recursive=False)
+    # cs_target_div = soup.find('div', class_='controller-view')
+    # cs_child_divs = cs_target_div.find_all('div', recursive=False)
 
-    for cs_child_div in cs_child_divs:
-        role_holder = cs_child_div.find('svg', class_='Profile-playerSummary--role')
-        role = role_holder.find('use')
-        role_text = role['xlink:href']
-        rank = cs_child_div.find('img', class_='Profile-playerSummary--rank')
-        rank_text = rank['src']
-        roles_and_ranks.append({
-            'role': role_text,
-            'rank': rank_text
-        })
-        print('console')
-        print('---')
-        print('role: '+role_text)
-        print('rank: '+rank_text)
+    # for cs_child_div in cs_child_divs:
+    #     role_holder = cs_child_div.find('svg', class_='Profile-playerSummary--role')
+    #     role = role_holder.find('use')
+    #     role_text = role['xlink:href']
+    #     rank = cs_child_div.find('img', class_='Profile-playerSummary--rank')
+    #     rank_text = rank['src']
+    #     roles_and_ranks.append({
+    #         'role': role_text,
+    #         'rank': rank_text
+    #     })
+    #     print('console')
+    #     print('---')
+    #     print('role: '+role_text)
+    #     print('rank: '+rank_text)
 
     player_roles = {
         'tank': ['none', 0],
-        'offense': ['none', 0],
-        'support': ['none', 0]
+        'offense': ['none',  0],
+        'support': ['none',  0]
     }
 
     for group in roles_and_ranks:
@@ -151,24 +126,34 @@ async def verify_ranks_handler(db, message):
         if this_role == 'none':
             raise Exception('Could not find role for role string: '+role_text)
         
-        rank_text = group['rank'].lower()
-        rank = 'none'
-        rank_value = 0
-        for rank_name in ranks_and_value:
-            if rank_text.find(rank_name.lower()) != -1:
-                rank = rank_name
-                rank_value = ranks_and_value[rank_name]
+
+        tier_text = group['tier'].lower()
+        tier = 'none'
+        tier_value = 0
+        for tier_name in tiers_and_value:
+            if tier_text.find(tier_name.lower()) != -1:
+                tier = tier_name
+                tier_value = tiers_and_value[tier_name]
                 break
 
-        if rank == 'none':
-            for rank_name in master_tiers:
-                if rank_text.find(rank_name.lower()) != -1:
-                    rank = rank_name
-                    rank_value = master_tiers[rank_name]
-                    break
+        if tier == 'none':
+            raise Exception('Could not find tier for tier string: '+tier_text)
+        
 
-        if rank == 'none':
-            raise Exception('Could not find rank for rank string: '+rank_text)
+        div_text = group['div'].lower()
+        div = 'none'
+        div_value = 0
+        for div_name in divs_and_value:
+            if div_text.find(div_name.lower()) != -1:
+                div = div_name
+                div_value = divs_and_value[div_name]
+                break
+
+        if div == 'none':
+            raise Exception('Could not find div for div string: '+div_text)
+
+        rank_value = tier_value + div_value
+        rank = tier+' '+div
         
         if player_roles[this_role][1] == 0:
             player_roles[this_role] = [rank, rank_value]
