@@ -35,7 +35,7 @@ async def league_accept_handler(db, message, client):
             break
 
     if not found_team:
-        await message.channel.send('You do not have a team invite from the team "'+team_name_to_join+'". Please check the spelling and capitilzation of the team name.')
+        await message.channel.send('You do not have a team invite from the team "'+team_name_to_join+'". Please check the spelling and capitalization of the team name.')
         return
     
     league_teams = db['leagueteams']

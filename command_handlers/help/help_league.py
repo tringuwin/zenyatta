@@ -10,7 +10,7 @@ async def help_league_handler(message):
     help_embed.add_field(name='!leagueinvite @User', value='Admin command to invite a user to your league team', inline=False)
     help_embed.add_field(name='!leaguecancelinvite @User', value="Admin command to cancel a user's pending invite to your team.", inline=False)
     help_embed.add_field(name='!leagueinvites', value='See a list of league teams that you are invited to.', inline=False)
-    help_embed.add_field(name='!leagueaccept [team name]', value='Accept an invite to join a league team. Please make sure to use exact team name and capitilization.', inline=False)
+    help_embed.add_field(name='!leagueaccept [team name]', value='Accept an invite to join a league team. Please make sure to use exact team name and capitalization.', inline=False)
     help_embed.add_field(name='!changetpp username [tpp number]', value='Admin command to change the TPP of a player on your league team.', inline=False)
     help_embed.add_field(name='!changerole @Player [role info]', value='Admin command to change the role of a player on your league team.', inline=False)
     help_embed.add_field(name='!maketeamadmin @Player', value='Owner command to make a member of your league team an admin.', inline=False)
