@@ -959,8 +959,8 @@ ALL_CARDS = {
     },
     '166': {
         'player_id': ALL_PLAYERS['femboytummy'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/RCDJG63S/Cards-21.png',
+        'special_img': 'https://i.postimg.cc/15Vndm6p/Cards-20.png'
     },
     '167': {
         'player_id': ALL_PLAYERS['gducke'],
@@ -979,8 +979,8 @@ ALL_CARDS = {
     },
     '170': {
         'player_id': ALL_PLAYERS['trixx'],
-        'normal_img': '',
-        'special_img': ''
+        'normal_img': 'https://i.postimg.cc/PJ9Lq9Gp/Cards-22.png',
+        'special_img': 'https://i.postimg.cc/B6hLrtMC/Cards-23.png'
     },
     '171': {
         'player_id': ALL_PLAYERS['masiax'],
