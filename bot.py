@@ -847,7 +847,7 @@ async def handle_message(message, db, client):
         
         reward_per_round = [50, 100, 300, 500, 1000, 2000, 2000, 2000]
 
-        bracket = db['brackets'].find_one({'event_id': '26'})
+        bracket = db['brackets'].find_one({'event_id': '28'})
 
         final_dict = {}
 
