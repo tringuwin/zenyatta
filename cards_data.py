@@ -939,8 +939,8 @@ ALL_CARDS = {
     },
     '162': {
         'player_id': ALL_PLAYERS['jr21'],
-        'normal_img': 'https://i.postimg.cc/8c8KYqSp/Cards-18.png',
-        'special_img': 'https://i.postimg.cc/52prt7wg/Cards-19.png'
+        'normal_img': 'https://i.postimg.cc/0jcDx64y/Cards-25.png',
+        'special_img': 'https://i.postimg.cc/bYTQ1Mvf/Cards-24.png'
     },
     '163': {
         'player_id': ALL_PLAYERS['justtoosus'],
