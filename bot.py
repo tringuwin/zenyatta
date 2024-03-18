@@ -243,10 +243,10 @@ async def handle_message(message, db, client):
     lower_message = user_message.lower()
     if (not has_image_perms) and (lower_message.find('discord.gg') != -1 or lower_message.find('http') != -1):
         await message.delete()
-        warning = await message.channel.send(message.author.mention+' '+' users without Image Perms are not allowed to post links. Please ask a Helper for Image Perms.')
 
-        time.sleep(10)
-        await warning.delete()
+
+
+        await message.channel.send(message.author.mention+' '+' users without Image Perms are not allowed to post links. Please ask a Helper for Image Perms. **Your account has been flagged as potentially dangerous, and if you post a link without image permission again, you will be automatically banned by the bot.**')
         return
 
     is_command = len(user_message) > 0 and (user_message[0] == '!')
@@ -710,6 +710,16 @@ async def handle_message(message, db, client):
         db_constants.insert_one(new_entry)
 
         await message.channel.send('init success')
+
+    elif lower_message == '!initwarningsconst' and is_admin:
+
+        db_constants = db['constants']
+        new_entry = {
+            'name': 'warnings',
+            'value': []
+        }
+        db_constants.insert_one(new_entry)
+        await message.channel.send('warnings init complete')
 
     elif lower_message.startswith('!initrandomevent') and is_admin:
 
