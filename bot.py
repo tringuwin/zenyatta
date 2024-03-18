@@ -1373,6 +1373,12 @@ async def handle_message(message, db, client):
 
         await send_msg(message.channel, 'all done', '!givealllevels')
 
+    elif lower_message == '!postreplay' and is_admin:
+        vod_link = message.content.split()[1]
+        guild = await get_guild(client)
+        clips_channel = guild.get_channel(constants.CLIPS_CHANNEL)
+        clips_channel.send('A new SOL Replay has been posted on YouTube! Go check it out! '+vod_link)
+
     elif lower_message == '!getavatar':
         avatar = message.author.display_avatar
         if avatar:
