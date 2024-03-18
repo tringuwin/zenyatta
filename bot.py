@@ -67,6 +67,7 @@ from command_handlers.league.league_leave import league_leave_handler
 from command_handlers.league.lft.set_lft_color import set_lft_color_handler
 from command_handlers.league.lft.set_lft_hero import set_lft_hero_handler
 from command_handlers.league.lft.toggle_lft import toggle_lft_handler
+from command_handlers.league.lft.update_lft import update_lft_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
 from command_handlers.league.ping_team import ping_team_handler
@@ -556,6 +557,9 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!setlfthero'):
         # !setlfthero index hero
         await set_lft_hero_handler(db, message)
+
+    elif lower_message.startswith('!updatelft'):
+        await update_lft_handler(db, message)
 
     elif lower_message.startswith('!setleagueteam ') and is_admin:
         # !setleagueteam [user_id] [team name]
