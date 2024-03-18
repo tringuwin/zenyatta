@@ -244,10 +244,24 @@ async def handle_message(message, db, client):
     if (not has_image_perms) and (lower_message.find('discord.gg') != -1 or lower_message.find('http') != -1):
         await message.delete()
 
+        db_constants = db['constants']
+        warned_users_obj = db_constants.find_one({'name': 'warnings'})
+        warned_users = warned_users_obj['value']
 
-
-        await message.channel.send(message.author.mention+' '+' users without Image Perms are not allowed to post links. Please ask a Helper for Image Perms. **Your account has been flagged as potentially dangerous, and if you post a link without image permission again, you will be automatically banned by the bot.**')
-        return
+        if message.author.id in warned_users:
+            # ban user and delete messages, notify helpers
+            banned_name = message.author.name
+            await message.author.ban(delete_message_days=7)
+            guild = await get_guild(client)
+            helpers_channel = guild.get_channel(constants.HELPERS_CHANNEL)
+            await helpers_channel.send('BAN REPORT: User "'+banned_name+'" was banned for sending links twice without Image Permission. Please review the logs and check if this ban was correct. Revoke the ban if the user was not enaging in harmful activity.')
+            return
+        else:
+            # add to warnings array
+            await message.channel.send(message.author.mention+' '+' users without Image Perms are not allowed to post links. Please ask a Helper for Image Perms. **Your account has been flagged as potentially dangerous, and if you post a link without image permission again, you will be automatically banned by the bot.**')
+            warned_users.append(message.author.id)
+            db_constants.update_one({"name": 'warnings'}, {"$set": {"value": warned_users}})
+            return
 
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if (not is_command) and (not is_push_bot):
