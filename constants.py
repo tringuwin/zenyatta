@@ -1,5 +1,5 @@
 
-VERSION = '1.6.89'
+VERSION = '1.6.90'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -108,7 +108,8 @@ LEAGUE_TO_EMOJI_ID = {
     'Guardians': 1200148962443800616,
     'Fresas': 1200202833170026669,
     'Outliers': 1200928308922167357,
-    'Phoenix': 1200926320767545484
+    'Phoenix': 1200926320767545484,
+    'Celestials': 1168952409125556304 #sol
 }
 
 LEVEL_ROLE_IDS = [
@@ -220,7 +221,7 @@ MAP_NAME_TO_NAME_IMG = {
 
 NO_MAP_NAME = 'https://i.postimg.cc/hPNGk6G1/No-Map.png'
 
-TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians',  'Fresas', 'Outliers', 'Phoenix']
+TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians',  'Fresas', 'Outliers', 'Phoenix', 'Celestials']
 
 EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix']
 
