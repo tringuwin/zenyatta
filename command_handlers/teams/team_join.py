@@ -64,15 +64,11 @@ async def team_join_handler(client, db, message):
     
     if event['needs_pass']:
 
-        is_twitch_sub = member_has_role(message.author, constants.TWITCH_SUB_ROLE)
-
-        if not is_twitch_sub:
-
-            if get_user_passes(user) < 1:
-                await message.channel.send('This event requires a Priority Pass 🎟️ to join right now! Please get a Priority Pass first or wait until the event is open to everyone!')
-                return
-            else:
-                await change_passes(db, user, -1)
+        if get_user_passes(user) < 1:
+            await message.channel.send('This event requires a Priority Pass 🎟️ to join right now! Please get a Priority Pass first or wait until the event is open to everyone!')
+            return
+        else:
+            await change_passes(db, user, -1)
 
     await add_team_to_event(client, db, team, event)
 
