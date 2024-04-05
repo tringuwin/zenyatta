@@ -405,8 +405,8 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!invitedby'):
         await invited_by_handler(db, message)
 
-    elif lower_message == '!verifyranks':
-        await verify_ranks_handler(db, message)
+    # elif lower_message == '!verifyranks':
+    #     await verify_ranks_handler(db, message)
 
     elif lower_message == '!leaderboard':
         await leaderboard_handler(db, message)
