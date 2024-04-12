@@ -24,6 +24,10 @@ async def rival_of_handler(db, message):
             break
 
     if not found_team:
+        if raw_team.lower() == 'none':
+            found_team = 'None'
+
+    if not found_team:
         await message.channel.send('There is no team named '+str(raw_team))
         return
     

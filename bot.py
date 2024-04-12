@@ -430,25 +430,25 @@ async def handle_message(message, db, client):
     elif lower_message == '!schedule':
         await schedule_handler(db, message, client)
 
-    elif lower_message == '!buyticket':
-        #await message.channel.send('There is no raffle at the moment.')
-        await buy_ticket_handler(db, message, 1)
+    # elif lower_message == '!buyticket':
+    #     #await message.channel.send('There is no raffle at the moment.')
+    #     await buy_ticket_handler(db, message, 1)
     
-    elif lower_message.startswith('!buyticket '):
-        #await message.channel.send('There is no raffle at the moment.')
-        params = lower_message.split()
-        if len(params) == 2:
-            raw_amount = params[1]
-            if can_be_int(raw_amount):
-                await buy_ticket_handler(db, message, int(raw_amount))
-            else:
-                await send_msg(message.channel, message.author.mention+' Please enter a number of tickets to buy.', '!buyticket')
-        else:
-            await send_msg(message.channel, message.author.mention+' Invalid number of parameters.', '!buyticket')
+    # elif lower_message.startswith('!buyticket '):
+    #     #await message.channel.send('There is no raffle at the moment.')
+    #     params = lower_message.split()
+    #     if len(params) == 2:
+    #         raw_amount = params[1]
+    #         if can_be_int(raw_amount):
+    #             await buy_ticket_handler(db, message, int(raw_amount))
+    #         else:
+    #             await send_msg(message.channel, message.author.mention+' Please enter a number of tickets to buy.', '!buyticket')
+    #     else:
+    #         await send_msg(message.channel, message.author.mention+' Invalid number of parameters.', '!buyticket')
 
 
-    elif lower_message == '!raffle':
-        await raffle_handler(db, message)
+    # elif lower_message == '!raffle':
+    #     await raffle_handler(db, message)
 
     elif lower_message.startswith('!bid '):
         await bid_handler(db, message, client)
