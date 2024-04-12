@@ -2,11 +2,24 @@
 
 from rewards import change_tokens
 from user import user_exists
+import time
 
+SECONDS_IN_A_WEEK = 604800
 
 async def check_payroll(db, channel):
 
     constants = db['constants']
+
+    last_payroll = constants.find_one({'name': 'last_payroll'})
+    last_val = last_payroll['value']
+    cur_time = time.time()
+    over_a_week = (cur_time - last_val) > SECONDS_IN_A_WEEK
+    if not over_a_week:
+        await channel.send('Not been over a week')
+        return
+    await channel.send('Been over a week, pay time')
+    constants.update_one({"name": 'last_payroll'}, {"$set": {"value": cur_time}})
+
     payroll_constant = constants.find_one({'name': 'payroll'})
     pay_users = payroll_constant['value']
 
