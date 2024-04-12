@@ -1241,8 +1241,8 @@ async def handle_message(message, db, client):
         else:
             await message.channel.send("Invalid number of arguments.")
 
-    elif lower_message == '!helpersalary' and is_helper:
-        await helper_salary_handler(db, message, client)
+    # elif lower_message == '!helpersalary' and is_helper:
+    #     await helper_salary_handler(db, message, client)
 
     elif lower_message.startswith('!givexp ') and (is_admin or is_league_helper):
         await give_xp_handler(client, db, message)
