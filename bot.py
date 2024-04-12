@@ -149,6 +149,7 @@ from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import can_be_int
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
+from payroll import check_payroll
 from random_event import react_to_event, try_random_event
 from rewards import change_xp, give_eggs_command, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from teams import get_team_by_name
@@ -1470,6 +1471,10 @@ async def handle_message(message, db, client):
                             await asyncio.sleep(1)
 
         await send_msg(message.channel, str(users_notified)+' users notified of having a gift', 'Check Gifts')
+
+        await send_msg(message.channel, 'Checking payroll', 'Check Payroll')
+
+        await check_payroll(db, message.channel)
 
 
 
