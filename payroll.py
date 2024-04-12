@@ -9,7 +9,7 @@ async def check_payroll(db, channel):
     pay_users = db['payroll'].find()
     pay_users = list(pay_users)
 
-    for pay_user in pay_user:
+    for pay_user in pay_users:
 
         user = user_exists(db, pay_user['discord_id'])
         if not user:
