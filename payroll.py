@@ -16,5 +16,5 @@ async def check_payroll(db, channel):
         if not user:
             continue
 
-        await change_tokens(db, user, user['salary'])
-        await channel.send('Paid user '+user['displayName']+' '+str(user['salary'])+' Tokens for the role '+str(user['role']))
+        await change_tokens(db, user, pay_user['salary'])
+        await channel.send('Paid user '+pay_user['displayName']+' '+str(pay_user['salary'])+' Tokens for the role '+str(pay_user['role']))
