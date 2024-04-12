@@ -7,7 +7,7 @@ from user import user_exists
 async def check_payroll(db, channel):
 
     constants = db['constants']
-    payroll_constant = constants.find({'name': 'payroll'})
+    payroll_constant = constants.find_one({'name': 'payroll'})
     pay_users = payroll_constant['value']
 
     for pay_user in pay_users:
