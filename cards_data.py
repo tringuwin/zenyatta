@@ -524,8 +524,8 @@ ALL_CARDS = {
     },
     '76': {
         'player_id': ALL_PLAYERS['ego'],
-        'normal_img': 'https://i.postimg.cc/6pfs1dTr/Cards-14.png',
-        'special_img': 'https://i.postimg.cc/V6T2bgH8/Cards-15.png'
+        'normal_img': 'https://i.postimg.cc/JndwQpcC/SOL-Cards-13.png',
+        'special_img': 'https://i.postimg.cc/wTNKhc1n/SOL-Cards-12.png'
     },
     '77': {
         'player_id': ALL_PLAYERS['hitscan'],
@@ -544,8 +544,8 @@ ALL_CARDS = {
     },
     '80': {
         'player_id': ALL_PLAYERS['eternity'],
-        'normal_img': 'https://i.postimg.cc/htg6xfMf/Cards-18.png',
-        'special_img': 'https://i.postimg.cc/66kDWHvV/Cards-19.png'
+        'normal_img': 'https://i.postimg.cc/FHb26rgZ/SOL-Cards-10.png',
+        'special_img': 'https://i.postimg.cc/wjYCFyJM/SOL-Cards-11.png'
     },
     '81': {
         'player_id': ALL_PLAYERS['shadowfire'],
@@ -789,13 +789,13 @@ ALL_CARDS = {
     },
     '129': {
         'player_id': ALL_PLAYERS['eternity'],
-        'normal_img': 'https://i.postimg.cc/FFSx5Qsj/Cards-16.png',
-        'special_img': 'https://i.postimg.cc/cJ5cZxnc/Cards-17.png'
+        'normal_img': 'https://i.postimg.cc/k5fLnTHR/SOL-Cards-8.png',
+        'special_img': 'https://i.postimg.cc/Y90Zj1cn/SOL-Cards-9.png'
     },
     '130': {
         'player_id': ALL_PLAYERS['ego'],
-        'normal_img': 'https://i.postimg.cc/Vkf9Cr9R/Cards-23.png',
-        'special_img': 'https://i.postimg.cc/8cLdhLny/Cards-22.png'
+        'normal_img': 'https://i.postimg.cc/GpcZwWX1/SOL-Cards-7.png',
+        'special_img': 'https://i.postimg.cc/MHhhCXFs/SOL-Cards-6.png'
     },
     '131': {
         'player_id': ALL_PLAYERS['ghost'],
@@ -944,8 +944,8 @@ ALL_CARDS = {
     },
     '160': {
         'player_id': ALL_PLAYERS['ego'],
-        'normal_img': 'https://i.postimg.cc/SNqrNd3j/Cards-14.png',
-        'special_img': 'https://i.postimg.cc/ZnPxxvBT/Cards-15.png'
+        'normal_img': 'https://i.postimg.cc/k4HZSBqn/SOL-Cards-4.png',
+        'special_img': 'https://i.postimg.cc/VspQrHkj/SOL-Cards-5.png'
     },
     '161': {
         'player_id': ALL_PLAYERS['avernus'],
@@ -1234,13 +1234,13 @@ ALL_CARDS = {
     },
     '218': {
         'player_id': ALL_PLAYERS['ego'],
-        'normal_img': 'https://i.postimg.cc/6pG6Vq0c/ego-2.jpg',
-        'special_img': 'https://i.postimg.cc/wvF9xmqq/ego.jpg'
+        'normal_img': 'https://i.postimg.cc/D0bNPnw1/SOL-Cards.png',
+        'special_img': 'https://i.postimg.cc/PNsR69C9/SOL-Cards-1.png'
     },
     '219': {
         'player_id': ALL_PLAYERS['eternity'],
-        'normal_img': 'https://i.postimg.cc/N06gVnZr/eternity-2.jpg',
-        'special_img': 'https://i.postimg.cc/yN41LKpH/eternity.jpg'
+        'normal_img': 'https://i.postimg.cc/sfkfd27d/SOL-Cards-3.png',
+        'special_img': 'https://i.postimg.cc/mZzZ59cy/SOL-Cards-2.png'
     },
     '220': {
         'player_id': ALL_PLAYERS['stockyjr'],
