@@ -30,6 +30,7 @@ from command_handlers.auction.bid import bid_handler
 from command_handlers.auction.end_auction import end_auction_handler
 from command_handlers.auction.start_auction import start_auction_handler
 from command_handlers.auction_timer import auction_timer_handler
+from command_handlers.bandforband import band_for_band_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.bracket import bracket_handler
 from command_handlers.buy_ticket import buy_ticket_handler
@@ -162,7 +163,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot):
     if is_helper or is_push_bot:
         return True, None
     
-    if lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile'):
+    if lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband'):
         return True, None
 
     if message.channel.id == constants.BOT_CHANNEL:
@@ -601,6 +602,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!rivalof'):
         await rival_of_handler(db, message)
+
+    elif lower_message.startswith('!bandforband '):
+        await band_for_band_handler(db, message)
 
 
     # ADMIN COMMANDS

@@ -288,3 +288,33 @@ async def notify_user_of_gift(member, bot_coms_channel):
     except discord.Forbidden:
         # If DM can't be sent, mention the member in the channel
         await bot_coms_channel.send(f'Your gift is ready, {member.mention}! (I tried to DM you but your privacy settings did not allow me to)')
+
+
+def total_gems(gems):
+
+    total = 0
+    for gem in gems:
+        gem_num = gems[gem]
+        total += gem_num
+
+
+def get_total_cards(user):
+
+    cards = get_user_cards(user)
+    for_sale_cards = get_user_for_sale_cards(user)
+
+    return len(cards) + len(for_sale_cards)
+
+def get_net_worth(user):
+
+    tokens = get_user_tokens(user)
+    passes = get_user_passes(user) * 10
+    pickaxes = get_user_pickaxes(user) * 15
+    gems = total_gems(get_user_gems(user)) * 50
+    packs = get_user_packs(user) * 100
+    cards = get_total_cards(user) * 20
+
+    total = tokens + passes + pickaxes + gems + packs + cards
+
+    return total
+
