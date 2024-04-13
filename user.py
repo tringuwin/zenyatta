@@ -297,6 +297,8 @@ def total_gems(gems):
         gem_num = gems[gem]
         total += gem_num
 
+    return total
+
 
 def get_total_cards(user):
 
