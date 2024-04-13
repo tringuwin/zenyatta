@@ -30,7 +30,7 @@ async def band_for_band_handler(db, message):
         return
     
     my_net_worth = int(get_net_worth(user))
-    other_net_worth = int(get_net_worth(user))
+    other_net_worth = int(get_net_worth(other_user))
 
     user_name = message.author.name
     other_name = other_guy.name
