@@ -15,7 +15,7 @@ def get_next_slot(db):
     found_empty = False
     while (not found_empty):
 
-        if str(page)+'-'+str(slot) in slots:
+        if str(page)+'-'+str(slot) in slots_val:
             slot += 1
             if slot > 9:
                 slot = 1
