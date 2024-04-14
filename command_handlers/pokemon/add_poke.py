@@ -22,7 +22,8 @@ async def add_poke_handler(db, message):
         return
     id = int(id)
 
-    if not type in constants.POKE_TYPES:
+    print(constants.POKE_TYPES)
+    if not (type in constants.POKE_TYPES):
         await message.channel.send(type+' is not a valid type')
         return
     
