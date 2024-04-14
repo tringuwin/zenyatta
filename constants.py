@@ -69,7 +69,7 @@ POKE_TYPES = [
     'psychic',
     'fighting',
     'dark',
-    'normal'
+    'normal',
     'energy',
     'trainer'
 ]
