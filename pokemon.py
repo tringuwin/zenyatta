@@ -48,7 +48,7 @@ async def add_poke_handler(db, message):
         await message.channel.send(type+' is not a valid type')
         return
     
-    slot, page, slots_val = get_next_slot(db)
+    page, slot, slots_val = get_next_slot(db)
 
     new_pokemon = {
         'card_id': id,
