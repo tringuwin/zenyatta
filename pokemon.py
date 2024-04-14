@@ -111,7 +111,7 @@ async def give_pp_handler(db, message, client):
         return
     
     user_id = params[1]
-    num = params[2]
+    num = int(params[2])
 
     user = None
     if can_be_int(user_id):
