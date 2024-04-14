@@ -18,6 +18,16 @@ async def change_tokens(db, user, num):
     else:
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"tokens": num}})
 
+async def change_pp(db, user, num):
+
+    users = db['users']
+    
+    if "poke_points" in user:
+        new_points = user['poke_points'] + num
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": new_points}})
+    else:
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": num}})
+
 
 async def give_tokens_command(client, db, user_id, num, message):
 
