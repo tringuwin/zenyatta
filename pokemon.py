@@ -118,7 +118,7 @@ async def give_pp_handler(db, message, client):
         user = user_exists(db, int(user_id))
     if user:
         await change_pp(db, user, num)
-        await message.channel.send('Tokens given')
+        await message.channel.send('PokePoints given')
     else:
         member = await get_member_by_username(client, user_id)
         user = None
@@ -126,6 +126,6 @@ async def give_pp_handler(db, message, client):
             user = user_exists(db, member.id)
         if user:
             await change_pp(db, user, num)
-            await message.channel.send('Tokens given')
+            await message.channel.send('PokePoints given')
         else:
             await message.channel.send('Could not find user with that ID')
