@@ -49,6 +49,13 @@ def get_user_packs(user):
     
     return 0
 
+def get_user_poke_points(user):
+    
+    if 'poke_points' in user:
+        return user['poke_points']
+    
+    return 0
+
 def get_user_tickets(user):
 
     if 'tickets' in user:
