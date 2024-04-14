@@ -90,6 +90,7 @@ from command_handlers.league.update_team import update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
+from command_handlers.pokemon.add_poke import add_poke_handler
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
@@ -1353,6 +1354,10 @@ async def handle_message(message, db, client):
             if user:
 
                 print(member.display_name+" : "+str(member.id) + " : "+user['battle_tag'])
+
+    elif lower_message.startswith('!addpoke') and is_admin:
+        # !addpoke id type img_link 
+        await add_poke_handler(db, message)
 
     elif lower_message.startswith('!getdetails '):
         # !getdetails [username]

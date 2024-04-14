@@ -1,5 +1,5 @@
 
-VERSION = '1.7.07'
+VERSION = '1.7.08'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -59,6 +59,20 @@ HELPERS_CHANNEL = 1187241800017133720
 
 PACK_EMOJI_ID = 1206654460735258654
 POKE_EMOJI_ID = 1228855098625622026
+
+POKE_TYPES = [
+    'water',
+    'fire',
+    'grass',
+    'electric',
+    'metal',
+    'psychic',
+    'fighting',
+    'dark',
+    'normal'
+    'energy',
+    'trainer'
+]
 
 DEFAULT_GEMS = {
     'red': 0,
