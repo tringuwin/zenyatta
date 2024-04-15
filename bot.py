@@ -306,6 +306,9 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!battle '):
         await battle_handler(db, message, client)
 
+    # elif lower_message.startswith('!twitch '):
+    #     await twitch_handler(db, message)
+
     elif lower_message == "!events":
         await events_handler(db, message)
 
