@@ -25,6 +25,10 @@ async def check_payroll(db, channel):
 
     for pay_user in pay_users:
 
+        if pay_user['stopped']:
+            await channel.send('Payments paused for '+pay_user['displayName'])
+            continue
+
         user = user_exists(db, pay_user['discord_id'])
         if not user:
             continue
