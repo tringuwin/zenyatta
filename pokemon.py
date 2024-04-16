@@ -100,6 +100,10 @@ async def open_poke_handler(db, message):
     pokemon = db['pokemon']
     pokemon_card = pokemon.find_one({'card_id': chosen_id})
 
+    new_pp = user_poke_points - 100
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": new_pp}})
+
     await message.channel.send('You opened Card '+str(chosen_id)+'!\n'+str(pokemon_card['img_link']))
 
 

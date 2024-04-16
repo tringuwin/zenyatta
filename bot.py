@@ -1363,7 +1363,7 @@ async def handle_message(message, db, client):
         # !addpoke id type img_link 
         await add_poke_handler(db, message)
 
-    elif lower_message == '!openpoke':
+    elif lower_message == '!openpoke' and is_admin:
         await open_poke_handler(db, message)
 
     elif lower_message.startswith('!givepp ') and is_admin:
