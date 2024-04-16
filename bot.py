@@ -55,6 +55,7 @@ from command_handlers.league.add_win import add_win_handler
 from command_handlers.league.change_role import change_role_handler
 from command_handlers.league.change_team_owner import change_team_owner_handler
 from command_handlers.league.change_tpp import change_tpp_handler
+from command_handlers.league.e_sub import e_sub_handler
 from command_handlers.league.fan_of import fan_of_handler
 from command_handlers.league.force_delete_league_team import force_delete_league_team_handler
 from command_handlers.league.force_league_add import force_league_add_handler
@@ -1255,6 +1256,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!givexp ') and (is_admin or is_league_helper):
         await give_xp_handler(client, db, message)
+
+    elif lower_message.startswith('!esub ') and is_admin:
+        await e_sub_handler(client, db, message)
 
     elif lower_message.startswith('!setlevel ') and is_admin:
         await set_level_handler(client, db, message)
