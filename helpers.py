@@ -1,6 +1,6 @@
 
 from discord_actions import get_member_by_username
-from user import user_exists
+from user import twitch_user_exists, user_exists
 
 
 def valid_number_of_params(message, num_params):
@@ -44,6 +44,10 @@ async def generic_find_user(client, db, user_id):
         user = user_exists(db, int(user_id))
         if user:
             return user
+        
+    twitch_user = twitch_user_exists(user_id)
+    if twitch_user:
+        return twitch_user
 
     member = await get_member_by_username(client, user_id)
     user = None
