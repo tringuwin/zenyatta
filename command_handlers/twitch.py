@@ -32,4 +32,4 @@ async def twitch_handler(db, message):
     users = db['users']
     users.update_one({'discord_id': user['discord_id']}, {"$set": {"twitch_lower": twitch_lower, "twitch": twitch_username}})
 
-    await message.channel.send('Success! You linked your Twitch to Spicy OW. If you change your twitch username, please use this command again. *(Please not this command will not give you the Twitch Subscriber role in this discord. That must be done in by linking your Twitch in the Discord connections settings)*')
+    await message.channel.send('Success! You linked your Twitch to Spicy OW. If you change your twitch username, please use this command again. *(Please note, this command will not give you the Twitch Subscriber role in this Discord. That must be done in by linking your Twitch in the Discord connections settings)*')
