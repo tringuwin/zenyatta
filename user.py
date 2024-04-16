@@ -31,6 +31,14 @@ def get_user_by_tag(db, lower_tag):
     return users.find_one(search_query)
 
 
+def get_twitch_username(user):
+
+    if 'twitch' in user:
+        return user['twitch']
+    
+    return '[not set]'
+        
+
 def get_user_tokens(user):
 
     if 'tokens' in user:
