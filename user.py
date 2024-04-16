@@ -12,6 +12,16 @@ def user_exists(db, discord_id):
 
     return users.find_one(search_query)
 
+
+def twitch_user_exists(db, twitch_username):
+
+    users = db['users']
+
+    search_query = {"twitch_lower": twitch_username.lower()}
+
+    return users.find_one(search_query)
+
+
 def get_user_by_tag(db, lower_tag):
 
     users = db['users']
