@@ -45,7 +45,7 @@ async def generic_find_user(client, db, user_id):
         if user:
             return user
         
-    twitch_user = twitch_user_exists(user_id)
+    twitch_user = twitch_user_exists(db, user_id)
     if twitch_user:
         return twitch_user
 
