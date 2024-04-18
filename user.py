@@ -74,6 +74,13 @@ def get_user_poke_points(user):
     
     return 0
 
+def get_user_poke_cards(user):
+
+    if 'poke_cards' in user:
+        return user['poke_cards']
+    
+    return []
+
 def get_user_tickets(user):
 
     if 'tickets' in user:
