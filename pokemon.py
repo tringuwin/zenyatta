@@ -10,6 +10,7 @@ from poke_data import POKE_SETS
 from rewards import change_pp
 from user import get_user_poke_points, user_exists
 import random
+import discord
 
 HOLO_TYPES = [
     'N',
@@ -138,7 +139,10 @@ async def open_poke_handler(db, message):
 
     img_link = POKE_SETS[pokemon_card['set']][pokemon_card['set_num']]['card_img']
 
-    await message.channel.send('You opened Card '+str(chosen_id)+'!\n'+str(img_link))
+    embed = discord.Embed(title='Your opened card '+str(pokemon_card['card_id'])+'!!')
+    embed.set_image(url=img_link)
+
+    await message.channel.send(embed=embed)
 
 
 async def give_pp_handler(db, message, client):
