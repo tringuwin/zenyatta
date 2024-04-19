@@ -2,6 +2,12 @@
 
 SCARLET_AND_VIOLET_DATA = {
 
+    '4': {
+        'name': 'Basic Electric Energy',
+        'type': 'energy',
+        'card_img': 'https://i.postimg.cc/Cxmdm8dd/energy-electric.jpg'
+    },
+
     '8': {
         'name': 'Basic Metal Energy',
         'type': 'energy',

@@ -1373,6 +1373,9 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!sellpoke '):
         await sell_poke_handler(db, message)
 
+    # elif lower_message.startswith('!viewpoke '):
+    #     await view_poke_handler(db, message)
+
     elif lower_message.startswith('!givepp ') and is_admin:
         await give_pp_handler(db, message, client)
 
