@@ -150,6 +150,38 @@ async def open_poke_handler(db, message):
     await message.channel.send(embed=embed)
 
 
+async def view_poke_handler(db, message):
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        not_registered_response(message)
+        return
+    
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    id = params[1]
+    if not can_be_int(id):
+        await message.channel.send(id+' is not a valid card ID. It should be a number like 1, 50, 250, etc.')
+        return
+    id = int(id)
+    
+    pokemon = db['pokemon']
+    my_card = pokemon.find_one({'card_id': id})
+    if not my_card:
+        await message.channel.send('There is no card with the id '+str(id))
+        return
+    
+    card_data = POKE_SETS[my_card['set']][my_card['set_num']]
+
+    embed = discord.Embed(title='Card '+str(id)+' : '+card_data['name'])
+    embed.set_image(url=card_data['card_img'])
+
+    await message.channel.send(embed=embed)
+    
+
 async def sell_poke_handler(db, message):
 
     user = user_exists(db, message.author.id)
