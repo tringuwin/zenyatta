@@ -6,9 +6,17 @@ from common_messages import not_registered_response
 from discord_actions import get_member_by_username
 from helpers import can_be_int, valid_number_of_params
 import constants
+from poke_data import POKE_SETS
 from rewards import change_pp
 from user import get_user_poke_points, user_exists
 import random
+
+HOLO_TYPES = [
+    'N',
+    'H',
+    'R'
+]
+
 
 def get_next_slot(db):
 
@@ -32,7 +40,15 @@ def get_next_slot(db):
     return page, slot, slots_val
         
 
+
 async def add_poke_handler(db, message):
+    # !addpoke set num holoType
+
+    # card codes:
+
+    # N - Normal
+    # H - Holo
+    # R - Reverse-Holo
 
     #verify input
     valid_params, params = valid_number_of_params(message, 4)
@@ -40,25 +56,33 @@ async def add_poke_handler(db, message):
         await message.channel.send('Invalid num of params')
         return
     
-    id = params[1]
-    type = params[2]
-    img_link = params[3]
+    set = params[1].upper()
+    set_num = params[2]
+    holo_type = params[3].upper()
 
-    if not can_be_int(id):
-        await message.channel.send(str(id)+' is not an int')
+    if not holo_type in HOLO_TYPES:
+        await message.channel.send(holo_type+' is not a valid holo type')
         return
-    id = int(id)
 
-    if not (type in constants.POKE_TYPES):
-        await message.channel.send(type+' is not a valid type')
+    if not set in POKE_SETS:
+        await message.channel.send(set+' is not a valid set')
         return
+    
+    my_set = POKE_SETS[set]
+    if not set_num in my_set:
+        await message.channel.send('Did not find with card number '+set_num+' in set '+set+'. Might need to add the data.')
+        return
+
+    constants_db = db['constants']
+    next_index = constants_db.find_one({'name': 'next_poke_id'})
+    card_id = next_index['value']
     
     page, slot, slots_val = get_next_slot(db)
 
     new_pokemon = {
-        'card_id': id,
-        'type': type,
-        'img_link': img_link,
+        'set': set,
+        'set_num': set_num,
+        'card_id': card_id,
         'owner_id': -1,
         'page': page,
         'slot': slot
@@ -70,6 +94,7 @@ async def add_poke_handler(db, message):
     slots_val.append(str(page)+'-'+str(slot))
 
     db['constants'].update_one({"name": 'slots'}, {"$set": {"value": slots_val}})
+    db['constants'].update_one({"name": 'next_poke_id'}, {"$set": {"value": card_id + 1}})
 
     await message.channel.send('Card added! Insert to storage Page '+str(page)+', Slot '+str(slot))
 
