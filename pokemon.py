@@ -137,9 +137,10 @@ async def open_poke_handler(db, message):
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": new_pp}})
 
-    img_link = POKE_SETS[pokemon_card['set']][pokemon_card['set_num']]['card_img']
+    card_data = POKE_SETS[pokemon_card['set']][pokemon_card['set_num']]
+    img_link = card_data['card_img']
 
-    embed = discord.Embed(title='Your opened card '+str(pokemon_card['card_id'])+'!!')
+    embed = discord.Embed(title='Your opened **'+pokemon_card['name']+'** (ID: '+str(pokemon_card['card_id'])+') !!')
     embed.set_image(url=img_link)
 
     await message.channel.send(embed=embed)
