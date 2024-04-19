@@ -2,12 +2,12 @@
 
 
 
-from common_messages import not_registered_response
+from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_member_by_username
 from helpers import can_be_int, valid_number_of_params
 import constants
 from poke_data import POKE_SETS
-from rewards import change_pp
+from rewards import change_pp, change_tokens
 from user import get_user_poke_cards, get_user_poke_points, user_exists
 import random
 import discord
@@ -148,6 +148,44 @@ async def open_poke_handler(db, message):
     embed.set_image(url=img_link)
 
     await message.channel.send(embed=embed)
+
+
+async def sell_poke_handler(db, message):
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    id = params[1]
+    if not can_be_int(id):
+        await message.channel.send(id+' is not a valid card ID. It should be a number like 1, 50, 250, etc.')
+        return
+    id = int(id)
+
+    user_pokes = get_user_poke_cards(user)
+    if not (id in user_pokes):
+        await message.channel.send('You do not own any pokemon cards with the ID '+str(id))
+        return
+    
+    user_pokes.remove(id)
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_cards": user_pokes}})
+    change_tokens(db, user, 20)
+
+    constants_db = db['constants']
+    all_pokes = constants_db.find_one({'name': 'all_pokes'})
+    all_pokes_val = all_pokes['value']
+    all_pokes_val.append(id)
+    constants_db.update_one({"name": 'all_pokes'}, {"$set": {"value": all_pokes_val}})
+
+    await message.channel.send('You sold card '+str(id)+' for 20 Tokens!')
+
 
 
 async def give_pp_handler(db, message, client):
