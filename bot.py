@@ -73,6 +73,7 @@ from command_handlers.league.lft.update_lft import update_lft_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
 from command_handlers.league.ping_team import ping_team_handler
+from command_handlers.league.prune_team import prune_team_handler
 from command_handlers.league.remove_team_admin import remove_team_admin_handler
 from command_handlers.league.reset_map import reset_map_handler
 from command_handlers.league.reset_maps import reset_maps_handler
@@ -563,6 +564,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!pingteam':
         await ping_team_handler(db, message, client)
+
+    elif lower_message == '!pruneteam':
+        await prune_team_handler(db, message, client)
 
     elif lower_message.startswith('!setappslink'):
         await set_apps_link_handler(db, message)

@@ -232,7 +232,7 @@ async def my_pokes_handler(db, message):
         await message.channel.send("You don't have any Pokemon Cards at the moment. Try opening some packs to get some!")
         return
     
-    final_string = "**YOUR POKEMON CARDS**"
+    final_string = "**YOUR POKEMON CARDS:**"
     user_cards_str = []
     for card in user_cards:
         user_cards_str.append('Card '+str(card))

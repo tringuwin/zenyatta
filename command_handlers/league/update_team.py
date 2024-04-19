@@ -3,11 +3,10 @@ from discord_actions import get_guild
 from league import update_team_info
 import discord
 
-async def update_team_handler(db, message, client):
+
+async def update_team(db, team_name, client, message):
 
     guild = await get_guild(client)
-    team_name = message.content.split()[1]
-
     league_teams = db['leagueteams']
     team_object = league_teams.find_one({'team_name': team_name})
 
@@ -28,5 +27,13 @@ async def update_team_handler(db, message, client):
 
     team_object['members'] = final_team_members
     await update_team_info(client, team_object, db)
+
+
+
+async def update_team_handler(db, message, client):
+
+    team_name = message.content.split()[1]
+
+    await update_team(db, team_name, client, message)
 
     await message.channel.send('Team details updated.')

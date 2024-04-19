@@ -2,6 +2,12 @@
 
 SCARLET_AND_VIOLET_DATA = {
 
+    '2': {
+        'name': 'Basic Fire Energy',
+        'type': 'energy',
+        'card_img': 'https://i.postimg.cc/RFqZ84Xc/energy-fire.jpg'
+    },
+
     '4': {
         'name': 'Basic Electric Energy',
         'type': 'energy',
@@ -43,6 +49,18 @@ SCARLET_AND_VIOLET_DATA = {
         'type': 'psychic',
         'card_img': 'https://i.postimg.cc/RVBT5Bc1/SV01-EN-90.png'
     }, 
+
+    '123': {
+        'name': 'Great Tusk',
+        'type': 'fighting',
+        'card_img': 'https://i.postimg.cc/Hn7FchkG/SV01-EN-123.png'
+    },
+
+    '140': {
+        'name': 'Varoom',
+        'type': 'metal',
+        'card_img': 'https://i.postimg.cc/Z5RK76jW/SV01-EN-140.png'
+    },
 
     '169': {
         'name': 'Defiance Band',
