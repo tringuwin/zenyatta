@@ -92,7 +92,7 @@ from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
 from command_handlers.twitch import twitch_handler
-from pokemon import add_poke_handler, give_pp_handler, open_poke_handler, sell_poke_handler, view_poke_handler
+from pokemon import add_poke_handler, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
@@ -1367,7 +1367,7 @@ async def handle_message(message, db, client):
         # !addpoke id type img_link 
         await add_poke_handler(db, message)
 
-    elif lower_message == '!openpoke' and is_admin:
+    elif lower_message == '!openpoke':
         await open_poke_handler(db, message)
 
     elif lower_message.startswith('!sellpoke '):
@@ -1375,6 +1375,10 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!viewpoke '):
         await view_poke_handler(db, message)
+
+    elif lower_message == '!mypokes':
+        await my_pokes_handler(db, message)
+
 
     elif lower_message.startswith('!givepp ') and is_admin:
         await give_pp_handler(db, message, client)

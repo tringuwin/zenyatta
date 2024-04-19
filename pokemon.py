@@ -180,7 +180,7 @@ async def view_poke_handler(db, message):
     embed.set_image(url=card_data['card_img'])
 
     await message.channel.send(embed=embed)
-    
+
 
 async def sell_poke_handler(db, message):
 
@@ -218,6 +218,26 @@ async def sell_poke_handler(db, message):
 
     await message.channel.send('You sold card '+str(id)+' for 20 Tokens!')
 
+
+async def my_pokes_handler(db, message):
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+    
+    user_cards = get_user_poke_cards(user)
+
+    if len(user_cards) == 0:
+        await message.channel.send("You don't have any Pokemon Cards at the moment. Try opening some packs to get some!")
+        return
+    
+    final_string = "**YOUR POKEMON CARDS**"
+
+    comma_separated_string = ", ".join(user_cards)
+    final_string += '\n'+comma_separated_string
+
+    await message.channel.send(final_string)
 
 
 async def give_pp_handler(db, message, client):
