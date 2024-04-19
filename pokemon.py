@@ -140,7 +140,7 @@ async def open_poke_handler(db, message):
     card_data = POKE_SETS[pokemon_card['set']][pokemon_card['set_num']]
     img_link = card_data['card_img']
 
-    embed = discord.Embed(title='Your opened **'+pokemon_card['name']+'** (ID: '+str(pokemon_card['card_id'])+') !!')
+    embed = discord.Embed(title='Your opened **'+card_data['name']+'** (ID: '+str(pokemon_card['card_id'])+') !!')
     embed.set_image(url=img_link)
 
     await message.channel.send(embed=embed)
