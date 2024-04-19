@@ -85,7 +85,8 @@ async def add_poke_handler(db, message):
         'card_id': card_id,
         'owner_id': -1,
         'page': page,
-        'slot': slot
+        'slot': slot,
+        'holo_type': holo_type 
     }
 
     pokemon = db['pokemon']
