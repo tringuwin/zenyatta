@@ -233,8 +233,11 @@ async def my_pokes_handler(db, message):
         return
     
     final_string = "**YOUR POKEMON CARDS**"
+    user_cards_str = []
+    for card in user_cards:
+        user_cards_str.append(int(card))
 
-    comma_separated_string = ", ".join(user_cards)
+    comma_separated_string = ", ".join(user_cards_str)
     final_string += '\n'+comma_separated_string
 
     await message.channel.send(final_string)
