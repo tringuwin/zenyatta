@@ -8,7 +8,7 @@ from helpers import can_be_int, valid_number_of_params
 import constants
 from poke_data import POKE_SETS
 from rewards import change_pp
-from user import get_user_poke_points, user_exists
+from user import get_user_poke_cards, get_user_poke_points, user_exists
 import random
 import discord
 
@@ -95,14 +95,14 @@ async def add_poke_handler(db, message):
 
     slots_val.append(str(page)+'-'+str(slot))
 
-    db['constants'].update_one({"name": 'slots'}, {"$set": {"value": slots_val}})
-    db['constants'].update_one({"name": 'next_poke_id'}, {"$set": {"value": card_id + 1}})
+    constants_db.update_one({"name": 'slots'}, {"$set": {"value": slots_val}})
+    constants_db.update_one({"name": 'next_poke_id'}, {"$set": {"value": card_id + 1}})
 
     all_pokes = constants_db.find_one({'name': 'all_pokes'})
     all_pokes_val = all_pokes['value']
     all_pokes_val.append(card_id)
 
-    db['constants'].update_one({"name": 'all_pokes'}, {"$set": {"value": all_pokes_val}})
+    constants_db.update_one({"name": 'all_pokes'}, {"$set": {"value": all_pokes_val}})
 
     await message.channel.send('Card added! Insert to storage Page '+str(page)+', Slot '+str(slot))
 
@@ -128,14 +128,18 @@ async def open_poke_handler(db, message):
         return
 
     random_index = random.randint(0, len(all_pokes_val) - 1)
-    chosen_id = all_pokes_val[random_index]
+    chosen_id = all_pokes_val.pop(random_index)
+
+    constants_db.update_one({"name": 'all_pokes'}, {"$set": {"value": all_pokes_val}})
 
     pokemon = db['pokemon']
     pokemon_card = pokemon.find_one({'card_id': chosen_id})
 
     new_pp = user_poke_points - 100
+    user_pokes = get_user_poke_cards(user)
+    user_pokes.append(chosen_id)
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": new_pp}})
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": new_pp, 'poke_cards': user_pokes}})
 
     card_data = POKE_SETS[pokemon_card['set']][pokemon_card['set_num']]
     img_link = card_data['card_img']
