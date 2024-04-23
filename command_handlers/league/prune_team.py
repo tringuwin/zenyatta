@@ -13,6 +13,8 @@ async def prune_team_handler(db, message, client):
         await message.channel.send('You are not an admin of a league team.')
         return
     
+    await message.channel.send('Prune Team command is processing... (this might take a while)')
+    
     await update_team(db, team_name, client, message)
 
     await message.channel.send(team_name+' was updated.')
