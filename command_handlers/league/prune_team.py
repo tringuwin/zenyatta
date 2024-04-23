@@ -14,3 +14,5 @@ async def prune_team_handler(db, message, client):
         return
     
     await update_team(db, team_name, client, message)
+
+    await message.channel.send(team_name+' was updated.')
