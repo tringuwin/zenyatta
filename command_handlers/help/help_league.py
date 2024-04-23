@@ -20,5 +20,6 @@ async def help_league_handler(message):
     help_embed.add_field(name='!setappslink', value='Admin command to set the link for a Google Form that players can use to apply to the team.', inline=False)
     help_embed.add_field(name='!toggleapps', value='Admin command to set applications to open or closed for a team.', inline=False)
     help_embed.add_field(name='!pingteam', value='Admin command to ping all members of your league team.', inline=False)
+    help_embed.add_field(name='!pruneteam', value='Admin command to remove players from your team that are no longer in this server.', inline=False)
 
     await message.channel.send(embed=help_embed)
