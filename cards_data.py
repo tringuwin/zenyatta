@@ -131,7 +131,6 @@ ALL_PLAYERS = {
     'bakora': 348133231620521985,
     'masiax': 792954113104412722,
     'kazzy': 513207840878624776,
-    'kittenmaster': 840415629008830534,
     'g0ast': 703331500967592006,
     'valk': 0,
     'akande': 932000497454444554,
@@ -386,9 +385,9 @@ ALL_CARDS = {
         'special_img': 'https://i.postimg.cc/L8btLYR1/Cards-6.png'
     },
     '44': {
-        'player_id': ALL_PLAYERS['kittenmaster'],
-        'normal_img': 'https://i.postimg.cc/SKnGvLVd/Cards-12.png',
-        'special_img': 'https://i.postimg.cc/Y0zNWdqr/Cards-11.png'
+        'player_id': ALL_PLAYERS['banned'],
+        'normal_img': 'https://i.postimg.cc/bJ5VRJDg/SOL-Cards-15.png',
+        'special_img': 'https://i.postimg.cc/prnGcHKH/SOL-Cards-14.png'
     },
     '45': {
         'player_id': ALL_PLAYERS['g0ast'],
@@ -1232,9 +1231,9 @@ ALL_CARDS = {
         'special_img': 'https://i.postimg.cc/25VQ74tJ/lorer.jpg'
     },
     '213': {
-        'player_id': ALL_PLAYERS['kittenmaster'],
-        'normal_img': 'https://i.postimg.cc/sxR5zb2d/sinon-2.jpg',
-        'special_img': 'https://i.postimg.cc/c40fbqjf/sinon.jpg'
+        'player_id': ALL_PLAYERS['banned'],
+        'normal_img': 'https://i.postimg.cc/HxnP55xj/SOL-Cards-16.png',
+        'special_img': 'https://i.postimg.cc/g0NTn4Gf/SOL-Cards-17.png'
     },
     '214': {
         'player_id': ALL_PLAYERS['g0ast'],
