@@ -2186,6 +2186,256 @@ ALL_CARDS = {
         'normal_img': 'https://i.postimg.cc/L6hSqTqG/IMG-1540.jpg',
         'special_img': 'https://i.postimg.cc/jjYYFY8r/IMG-1541.jpg'
     },
+    '401': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '402': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '403': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '404': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '405': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '406': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '407': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '408': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '409': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '410': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '411': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '412': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '413': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '414': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '415': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '416': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '417': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '418': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '419': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '420': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '421': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '422': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '423': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '424': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '425': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '426': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '427': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '428': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '429': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '430': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '431': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '432': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '433': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '434': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '435': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '436': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '437': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '438': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '439': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '440': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '441': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '442': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '443': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '444': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '445': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '446': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '447': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '448': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '449': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
+    '450': {
+        'player_id': 0,
+        'normal_img': '',
+        'special_img': ''
+    },
 
 }
 
