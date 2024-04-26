@@ -1,5 +1,5 @@
 
-VERSION = '1.7.46'
+VERSION = '1.7.47'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -236,7 +236,7 @@ MAP_NAME_TO_NAME_IMG = {
 
 NO_MAP_NAME = 'https://i.postimg.cc/hPNGk6G1/No-Map.png'
 
-TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians',  'Fresas', 'Outliers', 'Phoenix', 'Celestials']
+TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians',  'Fresas', 'Outliers', 'Phoenix', 'Celestials', 'Saturn']
 
 EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix']
 
