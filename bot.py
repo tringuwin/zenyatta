@@ -157,6 +157,7 @@ from mongo import output_eggs, output_packs, output_passes, output_pickaxes, out
 from payroll import check_payroll
 from random_event import react_to_event, try_random_event
 from rewards import change_xp, give_eggs_command, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
+from server_level import server_points_handler
 from teams import get_team_by_name
 from time_helpers import long_enough_for_gift
 from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, notify_user_of_gift, user_exists
@@ -706,6 +707,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forceleagueadd') and is_admin:
         await force_league_add_handler(db, message, client)
+
+    elif lower_message.startswith('!serverpoints ') and is_admin:
+        await server_points_handler(db, message, client)
 
     elif lower_message.startswith('!twitch10') and is_cp_helper:
         await twitch_tokens_handler(client, db, message, 10)
