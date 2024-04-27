@@ -33,10 +33,9 @@ async def server_points_handler(db, message, client):
     while num_points > 5000:
         num_points -= 5000
         level += 1
-        return
     
     await message.channel.send('level: '+str(level)+' - points: '+str(num_points))
-    
+
     
 
     
