@@ -2,6 +2,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, valid_number_of_params
+import constants
 
 
 ALL_LEVELS = {
@@ -13,6 +14,8 @@ ALL_LEVELS = {
 
 
 }
+
+
 
 
 async def server_points_handler(db, message, client):
@@ -39,6 +42,23 @@ async def server_points_handler(db, message, client):
     server_level = server_level_obj['value']['level']
 
     points_to_next_level = 5000 - num_points
+
+    server_level_channel = client.get_channel(constants.SERVER_LEVEL_CHANNEL)
+    level_message = server_level_channel.fetch_message(constants.SERVER_LEVEL_MESSAGE)
+
+    level_string = 'CURRENT SERVER LEVEL: **'+str(level)+'**'
+    level_string += '\nCURRENT SERVER POINTS: **'+format(num_points, ',')+'**'
+    level_string += '\nPOINTS TO NEXT LEVEL: **'+format(points_to_next_level)+'**'
+    level_string += '\n-----------------------------------'
+    level_string += '\nSERVER STATS:'
+    level_string += '\nToken Shop Stock Added Per Week: ERROR'
+    level_string += '\nSOL Prize Money Added Per Week: ERROR'
+    level_string += '\nDaily Auction Prizes Tier: ERROR'
+    level_string += '\n-----------------------------------'
+    level_string += '\nCurrent SOL Prize Pool'
+    level_string += '\n-----------------------------------'
+
+    await level_message.edit(content=level_string)
 
     if server_level != level:
         pass
