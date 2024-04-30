@@ -32,6 +32,7 @@ async def server_points_handler(db, message, client):
         return
     
     num_points = int(num_points)
+    orig_points = num_points
     level = 0
     while num_points > 5000:
         num_points -= 5000
@@ -47,8 +48,8 @@ async def server_points_handler(db, message, client):
     level_message = await server_level_channel.fetch_message(constants.SERVER_LEVEL_MESSAGE)
 
     level_string = 'CURRENT SERVER LEVEL: **'+str(level)+'**'
-    level_string += '\nCURRENT SERVER POINTS: **'+format(num_points, ',')+'**'
-    level_string += '\nPOINTS TO NEXT LEVEL: **'+format(points_to_next_level)+'**'
+    level_string += '\nCURRENT SERVER POINTS: **'+format(orig_points, ',')+'**'
+    level_string += '\nPOINTS TO NEXT LEVEL: **'+format(points_to_next_level, ',')+'**'
     level_string += '\n-----------------------------------'
     level_string += '\nSERVER STATS:'
     level_string += '\nToken Shop Stock Added Per Week: ERROR'
