@@ -1596,5 +1596,6 @@ def run_discord_bot(db):
             await send_msg(err_channel, traceback_str, 'Error Channel')
 
 
-
+    print('about to run client')
     client.run(constants.DISCORD_TOKEN)
+    print('client ran')
