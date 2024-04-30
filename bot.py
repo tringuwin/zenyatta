@@ -1037,6 +1037,11 @@ async def handle_message(message, db, client):
         applications.insert_one(new_apps)
         await message.channel.send('applications initated')
 
+    elif lower_message == '!tempmessage' and is_admin:
+        
+        channel = client.get_channel(constants.SERVER_LEVEL_CHANNEL)
+        await channel.send('example message')
+
 
     elif lower_message == '!initauction' and is_admin:
 
