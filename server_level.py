@@ -44,7 +44,7 @@ async def server_points_handler(db, message, client):
     points_to_next_level = 5000 - num_points
 
     server_level_channel = client.get_channel(constants.SERVER_LEVEL_CHANNEL)
-    level_message = server_level_channel.fetch_message(constants.SERVER_LEVEL_MESSAGE)
+    level_message = await server_level_channel.fetch_message(constants.SERVER_LEVEL_MESSAGE)
 
     level_string = 'CURRENT SERVER LEVEL: **'+str(level)+'**'
     level_string += '\nCURRENT SERVER POINTS: **'+format(num_points, ',')+'**'
