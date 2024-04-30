@@ -188,7 +188,8 @@ async def server_points_handler(db, message, client):
     for _ in range(5):
         level_copy += 1
         new_level_data = ALL_LEVELS[str(level_copy)]
-        next_string += '\nLEVEL '+str(level_copy)+' ('+format((level_copy*5,000), ',')+' Points) : '+new_level_data['info']
+        points_for_level = int(level_copy * 5000)
+        next_string += '\nLEVEL '+str(level_copy)+' ('+format(points_for_level, ',')+' Points) : '+new_level_data['info']
 
     next_string += '\n-----------------------------------'
 
