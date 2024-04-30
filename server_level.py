@@ -9,121 +9,121 @@ ALL_LEVELS = {
 
 
     '1': {
-        'info': '',
+        'info': '$50 Token Shop Stock Added Per Week',
         'token_shop': 50,
         'prize_money': 0,
         'auction': 0,
     },
     '2': {
-        'info': '',
+        'info': 'Tier 1 Daily Auctions',
         'token_shop': 50,
         'prize_money': 0,
         'auction': 1,
     },
     '3': {
-        'info': '',
+        'info': '$75 Token Shop Stock Added Per Week',
         'token_shop': 75,
         'prize_money': 0,
         'auction': 1,
     },
     '4': {
-        'info': '',
+        'info': '$100 Token Shop Stock Added Per Week',
         'token_shop': 100,
         'prize_money': 0,
         'auction': 1,
     },
     '5': {
-        'info': '',
+        'info': '$5 SOL Prize Money Added Per Week',
         'token_shop': 100,
         'prize_money': 5,
         'auction': 1,
     },
     '6': {
-        'info': '',
+        'info': 'Tier 2 Daily Auctions',
         'token_shop': 100,
         'prize_money': 5,
         'auction': 2,
     },
     '7': {
-        'info': '',
+        'info': '$105 Token Shop Stock Added Per Week',
         'token_shop': 105,
         'prize_money': 5,
         'auction': 2,
     },
     '8': {
-        'info': '',
+        'info': '$10 SOL Prize Money Added Per Week',
         'token_shop': 105,
         'prize_money': 10,
         'auction': 2,
     },
     '9': {
-        'info': '',
+        'info': 'Tier 3 Daily Auctions',
         'token_shop': 105,
         'prize_money': 10,
         'auction': 3,
     },
     '10': {
-        'info': '',
+        'info': '$110 Token Shop Stock Added Per Week',
         'token_shop': 110,
         'prize_money': 10,
         'auction': 3,
     },
     '11': {
-        'info': '',
+        'info': '$15 SOL Prize Money Added Per Week',
         'token_shop': 110,
         'prize_money': 15,
         'auction': 3,
     },
     '12': {
-        'info': '',
+        'info': 'Tier 4 Daily Auctions',
         'token_shop': 110,
         'prize_money': 15,
         'auction': 4,
     },
     '13': {
-        'info': '',
+        'info': '$115 Token Shop Stock Added Per Week',
         'token_shop': 115,
         'prize_money': 15,
         'auction': 4,
     },
     '14': {
-        'info': '',
+        'info': '$20 SOL Prize Money Added Per Week',
         'token_shop': 115,
         'prize_money': 20,
         'auction': 4,
     },
     '15': {
-        'info': '',
+        'info': 'Tier 5 Daily Auctions',
         'token_shop': 115,
         'prize_money': 20,
         'auction': 5,
     },
     '16': {
-        'info': '',
+        'info': '$120 Token Shop Stock Added Per Week',
         'token_shop': 120,
         'prize_money': 20,
         'auction': 5,
     },
     '17': {
-        'info': '',
+        'info': '$25 SOL Prize Money Added Per Week',
         'token_shop': 120,
         'prize_money': 25,
         'auction': 5,
     },
     '18': {
-        'info': '',
+        'info': 'Tier 6 Daily Auctions',
         'token_shop': 120,
         'prize_money': 25,
         'auction': 6,
     },
     '19': {
-        'info': '',
+        'info': '$125 Token Shop Stock Added Per Week',
         'token_shop': 125,
         'prize_money': 25,
         'auction': 6,
     },
     '20': {
-        'info': '',
+        'info': '$30 SOL Prize Money Added Per Week',
         'token_shop': 125,
         'prize_money': 30,
         'auction': 6,
@@ -175,10 +175,25 @@ async def server_points_handler(db, message, client):
     level_string += '\nSOL Prize Money Added Per Week: **$'+str(level_data['prize_money'])+'**'
     level_string += '\nDaily Auction Prizes Tier: **Tier '+str(level_data['auction'])+'**'
     level_string += '\n-----------------------------------'
-    level_string += '\nCurrent SOL Prize Pool'
+    level_string += '\nCurrent SOL Prize Pool: **$100**'
     level_string += '\n-----------------------------------'
 
     await level_message.edit(content=level_string)
+
+
+    next_message = await server_level_channel.fetch_message(constants.NEXT_LEVELS_MESSAGE)
+    
+    next_string = '**NEXT 5 LEVELS**'
+    level_copy = level
+    for _ in range(5):
+        level_copy += 1
+        new_level_data = ALL_LEVELS[str(level_copy)]
+        next_string += '\nLEVEL '+str(level_copy)+' ('+format(level_copy*5,000, ',')+' Points) : '+new_level_data['info']
+
+    next_string += '\n-----------------------------------'
+
+    await next_message.edit(content=next_string)
+
 
     if server_level != level:
         pass
