@@ -15,118 +15,118 @@ ALL_LEVELS = {
         'auction': 0,
     },
     '2': {
-        'info': 'Tier 1 Daily Auctions',
+        'info': '$5 Average Daily Auctions',
         'token_shop': 50,
         'prize_money': 0,
-        'auction': 1,
+        'auction': 5,
     },
     '3': {
         'info': '$75 Token Shop Stock Added Per Week',
         'token_shop': 75,
         'prize_money': 0,
-        'auction': 1,
+        'auction': 5,
     },
     '4': {
         'info': '$100 Token Shop Stock Added Per Week',
         'token_shop': 100,
         'prize_money': 0,
-        'auction': 1,
+        'auction': 5,
     },
     '5': {
         'info': '$5 SOL Prize Money Added Per Week',
         'token_shop': 100,
         'prize_money': 5,
-        'auction': 1,
+        'auction': 5,
     },
     '6': {
-        'info': 'Tier 2 Daily Auctions',
+        'info': '$6 Average Daily Auctions',
         'token_shop': 100,
         'prize_money': 5,
-        'auction': 2,
+        'auction': 6,
     },
     '7': {
         'info': '$105 Token Shop Stock Added Per Week',
         'token_shop': 105,
         'prize_money': 5,
-        'auction': 2,
+        'auction': 6,
     },
     '8': {
         'info': '$10 SOL Prize Money Added Per Week',
         'token_shop': 105,
         'prize_money': 10,
-        'auction': 2,
+        'auction': 6,
     },
     '9': {
-        'info': 'Tier 3 Daily Auctions',
+        'info': '$7 Average Daily Auctions',
         'token_shop': 105,
         'prize_money': 10,
-        'auction': 3,
+        'auction': 7,
     },
     '10': {
         'info': '$110 Token Shop Stock Added Per Week',
         'token_shop': 110,
         'prize_money': 10,
-        'auction': 3,
+        'auction': 7,
     },
     '11': {
         'info': '$15 SOL Prize Money Added Per Week',
         'token_shop': 110,
         'prize_money': 15,
-        'auction': 3,
+        'auction': 7,
     },
     '12': {
-        'info': 'Tier 4 Daily Auctions',
+        'info': '$8 Average Daily Auctions',
         'token_shop': 110,
         'prize_money': 15,
-        'auction': 4,
+        'auction': 8,
     },
     '13': {
         'info': '$115 Token Shop Stock Added Per Week',
         'token_shop': 115,
         'prize_money': 15,
-        'auction': 4,
+        'auction': 8,
     },
     '14': {
         'info': '$20 SOL Prize Money Added Per Week',
         'token_shop': 115,
         'prize_money': 20,
-        'auction': 4,
+        'auction': 8,
     },
     '15': {
-        'info': 'Tier 5 Daily Auctions',
+        'info': '$9 Average Daily Auctions',
         'token_shop': 115,
         'prize_money': 20,
-        'auction': 5,
+        'auction': 9,
     },
     '16': {
         'info': '$120 Token Shop Stock Added Per Week',
         'token_shop': 120,
         'prize_money': 20,
-        'auction': 5,
+        'auction': 9,
     },
     '17': {
         'info': '$25 SOL Prize Money Added Per Week',
         'token_shop': 120,
         'prize_money': 25,
-        'auction': 5,
+        'auction': 9,
     },
     '18': {
-        'info': 'Tier 6 Daily Auctions',
+        'info': '$10 Average Daily Auctions',
         'token_shop': 120,
         'prize_money': 25,
-        'auction': 6,
+        'auction': 10,
     },
     '19': {
         'info': '$125 Token Shop Stock Added Per Week',
         'token_shop': 125,
         'prize_money': 25,
-        'auction': 6,
+        'auction': 10,
     },
     '20': {
         'info': '$30 SOL Prize Money Added Per Week',
         'token_shop': 125,
         'prize_money': 30,
-        'auction': 6,
+        'auction': 10,
     },
 
 
@@ -173,7 +173,7 @@ async def server_points_handler(db, message, client):
     level_string += '\nSERVER STATS:'
     level_string += '\nToken Shop Stock Added Per Week: **$'+str(level_data['token_shop'])+'**'
     level_string += '\nSOL Prize Money Added Per Week: **$'+str(level_data['prize_money'])+'**'
-    level_string += '\nDaily Auction Prizes Tier: **Tier '+str(level_data['auction'])+'**'
+    level_string += '\nAverage Daily Auction Value: **$ '+str(level_data['auction'])+'**'
     level_string += '\n-----------------------------------'
     level_string += '\nCurrent SOL Prize Pool: **$100**'
     level_string += '\n-----------------------------------'
