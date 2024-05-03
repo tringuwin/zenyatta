@@ -24,10 +24,16 @@ async def set_apps_link_handler(db, message):
     apps_obj = apps.find_one({'teams_id': 1})
     apps_teams = apps_obj['teams']
 
+    found_app = False
     for team in apps_teams:
         if team['team'] == team_name:
             team['appsLink'] = apps_link
+            found_app = True
             break
+
+    if not found_app:
+        await message.channel.send('Was not able to set the application for this team because this team is not yet listed on the application website. If you think this is a mistake please contact the server owner.')
+        return
 
     apps.update_one({"teams_id": 1}, {"$set": {"teams": apps_teams}})
     await message.channel.send('Application link for '+team_name+' has been updated.')
