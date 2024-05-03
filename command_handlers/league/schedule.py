@@ -17,6 +17,8 @@ async def schedule_handler(db, message, client):
     final_string += '\nMATCH 2: Fresas VS Phoenix'
     final_string += '\n\n**GRAND FINALS : Sunday 5/4/2024 at 4:00 PM EST**'
 
+    await message.channel.send(final_string)
+
     # schedule = db['schedule']
     # season_schedule = schedule.find_one({'season': constants.LEAGUE_SEASON})
 
