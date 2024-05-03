@@ -269,6 +269,8 @@ async def handle_message(message, db, client):
             await message.channel.send(message.author.mention+' '+' users without Image Perms are not allowed to post links. Please ask a Helper for Image Perms. **Your account has been flagged as potentially dangerous, and if you post a link without image permission again, you will be automatically banned by the bot.**')
             warned_users.append(message.author.id)
             db_constants.update_one({"name": 'warnings'}, {"$set": {"value": warned_users}})
+            helpers_channel = guild.get_channel(constants.HELPERS_CHANNEL)
+            await helpers_channel.send('WARN REPORT: User "'+banned_name+'" was *warned* for sending a link without Image Permission. Please review the logs and check if what they sent was allowed. If it was allowed, please give them image perms immediately to prevent them from being accidently banned.')
             return
 
     is_command = len(user_message) > 0 and (user_message[0] == '!')
