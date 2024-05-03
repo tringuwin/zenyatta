@@ -62,7 +62,7 @@ team_name_to_thumbnail = {
     'Fresas': 'https://i.postimg.cc/CLBr99Ms/Fresas.png',
     'Outliers': 'https://i.postimg.cc/CLgGc3zL/Outliers.png',
     'Celestials': '',
-    'Saturn': '',
+    'Saturn': 'https://i.postimg.cc/NjxtDKrR/Saturn.png',
     'Evergreen': '',
     'Misfits': '',
 }
