@@ -1,5 +1,5 @@
 
-VERSION = '1.7.68'
+VERSION = '1.7.69'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -130,6 +130,7 @@ LEAGUE_TO_EMOJI_ID = {
     'Fresas': 1200202833170026669,
     'Outliers': 1200928308922167357,
     'Phoenix': 1200926320767545484,
+    'Saturn': 1236025870460780654,
     'Celestials': 1168952409125556304 #sol
 }
 
@@ -244,7 +245,7 @@ NO_MAP_NAME = 'https://i.postimg.cc/hPNGk6G1/No-Map.png'
 
 TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians',  'Fresas', 'Outliers', 'Phoenix', 'Celestials', 'Saturn', 'Evergreen', 'Misfits']
 
-EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix']
+EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix', 'Saturn']
 
 LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassidy', 'dva', 'doomfist', 'echo', 'genji', 'hanzo', 'illari', 
                         'junker queen', 'junkrat', 'kiriko', 'lifeweaver', 'lucio', 'mei', 'mercy', 'moira', 'orisa', 'ramattra', 'reaper', 
