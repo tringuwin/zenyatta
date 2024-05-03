@@ -56,7 +56,7 @@ team_name_to_thumbnail = {
     'Eclipse': 'https://i.imgur.com/yuKFoDF.png',
     'Saviors': 'https://i.imgur.com/nrjx29Z.png',
     'Ragu': 'https://i.postimg.cc/5y2cSTFg/RAGU-FINAL-file.png',
-    'Instigators': 'https://i.postimg.cc/wv9xTQRB/Instigators.png',
+    'Instigators': 'https://i.postimg.cc/L55Q7KMV/Instigators.png',
     'Guardians': 'https://i.postimg.cc/zf2gmRXm/Guardians.png',
     'Phoenix': 'https://i.postimg.cc/DyXZH04q/Phoenix.png',
     'Fresas': 'https://i.postimg.cc/CLBr99Ms/Fresas.png',
