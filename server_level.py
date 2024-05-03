@@ -173,7 +173,7 @@ async def server_points_handler(db, message, client):
     level_string += '\nSERVER STATS:'
     level_string += '\nToken Shop Stock Added Per Week: **$'+str(level_data['token_shop'])+'**'
     level_string += '\nSOL Prize Money Added Per Week: **$'+str(level_data['prize_money'])+'**'
-    level_string += '\nAverage Daily Auction Value: **$ '+str(level_data['auction'])+'**'
+    level_string += '\nAverage Daily Auction Value: **$'+str(level_data['auction'])+'**'
     level_string += '\n-----------------------------------'
     level_string += '\nCurrent SOL Prize Pool: **$100**'
     level_string += '\n-----------------------------------'
