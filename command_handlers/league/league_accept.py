@@ -26,20 +26,21 @@ async def league_accept_handler(db, message, client):
         return
     
     team_name_to_join = make_string_from_word_list(word_list, 1)
+    team_name_lower = team_name_to_join.lower()
     user_invites = get_league_invites(user)
 
     found_team = False
     for invite in user_invites:
-        if invite == team_name_to_join:
+        if invite.lower() == team_name_lower:
             found_team = True
             break
 
     if not found_team:
-        await message.channel.send('You do not have a team invite from the team "'+team_name_to_join+'". Please check the spelling and capitalization of the team name.')
+        await message.channel.send('You do not have a team invite from the team "'+team_name_to_join+'". Please check the spelling of the team name.')
         return
     
     league_teams = db['leagueteams']
-    league_team = league_teams.find_one({'team_name': team_name_to_join})
+    league_team = league_teams.find_one({'name_lower': team_name_lower})
 
     if len(league_team['members']) >= 25:
         await message.channel.send('This League Team already has 25 players, which is the maximum allowed. Please contact an admin of this team if you think this is a mistake.')
