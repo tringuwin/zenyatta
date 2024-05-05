@@ -59,6 +59,10 @@ async def cards_handler(db, message):
         final_string += '\n'+comma_separated_string
 
 
+    if len(final_string) > 2000:
+        await message.channel.send('Sorry, you have too many cards to use this command! Try the command **!allcards** instead.')
+        return
+
     await message.channel.send(final_string)
 
 
