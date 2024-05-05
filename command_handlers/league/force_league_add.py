@@ -50,10 +50,10 @@ async def force_league_add_handler(db, message, client):
 
     role = await get_role_by_id(client, league_team['team_role_id'])
     if role:
-        await give_role(message.author, role, 'League Accept')
+        await give_role(mentioned_user, role, 'League Accept')
 
     await update_team_info(client, league_team, db)
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
-    await league_notifs_channel.send('User '+message.author.mention+' has joined the team "'+team_name_to_join+'".')
-    await message.channel.send('You have successfully joined this team!')
+    await league_notifs_channel.send('User '+mentioned_user.mention+' has joined the team "'+team_name_to_join+'".')
+    await message.channel.send('Added user to league team.')
