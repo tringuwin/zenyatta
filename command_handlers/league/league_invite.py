@@ -21,11 +21,6 @@ async def league_invite_handler(db, message):
     if not user:
         await message.channel.send('That user is not registered yet.')
         return
-    
-    user_league_team = get_league_team(user)
-    if user_league_team != "None":
-        await message.channel.send('That user is already on a league team!')
-        return
 
     league_invites = get_league_invites(user)
     league_invites.append(team_name)
