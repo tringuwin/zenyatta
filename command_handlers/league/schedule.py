@@ -12,10 +12,9 @@ def team_name_to_emoji(team_name, guild):
 
 async def schedule_handler(db, message, client):
 
-    final_string = '**SEMI FINALS : Saturday 5/3/2024 at 4:00 PM EST**'
-    final_string += '\nMATCH 1: Olympians VS Eclipse'
-    final_string += '\nMATCH 2: Fresas VS Phoenix'
-    final_string += '\n\n**GRAND FINALS : Sunday 5/4/2024 at 4:00 PM EST**'
+
+    final_string = '**GRAND FINALS : Sunday 5/4/2024 at 4:30 PM EST**'
+    final_string += '\nFresas VS Olympians'
 
     await message.channel.send(final_string)
 

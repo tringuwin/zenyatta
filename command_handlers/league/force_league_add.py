@@ -27,7 +27,7 @@ async def force_league_add_handler(db, message, client):
     
     user_league_team = get_league_team(user)
     if user_league_team != "None":
-        await message.channel.send('You are already on a league team. Please leave that team before joining another team.')
+        await message.channel.send('That user is already on a league team.')
         return
     
     users = db['users']
