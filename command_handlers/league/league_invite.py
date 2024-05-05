@@ -23,6 +23,10 @@ async def league_invite_handler(db, message):
         return
 
     league_invites = get_league_invites(user)
+    if team_name in league_invites:
+        await message.channel.send('That user is already invited to '+team_name)
+        return
+
     league_invites.append(team_name)
 
     users = db['users']
