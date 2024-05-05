@@ -41,14 +41,15 @@ async def league_accept_handler(db, message, client):
     
     league_teams = db['leagueteams']
     league_team = league_teams.find_one({'name_lower': team_name_lower})
+    real_team_name = league_team['team_name']
 
     if len(league_team['members']) >= 25:
         await message.channel.send('This League Team already has 25 players, which is the maximum allowed. Please contact an admin of this team if you think this is a mistake.')
         return
     
-    remove_league_invite(user, team_name_to_join, db)
+    remove_league_invite(user, real_team_name, db)
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": team_name_to_join}})
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": real_team_name}})
 
 
     league_team['members'].append(
@@ -61,7 +62,7 @@ async def league_accept_handler(db, message, client):
         }
     )
 
-    league_teams.update_one({'team_name': team_name_to_join}, {"$set": {"members": league_team['members']}})
+    league_teams.update_one({'team_name': real_team_name}, {"$set": {"members": league_team['members']}})
 
     role = await get_role_by_id(client, league_team['team_role_id'])
     if role:
@@ -70,7 +71,7 @@ async def league_accept_handler(db, message, client):
     await update_team_info(client, league_team, db)
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
-    await league_notifs_channel.send('User '+message.author.mention+' has joined the team "'+team_name_to_join+'".')
+    await league_notifs_channel.send('User '+message.author.mention+' has joined the team "'+real_team_name+'".')
     await message.channel.send('You have successfully joined this team!')
 
 
