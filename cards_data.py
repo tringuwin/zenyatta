@@ -2441,6 +2441,56 @@ ALL_CARDS = {
         'normal_img': 'https://i.postimg.cc/1XVkx52m/IMG-2166.jpg',
         'special_img': 'https://i.postimg.cc/y8hzYxdW/IMG-2167.jpg'
     },
+    '451': {
+        'player_id': ALL_PLAYERS['avernus'],
+        'normal_img': 'https://i.postimg.cc/Y0RBwD5t/IMG-2821.jpg',
+        'special_img': 'https://i.postimg.cc/KcD2L4RC/IMG-2822.jpg'
+    },
+    '452': {
+        'player_id': ALL_PLAYERS['kurai'],
+        'normal_img': 'https://i.postimg.cc/mDWv1GRb/IMG-2823.jpg',
+        'special_img': 'https://i.postimg.cc/x1hDYz4N/IMG-2824.jpg'
+    },
+    '453': {
+        'player_id': ALL_PLAYERS['cervantes'],
+        'normal_img': 'https://i.postimg.cc/W1hLQnXP/IMG-2825.jpg',
+        'special_img': 'https://i.postimg.cc/YSFcSC5n/IMG-2826.jpg'
+    },
+    '454': {
+        'player_id': ALL_PLAYERS['djloonie'],
+        'normal_img': 'https://i.postimg.cc/Y9NJ1yqQ/IMG-2827.jpg',
+        'special_img': 'https://i.postimg.cc/65HxjSV0/IMG-2828.jpg'
+    },
+    '455': {
+        'player_id': ALL_PLAYERS['ssolaced'],
+        'normal_img': 'https://i.postimg.cc/RVCzT9th/IMG-2831.jpg',
+        'special_img': 'https://i.postimg.cc/7hxjXMfd/IMG-2832.jpg'
+    },
+    '456': {
+        'player_id': ALL_PLAYERS['boostio'],
+        'normal_img': 'https://i.postimg.cc/SRD3P29s/IMG-2838.jpg',
+        'special_img': 'https://i.postimg.cc/J7qf0gFL/IMG-2839.jpg'
+    },
+    '457': {
+        'player_id': ALL_PLAYERS['chris'],
+        'normal_img': 'https://i.postimg.cc/pXLgFCNn/IMG-2840.jpg',
+        'special_img': 'https://i.postimg.cc/RZ3yP0ZS/IMG-2841.jpg'
+    },
+    '458': {
+        'player_id': ALL_PLAYERS['sugarcrabh'],
+        'normal_img': 'https://i.postimg.cc/4xrMjTYz/IMG-2842.jpg',
+        'special_img': 'https://i.postimg.cc/sDHb9WyH/IMG-2843.jpg'
+    },
+    '459': {
+        'player_id': ALL_PLAYERS['abyx'],
+        'normal_img': 'https://i.postimg.cc/KzbWvrrj/IMG-2844.jpg',
+        'special_img': 'https://i.postimg.cc/G2j5B8qQ/IMG-2845.jpg'
+    },
+    '460': {
+        'player_id': ALL_PLAYERS['ionalien'],
+        'normal_img': 'https://i.postimg.cc/cJwjS53P/IMG-2846.jpg',
+        'special_img': 'https://i.postimg.cc/yxYr01Gz/IMG-2847.jpg'
+    },
 
 }
 
