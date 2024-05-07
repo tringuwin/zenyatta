@@ -175,7 +175,7 @@ async def server_points_handler(db, message, client):
     level_string += '\nSOL Prize Money Added Per Week: **$'+str(level_data['prize_money'])+'**'
     level_string += '\nAverage Daily Auction Value: **$'+str(level_data['auction'])+'**'
     level_string += '\n-----------------------------------'
-    level_string += '\nCurrent SOL Prize Pool: **$100**'
+    level_string += '\nCurrent SOL Prize Pool: **$0**'
     level_string += '\n-----------------------------------'
 
     await level_message.edit(content=level_string)
