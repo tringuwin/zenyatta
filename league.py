@@ -65,7 +65,7 @@ team_name_to_thumbnail = {
     'Celestials': '',
     'Saturn': 'https://i.postimg.cc/NjxtDKrR/Saturn.png',
     'Evergreen': '',
-    'Misfits': '',
+    'Misfits': 'https://i.postimg.cc/kg6bwPhB/Misfits.png',
     'Hunters': '',
 }
 
