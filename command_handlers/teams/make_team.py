@@ -24,8 +24,8 @@ async def make_team_handler(db, message):
                 return
 
             team_size = int(word_list[1])
-            if team_size > 5 or team_size < 2:
-                await message.channel.send('Invalid team size. Teams must have between 2-5 players.')
+            if team_size > 6 or team_size < 2:
+                await message.channel.send('Invalid team size. Teams must have between 2-6 players.')
                 return
 
             team_name = make_string_from_word_list(word_list, 2)
