@@ -47,7 +47,7 @@ team_name_to_color = {
     'Celestials': discord.Colour(0x00cfda),
     'Saturn': discord.Colour(0xffb816),
     'Evergreen': discord.Colour(0x005041),
-    'Misfits': discord.Colour(0x2efc5b),
+    'Misfits': discord.Colour(0xc3db35),
     'Hunters': discord.Colour(0x161e1c)
 }
 
