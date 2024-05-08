@@ -726,9 +726,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!twitchpack') and is_cp_helper:
         await twitch_pack_handler(client, db, message)
 
-    elif lower_message == '!temptime' and is_admin:
-        await message.channel.send(str(get_current_day_est()))
-
     elif lower_message == '!testdm' and is_admin:
 
         guild = await get_guild(client)

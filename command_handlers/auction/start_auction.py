@@ -2,7 +2,7 @@
 
 from common_messages import invalid_number_of_params
 from discord_actions import get_guild
-from helpers import make_string_from_word_list
+from helpers import get_current_day_est, make_string_from_word_list
 
 import constants
 
@@ -40,6 +40,10 @@ async def start_auction_handler(db, message, client):
     final_string += 'NEW AUCTION STARTED FOR: **'+item_name+'**\n'
     final_string += 'Starting bid is **10 Tokens**\n'
     final_string += 'To bid on this item use the command **!bid [number of tokens]** in '+bot_channel.mention
+
+    constants_db = db['constants']
+    today_number = get_current_day_est()
+    constants_db.update_one({"auction_id": 1}, {"$set": { 'value': today_number } })
 
     await auction_channel.send(final_string)
 
