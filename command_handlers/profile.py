@@ -18,7 +18,7 @@ async def profile_handler(db, message, client):
 
         member = await get_member_by_username(client, username)
         if not member:
-            await message.channel.send('There is no member with that username.')
+            await message.channel.send('There is no member with that username. Use their discord username and make sure it is all lowercase. Example: spicyragu ')
             return
         
         user = user_exists(db, member.id)
