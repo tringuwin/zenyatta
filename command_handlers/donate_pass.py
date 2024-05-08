@@ -51,6 +51,10 @@ async def donate_pass_handler(db, message):
         await message.channel.send("Thank you! But Spicy doesn't need passes since he owns the server!")
         return
     
+    if donate_to_user['discord_id'] == constants.ZEN_ID:
+        await message.channel.send("Thank you! But I don't need any priority passes!")
+        return
+    
     await change_passes(db, user, -1)
     await change_passes(db, donate_to_user, 1)
     await message.channel.send('Donation successful!')
