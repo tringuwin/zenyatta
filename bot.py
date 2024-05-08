@@ -151,7 +151,7 @@ from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has
 from helper_handlers.twitch_pack import twitch_pack_handler
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
-from helpers import can_be_int
+from helpers import can_be_int, get_current_day_est
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
@@ -725,6 +725,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!twitchpack') and is_cp_helper:
         await twitch_pack_handler(client, db, message)
+
+    elif lower_message == '!temptime' and is_admin:
+        await message.channel.send(str(get_current_day_est()))
 
     elif lower_message == '!testdm' and is_admin:
 
