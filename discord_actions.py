@@ -44,6 +44,8 @@ async def get_user_from_guild(client, user_id):
 
 async def get_member_by_username(client, username):
 
+    username = username.lower()
+
     for member in client.get_all_members():
 
         disc = member.discriminator
