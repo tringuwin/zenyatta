@@ -43,7 +43,7 @@ async def start_auction_handler(db, message, client):
 
     constants_db = db['constants']
     today_number = get_current_day_est()
-    constants_db.update_one({"auction_id": 1}, {"$set": { 'value': today_number } })
+    constants_db.update_one({"bid_day": 1}, {"$set": { 'value': today_number } })
 
     await auction_channel.send(final_string)
 
