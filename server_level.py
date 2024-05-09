@@ -197,7 +197,9 @@ async def server_points_handler(db, message, client):
 
 
     if server_level != level:
-        pass
+        
+        # make updates
+        constants_db.update_one({"name": 'server_level'}, {"$set": {"value": {"level": level}}})
     
     await message.channel.send('level: '+str(level)+' - points: '+str(num_points))
 
