@@ -520,6 +520,9 @@ async def handle_message(message, db, client):
         # !switcheventteams [event id] [match id] [spot id (1 or 2)] [new team name]
         await switch_event_teams(db, message)
 
+    elif lower_message == '!temptick' and is_admin:
+        await message.channel.send(time.time())
+
     # LEAGUE COMMANDS
 
     elif lower_message.startswith('!makeleagueteam') and is_admin:
