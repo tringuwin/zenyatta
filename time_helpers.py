@@ -3,6 +3,8 @@ import constants
 from datetime import datetime
 import pytz
 
+from server_level import level_to_prize_money
+
 def format_time(num, title):
 
     if num == 0:
@@ -107,4 +109,22 @@ def been_a_week(db):
 
 async def check_weekly(db, channel):
 
-    pass
+    week_passed = been_a_week(db)
+
+    if not week_passed:
+        await channel.send('Has not been a week for prize money constant')
+        return
+    
+    constants_db = db['constants']
+    server_level_obj = constants_db.find_one({'name': 'server_level'})
+    server_level_num = server_level_obj['value']['level']
+
+    new_money = level_to_prize_money(server_level_num)
+
+    prize_money_obj = constants_db.find_one({'name': 'prize_money'})
+    old_money = prize_money_obj['value']
+
+    constants_db.update_one({"name": 'prize_money'}, {"$set": {"value": int(new_money+old_money)}})
+
+    await channel.send('Prize money added to total!')
+

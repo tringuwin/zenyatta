@@ -1467,12 +1467,6 @@ async def handle_message(message, db, client):
 
         await check_weekly(db, message.channel)
 
-
-
-
-
-    
-
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
 

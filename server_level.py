@@ -133,7 +133,9 @@ ALL_LEVELS = {
 }
 
 
+def level_to_prize_money(level):
 
+    return ALL_LEVELS[str(level)]['prize_money']
 
 async def server_points_handler(db, message, client):
 
@@ -158,6 +160,8 @@ async def server_points_handler(db, message, client):
     constants_db = db['constants']
     server_level_obj = constants_db.find_one({'name': 'server_level'})
     server_level = server_level_obj['value']['level']
+    prize_money_obj = constants_db.find_one({'name': 'prize_money'})
+    prize_money = prize_money_obj['value']
 
     points_to_next_level = 5000 - num_points
 
@@ -175,7 +179,7 @@ async def server_points_handler(db, message, client):
     level_string += '\nSOL Prize Money Added Per Week: **$'+str(level_data['prize_money'])+'**'
     level_string += '\nAverage Daily Auction Value: **$'+str(level_data['auction'])+'**'
     level_string += '\n-----------------------------------'
-    level_string += '\nCurrent SOL Prize Pool: **$0**'
+    level_string += '\nCurrent SOL Prize Pool: **$'+str(int(prize_money))+'**'
     level_string += '\n-----------------------------------'
 
     await level_message.edit(content=level_string)
