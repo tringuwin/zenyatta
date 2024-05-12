@@ -87,3 +87,24 @@ def get_current_day_est():
     day = now_est.day
 
     return day
+
+
+
+def been_a_week(db):
+
+    cur_tick = time.time()
+
+    constants_db = db['constants']
+    week_obj = constants_db.find_one({'name': 'week_tick'})
+    week_tick = week_obj['value']
+
+    if cur_tick - week_tick > constants.SECONDS_IN_A_WEEK:
+        constants_db.update_one({"name": 'week_tick'}, {"$set": {"value": int(week_tick + constants.SECONDS_IN_A_WEEK)}})
+        return True
+    
+    return False
+
+
+async def check_weekly(db, channel):
+
+    pass

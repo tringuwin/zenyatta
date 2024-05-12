@@ -161,7 +161,7 @@ from random_event import react_to_event, try_random_event
 from rewards import change_xp, give_eggs_command, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from server_level import server_points_handler
 from teams import get_team_by_name
-from time_helpers import long_enough_for_gift
+from time_helpers import check_weekly, long_enough_for_gift
 from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, notify_user_of_gift, user_exists
 
 
@@ -521,9 +521,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!switcheventteams ') and is_admin:
         # !switcheventteams [event id] [match id] [spot id (1 or 2)] [new team name]
         await switch_event_teams(db, message)
-
-    elif lower_message == '!temptick' and is_admin:
-        await message.channel.send(time.time())
 
     # LEAGUE COMMANDS
 
@@ -1467,6 +1464,8 @@ async def handle_message(message, db, client):
         await check_payroll(db, message.channel)
 
         await check_auction(db, message.channel, client)
+
+        await check_weekly(db, message.channel)
 
 
 

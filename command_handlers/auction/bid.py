@@ -1,8 +1,10 @@
 
 from api import get_member
+from command_handlers.auction.end_auction import end_auction
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
+from time_helpers import get_current_day_est
 from user import get_user_tokens, user_exists
 
 import constants
@@ -23,6 +25,15 @@ async def bid_handler(db, message, client):
     data = auction.find_one({'auction_id': 1})
     if not data['is_open']:
         await message.channel.send('There is no daily auction open at the moment.')
+        return
+    
+    cur_day = get_current_day_est()
+    constants_db = db['constants']
+    bid_day_obj = constants_db.find_one({'name': 'bid_day'})
+    bid_day = bid_day_obj['value']
+    if cur_day != bid_day:
+        await end_auction(db, client)
+        await message.channel.send('Sorry this auction has ended. There will be a new auction soon.')
         return
     
     bid_amount = params[1]

@@ -15,7 +15,7 @@ async def check_payroll(db, channel):
     cur_time = time.time()
     over_a_week = (cur_time - last_val) > SECONDS_IN_A_WEEK
     if not over_a_week:
-        await channel.send('Not been over a week')
+        await channel.send('Not been over a week for payroll')
         return
     await channel.send('Been over a week, pay time')
     constants.update_one({"name": 'last_payroll'}, {"$set": {"value": cur_time}})
