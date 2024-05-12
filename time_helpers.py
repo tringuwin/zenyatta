@@ -1,5 +1,7 @@
 import time
 import constants
+from datetime import datetime
+import pytz
 
 def format_time(num, title):
 
@@ -71,3 +73,17 @@ def long_enough_for_shop(last_shop):
         return True, diff_in_time
     else:
         return False, diff_in_time    
+    
+
+def get_current_day_est():
+    # Get current time in UTC
+    now_utc = datetime.utcnow()
+
+    # Convert UTC time to EST
+    est = pytz.timezone('US/Eastern')
+    now_est = now_utc.replace(tzinfo=pytz.utc).astimezone(est)
+
+    # Get the day as an integer
+    day = now_est.day
+
+    return day

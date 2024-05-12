@@ -1,23 +1,6 @@
 
 from discord_actions import get_member_by_username
 from user import twitch_user_exists, user_exists
-from datetime import datetime
-import pytz
-
-
-def get_current_day_est():
-    # Get current time in UTC
-    now_utc = datetime.utcnow()
-
-    # Convert UTC time to EST
-    est = pytz.timezone('US/Eastern')
-    now_est = now_utc.replace(tzinfo=pytz.utc).astimezone(est)
-
-    # Get the day as an integer
-    day = now_est.day
-
-    return day
-
 
 def valid_number_of_params(message, num_params):
     

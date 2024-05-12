@@ -2,9 +2,10 @@
 
 from common_messages import invalid_number_of_params
 from discord_actions import get_guild
-from helpers import get_current_day_est, make_string_from_word_list
+from helpers import make_string_from_word_list
 
 import constants
+from time_helpers import get_current_day_est
 
 async def start_auction_handler(db, message, client):
 
