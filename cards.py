@@ -7,6 +7,7 @@ from helpers import can_be_int
 from rewards import change_packs, change_tokens
 from user import get_user_cards, get_user_packs, get_user_tokens, user_exists, get_user_for_sale_cards
 import random
+import constants
 
 
 async def cards_handler(db, message):
@@ -297,7 +298,7 @@ async def sell_card_handler(db, message):
     await message.channel.send('You sold the card "'+input_card+'" for 20 tokens!')
 
 
-async def give_hard_handler(db, message):
+async def give_card_handler(db, message):
 
     word_parts = message.content.split()
     if len(word_parts) != 3:
@@ -317,6 +318,10 @@ async def give_hard_handler(db, message):
     give_user = user_exists(db, give_mention.id)
     if not give_user:
         await message.channel.send('That user is not registered.')
+        return
+    
+    if give_mention.id == constants.ZEN_ID:
+        await message.channel.send('You can give cards to me, sorry!')
         return
 
     cards = get_user_cards(user)
