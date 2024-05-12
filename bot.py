@@ -23,6 +23,7 @@ from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.prune_sac import prune_sac_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
+from admin_handlers.total_league import total_league_handler
 from auction import check_auction
 from cards import buy_card_handler, cards_handler, give_hard_handler, init_card_handler, list_card_handler, open_pack_handler, sell_card_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
 from cards_data import init_card_data_db, update_card_data_db
@@ -1344,6 +1345,8 @@ async def handle_message(message, db, client):
         await wipe_teams_handler(db, message)
     elif lower_message == '!totaltokens' and is_admin:
         await total_tokens_handler(db, message)
+    elif lower_message == '!totalleague' and is_admin:
+        await total_league_handler(db, message)
     elif lower_message == '!makeshop' and is_admin:
         await make_shop_handler(db, message)
     elif lower_message.startswith('!additem') and is_admin:
