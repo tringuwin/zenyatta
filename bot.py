@@ -152,7 +152,7 @@ from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has
 from helper_handlers.twitch_pack import twitch_pack_handler
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
-from helpers import can_be_int, get_current_day_est
+from helpers import can_be_int
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
