@@ -2691,6 +2691,56 @@ ALL_CARDS = {
         'normal_img': 'https://i.postimg.cc/MZPJx6ZR/IMG-3080.jpg',
         'special_img': 'https://i.postimg.cc/XY5Rw9fc/IMG-3081.jpg'
     },
+    '501': {
+        'player_id': ALL_PLAYERS['grand'],
+        'normal_img': 'https://i.postimg.cc/tCPskLvV/IMG-3152.jpg',
+        'special_img': 'https://i.postimg.cc/JzLG2PSY/IMG-3153.jpg'
+    },
+    '502': {
+        'player_id': ALL_PLAYERS['jacob'],
+        'normal_img': 'https://i.postimg.cc/0y0bR7sk/IMG-3143.jpg',
+        'special_img': 'https://i.postimg.cc/C1z1qtf5/IMG-3144.jpg'
+    },
+    '503': {
+        'player_id': ALL_PLAYERS['mimic'],
+        'normal_img': 'https://i.postimg.cc/Pq6JNhJ0/IMG-3145.jpg',
+        'special_img': 'https://i.postimg.cc/25j3z3k4/IMG-3146.jpg'
+    },
+    '504': {
+        'player_id': ALL_PLAYERS['boostio'],
+        'normal_img': 'https://i.postimg.cc/TwFPq9r9/IMG-3147.jpg',
+        'special_img': 'https://i.postimg.cc/PJD56wyk/IMG-3148.jpg'
+    },
+    '505': {
+        'player_id': ALL_PLAYERS['jellyman'],
+        'normal_img': 'https://i.postimg.cc/XNBqNRbD/IMG-3149.jpg',
+        'special_img': 'https://i.postimg.cc/PrGxCSff/IMG-3151.jpg'
+    },
+    '506': {
+        'player_id': ALL_PLAYERS['bakora'],
+        'normal_img': 'https://i.postimg.cc/gkRNhxz8/IMG-2986.jpg',
+        'special_img': 'https://i.postimg.cc/FH4GVhzq/IMG-2987.jpg'
+    },
+    '507': {
+        'player_id': ALL_PLAYERS['g0ast'],
+        'normal_img': 'https://i.postimg.cc/P5Qy608q/IMG-2988.jpg',
+        'special_img': 'https://i.postimg.cc/1zWHS6Bh/IMG-2989.jpg'
+    },
+    '508': {
+        'player_id': ALL_PLAYERS['lorer'],
+        'normal_img': 'https://i.postimg.cc/j5LhS53W/IMG-2990.jpg',
+        'special_img': 'https://i.postimg.cc/gJQHXW1g/IMG-2991.jpg'
+    },
+    '509': {
+        'player_id': ALL_PLAYERS['djloonie'],
+        'normal_img': 'https://i.postimg.cc/3r0BMkDV/IMG-2992.jpg',
+        'special_img': 'https://i.postimg.cc/6qZLCPXt/IMG-2993.jpg'
+    },
+    '510': {
+        'player_id': ALL_PLAYERS['sw1fters'],
+        'normal_img': 'https://i.postimg.cc/XvN8txwk/IMG-2994.jpg',
+        'special_img': 'https://i.postimg.cc/kXry77Q4/IMG-2995.jpg'
+    },
 
 }
 
