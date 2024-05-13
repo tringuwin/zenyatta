@@ -2591,6 +2591,106 @@ ALL_CARDS = {
         'normal_img': 'https://i.postimg.cc/GtW7nHDR/IMG-3229.jpg',
         'special_img': 'https://i.postimg.cc/sfM3zqWH/IMG-3230.jpg'
     },
+    '481': {
+        'player_id': ALL_PLAYERS['mrbustdown'],
+        'normal_img': 'https://i.postimg.cc/k4Hs1p9V/IMG-3095.jpg',
+        'special_img': 'https://i.postimg.cc/nVjfF8XP/IMG-3096.jpg'
+    },
+    '482': {
+        'player_id': ALL_PLAYERS['dripobito'],
+        'normal_img': 'https://i.postimg.cc/66kJTHR5/IMG-3097.jpg',
+        'special_img': 'https://i.postimg.cc/yxSPwyYL/IMG-3098.jpg'
+    },
+    '483': {
+        'player_id': ALL_PLAYERS['cheems'],
+        'normal_img': 'https://i.postimg.cc/dDPBvZhw/IMG-3099.jpg',
+        'special_img': 'https://i.postimg.cc/KvtXTnr7/IMG-3100.jpg'
+    },
+    '484': {
+        'player_id': ALL_PLAYERS['kuda'],
+        'normal_img': 'https://i.postimg.cc/zGk9t8QV/IMG-3101.jpg',
+        'special_img': 'https://i.postimg.cc/t4bKNY2K/IMG-3102.jpg'
+    },
+    '485': {
+        'player_id': ALL_PLAYERS['justtoosus'],
+        'normal_img': 'https://i.postimg.cc/5t7DJpbJ/IMG-3103.jpg',
+        'special_img': 'https://i.postimg.cc/Gph6660z/IMG-3104.jpg'
+    },
+    '486': {
+        'player_id': ALL_PLAYERS['bakora'],
+        'normal_img': 'https://i.postimg.cc/NG1XKvYM/IMG-2970.jpg',
+        'special_img': 'https://i.postimg.cc/m2BHMp2S/IMG-2971.jpg'
+    },
+    '487': {
+        'player_id': ALL_PLAYERS['lorer'],
+        'normal_img': 'https://i.postimg.cc/k5669kf7/IMG-2972.jpg',
+        'special_img': 'https://i.postimg.cc/GmS8WcPM/IMG-2973.jpg'
+    },
+    '488': {
+        'player_id': ALL_PLAYERS['g0ast'],
+        'normal_img': 'https://i.postimg.cc/dV0ZN7Ck/IMG-2974.jpg',
+        'special_img': 'https://i.postimg.cc/Dy6bcQS3/IMG-2975.jpg'
+    },
+    '489': {
+        'player_id': ALL_PLAYERS['sw1fters'],
+        'normal_img': 'https://i.postimg.cc/GtQ9qrhx/IMG-2976.jpg',
+        'special_img': 'https://i.postimg.cc/mkRtYhRr/IMG-2977.jpg'
+    },
+    '490': {
+        'player_id': ALL_PLAYERS['djloonie'],
+        'normal_img': 'https://i.postimg.cc/W30dqgBK/IMG-2978.jpg',
+        'special_img': 'https://i.postimg.cc/d0b704xr/IMG-2979.jpg'
+    },
+    '491': {
+        'player_id': ALL_PLAYERS['grand'],
+        'normal_img': 'https://i.postimg.cc/QxJ4sSJz/IMG-3122.jpg',
+        'special_img': 'https://i.postimg.cc/T2mNNTLf/IMG-3123.jpg'
+    },
+    '492': {
+        'player_id': ALL_PLAYERS['jacob'],
+        'normal_img': 'https://i.postimg.cc/BQ0YdRHD/IMG-3124.jpg',
+        'special_img': 'https://i.postimg.cc/9QXxfTxQ/IMG-3125.jpg'
+    },
+    '493': {
+        'player_id': ALL_PLAYERS['mimic'],
+        'normal_img': 'https://i.postimg.cc/9Q1nP149/IMG-3114.jpg',
+        'special_img': 'https://i.postimg.cc/YS9ydggs/IMG-3115.jpg'
+    },
+    '494': {
+        'player_id': ALL_PLAYERS['boostio'],
+        'normal_img': 'https://i.postimg.cc/d3MHQxfb/IMG-3118.jpg',
+        'special_img': 'https://i.postimg.cc/bvBVWJ9N/IMG-3119.jpg'
+    },
+    '495': {
+        'player_id': ALL_PLAYERS['umreti'],
+        'normal_img': 'https://i.postimg.cc/k4RYmmTN/IMG-3120.jpg',
+        'special_img': 'https://i.postimg.cc/nrvdX1bC/IMG-3121.jpg'
+    },
+    '496': {
+        'player_id': ALL_PLAYERS['cervantes'],
+        'normal_img': 'https://i.postimg.cc/281RSs3t/IMG-3082.jpg',
+        'special_img': 'https://i.postimg.cc/zf19p3pm/IMG-3083.jpg'
+    },
+    '497': {
+        'player_id': ALL_PLAYERS['shadowfire'],
+        'normal_img': 'https://i.postimg.cc/0jr3rS5S/IMG-3088.jpg',
+        'special_img': 'https://i.postimg.cc/brM5nvdB/IMG-3089.jpg'
+    },
+    '498': {
+        'player_id': ALL_PLAYERS['wuqz'],
+        'normal_img': 'https://i.postimg.cc/8Px8JZ6z/IMG-3084.jpg',
+        'special_img': 'https://i.postimg.cc/s29bLy0M/IMG-3085.jpg'
+    },
+    '499': {
+        'player_id': ALL_PLAYERS['heathensinc'],
+        'normal_img': 'https://i.postimg.cc/cHF2shWZ/IMG-3086.jpg',
+        'special_img': 'https://i.postimg.cc/0QkhR3Lc/IMG-3087.jpg'
+    },
+    '500': {
+        'player_id': ALL_PLAYERS['penguin'],
+        'normal_img': 'https://i.postimg.cc/MZPJx6ZR/IMG-3080.jpg',
+        'special_img': 'https://i.postimg.cc/XY5Rw9fc/IMG-3081.jpg'
+    },
 
 }
 
