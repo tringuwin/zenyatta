@@ -1,6 +1,6 @@
 import copy
 from api import get_member
-from rewards import change_xp
+from rewards import change_passes, change_xp
 from teams import get_team_by_name
 
 from user import user_exists
@@ -285,6 +285,28 @@ async def give_earned_xp(entry, num_xp, db, client):
                 await change_xp(db, user, num_xp, client)
 
 
+async def pass_penalty(entry, db):
+    
+    if ('it_team' in entry) and entry['it_team']:
+        team_name = entry['username']
+        team = await get_team_by_name(db, team_name)
+
+        if not team:
+            return
+        
+        for member_id in team['members']:
+            if member_id == team['creator_id']:
+                user = user_exists(db, member_id)
+                if user:
+                    await change_passes(db, user, -1)
+
+    else:
+        if 'user' in entry:
+            user_id = entry['user']
+            user = user_exists(db, user_id)
+            if user:
+                await change_passes(db, user, -1)
+
 
 def get_next_round_match_from_match(match_index):
 
@@ -384,6 +406,8 @@ async def no_show(lose_index, message, db, guild, client):
 
     await give_earned_xp(winner, 300, db, client)
 
+    await pass_penalty(loser, db)
+
     await advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild, client)
 
 async def both_no_show(message, db, guild, client):
@@ -394,6 +418,8 @@ async def both_no_show(message, db, guild, client):
     round_index = tourney['round_index']
     match_index = tourney['match_index']
     match = bracket['bracket'][round_index][match_index]
+    side1 = copy.deepcopy(match[0])
+    side2 = copy.deepcopy(match[1])
     cur_match_obj = copy.deepcopy(match)
 
     cur_match_obj[0]['no_show'] = True
@@ -413,6 +439,9 @@ async def both_no_show(message, db, guild, client):
     bracket_copy['bracket'][round_index][match_index] = cur_match_obj
 
     db['brackets'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"bracket": bracket_copy['bracket']}})
+
+    await pass_penalty(side1, db)
+    await pass_penalty(side2, db)
 
     await advance_to_next_match(db, round_index, match_index, bracket_copy, message, guild, client)
 
