@@ -1,0 +1,62 @@
+
+
+from common_messages import invalid_number_of_params
+from helpers import valid_number_of_params
+from user import user_exists
+
+
+RANK_STRINGS = {
+    'b': 'Rank_Bronze'
+}
+
+TIER_STRINGS = {
+    '5': 'Division_5',
+    '4': 'Division_4',
+    '3': 'Division_3',
+    '2': 'Division_2',
+    '1': 'Division_1',
+}
+
+VALID_ROLES = {
+    't': 'tank',
+    'd': 'offense',
+    's': 'support'
+}
+
+VALID_RANKS = {
+
+    'b5': {
+        'rank': RANK_STRINGS['b'],
+        'tier': TIER_STRINGS['5']
+    }
+
+}
+
+async def set_rank_handler(db, message):
+
+    valid_params, params = valid_number_of_params(message, 4)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    if len(message.mentions) != 1:
+        await message.channel.send('Please mention 1 user to set the rank for.')
+        return
+    
+    mentioned_user = message.mentions[0]
+    user = user_exists(db, mentioned_user.id)
+    if not user:
+        await message.channel.send('That user is not registered yet. Please tell them to register their battle tag before verifying their ranks.')
+        return
+    
+    role_id = params[2]
+    if not (role_id.lower() in VALID_ROLES):
+        await message.channel.send('"'+role_id+'" is not a valid role identifier. Possible values are T, D, and S')
+        return
+    
+    rank_id = params[3]
+    if not (rank_id.lower() in VALID_RANKS):
+        await message.channel.send('"'+rank_id+'" is not a valid rank. Possible values are similar to b5, d3, gm1')
+        return
+
+    await message.channel.send('Successfully set the rank.')

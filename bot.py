@@ -72,6 +72,7 @@ from command_handlers.league.league_kick import league_kick_handler
 from command_handlers.league.league_leave import league_leave_handler
 from command_handlers.league.lft.set_lft_color import set_lft_color_handler
 from command_handlers.league.lft.set_lft_hero import set_lft_hero_handler
+from command_handlers.league.lft.set_rank import set_rank_handler
 from command_handlers.league.lft.toggle_lft import toggle_lft_handler
 from command_handlers.league.lft.update_lft import update_lft_handler
 from command_handlers.league.make_league_team import make_league_team_handler
@@ -428,6 +429,9 @@ async def handle_message(message, db, client):
 
     # elif lower_message == '!verifyranks':
     #     await verify_ranks_handler(db, message)
+
+    elif lower_message.startswith('!setrank') and is_helper:
+        await set_rank_handler(db, message)
 
     elif lower_message == '!leaderboard':
         await leaderboard_handler(db, message)
