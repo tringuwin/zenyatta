@@ -2,7 +2,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
-from user import user_exists
+from user import get_user_ranks, user_exists
 
 
 RANK_STRINGS = {
@@ -27,7 +27,7 @@ VALID_RANKS = {
 
     'b5': {
         'rank': RANK_STRINGS['b'],
-        'tier': TIER_STRINGS['5']
+        'div': TIER_STRINGS['5']
     }
 
 }
@@ -58,5 +58,19 @@ async def set_rank_handler(db, message):
     if not (rank_id.lower() in VALID_RANKS):
         await message.channel.send('"'+rank_id+'" is not a valid rank. Possible values are similar to b5, d3, gm1')
         return
+
+    role_id = role_id.lower()
+    rank_id = rank_id.lower()
+
+    rank_info = VALID_RANKS[rank_id]
+
+    user_ranks = get_user_ranks(user)
+    user_ranks[VALID_ROLES[role_id]] = {
+        'tier': rank_info['rank'],
+        'div': rank_info['div']
+    }
+    
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"ranks": user_ranks}})
 
     await message.channel.send('Successfully set the rank.')
