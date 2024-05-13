@@ -64,6 +64,7 @@ from command_handlers.league.force_league_add import force_league_add_handler
 from command_handlers.league.give_team_tokens import give_team_tokens_handler
 from command_handlers.league.league_accept import league_accept_handler
 from command_handlers.league.league_cancel_invite import league_cancel_invite_handler
+from command_handlers.league.league_deny import league_deny_handler
 from command_handlers.league.league_invite import league_invite_handler
 from command_handlers.league.league_invites import league_invites_handler
 from command_handlers.league.league_kick import league_kick_handler
@@ -565,6 +566,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!leagueaccept '):
         await league_accept_handler(db, message, client)
+
+    elif lower_message.startswith('!leaguedeny' ):
+        await league_deny_handler(db, message)
 
     elif lower_message == '!leagueleave':
         await league_leave_handler(db, message, client)
