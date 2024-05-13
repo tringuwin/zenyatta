@@ -15,7 +15,7 @@ async def profile_handler(db, message, client):
         user = user_exists(db, message.author.id)
     else:
         username = make_string_from_word_list(word_list, 1)
-        user = generic_find_user(db, username)
+        user = await generic_find_user(client, db, username)
     
     if not user:
         await message.channel.send('User not found.')
