@@ -49,6 +49,7 @@ from command_handlers.help.help_cards import help_cards_handler
 from command_handlers.help.help_casino import help_casino_handler
 from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.help.help_league import help_league_handler
+from command_handlers.help.help_lft import help_lft_handler
 from command_handlers.helper_salary import helper_salary_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
@@ -310,6 +311,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!helpbonus':
         await help_bonus_handler(message)
+
+    elif lower_message == '!helpLFT':
+        await help_lft_handler(message)
 
     elif lower_message == '!version':
         await send_msg(message.channel, constants.VERSION, '!version')
