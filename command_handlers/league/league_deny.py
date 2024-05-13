@@ -37,4 +37,4 @@ async def league_deny_handler(db, message):
     
     remove_league_invite(user, real_team_name, db)
 
-    await message.channel.send('Successfully removed invite from that team.')
+    await message.channel.send('Successfully removed the invite from that team.')
