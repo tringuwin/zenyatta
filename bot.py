@@ -312,7 +312,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!helpbonus':
         await help_bonus_handler(message)
 
-    elif lower_message == '!helpLFT':
+    elif lower_message == '!helplft':
         await help_lft_handler(message)
 
     elif lower_message == '!version':
