@@ -1,5 +1,5 @@
 
-VERSION = '1.8.6'
+VERSION = '1.8.7'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -310,3 +310,13 @@ HERO_MESSAGE_TO_ROLE = {
     1186026361144483870: 1186023227395428452, # console
     1234988843242094756: 1234989081063325716 # venture
 }
+
+
+TOKEN_SHOP_USD_PRICES = [
+    6, # 500 ow coins
+    11, # 1,000 ow coins
+    10, # battle new $10
+    10, # discord nitro
+    10, # 1,000 V-Bucks
+    13 # steam card
+]

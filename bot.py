@@ -1469,7 +1469,7 @@ async def handle_message(message, db, client):
 
         await check_auction(db, message.channel, client)
 
-        await check_weekly(db, message.channel)
+        await check_weekly(db, message.channel, message)
 
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')

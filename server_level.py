@@ -137,6 +137,10 @@ def level_to_prize_money(level):
 
     return ALL_LEVELS[str(level)]['prize_money']
 
+def level_to_token_shop_cash(level):
+    
+    return ALL_LEVELS[str(level)]['token_shop']
+
 async def server_points_handler(db, message, client):
 
     valid_params, params = valid_number_of_params(message, 2)

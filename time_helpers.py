@@ -3,7 +3,8 @@ import constants
 from datetime import datetime
 import pytz
 
-from server_level import level_to_prize_money
+from server_level import level_to_prize_money, level_to_token_shop_cash
+from shop import update_shop
 
 def format_time(num, title):
 
@@ -107,7 +108,8 @@ def been_a_week(db):
     return False
 
 
-async def check_weekly(db, channel):
+
+async def check_weekly(db, channel, message):
 
     week_passed = been_a_week(db)
 
@@ -127,4 +129,45 @@ async def check_weekly(db, channel):
     constants_db.update_one({"name": 'prize_money'}, {"$set": {"value": int(new_money+old_money)}})
 
     await channel.send('Prize money added to total!')
+
+    # token shop refill
+
+    # get weekly token shop cash
+    token_shop_cash = level_to_token_shop_cash(server_level_num)
+
+    # edit prices
+    shop = db['shop']
+    the_shop = shop.find_one({'shop_id': 2})
+    items = the_shop['offers']
+    for offer in items:
+
+        if offer['in_stock'] == 0:
+            offer['price'] += 100
+        else:
+            offer['price'] -= 100
+
+    # distribute goods
+    increase_array = [0, 0, 0, 0, 0, 0]
+    increase_index = 0
+    token_shop_cash -= 5
+    while token_shop_cash > 0:
+        increase_array[increase_index] += 1
+        token_shop_cash -= constants.TOKEN_SHOP_USD_PRICES[increase_index]
+        increase_index += 1
+        if increase_index == len(increase_array):
+            increase_index = 0
+
+    i = 0
+    while i < len(increase_array):
+        items[i]['in_stock'] += increase_array[i]
+        i += 1
+
+    # update shop
+    shop.update_one({"shop_id": 2}, {"$set": {"offers": items}})
+    await update_shop(db, message)
+
+    # confirmation message
+    await channel.send('Successfully re-stocked token shop!')
+
+
 
