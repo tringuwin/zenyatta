@@ -1,6 +1,6 @@
 
 from discord_actions import get_guild, get_member_by_username
-from helpers import make_string_from_word_list
+from helpers import generic_find_user, make_string_from_word_list
 from user import get_fan_of, get_league_team, get_lvl_info, get_rival_of, get_twitch_username, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_tokens, user_exists
 import constants
 
@@ -15,13 +15,7 @@ async def profile_handler(db, message, client):
         user = user_exists(db, message.author.id)
     else:
         username = make_string_from_word_list(word_list, 1)
-
-        member = await get_member_by_username(client, username)
-        if not member:
-            await message.channel.send('There is no member with that username. Use their discord username and make sure it is all lowercase. Example: spicyragu ')
-            return
-        
-        user = user_exists(db, member.id)
+        user = generic_find_user(db, username)
     
     if not user:
         await message.channel.send('User not found.')
