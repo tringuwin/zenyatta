@@ -11,6 +11,7 @@ from admin_handlers.force_league_remove import force_league_remove_handler
 from admin_handlers.force_make_team import force_make_team_handler
 from admin_handlers.force_remove_player import force_remove_player_handler
 from admin_handlers.force_remove_team import force_remove_team_handler
+from admin_handlers.force_twitch import force_twitch_handler
 from admin_handlers.full_events import full_events_handler
 from admin_handlers.gen_bracket import gen_bracket_handler
 from admin_handlers.give_gems import give_gems_handler
@@ -323,6 +324,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!twitch '):
         await twitch_handler(db, message)
+
+    elif lower_message.startswith('!forcetwitch ') and is_admin:
+        await force_twitch_handler(db, message, client)
 
     elif lower_message == "!events":
         await events_handler(db, message)
