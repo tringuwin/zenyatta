@@ -6,7 +6,7 @@ async def help_handler(message):
     help_embed = discord.Embed(title='List of commands:')
     help_embed.add_field(name='!battle BattleTagHere#1234', value='Register your battle tag with the Spicy OW server', inline=False)
     help_embed.add_field(name='!twitch TwitchUsernameHere', value='Add your twitch username to the server so you can be given rewards you earn on stream!', inline=False)
-    help_embed.add_field(name='!helpteams', value='Show a list of commands related to making teams for community tournaments. (This is not the league commands.)', inline=False)
+    help_embed.add_field(name='!helpteams', value='Show a list of commands related to making teams for community tournaments. (This is not the league commands)', inline=False)
     help_embed.add_field(name='!helpcasino', value='Show a list of commands related to the casino channels.', inline=False)
     help_embed.add_field(name='!helpleague', value='Show a list of commands related to the Spicy Overwatch League.', inline=False)
     help_embed.add_field(name='!helpLFT', value='Show a list of commands related to looking for a team.', inline=False)

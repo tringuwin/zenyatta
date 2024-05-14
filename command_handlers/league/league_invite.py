@@ -37,6 +37,6 @@ async def league_invite_handler(db, message):
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_invites": league_invites}})
 
-    await message.channel.send('The user was successfully invited to the team "'+team_name+'"!')
+    await message.channel.send('The user was successfully invited to the team "'+team_name+'"!\n\n'+mentioned_member.mention+' to accept this invite use the command **!leagueaccept '+team_name+'**')
 
     
