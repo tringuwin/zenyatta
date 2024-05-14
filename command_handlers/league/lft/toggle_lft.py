@@ -8,7 +8,7 @@ async def toggle_lft_handler(db, message):
 
     user = user_exists(db, message.author.id)
     if not user:
-        not_registered_response(message)
+        await not_registered_response(message)
         return
     
     was_created, lft_user = get_lft_user(db, message.author, user)
