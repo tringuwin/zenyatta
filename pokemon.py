@@ -106,6 +106,14 @@ async def add_poke_handler(db, message):
 
     await message.channel.send('Card added! Insert to storage Page '+str(page)+', Slot '+str(slot))
 
+def get_rarity_string(holo_type):
+
+    if holo_type == 'H':
+        return ' (HOLO)'
+    elif holo_type == 'R':
+        return ' (REVERSE HOLO)'
+
+    return ' (NORMAL)'
 
 async def open_poke_handler(db, message):
 
@@ -144,20 +152,12 @@ async def open_poke_handler(db, message):
     card_data = POKE_SETS[pokemon_card['set']][pokemon_card['set_num']]
     img_link = card_data['card_img']
 
-    embed = discord.Embed(title='You opened '+card_data['name']+' (ID: '+str(pokemon_card['card_id'])+') !!')
+    embed = discord.Embed(title='You opened '+card_data['name']+get_rarity_string(pokemon_card['holo_type'])+' !!')
     embed.set_image(url=img_link)
 
     await message.channel.send(embed=embed)
 
 
-async def get_rarity_string(holo_type):
-
-    if holo_type == 'H':
-        return ' (HOLO)'
-    elif holo_type == 'R':
-        return ' (REVERSE HOLO)'
-
-    return ' (NORMAL)'
 
 async def view_poke_handler(db, message):
 
