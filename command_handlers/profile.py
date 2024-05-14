@@ -54,19 +54,19 @@ def make_rank_string(ranks):
     tank = ranks['tank']
     tank_string = 'Tank: ?'
     if tank['tier'] != 'none':
-        tank_string = RANK_TEXT_TO_ID[tank['tier']+' '+tank['div']]
+        tank_string = 'Tank: '+RANK_TEXT_TO_ID[tank['tier']+' '+tank['div']]
 
     dps = ranks['offense']
     dps_string = 'DPS: ?'
     if dps['tier'] != 'none':
-        dps_string = RANK_TEXT_TO_ID[dps['tier']+' '+dps['div']]
+        dps_string = 'DPS: '+RANK_TEXT_TO_ID[dps['tier']+' '+dps['div']]
 
     sup = ranks['support']
     sup_string = 'Support: ?'
     if sup['tier'] != 'none':
-        sup_string = RANK_TEXT_TO_ID[sup['tier']+' '+sup['div']]
+        sup_string = 'Support: '+RANK_TEXT_TO_ID[sup['tier']+' '+sup['div']]
 
-    return tank_string + ' | ' + dps_string + ' | ' + sup_string
+    return 'Ranks: ' + tank_string + ' | ' + dps_string + ' | ' + sup_string
 
 
 
@@ -101,7 +101,7 @@ async def profile_handler(db, message, client):
     final_string = "**USER PROFILE FOR "+user['battle_tag']+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
     final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
-    final_string += make_rank_string(ranks)+'\n'
+    final_string += make_rank_string(ranks)+'\n\n'
 
     league_team_string = league_team
     if league_team in constants.EMOJI_TEAMS:
