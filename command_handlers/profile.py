@@ -1,9 +1,72 @@
 
 from discord_actions import get_guild, get_member_by_username
 from helpers import generic_find_user, make_string_from_word_list
-from user import get_fan_of, get_league_team, get_lvl_info, get_rival_of, get_twitch_username, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_tokens, user_exists
+from user import get_fan_of, get_league_team, get_lvl_info, get_rival_of, get_twitch_username, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_ranks, get_user_tokens, user_exists
 import constants
 
+
+RANK_TEXT_TO_ID = {
+    'Rank_Bronze Division_5': 'B5',
+    'Rank_Bronze Division_4': 'B4',
+    'Rank_Bronze Division_3': 'B3',
+    'Rank_Bronze Division_2': 'B2',
+    'Rank_Bronze Division_1': 'B1',
+
+    'Rank_Silver Division_5': 'S5',
+    'Rank_Silver Division_4': 'S4',
+    'Rank_Silver Division_3': 'S3',
+    'Rank_Silver Division_2': 'S2',
+    'Rank_Silver Division_1': 'S1',
+
+    'Rank_Gold Division_5': 'G5',
+    'Rank_Gold Division_4': 'G4',
+    'Rank_Gold Division_3': 'G3',
+    'Rank_Gold Division_2': 'G2',
+    'Rank_Gold Division_1': 'G1',
+
+    'Rank_Platinum Division_5': 'P5',
+    'Rank_Platinum Division_4': 'P4',
+    'Rank_Platinum Division_3': 'P3',
+    'Rank_Platinum Division_2': 'P2',
+    'Rank_Platinum Division_1': 'P1',
+
+    'Rank_Diamond Division_5': 'D5',
+    'Rank_Diamond Division_4': 'D4',
+    'Rank_Diamond Division_3': 'D3',
+    'Rank_Diamond Division_2': 'D2',
+    'Rank_Diamond Division_1': 'D1',
+
+    'Rank_Master Division_5': 'M5',
+    'Rank_Master Division_4': 'M4',
+    'Rank_Master Division_3': 'M3',
+    'Rank_Master Division_2': 'M2',
+    'Rank_Master Division_1': 'M1',
+
+    'Rank_GrandMaster Division_5': 'GM5',
+    'Rank_GrandMaster Division_4': 'GM4',
+    'Rank_GrandMaster Division_3': 'GM3',
+    'Rank_GrandMaster Division_2': 'GM2',
+    'Rank_GrandMaster Division_1': 'GM1',
+}
+
+def make_rank_string(ranks):
+
+    tank = ranks['tank']
+    tank_string = 'Tank: ?'
+    if tank['tier'] != 'none':
+        tank_string = RANK_TEXT_TO_ID[tank['tier']+' '+tank['div']]
+
+    dps = ranks['offense']
+    dps_string = 'DPS: ?'
+    if dps['tier'] != 'none':
+        dps_string = RANK_TEXT_TO_ID[dps['tier']+' '+dps['div']]
+
+    sup = ranks['support']
+    sup_string = 'Support: ?'
+    if sup['tier'] != 'none':
+        sup_string = RANK_TEXT_TO_ID[sup['tier']+' '+sup['div']]
+
+    return tank_string + ' | ' + dps_string + ' | ' + sup_string
 
 
 
@@ -33,10 +96,12 @@ async def profile_handler(db, message, client):
     packs = get_user_packs(user)
     poke_points = get_user_poke_points(user)
     twitch_username = get_twitch_username(user)
+    ranks = get_user_ranks(user)
     
     final_string = "**USER PROFILE FOR "+user['battle_tag']+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
     final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
+    final_string += make_rank_string(ranks)+'\n'
 
     league_team_string = league_team
     if league_team in constants.EMOJI_TEAMS:
