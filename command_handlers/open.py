@@ -186,6 +186,7 @@ async def open_handler(db, message, client):
         return
     
     box_num = params[1]
+    orig_num = params[1]
     dict_key = ''
     is_sub_box = False
 
@@ -234,7 +235,7 @@ async def open_handler(db, message, client):
 
     final_string = 'You openened your Twitch Lootbox and found... **'
     if not is_sub_box:
-        final_string = 'You opened your Level '+str(box_num)+' Lootbox and found... **'
+        final_string = 'You opened your Level '+str(orig_num)+' Lootbox and found... **'
 
     if prize[0] == 'Token':
         final_string += str(prize[1])+" Tokens!!** 🪙"
