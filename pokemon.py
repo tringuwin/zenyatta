@@ -113,7 +113,7 @@ def get_rarity_string(holo_type):
     elif holo_type == 'R':
         return ' (REVERSE HOLO)'
 
-    return ' (NORMAL)'
+    return ''
 
 async def open_poke_handler(db, message):
 
