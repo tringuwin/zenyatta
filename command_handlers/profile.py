@@ -66,7 +66,7 @@ def make_rank_string(ranks):
     if sup['tier'] != 'none':
         sup_string = 'Support: '+RANK_TEXT_TO_ID[sup['tier']+' '+sup['div']]
 
-    return 'Ranks: ' + tank_string + ' | ' + dps_string + ' | ' + sup_string
+    return tank_string + ' | ' + dps_string + ' | ' + sup_string
 
 
 
