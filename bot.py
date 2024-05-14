@@ -498,7 +498,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!getteams ') and is_admin:
         await get_teams_handler(db, message)
 
-    elif lower_message.startswith('!teamdetails'):
+    elif lower_message.startswith('!teaminfo'):
         await team_details_hanlder(db, message)
 
     elif lower_message.startswith('!maketeam '):
