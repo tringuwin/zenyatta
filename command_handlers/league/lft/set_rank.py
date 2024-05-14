@@ -6,7 +6,13 @@ from user import get_user_ranks, user_exists
 
 
 RANK_STRINGS = {
-    'b': 'Rank_Bronze'
+    'b': 'Rank_Bronze',
+    's': 'Rank_Silver',
+    'g': 'Rank_Gold',
+    'p': 'Rank_Platinum',
+    'd': 'Rank_Diamond',
+    'm': 'Rank_Master',
+    'gm': 'Rank_GrandMaster'
 }
 
 TIER_STRINGS = {
@@ -28,7 +34,149 @@ VALID_RANKS = {
     'b5': {
         'rank': RANK_STRINGS['b'],
         'div': TIER_STRINGS['5']
-    }
+    },
+    'b4': {
+        'rank': RANK_STRINGS['b'],
+        'div': TIER_STRINGS['4']
+    },
+    'b3': {
+        'rank': RANK_STRINGS['b'],
+        'div': TIER_STRINGS['3']
+    },
+    'b2': {
+        'rank': RANK_STRINGS['b'],
+        'div': TIER_STRINGS['2']
+    },
+    'b1': {
+        'rank': RANK_STRINGS['b'],
+        'div': TIER_STRINGS['1']
+    },
+
+    's5': {
+        'rank': RANK_STRINGS['s'],
+        'div': TIER_STRINGS['5']
+    },
+    's4': {
+        'rank': RANK_STRINGS['s'],
+        'div': TIER_STRINGS['4']
+    },
+    's3': {
+        'rank': RANK_STRINGS['s'],
+        'div': TIER_STRINGS['3']
+    },
+    's2': {
+        'rank': RANK_STRINGS['s'],
+        'div': TIER_STRINGS['2']
+    },
+    's1': {
+        'rank': RANK_STRINGS['s'],
+        'div': TIER_STRINGS['1']
+    },
+
+    'g5': {
+        'rank': RANK_STRINGS['g'],
+        'div': TIER_STRINGS['5']
+    },
+    'g4': {
+        'rank': RANK_STRINGS['g'],
+        'div': TIER_STRINGS['4']
+    },
+    'g3': {
+        'rank': RANK_STRINGS['g'],
+        'div': TIER_STRINGS['3']
+    },
+    'g2': {
+        'rank': RANK_STRINGS['g'],
+        'div': TIER_STRINGS['2']
+    },
+    'g1': {
+        'rank': RANK_STRINGS['g'],
+        'div': TIER_STRINGS['1']
+    },
+
+    'p5': {
+        'rank': RANK_STRINGS['p'],
+        'div': TIER_STRINGS['5']
+    },
+    'p4': {
+        'rank': RANK_STRINGS['p'],
+        'div': TIER_STRINGS['4']
+    },
+    'p3': {
+        'rank': RANK_STRINGS['p'],
+        'div': TIER_STRINGS['3']
+    },
+    'p2': {
+        'rank': RANK_STRINGS['p'],
+        'div': TIER_STRINGS['2']
+    },
+    'p1': {
+        'rank': RANK_STRINGS['p'],
+        'div': TIER_STRINGS['1']
+    },
+
+    'd5': {
+        'rank': RANK_STRINGS['d'],
+        'div': TIER_STRINGS['5']
+    },
+    'd4': {
+        'rank': RANK_STRINGS['d'],
+        'div': TIER_STRINGS['4']
+    },
+    'd3': {
+        'rank': RANK_STRINGS['d'],
+        'div': TIER_STRINGS['3']
+    },
+    'd2': {
+        'rank': RANK_STRINGS['d'],
+        'div': TIER_STRINGS['2']
+    },
+    'd1': {
+        'rank': RANK_STRINGS['d'],
+        'div': TIER_STRINGS['1']
+    },
+
+    'm5': {
+        'rank': RANK_STRINGS['m'],
+        'div': TIER_STRINGS['5']
+    },
+    'm4': {
+        'rank': RANK_STRINGS['m'],
+        'div': TIER_STRINGS['4']
+    },
+    'm3': {
+        'rank': RANK_STRINGS['m'],
+        'div': TIER_STRINGS['3']
+    },
+    'm2': {
+        'rank': RANK_STRINGS['m'],
+        'div': TIER_STRINGS['2']
+    },
+    'm1': {
+        'rank': RANK_STRINGS['m'],
+        'div': TIER_STRINGS['1']
+    },
+
+    'gm5': {
+        'rank': RANK_STRINGS['gm'],
+        'div': TIER_STRINGS['5']
+    },
+    'gm4': {
+        'rank': RANK_STRINGS['gm'],
+        'div': TIER_STRINGS['4']
+    },
+    'gm3': {
+        'rank': RANK_STRINGS['gm'],
+        'div': TIER_STRINGS['3']
+    },
+    'gm2': {
+        'rank': RANK_STRINGS['gm'],
+        'div': TIER_STRINGS['2']
+    },
+    'gm1': {
+        'rank': RANK_STRINGS['gm'],
+        'div': TIER_STRINGS['1']
+    },
 
 }
 
@@ -69,7 +217,7 @@ async def set_rank_handler(db, message):
         'tier': rank_info['rank'],
         'div': rank_info['div']
     }
-    
+
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"ranks": user_ranks}})
 
