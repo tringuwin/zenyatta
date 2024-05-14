@@ -114,7 +114,6 @@ from command_handlers.teams.switch_event_teams import switch_event_teams
 from command_handlers.token_leaderboard import token_leaderboard_handler
 from command_handlers.trade_gem import trade_gem_handler
 from command_handlers.trade_gem_set import trade_gem_set_handler
-from command_handlers.verify_ranks import verify_ranks_handler
 from command_handlers.which_hero_handler import which_hero_handler
 from command_handlers.which_team import which_team_handler
 import constants
@@ -427,8 +426,12 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!invitedby'):
         await invited_by_handler(db, message)
 
-    # elif lower_message == '!verifyranks':
-    #     await verify_ranks_handler(db, message)
+    elif lower_message == '!verifyranks':
+        final_string = 'Please make a ticket here to show staff a screenshot of your ranks: https://discord.com/channels/1130553449491210442/1202441473027477504/1202442124390440970'
+        final_string += '\n\nSend a screenshot of your career profile that includes both your ranks and battle tag.'
+        await message.channel.send(final_string)
+    
+    # pi-pi chan
 
     elif lower_message.startswith('!setrank') and is_helper:
         await set_rank_handler(db, message)
