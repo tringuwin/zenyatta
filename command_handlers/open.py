@@ -219,6 +219,8 @@ async def open_handler(db, message, client):
         user_boxes.remove(box_num)
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
 
+        if box_num > 20:
+            box_num = 20
         dict_key = str(box_num)
     
     random_int = random.randint(1, 100)
