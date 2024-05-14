@@ -427,7 +427,7 @@ async def handle_message(message, db, client):
         await invited_by_handler(db, message)
 
     elif lower_message == '!verifyranks':
-        final_string = 'Please make a ticket here to show staff a screenshot of your ranks: https://discord.com/channels/1130553449491210442/1202441473027477504/1202442124390440970'
+        final_string = 'Please make a ticket here (the top one) to show staff a screenshot of your ranks: https://discord.com/channels/1130553449491210442/1202441473027477504/1202442124390440970'
         final_string += '\n\nSend a screenshot of your career profile that includes both your ranks and battle tag.'
         await message.channel.send(final_string)
     
