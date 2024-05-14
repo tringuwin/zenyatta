@@ -22,11 +22,11 @@ async def accept_invite_handler(db, message, client):
     
     team = await get_team_by_name(db, team_name)
     if not team:
-        await message.channel.send('There is no team with that name.')
+        await message.channel.send('There is no team with that name. (If you are trying to join a League Team, use the command **!leagueaccept TeamName** instead)')
         return
     
     if not user_invited_to_team(team, user):
-        await message.channel.send('You do not have an invite to join this team.')
+        await message.channel.send('You do not have an invite to join this team. (If you are trying to join a League Team, use the command **!leagueaccept TeamName** instead)')
         return
 
     user_teams = get_user_teams(user)
