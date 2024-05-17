@@ -46,7 +46,7 @@ team_name_to_color = {
     'Outliers': discord.Colour(0x361c89),
     'Celestials': discord.Colour(0x00cfda),
     'Saturn': discord.Colour(0xffb816),
-    'Evergreen': discord.Colour(0x005041),
+    'Evergreen': discord.Colour(0x074735),
     'Misfits': discord.Colour(0xc3db35),
     'Hunters': discord.Colour(0x161e1c)
 }
@@ -64,7 +64,7 @@ team_name_to_thumbnail = {
     'Outliers': 'https://i.postimg.cc/CLgGc3zL/Outliers.png',
     'Celestials': '',
     'Saturn': 'https://i.postimg.cc/NjxtDKrR/Saturn.png',
-    'Evergreen': '',
+    'Evergreen': 'https://i.imgur.com/k4wFF5R.png',
     'Misfits': 'https://i.postimg.cc/kg6bwPhB/Misfits.png',
     'Hunters': '',
 }
