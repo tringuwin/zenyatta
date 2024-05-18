@@ -22,7 +22,7 @@ async def league_leave_handler(db, message, client):
     league_teams = db['leagueteams']
     team_object = league_teams.find_one({'team_name': league_team})
     if not team_object:
-        await message.channel.send('ERROR LEAVING TEAM')
+        await message.channel.send('ERROR LEAVING TEAM: PLEASE CONTACT STAFF')
         return
     
     users = db['users']
