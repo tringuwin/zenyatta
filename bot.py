@@ -592,7 +592,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!leaguexp':
         await league_xp_handler(db, message, client)
 
-    elif lower_message == '!totalleaguexp':
+    elif lower_message == '!leaguexptotal':
         await total_league_xp_handler(db, message, client)
 
     elif lower_message == '!pingteam':
