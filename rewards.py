@@ -4,7 +4,7 @@ from api import give_role, remove_role
 from common_messages import not_registered_response
 from discord_actions import get_guild, get_member_by_username, get_user_from_guild
 from helpers import can_be_int, generic_find_user
-from user import get_lvl_info, get_user_lootboxes, user_exists
+from user import get_league_team, get_lvl_info, get_user_lootboxes, user_exists
 import constants
 
 
@@ -188,6 +188,16 @@ async def level_up(user, orig_level, new_level, client, db):
 async def change_xp(db, user, num, client):
 
     users = db['users']
+
+    league_team = get_league_team(user)
+    if league_team != 'None':
+
+        constants_db = db['constants']
+        league_xp_obj = constants_db.find_one({'name': 'league_xp'})
+        league_xp = league_xp_obj['value']
+
+        league_xp[league_team] += num
+        constants_db.update_one({"name": 'league_xp'}, {"$set": {"value": league_xp}})
     
     level, xp = get_lvl_info(user)
 
