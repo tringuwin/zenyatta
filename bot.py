@@ -71,6 +71,7 @@ from command_handlers.league.league_invite import league_invite_handler
 from command_handlers.league.league_invites import league_invites_handler
 from command_handlers.league.league_kick import league_kick_handler
 from command_handlers.league.league_leave import league_leave_handler
+from command_handlers.league.league_xp import league_xp_handler
 from command_handlers.league.lft.set_lft_color import set_lft_color_handler
 from command_handlers.league.lft.set_lft_hero import set_lft_hero_handler
 from command_handlers.league.lft.set_rank import set_rank_handler
@@ -587,6 +588,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!leagueleave':
         await league_leave_handler(db, message, client)
+
+    elif lower_message == '!leaguexp':
+        await league_xp_handler(db, message, client)
 
     elif lower_message == '!pingteam':
         await ping_team_handler(db, message, client)
