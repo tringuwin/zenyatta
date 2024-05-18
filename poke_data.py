@@ -86,6 +86,12 @@ SCARLET_AND_VIOLET_DATA = {
         'card_img': 'https://i.postimg.cc/Hn7FchkG/SV01-EN-123.png'
     },
 
+    '134': {
+        'name': 'Kingambit',
+        'type': 'dark',
+        'card_img': 'https://i.imgur.com/33ubWXt.png'
+    },
+
     '140': {
         'name': 'Varoom',
         'type': 'metal',
