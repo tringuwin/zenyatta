@@ -6,7 +6,7 @@ async def league_xp_handler(db, message, client):
     league_xp_obj = constants_db.find_one({'name': 'league_xp'})
     league_xp = league_xp_obj['value']
 
-    sorted_list = sorted(league_xp.items(), key=lambda item: item[1])
+    sorted_list = sorted(league_xp.items(), key=lambda item: item[1], reverse=True)
 
     final_string = '**LEAGUE XP STANDINGS:**'
 
