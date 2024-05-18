@@ -193,11 +193,16 @@ async def change_xp(db, user, num, client):
     if league_team != 'None':
 
         constants_db = db['constants']
+
         league_xp_obj = constants_db.find_one({'name': 'league_xp'})
         league_xp = league_xp_obj['value']
-
         league_xp[league_team] += num
         constants_db.update_one({"name": 'league_xp'}, {"$set": {"value": league_xp}})
+
+        league_xp_total_obj = constants_db.find_one({'name': 'league_xp_total'})
+        league_xp_total = league_xp_total_obj['value']
+        league_xp_total[league_team] += num
+        constants_db.update_one({"name": 'league_xp_total'}, {"$set": {"value": league_xp_total}})
     
     level, xp = get_lvl_info(user)
 
