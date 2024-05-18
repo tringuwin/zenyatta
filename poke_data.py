@@ -26,10 +26,22 @@ SCARLET_AND_VIOLET_DATA = {
         'card_img': 'https://i.postimg.cc/g2Kk0vXt/SV01-EN-26.png'
     },
 
+    '042': {
+        'name': 'Slowpoke',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/WfW1ZxF.png'
+    },
+
     '044': {
         'name': 'Magikarp',
         'type': 'water',
         'card_img': 'https://i.postimg.cc/x8hv4wy7/SV01-EN-44.png'
+    },
+
+    '049': {
+        'name': 'Clauncher',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/UkWrHVg.png'
     },
 
     '058': {
@@ -42,6 +54,24 @@ SCARLET_AND_VIOLET_DATA = {
         'name': 'Magnemite',
         'type': 'electric',
         'card_img': 'https://i.postimg.cc/Dz3h16HP/SV01-EN-63.png'
+    },
+
+    '068': {
+        'name': 'Pachirisu',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/fn0xMde.png'
+    },
+
+    '075': {
+        'name': 'Pawmo',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/IAaxPuY.png'
+    },
+
+    '077': {
+        'name': 'Wattrel',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/vK8kifD.png'
     },
 
     '090': {
