@@ -175,35 +175,30 @@ ALL_PLAYERS = {
 
 ALL_CARDS = {
 
-    '0': {
-        'player_id': ALL_PLAYERS['spicy'],
-        'normal_img': 'https://i.postimg.cc/RCn0WtBW/spicy-card.jpg',
-        'special_img': 'https://i.postimg.cc/90TXK6pd/imageedit-1-8844141333.gif'
-    },
     '1': {
         'player_id': ALL_PLAYERS['deja'],
-        'normal_img': 'https://i.postimg.cc/4y1tdwXz/Cards-4.png',
-        'special_img': 'https://i.postimg.cc/Hkn5YQRy/Cards-3.png'
+        'normal_img': 'https://i.imgur.com/iGzPTYw.png',
+        'special_img': 'https://i.imgur.com/XdG8tRR.png'
     },
     '2': {
         'player_id': ALL_PLAYERS['robynn'],
-        'normal_img': 'https://i.postimg.cc/rFQx2hnT/Cards-5.png',
-        'special_img': 'https://i.postimg.cc/902ZCsHm/Cards-6.png'
+        'normal_img': 'https://i.imgur.com/vEgcswS.png',
+        'special_img': 'https://i.imgur.com/Q9E7r76.png'
     },
     '3': {
         'player_id': ALL_PLAYERS['squishey'],
-        'normal_img': 'https://i.postimg.cc/FK20n7PJ/Cards-9.png',
-        'special_img': 'https://i.postimg.cc/d078B89Y/Cards-10.png'
+        'normal_img': 'https://i.imgur.com/qFSLL5L.png',
+        'special_img': 'https://i.imgur.com/fu22QFH.png'
     },
     '4': {
         'player_id': ALL_PLAYERS['dulla'],
-        'normal_img': 'https://i.postimg.cc/qMkyYfGQ/Cards-8.png',
-        'special_img': 'https://i.postimg.cc/xCMLrn7p/Cards-7.png'
+        'normal_img': 'https://i.imgur.com/NfY14vD.png',
+        'special_img': 'https://i.imgur.com/3W8z8tI.png'
     },
     '5': {
         'player_id': ALL_PLAYERS['thaimermaid'],
-        'normal_img': 'https://i.postimg.cc/DwwQWVJm/Cards-12.png',
-        'special_img': 'https://i.postimg.cc/Kc7tJctR/Cards-11.png'
+        'normal_img': 'https://i.imgur.com/IhJLjKw.png',
+        'special_img': 'https://i.imgur.com/V8CQYoo.png'
     },
     '6': {
         'player_id': ALL_PLAYERS['ionalien'],
