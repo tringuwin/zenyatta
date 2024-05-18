@@ -15,7 +15,7 @@ async def league_xp_handler(db, message, client):
 
     index = 1
     for team, xp in sorted_list:
-        team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team['team_name']]
+        team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team]
         team_emoji = guild.get_emoji(team_emoji_id)
         final_string += '\n' + str(index)+'. '+str(team_emoji)+' '+team+': '+str(xp)+' XP'
 
