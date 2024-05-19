@@ -141,6 +141,41 @@ async def init_card_handler(db, message):
     await message.channel.send('success')
 
 
+async def init_custom_handler(db, message):
+
+    word_parts = message.content.split()
+
+    if len(word_parts) != 2:
+        await message.channel.send('Invalid number of parameters.')
+        return
+
+    card_id = word_parts[1]
+
+    if not card_id in ALL_CARDS:
+        await message.channel.send('I did not find a card with that ID.')
+        return
+
+    card_database = db['cards']
+    card_group = card_database.find_one({'cards_id': 1})
+    if not card_group:
+        await message.channel.send('Something went wrong getting the card database.')
+        return
+
+    edit_cards = card_group['cards']
+
+    # add special copy
+    edit_cards.append({
+        'card_display': card_id+'-A',
+        'card_id': card_id,
+        'variant_id': 'A',
+        'signed': 0,
+    })
+
+    card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
+
+    await message.channel.send('success')
+
+
 async def wipe_card_database_handler(db, message):
 
     card_database = db['cards']

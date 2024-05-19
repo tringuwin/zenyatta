@@ -206,6 +206,24 @@ SCARLET_AND_VIOLET_DATA = {
         'card_img': 'https://i.imgur.com/q6tHTP7.png'
     },
 
+    '027': {
+        'name': 'Capsakid',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/rl6KKxe.png'
+    },
+
+    '028': {
+        'name': 'Capsakid',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/wMHQUKW.png'
+    },
+
+    '029': {
+        'name': 'Scovillain',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/xuiJor9.png'
+    },
+
     '042': {
         'name': 'Slowpoke',
         'type': 'water',

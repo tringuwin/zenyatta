@@ -2736,6 +2736,16 @@ ALL_CARDS = {
         'normal_img': 'https://i.postimg.cc/XvN8txwk/IMG-2994.jpg',
         'special_img': 'https://i.postimg.cc/kXry77Q4/IMG-2995.jpg'
     },
+    '511': {
+        'player_id': ALL_PLAYERS['mimic'],
+        'normal_img': 'https://i.imgur.com/GUsb8Be.png',
+        'special_img': 'https://i.imgur.com/GUsb8Be.png'
+    },
+    '512': {
+        'player_id': ALL_PLAYERS['kazzy'],
+        'normal_img': 'https://i.imgur.com/6xXcYcZ.png',
+        'special_img': 'https://i.imgur.com/6xXcYcZ.png'
+    }
 
 }
 
@@ -2746,6 +2756,7 @@ async def init_card_data_db(db, message):
 
     carddata.insert_one(insert_obj)
     await message.channel.send('card data initiated')
+
 
 
 async def update_card_data_db(db, message):
