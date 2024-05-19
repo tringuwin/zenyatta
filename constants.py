@@ -78,7 +78,7 @@ POKE_TYPES = [
     'metal',
     'psychic',
     'fighting',
-    'dark',
+    'darkness',
     'normal',
     'energy',
     'trainer'

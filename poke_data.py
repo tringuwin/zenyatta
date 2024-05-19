@@ -2,10 +2,22 @@
 
 SCARLET_AND_VIOLET_DATA = {
 
+    '1': {
+        'name': 'Basic Grass Energy',
+        'type': 'energy',
+        'card_img': 'https://i.imgur.com/RdnfpEd.jpeg'
+    },
+
     '2': {
         'name': 'Basic Fire Energy',
         'type': 'energy',
         'card_img': 'https://i.imgur.com/y5rjm8y.jpeg'
+    },
+
+    '3': {
+        'name': 'Basic Water Energy',
+        'type': 'energy',
+        'card_img': 'https://i.imgur.com/tOjo8wT.jpeg'
     },
 
     '4': {
@@ -14,10 +26,58 @@ SCARLET_AND_VIOLET_DATA = {
         'card_img': 'https://i.imgur.com/Zzf1yCk.jpeg'
     },
 
+    '5': {
+        'name': 'Basic Psychic Energy',
+        'type': 'energy',
+        'card_img': 'https://i.imgur.com/ik79NkQ.jpeg'
+    },
+
+    '6': {
+        'name': 'Basic Fighting Energy',
+        'type': 'energy',
+        'card_img': 'https://i.imgur.com/5EddhUW.jpeg'
+    },
+
+    '7': {
+        'name': 'Basic Darkness Energy',
+        'type': 'energy',
+        'card_img': 'https://i.imgur.com/Nrn3jrV.jpeg'
+    },
+
     '8': {
         'name': 'Basic Metal Energy',
         'type': 'energy',
         'card_img': 'https://i.imgur.com/ac2PPlu.jpeg'
+    },
+
+    '001': {
+        'name': 'Pineco',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/DDel4Ie.png'
+    },
+
+    '002': {
+        'name': 'Heracross',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/ejplEGT.png'
+    },
+
+    '003': {
+        'name': 'Shroomish',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/RUQqV2X.png'
+    },
+
+    '004': {
+        'name': 'Breloom',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/wv4iSq3.png'
+    },
+
+    '005': {
+        'name': 'Cacnea',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/2gPijK4.png'
     },
 
     '026': {
@@ -88,7 +148,7 @@ SCARLET_AND_VIOLET_DATA = {
 
     '134': {
         'name': 'Kingambit',
-        'type': 'dark',
+        'type': 'darkness',
         'card_img': 'https://i.imgur.com/33ubWXt.png'
     },
 
