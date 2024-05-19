@@ -80,6 +80,126 @@ SCARLET_AND_VIOLET_DATA = {
         'card_img': 'https://i.imgur.com/2gPijK4.png'
     },
 
+    '006': {
+        'name': 'Cacturne',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/27VsrOr.png'
+    },
+
+    '007': {
+        'name': 'Tropius',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/sUFWIMZ.png'
+    },
+
+    '008': {
+        'name': 'Scatterbug',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/XZu7tqF.png'
+    },
+
+    '009': {
+        'name': 'Spewpa',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/g6wRmxv.png'
+    },
+
+    '010': {
+        'name': 'Vivillon',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/AU21Oix.png'
+    },
+
+    '011': {
+        'name': 'Skiddo',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/eqQJFYL.png'
+    },
+
+    '012': {
+        'name': 'Gogoat',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/dUI8uHt.png'
+    },
+
+    '013': {
+        'name': 'Sprigatito',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/w341x6T.png'
+    },
+
+    '014': {
+        'name': 'Floragato',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/mblbazX.png'
+    },
+
+    '015': {
+        'name': 'Meowscarada',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/n1zpUGk.png'
+    },
+
+    '016': {
+        'name': 'Tarountula',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/JAlo2Rx.png'
+    },
+
+    '017': {
+        'name': 'Tarountula',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/iUSWtkF.png'
+    },
+
+    '018': {
+        'name': 'Tarountula',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/pbi8WfZ.png'
+    },
+
+    '019': {
+        'name': 'Spidops',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/AmSKoum.png'
+    },
+
+    '020': {
+        'name': 'Smoliv',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/sGOP9Fk.png'
+    },
+
+    '021': {
+        'name': 'Smoliv',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/HtVBpO9.png'
+    },
+
+    '022': {
+        'name': 'Dolliv',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/wSfePR8.png'
+    },
+
+    '023': {
+        'name': 'Arboliva',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/uWUIWjK.png'
+    },
+
+    '024': {
+        'name': 'Toedscool',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/OH69Fnb.png'
+    },
+
+    '025': {
+        'name': 'Toedscool',
+        'type': 'grass',
+        'card_img': 'https://i.imgur.com/82r3Oew.png'
+    },
+
     '026': {
         'name': 'Toedscruel',
         'type': 'grass',
