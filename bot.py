@@ -457,10 +457,12 @@ async def handle_message(message, db, client):
         await random_map_handler(message)
 
     elif lower_message == '!standings':
-        await standings_handler(db, message, client)
+        await message.channel.send('This command is disabled until Season 3 starts on June 1st 2024.')
+        # await standings_handler(db, message, client)
 
     elif lower_message == '!schedule':
-        await schedule_handler(db, message, client)
+        await message.channel.send('This command is disabled until Season 3 starts on June 1st 2024.')
+        # await schedule_handler(db, message, client)
 
     # elif lower_message == '!buyticket':
     #     #await message.channel.send('There is no raffle at the moment.')
