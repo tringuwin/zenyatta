@@ -1244,3 +1244,10 @@ SCARLET_AND_VIOLET_DATA = {
 POKE_SETS = {
     'SV': SCARLET_AND_VIOLET_DATA
 }
+
+async def update_poke_data_db(db, message):
+
+    carddata = db['carddata']
+    carddata.update_one({"cards_id": 2}, {"$set": {"data": POKE_SETS}})
+
+    await message.channel.send('update complete')

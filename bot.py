@@ -100,6 +100,7 @@ from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
 from command_handlers.twitch import twitch_handler
+from poke_data import update_poke_data_db
 from pokemon import add_poke_handler, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
@@ -874,6 +875,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!updatecarddata':
         await update_card_data_db(db, message)
+
+    elif lower_message == '!updatepokedata':
+        await update_poke_data_db(db, message)
 
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']
