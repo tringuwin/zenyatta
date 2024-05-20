@@ -146,8 +146,11 @@ async def check_weekly(db, channel, message):
         else:
             offer['price'] -= 100
 
+    # always set pokepoints to 800
+    items[6]['price'] = 800
+
     # distribute goods
-    increase_array = [0, 0, 0, 0, 0, 0]
+    increase_array = [0, 0, 0, 0, 0, 0, 0]
     increase_index = 0
     token_shop_cash -= 5
     while token_shop_cash > 0:

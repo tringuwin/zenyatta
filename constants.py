@@ -1,5 +1,5 @@
 
-VERSION = '1.8.42'
+VERSION = '1.8.43'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -321,5 +321,6 @@ TOKEN_SHOP_USD_PRICES = [
     10, # battle new $10
     10, # discord nitro
     10, # 1,000 V-Bucks
-    13 # steam card
+    13, # steam card
+    0, # 500 pokepoints
 ]
