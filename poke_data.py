@@ -302,10 +302,40 @@ SCARLET_AND_VIOLET_DATA = {
         'card_img': 'https://i.imgur.com/WfW1ZxF.png'
     },
 
+    '043': {
+        'name': 'Slowbro',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/7BcaMWY.png'
+    },
+
     '044': {
         'name': 'Magikarp',
         'type': 'water',
         'card_img': 'https://i.imgur.com/Jly2no9.png'
+    },
+
+    '045': {
+        'name': 'Gyarados',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/UaE4UaI.png'
+    },
+
+    '046': {
+        'name': 'Buizel',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/Y0TVHpa.png'
+    },
+
+    '047': {
+        'name': 'Floatzel',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/gXxeB7S.png'
+    },
+
+    '048': {
+        'name': 'Alomomola',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/U3YKQkQ.png'
     },
 
     '049': {
@@ -314,10 +344,82 @@ SCARLET_AND_VIOLET_DATA = {
         'card_img': 'https://i.imgur.com/UkWrHVg.png'
     },
 
+    '050': {
+        'name': 'Clawitzer',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/KrK8Jz0.png'
+    },
+
+    '051': {
+        'name': 'Bruxish',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/Zm2KkSd.png'
+    },
+
+    '052': {
+        'name': 'Quaxly',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/MaibN96.png'
+    },
+
+    '053': {
+        'name': 'Quaxwell',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/RfniBIT.png'
+    },
+
+    '054': {
+        'name': 'Quaquaval',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/MTo3jVq.png'
+    },
+
+    '055': {
+        'name': 'Wiglett',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/V8ywBG4.png'
+    },
+
+    '056': {
+        'name': 'Wiglett',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/OrBhzTX.png'
+    },
+
+    '057': {
+        'name': 'Wugtrio',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/EXXFv5h.png'
+    },
+
     '058': {
         'name': 'Cetoddle',
         'type': 'water',
         'card_img': 'https://i.imgur.com/BbhO4Nj.png'
+    },
+
+    '059': {
+        'name': 'Cetoddle',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/2gezvsH.png'
+    },
+
+    '060': {
+        'name': 'Cetitan',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/xVCXiXy.png'
+    },
+
+    '061': {
+        'name': 'Dondozo',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/EDez7V9.png'
+    },
+
+    '062': {
+        'name': 'Tatsugiri',
+        'type': 'water',
+        'card_img': 'https://i.imgur.com/g6c95nM.png'
     },
 
     '063': {
@@ -326,10 +428,70 @@ SCARLET_AND_VIOLET_DATA = {
         'card_img': 'https://i.imgur.com/5dKKXoa.png'
     },
 
+    '064': {
+        'name': 'Magneton',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/73UopSz.png'
+    },
+
+    '065': {
+        'name': 'Magnezone',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/lhGQtFv.png'
+    },
+
+    '066': {
+        'name': 'Mareep',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/P6zNr4v.png'
+    },
+
+    '067': {
+        'name': 'Flaaffy',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/zFTe53l.png'
+    },
+
     '068': {
         'name': 'Pachirisu',
         'type': 'electric',
         'card_img': 'https://i.imgur.com/fn0xMde.png'
+    },
+
+    '069': {
+        'name': 'Rotom',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/CbZSsHv.png'
+    },
+
+    '070': {
+        'name': 'Rotom',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/SClo6bu.png'
+    },
+
+    '071': {
+        'name': 'Toxel',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/uK6BJ6r.png'
+    },
+
+    '072': {
+        'name': 'Toxricity',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/ck8FXdW.png'
+    },
+
+    '073': {
+        'name': 'Pawmi',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/ycQUmWx.png'
+    },
+
+    '074': {
+        'name': 'Pawmi',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/eWJ1td4.png'
     },
 
     '075': {
@@ -338,10 +500,40 @@ SCARLET_AND_VIOLET_DATA = {
         'card_img': 'https://i.imgur.com/IAaxPuY.png'
     },
 
+    '076': {
+        'name': 'Pawmot',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/FBpYZ2N.png'
+    },
+
     '077': {
         'name': 'Wattrel',
         'type': 'electric',
         'card_img': 'https://i.imgur.com/vK8kifD.png'
+    },
+
+    '078': {
+        'name': 'Wattrel',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/sJhGpGr.png'
+    },
+
+    '079': {
+        'name': 'Kilowattrel',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/AlDTIl1.png'
+    },
+
+    '080': {
+        'name': 'Miraidon',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/qmYzaJL.png'
+    },
+
+    '081': {
+        'name': 'Miraidon',
+        'type': 'electric',
+        'card_img': 'https://i.imgur.com/iCuhmP3.png'
     },
 
     '090': {
