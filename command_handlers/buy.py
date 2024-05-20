@@ -45,12 +45,13 @@ async def buy_handler(db, message, client):
         await message.channel.send('That item is not currently in stock.')
         return
     
-    last_token_shop = get_last_token_shop(user)
-    long_enough, time_diff = long_enough_for_shop(last_token_shop)
-    if not long_enough:
-        time_left = time_to_shop(time_diff)
-        await message.channel.send('You have used the Token Shop less than a week ago. You can use the shop again in **'+time_left+'**')
-        return
+    if buy_item != 7:
+        last_token_shop = get_last_token_shop(user)
+        long_enough, time_diff = long_enough_for_shop(last_token_shop)
+        if not long_enough:
+            time_left = time_to_shop(time_diff)
+            await message.channel.send('You have used the Token Shop less than a week ago. You can use the shop again in **'+time_left+'**')
+            return
 
     if offer['price'] > get_user_tokens(user):
         await message.channel.send('You do not have enough tokens to redeem this reward.')
@@ -62,8 +63,9 @@ async def buy_handler(db, message, client):
 
     await update_shop(db, message)
     await change_tokens(db, user, -1 * offer['price'])
-    users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"last_token_shop": time.time()}})
+    if buy_item != 7:
+        users = db['users']
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"last_token_shop": time.time()}})
 
     if offer['auto']:
     
