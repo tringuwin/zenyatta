@@ -224,6 +224,78 @@ SCARLET_AND_VIOLET_DATA = {
         'card_img': 'https://i.imgur.com/xuiJor9.png'
     },
 
+    '030': {
+        'name': 'Growlithe',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/Qo1TvDX.png'
+    },
+
+    '031': {
+        'name': 'Growlithe',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/MaI1qwq.png'
+    },
+
+    '032': {
+        'name': 'Arcanine',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/PmLbTnn.png'
+    },
+
+    '033': {
+        'name': 'Houndour',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/slPr4Dt.png'
+    },
+
+    '034': {
+        'name': 'Houndoom',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/J7F9DDl.png'
+    },
+
+    '035': {
+        'name': 'Torkoal',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/baeGlpt.png'
+    },
+
+    '036': {
+        'name': 'Fuecoco',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/3GNMUiE.png'
+    },
+
+    '037': {
+        'name': 'Crocalor',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/6grviLN.png'
+    },
+
+    '038': {
+        'name': 'Skeledirge',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/ZGIXLZl.png'
+    },
+
+    '039': {
+        'name': 'Charcadet',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/fq54wKX.png'
+    },
+
+    '040': {
+        'name': 'Charcadet',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/sDz34Ir.png'
+    },
+
+    '041': {
+        'name': 'Armarouge',
+        'type': 'fire',
+        'card_img': 'https://i.imgur.com/K1te9cL.png'
+    },
+
     '042': {
         'name': 'Slowpoke',
         'type': 'water',
