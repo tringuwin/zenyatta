@@ -218,6 +218,8 @@ async def sell_poke_handler(db, message):
     user_pokes.remove(id)
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_cards": user_pokes}})
+    pokemon = db['pokemon']
+    pokemon.update_one({"card_id": id}, {"$set": {"owner_id": -1}})
     await change_tokens(db, user, 20)
 
     constants_db = db['constants']
