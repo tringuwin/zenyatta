@@ -167,7 +167,7 @@ from rewards import change_xp, give_eggs_command, give_packs_command, give_passe
 from server_level import server_points_handler
 from teams import get_team_by_name
 from time_helpers import check_weekly, long_enough_for_gift
-from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, get_user_poke_cards, notify_user_of_gift, user_exists
+from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, notify_user_of_gift, user_exists
 
 
 def is_valid_channel(message, lower_message, is_helper, is_push_bot):
@@ -1301,21 +1301,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!givetwitchlootbox') and is_admin:
         await give_twitch_lootbox_handler(db, message, client)
-
-    elif lower_message == '!pokefix' and is_admin:
-
-        users = db['users']
-        pokemon_db = db['pokemon']
-        all_users = users.find()
-
-        for user in all_users:
-
-            pokemon = get_user_poke_cards(user)
-            for poke_id in pokemon:
-                pokemon_db.update_one({"card_id": poke_id}, {"$set": {"owner_id": user['discord_id']}})
-
-        await message.channel.send('fix done')
-
 
     elif lower_message.startswith('!giveallboxes') and is_admin:
 
