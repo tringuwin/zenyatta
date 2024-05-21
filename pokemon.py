@@ -142,6 +142,7 @@ async def open_poke_handler(db, message):
 
     pokemon = db['pokemon']
     pokemon_card = pokemon.find_one({'card_id': chosen_id})
+    pokemon.update_one({"card_id": chosen_id}, {"$set": {"owner_id": message.author.id}})
 
     new_pp = user_poke_points - 100
     user_pokes = get_user_poke_cards(user)
