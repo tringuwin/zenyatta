@@ -1312,7 +1312,7 @@ async def handle_message(message, db, client):
 
             pokemon = get_user_poke_cards(user)
             for poke_id in pokemon:
-                pokemon_db.update({"card_id": poke_id}, {"$set": {"owner_id": user['discord_id']}})
+                pokemon_db.update_one({"card_id": poke_id}, {"$set": {"owner_id": user['discord_id']}})
 
         await message.channel.send('fix done')
 
