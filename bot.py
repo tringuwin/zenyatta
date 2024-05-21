@@ -1374,6 +1374,8 @@ async def handle_message(message, db, client):
     elif lower_message == '!mypokes':
         await my_pokes_handler(db, message)
 
+    elif lower_message == '!unopened':
+        await message.channel.send('Check out the full list of unopened Pokemon Cards here! https://spicyragu.netlify.app/poke/unopened')
 
     elif lower_message.startswith('!givepp ') and is_admin:
         await give_pp_handler(db, message, client)
