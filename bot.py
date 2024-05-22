@@ -102,7 +102,7 @@ from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
 from command_handlers.twitch import twitch_handler
 from poke_data import update_poke_data_db
-from pokemon import add_poke_handler, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
+from pokemon import add_poke_handler, get_pokedex, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
@@ -1376,6 +1376,22 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!unopened':
         await message.channel.send('Check out the full list of unopened Pokemon Cards here! https://spicyragu.netlify.app/poke/unopened')
+
+    elif lower_message == '!setpokedex' and is_admin:
+        users = db['users']
+        all_users = users.find()
+        num_affected = 0
+        for user in all_users:
+
+            if not ('poke_cards' in user):
+                continue
+
+            poke_cards = user['poke_cards']
+            user_pokedex = get_pokedex(db, poke_cards)    
+            users.update_one({"discord_id": user['discord_id']}, {"$set": {"pokedex": user_pokedex}})
+            num_affected += 1
+
+        await message.channel.send('Complete. '+str(num_affected)+' users affected.')
 
     elif lower_message.startswith('!givepp ') and is_admin:
         await give_pp_handler(db, message, client)

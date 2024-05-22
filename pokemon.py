@@ -19,6 +19,22 @@ HOLO_TYPES = [
 ]
 
 
+def get_pokedex(db, poke_ids):
+
+    unique = []
+    pokemon = db['pokemon']
+
+    for poke_id in poke_ids:
+
+        my_poke = pokemon.find_one({'card_id': poke_id})
+        poke_unique = my_poke['set']+my_poke['set_num']
+
+        if not (poke_unique in unique):
+            unique.append(poke_unique)
+
+    return len(unique)
+
+
 def get_next_slot(db):
 
     slots = db['constants'].find_one({'name': 'slots'})
