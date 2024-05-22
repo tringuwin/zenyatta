@@ -174,8 +174,9 @@ async def open_poke_handler(db, message):
     new_pp = user_poke_points - 100
     user_pokes = get_user_poke_cards(user)
     user_pokes.append(chosen_id)
+    new_pokedex = get_pokedex(db, user_pokes)
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": new_pp, 'poke_cards': user_pokes}})
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": new_pp, 'poke_cards': user_pokes, "pokedex": new_pokedex}})
 
     card_data = POKE_SETS[pokemon_card['set']][pokemon_card['set_num']]
     img_link = card_data['card_img']
@@ -248,8 +249,9 @@ async def sell_poke_handler(db, message):
         return
     
     user_pokes.remove(id)
+    new_pokedex = get_pokedex(db, user_pokes)
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_cards": user_pokes}})
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_cards": user_pokes, "pokedex": new_pokedex}})
     pokemon = db['pokemon']
     pokemon.update_one({"card_id": id}, {"$set": {"owner_id": -1}})
     await change_tokens(db, user, 20)
