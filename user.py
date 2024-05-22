@@ -273,6 +273,13 @@ def get_user_ranks(user):
         },
     }
     
+def get_user_pokedex(user):
+
+    if 'pokedex' in user:
+        return user['pokedex']
+    
+    return 0
+
 def toggle_off_gift_notify(db, user):
 
     users = db['users']

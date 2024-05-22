@@ -2,7 +2,8 @@
 from common_messages import not_registered_response
 from discord_actions import get_guild, get_member_by_username
 from helpers import generic_find_user, make_string_from_word_list
-from user import get_fan_of, get_league_team, get_lvl_info, get_rival_of, get_twitch_username, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_ranks, get_user_tokens, user_exists
+from poke_data import ALL_POKE_NUM
+from user import get_fan_of, get_league_team, get_lvl_info, get_rival_of, get_twitch_username, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_tokens, user_exists
 import constants
 
 
@@ -105,6 +106,7 @@ async def profile_handler(db, message, client):
     poke_points = get_user_poke_points(user)
     twitch_username = get_twitch_username(user)
     ranks = get_user_ranks(user)
+    pokedex = get_user_pokedex(user)
     
     final_string = "**USER PROFILE FOR "+user['battle_tag']+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
@@ -154,5 +156,7 @@ async def profile_handler(db, message, client):
 
     final_string +='\n'
     final_string += gem_line_1+'\n'+gem_line_2
+
+    final_string += '\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
 
     await message.channel.send(final_string)

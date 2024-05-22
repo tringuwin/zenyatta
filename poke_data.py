@@ -1245,6 +1245,18 @@ POKE_SETS = {
     'SV': SCARLET_AND_VIOLET_DATA
 }
 
+def get_all_poke_num():
+
+    total_len = 0
+
+    for set_name in POKE_SETS:
+        set = POKE_SETS[set_name]
+        total_len += len(set)
+
+    return total_len
+
+ALL_POKE_NUM = get_all_poke_num()
+
 async def update_poke_data_db(db, message):
 
     carddata = db['carddata']
