@@ -117,7 +117,6 @@ def get_rarity_string(holo_type):
 
 def get_embed_color(holo_type):
 
-
     if holo_type == 'H':
         return discord.Colour(0xff1919)
     
@@ -125,6 +124,7 @@ def get_embed_color(holo_type):
         return discord.Colour(0x0ffff3)
 
     return discord.Colour(0xffffff)
+
 
 async def open_poke_handler(db, message):
 
@@ -164,7 +164,9 @@ async def open_poke_handler(db, message):
     card_data = POKE_SETS[pokemon_card['set']][pokemon_card['set_num']]
     img_link = card_data['card_img']
 
-    embed = discord.Embed(title='You opened '+card_data['name']+get_rarity_string(pokemon_card['holo_type'])+' !!')
+    embed_color = get_embed_color(pokemon_card['holo_type'])
+
+    embed = discord.Embed(title='You opened '+card_data['name']+get_rarity_string(pokemon_card['holo_type'])+' !!', colour=embed_color)
     embed.set_image(url=img_link)
 
     await message.channel.send(embed=embed)
