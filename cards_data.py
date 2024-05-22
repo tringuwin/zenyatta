@@ -169,6 +169,7 @@ ALL_PLAYERS = {
     'junkratisme': 0,
     'chaos': 1114698137123176448,
     'ghostly': 699817435171389540,
+    'shay': 0,
 
 }
 
@@ -2744,6 +2745,11 @@ ALL_CARDS = {
         'player_id': ALL_PLAYERS['kazzy'],
         'normal_img': 'https://i.imgur.com/6xXcYcZ.png',
         'special_img': 'https://i.imgur.com/6xXcYcZ.png'
+    },
+    '513': {
+        'player_id': ALL_PLAYERS['shay'],
+        'normal_img': 'https://i.imgur.com/7w9xkMF.png',
+        'special_img': 'https://i.imgur.com/7w9xkMF.png'
     }
 
 }
