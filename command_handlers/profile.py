@@ -157,6 +157,6 @@ async def profile_handler(db, message, client):
     final_string +='\n'
     final_string += gem_line_1+'\n'+gem_line_2
 
-    final_string += '\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
+    final_string += '\n\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
 
     await message.channel.send(final_string)
