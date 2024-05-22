@@ -13,7 +13,7 @@ async def poke_leaderboard_handler(db, message):
 
     top_10_users = sorted_users[:10]
 
-    final_string = '<:poke:1233203367636107345> **SERVER POKEDEX LEADERBOARD:** <:poke:1233203367636107345>\n'
+    final_string = '<:poke:1233203367636107345> **SERVER POKEDEX LEADERBOARD** <:poke:1233203367636107345>\n'
     user_index = 1
     for user in top_10_users:
 
@@ -21,7 +21,7 @@ async def poke_leaderboard_handler(db, message):
         first_part = user_tag.split('#')[0]
 
         final_string += "**"+str(user_index)+".** "+first_part
-        final_string += ' | '+str(user['tokens'])+'/'+str(ALL_POKE_NUM)+'\n'
+        final_string += ' | '+str(user['pokedex'])+'/'+str(ALL_POKE_NUM)+'\n'
         user_index += 1
 
     # final_string += '------------------------\n'
