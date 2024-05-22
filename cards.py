@@ -1,7 +1,7 @@
 
 
 import discord
-from cards_data import ALL_CARDS
+from cards_data import ALL_CARDS, CUSTOM_LIST
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int
 from rewards import change_packs, change_tokens
@@ -272,6 +272,11 @@ async def view_card_handler(message):
     card_variant = card_info_parts[1]
     if not (card_variant.upper() in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']):
         await message.channel.send('"'+card_variant+'" is not a valid card variant. Valid variants are letters A-I or S')
+        return
+    
+    is_custom = (card_id in CUSTOM_LIST)
+    if is_custom and (card_variant.upper() != 'A'):
+        await message.channel.send('This is a custom card so it only has one variant, "A"')
         return
     
     card_details = ALL_CARDS[card_id]
