@@ -100,6 +100,7 @@ from command_handlers.league.update_team import update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
+from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.twitch import twitch_handler
 from poke_data import update_poke_data_db
 from pokemon import add_poke_handler, get_pokedex, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
@@ -451,6 +452,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!tokenleaderboard':
         await token_leaderboard_handler(db, message)
+
+    elif lower_message == '!pokeleaderboard':
+        await poke_leaderboard_handler(db, message)
 
     elif lower_message == '!bracket':
         await bracket_handler(message)
