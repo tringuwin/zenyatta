@@ -103,7 +103,7 @@ from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.twitch import twitch_handler
 from poke_data import update_poke_data_db
-from pokemon import add_poke_handler, get_pokedex, get_sort_index, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
+from pokemon import add_poke_handler, all_pokes_handler, get_pokedex, get_sort_index, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
@@ -1377,6 +1377,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!mypokes':
         await my_pokes_handler(db, message)
+
+    elif lower_message == '!allpokes':
+        await all_pokes_handler(message)
 
     elif lower_message == '!unopened':
         await message.channel.send('Check out the full list of unopened Pokemon Cards here! https://spicyragu.netlify.app/poke/unopened')

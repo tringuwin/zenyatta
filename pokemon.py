@@ -307,6 +307,11 @@ async def my_pokes_handler(db, message):
     await message.channel.send(final_string)
 
 
+async def all_pokes_handler(message):
+
+    await message.channel.send(message.author.mention+' See all your Pokemon card here: https://spicyragu.netlify.app/poke/user-cards/'+str(message.author.id))
+
+
 async def give_pp_handler(db, message, client):
 
     valid_params, params = valid_number_of_params(message, 3)
