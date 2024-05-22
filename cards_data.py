@@ -130,7 +130,6 @@ ALL_PLAYERS = {
     'axure': 937588887709171723,
     'scoobs': 196288700324380672,
     'stockyjr': 737193292361367574,
-    'bigholt': 834956196422877264,
     'poob': 790100227939237908,
     'snakeeyes': 530809337187401728,
     'aspect': 758013809603510443,
@@ -1651,9 +1650,9 @@ ALL_CARDS = {
         'special_img': 'https://i.postimg.cc/rmXsW-23X/IMG-1421.jpg'
     },
     '294': {
-        'player_id': ALL_PLAYERS['bigholt'],
-        'normal_img': 'https://i.postimg.cc/v8vT1jvk/IMG-1422.jpg',
-        'special_img': 'https://i.postimg.cc/x8g1WJCn/IMG-1423.jpg'
+        'player_id': ALL_PLAYERS['banned'],
+        'normal_img': 'https://i.imgur.com/6UdtSlP.png',
+        'special_img': 'https://i.imgur.com/FY2t8GL.png'
     },
     '295': {
         'player_id': ALL_PLAYERS['ego'],
@@ -1877,9 +1876,9 @@ ALL_CARDS = {
         'special_img': 'https://i.postimg.cc/qqG1qk1T/IMG-1932.jpg'
     },
     '339': {
-        'player_id': ALL_PLAYERS['bigholt'],
-        'normal_img': 'https://i.postimg.cc/jdZ8rSW6/IMG-1933.jpg',
-        'special_img': 'https://i.postimg.cc/GhcMNyph/IMG-1934.jpg'
+        'player_id': ALL_PLAYERS['banned'],
+        'normal_img': 'https://i.imgur.com/042GOdA.png',
+        'special_img': 'https://i.imgur.com/eX6XBe3.png'
     },
     '340': {
         'player_id': ALL_PLAYERS['snakeeyes'],
@@ -2177,9 +2176,9 @@ ALL_CARDS = {
         'special_img': 'https://i.postimg.cc/2ySD7d0b/IMG-1537.jpg'
     },
     '399': {
-        'player_id': ALL_PLAYERS['bigholt'],
-        'normal_img': 'https://i.postimg.cc/nV3Zc5Lv/IMG-1538.jpg',
-        'special_img': 'https://i.postimg.cc/FzCQWf6P/IMG-1539.jpg'
+        'player_id': ALL_PLAYERS['banned'],
+        'normal_img': 'https://i.imgur.com/agqA932.png',
+        'special_img': 'https://i.imgur.com/7U5UiDW.png'
     },
     '400': {
         'player_id': ALL_PLAYERS['aspect'],
