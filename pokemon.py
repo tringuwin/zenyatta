@@ -18,6 +18,23 @@ HOLO_TYPES = [
     'R'
 ]
 
+SET_SORT_INDEX = {
+    'SV': 10000
+}
+
+# 10,000 place: set
+# 1,000 place: energy is not 1000, all else is 1000
+# 100 places: set number
+
+def get_sort_index(set, set_num):
+
+    sort_num = SET_SORT_INDEX[set]
+    if len(set_num) == 3:
+        sort_num += 1000
+    
+    sort_num += int(set_num)
+    return sort_num
+
 
 def get_pokedex(db, poke_ids):
 

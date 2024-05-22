@@ -103,7 +103,7 @@ from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.twitch import twitch_handler
 from poke_data import update_poke_data_db
-from pokemon import add_poke_handler, get_pokedex, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
+from pokemon import add_poke_handler, get_pokedex, get_sort_index, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
@@ -1396,6 +1396,18 @@ async def handle_message(message, db, client):
             num_affected += 1
 
         await message.channel.send('Complete. '+str(num_affected)+' users affected.')
+
+    elif lower_message == '!setsorts':
+
+        pokemon = db['pokemon']
+        all_pokes = pokemon.find()
+
+        for poke in all_pokes:
+
+            sort_index = get_sort_index(poke['set'], poke['set_num'])
+            pokemon.update_one({"card_id": poke['card_id']}, {"$set": {"sort": sort_index}})
+
+        await message.channel.send('done')
 
     elif lower_message.startswith('!givepp ') and is_admin:
         await give_pp_handler(db, message, client)
