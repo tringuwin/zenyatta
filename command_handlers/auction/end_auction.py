@@ -4,6 +4,8 @@ from api import get_member
 from discord_actions import get_guild
 
 import constants
+from rewards import change_tokens
+from user import user_exists
 
 
 async def end_auction(db, client):
@@ -23,7 +25,14 @@ async def end_auction(db, client):
         if member:
             player_mention = member.mention
 
-        won_string = player_mention+' won '+data['item_name']+' with a bid of '+str(data['highest_bid'])+' Tokens!'
+        user_bid = data['highest_bid']
+
+        won_string = player_mention+' won '+data['item_name']+' with a bid of '+str(user_bid)+' Tokens!'
+
+        user = user_exists(db, member.id)
+        if user:
+            await change_tokens(db, user, int(user_bid * -1))
+            return
 
     final_string = '--------------------------------\n'
     final_string += 'Auction Ended!\n'
