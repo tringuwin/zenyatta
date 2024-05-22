@@ -2750,6 +2750,11 @@ ALL_CARDS = {
         'player_id': ALL_PLAYERS['shay'],
         'normal_img': 'https://i.imgur.com/7w9xkMF.png',
         'special_img': 'https://i.imgur.com/7w9xkMF.png'
+    },
+    '514': {
+        'player_id': ALL_PLAYERS['shay'],
+        'normal_img': 'https://i.imgur.com/piVuAQJ.png',
+        'special_img': 'https://i.imgur.com/piVuAQJ.png'
     }
 
 }
