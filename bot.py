@@ -298,7 +298,12 @@ async def handle_message(message, db, client):
         await warning.delete()
         return
 
-    
+    # peanut butter check
+    if lower_message.find('peanut butter') != -1:
+        await message.channel.send('Did someone say peanut butter?')
+        await message.channel.send('https://tenor.com/view/winston-overwatch-stare-gaming-gif-17201519')
+
+
     if lower_message == '!help':
         await help_handler(message)
 
