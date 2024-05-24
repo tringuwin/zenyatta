@@ -283,10 +283,10 @@ async def handle_message(message, db, client):
             await helpers_channel.send('WARN REPORT: User "'+message.author.name+'" was *warned* for sending a link without Image Permission. Please review the logs and check if what they sent was allowed. If it was allowed, please give them image perms immediately to prevent them from being accidently banned.')
             return
 
-    # peanut butter check
-    if lower_message.find('peanut butter') != -1:
-        await message.channel.send('Did someone say peanut butter?')
-        await message.channel.send('https://tenor.com/view/winston-overwatch-stare-gaming-gif-17201519')
+    # # peanut butter check
+    # if lower_message.find('peanut butter') != -1:
+    #     await message.channel.send('Did someone say peanut butter?')
+    #     await message.channel.send('https://tenor.com/view/winston-overwatch-stare-gaming-gif-17201519')
 
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if (not is_command) and (not is_push_bot):
