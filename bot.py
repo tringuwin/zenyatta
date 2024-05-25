@@ -34,7 +34,6 @@ from command_handlers.auction.end_auction import end_auction_handler
 from command_handlers.auction.start_auction import start_auction_handler
 from command_handlers.auction_timer import auction_timer_handler
 from command_handlers.bandforband import band_for_band_handler
-from command_handlers.battle.start_battle import start_battle_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.bracket import bracket_handler
 from command_handlers.buy_ticket import buy_ticket_handler
@@ -103,6 +102,7 @@ from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.twitch import twitch_handler
+from command_handlers.xp_battle.start_battle import start_battle_handler
 from poke_data import update_poke_data_db
 from pokemon import add_poke_handler, all_pokes_handler, get_pokedex, get_sort_index, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
 from command_handlers.profile import profile_handler
