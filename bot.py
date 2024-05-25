@@ -1578,7 +1578,12 @@ def run_discord_bot(db):
         member = payload.member
         channel_id = payload.channel_id
 
-        if channel_id == constants.CHAT_CHANNEL and member.id != 1130225436006305946:
+        if channel_id == constants.XP_BATTLE_CHANNEL:
+
+            
+            return
+
+        if channel_id == constants.CHAT_CHANNEL and member.id != constants.ZEN_ID:
             emoji = payload.emoji
             if str(emoji) == '❗':
                 await react_to_event(db, client, message_id, member)
@@ -1605,7 +1610,9 @@ def run_discord_bot(db):
                 guild = await get_guild(client)
                 role = guild.get_role(role_id)
                 await give_role(member, role, 'Reaction Roles')
+
         else:
+
             await check_for_black_jack(db, payload.channel_id, message_id, member, payload.emoji, client)
 
     @client.event
