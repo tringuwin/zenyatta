@@ -746,6 +746,29 @@ async def handle_message(message, db, client):
     elif lower_message == '!endreg' and is_admin:
         await end_reg_handler(db, message)
 
+    elif lower_message == '!testdata' and is_admin:
+
+        test_sign_up_data = [
+            533018500810276886, # simber
+            210612137175941132, # bigmac
+            311169693178134528, # teef
+            931317668882051072, # dank solo cup
+            724317013555675176, # counterwatch
+
+            512806663271481365, # stats
+            388322034658312196, # woofie
+            852226927581331456, # jackiexpress
+            712545218397732955, # mrbustdown
+            576730780903145492 # gducke
+        ]
+
+        constants_db = db['constants']
+        battle_obj = constants_db.find_one({'name': 'battle'})
+        battle_info = battle_obj['value']
+        battle_info['sign_ups'] = test_sign_up_data
+        constants_db.update_one({"name": "battle"}, {"$set": {"value": battle_info}})
+        await message.channel.send('test data set')
+
     elif lower_message.startswith('!forcebattle') and is_admin:
         await force_battle_handler(db, message, client)
 
