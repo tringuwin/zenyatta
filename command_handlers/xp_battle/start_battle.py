@@ -22,4 +22,4 @@ async def start_battle_handler(db, message, client):
     battle_info['battle_on'] = True
     constants_db.update_one({"name": "battle"}, {"$set": {"value": battle_info}})
 
-    message.channel.send('Battle Sign-Up Started')
+    await message.channel.send('Battle Sign-Up Started')
