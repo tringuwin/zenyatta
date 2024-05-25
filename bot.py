@@ -171,7 +171,7 @@ from server_level import server_points_handler
 from teams import get_team_by_name
 from time_helpers import check_weekly, long_enough_for_gift
 from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, notify_user_of_gift, user_exists
-from xp_battles import add_to_battle
+from xp_battles import add_to_battle, remove_from_battle
 
 
 def is_valid_channel(message, lower_message, is_helper, is_push_bot):
@@ -1630,6 +1630,22 @@ def run_discord_bot(db):
         message_id = payload.message_id
         channel_id = payload.channel_id
         user_id = payload.user_id
+
+        if channel_id == constants.XP_BATTLE_CHANNEL:
+
+            if user_id == constants.ZEN_ID:
+                return
+            
+            member = get_member(guild, user_id, 'Raw Reaction Remove')
+
+            constants_db = db['constants']
+            battle_obj = constants_db.find_one({'name': 'battle'})
+            battle_info = battle_obj['value']
+            if message_id == battle_info['reg_message_id']:
+                await remove_from_battle(db, member, battle_info, client)
+            
+            return
+
         if message_id == constants.SERVER_NOTIF_MSG:
             member = get_member(guild, user_id, 'Raw Reaction Remove')
             role = guild.get_role(constants.SERVER_NOTIFS_ROLE)
