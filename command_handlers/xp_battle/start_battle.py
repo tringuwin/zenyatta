@@ -9,7 +9,7 @@ async def start_battle_handler(db, message, client):
     battle_obj = constants_db.find_one({'name': 'battle'})
     battle_info = battle_obj['value']
 
-    if battle_obj['battle_on']:
+    if battle_info['battle_on']:
         await message.channel.send('There is already an XP Battle in progress. Please end that one first.')
         return
     
