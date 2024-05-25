@@ -58,6 +58,9 @@ async def how_many_handler(db, message):
 
     await message.channel.send('Total number of users signed up for the XP Battle: '+str(number_sign_ups))
 
-    
+
+def init_player_pools():
+
+    pass
 
     

@@ -102,6 +102,7 @@ from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.twitch import twitch_handler
+from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
 from poke_data import update_poke_data_db
 from pokemon import add_poke_handler, all_pokes_handler, get_pokedex, get_sort_index, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
@@ -285,10 +286,9 @@ async def handle_message(message, db, client):
             await helpers_channel.send('WARN REPORT: User "'+message.author.name+'" was *warned* for sending a link without Image Permission. Please review the logs and check if what they sent was allowed. If it was allowed, please give them image perms immediately to prevent them from being accidently banned.')
             return
 
-    # # peanut butter check
-    # if lower_message.find('peanut butter') != -1:
-    #     await message.channel.send('Did someone say peanut butter?')
-    #     await message.channel.send('https://tenor.com/view/winston-overwatch-stare-gaming-gif-17201519')
+    # peanut butter check
+    if lower_message.find('peanut butter') != -1:
+        await message.channel.send('Did someone say peanut butter? <:Winton:1243994564268920933>')
 
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if (not is_command) and (not is_push_bot):
@@ -742,6 +742,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!hm' and is_admin:
         await how_many_handler(db, message)
+
+    elif lower_message == '!endreg' and is_admin:
+        await end_reg_handler(db, message)
 
     elif lower_message.startswith('!forcebattle') and is_admin:
         await force_battle_handler(db, message, client)
