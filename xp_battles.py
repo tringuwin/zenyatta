@@ -7,12 +7,12 @@ import constants
 
 async def contact_member_to_reg(member, client):
 
-    # try:
-    #     await member.send("Please register before entering XP Battles. To register, go to this channel ( https://discord.com/channels/1130553449491210442/1130553489106411591 ) and use this command to register: **!battle YourBattleTagHere#1234**")
-    # except discord.Forbidden:
-    guild = await get_guild(client)
-    chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
-    await chat_channel.send(member.mention+" Please register before entering XP Battles. To register, go to this channel ( https://discord.com/channels/1130553449491210442/1130553489106411591 ) and use this command to register: **!battle YourBattleTagHere#1234** (I tried to DM you but your privacy settings did not allow me to)")
+    try:
+        await member.send("Please register before entering XP Battles. To register, go to this channel ( https://discord.com/channels/1130553449491210442/1130553489106411591 ) and use this command to register: **!battle YourBattleTagHere#1234**")
+    except discord.Forbidden:
+        guild = await get_guild(client)
+        chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
+        await chat_channel.send(member.mention+" Please register before entering XP Battles. To register, go to this channel ( https://discord.com/channels/1130553449491210442/1130553489106411591 ) and use this command to register: **!battle YourBattleTagHere#1234** (I tried to DM you but your privacy settings did not allow me to)")
 
 async def add_to_battle(db, member, battle_info, client):
 
@@ -24,7 +24,7 @@ async def add_to_battle(db, member, battle_info, client):
         return
     
     user = user_exists(db, member.id)
-    if user:
+    if not user:
         await contact_member_to_reg(member, client)
         return
     
