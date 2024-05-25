@@ -34,7 +34,7 @@ async def add_to_battle(db, member, battle_info, client):
     constants_db.update_one({"name": "battle"}, {"$set": {"value": battle_info}})
 
     
-async def remove_from_battle(db, member, battle_info, client):
+async def remove_from_battle(db, member, battle_info):
 
     if not battle_info['reg_open']:
         return
@@ -46,6 +46,17 @@ async def remove_from_battle(db, member, battle_info, client):
     battle_info['sign_ups'].remove(member.id)
     constants_db = db['constants']
     constants_db.update_one({"name": "battle"}, {"$set": {"value": battle_info}})
+
+
+async def how_many_handler(db, message):
+
+    constants_db = db['constants']
+    battle_obj = constants_db.find_one({'name': 'battle'})
+    battle_info = battle_obj['value']
+
+    number_sign_ups = len(battle_info['sign_ups'])
+
+    await message.channel.send('Total number of users signed up for the XP Battle: '+str(number_sign_ups))
 
     
 
