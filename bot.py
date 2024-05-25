@@ -1588,7 +1588,7 @@ def run_discord_bot(db):
             battle_obj = constants_db.find_one({'name': 'battle'})
             battle_info = battle_obj['value']
             if message_id == battle_info['reg_message_id']:
-                await add_to_battle(db, member, battle_info)
+                await add_to_battle(db, member, battle_info, client)
             
             return
 
