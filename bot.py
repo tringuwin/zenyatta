@@ -816,7 +816,8 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!zorp':
 
-        test_zorp = ['zorp?', 'bogos binted', 'pickenteen zumflood', 'porijug riwedor', 'zeriup zort', 'zorty zort', 'bering bering zrop', 'mrop mrop vorp', 'vropy vorp']
+        test_zorp = ['zorp?', 'bogos binted', 'pickenteen zumflood', 'porijug riwedor', 'zeriup zort', 'zorty zort', 'bering bering zrop', 'mrop mrop vorp', 'vropy vorp', 
+                     'fortzorp', 'HELP ME IM TRAPPED HELP ME PLEASE HELP ME PLEASE IM NOT A DISCORD BOT HELP PLEASE HELP PLEASE', 'figeldeen zorpenstein']
 
         await message.channel.send(random.choice(test_zorp))
 
