@@ -59,8 +59,27 @@ async def how_many_handler(db, message):
     await message.channel.send('Total number of users signed up for the XP Battle: '+str(number_sign_ups))
 
 
-def init_player_pools():
+def init_player_pools(battle_info):
 
-    pass
+    past_ref_players = []
+    past_players = []
+    valid_players = []
+
+    for past_match in battle_info['past_players']:
+
+        for past_user in past_match:
+            if not (past_user in past_ref_players):
+                past_ref_players.append(past_user)
+
+    for user_id in battle_info['sign_ups']:
+        if user_id in past_ref_players:
+            past_players.append(user_id)
+        else:
+            valid_players.append(user_id)    
+
+    return {
+        'past_pool': past_players,
+        'valid_pool': valid_players
+    }
 
     

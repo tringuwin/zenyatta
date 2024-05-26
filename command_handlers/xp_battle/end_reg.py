@@ -14,4 +14,12 @@ async def end_reg_handler(db, message):
         await message.channel.send('There are only '+str(number_sign_ups)+' players signed up for the battle. We need at least 9 players to start.')
         return
     
-    init_player_pools()
+    player_pools = init_player_pools(battle_info)
+
+    battle_info['player_pools'] = player_pools
+    battle_info['reg_open'] = False
+
+    current_players = []
+    
+
+    await message.channel.send('Registration ended')
