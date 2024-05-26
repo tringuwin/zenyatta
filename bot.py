@@ -858,6 +858,10 @@ async def handle_message(message, db, client):
 
         await message.channel.send(random.choice(eight_ball))
 
+    elif lower_message.startswith('!thisgif'):
+
+        await message.channel.send('https://i.imgur.com/J2jCzIb.png')
+
     elif lower_message.startswith('!initraffleconst') and is_admin:
         
         db_constants = db['constants']
