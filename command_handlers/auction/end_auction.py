@@ -9,7 +9,6 @@ from user import user_exists
 
 
 async def end_auction(db, client):
-
     auction = db['auction']
     auction.update_one({"auction_id": 1}, {"$set": {'is_open': False}})
     data = auction.find_one({'auction_id': 1})
@@ -29,10 +28,10 @@ async def end_auction(db, client):
 
         won_string = player_mention+' won '+data['item_name']+' with a bid of '+str(user_bid)+' Tokens!'
 
-        user = user_exists(db, member.id)
-        if user:
-            await change_tokens(db, user, int(user_bid * -1))
-            return
+        if member:
+            user = user_exists(db, member.id)
+            if user:
+                await change_tokens(db, user, int(user_bid * -1))
 
     final_string = '--------------------------------\n'
     final_string += 'Auction Ended!\n'
