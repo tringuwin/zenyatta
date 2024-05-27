@@ -180,7 +180,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot):
     if is_helper or is_push_bot:
         return True, None
     
-    if lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband') or lower_message == '!fortnite' or lower_message == '!zorp' or lower_message == '!howdy':
+    if lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband') or lower_message == '!fortnite' or lower_message == '!zorp' or lower_message == '!howdy' or lower_message == '!sigma':
         return True, None
 
     if message.channel.id == constants.BOT_CHANNEL:
@@ -810,6 +810,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!fortnite':
         await message.channel.send('fortnite')
+
+    elif lower_message == '!sigma':
+        await message.channel.send('https://i.imgur.com/2qptwSa.png')
 
     elif lower_message == '!howdy':
         await message.channel.send('https://tenor.com/view/good-morning-summer-mickey-mouse-gif-13892611')
