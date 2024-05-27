@@ -1,4 +1,6 @@
 
+twitch_token_url = 'https://id.twitch.tv/oauth2/authorize?client_id=46t2o4ora6yz8o1x5ws18qn2ueiz4v&redirect_uri=https://spicy-ragu-api-7d24f98c9e91.herokuapp.com/dva-webhook&response_type=code&scope=channel:manage:redemptions'
+
 async def check_token_issue(db, channel):
 
     await channel.send('Checking for token issue.')
@@ -8,7 +10,7 @@ async def check_token_issue(db, channel):
     token_issue_val = token_issue_obj['value']
 
     if token_issue_val['issue'] and ( not token_issue_val['notif'] ):
-        await channel.send('We need a new twitch token: <@1112204092723441724>')
+        await channel.send('We need a new twitch token: <@1112204092723441724>\n\n'+twitch_token_url)
         token_issue_val['notif'] = True
         constants_db.update_one({"name": 'token_issue'}, {"$set": {"value": token_issue_val}})
 
