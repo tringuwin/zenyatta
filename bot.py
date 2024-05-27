@@ -288,8 +288,8 @@ async def handle_message(message, db, client):
             return
 
     # peanut butter check
-    if lower_message.find('peanut butter') != -1:
-        await message.channel.send('<:Winton:1243994564268920933> Did someone say peanut butter? <:Winton:1243994564268920933>')
+    # if lower_message.find('peanut butter') != -1:
+    #     await message.channel.send('<:Winton:1243994564268920933> Did someone say peanut butter? <:Winton:1243994564268920933>')
 
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if (not is_command) and (not is_push_bot):
