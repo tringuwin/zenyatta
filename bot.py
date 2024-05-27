@@ -171,6 +171,7 @@ from rewards import change_xp, give_eggs_command, give_packs_command, give_passe
 from server_level import server_points_handler
 from teams import get_team_by_name
 from time_helpers import check_weekly, long_enough_for_gift
+from twitch_token import check_token_issue
 from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, notify_user_of_gift, user_exists
 from xp_battles import add_to_battle, how_many_handler, remove_from_battle
 
@@ -1635,6 +1636,8 @@ async def handle_message(message, db, client):
         await check_auction(db, message.channel, client)
 
         await check_weekly(db, message.channel, message)
+
+        await check_token_issue(db, message.channel)
 
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
