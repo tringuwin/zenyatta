@@ -23,6 +23,6 @@ async def check_streamlabs_raffles(db, channel):
         if redeem['status'] == 'Completed':
             completed_redeems.append(redeem)
 
-    print('Total number of redeems: '+len(completed_redeems))
+    print('Total number of redeems: '+str(len(completed_redeems)))
 
 
