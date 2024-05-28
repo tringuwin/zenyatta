@@ -6,6 +6,19 @@ import constants
 import random
 
 
+async def give_random_gem_to_user(db, user):
+
+    user_gems = get_user_gems(user)
+
+    random_color = random.choice(constants.GEM_COLORS)
+    user_gems[random_color] += 1
+
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"gems": user_gems}})
+
+    return random_color
+
+
 async def give_random_gem_handler(db, message, client):
 
     valid_params, params = valid_number_of_params(message, 2)
@@ -20,12 +33,6 @@ async def give_random_gem_handler(db, message, client):
         await message.channel.send('Could not find that user.')
         return
     
-    user_gems = get_user_gems(user)
-
-    random_color = random.choice(constants.GEM_COLORS)
-    user_gems[random_color] += 1
-
-    users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"gems": user_gems}})
+    random_color = await give_random_gem_to_user(db, user)
 
     await message.channel.send('User recieved 1 '+random_color+' gem.')
