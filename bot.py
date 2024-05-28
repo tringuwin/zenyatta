@@ -169,6 +169,7 @@ from payroll import check_payroll
 from random_event import react_to_event, try_random_event
 from rewards import change_xp, give_eggs_command, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from server_level import server_points_handler
+from streamlabs import check_streamlabs_raffles
 from teams import get_team_by_name
 from time_helpers import check_weekly, long_enough_for_gift
 from twitch_token import check_token_issue
@@ -1638,6 +1639,8 @@ async def handle_message(message, db, client):
         await check_weekly(db, message.channel, message)
 
         await check_token_issue(db, message.channel)
+
+        await check_streamlabs_raffles(db, message.channel)
 
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
