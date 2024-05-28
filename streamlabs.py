@@ -65,36 +65,36 @@ async def check_streamlabs_raffles(db, channel):
             most_recent_date_raw = redeem_date_raw
             most_recent_date = redeem_date
 
-        # prize_name = valid_redeem['settings']['general']['name']
+        prize_name = valid_redeem['settings']['general']['name']
 
-        # winner_twitch = valid_redeem['winners'][0]['name']
-        # user = twitch_user_exists(db, winner_twitch)
-        # if not user:
-        #     twitch_orphans = db['twitch_orphans']
-        #     orphan = twitch_orphans.find_one({'twitch_lower': winner_twitch.lower()})
-        #     if orphan:
-        #         orphan['prizes'].append(prize_name)
-        #         twitch_orphans.update_one({"twitch_lower": winner_twitch.lower()}, {"$set": {"prizes": orphan['prizes']}})
-        #     else:
-        #         new_entry = {
-        #             'twitch': winner_twitch,
-        #             'twitch_lower': winner_twitch.lower(),
-        #             'prizes': [prize_name]
-        #         }
-        #         twitch_orphans.insert_one(new_entry)
+        winner_twitch = valid_redeem['winners'][0]['name']
+        user = twitch_user_exists(db, winner_twitch)
+        if not user:
+            twitch_orphans = db['twitch_orphans']
+            orphan = twitch_orphans.find_one({'twitch_lower': winner_twitch.lower()})
+            if orphan:
+                orphan['prizes'].append(prize_name)
+                twitch_orphans.update_one({"twitch_lower": winner_twitch.lower()}, {"$set": {"prizes": orphan['prizes']}})
+            else:
+                new_entry = {
+                    'twitch': winner_twitch,
+                    'twitch_lower': winner_twitch.lower(),
+                    'prizes': [prize_name]
+                }
+                twitch_orphans.insert_one(new_entry)
 
-        #     continue
+            continue
 
-        # # handle give prize
-        # if prize_name == '500 Tokens':
-        #     print('Giving 500 tokens to '+winner_twitch)
-        #     await change_tokens(db, user, 500)
-        # elif prize_name == 'SOL Card Pack':
-        #     print('Giving a pack to '+winner_twitch)
-        #     await change_packs(db, user, 1)
-        # elif prize_name == 'Random Gem':
-        #     print('Giving random gem to '+winner_twitch)
-        #     await give_random_gem_to_user(db, user)
+        # handle give prize
+        if prize_name == '500 Tokens':
+            print('Giving 500 tokens to '+winner_twitch)
+            await change_tokens(db, user, 500)
+        elif prize_name == 'SOL Card Pack':
+            print('Giving a pack to '+winner_twitch)
+            await change_packs(db, user, 1)
+        elif prize_name == 'Random Gem':
+            print('Giving random gem to '+winner_twitch)
+            await give_random_gem_to_user(db, user)
 
     constants_db.update_one({"name": 'last_redeems'}, {"$set": {"value": most_recent_date_raw}})
 
