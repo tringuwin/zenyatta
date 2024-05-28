@@ -77,7 +77,7 @@ async def check_streamlabs_raffles(db, channel):
         elif prize_name == 'Random Gem':
             print('Giving random gem to '+winner_twitch)
 
-            
+    constants_db.update_one({"name": 'last_redeems'}, {"$set": {"value": most_recent_date_raw}})
 
     print('Total number of valid date: '+str(len(valid_date_redeems)))
 
