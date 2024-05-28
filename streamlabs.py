@@ -13,6 +13,16 @@ async def check_streamlabs_raffles(db, channel):
         return
     
     redeem_data = redeem_req.json()
-    print(redeem_data)
+
+    # 2024-05-26T21:57:57.000Z
+    redeems = redeem_data['data']
+
+    # sort only completed
+    completed_redeems = []
+    for redeem in redeems:
+        if redeem['status'] == 'Completed':
+            completed_redeems.append(redeem)
+
+    print('Total number of redeems: '+len(completed_redeems))
 
 
