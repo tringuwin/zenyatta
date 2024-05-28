@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 
 stream_labs_data = 'https://streamlabs.com/api/v5/giveaway/history?token=B032D12F02A4ED3AA822&page=1'
 
@@ -23,6 +24,26 @@ async def check_streamlabs_raffles(db, channel):
         if redeem['status'] == 'Completed':
             completed_redeems.append(redeem)
 
-    print('Total number of redeems: '+str(len(completed_redeems)))
+    print('Total number of completed redeems: '+str(len(completed_redeems)))
+
+    constants_db = db['constants']
+    last_redeems_obj = constants_db.find_one({'name': 'last_redeems'})
+    last_redeem_val = last_redeems_obj['value']
+
+    last_date = datetime.strptime(last_redeem_val, "%Y-%m-%dT%H:%M:%S.%fZ")
+
+    valid_date_redeems = []
+
+    for redeem in completed_redeems:
+
+        redeem_date_raw = redeem['updated_at']
+        redeem_date = datetime.strptime(redeem_date_raw, "%Y-%m-%dT%H:%M:%S.%fZ")
+
+        if redeem_date > last_date:
+            valid_date_redeems.append(redeem)
+
+    print('Total number of valid date: '+str(len(valid_date_redeems)))
+
+
 
 
