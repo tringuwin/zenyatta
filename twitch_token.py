@@ -1,5 +1,5 @@
 
-twitch_token_url = 'https://id.twitch.tv/oauth2/authorize?client_id=46t2o4ora6yz8o1x5ws18qn2ueiz4v&redirect_uri=https://spicy-ragu-api-7d24f98c9e91.herokuapp.com/dva-webhook&response_type=code&scope=channel:manage:redemptions'
+twitch_token_url = "https://id.twitch.tv/oauth2/authorize?client_id=46t2o4ora6yz8o1x5ws18qn2ueiz4v&redirect_uri=https://spicy-ragu-api-7d24f98c9e91.herokuapp.com/dva-webhook&response_type=code&scope=channel:manage:redemptions%20bits:read"
 
 async def check_token_issue(db, channel):
 
