@@ -13,7 +13,7 @@ async def help_bonus_handler(message):
     help_embed.add_field(name='!leaguexptotal', value='Shows the XP Leaderboard for the total XP teams have earned (since Season 3).', inline=False)
     help_embed.add_field(name='!store', value='Get a link to the official SOL Merch Store.', inline=False)
     help_embed.add_field(name='!auctiontimer', value='Shows how much time is left until the Daily Auction ends.', inline=False)
-    help_embed.add_field(name='!subtimer', value='Shows how many days are left for your Twitch Sub Lootbox (if you are a Twitch Sub).', inline=False)
+    #help_embed.add_field(name='!subtimer', value='Shows how many days are left for your Twitch Sub Lootbox (if you are a Twitch Sub).', inline=False)
     help_embed.add_field(name='!leaderboard', value='Shows the Top 10 players by Level/XP and links to the full server leaderboard.', inline=False)
     help_embed.add_field(name='!tokenleaderboard', value='See the top 10 users with the most tokens in the server.', inline=False)
     help_embed.add_field(name='!hello', value='Say hi to the Zenyatta bot', inline=False)

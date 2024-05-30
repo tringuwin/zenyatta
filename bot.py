@@ -506,7 +506,8 @@ async def handle_message(message, db, client):
         await bid_handler(db, message, client)
 
     elif lower_message == '!subtimer':
-        await sub_timer_handler(db, message)
+        await message.channel.send('Twitch Lootboxes are now given instantly when you subscribe or re-subscribe!')
+        # await sub_timer_handler(db, message)
 
     elif lower_message == '!auctiontimer':
         await auction_timer_handler(db, message)
