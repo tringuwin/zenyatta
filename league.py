@@ -48,7 +48,7 @@ team_name_to_color = {
     'Saturn': discord.Colour(0xffb816),
     'Evergreen': discord.Colour(0x074735),
     'Misfits': discord.Colour(0xc3db35),
-    'Hunters': discord.Colour(0x161e1c)
+    'Hunters': discord.Colour(0x41564e)
 }
 
 team_name_to_thumbnail = {
@@ -66,7 +66,7 @@ team_name_to_thumbnail = {
     'Saturn': 'https://i.imgur.com/UJaIlua.png',
     'Evergreen': 'https://i.imgur.com/k4wFF5R.png',
     'Misfits': 'https://i.imgur.com/Aauu5rq.png',
-    'Hunters': '',
+    'Hunters': 'https://i.imgur.com/HEeAJwK.png',
 }
 
 async def update_team_info(client, team, db):
