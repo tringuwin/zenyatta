@@ -1596,10 +1596,10 @@ async def handle_message(message, db, client):
             message = await channel.send('Add an emoji reaction to get the '+discord_role.mention+ ' role. Remove the reaction to remove it. Default is **OFF**.\n*'+role['extra']+'*')
             await message.add_reaction("✅")
 
-    elif lower_message == 'check long' and is_push_bot:
-        bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
-        await send_msg(bot_channel, 'Checking sub lootboxes and SAC', 'Check Long')
-        await give_sub_boxes_handler(db, message, client)
+    # elif lower_message == 'check long' and is_push_bot:
+    #     bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
+    #     await send_msg(bot_channel, 'Checking sub lootboxes and SAC', 'Check Long')
+    #     await give_sub_boxes_handler(db, message, client)
         # await prune_sac_handler(db, message, client)
 
     elif lower_message == 'check gifts' and is_push_bot:
