@@ -2760,6 +2760,11 @@ ALL_CARDS = {
         'player_id': ALL_PLAYERS['jr21'],
         'normal_img': 'https://i.imgur.com/xDk3U4S.png',
         'special_img': 'https://i.imgur.com/xDk3U4S.png'
+    },
+    '516': {
+        'player_id': ALL_PLAYERS['grizzly'],
+        'normal_img': 'https://i.imgur.com/PjJtUwv.png',
+        'special_img': 'https://i.imgur.com/PjJtUwv.png'
     }
 
 }
