@@ -417,7 +417,7 @@ async def give_card_handler(db, message):
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": cards}})
     users.update_one({"discord_id": give_user['discord_id']}, {"$set": {"cards": give_cards}})
 
-    assign_owner_to_card(db, removed_card['display_card'], give_user['discord_id'])
+    assign_owner_to_card(db, removed_card['card_display'], give_user['discord_id'])
 
     await message.channel.send('Card was given!')
     
