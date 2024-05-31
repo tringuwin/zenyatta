@@ -634,9 +634,21 @@ async def card_owners_handler(db, message):
             for for_sale_card in for_sale_cards:
                 obj[for_sale_card] = user['discord_id']
 
+    cards_db = db['cards']
+    cards_obj = cards_db.find_one({'cards_id': 1})
+    cards_val = cards_obj['cards']
+    for card in cards_val:
+        display = card['card_display']
+        obj[display] = 0
+
+    num_lost = 0
+    for card_id in obj:
+        card_owner = obj[card_id]
+        if card_owner == -1:
+            num_lost += 1
 
     constants_db = db['constants']
     constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": obj}})
 
-    await message.channel.send('all done')
+    await message.channel.send('all done. number lost is '+str(num_lost))
 
