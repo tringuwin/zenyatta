@@ -2777,8 +2777,13 @@ ALL_CARDS = {
         'normal_img': 'https://i.imgur.com/pOYwEim.png',
         'special_img': 'https://i.imgur.com/pOYwEim.png',
         'custom': True
-    }
-
+    },
+    '518': {
+        'player_id': ALL_PLAYERS['kirpylinky'],
+        'normal_img': 'https://i.imgur.com/pzsffp8.png',
+        'special_img': 'https://i.imgur.com/pzsffp8.png',
+        'custom': True
+    },
 
 }
 
