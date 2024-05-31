@@ -26,7 +26,7 @@ from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
 from admin_handlers.total_league import total_league_handler
 from auction import check_auction
-from cards import buy_card_handler, cards_handler, give_card_handler, init_card_handler, init_custom_handler, list_card_handler, open_pack_handler, sell_card_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
+from cards import buy_card_handler, card_owners_handler, cards_handler, give_card_handler, init_card_handler, init_custom_handler, list_card_handler, open_pack_handler, sell_card_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
 from cards_data import init_card_data_db, update_card_data_db
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
 from command_handlers.auction.bid import bid_handler
@@ -914,6 +914,10 @@ async def handle_message(message, db, client):
         }
         db_cards.insert_one(new_entry)
         await message.channel.send('init success')
+
+    elif lower_message == '!cardowners' and is_admin:
+
+        await card_owners_handler(db, message)
 
     elif lower_message == '!wipecarddatabase' and is_admin:
         await wipe_card_database_handler(db, message)

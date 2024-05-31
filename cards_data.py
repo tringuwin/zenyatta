@@ -2739,32 +2739,38 @@ ALL_CARDS = {
     '511': {
         'player_id': ALL_PLAYERS['mimic'],
         'normal_img': 'https://i.imgur.com/GUsb8Be.png',
-        'special_img': 'https://i.imgur.com/GUsb8Be.png'
+        'special_img': 'https://i.imgur.com/GUsb8Be.png',
+        'custom': True
     },
     '512': {
         'player_id': ALL_PLAYERS['kazzy'],
         'normal_img': 'https://i.imgur.com/6xXcYcZ.png',
-        'special_img': 'https://i.imgur.com/6xXcYcZ.png'
+        'special_img': 'https://i.imgur.com/6xXcYcZ.png',
+        'custom': True
     },
     '513': {
         'player_id': ALL_PLAYERS['shay'],
         'normal_img': 'https://i.imgur.com/7w9xkMF.png',
-        'special_img': 'https://i.imgur.com/7w9xkMF.png'
+        'special_img': 'https://i.imgur.com/7w9xkMF.png',
+        'custom': True
     },
     '514': {
         'player_id': ALL_PLAYERS['shay'],
         'normal_img': 'https://i.imgur.com/piVuAQJ.png',
-        'special_img': 'https://i.imgur.com/piVuAQJ.png'
+        'special_img': 'https://i.imgur.com/piVuAQJ.png',
+        'custom': True
     },
     '515': {
         'player_id': ALL_PLAYERS['jr21'],
         'normal_img': 'https://i.imgur.com/xDk3U4S.png',
-        'special_img': 'https://i.imgur.com/xDk3U4S.png'
+        'special_img': 'https://i.imgur.com/xDk3U4S.png',
+        'custom': True
     },
     '516': {
         'player_id': ALL_PLAYERS['grizzly'],
         'normal_img': 'https://i.imgur.com/PjJtUwv.png',
-        'special_img': 'https://i.imgur.com/PjJtUwv.png'
+        'special_img': 'https://i.imgur.com/PjJtUwv.png',
+        'custom': True
     }
 
 }

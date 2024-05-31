@@ -595,3 +595,31 @@ async def total_packs_handler(db, message):
     all_cards = card_group['cards']
 
     await message.channel.send('There are a total of **'+str(len(all_cards))+' Cards** left in packs.')
+
+
+async def card_owners_handler(db, message):
+
+    await message.channel.send("starting...")
+
+    obj = {}
+    for card_id in ALL_CARDS:
+
+        card_data = ALL_CARDS[card_id]
+        is_custom = False
+        if ('custom' in card_data) and card_data['custom']:
+            is_custom = True
+
+        variant_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']
+        if is_custom:
+            variant_list = ['A']
+
+        for variant in variant_list:
+
+            card_display = card_id+'-'+variant
+            obj[card_display] = -1
+
+    constants_db = db['constants']
+    constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": obj}})
+
+    await message.channel.send('all done')
+
