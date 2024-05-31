@@ -2771,7 +2771,14 @@ ALL_CARDS = {
         'normal_img': 'https://i.imgur.com/PjJtUwv.png',
         'special_img': 'https://i.imgur.com/PjJtUwv.png',
         'custom': True
+    },
+    '517': {
+        'player_id': ALL_PLAYERS['spicy'],
+        'normal_img': 'https://i.imgur.com/pOYwEim.png',
+        'special_img': 'https://i.imgur.com/pOYwEim.png',
+        'custom': True
     }
+
 
 }
 
