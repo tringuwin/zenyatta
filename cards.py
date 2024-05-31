@@ -623,6 +623,8 @@ async def buy_card_handler(db, message):
     # commit seller details
     users.update_one({"discord_id": seller_user['discord_id']}, {"$set": {"for_sale_cards": final_seller_for_sale_cards, 'tokens': seller_final_tokens}})
 
+    assign_owner_to_card(db, buy_card, user['discord_id'])
+
     # confirmation message
     await message.channel.send('You bought the card '+buy_card+'!!')
     
