@@ -945,7 +945,7 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!viewcard '):
 
-        await view_card_handler(db, message)
+        await view_card_handler(client, db, message)
 
     elif lower_message.startswith('!sellcard '):
         await sell_card_handler(db, message)

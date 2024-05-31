@@ -58,6 +58,15 @@ async def get_member_by_username(client, username):
 
     return None
 
+async def get_username_by_user_id(client, user_id):
+
+    for member in client.get_all_members():
+
+        if member.id == user_id:
+            return member
+
+    return None
+
 async def get_member_by_id(guild, id):
 
     return await guild.fetch_member(id)

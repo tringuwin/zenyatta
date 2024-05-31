@@ -3,6 +3,7 @@
 import discord
 from cards_data import ALL_CARDS, CUSTOM_LIST
 from common_messages import invalid_number_of_params, not_registered_response
+from discord_actions import get_username_by_user_id
 from helpers import can_be_int
 from rewards import change_packs, change_tokens
 from user import get_user_cards, get_user_packs, get_user_tokens, user_exists, get_user_for_sale_cards
@@ -259,7 +260,7 @@ async def open_pack_handler(db, message):
     await message.channel.send(embed=embed)
 
 
-async def view_card_handler(db, message):
+async def view_card_handler(client, db, message):
 
     word_parts = message.content.split()
 
@@ -296,12 +297,19 @@ async def view_card_handler(db, message):
 
     card_owner_id = get_card_owner_id(db, card_id+'-'+card_variant.upper())
     owner = 'Not Owned'
+    owner_icon = 'https://i.imgur.com/5z8bsWb.png'
     if card_owner_id > 0:
-        owner = 'Owned by '+str(card_owner_id)
+        owner_member = await get_username_by_user_id(client, card_owner_id)
+        if owner_member:
+            owner = 'Owned by '+owner_member.name
+            owner_icon = owner_member.display_avatar
+        else:
+            owner = 'Owned by Unknown User ('+str(card_owner_id)+')'
+            owner_icon = 'https://i.imgur.com/BlrvzNq.jpeg'
 
     embed = discord.Embed(title='CARD '+card_id+'-'+card_variant.upper())
     embed.set_image(url=card_img)
-    embed.set_footer(text=owner)
+    embed.set_footer(text=owner, icon_url=owner_icon)
 
     await message.channel.send(embed=embed)
 
