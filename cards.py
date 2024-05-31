@@ -369,6 +369,8 @@ async def sell_card_handler(db, message):
     edit_cards.append(removed_card)
 
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
+
+    assign_owner_to_card(db, removed_card['card_display'], 0)
     
     await message.channel.send('You sold the card "'+input_card+'" for 20 tokens!')
 
