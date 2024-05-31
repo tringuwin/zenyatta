@@ -618,6 +618,23 @@ async def card_owners_handler(db, message):
             card_display = card_id+'-'+variant
             obj[card_display] = -1
 
+
+    users = db['users']
+    all_users = users.find()
+    for user in all_users:
+
+        cards = get_user_cards(user)
+        if len(cards) > 0:
+            for card in cards:
+                card_display = card['card_display']
+                obj[card_display] = user['discord_id']
+        
+        for_sale_cards = get_user_for_sale_cards(user)
+        if len(for_sale_cards) > 0:
+            for for_sale_card in for_sale_cards:
+                obj[for_sale_card] = user['discord_id']
+
+
     constants_db = db['constants']
     constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": obj}})
 
