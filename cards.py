@@ -20,6 +20,15 @@ def get_card_owner_id(db, display):
     return card_owners[display]
     
 
+def assign_owner_to_card(db, display, owner_id):
+
+    constants_db = db['constants']
+    card_owners_obj = constants_db.find_one({'name': 'card_owners'})
+    card_owners = card_owners_obj['value']
+
+    card_owners[display] = owner_id
+    constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": card_owners}})
+
 
 async def cards_handler(db, message):
 
@@ -246,6 +255,8 @@ async def open_pack_handler(db, message):
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": user_cards}})
 
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
+
+    assign_owner_to_card(db, removed_item['card_display'], user['discord_id'])
 
     card_variant = removed_item['variant_id']
     card_id = removed_item['card_id']
