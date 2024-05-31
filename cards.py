@@ -10,6 +10,16 @@ import random
 import constants
 
 
+def get_card_owner_id(db, display):
+
+    constants_db = db['constants']
+    card_owners_obj = constants_db.find_one({'name': 'card_owners'})
+    card_owners = card_owners_obj['value']
+
+    return card_owners[display]
+    
+
+
 async def cards_handler(db, message):
 
     user = user_exists(db, message.author.id)
@@ -249,7 +259,7 @@ async def open_pack_handler(db, message):
     await message.channel.send(embed=embed)
 
 
-async def view_card_handler(message):
+async def view_card_handler(db, message):
 
     word_parts = message.content.split()
 
@@ -284,8 +294,14 @@ async def view_card_handler(message):
     if card_variant.upper() == 'S':
         card_img = card_details['special_img']
 
-    embed = discord.Embed(title='CARD '+card_id+'-'+card_variant.upper()+':')
+    card_owner_id = get_card_owner_id(db, card_id+'-'+card_variant.upper())
+    owner = 'Not Owned'
+    if card_owner_id > 0:
+        owner = 'Owned by '+str(card_owner_id)
+
+    embed = discord.Embed(title='CARD '+card_id+'-'+card_variant.upper())
     embed.set_image(url=card_img)
+    embed.set_footer(text=owner)
 
     await message.channel.send(embed=embed)
 
