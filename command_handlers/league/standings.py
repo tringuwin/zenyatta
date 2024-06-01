@@ -4,6 +4,19 @@ from discord_actions import get_guild
 import constants
 
 
+def make_div_standings_string(div_teams, div_num, guild):
+
+    div_string = '**DIVISION '+str(div_num)+' STANDINGS:**'
+
+    index = 1 
+    for team in div_teams:
+        team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team['team_name']]
+        team_emoji = guild.get_emoji(team_emoji_id)
+        div_string += '\n'+str(index)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'%'
+        index += 1
+
+    return div_string
+
 async def standings_handler(db, message, client):
 
     standings = db['standings']
@@ -30,20 +43,31 @@ async def standings_handler(db, message, client):
             }
         )
 
-    sorted_teams = sorted(final_teams, key=lambda x: x["score"], reverse=True)
+    div_groups = [[], [], []]
+    for team in final_teams:
+        if team in season_object['divs'][0]:
+            div_groups[0].append(team)
+        elif team in season_object['divs'][1]:
+            div_groups[1].append(team)
+        elif team in season_object['divs'][2]:
+            div_groups[2].append(team)
+
+    sorted_teams_1 = sorted(div_groups[0], key=lambda x: x["score"], reverse=True)
+    sorted_teams_2 = sorted(div_groups[1], key=lambda x: x["score"], reverse=True)
+    sorted_teams_3 = sorted(div_groups[2], key=lambda x: x["score"], reverse=True)
     final_string = '**LEAGUE STANDINGS**\n-----------------------'
-    index = 1 
     guild = await get_guild(client)
-    for team in sorted_teams:
-        team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team['team_name']]
-        team_emoji = guild.get_emoji(team_emoji_id)
-        final_string += '\n'+str(index)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'%'
-        index += 1
+
+    final_string += '\n'+make_div_standings_string(sorted_teams_1, 1, guild)
+    final_string += '\n-----------------------'
+    final_string += '\n'+make_div_standings_string(sorted_teams_2, 2, guild)
+    final_string += '\n-----------------------'
+    final_string += '\n'+make_div_standings_string(sorted_teams_3, 3, guild)
 
     final_string += '\n-----------------------'
-    final_string += '\nTeams ranked 1-6 will make it to the playoffs.'
-    final_string += '\nTeam ranked 7-10th will be demoted to Division 2 next season.'
-    final_string += '\nSee the standings page on the website here: https://spicyragu.netlify.app/sol/standings'
+    final_string += '\nTeams ranked 1-3 will make it to the playoffs.'
+    #final_string += '\nTeam ranked 7-10th will be demoted to Division 2 next season.'
+    #final_string += '\nSee the standings page on the website here: https://spicyragu.netlify.app/sol/standings'
 
     await message.channel.send(final_string)
     

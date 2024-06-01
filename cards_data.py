@@ -2787,7 +2787,6 @@ ALL_CARDS = {
 
 }
 
-CUSTOM_LIST = ['511', '512', '513']
 
 async def init_card_data_db(db, message):
 
