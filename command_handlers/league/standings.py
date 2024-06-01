@@ -43,14 +43,13 @@ async def standings_handler(db, message, client):
             }
         )
 
-    print('divs are', season_object['divs'])
     div_groups = [[], [], []]
     for team in final_teams:
-        if team['team'] in season_object['divs'][0]:
+        if team['team_name'] in season_object['divs'][0]:
             div_groups[0].append(team)
-        elif team['team'] in season_object['divs'][1]:
+        elif team['team_name'] in season_object['divs'][1]:
             div_groups[1].append(team)
-        elif team['team'] in season_object['divs'][2]:
+        elif team['team_name'] in season_object['divs'][2]:
             div_groups[2].append(team)
     print('div groups is', div_groups)
 
