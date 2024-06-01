@@ -290,13 +290,16 @@ async def view_card_handler(client, db, message):
     if not (card_id in ALL_CARDS):
         await message.channel.send('There is no card with the ID: '+card_id)
         return
+    card_data = ALL_CARDS[card_id]
     
     card_variant = card_info_parts[1]
     if not (card_variant.upper() in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']):
         await message.channel.send('"'+card_variant+'" is not a valid card variant. Valid variants are letters A-I or S')
         return
     
-    is_custom = (card_id in CUSTOM_LIST)
+    is_custom = False
+    if ('custom' in card_data) and card_data['custom']:
+        is_custom = True
     if is_custom and (card_variant.upper() != 'A'):
         await message.channel.send('This is a custom card so it only has one variant, "A"')
         return
