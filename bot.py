@@ -479,8 +479,8 @@ async def handle_message(message, db, client):
         await standings_handler(db, message, client)
 
     elif lower_message == '!schedule':
-        await message.channel.send('This command is disabled until Season 3 starts on June 1st 2024.')
-        # await schedule_handler(db, message, client)
+        #await message.channel.send('This command is disabled until Season 3 starts on June 1st 2024.')
+        await schedule_handler(db, message, client)
 
     # elif lower_message == '!buyticket':
     #     #await message.channel.send('There is no raffle at the moment.')
@@ -1248,98 +1248,63 @@ async def handle_message(message, db, client):
     elif lower_message == '!initschedule' and is_admin:
 
         new_schedule = {
-            'season': 2,
+            'season': 3,
             'weeks': [
                 {
                     'week': 1,
                     'matches': [
-                        ['February 10th (Sat) : Match 1' ,'Saviors', 'Instigators'],
-                        ['February 10th (Sat) : Match 2', 'Polar', 'Phoenix'],
-                        ['February 10th (Sat) : Match 3', 'Ragu', 'Guardians'],
-                        ['February 11th (Sun) : Match 1', 'Eclipse', 'Outliers'],
-                        ['February 11th (Sun) : Match 2', 'Olympians', 'Fresas'],
+                        ['June 1st (Sat) : Match 1' ,'Hunters', 'Fresas'],
+                        ['June 1st (Sat) : Match 2', 'Evergreen', 'Polar'],
+                        ['June 1st (Sat) : Match 3', 'Instigators', 'Celestials'],
+                        ['June 2nd (Sun) : Match 1', 'Eclipse', 'Phoenix'],
+                        ['June 2nd (Sun) : Match 2', 'Guardians', 'Outliers'],
+                        ['June 2nd (Sun) : Match 3', 'Saturn', 'Misfits'],
                     ]
                 },
                 {
                     'week': 2,
                     'matches': [
-                        ['February 17th (Sat) : Match 1' ,'Olympians', 'Phoenix'],
-                        ['February 17th (Sat) : Match 2', 'Instigators', 'Guardians'],
-                        ['February 17th (Sat) : Match 3', 'Polar', 'Eclipse'],
-                        ['February 18th (Sun) : Match 1', 'Saviors', 'Fresas'],
-                        ['February 18th (Sun) : Match 2', 'Ragu', 'Outliers'],
+                        ['June 8th (Sat) : Match 1' ,'Phoenix', 'Olympians'],
+                        ['June 8th (Sat) : Match 2', 'Ragu', 'Outliers'],
+                        ['June 8th (Sat) : Match 3', 'Saviors', 'Saturn'],
+                        ['June 9th (Sun) : Match 1', 'Eclipse', 'Hunters'],
+                        ['June 9th (Sun) : Match 2', 'Guardians', 'Evergreen'],
+                        ['June 9th (Sun) : Match 3', 'Celestials', 'Misfits'],
                     ]
                 },
                 {
                     'week': 3,
                     'matches': [
-                        ['February 24th (Sat) : Match 1' ,'Eclipse', 'Olympians'],
-                        ['February 24th (Sat) : Match 2', 'Phoenix', 'Ragu'],
-                        ['February 24th (Sat) : Match 3', 'Fresas', 'Instigators'],
-                        ['February 25th (Sun) : Match 1', 'Outliers', 'Saviors'],
-                        ['February 25th (Sun) : Match 2', 'Polar', 'Guardians'],
+                        ['June 15th (Sat) : Match 1' ,'Phoenix', 'Hunters'],
+                        ['June 15th (Sat) : Match 2', 'Polar', 'Guardians'],
+                        ['June 15th (Sat) : Match 3', 'Celestials', 'Saviors'],
+                        ['June 16th (Sun) : Match 1', 'Olympians', 'Fresas'],
+                        ['June 16th (Sun) : Match 2', 'Evergreen', 'Ragu'],
+                        ['June 16th (Sun) : Match 3', 'Misfits', 'Instigators'],
                     ]
                 },
                 {
                     'week': 4,
                     'matches': [
-                        ['March 2nd (Sat) : Match 1' ,'Instigators', 'Outliers'],
-                        ['March 2nd (Sat) : Match 2', 'Eclipse', 'Ragu'],
-                        ['March 2nd (Sat) : Match 3', 'Saviors', 'Phoenix'],
-                        ['March 3rd (Sun) : Match 1', 'Polar', 'Olympians'],
-                        ['March 3rd (Sun) : Match 2', 'Guardians', 'Fresas'],
+                        ['June 22nd (Sat) : Match 1' ,'Fresas', 'Eclipse'],
+                        ['June 22nd (Sat) : Match 2', 'Outliers', 'Evergreen'],
+                        ['June 22nd (Sat) : Match 3', 'Saviors', 'Instigators'],
+                        ['June 23rd (Sun) : Match 1', 'Hunters', 'Olympians'],
+                        ['June 23rd (Sun) : Match 2', 'Polar', 'Ragu'],
+                        ['June 23th (Sun) : Match 3', 'Saturn', 'Celestials'],
                     ]
                 },
                 {
                     'week': 5,
                     'matches': [
-                        ['March 23rd (Sat) : Match 1' ,'Polar', 'Fresas'],
-                        ['March 23rd (Sat) : Match 2', 'Phoenix', 'Instigators'],
-                        ['March 23rd (Sat) : Match 3', 'Olympians', 'Ragu'],
-                        ['March 24th (Sun) : Match 1', 'Outliers', 'Guardians'],
-                        ['March 24th (Sun) : Match 2', 'Eclipse', 'Saviors'],
+                        ['June 29th (Sat) : Match 1' ,'Olympians', 'Eclipse'],
+                        ['June 29th (Sat) : Match 2', 'Ragu', 'Guardians'],
+                        ['June 29th (Sat) : Match 3', 'Instigators', 'Saturn'],
+                        ['June 30th (Sun) : Match 1', 'Fresas', 'Phoenix'],
+                        ['June 30th (Sun) : Match 2', 'Outliers', 'Polar'],
+                        ['June 30th (Sun) : Match 3', 'Misfits', 'Saviors'],
                     ]
                 },
-                {
-                    'week': 6,
-                    'matches': [
-                        ['March 30th (Sat) : Match 1' ,'Guardians', 'Phoenix'],
-                        ['March 30th (Sat) : Match 2', 'Olympians', 'Saviors'],
-                        ['March 30th (Sat) : Match 3', 'Eclipse', 'Instigators'],
-                        ['March 31st (Sun) : Match 1', 'Polar', 'Ragu'],
-                        ['March 31st (Sun) : Match 2', 'Outliers', 'Fresas'],
-                    ]
-                },
-                {
-                    'week': 7,
-                    'matches': [
-                        ['April 6th (Sat) : Match 1' ,'Polar', 'Instigators'],
-                        ['April 6th (Sat) : Match 2', 'Eclipse', 'Phoenix'],
-                        ['April 6th (Sat) : Match 3', 'Guardians', 'Saviors'],
-                        ['April 7th (Sun) : Match 1', 'Olympians', 'Outliers'],
-                        ['April 7th (Sun) : Match 2', 'Fresas', 'Ragu'],
-                    ]
-                },
-                {
-                    'week': 8,
-                    'matches': [
-                        ['April 13th (Sat) : Match 1' ,'Ragu', 'Saviors'],
-                        ['April 13th (Sat) : Match 2', 'Olympians', 'Instigators'],
-                        ['April 13th (Sat) : Match 3', 'Phoenix', 'Fresas'],
-                        ['April 14th (Sun) : Match 1', 'Eclipse', 'Guardians'],
-                        ['April 14th (Sun) : Match 2', 'Polar', 'Outliers'],
-                    ]
-                },
-                {
-                    'week': 9,
-                    'matches': [
-                        ['April 6th (Sat) : Match 1' ,'Eclipse', 'Fresas'],
-                        ['April 6th (Sat) : Match 2', 'Polar', 'Saviors'],
-                        ['April 6th (Sat) : Match 3', 'Instigators', 'Ragu'],
-                        ['April 7th (Sun) : Match 1', 'Outliers', 'Phoenix'],
-                        ['April 7th (Sun) : Match 2', 'Olympians', 'Guardians'],
-                    ]
-                }
             ]
         }
 

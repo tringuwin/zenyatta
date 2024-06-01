@@ -28,8 +28,6 @@ async def check_streamlabs_raffles(db, channel):
         if redeem['status'] == 'Completed':
             completed_redeems.append(redeem)
 
-    print('Total number of completed redeems: '+str(len(completed_redeems)))
-
     constants_db = db['constants']
     last_redeems_obj = constants_db.find_one({'name': 'last_redeems'})
     last_redeem_val = last_redeems_obj['value']
@@ -41,14 +39,10 @@ async def check_streamlabs_raffles(db, channel):
     for redeem in completed_redeems:
 
         redeem_date_raw = redeem['updated_at']
-        print('redeem date is'+str(redeem_date_raw))
         redeem_date = datetime.strptime(redeem_date_raw, "%Y-%m-%dT%H:%M:%S.%fZ")
 
         if redeem_date > last_date:
-            print('is valid')
             valid_date_redeems.append(redeem)
-
-    print('Total number of valid date: '+str(len(valid_date_redeems)))
 
     if len(valid_date_redeems) == 0:
         return
