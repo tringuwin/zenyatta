@@ -1,7 +1,7 @@
 
 
 import discord
-from cards_data import ALL_CARDS, CUSTOM_LIST
+from cards_data import ALL_CARDS
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_username_by_user_id
 from helpers import can_be_int
