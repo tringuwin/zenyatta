@@ -51,7 +51,6 @@ async def standings_handler(db, message, client):
             div_groups[1].append(team)
         elif team['team_name'] in season_object['divs'][2]:
             div_groups[2].append(team)
-    print('div groups is', div_groups)
 
     sorted_teams_1 = sorted(div_groups[0], key=lambda x: x["score"], reverse=True)
     sorted_teams_2 = sorted(div_groups[1], key=lambda x: x["score"], reverse=True)
