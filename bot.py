@@ -1106,7 +1106,7 @@ async def handle_message(message, db, client):
         standings = db['standings']
         new_standings = {
             # [win, loss]
-            'season': 2,
+            'season': 3,
             'teams': {
                 'Olympians': [0, 0],
                 'Polar': [0, 0],
@@ -1117,8 +1117,18 @@ async def handle_message(message, db, client):
                 'Guardians': [0, 0],
                 'Fresas': [0, 0],
                 'Outliers': [0, 0],
-                'Phoenix': [0, 0]
-            }
+                'Phoenix': [0, 0],
+                'Hunters': [0, 0],
+                'Evergreen': [0, 0],
+                'Saturn': [0, 0],
+                'Celestials': [0, 0],
+                'Misfits': [0, 0]
+            },
+            'divs': [
+                ['Olympians', 'Eclipse', 'Phoenix', 'Hunters', 'Fresas'],
+                ['Polar', 'Ragu', 'Outliers', 'Guardians', 'Evergreen'],
+                ['Instigators', 'Saviors', 'Saturn', 'Celestials', 'Misfits']
+            ]
         }
         standings.insert_one(new_standings)
         await message.channel.send('standings initated')
