@@ -1169,7 +1169,7 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!testgetconstant' and is_admin:
         constant_val = get_constant_value(db, 'test_constant')
-        message.channel.send('test constant is: '+constant_val)
+        await message.channel.send('test constant is: '+constant_val)
 
     elif lower_message.startswith('!addwin') and is_admin:
         await add_win_handler(db, message)
