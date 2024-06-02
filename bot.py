@@ -268,8 +268,9 @@ async def handle_message(message, db, client):
     if has_bad_word:
         guild = await get_guild(client)
         helpers_channel = guild.get_channel(constants.HELPERS_CHANNEL)
-        await helpers_channel.send(message.author.name+' was timed out for saying **'+message.content+'**\n\nPlease verify if this timeout was correct and take action on it.')
         await message.author.timeout(timedelta(days=7))
+        await helpers_channel.send(message.author.name+' was timed out for saying **'+message.content+'**\n\nPlease verify if this timeout was correct and take action on it.')
+        await message.delete()
         return
 
     user_message = str(message.content)
