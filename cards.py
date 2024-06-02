@@ -122,7 +122,9 @@ async def init_card_handler(db, message):
         return
 
     user = user_exists(db, user_id_in_card)
+    user_copy_id = 0
     if user:
+        user_copy_id = user_id_in_card
         variant_list = USED_CARD_VARIANTS
         await message.channel.send('User found ('+user['battle_tag']+'), giving them 1 copy.')
         user_cards = get_user_cards(user)
@@ -158,6 +160,17 @@ async def init_card_handler(db, message):
 
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
 
+    constants_db = db['constants']
+    card_owners_obj = constants_db.find_one({'name': 'card_owners'})
+    card_owners_val = card_owners_obj['value']
+    
+    card_owners_val[card_id+'-A'] = user_copy_id
+    for variant in USED_CARD_VARIANTS:
+        card_owners_val[card_id+'-'+variant] = 0
+    card_owners_val[card_id+'-S'] = 0
+
+    constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": card_owners_val}})
+
     await message.channel.send('success')
 
 
@@ -192,6 +205,14 @@ async def init_custom_handler(db, message):
     })
 
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
+
+    constants_db = db['constants']
+    card_owners_obj = constants_db.find_one({'name': 'card_owners'})
+    card_owners_val = card_owners_obj['value']
+    
+    card_owners_val[card_id+'-A'] = 0
+
+    constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": card_owners_val}})
 
     await message.channel.send('success')
 
