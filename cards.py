@@ -333,10 +333,7 @@ async def view_card_handler(client, db, message):
         await message.channel.send('This is a custom card so it only has one variant, "A"')
         return
     
-    card_details = ALL_CARDS[card_id]
-    card_img = card_details['normal_img']
-    if card_variant.upper() == 'S':
-        card_img = card_details['special_img']
+    card_img = get_card_image_by_display(card_id+'-'+card_variant.upper())
 
     card_owner_id = get_card_owner_id(db, card_id+'-'+card_variant.upper())
     owner = 'Not Owned'
