@@ -31,22 +31,14 @@ async def change_pp(db, user, num):
 
 async def give_tokens_command(client, db, user_id, num, message):
 
-    user = None
-    if can_be_int(user_id):
-        user = user_exists(db, int(user_id))
-    if user:
-        await change_tokens(db, user, num)
-        await message.channel.send('Tokens given')
-    else:
-        member = await get_member_by_username(client, user_id)
-        user = None
-        if member:
-            user = user_exists(db, member.id)
-        if user:
-            await change_tokens(db, user, num)
-            await message.channel.send('Tokens given')
-        else:
-            await message.channel.send('Could not find user with that ID')
+    user = generic_find_user(client, db, user_id)
+    if not user:
+        await message.channel.send('Could not find user with that ID')
+        return
+    
+    await change_tokens(db, user, num)
+    await message.channel.send('Tokens given')
+    
 
 async def change_passes(db, user, num):
 
