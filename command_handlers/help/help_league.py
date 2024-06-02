@@ -22,5 +22,6 @@ async def help_league_handler(message):
     help_embed.add_field(name='!toggleapps', value='Admin command to set applications to open or closed for a team.', inline=False)
     help_embed.add_field(name='!pingteam', value='Admin command to ping all members of your league team.', inline=False)
     help_embed.add_field(name='!pruneteam', value='Admin command to remove players from your team that are no longer in this server.', inline=False)
+    help_embed.add_field(name='!leagueorder [spot 1] [spot 2]', value='Admin command to swap the positions of two players in the teams info page.', inline=False)
 
     await message.channel.send(embed=help_embed)
