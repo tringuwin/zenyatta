@@ -64,3 +64,9 @@ def get_constant_value(db, constant_name):
         return None
     
     return constant_obj['value']
+
+def set_constant_value(db, constant_name, new_val):
+
+    constants_db = db['constants']
+    constants_db.update_one({"name": constant_name}, {"$set": {"value": new_val}})
+    

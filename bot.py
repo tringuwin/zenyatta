@@ -163,7 +163,7 @@ from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has
 from helper_handlers.twitch_pack import twitch_pack_handler
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
-from helpers import can_be_int, get_constant_value
+from helpers import can_be_int, get_constant_value, set_constant_value
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
@@ -1170,6 +1170,10 @@ async def handle_message(message, db, client):
     elif lower_message == '!testgetconstant' and is_admin:
         constant_val = get_constant_value(db, 'test_constant')
         await message.channel.send('test constant is: '+constant_val)
+
+    elif lower_message == '!testsetconstant' and is_admin:
+        set_constant_value(db, 'test_constant', 'nuts')
+        await message.channel.send('set test constant')
 
     elif lower_message.startswith('!addwin') and is_admin:
         await add_win_handler(db, message)
