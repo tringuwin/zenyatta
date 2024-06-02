@@ -3,6 +3,7 @@ import constants
 from datetime import datetime
 import pytz
 
+from discord_actions import get_guild
 from server_level import level_to_prize_money, level_to_token_shop_cash
 from shop import update_shop
 
@@ -109,7 +110,7 @@ def been_a_week(db):
 
 
 
-async def check_weekly(db, channel, message):
+async def check_weekly(client, db, channel, message):
 
     week_passed = been_a_week(db)
 
@@ -172,5 +173,8 @@ async def check_weekly(db, channel, message):
     # confirmation message
     await channel.send('Successfully re-stocked token shop!')
 
+    guild = await get_guild(client)
+    announcements_channel = guild.get_channel(constants.ANNOUNCEMENTS_CHANNEL_ID)
+    await announcements_channel.send('<@&1246634634259857459> THE TOKEN SHOP HAS BEEN RE-STOCKED! <#1187062494561325056>')
 
 
