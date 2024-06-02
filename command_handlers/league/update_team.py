@@ -21,6 +21,7 @@ async def update_team(db, team_name, client, message):
     final_team_members = []
     ids_to_remove_team_from = []
     for member in team_object['members']:
+        print('get member')
         try:
             guild_member = await guild.fetch_member(member['discord_id'])
         except discord.NotFound:

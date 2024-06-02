@@ -11,6 +11,19 @@ import random
 import constants
 
 
+def get_card_image_by_display(display):
+
+    display_parts = display.split('-')
+    num_string = display_parts[0]
+    variant_string = display_parts[1]
+
+    card_data = ALL_CARDS[num_string]
+    if variant_string.lower() == 's':
+        return card_data['special_img']
+    
+    return card_data['normal_img']
+
+
 def get_card_owner_id(db, display):
 
     constants_db = db['constants']
@@ -278,13 +291,8 @@ async def open_pack_handler(db, message):
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
 
     assign_owner_to_card(db, removed_item['card_display'], user['discord_id'])
-
-    card_variant = removed_item['variant_id']
-    card_id = removed_item['card_id']
-    if card_variant == 'S':
-        card_img = ALL_CARDS[card_id]['special_img']
-    else:
-        card_img = ALL_CARDS[card_id]['normal_img']
+    
+    card_img = get_card_image_by_display(removed_item['card_display'])
 
     embed = discord.Embed(title='YOU OPENED CARD '+removed_item['card_display'])
     embed.set_image(url=card_img)
