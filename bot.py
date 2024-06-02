@@ -3,6 +3,7 @@ import random
 import time
 import discord
 import aiohttp
+from datetime import timedelta
 from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_battle_handler import force_battle_handler
@@ -242,6 +243,16 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot):
     return False, 'Please only use commands in a valid channel'
 
 
+def bad_work_checker(message_text):
+
+    lower_message = message_text.lower()
+    for bad_word in constants.VERY_BAD_WORD_LIST:
+        if lower_message.find(bad_word) != -1:
+            return True
+        
+    return False
+
+
 async def handle_message(message, db, client):
 
     random_event_chance = random.randint(1, 100)
@@ -251,6 +262,14 @@ async def handle_message(message, db, client):
     channel = str(message.channel)
     if is_dm_channel(message.channel):
         await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
+        return
+    
+    has_bad_word = bad_work_checker(message.content)
+    if has_bad_word:
+        guild = await get_guild(client)
+        helpers_channel = guild.get_channel(constants.HELPERS_CHANNEL)
+        await helpers_channel.send(message.author.name+' was timed out for saying **'+message.content+'**\n\nPlease verify if this timeout was correct and take action on it.')
+        await message.author.timeout(timedelta(days=7))
         return
 
     user_message = str(message.content)

@@ -1,5 +1,5 @@
 
-VERSION = '1.8.88'
+VERSION = '1.8.89'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -325,3 +325,6 @@ TOKEN_SHOP_USD_PRICES = [
     13, # steam card
     0, # 500 pokepoints
 ]
+
+
+VERY_BAD_WORD_LIST = ['nigger', 'nigga', 'hitler', 'faggot', 'retard', 'beaner', 'chink']
