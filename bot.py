@@ -365,6 +365,16 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!forcetwitch ') and is_admin:
         await force_twitch_handler(db, message, client)
 
+    elif lower_message == '!forcetwitchfix' and is_admin:
+
+        users = db['users']
+        all_users = users.find()
+        for user in all_users:
+            if ('twitch' in user) and (not ('twitch_lower' in user)):
+                users.update_one({"discord_id": user['discord_id']}, {"$set": {"twitch_lower": user['twitch'].lower()}})
+
+        await message.channel.send('fix done')
+
     elif lower_message == "!events":
         await events_handler(db, message)
 

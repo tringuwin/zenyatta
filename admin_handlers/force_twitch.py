@@ -21,6 +21,6 @@ async def force_twitch_handler(db, message, client):
     twitch_name = params[2]
     
     users = db['users']
-    users.update_one({"discord_id": pi_pi_chan['discord_id']}, {"$set": {"twitch": twitch_name}})
+    users.update_one({"discord_id": pi_pi_chan['discord_id']}, {"$set": {"twitch": twitch_name, "twitch_lower": twitch_name.lower()}})
 
     await message.channel.send('Twitch set for user.')
