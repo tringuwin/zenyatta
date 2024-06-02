@@ -54,3 +54,13 @@ async def generic_find_user(client, db, user_id):
         user = user_exists(db, member.id)
     
     return user
+
+
+def get_constant_value(db, constant_name):
+
+    constants_db = db['constants']
+    constant_obj = constants_db.find_one({'name': constant_name})
+    if not constant_obj:
+        return None
+    
+    return constant_obj['value']
