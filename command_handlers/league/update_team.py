@@ -8,6 +8,7 @@ from user import user_exists
 
 async def update_team(db, team_name, client, message):
 
+    print('update team started')
     guild = await get_guild(client)
     league_teams = db['leagueteams']
     team_object = league_teams.find_one({'team_name': team_name})
@@ -16,6 +17,7 @@ async def update_team(db, team_name, client, message):
         await message.channel.send('Team not found')
         return
     
+    print('checkpoint 0')
     final_team_members = []
     ids_to_remove_team_from = []
     for member in team_object['members']:
@@ -27,6 +29,8 @@ async def update_team(db, team_name, client, message):
         if guild_member:
             final_team_members.append(member)
 
+    print('checkpoint 1')
+
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": final_team_members}})
 
     users = db['users']
@@ -35,9 +39,10 @@ async def update_team(db, team_name, client, message):
         if user:
             users.update_one({"discord_id": user_id}, {"$set": {"league_team": 'None'}})
 
-
+    print('checkpoint 2')
     team_object['members'] = final_team_members
     await update_team_info(client, team_object, db)
+    print('checkpoint 3')
 
 
 
