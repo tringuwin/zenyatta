@@ -25,6 +25,7 @@ from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.prune_sac import prune_sac_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
+from admin_handlers.sub_rewards import sub_rewards_handler
 from admin_handlers.total_league import total_league_handler
 from auction import check_auction
 from cards import buy_card_handler, card_owners_handler, cards_handler, give_card_handler, init_card_handler, init_custom_handler, list_card_handler, open_pack_handler, sell_card_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
@@ -365,15 +366,8 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!forcetwitch ') and is_admin:
         await force_twitch_handler(db, message, client)
 
-    elif lower_message == '!forcetwitchfix' and is_admin:
-
-        users = db['users']
-        all_users = users.find()
-        for user in all_users:
-            if ('twitch' in user) and (not ('twitch_lower' in user)):
-                users.update_one({"discord_id": user['discord_id']}, {"$set": {"twitch_lower": user['twitch'].lower()}})
-
-        await message.channel.send('fix done')
+    elif lower_message.startswith('!subrewards') and is_admin:
+        await sub_rewards_handler(client, db, message)
 
     elif lower_message == "!events":
         await events_handler(db, message)
