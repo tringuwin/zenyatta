@@ -10,6 +10,14 @@ async def end_reg_handler(db, message):
 
     battle_info = get_constant_value(db, 'battle')
 
+    if not battle_info['battle_on']:
+        await message.channel.send('There is no battle right now.')
+        return    
+    
+    if not battle_info['reg_open']:
+        await message.channel.send('Registration is not open for this battle right now.')
+        return
+
     number_sign_ups = len(battle_info['sign_ups'])
     if number_sign_ups < 9:
         await message.channel.send('There are only '+str(number_sign_ups)+' players signed up for the battle. We need at least 9 players to start.')
