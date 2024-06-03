@@ -108,7 +108,7 @@ from command_handlers.twitch import twitch_handler
 from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
 from poke_data import update_poke_data_db
-from pokemon import add_poke_handler, all_pokes_handler, get_pokedex, get_sort_index, give_pp_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
+from pokemon import add_poke_handler, all_pokes_handler, get_pokedex, get_sort_index, my_pokes_handler, open_poke_handler, sell_poke_handler, view_poke_handler
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
@@ -170,7 +170,7 @@ from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
 from random_event import react_to_event, try_random_event
-from rewards import change_xp, give_eggs_command, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
+from rewards import change_xp, give_eggs_command, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from server_level import server_points_handler
 from streamlabs import check_streamlabs_raffles
 from teams import get_team_by_name
