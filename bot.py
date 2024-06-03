@@ -105,6 +105,8 @@ from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.twitch import twitch_handler
+from command_handlers.xp_battle.battle_teams import battle_teams
+from command_handlers.xp_battle.end_battle import end_battle_handler
 from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
 from poke_data import update_poke_data_db
@@ -771,6 +773,9 @@ async def handle_message(message, db, client):
         await notify_next_users(db, guild, message)
 
 
+    elif lower_message.startswith('!endbattle') and is_admin:
+        await end_battle_handler(db, message)
+
     elif lower_message == '!startbattle' and is_admin:
         await start_battle_handler(db, message, client)
 
@@ -779,6 +784,10 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!endreg' and is_admin:
         await end_reg_handler(db, message)
+
+    elif lower_message == '!battleteams' and is_admin:
+        await battle_teams(db, message)
+
 
     elif lower_message == '!testdata' and is_admin:
 
