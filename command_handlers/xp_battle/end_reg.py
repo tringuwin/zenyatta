@@ -30,6 +30,7 @@ async def end_reg_handler(db, message):
     # while len(current_players) < 9:
 
     battle_info['current_players'] = current_players
+    battle_info['player_pools']['valid_pool'] = valid_players
 
     set_constant_value(db, 'battle', battle_info)
 
