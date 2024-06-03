@@ -34,6 +34,8 @@ async def battle_teams(db, message):
         else:
             red_team.append(removed_user)
 
+        is_blue = not is_blue
+
     battle_info['current_teams'] = {
         'blue': blue_team,
         'red': red_team
@@ -49,7 +51,7 @@ async def battle_teams(db, message):
 
         user_index += 1
 
-    final_string = '\n\n**RED TEAM:**'
+    final_string += '\n\n**RED TEAM:**'
     user_index = 0
     for user_id in red_team:
         user = user_exists(db, user_id)
