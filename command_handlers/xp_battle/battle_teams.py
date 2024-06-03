@@ -39,7 +39,7 @@ async def battle_teams(db, message):
         'red': red_team
     }
 
-    set_constant_value(db, battle_info)
+    set_constant_value(db, 'battle', battle_info)
 
     final_string = '**BLUE TEAM:**'
     user_index = 0
