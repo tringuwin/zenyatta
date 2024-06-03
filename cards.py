@@ -435,6 +435,12 @@ async def give_card_handler(db, message):
 
     card_index = get_card_index(cards, input_card)
     if card_index == -1:
+
+        user_for_sale_cards = get_user_for_sale_cards(user)
+        if input_card in user_for_sale_cards:
+            await message.channel.send('You currently have this card listed on the Card Market! To unlist it, use the command **!unlistcard '+input_card+'**')
+            return
+
         await message.channel.send('I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
         return
     
