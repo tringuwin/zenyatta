@@ -1,8 +1,10 @@
 
 
 from helpers import get_constant_value, set_constant_value
+from user import user_exists
 from xp_battles import init_player_pools
 import random
+
 
 async def end_reg_handler(db, message):
 
@@ -35,3 +37,14 @@ async def end_reg_handler(db, message):
     set_constant_value(db, 'battle', battle_info)
 
     await message.channel.send('Registration ended')
+
+    final_string = '**PLAYERS IN XP BATTLE:**'
+    index = 1
+    for player_id in current_players:
+
+        user = user_exists(db, player_id)
+        final_string += '\n'+str(index)+'. '+user['battle_tag']
+
+        index += 1
+
+    await message.channel.send(final_string)
