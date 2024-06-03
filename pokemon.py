@@ -7,7 +7,7 @@ from discord_actions import get_member_by_username
 from helpers import can_be_int, valid_number_of_params
 import constants
 from poke_data import POKE_SETS
-from rewards import change_pp, change_tokens
+from rewards import change_tokens
 from user import get_user_poke_cards, get_user_poke_points, user_exists
 import random
 import discord
@@ -312,29 +312,3 @@ async def all_pokes_handler(message):
     await message.channel.send(message.author.mention+' See all your Pokemon card here: https://spicyragu.netlify.app/poke/user-cards/'+str(message.author.id))
 
 
-async def give_pp_handler(db, message, client):
-
-    valid_params, params = valid_number_of_params(message, 3)
-    if not valid_params:
-        await message.channel.send('Invalid number of params.')
-        return
-    
-    user_id = params[1]
-    num = int(params[2])
-
-    user = None
-    if can_be_int(user_id):
-        user = user_exists(db, int(user_id))
-    if user:
-        await change_pp(db, user, num)
-        await message.channel.send('PokePoints given')
-    else:
-        member = await get_member_by_username(client, user_id)
-        user = None
-        if member:
-            user = user_exists(db, member.id)
-        if user:
-            await change_pp(db, user, num)
-            await message.channel.send('PokePoints given')
-        else:
-            await message.channel.send('Could not find user with that ID')

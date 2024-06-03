@@ -3,7 +3,7 @@
 from api import give_role, remove_role
 from common_messages import not_registered_response
 from discord_actions import get_guild, get_member_by_username, get_user_from_guild
-from helpers import can_be_int, generic_find_user
+from helpers import can_be_int, generic_find_user, valid_number_of_params
 from user import get_league_team, get_lvl_info, get_user_lootboxes, user_exists
 import constants
 
@@ -62,6 +62,26 @@ async def give_passes_command(client, db, user_id, num, message):
     await change_passes(db, user, num)
     await message.channel.send('Passes given')
 
+
+async def give_pp_handler(db, message, client):
+
+    valid_params, params = valid_number_of_params(message, 3)
+    if not valid_params:
+        await message.channel.send('Invalid number of params.')
+        return
+    
+    user_id = params[1]
+    num = int(params[2])
+
+    user = await generic_find_user(client, db, user_id)
+    if not user:
+        await message.channel.send('Could not find user with that ID')
+        return
+    
+    await change_pp(db, user, num)
+    await message.channel.send('PokePoints given')
+
+    
 
 async def sell_pass_for_tokens(db, message):
 
