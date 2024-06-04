@@ -280,6 +280,17 @@ def get_user_pokedex(user):
     
     return 0
 
+def get_user_wlt(user):
+
+    if 'wlt' in user:
+        return user['wlt']
+    
+    return {
+        'w': 0,
+        'l': 0,
+        't': 0
+    }
+
 def toggle_off_gift_notify(db, user):
 
     users = db['users']
