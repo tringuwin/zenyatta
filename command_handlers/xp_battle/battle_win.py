@@ -13,7 +13,7 @@ async def battle_win_handler(db, message):
     
     team_winner = params[1].lower()
     if team_winner != 'red' and team_winner != 'blue' and team_winner != 'tie':
-        await message.channel.send('Invalid team name. Must be red or blue.')
+        await message.channel.send('Invalid team name. Must be red, blue or tie.')
         return
 
     battle_info = get_constant_value(db, 'battle')
@@ -25,6 +25,9 @@ async def battle_win_handler(db, message):
             players_in_battle.append(user_id)
 
     battle_info['past_players'].append(players_in_battle)
+
+    battle_info['battle_on'] = False
+    battle_info['reg_open'] = False
 
     set_constant_value(db, 'battle', battle_info)
 
