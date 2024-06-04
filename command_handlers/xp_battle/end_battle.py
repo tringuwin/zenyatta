@@ -21,3 +21,4 @@ async def end_battle_handler(db, message):
     set_constant_value(db, 'battle', battle_info)
 
     await message.channel.send('Battle ended.')
+    
