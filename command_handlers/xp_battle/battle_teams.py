@@ -6,7 +6,7 @@ import random
 from user import user_exists
 
 
-async def battle_teams(db, message):
+async def battle_teams_handler(db, message):
 
     battle_info = get_constant_value(db, 'battle')
 

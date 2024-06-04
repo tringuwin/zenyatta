@@ -105,7 +105,8 @@ from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.twitch import twitch_handler
-from command_handlers.xp_battle.battle_teams import battle_teams
+from command_handlers.xp_battle.battle_teams import battle_teams_handler
+from command_handlers.xp_battle.battle_win import battle_win_handler
 from command_handlers.xp_battle.end_battle import end_battle_handler
 from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
@@ -786,7 +787,10 @@ async def handle_message(message, db, client):
         await end_reg_handler(db, message)
 
     elif lower_message == '!battleteams' and is_admin:
-        await battle_teams(db, message)
+        await battle_teams_handler(db, message)
+
+    elif lower_message.startswith('!battlewin') and is_admin:
+        await battle_win_handler(db, message)
 
 
     elif lower_message == '!testdata' and is_admin:
