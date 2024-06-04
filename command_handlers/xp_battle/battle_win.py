@@ -32,7 +32,7 @@ async def battle_win_handler(db, message):
     if team_winner == 'tie':
 
         for user_id in players_in_battle:
-            user = user_exists(user_id)
+            user = user_exists(db, user_id)
             user_wlt = get_user_wlt(user)
             user_wlt['t'] += 1
             users.update_one({"discord_id": user['discord_id']}, {"$set": {"wlt": user_wlt}})
@@ -46,13 +46,13 @@ async def battle_win_handler(db, message):
             lose_team = battle_info['current_teams']['blue']
 
         for user_id in win_team:
-            user = user_exists(user_id)
+            user = user_exists(db, user_id)
             user_wlt = get_user_wlt(user)
             user_wlt['w'] += 1
             users.update_one({"discord_id": user['discord_id']}, {"$set": {"wlt": user_wlt}})
 
         for user_id in lose_team:
-            user = user_exists(user_id)
+            user = user_exists(db, user_id)
             user_wlt = get_user_wlt(user)
             user_wlt['l'] += 1
             users.update_one({"discord_id": user['discord_id']}, {"$set": {"wlt": user_wlt}})
