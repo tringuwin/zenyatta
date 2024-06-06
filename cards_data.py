@@ -2784,6 +2784,12 @@ ALL_CARDS = {
         'special_img': 'https://i.imgur.com/pzsffp8.png',
         'custom': True
     },
+    '519': {
+        'player_id': ALL_PLAYERS['aspect'],
+        'normal_img': 'https://i.imgur.com/yniP89W.png',
+        'special_img': 'https://i.imgur.com/yniP89W.png',
+        'custom': True
+    }
 
 }
 
