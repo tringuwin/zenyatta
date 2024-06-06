@@ -19,6 +19,10 @@ async def battle_win_handler(db, message):
 
     battle_info = get_constant_value(db, 'battle')
 
+    if not battle_info['battle_on']:
+        await message.channel.send('There is no battle right now.')
+        return
+
     players_in_battle = []
     for team_name in battle_info['current_teams']:
         team = battle_info['current_teams'][team_name]
