@@ -818,7 +818,7 @@ async def handle_message(message, db, client):
         await message.channel.send('test data set')
 
     elif lower_message.startswith('!newbet') and is_admin:
-        # !newbets|title|home team name|away team name
+        # !newbets|title|home team name|away team name|uses home/away boolean (0/1)
         await new_bet_handler(db, message, client)
 
 

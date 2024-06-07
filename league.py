@@ -51,6 +51,10 @@ team_name_to_color = {
     'Hunters': discord.Colour(0x41564e)
 }
 
+def get_team_color_by_name(team_name):
+
+    return team_name_to_color(team_name)
+
 team_name_to_thumbnail = {
     'Polar': 'https://i.imgur.com/mkbwgaD.png',
     'Olympians': 'https://i.imgur.com/rx8y0DM.png',
