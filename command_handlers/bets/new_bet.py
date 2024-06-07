@@ -54,8 +54,12 @@ async def new_bet_handler(db, message, client):
     team_2_emoji = guild.get_emoji(team_2_emoji_id)
 
     team_1_embed = discord.Embed(title='HOME TEAM: '+str(team_1_emoji)+' '+team_1_name, color=get_team_color_by_name(team_1_name))
+    team_1_embed.add_field(name="Tokens Bet On Team:", value="🪙 0", inline=True)
+    team_1_embed.add_field(name="Payout Rate:", value="1:0.9", inline=True)
     await bet_channel.send(embed=team_1_embed)
     team_2_embed = discord.Embed(title='AWAY TEAM: '+str(team_2_emoji)+' '+team_2_name, color=get_team_color_by_name(team_2_name))
+    team_2_embed.add_field(name="Tokens Bet On Team:", value="🪙 0", inline=True)
+    team_2_embed.add_field(name="Payout Rate:", value="1:0.9", inline=True)
     await bet_channel.send(embed=team_2_embed)
 
 
