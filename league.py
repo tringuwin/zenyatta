@@ -53,7 +53,7 @@ team_name_to_color = {
 
 def get_team_color_by_name(team_name):
 
-    return team_name_to_color(team_name)
+    return team_name_to_color[team_name]
 
 team_name_to_thumbnail = {
     'Polar': 'https://i.imgur.com/mkbwgaD.png',
