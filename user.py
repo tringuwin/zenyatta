@@ -291,6 +291,13 @@ def get_user_wlt(user):
         't': 0
     }
 
+def get_user_bets(user):
+
+    if 'bets' in user:
+        return user['bets']
+    
+    return []
+
 def toggle_off_gift_notify(db, user):
 
     users = db['users']
