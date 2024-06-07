@@ -81,3 +81,53 @@ async def new_bet_handler(db, message, client):
     bets.insert_one(bet_obj)
 
     await message.channel.send('Bet created.')
+
+
+def total_tokens_on_team(betters):
+
+    total = 0
+    for better_id in betters:
+
+        better = betters[better_id]
+        total += better['tokens']
+
+    return total
+
+
+async def update_bets(db, channel, client):
+
+    await channel.send('Starting to update bets')
+
+    guild = await get_guild(client)
+    bet_channel = guild.get_channel(constants.BET_CHANNEL_ID)
+
+    bets = db['bets']
+    all_bets = bets.find()
+    for bet in all_bets:
+
+        team_1_name = bet['team_1']
+        team_1_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_1_name]
+        team_1_emoji = guild.get_emoji(team_1_emoji_id)
+
+        bet_msg_1 = await bet_channel.fetch_message(bet['team_1_msg'])
+        new_embed_1 = discord.Embed(title='HOME TEAM: '+str(team_1_emoji)+' '+team_1_name, color=get_team_color_by_name(team_1_name))
+        new_embed_1.add_field(name="Total Tokens Bet On Team", value="🪙 "+str(total_tokens_on_team(bet['team_1_betters'])), inline=False)
+        new_embed_1.add_field(name="Current Payout Rate", value="1:0.9", inline=False)
+        new_embed_1.add_field(name="Team Season Record", value=get_team_record_string(db, team_1_name), inline=False)
+        new_embed_1.add_field(name="Command to Bet", value='!bet '+team_1_name+' [number of tokens]', inline=False)
+        await bet_msg_1.edit(embed=new_embed_1, content='')
+
+        team_2_name = bet['team_2']
+        team_2_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_2_name]
+        team_2_emoji = guild.get_emoji(team_2_emoji_id)
+
+        bet_msg_2 = await bet_channel.fetch_message(bet['team_2_msg'])
+        new_embed_2 = discord.Embed(title='HOME TEAM: '+str(team_2_emoji)+' '+team_2_name, color=get_team_color_by_name(team_2_name))
+        new_embed_2.add_field(name="Total Tokens Bet On Team", value="🪙 "+str(total_tokens_on_team(bet['team_2_betters'])), inline=False)
+        new_embed_2.add_field(name="Current Payout Rate", value="1:0.9", inline=False)
+        new_embed_2.add_field(name="Team Season Record", value=get_team_record_string(db, team_2_name), inline=False)
+        new_embed_2.add_field(name="Command to Bet", value='!bet '+team_2_name+' [number of tokens]', inline=False)
+        await bet_msg_2.edit(embed=new_embed_2, content='')
+
+
+    await channel.send('Updated bets')
