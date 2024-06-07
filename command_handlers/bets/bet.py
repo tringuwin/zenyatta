@@ -91,7 +91,7 @@ async def bet_handler(db, message):
         
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"bets": user_bets}})
         
-        bet_obj[betters][str(users['discord_id'])]['tokens'] += tokens_to_bet
+        bet_obj[betters][str(user['discord_id'])]['tokens'] += tokens_to_bet
         bets.update_one({'bet_id': bet_obj['bet_id']}, {"$set": {betters: bet_obj[betters]}})
 
     else:
