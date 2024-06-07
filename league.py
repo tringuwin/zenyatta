@@ -146,3 +146,12 @@ def user_admin_on_team(user_id, league_team):
                 return False
 
     return False
+
+
+def get_team_record_string(db, team_name):
+
+    standings = db['standings']
+    standings_obj = standings.find_one({'season': constants.LEAGUE_SEASON})
+
+    team_record = standings_obj['teams'][team_name]
+    return 'W: '+str(team_record[0])+' L: '+str(team_record[1])
