@@ -44,7 +44,7 @@ async def new_bet_handler(db, message, client):
     bet_channel = guild.get_channel(constants.BET_CHANNEL_ID)
 
     title = bet_parts[1]
-    title_msg = await bet_channel.send(title)
+    title_msg = await bet_channel.send('**'+title+'**')
 
 
     team_1_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_1_name]
