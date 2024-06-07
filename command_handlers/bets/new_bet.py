@@ -56,12 +56,12 @@ async def new_bet_handler(db, message, client):
     team_1_embed = discord.Embed(title='HOME TEAM: '+str(team_1_emoji)+' '+team_1_name, color=get_team_color_by_name(team_1_name))
     team_1_embed.add_field(name="Total Tokens Bet On Team", value="🪙 0", inline=False)
     team_1_embed.add_field(name="Current Payout Rate", value="1:0.9", inline=False)
-    team_1_embed.add_field(name="Team Season Record", value=get_team_record_string(team_1_name), inline=False)
+    team_1_embed.add_field(name="Team Season Record", value=get_team_record_string(db, team_1_name), inline=False)
     await bet_channel.send(embed=team_1_embed)
     team_2_embed = discord.Embed(title='AWAY TEAM: '+str(team_2_emoji)+' '+team_2_name, color=get_team_color_by_name(team_2_name))
     team_2_embed.add_field(name="Total Tokens Bet On Team", value="🪙 0", inline=False)
     team_2_embed.add_field(name="Current Payout Rate", value="1:0.9", inline=False)
-    team_2_embed.add_field(name="Team Season Record", value=get_team_record_string(team_2_name), inline=False)
+    team_2_embed.add_field(name="Team Season Record", value=get_team_record_string(db, team_2_name), inline=False)
     await bet_channel.send(embed=team_2_embed)
 
     bet_obj = {
