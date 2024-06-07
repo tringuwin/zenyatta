@@ -37,7 +37,7 @@ from command_handlers.auction.start_auction import start_auction_handler
 from command_handlers.auction_timer import auction_timer_handler
 from command_handlers.bandforband import band_for_band_handler
 from command_handlers.bets.bet import bet_handler
-from command_handlers.bets.new_bet import new_bet_handler
+from command_handlers.bets.new_bet import new_bet_handler, update_bets
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.bracket import bracket_handler
 from command_handlers.buy_ticket import buy_ticket_handler
@@ -1682,6 +1682,8 @@ async def handle_message(message, db, client):
         await check_token_issue(db, message.channel)
 
         await check_streamlabs_raffles(db, message.channel)
+
+        await update_bets(db, message.channel, client)
 
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
