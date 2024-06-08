@@ -96,6 +96,9 @@ def total_tokens_on_team(betters):
 
 def get_team_payout_rate(my_total, other_total):
 
+    if other_total == 0:
+        return 1.9
+
     paid_per_token = other_total/my_total
     paid_per_token = float(paid_per_token) * 0.95
 
