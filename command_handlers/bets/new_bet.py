@@ -134,7 +134,7 @@ async def update_bets(db, channel, client):
         await bet_msg_1.edit(embed=new_embed_1, content='')
 
         bet_msg_2 = await bet_channel.fetch_message(bet['team_2_msg'])
-        new_embed_2 = discord.Embed(title='HOME TEAM: '+str(team_2_emoji)+' '+team_2_name, color=get_team_color_by_name(team_2_name))
+        new_embed_2 = discord.Embed(title='AWAY TEAM: '+str(team_2_emoji)+' '+team_2_name, color=get_team_color_by_name(team_2_name))
         new_embed_2.add_field(name="Total Tokens Bet On Team", value="🪙 "+str(team_2_total), inline=False)
         new_embed_2.add_field(name="Current Payout Rate", value="1:"+str(get_team_payout_rate(team_2_total, team_1_total)), inline=False)
         new_embed_2.add_field(name="Team Season Record", value=get_team_record_string(db, team_2_name), inline=False)
