@@ -25,6 +25,7 @@ async def my_bets_handler(db, message):
         bet_obj = bets.find_one({'bet_id': bet['bet_id']})
         bet_string += bet['team']+' | 🪙 '+str(bet['tokens'])
 
+        final_string += bet_string
 
 
     await message.channel.send(final_string)
