@@ -101,6 +101,7 @@ def get_team_payout_rate(my_total, other_total):
 
     paid_per_token = other_total/my_total
     paid_per_token = float(paid_per_token) * 0.95
+    paid_per_token += 1
 
     return round(paid_per_token, 3)
 
