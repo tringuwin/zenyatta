@@ -43,7 +43,7 @@ async def my_bets_handler(db, message, client):
 
         team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[bet['team']]
         team_emoji = guild.get_emoji(team_emoji_id)
-        bet_string += str(team_emoji)+' '+bet['team']+' | 🪙 '+str(bet['tokens'])+' | Potential Payout: '+str(payout)
+        bet_string += str(team_emoji)+' '+bet['team']+' | 🪙 '+str(bet['tokens'])+' | Potential Payout: 🪙 '+str(payout)
 
         final_string += bet_string
 

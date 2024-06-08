@@ -55,13 +55,13 @@ async def new_bet_handler(db, message, client):
 
     team_1_embed = discord.Embed(title='HOME TEAM: '+str(team_1_emoji)+' '+team_1_name, color=get_team_color_by_name(team_1_name))
     team_1_embed.add_field(name="Total Tokens Bet On Team", value="🪙 0", inline=False)
-    team_1_embed.add_field(name="Current Payout Rate", value="1:1.9", inline=False)
+    team_1_embed.add_field(name="Current Payout Rate", value="1:1", inline=False)
     team_1_embed.add_field(name="Team Season Record", value=get_team_record_string(db, team_1_name), inline=False)
     team_1_embed.add_field(name="Command to Bet", value='!bet '+team_1_name+' [number of tokens]', inline=False)
     team_1_msg = await bet_channel.send(embed=team_1_embed)
     team_2_embed = discord.Embed(title='AWAY TEAM: '+str(team_2_emoji)+' '+team_2_name, color=get_team_color_by_name(team_2_name))
     team_2_embed.add_field(name="Total Tokens Bet On Team", value="🪙 0", inline=False)
-    team_2_embed.add_field(name="Current Payout Rate", value="1:1.9", inline=False)
+    team_2_embed.add_field(name="Current Payout Rate", value="1:1", inline=False)
     team_2_embed.add_field(name="Team Season Record", value=get_team_record_string(db, team_2_name), inline=False)
     team_2_embed.add_field(name="Command to Bet", value='!bet '+team_2_name+' [number of tokens]', inline=False)
     team_2_msg = await bet_channel.send(embed=team_2_embed)
@@ -97,7 +97,7 @@ def total_tokens_on_team(betters):
 def get_team_payout_rate(my_total, other_total):
 
     if other_total == 0 or my_total == 0:
-        return 1.9
+        return 1
 
     paid_per_token = other_total/my_total
     paid_per_token = float(paid_per_token) * 0.95
