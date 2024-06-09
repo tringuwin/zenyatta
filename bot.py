@@ -37,6 +37,7 @@ from command_handlers.auction.start_auction import start_auction_handler
 from command_handlers.auction_timer import auction_timer_handler
 from command_handlers.bandforband import band_for_band_handler
 from command_handlers.bets.bet import bet_handler
+from command_handlers.bets.finish_bet import finish_bet_handler
 from command_handlers.bets.my_bets import my_bets_handler
 from command_handlers.bets.new_bet import new_bet_handler, update_bets
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
@@ -828,6 +829,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!mybets':
         await my_bets_handler(db, message, client) 
+
+    elif lower_message == '!finishbet':
+        await finish_bet_handler(db, message, client)
 
     elif lower_message.startswith('!forcebattle') and is_admin:
         await force_battle_handler(db, message, client)
