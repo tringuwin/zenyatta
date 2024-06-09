@@ -58,7 +58,7 @@ async def finish_bet_handler(db, message, client):
         user = user_exists(db, int(winner_id))
         if user:
 
-            await message.channel.send('Giving '+str(tokens_to_win)+' tokens to '+user['battle_tag'])
+            print('Giving '+str(tokens_to_win)+' tokens to '+user['battle_tag'])
 
     await message.channel.send('Bet payout complete')
 
