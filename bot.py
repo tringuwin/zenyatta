@@ -830,7 +830,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!mybets':
         await my_bets_handler(db, message, client) 
 
-    elif lower_message == '!finishbet':
+    elif lower_message.startswith('!finishbet') and is_admin:
         await finish_bet_handler(db, message, client)
 
     elif lower_message.startswith('!forcebattle') and is_admin:
