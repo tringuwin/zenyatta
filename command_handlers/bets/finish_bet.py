@@ -4,6 +4,7 @@ from command_handlers.bets.new_bet import get_team_payout_rate, total_tokens_on_
 from helpers import can_be_int, valid_number_of_params
 import math
 
+from rewards import change_tokens
 from user import user_exists
 
 async def finish_bet_handler(db, message, client):
@@ -57,8 +58,8 @@ async def finish_bet_handler(db, message, client):
 
         user = user_exists(db, int(winner_id))
         if user:
-
             print('Giving '+str(tokens_to_win)+' tokens to '+user['battle_tag'])
+            change_tokens(db, user, tokens_to_win)
 
     await message.channel.send('Bet payout complete')
 
