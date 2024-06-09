@@ -28,6 +28,8 @@ async def my_bets_handler(db, message, client):
     for bet in user_bets:
         bet_string = '\n'+str(index)+'. '
         bet_obj = bets.find_one({'bet_id': bet['bet_id']})
+        if not bet_obj:
+            continue
 
         my_betters = 'team_1_betters'
         other_betters = 'team_2_betters'
