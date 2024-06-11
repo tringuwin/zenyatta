@@ -40,6 +40,7 @@ from command_handlers.bets.bet import bet_handler
 from command_handlers.bets.finish_bet import finish_bet_handler
 from command_handlers.bets.my_bets import my_bets_handler
 from command_handlers.bets.new_bet import new_bet_handler, update_bets
+from command_handlers.bets.void_bet import void_bet_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.bracket import bracket_handler
 from command_handlers.buy_ticket import buy_ticket_handler
@@ -832,6 +833,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!finishbet') and is_admin:
         await finish_bet_handler(db, message, client)
+
+    elif lower_message.startswith('!voidbet') and is_admin:
+        await void_bet_handler(db, message, client)
 
     elif lower_message.startswith('!forcebattle') and is_admin:
         await force_battle_handler(db, message, client)
