@@ -1,11 +1,13 @@
 
 
 from command_handlers.bets.new_bet import get_team_payout_rate, total_tokens_on_team
+from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
 import math
 
 from rewards import change_tokens
-from user import user_exists
+from user import get_user_bets, user_exists
+import constants
 
 async def finish_bet_handler(db, message, client):
 
@@ -61,5 +63,42 @@ async def finish_bet_handler(db, message, client):
             print('Giving '+str(tokens_to_win)+' tokens to '+user['battle_tag'])
             await change_tokens(db, user, tokens_to_win)
 
-    await message.channel.send('Bet payout complete')
 
+    users = db['users']
+    for winner_id in winning_betters:
+        user = user_exists(db, int(winner_id))
+        if user:
+            user_bets = get_user_bets(user)
+            if len(user_bets) == 0:
+                continue
+
+            final_user_bets = []
+            for user_bet in user_bets:
+                if user_bet['bet_id'] != bet_id:
+                    final_user_bets.append(user_bet)
+
+            users.update_one({"discord_id": user['discord_id']}, {"$set": {"bets": final_user_bets}})
+    for loser_id in losing_betters:
+        user = user_exists(db, int(loser_id))
+        if user:
+            user_bets = get_user_bets(user)
+            if len(user_bets) == 0:
+                continue
+
+            final_user_bets = []
+            for user_bet in user_bets:
+                if user_bet['bet_id'] != bet_id:
+                    final_user_bets.append(user_bet)
+
+            users.update_one({"discord_id": user['discord_id']}, {"$set": {"bets": final_user_bets}})
+
+    guild = await get_guild(client)
+    bet_channel = guild.get_channel(constants.BET_CHANNEL_ID)
+
+    bet_msg_title = await bet_channel.fetch_message(bet['bet_id'])
+    bet_msg_1 = await bet_channel.fetch_message(bet['team_1_msg'])
+    bet_msg_2 = await bet_channel.fetch_message(bet['team_2_msg'])
+
+    bets.delete_one({'bet_id': bet_id})
+
+    await message.channel.send('Bet payout complete')

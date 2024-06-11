@@ -104,7 +104,7 @@ ALL_PLAYERS = {
     'mike': 795569525612478484,
     'alpha': 0,
     'tottalgamer': 1020433445219991573,
-    'aslenn': 0,
+    'aslenn': 1096178289854398515,
     'babybubbles': 0,
     'aqua': 954155303237202000,
     'coochiebear': 1018032200446394408,
