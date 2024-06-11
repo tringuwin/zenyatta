@@ -98,6 +98,9 @@ async def finish_bet_handler(db, message, client):
     bet_msg_title = await bet_channel.fetch_message(bet['bet_id'])
     bet_msg_1 = await bet_channel.fetch_message(bet['team_1_msg'])
     bet_msg_2 = await bet_channel.fetch_message(bet['team_2_msg'])
+    await bet_msg_title.delete()
+    await bet_msg_1.delete()
+    await bet_msg_2.delete()
 
     bets.delete_one({'bet_id': bet_id})
 
