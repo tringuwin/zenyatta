@@ -3042,8 +3042,8 @@ ALL_CARDS = {
     },
     '564': {
         'player_id': ALL_PLAYERS['requiem'],
-        'normal_img': 'https://i.imgur.com/mt7W5kD.jpeg',
-        'special_img': 'https://i.imgur.com/zwOjivv.jpeg'
+        'normal_img': 'https://i.imgur.com/4onPFLZ.jpeg',
+        'special_img': 'https://i.imgur.com/PsRLLeR.jpeg'
     },
     '565': {
         'player_id': ALL_PLAYERS['chris'],
