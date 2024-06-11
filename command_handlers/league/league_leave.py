@@ -25,6 +25,10 @@ async def league_leave_handler(db, message, client):
         await message.channel.send('ERROR LEAVING TEAM: PLEASE CONTACT STAFF')
         return
     
+    if team_object['owner_id'] == message.author.id:
+        await message.channel.send('You cannot use this command because you own this team. Please contact the league commissioner to change ownership.')
+        return
+    
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": 'None'}})
     
