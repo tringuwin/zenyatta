@@ -2821,8 +2821,8 @@ ALL_CARDS = {
     },
     '520': {
         'player_id': ALL_PLAYERS['aspect'],
-        'normal_img': '',
-        'special_img': '',
+        'normal_img': 'https://i.imgur.com/yniP89W.png',
+        'special_img': 'https://i.imgur.com/yniP89W.png',
         'custom': True
     },
     '521': {
