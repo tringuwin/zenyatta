@@ -833,6 +833,17 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!finishbet') and is_admin:
         await finish_bet_handler(db, message, client)
 
+    elif lower_message == '!fixbets':
+
+        users = db['users']
+        all_users = users.find()
+        for user in all_users:
+
+            if 'bets' in user:
+                users.update_one({"discord_id": user['discord_id']}, {"$set": {"bets": []}})
+
+        await message.channel.send('script done')
+
     elif lower_message.startswith('!forcebattle') and is_admin:
         await force_battle_handler(db, message, client)
 
