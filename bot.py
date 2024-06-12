@@ -110,6 +110,7 @@ from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.twitch import twitch_handler
+from command_handlers.xp_battle.battle_no_show import battle_no_show_handler
 from command_handlers.xp_battle.battle_teams import battle_teams_handler
 from command_handlers.xp_battle.battle_win import battle_win_handler
 from command_handlers.xp_battle.end_battle import end_battle_handler
@@ -787,6 +788,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!hm' and is_admin:
         await how_many_handler(db, message)
+
+    elif lower_message.startswith('!bns') and is_admin:
+        await battle_no_show_handler(db, message)
 
     elif lower_message == '!endreg' and is_admin:
         await end_reg_handler(db, message)
