@@ -51,7 +51,7 @@ async def battle_teams_handler(db, message):
     user_index = 0
     for user_id in blue_team:
         if user_id == -1:
-            final_string += '\n'+'BOT 🤖'
+            final_string += '\n'+str(user_index)+'. '+'BOT 🤖'
         else:
             user = user_exists(db, user_id)
             final_string += '\n'+str(user_index)+'. '+user['battle_tag']
@@ -62,7 +62,7 @@ async def battle_teams_handler(db, message):
     user_index = 0
     for user_id in red_team:
         if user_id == -1:
-            final_string += '\n'+'BOT 🤖'
+            final_string += '\n'+str(user_index)+'. '+'BOT 🤖'
         else:
             user = user_exists(db, user_id)
             final_string += '\n'+str(user_index)+'. '+user['battle_tag']

@@ -36,7 +36,7 @@ async def battle_no_show_handler(db, message):
         for player_id in battle_obj['current_players']:
 
             if player_id == -1:
-                final_string += '\n'+'BOT 🤖'
+                final_string += '\n'+str(index)+'. '+'BOT 🤖'
             else:
                 user = user_exists(db, player_id)
                 final_string += '\n'+str(index)+'. '+user['battle_tag']
