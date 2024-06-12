@@ -41,6 +41,8 @@ async def battle_win_handler(db, message, client):
     if team_winner == 'tie':
 
         for user_id in players_in_battle:
+            if user_id == -1:
+                continue
             user = user_exists(db, user_id)
             user_wlt = get_user_wlt(user)
             user_wlt['t'] += 1
@@ -56,6 +58,8 @@ async def battle_win_handler(db, message, client):
             lose_team = battle_info['current_teams']['blue']
 
         for user_id in win_team:
+            if user_id == -1:
+                continue
             user = user_exists(db, user_id)
             user_wlt = get_user_wlt(user)
             user_wlt['w'] += 1
@@ -63,6 +67,8 @@ async def battle_win_handler(db, message, client):
             await change_xp(db, user, XP_PER_WIN, client)
 
         for user_id in lose_team:
+            if user_id == -1:
+                continue
             user = user_exists(db, user_id)
             user_wlt = get_user_wlt(user)
             user_wlt['l'] += 1
