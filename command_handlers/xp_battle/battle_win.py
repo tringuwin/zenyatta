@@ -2,10 +2,15 @@
 
 from common_messages import invalid_number_of_params
 from helpers import get_constant_value, set_constant_value, valid_number_of_params
+from rewards import change_xp
 from user import get_user_wlt, user_exists
 
 
-async def battle_win_handler(db, message):
+XP_PER_WIN = 0
+XP_PER_LOSS = 0
+XP_PER_TIE = 0
+
+async def battle_win_handler(db, message, client):
 
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
@@ -40,6 +45,7 @@ async def battle_win_handler(db, message):
             user_wlt = get_user_wlt(user)
             user_wlt['t'] += 1
             users.update_one({"discord_id": user['discord_id']}, {"$set": {"wlt": user_wlt}})
+            await change_xp(db, user, XP_PER_TIE, client)
 
     else:
         
@@ -54,12 +60,14 @@ async def battle_win_handler(db, message):
             user_wlt = get_user_wlt(user)
             user_wlt['w'] += 1
             users.update_one({"discord_id": user['discord_id']}, {"$set": {"wlt": user_wlt}})
+            await change_xp(db, user, XP_PER_WIN, client)
 
         for user_id in lose_team:
             user = user_exists(db, user_id)
             user_wlt = get_user_wlt(user)
             user_wlt['l'] += 1
             users.update_one({"discord_id": user['discord_id']}, {"$set": {"wlt": user_wlt}})
+            await change_xp(db, user, XP_PER_LOSS, client)
 
 
     battle_info['battle_on'] = False

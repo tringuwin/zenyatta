@@ -795,7 +795,7 @@ async def handle_message(message, db, client):
         await battle_teams_handler(db, message)
 
     elif lower_message.startswith('!battlewin') and is_admin:
-        await battle_win_handler(db, message)
+        await battle_win_handler(db, message, client)
 
 
     elif lower_message == '!testdata' and is_admin:
