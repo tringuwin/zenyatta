@@ -3,7 +3,8 @@
 from helpers import get_constant_value, set_constant_value
 import random
 
-from user import user_exists
+from user import get_user_wlt, user_exists
+import constants
 
 
 async def battle_teams_handler(db, message):
@@ -16,29 +17,63 @@ async def battle_teams_handler(db, message):
 
     current_players = battle_info['current_players']
 
+    current_players.append(constants.SPICY_RAGU_ID)
+
+    players_with_wlt = []
+    for player_id in current_players:
+        if player_id == -1:
+            players_with_wlt.append({'user_id': player_id, 'ratio': -1.0})
+        else:
+            user = user_exists(db, player_id)
+            wlt = get_user_wlt(user)
+            ratio = None
+            if wlt['w'] == 0:
+                ratio = 0.0
+            else:
+                ratio =  wlt['w'] / (wlt['w']+wlt['l'])
+            players_with_wlt.append({'user_id': player_id, 'ratio': ratio})
+
+    sorted_players = sorted(players_with_wlt, key=lambda x: x['ratio'], reverse=True)
+        
+    team_1 = []
+    team_2 = []
+
+    team_val = 1
+    for sorted_player in sorted_players:
+
+        if team_val == 1:
+            team_1.append(sorted_player['user_id'])
+            team_val = 2
+        else:
+            team_2.append(sorted_player['user_id'])
+            team_val = 1
+
+    # put spicy first
+    index = 0
+    for team_player in team_1:
+        if team_player == constants.SPICY_RAGU_ID:
+            if index != 0:
+                team_1[index] = team_1[0]
+                team_1[0] = constants.SPICY_RAGU_ID
+                break
+    for team_player in team_2:
+        if team_player == constants.SPICY_RAGU_ID:
+            if index != 0:
+                team_2[index] = team_2[0]
+                team_2[0] = constants.SPICY_RAGU_ID
+                break
+
+
     blue_team = []
     red_team = []
-    
-    spicy_team = random.choice(['blue', 'red'])
-    first_user = current_players.pop(0)
-    if spicy_team == 'blue':
-        blue_team.append(1112204092723441724)
-        red_team.append(first_user)
+
+    team_1_color = random.choice(['blue', 'red'])
+    if team_1_color == 'red':
+        red_team = team_1
+        blue_team = team_2
     else:
-        red_team.append(1112204092723441724)
-        blue_team.append(first_user)
-
-    is_blue = True
-    while len(current_players) > 0:
-        index = random.randint(0, len(current_players) - 1) 
-        removed_user = current_players.pop(index)
-
-        if is_blue:
-            blue_team.append(removed_user)
-        else:
-            red_team.append(removed_user)
-
-        is_blue = not is_blue
+        red_team = team_2
+        blue_team = team_1
 
     battle_info['current_teams'] = {
         'blue': blue_team,
