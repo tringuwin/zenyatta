@@ -27,8 +27,8 @@ async def battle_teams_handler(db, message):
             user = user_exists(db, player_id)
             wlt = get_user_wlt(user)
             ratio = None
-            if wlt['w'] == 0:
-                ratio = 0.0
+            if wlt['w'] == 0 and wlt['l'] == 0:
+                ratio = 0.5
             else:
                 ratio =  wlt['w'] / (wlt['w']+wlt['l'])
             players_with_wlt.append({'user_id': player_id, 'ratio': ratio})
@@ -56,12 +56,15 @@ async def battle_teams_handler(db, message):
                 team_1[index] = team_1[0]
                 team_1[0] = constants.SPICY_RAGU_ID
                 break
+        index += 1
+    index = 0
     for team_player in team_2:
         if team_player == constants.SPICY_RAGU_ID:
             if index != 0:
                 team_2[index] = team_2[0]
                 team_2[0] = constants.SPICY_RAGU_ID
                 break
+        index += 1
 
 
     blue_team = []
