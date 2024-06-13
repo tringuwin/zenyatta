@@ -1031,6 +1031,9 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!buycard '):
         await buy_card_handler(db, message)
 
+    elif lower_message == '!gallery':
+        await message.channel.send('Check out the full SOL Card Gallery here: https://spicyragu.netlify.app/sol/apply/gallery')
+
     elif lower_message == '!openpack':
         await open_pack_handler(db, message)
 
