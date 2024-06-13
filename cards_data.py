@@ -1207,253 +1207,253 @@ ALL_CARDS = {
     },
     '201': {
         'player_id': ALL_PLAYERS['ssolaced'],
-        'normal_img': 'https://i.postimg.cc/rpW0QQ8D/ssol-2.jpg',
-        'special_img': 'https://i.postimg.cc/v8vnJq59/ssol-1.jpg'
+        'normal_img': 'https://i.imgur.com/TDWfgna.jpeg',
+        'special_img': 'https://i.imgur.com/WsPFB6Z.jpeg'
     },
     '202': {
         'player_id': ALL_PLAYERS['mike'],
-        'normal_img': 'https://i.postimg.cc/J0RkyZCG/mike-2.jpg',
-        'special_img': 'https://i.postimg.cc/63rZ5zSk/mike-1.jpg'
+        'normal_img': 'https://i.imgur.com/sTYL7Vr.jpeg',
+        'special_img': 'https://i.imgur.com/K1JEsLe.jpeg'
     },
     '203': {
         'player_id': ALL_PLAYERS['alpha'],
-        'normal_img': 'https://i.postimg.cc/RZWnnvyQ/alpha-2.jpg',
-        'special_img': 'https://i.postimg.cc/hPp9dyjg/alpha-1.jpg'
+        'normal_img': 'https://i.imgur.com/k4aRSCz.jpeg',
+        'special_img': 'https://i.imgur.com/sJPbAf4.jpeg'
     },
     '204': {
         'player_id': ALL_PLAYERS['aslenn'],
-        'normal_img': 'https://i.postimg.cc/YqnW9vnC/aslenn-2.jpg',
-        'special_img': 'https://i.postimg.cc/wMFsDM9F/aslenn.jpg'
+        'normal_img': 'https://i.imgur.com/4P2VMxg.jpeg',
+        'special_img': 'https://i.imgur.com/Mu9FumP.jpeg'
     },
     '205': {
         'player_id': ALL_PLAYERS['babybubbles'],
-        'normal_img': 'https://i.postimg.cc/NjZ26Wwh/baby-2.jpg',
-        'special_img': 'https://i.postimg.cc/rFF4M19H/baby-1.jpg'
+        'normal_img': 'https://i.imgur.com/tgFWvOZ.jpeg',
+        'special_img': 'https://i.imgur.com/IHo7HOV.jpeg'
     },
     '206': {
         'player_id': ALL_PLAYERS['ulysses'],
-        'normal_img': 'https://i.postimg.cc/nhxBgyPv/ulysses-2.jpg',
-        'special_img': 'https://i.postimg.cc/kgyKmT0L/Ulysses.jpg'
+        'normal_img': 'https://i.imgur.com/IJY9HOL.jpeg',
+        'special_img': 'https://i.imgur.com/CmLMIJd.jpeg'
     },
     '207': {
         'player_id': ALL_PLAYERS['sourlemons'],
-        'normal_img': 'https://i.postimg.cc/w38TydmF/sourlemons-2.jpg',
-        'special_img': 'https://i.postimg.cc/kGtgg5BB/sourlemons-1.jpg'
+        'normal_img': 'https://i.imgur.com/0JGWW9r.jpeg',
+        'special_img': 'https://i.imgur.com/d18Xljw.jpeg'
     },
     '208': {
         'player_id': ALL_PLAYERS['rayray'],
-        'normal_img': 'https://i.postimg.cc/G3BFyJDs/rayray-2.jpg',
-        'special_img': 'https://i.postimg.cc/Kcdnrk7p/rayray.jpg'
+        'normal_img': 'https://i.imgur.com/iG0p90R.jpeg',
+        'special_img': 'https://i.imgur.com/MtAy2s0.jpeg'
     },
     '209': {
         'player_id': ALL_PLAYERS['cleanser'],
-        'normal_img': 'https://i.postimg.cc/SKDsZ5BN/cleanser-2.jpg',
-        'special_img': 'https://i.postimg.cc/131f4D0P/cleanser-1.jpg'
+        'normal_img': 'https://i.imgur.com/6NS6uF5.jpeg',
+        'special_img': 'https://i.imgur.com/O6tfTId.jpeg'
     },
     '210': {
         'player_id': ALL_PLAYERS['kurai'],
-        'normal_img': 'https://i.postimg.cc/zBQfNhDs/kurai-2.jpg',
-        'special_img': 'https://i.postimg.cc/4dy3jPGv/kurai-1.jpg'
+        'normal_img': 'https://i.imgur.com/gahfrv5.jpeg',
+        'special_img': 'https://i.imgur.com/7ESnRC1.jpeg'
     },
     '211': {
         'player_id': ALL_PLAYERS['valk'],
-        'normal_img': 'https://i.postimg.cc/VvBnk4SS/shu-2.jpg',
-        'special_img': 'https://i.postimg.cc/rySSjyh8/shu-1.jpg'
+        'normal_img': 'https://i.imgur.com/15vJLUw.jpeg',
+        'special_img': 'https://i.imgur.com/zCq5rrp.jpeg'
     },
     '212': {
         'player_id': ALL_PLAYERS['lorer'],
-        'normal_img': 'https://i.postimg.cc/ht4bfF1K/lorer-2.jpg',
-        'special_img': 'https://i.postimg.cc/25VQ74tJ/lorer.jpg'
+        'normal_img': 'https://i.imgur.com/VV9vRLx.jpeg',
+        'special_img': 'https://i.imgur.com/iOdItd2.jpeg'
     },
     '213': {
         'player_id': ALL_PLAYERS['banned'],
-        'normal_img': 'https://i.postimg.cc/HxnP55xj/SOL-Cards-16.png',
-        'special_img': 'https://i.postimg.cc/g0NTn4Gf/SOL-Cards-17.png'
+        'normal_img': 'https://i.imgur.com/bPGejAm.png',
+        'special_img': 'https://i.imgur.com/WZ24R4J.png'
     },
     '214': {
         'player_id': ALL_PLAYERS['g0ast'],
-        'normal_img': 'https://i.postimg.cc/2yp76V2t/homixide-2.jpg',
-        'special_img': 'https://i.postimg.cc/Ss9cwmkf/homixide.jpg'
+        'normal_img': 'https://i.imgur.com/azwrenr.jpeg',
+        'special_img': 'https://i.imgur.com/PwzFXKH.jpeg'
     },
     '215': {
         'player_id': ALL_PLAYERS['kazzy'],
-        'normal_img': 'https://i.postimg.cc/rp3SnDXp/kazzy-2.jpg',
-        'special_img': 'https://i.postimg.cc/bw60n6mk/kazzy-1.jpg'
+        'normal_img': 'https://i.imgur.com/umsCOBZ.jpeg',
+        'special_img': 'https://i.imgur.com/642HtFa.jpeg'
     },
     '216': {
         'player_id': ALL_PLAYERS['hitscan'],
-        'normal_img': 'https://i.postimg.cc/CMPwWkrJ/hitscan-2.jpg',
-        'special_img': 'https://i.postimg.cc/KzmZyNyp/hitscan.jpg'
+        'normal_img': 'https://i.imgur.com/vaog1kp.jpeg',
+        'special_img': 'https://i.imgur.com/FQek9TW.jpeg'
     },
     '217': {
         'player_id': ALL_PLAYERS['kurai'],
-        'normal_img': 'https://i.postimg.cc/nrPZBf9N/kurai-2.jpg',
-        'special_img': 'https://i.postimg.cc/sDM3yxtz/kurai.jpg'
+        'normal_img': 'https://i.imgur.com/E8tVrmr.jpeg',
+        'special_img': 'https://i.imgur.com/QaksbRy.jpeg'
     },
     '218': {
-        'player_id': ALL_PLAYERS['ego'],
-        'normal_img': 'https://i.postimg.cc/D0bNPnw1/SOL-Cards.png',
-        'special_img': 'https://i.postimg.cc/PNsR69C9/SOL-Cards-1.png'
+        'player_id': ALL_PLAYERS['banned'],
+        'normal_img': 'https://i.imgur.com/TzTd9Y6.png',
+        'special_img': 'https://i.imgur.com/ZpyXMrJ.png'
     },
     '219': {
-        'player_id': ALL_PLAYERS['eternity'],
-        'normal_img': 'https://i.postimg.cc/sfkfd27d/SOL-Cards-3.png',
-        'special_img': 'https://i.postimg.cc/mZzZ59cy/SOL-Cards-2.png'
+        'player_id': ALL_PLAYERS['banned'],
+        'normal_img': 'https://i.imgur.com/TYM5AMH.png',
+        'special_img': 'https://i.imgur.com/rXeT9gl.png'
     },
     '220': {
         'player_id': ALL_PLAYERS['stockyjr'],
-        'normal_img': 'https://i.postimg.cc/C51SRx5j/stocky-2.jpg',
-        'special_img': 'https://i.postimg.cc/m2KBrRsH/stocky.jpg'
+        'normal_img': 'https://i.imgur.com/QDaJzj8.jpeg',
+        'special_img': 'https://i.imgur.com/XxZl1xY.jpeg'
     },
     '221': {
         'player_id': ALL_PLAYERS['odysseus'],
-        'normal_img': 'https://i.postimg.cc/DwfHFMWX/ody-2.jpg',
-        'special_img': 'https://i.postimg.cc/4yzqNCbz/oydsseus.jpg'
+        'normal_img': 'https://i.imgur.com/6eXmKt8.jpeg',
+        'special_img': 'https://i.imgur.com/Od1OIdS.jpeg'
     },
     '222': {
         'player_id': ALL_PLAYERS['abyx'],
-        'normal_img': 'https://i.postimg.cc/wBGSw-Qjs/abyx-2.jpg',
-        'special_img': 'https://i.postimg.cc/8zy3CmWn/abyx.jpg'
+        'normal_img': 'https://i.imgur.com/84IV75R.jpeg',
+        'special_img': 'https://i.imgur.com/hZtOpCZ.jpeg'
     },
     '223': {
         'player_id': ALL_PLAYERS['requiem'],
-        'normal_img': 'https://i.postimg.cc/5NSThVtJ/req-2.jpg',
-        'special_img': 'https://i.postimg.cc/7Ykjt6wX/rew.jpg'
+        'normal_img': 'https://i.imgur.com/G2uMQpw.jpeg',
+        'special_img': 'https://i.imgur.com/mYhyqC9.jpeg'
     },
     '224': {
         'player_id': ALL_PLAYERS['masiax'],
-        'normal_img': 'https://i.postimg.cc/59vZmvd6/pump-2.jpg',
-        'special_img': 'https://i.postimg.cc/4yCjg4tf/pump.jpg'
+        'normal_img': 'https://i.imgur.com/AXmlMWV.jpeg',
+        'special_img': 'https://i.imgur.com/VU1knOJ.jpeg'
     },
     '225': {
         'player_id': ALL_PLAYERS['sourlemons'],
-        'normal_img': 'https://i.postimg.cc/B6PRkPj7/sour-2.jpg',
-        'special_img': 'https://i.postimg.cc/yNkG33y6/sour.jpg'
+        'normal_img': 'https://i.imgur.com/69ScEZJ.jpeg',
+        'special_img': 'https://i.imgur.com/OvnUnqn.jpeg'
     },
     '226': {
         'player_id': ALL_PLAYERS['ionalien'],
-        'normal_img': 'https://i.postimg.cc/mkYCr4XN/ion-2.jpg',
-        'special_img': 'https://i.postimg.cc/6p5nBDdn/ion.jpg'
+        'normal_img': 'https://i.imgur.com/DCJjOOT.jpeg',
+        'special_img': 'https://i.imgur.com/6rYlKDC.jpeg'
     },
     '227': {
         'player_id': ALL_PLAYERS['planet9'],
-        'normal_img': 'https://i.postimg.cc/6pjRqY0S/planet-2.jpg',
-        'special_img': 'https://i.postimg.cc/GhRv5BtM/planet.jpg'
+        'normal_img': 'https://i.imgur.com/B3pQo6w.jpeg',
+        'special_img': 'https://i.imgur.com/GjtWHHV.jpeg'
     },
     '228': {
         'player_id': ALL_PLAYERS['v4mp'],
-        'normal_img': 'https://i.postimg.cc/xCHbsY2D/vamp-2.jpg',
-        'special_img': 'https://i.postimg.cc/qqT6SYJt/vamp.jpg'
+        'normal_img': 'https://i.imgur.com/3TCsUQe.jpeg',
+        'special_img': 'https://i.imgur.com/vqHTJwz.jpeg'
     },
     '229': {
         'player_id': ALL_PLAYERS['pink'],
-        'normal_img': 'https://i.postimg.cc/d0gym3gj/pink-2.jpg',
-        'special_img': 'https://i.postimg.cc/zfyhgK2f/pink.jpg'
+        'normal_img': 'https://i.imgur.com/af3T0OG.jpeg',
+        'special_img': 'https://i.imgur.com/asTMKKm.jpeg'
     },
     '230': {
         'player_id': ALL_PLAYERS['polor'],
-        'normal_img': 'https://i.postimg.cc/m2S7fbFT/polor.jpg',
-        'special_img': 'https://i.postimg.cc/66ndcVW2/polkor.jpg'
+        'normal_img': 'https://i.imgur.com/Ih2yPwa.jpeg',
+        'special_img': 'https://i.imgur.com/5TMd9Q0.jpeg'
     },
     '231': {
         'player_id': ALL_PLAYERS['mrbustdown'],
-        'normal_img': 'https://i.postimg.cc/P5whvqzj/john-2.jpg',
-        'special_img': 'https://i.postimg.cc/LsFStMNZ/john.jpg'
+        'normal_img': 'https://i.imgur.com/BlYnyFE.jpeg',
+        'special_img': 'https://i.imgur.com/pd9B5Da.jpeg'
     },
     '232': {
         'player_id': ALL_PLAYERS['dripobito'],
-        'normal_img': 'https://i.postimg.cc/FFTh28s2/drip-2.jpg',
-        'special_img': 'https://i.postimg.cc/J0YmZD21/drip.jpg'
+        'normal_img': 'https://i.imgur.com/CSFpQb8.jpeg',
+        'special_img': 'https://i.imgur.com/t2fjdvq.jpeg'
     },
     '233': {
         'player_id': ALL_PLAYERS['trollme'],
-        'normal_img': 'https://i.postimg.cc/FsqNKSSp/junkrat-2.jpg',
-        'special_img': 'https://i.postimg.cc/MHpqnbtP/junkrat.jpg'
+        'normal_img': 'https://i.imgur.com/LBwYm8u.jpeg',
+        'special_img': 'https://i.imgur.com/H0l15Ji.jpeg'
     },
     '234': {
         'player_id': ALL_PLAYERS['kuda'],
-        'normal_img': 'https://i.postimg.cc/rmJqyYGR/kuda-2.jpg',
-        'special_img': 'https://i.postimg.cc/YqjtkRvj/kuda.jpg'
+        'normal_img': 'https://i.imgur.com/UNBSDI7.jpeg',
+        'special_img': 'https://i.imgur.com/GlqPnBc.jpeg'
     },
     '235': {
         'player_id': ALL_PLAYERS['avernus'],
-        'normal_img': 'https://i.postimg.cc/MpC69BKH/avernus-2.jpg',
-        'special_img': 'https://i.postimg.cc/rmc8kL4L/avernus.jpg'
+        'normal_img': 'https://i.imgur.com/h34kZ58.jpeg',
+        'special_img': 'https://i.imgur.com/Vsd2XlN.jpeg'
     },
     '236': {
         'player_id': ALL_PLAYERS['letmenanoyou'],
-        'normal_img': 'https://i.postimg.cc/prjbhGzB/nano-2.jpg',
-        'special_img': 'https://i.postimg.cc/HLkq4sbn/nano.jpg'
+        'normal_img': 'https://i.imgur.com/ef18l8l.jpeg',
+        'special_img': 'https://i.imgur.com/dMpHGe6.jpeg'
     },
     '237': {
         'player_id': ALL_PLAYERS['jellyman'],
-        'normal_img': 'https://i.postimg.cc/g2s9Z6X1/jellyman-2.jpg',
-        'special_img': 'https://i.postimg.cc/4NCTkGR2/jellyman.jpg'
+        'normal_img': 'https://i.imgur.com/tJtuhw5.jpeg',
+        'special_img': 'https://i.imgur.com/0pXQkId.jpeg'
     },
     '238': {
         'player_id': ALL_PLAYERS['boostio'],
-        'normal_img': 'https://i.postimg.cc/ht1n15wy/boostio-2.jpg',
-        'special_img': 'https://i.postimg.cc/zfd19RqT/boostio.jpg'
+        'normal_img': 'https://i.imgur.com/dxhJXAD.jpeg',
+        'special_img': 'https://i.imgur.com/s5Mbx6a.jpeg'
     },
     '239': {
         'player_id': ALL_PLAYERS['spicyfries'],
-        'normal_img': 'https://i.postimg.cc/dt8cJfqs/fries-2.jpg',
-        'special_img': 'https://i.postimg.cc/fWShrLp0/fres.jpg'
+        'normal_img': 'https://i.imgur.com/evGXMhE.jpeg',
+        'special_img': 'https://i.imgur.com/BscEzb1.jpeg'
     },
     '240': {
         'player_id': ALL_PLAYERS['mangomemes'],
-        'normal_img': 'https://i.postimg.cc/Z54tnLRr/mango-2.jpg',
-        'special_img': 'https://i.postimg.cc/1t21zhnt/mango.jpg'
+        'normal_img': 'https://i.imgur.com/MsNnk8C.jpeg',
+        'special_img': 'https://i.imgur.com/xVgnhpH.jpeg'
     },
     '241': {
         'player_id': ALL_PLAYERS['cervantes'],
-        'normal_img': 'https://i.postimg.cc/jdq4jwTD/cerv-2.jpg',
-        'special_img': 'https://i.postimg.cc/R0tcYw7D/cerv.jpg'
+        'normal_img': 'https://i.imgur.com/TMuFBJx.jpeg',
+        'special_img': 'https://i.imgur.com/z0OGE1m.jpeg'
     },
     '242': {
         'player_id': ALL_PLAYERS['narkissos'],
-        'normal_img': 'https://i.postimg.cc/fWCY1zdD/nark-2.jpg',
-        'special_img': 'https://i.postimg.cc/wMwJN2z7/nark.jpg'
+        'normal_img': 'https://i.imgur.com/I9TLocZ.jpeg',
+        'special_img': 'https://i.imgur.com/XcY62z5.jpeg'
     },
     '243': {
         'player_id': ALL_PLAYERS['shadowfire'],
-        'normal_img': 'https://i.postimg.cc/YCZ68dWF/shadow-2.jpg',
-        'special_img': 'https://i.postimg.cc/3N8mW6Ps/shadow.jpg'
+        'normal_img': 'https://i.imgur.com/GpNMas4.jpeg',
+        'special_img': 'https://i.imgur.com/SGPwYwp.jpeg'
     },
     '244': {
         'player_id': ALL_PLAYERS['maya'],
-        'normal_img': 'https://i.postimg.cc/C1HbhY6C/moon-2.jpg',
-        'special_img': 'https://i.postimg.cc/kgBNx0B9/moon.jpg'
+        'normal_img': 'https://i.imgur.com/HPBMM0d.jpeg',
+        'special_img': 'https://i.imgur.com/NP261Oq.jpeg'
     },
     '245': {
         'player_id': ALL_PLAYERS['heathensinc'],
-        'normal_img': 'https://i.postimg.cc/85Vhgsw-P/heathen-2.jpg',
-        'special_img': 'https://i.postimg.cc/zXfTrsw-W/heathen.jpg'
+        'normal_img': 'https://i.imgur.com/im9fbaq.jpeg',
+        'special_img': 'https://i.imgur.com/5vw3tGf.jpeg'
     },
     '246': {
         'player_id': ALL_PLAYERS['kap'],
-        'normal_img': 'https://i.postimg.cc/gch26NY5/kap-2.jpg',
-        'special_img': 'https://i.postimg.cc/KjtcSvqF/kap.jpg'
+        'normal_img': 'https://i.imgur.com/OvrImIE.jpeg',
+        'special_img': 'https://i.imgur.com/Aks0GoS.jpeg'
     },
     '247': {
         'player_id': ALL_PLAYERS['akuma'],
-        'normal_img': 'https://i.postimg.cc/yNWV6TQL/akuma-2.jpg',
-        'special_img': 'https://i.postimg.cc/VLcL9nvN/akuma.jpg'
+        'normal_img': 'https://i.imgur.com/Ypv0TzK.jpeg',
+        'special_img': 'https://i.imgur.com/TuqGPvM.jpeg'
     },
     '248': {
         'player_id': ALL_PLAYERS['chris'],
-        'normal_img': 'https://i.postimg.cc/GmXL1fQB/chris-2.jpg',
-        'special_img': 'https://i.postimg.cc/63k6mGhY/chris.jpg'
+        'normal_img': 'https://i.imgur.com/SZ6th1v.jpeg',
+        'special_img': 'https://i.imgur.com/WnMHIwL.jpeg'
     },
     '249': {
         'player_id': ALL_PLAYERS['abstract'],
-        'normal_img': 'https://i.postimg.cc/gJXksK3x/abstract-2.jpg',
-        'special_img': 'https://i.postimg.cc/L6B4x5g3/abstract.jpg'
+        'normal_img': 'https://i.imgur.com/SDWiPrs.jpeg',
+        'special_img': 'https://i.imgur.com/8f9yYq0.jpeg'
     },
     '250': {
         'player_id': ALL_PLAYERS['swissy'],
-        'normal_img': 'https://i.postimg.cc/wjqqZzh8/sw-iss-2.jpg',
-        'special_img': 'https://i.postimg.cc/ZqgJWyX4/sw-iss.jpg'
+        'normal_img': 'https://i.imgur.com/Zm5jBsD.jpeg',
+        'special_img': 'https://i.imgur.com/ubBIm5W.jpeg'
     },
     # guardians
     '251': {
