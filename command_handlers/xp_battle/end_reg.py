@@ -64,6 +64,7 @@ async def end_reg_handler(db, message, client):
     guild = await get_guild(client)
     battle_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)
     await message.channel.send(final_string)
-    battle_info['players_msg'] = await battle_channel.send(final_string)
+    public_message = await battle_channel.send(final_string)
+    battle_info['players_msg'] = public_message.id
 
     set_constant_value(db, 'battle', battle_info)
