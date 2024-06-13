@@ -50,8 +50,6 @@ async def end_reg_handler(db, message, client):
     battle_info['current_players'] = current_players
     battle_info['player_pools']['valid_pool'] = valid_players
 
-    set_constant_value(db, 'battle', battle_info)
-
     await message.channel.send('Registration ended')
 
     final_string = '**PLAYERS IN XP BATTLE:**'
@@ -66,4 +64,6 @@ async def end_reg_handler(db, message, client):
     guild = await get_guild(client)
     battle_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)
     await message.channel.send(final_string)
-    await battle_channel.send(final_string)
+    battle_info['players_msg'] = await battle_channel.send(final_string)
+
+    set_constant_value(db, 'battle', battle_info)
