@@ -1,12 +1,13 @@
 
 
+from discord_actions import get_guild
 from helpers import get_constant_value, set_constant_value
 from user import user_exists
 from xp_battles import init_player_pools
 import random
+import constants
 
-
-async def end_reg_handler(db, message):
+async def end_reg_handler(db, message, client):
 
     battle_info = get_constant_value(db, 'battle')
 
@@ -62,4 +63,7 @@ async def end_reg_handler(db, message):
 
         index += 1
 
+    guild = await get_guild(client)
+    battle_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)
     await message.channel.send(final_string)
+    await battle_channel.send(final_string)

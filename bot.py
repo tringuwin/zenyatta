@@ -793,7 +793,7 @@ async def handle_message(message, db, client):
         await battle_no_show_handler(db, message)
 
     elif lower_message == '!endreg' and is_admin:
-        await end_reg_handler(db, message)
+        await end_reg_handler(db, message, client)
 
     elif lower_message == '!battleteams' and is_admin:
         await battle_teams_handler(db, message)
