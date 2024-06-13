@@ -14,6 +14,7 @@ async def help_cards_handler(message):
     help_embed.add_field(name='!unlistcard [Card-ID]', value='Take a card off sale of the card market.', inline=False)
     help_embed.add_field(name='!buycard [Card-ID]', value='Buy a card from the card market.', inline=False)
     help_embed.add_field(name='!cardmarket', value='Get a link to the card market website.', inline=False)
+    help_embed.add_field(name='!galley', value='Get a link to a gallery showing all of the SOL cards.', inline=False)
     help_embed.add_field(name='!totalpacks', value='See how many cards are still in packs.', inline=False)
 
     await message.channel.send(embed=help_embed)
