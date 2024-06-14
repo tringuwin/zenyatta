@@ -1458,8 +1458,8 @@ ALL_CARDS = {
     # guardians
     '251': {
         'player_id': ALL_PLAYERS['masiax'],
-        'normal_img': 'https://i.postimg.cc/brzND7TJ/IMG-1102.jpg',
-        'special_img': 'https://i.postimg.cc/2898yXBk/IMG-1103.jpg'
+        'normal_img': '',
+        'special_img': ''
     },
     '252': {
         'player_id': ALL_PLAYERS['luffy'],

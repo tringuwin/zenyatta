@@ -1,11 +1,13 @@
 
 
+from discord_actions import get_guild
 from helpers import can_be_int, get_constant_value, set_constant_value
 import random
+import constants
 
 from user import user_exists
 
-async def battle_no_show_handler(db, message):
+async def battle_no_show_handler(db, message, client):
 
     parts = message.content.split()
     if len(parts) != 2:
@@ -81,3 +83,9 @@ async def battle_no_show_handler(db, message):
         index += 1
 
     await message.channel.send(final_string)
+
+    guild = await get_guild(client)
+    xp_battle_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)
+    players_message = await xp_battle_channel.fetch_message(battle_obj['players_msg'])
+
+    await players_message.edit(content=final_string)
