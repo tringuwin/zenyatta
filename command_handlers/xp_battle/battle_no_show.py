@@ -50,7 +50,7 @@ async def battle_no_show_handler(db, message, client):
                 final_string += '\n'+str(index)+'. '+'BOT 🤖'
             else:
                 user = user_exists(db, player_id)
-                final_string += '\n'+str(index)+'. '+user['battle_tag']
+                final_string += '\n'+str(index)+'. '+user['battle_tag']+' | '+'<@'+str(user['discord_id'])+'>'
 
             index += 1
         await message.channel.send(final_string)
@@ -88,7 +88,7 @@ async def battle_no_show_handler(db, message, client):
     for player_id in battle_obj['current_players']:
 
         user = user_exists(db, player_id)
-        final_string += '\n'+str(index)+'. '+user['battle_tag']
+        final_string += '\n'+str(index)+'. '+user['battle_tag']+' | '+'<@'+str(user['discord_id'])+'>'
 
         index += 1
 

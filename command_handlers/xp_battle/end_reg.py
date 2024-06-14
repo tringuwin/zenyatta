@@ -57,7 +57,7 @@ async def end_reg_handler(db, message, client):
     for player_id in current_players:
 
         user = user_exists(db, player_id)
-        final_string += '\n'+str(index)+'. '+user['battle_tag']
+        final_string += '\n'+str(index)+'. '+user['battle_tag']+' | '+'<@'+str(user['discord_id'])+'>'
 
         index += 1
 
