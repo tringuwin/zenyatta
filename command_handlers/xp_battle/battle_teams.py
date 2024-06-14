@@ -86,7 +86,7 @@ async def battle_teams_handler(db, message, client):
 
     set_constant_value(db, 'battle', battle_info)
 
-    final_string = '**BLUE TEAM:**'
+    final_string = '**🔵 BLUE TEAM 🔵**'
     user_index = 0
     for user_id in blue_team:
         if user_id == -1:
@@ -97,7 +97,7 @@ async def battle_teams_handler(db, message, client):
 
         user_index += 1
 
-    final_string += '\n\n**RED TEAM:**'
+    final_string += '\n\n**🔴 RED TEAM 🔴**'
     user_index = 0
     for user_id in red_team:
         if user_id == -1:
