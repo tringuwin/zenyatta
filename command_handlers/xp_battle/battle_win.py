@@ -1,9 +1,11 @@
 
 
 from common_messages import invalid_number_of_params
+from discord_actions import get_guild
 from helpers import get_constant_value, set_constant_value, valid_number_of_params
 from rewards import change_xp
 from user import get_user_wlt, user_exists
+import constants
 
 
 XP_PER_WIN = 0
@@ -82,3 +84,15 @@ async def battle_win_handler(db, message, client):
     set_constant_value(db, 'battle', battle_info)
 
     await message.channel.send('Winner recorded and battle ended.')
+
+    final_string = None
+    if team_winner == 'tie':
+        final_string = '**XP BATTLE IS A DRAW!**\nBlue Team gets '+str(XP_PER_TIE)+' XP\nRed Team gets '+str(XP_PER_TIE)+' XP'
+    elif team_winner == 'blue':
+        final_string = '**BLUE TEAM WINS!**\nBlue Team gets '+str(XP_PER_WIN)+' XP\nRed Team gets '+str(XP_PER_LOSS)+' XP'
+    else:
+        final_string = '**RED TEAM WINS!**\Red Team gets '+str(XP_PER_WIN)+' XP\nBlue Team gets '+str(XP_PER_LOSS)+' XP'
+
+    guild = await get_guild(client)
+    xp_battle_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)
+    await xp_battle_channel.send(final_string)
