@@ -93,7 +93,7 @@ async def battle_teams_handler(db, message, client):
             final_string += '\n'+str(user_index)+'. '+'BOT 🤖'
         else:
             user = user_exists(db, user_id)
-            final_string += '\n'+str(user_index)+'. '+user['battle_tag']
+            final_string += '\n'+str(user_index)+'. '+user['battle_tag']+' | '+'<@'+str(user['discord_id'])+'>'
 
         user_index += 1
 
