@@ -111,6 +111,6 @@ async def battle_teams_handler(db, message, client):
     await message.channel.send(final_string)
 
     guild = await get_guild(client)
-    xp_battle_channel = guild.get_channel(xp_battle_channel)
+    xp_battle_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)
     await xp_battle_channel.send(final_string)
 
