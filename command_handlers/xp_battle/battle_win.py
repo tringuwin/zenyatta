@@ -87,11 +87,11 @@ async def battle_win_handler(db, message, client):
 
     final_string = None
     if team_winner == 'tie':
-        final_string = '**⚪ BATTLE IS A DRAW! ⚪**\nBlue Team gets **'+str(XP_PER_TIE)+' XP**\nRed Team gets **'+str(XP_PER_TIE)+' XP**'
+        final_string = '**⚪ BATTLE IS A DRAW! ⚪**\nBlue Team gets **'+str(XP_PER_TIE)+' XP each**\nRed Team gets **'+str(XP_PER_TIE)+' XP each**'
     elif team_winner == 'blue':
-        final_string = '**🔵 BLUE TEAM WINS! 🔵**\nBlue Team gets **'+str(XP_PER_WIN)+' XP**\nRed Team gets **'+str(XP_PER_LOSS)+' XP**'
+        final_string = '**🔵 BLUE TEAM WINS! 🔵**\nBlue Team gets **'+str(XP_PER_WIN)+' XP each**\nRed Team gets **'+str(XP_PER_LOSS)+' XP each**'
     else:
-        final_string = '**🔴 RED TEAM WINS! 🔴**\nRed Team gets **'+str(XP_PER_WIN)+' XP**\nBlue Team gets **'+str(XP_PER_LOSS)+' XP**'
+        final_string = '**🔴 RED TEAM WINS! 🔴**\nRed Team gets **'+str(XP_PER_WIN)+' XP each**\nBlue Team gets **'+str(XP_PER_LOSS)+' XP each**'
 
     guild = await get_guild(client)
     xp_battle_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)
