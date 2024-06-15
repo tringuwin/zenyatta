@@ -8,9 +8,9 @@ from user import get_user_wlt, user_exists
 import constants
 
 
-XP_PER_WIN = 0
-XP_PER_LOSS = 0
-XP_PER_TIE = 0
+XP_PER_WIN = 300
+XP_PER_LOSS = 50
+XP_PER_TIE = 100
 
 async def battle_win_handler(db, message, client):
 
