@@ -9,5 +9,6 @@ async def help_poke_handler(message):
     help_embed.add_field(name='!allpokes', value='Get a link to a webpage that shows all of your Pokemon cards', inline=False)
     help_embed.add_field(name='!mypokes', value='See a list of pokemon card IDs that you own', inline=False)
     help_embed.add_field(name='!unopened', value='Get a link to a webpage that shows all Pokemon cards that have not been opened yet', inline=False)
+    help_embed.add_field(name='!pokeleaderboard', value='See the leaderboard of users with the most unique Pokemon cards collected.', inline=False)
 
     await message.channel.send(embed=help_embed)
