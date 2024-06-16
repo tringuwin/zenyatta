@@ -51,7 +51,7 @@ async def schedule_handler(db, message, client):
             break
 
     final_string += '\n----------------'
-    final_string += '\n5 Total Weeks in the Regular Season'
+    final_string += '\n6 Total Weeks in the Regular Season'
     final_string += '\nSee the full Schedule here: https://spicyragu.netlify.app/sol/schedule'
 
     await message.channel.send(final_string)
