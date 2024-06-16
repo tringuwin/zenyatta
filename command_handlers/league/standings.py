@@ -12,7 +12,12 @@ def make_div_standings_string(div_teams, div_num, guild):
     for team in div_teams:
         team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team['team_name']]
         team_emoji = guild.get_emoji(team_emoji_id)
-        div_string += '\n'+str(index)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'%'
+        rank_emoji = '⬜'
+        if index == 0:
+            rank_emoji = '🟩'
+        elif index == 4:
+            rank_emoji = '🟥'
+        div_string += '\n'+rank_emoji+str(index)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'%'
         index += 1
 
     return div_string
