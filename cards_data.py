@@ -23,7 +23,6 @@ ALL_PLAYERS = {
     'allykat': 342459985550114816,
     'ayudame': 199952617655238656,
     'polor': 587854598602227713,
-    'planet9': 1022632309062651904,
     'pink': 761274970646904894,
     'juicebox': 1063234759196688394,
     'ferny': 0,
@@ -1336,9 +1335,9 @@ ALL_CARDS = {
         'special_img': 'https://i.imgur.com/6rYlKDC.jpeg'
     },
     '227': {
-        'player_id': ALL_PLAYERS['planet9'],
-        'normal_img': 'https://i.imgur.com/B3pQo6w.jpeg',
-        'special_img': 'https://i.imgur.com/GjtWHHV.jpeg'
+        'player_id': ALL_PLAYERS['banned'],
+        'normal_img': 'https://i.imgur.com/sCxn21A.png',
+        'special_img': 'https://i.imgur.com/axv1Iz7.png'
     },
     '228': {
         'player_id': ALL_PLAYERS['v4mp'],
@@ -1607,9 +1606,9 @@ ALL_CARDS = {
         'special_img': 'https://i.imgur.com/BKYkhnl.jpeg'
     },
     '280': {
-        'player_id': ALL_PLAYERS['planet9'],
-        'normal_img': 'https://i.imgur.com/5WoejDi.jpeg',
-        'special_img': 'https://i.imgur.com/CgWDw9i.jpeg'
+        'player_id': ALL_PLAYERS['banned'],
+        'normal_img': 'https://i.imgur.com/BdXy1bo.png',
+        'special_img': 'https://i.imgur.com/6wpTxTK.png'
     },
     # polar
     '281': {
@@ -1997,8 +1996,8 @@ ALL_CARDS = {
     },
     '357': {
         'player_id': ALL_PLAYERS['planet9'],
-        'normal_img': 'https://i.postimg.cc/Y9Q3D1LR/IMG-1519.jpg',
-        'special_img': 'https://i.postimg.cc/D0Fc98qT/IMG-1520.jpg'
+        'normal_img': 'https://i.imgur.com/wjzg5zY.png',
+        'special_img': 'https://i.imgur.com/qzPtIQ3.png'
     },
     '358': {
         'player_id': ALL_PLAYERS['wazzumuse'],
