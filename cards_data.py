@@ -1991,18 +1991,18 @@ ALL_CARDS = {
     },
     '356': {
         'player_id': ALL_PLAYERS['ionalien'],
-        'normal_img': 'https://i.postimg.cc/0yNV5Mh5/IMG-1517.jpg',
-        'special_img': 'https://i.postimg.cc/mrvjSdkh/IMG-1518.jpg'
+        'normal_img': '',
+        'special_img': ''
     },
     '357': {
-        'player_id': ALL_PLAYERS['planet9'],
+        'player_id': ALL_PLAYERS['banned'],
         'normal_img': 'https://i.imgur.com/wjzg5zY.png',
         'special_img': 'https://i.imgur.com/qzPtIQ3.png'
     },
     '358': {
         'player_id': ALL_PLAYERS['wazzumuse'],
-        'normal_img': 'https://i.postimg.cc/R06GKrMj/IMG-1523.jpg',
-        'special_img': 'https://i.postimg.cc/hvr0ccr7/IMG-1524.jpg'
+        'normal_img': '',
+        'special_img': ''
     },
     '359': {
         'player_id': ALL_PLAYERS['polor'],
