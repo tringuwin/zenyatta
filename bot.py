@@ -1513,7 +1513,7 @@ async def handle_message(message, db, client):
 
                 print(member.display_name+" : "+str(member.id) + " : "+user['battle_tag'])
 
-    elif lower_message.startswith('!addpoke') and is_admin:
+    elif (lower_message.startswith('!addpoke') or lower_message.startswith('!ap ')) and is_admin:
         # !addpoke id type img_link 
         await add_poke_handler(db, message)
 
