@@ -3144,3 +3144,16 @@ async def update_card_data_db(db, message):
     carddata.update_one({"cards_id": 1}, {"$set": {"data": ALL_CARDS}})
 
     await message.channel.send('update complete')
+
+
+async def init_display_cards(db, message):
+
+    display_cards = db['display_cards']
+    for card_id in ALL_CARDS:
+        new_obj = ALL_CARDS[card_id]
+        new_obj['card_id'] = card_id
+
+        display_cards.insert_one(new_obj)
+
+
+    await message.channel.send('collection created')
