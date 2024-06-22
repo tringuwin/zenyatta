@@ -311,4 +311,14 @@ async def all_pokes_handler(message):
 
     await message.channel.send(message.author.mention+' See all your Pokemon card here: https://spicyragu.netlify.app/poke/user-cards/'+str(message.author.id))
 
+async def unopened_handler(db, message):
+
+    pokemon = db['pokemon']
+    all_cards = pokemon.find()
+    filtered_cards = [d for d in all_cards if d.get("owner_id") == -1]
+
+    num_unopened = len(filtered_cards)
+
+    await message.channel.send('There are **'+str(num_unopened)+'** unopened Pokemon Cards. Check out the full list of unopened Pokemon Cards here! https://spicyragu.netlify.app/poke/unopened')
+
 
