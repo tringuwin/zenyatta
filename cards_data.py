@@ -3151,7 +3151,7 @@ async def init_display_cards(db, message):
     display_cards = db['display_cards']
     for card_id in ALL_CARDS:
         new_obj = ALL_CARDS[card_id]
-        new_obj['card_id'] = card_id
+        new_obj['card_id'] = int(card_id)
 
         display_cards.insert_one(new_obj)
 
