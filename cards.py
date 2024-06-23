@@ -524,7 +524,7 @@ async def list_card_handler(db, message):
 
     card_id = removed_card['card_id']
     card_variant = removed_card['variant_id']
-    card_details = ALL_CARDS[card_id]
+    card_details = get_card_data_by_id(db, int(card_id))
     card_img = card_details['normal_img']
     if card_variant.upper() == 'S':
         card_img = card_details['special_img']
