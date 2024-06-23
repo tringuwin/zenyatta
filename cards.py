@@ -3,7 +3,7 @@
 import discord
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_username_by_user_id
-from helpers import can_be_int
+from helpers import can_be_int, valid_number_of_params
 from rewards import change_packs, change_tokens
 from user import get_user_cards, get_user_packs, get_user_tokens, user_exists, get_user_for_sale_cards
 import random
@@ -42,7 +42,10 @@ def get_card_owner_id(db, display):
     card_owners_obj = constants_db.find_one({'name': 'card_owners'})
     card_owners = card_owners_obj['value']
 
-    return card_owners[display]
+    if display in card_owners:
+        return card_owners[display]
+
+    return -2
     
 
 def assign_owner_to_card(db, display, owner_id):
@@ -368,6 +371,8 @@ async def view_card_handler(client, db, message):
         else:
             owner = 'Owned by Unknown User ('+str(card_owner_id)+')'
             owner_icon = 'https://i.imgur.com/BlrvzNq.jpeg'
+    elif card_owner_id == -2:
+        owner = 'Not Added Yet'
 
     embed = discord.Embed(title='CARD '+card_id+'-'+card_variant.upper())
     embed.set_image(url=card_img)
@@ -699,6 +704,47 @@ async def total_packs_handler(db, message):
     all_packs = card_group['cards']
 
     await message.channel.send('There are a total of **'+str(len(all_packs))+' Cards** left in packs.')
+
+
+async def make_card_handler(db, message):
+
+    valid_params, params = valid_number_of_params(message, 4)
+
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    user_id = params[1]
+    if not can_be_int(user_id):
+        await message.channel.send(user_id+' is not a number')
+        return
+    
+    user_id = int(user_id)
+    if user_id != 0:
+        user = user_exists(db, user_id)
+        if not user:
+            await message.channel.send('User with that ID does not exist.')
+            return
+    
+    display_cards = db['display_cards']
+    num_displays = display_cards.count_documents({})
+    new_id = num_displays + 1
+
+    new_obj = {
+        'player_id': user_id,
+        'normal_img': params[2],
+        'special_img': params[3],
+        'card_id': new_id
+    }
+
+    display_cards.insert_one(new_obj)
+
+    await message.channel.send('New card added with ID of **'+str(new_id)+'**')
+    
+    
+
+
+
 
 
 # async def card_owners_handler(db, message):
