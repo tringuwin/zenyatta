@@ -294,7 +294,7 @@ async def open_pack_handler(db, message):
 
     assign_owner_to_card(db, removed_item['card_display'], user['discord_id'])
     
-    card_img = get_card_image_by_display(removed_item['card_display'])
+    card_img = get_card_image_by_display(db, removed_item['card_display'])
 
     embed = discord.Embed(title='YOU OPENED CARD '+removed_item['card_display'])
     embed.set_image(url=card_img)
@@ -335,7 +335,7 @@ async def view_card_handler(client, db, message):
         await message.channel.send('This is a custom card so it only has one variant, "A"')
         return
     
-    card_img = get_card_image_by_display(card_id+'-'+card_variant.upper())
+    card_img = get_card_image_by_display(db, card_id+'-'+card_variant.upper())
 
     card_owner_id = get_card_owner_id(db, card_id+'-'+card_variant.upper())
     owner = 'Not Owned'
