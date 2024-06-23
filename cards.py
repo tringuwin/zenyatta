@@ -11,13 +11,15 @@ import random
 import constants
 
 
-def get_card_image_by_display(display):
+def get_card_image_by_display(db, display):
+
+    display_cards = db['display_cards']
 
     display_parts = display.split('-')
     num_string = display_parts[0]
     variant_string = display_parts[1]
 
-    card_data = ALL_CARDS[num_string]
+    card_data = display_cards.find_one({'card_id': int(num_string)})
     if variant_string.lower() == 's':
         return card_data['special_img']
     
