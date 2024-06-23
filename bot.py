@@ -984,9 +984,9 @@ async def handle_message(message, db, client):
         db_cards.insert_one(new_entry)
         await message.channel.send('init success')
 
-    elif lower_message == '!cardowners' and is_admin:
+    # elif lower_message == '!cardowners' and is_admin:
 
-        await card_owners_handler(db, message)
+    #     await card_owners_handler(db, message)
 
     elif lower_message == '!wipecarddatabase' and is_admin:
         await wipe_card_database_handler(db, message)

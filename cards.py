@@ -1,7 +1,6 @@
 
 
 import discord
-from cards_data import ALL_CARDS
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_username_by_user_id
 from helpers import can_be_int
@@ -697,63 +696,63 @@ async def total_packs_handler(db, message):
 
     db_cards = db['cards']
     card_group = db_cards.find_one({'cards_id': 1})
-    all_cards = card_group['cards']
+    all_packs = card_group['cards']
 
-    await message.channel.send('There are a total of **'+str(len(all_cards))+' Cards** left in packs.')
-
-
-async def card_owners_handler(db, message):
-
-    await message.channel.send("starting...")
-
-    obj = {}
-    for card_id in ALL_CARDS:
-
-        card_data = ALL_CARDS[card_id]
-        is_custom = False
-        if ('custom' in card_data) and card_data['custom']:
-            is_custom = True
-
-        variant_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']
-        if is_custom:
-            variant_list = ['A']
-
-        for variant in variant_list:
-
-            card_display = card_id+'-'+variant
-            obj[card_display] = -1
+    await message.channel.send('There are a total of **'+str(len(all_packs))+' Cards** left in packs.')
 
 
-    users = db['users']
-    all_users = users.find()
-    for user in all_users:
+# async def card_owners_handler(db, message):
 
-        cards = get_user_cards(user)
-        if len(cards) > 0:
-            for card in cards:
-                card_display = card['card_display']
-                obj[card_display] = user['discord_id']
+#     await message.channel.send("starting...")
+
+#     obj = {}
+#     for card_id in ALL_CARDS:
+
+#         card_data = ALL_CARDS[card_id]
+#         is_custom = False
+#         if ('custom' in card_data) and card_data['custom']:
+#             is_custom = True
+
+#         variant_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']
+#         if is_custom:
+#             variant_list = ['A']
+
+#         for variant in variant_list:
+
+#             card_display = card_id+'-'+variant
+#             obj[card_display] = -1
+
+
+#     users = db['users']
+#     all_users = users.find()
+#     for user in all_users:
+
+#         cards = get_user_cards(user)
+#         if len(cards) > 0:
+#             for card in cards:
+#                 card_display = card['card_display']
+#                 obj[card_display] = user['discord_id']
         
-        for_sale_cards = get_user_for_sale_cards(user)
-        if len(for_sale_cards) > 0:
-            for for_sale_card in for_sale_cards:
-                obj[for_sale_card] = user['discord_id']
+#         for_sale_cards = get_user_for_sale_cards(user)
+#         if len(for_sale_cards) > 0:
+#             for for_sale_card in for_sale_cards:
+#                 obj[for_sale_card] = user['discord_id']
 
-    cards_db = db['cards']
-    cards_obj = cards_db.find_one({'cards_id': 1})
-    cards_val = cards_obj['cards']
-    for card in cards_val:
-        display = card['card_display']
-        obj[display] = 0
+#     cards_db = db['cards']
+#     cards_obj = cards_db.find_one({'cards_id': 1})
+#     cards_val = cards_obj['cards']
+#     for card in cards_val:
+#         display = card['card_display']
+#         obj[display] = 0
 
-    num_lost = 0
-    for card_id in obj:
-        card_owner = obj[card_id]
-        if card_owner == -1:
-            num_lost += 1
+#     num_lost = 0
+#     for card_id in obj:
+#         card_owner = obj[card_id]
+#         if card_owner == -1:
+#             num_lost += 1
 
-    constants_db = db['constants']
-    constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": obj}})
+#     constants_db = db['constants']
+#     constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": obj}})
 
-    await message.channel.send('all done. number lost is '+str(num_lost))
+#     await message.channel.send('all done. number lost is '+str(num_lost))
 
