@@ -26,6 +26,17 @@ def get_card_image_by_display(db, display):
     return card_data['normal_img']
 
 
+def get_card_data_by_id(db, card_id):
+
+    display_cards = db['display_cards']
+    card_data = display_cards.find_one({'card_id': card_id})
+    if card_data:
+        return card_data
+    
+    return None
+
+
+
 def get_card_owner_id(db, display):
 
     constants_db = db['constants']
@@ -120,14 +131,17 @@ async def init_card_handler(db, message):
 
     card_id = word_parts[1]
 
-    if not card_id in ALL_CARDS:
-        await message.channel.send('I did not find a card with that ID.')
+    if not can_be_int(card_id):
+        await message.channel.send(card_id+' is not a number.')
         return
     
-    card_info = ALL_CARDS[card_id]
+    card_info = get_card_data_by_id(db, int(card_id))
+    if not card_info:
+        await message.channel.send('I did not find a card with that ID.')
+        return
+
     user_id_in_card = card_info['player_id']
 
-    normal_copies = 9
     variant_list = CARD_VARIANTS
 
     card_database = db['cards']
@@ -199,7 +213,12 @@ async def init_custom_handler(db, message):
 
     card_id = word_parts[1]
 
-    if not card_id in ALL_CARDS:
+    if not can_be_int(card_id):
+        await message.channel.send(card_id+' is not a number.')
+        return
+
+    card_info = get_card_data_by_id(db, int(card_id))
+    if not card_info:
         await message.channel.send('I did not find a card with that ID.')
         return
 
@@ -318,10 +337,12 @@ async def view_card_handler(client, db, message):
         return
 
     card_id = card_info_parts[0]
-    if not (card_id in ALL_CARDS):
-        await message.channel.send('There is no card with the ID: '+card_id)
+
+    if not can_be_int(card_id):
+        await message.channel.send(card_id+' is not a number.')
         return
-    card_data = ALL_CARDS[card_id]
+
+    card_data = get_card_data_by_id(db, int(card_id))
     
     card_variant = card_info_parts[1]
     if not (card_variant.upper() in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']):
