@@ -1399,7 +1399,7 @@ async def handle_message(message, db, client):
         schedule.insert_one(new_schedule)
         await message.channel.send('Schedule inserted')
         
-    elif lower_message.startswith('!givetokens ') and is_admin:
+    elif (lower_message.startswith('!givetokens ') or lower_message.startswith('!gt ')) and is_admin:
 
         # !givetokens [winner id] [tokens]
         word_list = message.content.split()
