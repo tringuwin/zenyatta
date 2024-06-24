@@ -345,6 +345,9 @@ async def view_card_handler(client, db, message):
         return
 
     card_data = get_card_data_by_id(db, int(card_id))
+    if not card_data:
+        await message.channel.send('Could not find a card with the ID '+card_id)
+        return
     
     card_variant = card_info_parts[1]
     if not (card_variant.upper() in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']):
