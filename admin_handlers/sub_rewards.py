@@ -26,7 +26,7 @@ async def sub_rewards_handler(client, db, message):
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"sub_lootboxes": sub_boxes + 1}})
 
-    await message.channel.send('Gave user 3 Packs, 300 XP and a sub lootbox to the user.')
+    await message.channel.send('Gave user 3 Packs, 300 PP and a sub lootbox to the user.')
 
 
 async def gift_rewards_handler(client, db, message):
