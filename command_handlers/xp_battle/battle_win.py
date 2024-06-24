@@ -20,8 +20,8 @@ async def battle_win_handler(db, message, client):
         return
     
     team_winner = params[1].lower()
-    if team_winner != 'red' and team_winner != 'blue' and team_winner != 'tie':
-        await message.channel.send('Invalid team name. Must be red, blue or tie.')
+    if team_winner != 'talon' and team_winner != 'overwatch' and team_winner != 'tie':
+        await message.channel.send('Invalid team name. Must be talon, overwatch or tie.')
         return
 
     battle_info = get_constant_value(db, 'battle')
@@ -53,11 +53,11 @@ async def battle_win_handler(db, message, client):
 
     else:
         
-        win_team = battle_info['current_teams']['blue']
-        lose_team = battle_info['current_teams']['red']
-        if team_winner == 'red':
-            win_team = battle_info['current_teams']['red']
-            lose_team = battle_info['current_teams']['blue']
+        win_team = battle_info['current_teams']['overwatch']
+        lose_team = battle_info['current_teams']['talon']
+        if team_winner == 'talon':
+            win_team = battle_info['current_teams']['talon']
+            lose_team = battle_info['current_teams']['overwatch']
 
         for user_id in win_team:
             if user_id == -1:
@@ -87,11 +87,11 @@ async def battle_win_handler(db, message, client):
 
     final_string = None
     if team_winner == 'tie':
-        final_string = '**⚪ BATTLE IS A DRAW! ⚪**\nBlue Team gets **'+str(XP_PER_TIE)+' XP each**\nRed Team gets **'+str(XP_PER_TIE)+' XP each**'
-    elif team_winner == 'blue':
-        final_string = '**🔵 BLUE TEAM WINS! 🔵**\nBlue Team gets **'+str(XP_PER_WIN)+' XP each**\nRed Team gets **'+str(XP_PER_LOSS)+' XP each**'
+        final_string = '**⚪ BATTLE IS A DRAW! ⚪**\Team Overwatch gets **'+str(XP_PER_TIE)+' XP each**\nTeam Talon gets **'+str(XP_PER_TIE)+' XP each**'
+    elif team_winner == 'overwatch':
+        final_string = '**🔵 OVERWATCH WINS! 🔵**\nTeam Overwatch gets **'+str(XP_PER_WIN)+' XP each**\nTeam Talon gets **'+str(XP_PER_LOSS)+' XP each**'
     else:
-        final_string = '**🔴 RED TEAM WINS! 🔴**\nRed Team gets **'+str(XP_PER_WIN)+' XP each**\nBlue Team gets **'+str(XP_PER_LOSS)+' XP each**'
+        final_string = '**🔴 TALON WINS! 🔴**\nTeam Talon gets **'+str(XP_PER_WIN)+' XP each**\nTeam Overwatch gets **'+str(XP_PER_LOSS)+' XP each**'
 
     guild = await get_guild(client)
     xp_battle_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)

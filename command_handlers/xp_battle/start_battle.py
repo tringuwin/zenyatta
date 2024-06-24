@@ -24,7 +24,7 @@ async def start_battle_handler(db, message, client):
     battle_info['reg_message_id'] = xp_message.id
     battle_info['sign_ups'] = []
     battle_info['current_players'] = []
-    battle_info['current_teams'] = {'blue': [], 'red': []}
+    battle_info['current_teams'] = {'overwatch': [], 'talon': []}
     constants_db.update_one({"name": "battle"}, {"$set": {"value": battle_info}})
 
     await message.channel.send('Battle Sign-Up Started')

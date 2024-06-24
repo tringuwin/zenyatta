@@ -68,27 +68,27 @@ async def battle_teams_handler(db, message, client):
         index += 1
 
 
-    blue_team = []
-    red_team = []
+    overwatch_team = []
+    talon_team = []
 
-    team_1_color = random.choice(['blue', 'red'])
-    if team_1_color == 'red':
-        red_team = team_1
-        blue_team = team_2
+    team_1_color = random.choice(['overwatch', 'talon'])
+    if team_1_color == 'talon':
+        talon_team = team_1
+        overwatch_team = team_2
     else:
-        red_team = team_2
-        blue_team = team_1
+        talon_team = team_2
+        overwatch_team = team_1
 
     battle_info['current_teams'] = {
-        'blue': blue_team,
-        'red': red_team
+        'overwatch': overwatch_team,
+        'talon': talon_team
     }
 
     set_constant_value(db, 'battle', battle_info)
 
-    final_string = '**🔵 BLUE TEAM 🔵**'
+    final_string = '**🔵 OVERWATCH 🔵**'
     user_index = 0
-    for user_id in blue_team:
+    for user_id in overwatch_team:
         if user_id == -1:
             final_string += '\n'+str(user_index)+'. '+'BOT 🤖'
         else:
@@ -97,9 +97,9 @@ async def battle_teams_handler(db, message, client):
 
         user_index += 1
 
-    final_string += '\n\n**🔴 RED TEAM 🔴**'
+    final_string += '\n\n**🔴 TALON 🔴**'
     user_index = 0
-    for user_id in red_team:
+    for user_id in talon_team:
         if user_id == -1:
             final_string += '\n'+str(user_index)+'. '+'BOT 🤖'
         else:

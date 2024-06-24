@@ -991,18 +991,6 @@ async def handle_message(message, db, client):
     elif lower_message == '!wipecarddatabase' and is_admin:
         await wipe_card_database_handler(db, message)
 
-    elif lower_message == '!wipewlt' and is_admin:
-        users = db['users']
-        all_users = users.find()
-        blank_wlt = {
-            'w': 0,
-            'l': 0,
-            't': 0
-        }
-        for user in all_users:
-            if 'wlt' in user:
-                users.update_one({"discord_id": user['discord_id']}, {"$set": {"wlt": blank_wlt}})
-
     elif lower_message == '!initreselldatabase' and is_admin:
 
         db_cards = db['resell']
