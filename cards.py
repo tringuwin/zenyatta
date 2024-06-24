@@ -656,7 +656,7 @@ async def buy_card_handler(db, message):
     # give tokens to seller
     seller_user = user_exists(db, seller_id)
     if not seller_user:
-        await message.channel.send('Something went very very wrong :(')
+        await message.channel.send('Something went very very wrong :( <@1112204092723441724>')
         return
     seller_tokens = get_user_tokens(seller_user)
     seller_final_tokens = seller_tokens + card_price
