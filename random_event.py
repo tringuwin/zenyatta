@@ -49,7 +49,7 @@ random_event_list = [
     ['Token', -15, 'Moira experimented on you... **(🪙 -15)**'],
     ['Token', -20, 'Doomfist punched you into a wall... **(🪙 -20)**'],
     ['Token', -25, 'Genji deflected your ult... **(🪙 -25)**'],
-    ['Token', -30, 'Hanzo 1 shot you from accross the map... **(🪙 -30)**'],
+    ['Token', -30, 'Hanzo 1 shot you from across the map... **(🪙 -30)**'],
 
 ]
 
