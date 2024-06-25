@@ -16,18 +16,18 @@ async def battle_leaderboard_handler(db, message):
                     'w': uwlt['w'],
                     'l': uwlt['l'],
                     't': uwlt['t'],
-                    'percent': float(uwlt['w']) /  float( uwlt['w'] + uwlt['l'] ),
+                    'percent': round((float(uwlt['w']) /  float( uwlt['w'] + uwlt['l'] )) * 100, 2),
                     'points': uwlt['w'] - uwlt['l']
                 }
                 sort_users.append(new_obj)
 
     final_users = sorted(sort_users, key=lambda x: (-x['percent'], -x['points']))
 
-    final_string = ''
+    final_string = '**XP BATTLE LEADERBOARD**'
 
     for x in range(10):
         rank_user = final_users[x]
-        final_string += '\n'+rank_user['battle_tag']+' '+str(rank_user['percent'])+' '+str(rank_user['points'])
+        final_string += '\n'+str(x)+'. '+rank_user['battle_tag']+' %'+str(rank_user['percent'])+' | W: '+str(rank_user['w'])+' | L: '+str(rank_user['l'])+' | T: '+str(rank_user['t'])
 
     await message.channel.send(final_string)
 
