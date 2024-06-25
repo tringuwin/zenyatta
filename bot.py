@@ -36,6 +36,7 @@ from command_handlers.auction.end_auction import end_auction_handler
 from command_handlers.auction.start_auction import start_auction_handler
 from command_handlers.auction_timer import auction_timer_handler
 from command_handlers.bandforband import band_for_band_handler
+from command_handlers.battle_leaderboard import battle_leaderboard_handler
 from command_handlers.bets.bet import bet_handler
 from command_handlers.bets.finish_bet import finish_bet_handler
 from command_handlers.bets.my_bets import my_bets_handler
@@ -501,6 +502,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!pokeleaderboard':
         await poke_leaderboard_handler(db, message)
+
+    elif lower_message == '!battleleaderboard':
+        await battle_leaderboard_handler(db, message)
 
     elif lower_message == '!bracket':
         await bracket_handler(message)

@@ -1,0 +1,35 @@
+
+async def battle_leaderboard_handler(db, message):
+
+    users = db['users']
+    all_users = users.find()
+
+    sort_users = []
+
+    for user in all_users:
+        if 'wlt' in user:
+
+            uwlt = user['wlt']
+            if uwlt['w'] + uwlt['l'] + uwlt['t'] > 0:
+                new_obj = {
+                    'battle_tag': user['battle_tag'],
+                    'w': uwlt['w'],
+                    'l': uwlt['l'],
+                    't': uwlt['t'],
+                    'percent': float(uwlt['w']) /  float( uwlt['w'] + uwlt['l'] ),
+                    'points': uwlt['w'] - uwlt['l']
+                }
+                sort_users.append(new_obj)
+
+    final_users = sorted(sort_users, key=lambda x: (-x['percentage'], -x['points']))
+
+    final_string = ''
+
+    for x in range(10):
+        rank_user = final_users[x]
+        final_string += '\n'+rank_user['battle_tag']+' '+str(rank_user['percent'])+' '+str(rank_user['points'])
+
+    await message.channel.send(final_string)
+
+    
+
