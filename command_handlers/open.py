@@ -233,7 +233,7 @@ async def open_handler(db, message, client):
             prize = possible_prize
             break
 
-    final_string = 'You openened your Twitch Lootbox and found... **'
+    final_string = 'You opened your Twitch Lootbox and found... **'
     if not is_sub_box:
         final_string = 'You opened your Level '+str(orig_num)+' Lootbox and found... **'
 
