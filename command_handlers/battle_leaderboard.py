@@ -12,7 +12,7 @@ async def battle_leaderboard_handler(db, message):
             uwlt = user['wlt']
             if uwlt['w'] + uwlt['l'] + uwlt['t'] > 0:
                 new_obj = {
-                    'battle_tag': user['battle_tag'],
+                    'battle_tag': user['battle_tag'].split('#')[0],
                     'w': uwlt['w'],
                     'l': uwlt['l'],
                     't': uwlt['t'],
