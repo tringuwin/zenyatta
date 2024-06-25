@@ -21,7 +21,7 @@ async def battle_leaderboard_handler(db, message):
                 }
                 sort_users.append(new_obj)
 
-    final_users = sorted(sort_users, key=lambda x: (-x['percentage'], -x['points']))
+    final_users = sorted(sort_users, key=lambda x: (-x['percent'], -x['points']))
 
     final_string = ''
 
