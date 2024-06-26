@@ -1239,6 +1239,7 @@ SCARLET_AND_VIOLET_DATA = {
     },
 
 
+
 }
 
 POKE_SETS = {

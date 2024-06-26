@@ -744,9 +744,54 @@ async def make_card_handler(db, message):
 
     await message.channel.send('New card added with ID of **'+str(new_id)+'**')
     
+
+
+EDIT_VAL_TO_FIELD = {
+    'p': 'player_id',
+    'n': 'normal_img',
+    's': 'special_img'
+}
+
+async def edit_card_handler(db, message):
+
+    valid_params, params = valid_number_of_params(message, 4)
+    if not valid_params:
+        await message.channel.send('Need 4 Params')
+        return
     
+    card_id = params[1]
+    
+    if not can_be_int(card_id):
+        await message.channel.send(card_id+' is not a number')
+        return
+    
+    card_id = int(card_id)
 
+    edit_val = params[2]
+    if not (edit_val in EDIT_VAL_TO_FIELD):
+        await message.channel.send(edit_val+' is not a valid edit value')
+        return
 
+    display_cards = db['display_cards']
+    display_card = display_cards.find_one({'card_id': card_id})
+    if not display_card:
+        await message.channel.send('Did not find card.')
+        return
+
+    set_val = params[3]
+    set_field = EDIT_VAL_TO_FIELD[edit_val]
+    if edit_val == 'p':
+
+        if not can_be_int(set_val):
+            await message.channel.send(set_val+' is not a valid player ID')
+            return
+        
+        display_cards.update_one({"card_id": card_id}, {"$set": {set_field: int(set_val)}})
+
+    else:
+        display_cards.update_one({"card_id": card_id}, {"$set": {set_field: set_val}})
+
+    await message.channel.send('Card data updated.')
 
 
 
