@@ -1786,6 +1786,10 @@ def run_discord_bot(db):
             guild = await get_guild(client)
             role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
             await remove_role(member, role, 'Raw Reaction Add')
+        elif message_id == constants.LEAGUE_NOTIF_MSG:
+            guild = await get_guild(client)
+            role = guild.get_role(constants.LEAGUE_NOTIFS_ROLE)
+            await remove_role(member, role, 'Raw Reaction Add')
         elif message_id == constants.GIFT_NOTIF_MSG:
             guild = await get_guild(client)
             role = guild.get_role(constants.GIFT_ROLE_ID)
@@ -1838,6 +1842,10 @@ def run_discord_bot(db):
         elif message_id ==  constants.TWITCH_NOTIF_MSG:
             member = get_member(guild, user_id, 'Raw Reaction Remove')
             role = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
+            await give_role(member, role, 'Notifs Settings')
+        elif message_id ==  constants.LEAGUE_NOTIF_MSG:
+            member = get_member(guild, user_id, 'Raw Reaction Remove')
+            role = guild.get_role(constants.LEAGUE_NOTIFS_ROLE)
             await give_role(member, role, 'Notifs Settings')
         elif message_id ==  constants.GIFT_NOTIF_MSG:
             member = get_member(guild, user_id, 'Raw Reaction Remove')
