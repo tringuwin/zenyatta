@@ -25,6 +25,17 @@ def get_card_image_by_display(db, display):
     return card_data['normal_img']
 
 
+def get_card_image_by_display_with_data(card_data, display):
+
+    display_parts = display.split('-')
+    variant_string = display_parts[1]
+
+    if variant_string.lower() == 's':
+        return card_data['special_img']
+    
+    return card_data['normal_img']
+
+
 def get_card_data_by_id(db, card_id):
 
     display_cards = db['display_cards']
@@ -361,7 +372,7 @@ async def view_card_handler(client, db, message):
         await message.channel.send('This is a custom card so it only has one variant, "A"')
         return
     
-    card_img = get_card_image_by_display(db, card_id+'-'+card_variant.upper())
+    card_img = get_card_image_by_display_with_data(card_data, card_id+'-'+card_variant.upper())
 
     card_owner_id = get_card_owner_id(db, card_id+'-'+card_variant.upper())
     owner = 'Not Owned'
