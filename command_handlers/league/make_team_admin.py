@@ -1,4 +1,5 @@
 
+from discord_actions import get_guild
 from league import update_team_info, user_admin_on_team, validate_admin
 from user import get_league_team, user_exists
 import constants
@@ -46,7 +47,12 @@ async def make_team_admin_handler(db, message, client):
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": new_members}})
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
-    await league_notifs_channel.send('Team Update for '+team_name+": "+mentioned_member.mention+" is now a team admin.")
+
+    guild = await get_guild(client)
+    team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_name]
+    team_emoji = guild.get_emoji(team_emoji_id)
+
+    await league_notifs_channel.send(str(team_emoji)+' Team Update for '+team_name+": "+mentioned_member.mention+" is now a team admin.")
 
     team_object['members'] = new_members
     await update_team_info(client, team_object, db)
