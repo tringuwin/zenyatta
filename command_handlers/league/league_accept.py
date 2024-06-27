@@ -2,7 +2,7 @@
 
 from api import give_role
 from common_messages import invalid_number_of_params, not_registered_response
-from discord_actions import get_role_by_id
+from discord_actions import get_guild, get_role_by_id
 from helpers import make_string_from_word_list
 from league import remove_league_invite, update_team_info
 from user import get_league_invites, get_league_team, user_exists
@@ -71,7 +71,12 @@ async def league_accept_handler(db, message, client):
     await update_team_info(client, league_team, db)
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
-    await league_notifs_channel.send('User '+message.author.mention+' has joined the team "'+real_team_name+'".')
+
+    guild = await get_guild(client)
+    team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[real_team_name]
+    team_emoji = guild.get_emoji(team_emoji_id)
+    
+    await league_notifs_channel.send(str(team_emoji)+' User '+message.author.mention+' has joined the team "'+real_team_name+'".')
     await message.channel.send('You have successfully joined this team!')
 
 
