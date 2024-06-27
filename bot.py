@@ -1641,6 +1641,19 @@ async def handle_message(message, db, client):
         clips_channel = guild.get_channel(constants.CLIPS_CHANNEL)
         await clips_channel.send('A new SOL Replay has been posted on YouTube! Go check it out! '+vod_link)
 
+    elif lower_message == '!applyleaguenotifs' and is_admin:
+
+        guild = client.get_guild(constants.GUILD_ID)
+        league_notifs = guild.get_role(constants.LEAGUE_NOTIFS_ROLE)
+
+        num = 1
+        for member in client.get_all_members():
+            
+            await member.add_roles(league_notifs)
+            time.sleep(0.5)
+            print('applied to user '+str(num))
+            num += 1
+
     elif lower_message == '!getavatar':
         avatar = message.author.display_avatar
         if avatar:
