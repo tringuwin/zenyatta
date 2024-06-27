@@ -1,7 +1,7 @@
 
 from api import remove_role
 from common_messages import invalid_number_of_params
-from discord_actions import get_role_by_id
+from discord_actions import get_guild, get_role_by_id
 from league import update_team_info, validate_admin
 import constants
 
@@ -66,7 +66,12 @@ async def league_kick_handler(db, message, client):
         await remove_role(member_to_find, role, 'League Kick')
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
-    await league_notifs_channel.send('Team Update for '+team_name+": "+member_to_find.mention+" was kicked by "+message.author.mention)
+
+    guild = await get_guild(client)
+    team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_name]
+    team_emoji = guild.get_emoji(team_emoji_id)
+
+    await league_notifs_channel.send(str(team_emoji)' Team Update for '+team_name+": "+member_to_find.mention+" was kicked by "+message.author.mention)
 
     my_team['members'] = final_members
     await update_team_info(client, my_team, db)
