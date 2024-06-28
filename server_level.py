@@ -1,6 +1,7 @@
 
 
 from common_messages import invalid_number_of_params
+from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
 import constants
 
@@ -208,6 +209,20 @@ async def server_points_handler(db, message, client):
         
         # make updates
         constants_db.update_one({"name": 'server_level'}, {"$set": {"value": {"level": level}}})
+
+        guild = get_guild(client)
+        announcements_channel = guild.get_channel(constants.ANNOUNCEMENTS_CHANNEL_ID)
+
+        final_string = '🌟 **SERVER LEVEL UPDATE** 🌟\n\n'
+
+        if level > server_level:
+            final_string += 'The server level has ***INCREASED*** from **Level '+str(server_level)+'** to **LEVEL '+str(level)
+            final_string += '\n\nThank you to everyone who contributed! You can see the full list of rewards and how to contribute here: https://discord.com/channels/1130553449491210442/1234932215482155048' 
+        else:
+            final_string += 'The server level has *decreased* from **Level '+str(server_level)+'** to **LEVEL '+str(level)
+            final_string += '\n\nThe server level impacts things like Token Shop Stock, Daily Auctions, and SOL Prize money. Find out how you can contribute here: https://discord.com/channels/1130553449491210442/1234932215482155048' 
+
+        await announcements_channel.send(final_string)
     
     await message.channel.send('level: '+str(level)+' - points: '+str(num_points))
 
