@@ -210,7 +210,7 @@ async def server_points_handler(db, message, client):
         # make updates
         constants_db.update_one({"name": 'server_level'}, {"$set": {"value": {"level": level}}})
 
-        guild = get_guild(client)
+        guild = await get_guild(client)
         announcements_channel = guild.get_channel(constants.ANNOUNCEMENTS_CHANNEL_ID)
 
         final_string = '🌟 **SERVER LEVEL UPDATE** 🌟\n\n'
