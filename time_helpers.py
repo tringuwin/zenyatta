@@ -170,6 +170,14 @@ async def check_weekly(client, db, channel, message):
     shop.update_one({"shop_id": 2}, {"$set": {"offers": items}})
     await update_shop(db, message)
 
+    # set last token shop for each user
+    users = db['users']
+    all_users = users.find()
+    for user in all_users:
+
+        if 'last_token_shop' in user:
+            users.update_one({"discord_id": user['discord_id']}, {"$set": {"last_token_shop": 0}})
+
     # confirmation message
     await channel.send('Successfully re-stocked token shop!')
 
