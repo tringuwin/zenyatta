@@ -106,12 +106,21 @@ async def add_poke_handler(db, message):
     if not set_num in my_set:
         await message.channel.send('Did not find with card number '+set_num+' in set '+set+'. Might need to add the data.')
         return
+    
+    # check if energy card
+    is_energy = False
+    if len(set_num) == 1:
+        is_energy = True
 
     constants_db = db['constants']
     next_index = constants_db.find_one({'name': 'next_poke_id'})
     card_id = next_index['value']
     
-    page, slot, slots_val = get_next_slot(db)
+
+    page = -1
+    slot = -1
+    if not is_energy:
+        page, slot, slots_val = get_next_slot(db)
 
     new_pokemon = {
         'set': set,
@@ -127,9 +136,10 @@ async def add_poke_handler(db, message):
     pokemon = db['pokemon']
     pokemon.insert_one(new_pokemon)
 
-    slots_val.append(str(page)+'-'+str(slot))
-
-    constants_db.update_one({"name": 'slots'}, {"$set": {"value": slots_val}})
+    if not is_energy:
+        slots_val.append(str(page)+'-'+str(slot))
+        constants_db.update_one({"name": 'slots'}, {"$set": {"value": slots_val}})
+        
     constants_db.update_one({"name": 'next_poke_id'}, {"$set": {"value": card_id + 1}})
 
     all_pokes = constants_db.find_one({'name': 'all_pokes'})
