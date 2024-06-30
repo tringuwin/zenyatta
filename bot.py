@@ -433,8 +433,8 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!spicyowrank':
 
-        response = 'Spicy OW is the **62nd** highest ranked Overwatch Discord Server'
-        response += "\nNext Server to Beat: **Doomfist Parkour**"
+        response = 'Spicy OW is the **61st** highest ranked Overwatch Discord Server'
+        response += "\nNext Server to Beat: **Hangzhou Spark**"
 
         await message.channel.send(response)
 
