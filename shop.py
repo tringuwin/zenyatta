@@ -22,7 +22,8 @@ guide_string = '\n**HOW TO EARN TOKENS**\n'
 guide_string += '- Prizes for participating in events\n'
 guide_string += '- Gift command once every 8 hours (!gift)\n'
 guide_string += '- Use Twitch "Sauce Points" (Look under the twitch chat and find custom rewards)\n'
-guide_string += '- Invite a friend to the server. (🪙 100 Tokens for you AND 🪙 100 for your friend) Have the person you invited say **!invitedby @You**'  
+guide_string += '- Invite a friend to the server. (🪙 100 Tokens for you AND 🪙 100 for your friend) Have the person you invited say **!invitedby @You**'
+guide_string += '- Use this link to purchase any "Rogue Energy" products. (Link also provides 20% discount) Every 5 cents you spend using this link, gives you 1 Token. (Also gives Card Packs! DM SpicyRagu your order number to claim) https://rogueenergy.com/discount/Spicy?ref=dmxeauce'  
 
 async def update_shop(db, message):
     shop = db['shop']
