@@ -722,12 +722,15 @@ async def total_packs_handler(db, message):
 
 async def make_card_handler(db, message):
 
-    valid_params, params = valid_number_of_params(message, 4)
-
-    if not valid_params:
-        await invalid_number_of_params(message)
+    params = message.content.split()
+    if len(params) != 5 and len(params) != 4:
+        await message.channel.send('Need 4-5 params.')
         return
     
+    is_custom = False
+    if len(params) == 5:
+        is_custom = True
+
     user_id = params[1]
     if not can_be_int(user_id):
         await message.channel.send(user_id+' is not a number')
@@ -750,6 +753,8 @@ async def make_card_handler(db, message):
         'special_img': params[3],
         'card_id': new_id
     }
+    if is_custom:
+        new_obj['custom'] = True
 
     display_cards.insert_one(new_obj)
 
