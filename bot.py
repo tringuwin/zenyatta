@@ -1082,7 +1082,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!cardpatch':
 
         cards_db = db['cards']
-        cards_data = cards_db.find({'cards_id': 1})
+        cards_data = cards_db.find_one({'cards_id': 1})
         cards_val = cards_data['cards']
 
         final_array = []
