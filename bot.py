@@ -1079,6 +1079,13 @@ async def handle_message(message, db, client):
     elif lower_message == '!updatepokedata':
         await update_poke_data_db(db, message)
 
+    elif lower_message == '!cardpatch':
+
+        card_owners = get_constant_value(db, 'card_owners')
+        filtered_dict = {k: v for k, v in card_owners.items() if "671" not in k}
+        set_constant_value(db, 'card_owners', filtered_dict)
+        await message.channel.send('patch done')
+
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']
         db_constants.update_one({"name": 'raffle_total'}, {"$set": {"value": 0}})
