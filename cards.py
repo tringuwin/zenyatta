@@ -152,6 +152,10 @@ async def init_card_handler(db, message):
     if not card_info:
         await message.channel.send('I did not find a card with that ID.')
         return
+    
+    if ('custom' in card_info) and card_info['custom']:
+        await message.channel.send('This card is flagged as a custom. Use !initcustom instead')
+        return
 
     user_id_in_card = card_info['player_id']
 
