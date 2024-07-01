@@ -110,6 +110,7 @@ from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
+from command_handlers.rp import rp_handler
 from command_handlers.twitch import twitch_handler
 from command_handlers.xp_battle.battle_no_show import battle_no_show_handler
 from command_handlers.xp_battle.battle_teams import battle_teams_handler
@@ -1437,6 +1438,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!esub ') and is_admin:
         await e_sub_handler(client, db, message)
+
+    elif lower_message.startswith('!rp') and is_admin:
+        await rp_handler(client, db, message)
 
     elif lower_message.startswith('!setlevel ') and is_admin:
         await set_level_handler(client, db, message)
