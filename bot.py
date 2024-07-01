@@ -1081,10 +1081,18 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!cardpatch':
 
-        card_owners = get_constant_value(db, 'card_owners')
-        filtered_dict = {k: v for k, v in card_owners.items() if "671" not in k}
-        set_constant_value(db, 'card_owners', filtered_dict)
-        await message.channel.send('patch done')
+        cards_db = db['cards']
+        cards_data = cards_db.find({'cards_id': 1})
+        cards_val = cards_data['cards']
+
+        final_array = []
+        for card in cards_val:
+            if card['card_id'] != '671':
+                final_array.append(card)
+
+        await message.channel.send('final array is '+str(len(final_array))+' long')
+
+        await message.channel.send('patch done 2')
 
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']
