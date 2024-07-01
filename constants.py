@@ -215,7 +215,7 @@ MAP_NAME_TO_IMAGE = {
     'Colosseo': 'https://i.postimg.cc/k5ddgdtn/Colosseo.webp',
     'Esperanca': 'https://i.postimg.cc/jjQYWkzy/Esperanca.webp',
     'New Queen Street': 'https://i.postimg.cc/fRdNsby2/New-Queen-Street.webp',
-    'Runasapi': 'https://i.imgur.com/ZvZQWAn.png'
+    'Runasapi': 'https://i.imgur.com/2KxXZoX.png'
 
 }
 
