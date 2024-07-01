@@ -1090,9 +1090,11 @@ async def handle_message(message, db, client):
             if card['card_id'] != '671':
                 final_array.append(card)
 
+        cards_db.update_one({"cards_id": 1}, {"$set": {"cards": final_array}})
+
         await message.channel.send('final array is '+str(len(final_array))+' long')
 
-        await message.channel.send('patch done 2')
+        await message.channel.send('patch done 3')
 
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']
