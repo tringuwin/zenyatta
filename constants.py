@@ -214,7 +214,8 @@ MAP_NAME_TO_IMAGE = {
     # Push
     'Colosseo': 'https://i.postimg.cc/k5ddgdtn/Colosseo.webp',
     'Esperanca': 'https://i.postimg.cc/jjQYWkzy/Esperanca.webp',
-    'New Queen Street': 'https://i.postimg.cc/fRdNsby2/New-Queen-Street.webp'
+    'New Queen Street': 'https://i.postimg.cc/fRdNsby2/New-Queen-Street.webp',
+    'Runasapi': 'https://i.imgur.com/ZvZQWAn.png'
 
 }
 
@@ -257,7 +258,8 @@ MAP_NAME_TO_NAME_IMG = {
     # Push
     'Colosseo': 'https://i.postimg.cc/Y2bGsdgd/Colosseo.png',
     'Esperanca': 'https://i.postimg.cc/HsncDb9d/Esperanca.png',
-    'New Queen Street': 'https://i.postimg.cc/NMP4BBS0/New-Queen-Street.png'
+    'New Queen Street': 'https://i.postimg.cc/NMP4BBS0/New-Queen-Street.png',
+    'Runasapi': 'https://i.imgur.com/Yl8xgqG.png'
 
 }
 
