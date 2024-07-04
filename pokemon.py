@@ -116,6 +116,13 @@ async def add_poke_handler(db, message):
     next_index = constants_db.find_one({'name': 'next_poke_id'})
     card_id = next_index['value']
     
+    unique_id = f'{set}-{set_num}-{holo_type}'
+    logans_cards = db['logans_cards']
+    found_card = logans_cards.find({'card_unique': unique_id})
+    if not found_card:
+        await message.channel.send('\n\n\nTHIS CARD IS NOT IN YOUR PERSONAL COLLECTION, ADD IT TO YOUR COLLECTION\n\n\n')
+        logans_cards.insert_one({'card_unique': unique_id})
+        return
 
     page = -1
     slot = -1
