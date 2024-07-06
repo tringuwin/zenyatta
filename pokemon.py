@@ -118,7 +118,7 @@ async def add_poke_handler(db, message):
     
     unique_id = f'{set}-{set_num}-{holo_type}'
     logans_cards = db['logans_cards']
-    found_card = logans_cards.find({'card_unique': unique_id})
+    found_card = logans_cards.find_one({'card_unique': unique_id})
     if not found_card:
         await message.channel.send('\n\n\nTHIS CARD IS NOT IN YOUR PERSONAL COLLECTION, ADD IT TO YOUR COLLECTION\n\n\n')
         logans_cards.insert_one({'card_unique': unique_id})
