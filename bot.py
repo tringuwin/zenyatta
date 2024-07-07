@@ -452,7 +452,7 @@ async def handle_message(message, db, client):
         await message.channel.send('Use this link to save 20% on Rogue Energy products and help support our League! https://rogueenergy.com/discount/Spicy?ref=dmxeauce')
 
     elif lower_message == '!roguerank':
-        await message.channel.send('Our server is currently ranked **1188th** among all Rogue Energy partners.\n\nHelp us reach the top to unlock bigger rewards for our League! Use the command **!rogue** for more details.')
+        await message.channel.send('Our server is currently ranked **1090th** among all Rogue Energy partners.\n\nHelp us reach the top to unlock bigger rewards for our League! Use the command **!rogue** for more details.')
 
     elif lower_message.startswith('!whichteam'):
         await which_team_handler(message)
