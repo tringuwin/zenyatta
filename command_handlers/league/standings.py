@@ -62,6 +62,11 @@ async def standings_handler(db, message, client):
     sorted_teams_1 = sorted(div_groups[0], key=lambda x: x["score"], reverse=True)
     sorted_teams_2 = sorted(div_groups[1], key=lambda x: x["score"], reverse=True)
     sorted_teams_3 = sorted(div_groups[2], key=lambda x: x["score"], reverse=True)
+    # start temp code
+    stored = sorted_teams_3[1]
+    sorted_teams_3[1] = sorted_teams_3[2]
+    sorted_teams_3[2] = stored
+    # end temp code
     final_string = '**LEAGUE STANDINGS**\n-----------------------'
     guild = await get_guild(client)
 
