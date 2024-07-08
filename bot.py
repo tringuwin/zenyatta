@@ -1098,6 +1098,8 @@ async def handle_message(message, db, client):
                 print('final cards is')
                 print(final_cards)
 
+                users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": final_cards}})
+
         await message.channel.send('patch done 1')
 
     elif lower_message == '!resetraffle' and is_admin:
