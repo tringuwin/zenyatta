@@ -1095,6 +1095,9 @@ async def handle_message(message, db, client):
             })
 
         print(final_cards)
+        cards.update_one({"cards_id": 1}, {"$set": {"cards": final_cards}})
+        await message.channel.send('patch done')
+
 
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']
