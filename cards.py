@@ -178,7 +178,6 @@ async def init_card_handler(db, message):
             'card_display': card_id+'-A',
             'card_id': card_id,
             'variant_id': 'A',
-            'signed': 0,
         })
         users = db['users']
         users.update_one({"discord_id": user_id_in_card}, {"$set": {"cards": user_cards}})
@@ -192,7 +191,6 @@ async def init_card_handler(db, message):
         'card_display': card_id+'-S',
         'card_id': card_id,
         'variant_id': 'S',
-        'signed': 0,
     })
         
     # add normal copies
@@ -201,7 +199,6 @@ async def init_card_handler(db, message):
             'card_display': card_id+'-'+variant,
             'card_id': card_id,
             'variant_id': variant,
-            'signed': 0,
         })
 
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
@@ -252,7 +249,6 @@ async def init_custom_handler(db, message):
         'card_display': card_id+'-A',
         'card_id': card_id,
         'variant_id': 'A',
-        'signed': 0,
     })
 
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
@@ -616,7 +612,6 @@ async def unlist_card_handler(db, message):
         'card_display': user_card,
         'card_id': card_id,
         'variant_id': variant,
-        'signed': 0,
     }
     user_cards.append(readded_card)
 
@@ -698,7 +693,6 @@ async def buy_card_handler(db, message):
         'card_display': buy_card,
         'card_id': card_id,
         'variant_id': variant,
-        'signed': 0,
     }
     buyer_cards.append(bought_card)
 
