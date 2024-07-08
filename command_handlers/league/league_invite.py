@@ -19,7 +19,7 @@ async def league_invite_handler(db, message):
     
     user = user_exists(db, mentioned_member.id)
     if not user:
-        await message.channel.send('That user is not registered yet.')
+        await message.channel.send('That user is not registered yet. The can register using the command **!battle BattleTagHere#1234**')
         return
     
     user_team = get_league_team(user)
