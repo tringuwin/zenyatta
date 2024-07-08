@@ -19,7 +19,7 @@ def make_div_standings_string(div_teams, div_num, guild):
             rank_emoji = '🟦'
         elif index == 5:
             rank_emoji = '🟥'
-        div_string += '\n'+rank_emoji+' '+str(index)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'% | M: '+str(0) 
+        div_string += '\n'+rank_emoji+' '+str(index)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'% | MD: '+str(team['team'][1]) 
         index += 1
 
     return div_string
