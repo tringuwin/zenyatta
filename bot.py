@@ -1080,27 +1080,21 @@ async def handle_message(message, db, client):
     elif lower_message == '!updatepokedata':
         await update_poke_data_db(db, message)
 
-    elif lower_message == '!cardpatch2':
+    elif lower_message == '!cardpatch3':
 
-        users = db['users']
-        all_users = users.find()
+        cards = db['cards']
+        card_data = cards.find_one({'cards_id': 1})
+        all_cards = card_data['cards']
+        final_cards = []
 
-        for user in all_users:
-            if 'cards' in user:
-                final_cards = []
-                user_cards = user['cards']
-                for card in user_cards:
-                    final_cards.append({
-                        'card_display': card['card_display'],
-                        'card_id': card['card_id'],
-                        'variant_id': card['variant_id']
-                    })
-                print('final cards is')
-                print(final_cards)
+        for card in all_cards:
+            final_cards.append({
+                'card_display': card['card_display'],
+                'card_id': card['card_id'],
+                'variant_id': card['variant_id']
+            })
 
-                users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": final_cards}})
-
-        await message.channel.send('patch done 1')
+        print(final_cards)
 
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']
