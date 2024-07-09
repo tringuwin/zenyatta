@@ -23,18 +23,14 @@ async def battle_teams_handler(db, message, client):
     players_with_wlt = []
     for player_id in current_players:
         if player_id == -1:
-            players_with_wlt.append({'user_id': player_id, 'ratio': -1.0})
+            players_with_wlt.append({'user_id': player_id, 'points': -1000.0})
         else:
             user = user_exists(db, player_id)
             wlt = get_user_wlt(user)
-            ratio = None
-            if wlt['w'] == 0 and wlt['l'] == 0:
-                ratio = 0.5
-            else:
-                ratio =  wlt['w'] / (wlt['w']+wlt['l'])
-            players_with_wlt.append({'user_id': player_id, 'ratio': ratio})
+            points = wlt['w'] - wlt['l']
+            players_with_wlt.append({'user_id': player_id, 'points': points})
 
-    sorted_players = sorted(players_with_wlt, key=lambda x: x['ratio'], reverse=True)
+    sorted_players = sorted(players_with_wlt, key=lambda x: x['points'], reverse=True)
         
     team_1 = []
     team_2 = []
