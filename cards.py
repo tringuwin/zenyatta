@@ -57,6 +57,16 @@ def get_card_owner_id(db, display):
         return card_owners[display]
 
     return -2
+
+def get_card_owner_id2(db, display):
+
+    single_cards = db['single_cards']
+    single_card = single_cards.find_one({'display': display})
+    
+    if single_card:
+        return single_card['owner']
+    
+    return -2
     
 
 def assign_owner_to_card(db, display, owner_id):
@@ -69,7 +79,6 @@ def assign_owner_to_card(db, display, owner_id):
     constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": card_owners}})
 
     single_cards = db['single_cards']
-    single_card = single_cards.find_one({'display': display})
     single_cards.update_one({"display": display}, {"$set": {"owner": owner_id}})
 
 
@@ -137,6 +146,18 @@ def add_card_to_database():
 CARD_VARIANTS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 
 USED_CARD_VARIANTS = ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
+
+VARIANT_TO_POWER = {
+    'A': 20,
+    'B': 18,
+    'C': 16,
+    'D': 14,
+    'E': 12,
+    'F': 10,
+    'G': 8,
+    'H': 6,
+    'I': 4
+}
 
 async def init_card_handler(db, message):
 
@@ -211,12 +232,38 @@ async def init_card_handler(db, message):
     card_owners_obj = constants_db.find_one({'name': 'card_owners'})
     card_owners_val = card_owners_obj['value']
     
+    single_cards = db['single_cards']
+    single_cards.insert_one({
+        'display': card_id+'-A',
+        'card_id': int(card_id),
+        'variant': 'A',
+        'power': 20,
+        'owner': 0
+    })
+
     card_owners_val[card_id+'-A'] = user_copy_id
     for variant in USED_CARD_VARIANTS:
         card_owners_val[card_id+'-'+variant] = 0
+        single_cards.insert_one({
+            'display': card_id+'-'+variant,
+            'card_id': int(card_id),
+            'variant': 'A',
+            'power': VARIANT_TO_POWER['variant'],
+            'owner': 0
+        })
+
     card_owners_val[card_id+'-S'] = 0
+    single_cards.insert_one({
+        'display': card_id+'-S',
+        'card_id': int(card_id),
+        'variant': 'S',
+        'power': 100,
+        'owner': 0
+    })
 
     constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": card_owners_val}})
+
+
 
     await message.channel.send('success')
 
@@ -262,8 +309,16 @@ async def init_custom_handler(db, message):
     card_owners_val = card_owners_obj['value']
     
     card_owners_val[card_id+'-A'] = 0
-
     constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": card_owners_val}})
+
+    single_cards = db['single_cards']
+    single_cards.insert_one({
+        'display': card_id+'-A',
+        'card_id': int(card_id),
+        'variant': 'A',
+        'power': 20,
+        'owner': 0
+    })
 
     await message.channel.send('success')
 
