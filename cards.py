@@ -711,7 +711,11 @@ async def buy_card_handler(db, message):
     assign_owner_to_card(db, buy_card, user['discord_id'])
 
     # confirmation message
-    await message.channel.send('You bought the card '+buy_card+'!!')
+    card_img = get_card_image_by_display(db, buy_card)
+
+    embed = discord.Embed(title='YOU BOUGHT CARD '+buy_card)
+    embed.set_image(url=card_img)
+    await message.channel.send(embed=embed)
     
 
 async def total_packs_handler(db, message):
