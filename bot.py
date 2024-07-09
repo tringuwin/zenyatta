@@ -119,7 +119,7 @@ from command_handlers.xp_battle.end_battle import end_battle_handler
 from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
 from poke_data import update_poke_data_db
-from pokemon import add_poke_handler, all_pokes_handler, get_pokedex, get_sort_index, my_pokes_handler, open_poke_handler, sell_poke_handler, unopened_handler, view_poke_handler
+from pokemon import add_poke_handler, all_pokes_handler, get_pokedex, get_sort_index, give_poke_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, unopened_handler, view_poke_handler
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
@@ -1633,6 +1633,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!sellpoke '):
         await sell_poke_handler(db, message)
+
+    elif lower_message.startswith('!givepoke '):
+        await give_poke_handler(db, message)
 
     elif lower_message.startswith('!viewpoke '):
         await view_poke_handler(db, message)

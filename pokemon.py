@@ -300,6 +300,56 @@ async def sell_poke_handler(db, message):
     await message.channel.send('You sold card '+str(id)+' for 20 Tokens!')
 
 
+async def give_poke_handler(db, message):
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+
+    valid_params, params = valid_number_of_params(message, 3)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    if len(message.mentions) != 1:
+        await message.channel.send('Please mention the user to give the pokemon card to them.')
+        return
+    
+    mentioned_ping = message.mentions[0]
+    mentioned_user_id = mentioned_ping.id
+    mentioned_user = user_exists(db, mentioned_user_id)
+    if not mentioned_user:
+        await message.channel.send('That user is not registered.')
+        return
+    
+    id = params[2]
+    if not can_be_int(id):
+        await message.channel.send(id+' is not a valid card ID. It should be a number like 1, 50, 250, etc.')
+        return
+    id = int(id)
+
+    user_pokes = get_user_poke_cards(user)
+    if not (id in user_pokes):
+        await message.channel.send('You do not own any pokemon cards with the ID '+str(id))
+        return
+    
+    user_pokes.remove(id)
+    new_pokedex = get_pokedex(db, user_pokes)
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_cards": user_pokes, "pokedex": new_pokedex}})
+
+    pokemon = db['pokemon']
+    pokemon.update_one({"card_id": id}, {"$set": {"owner_id": -1}})
+
+    mentioned_user_pokes = get_user_poke_cards(mentioned_user)
+    mentioned_user_pokes.append(id)
+    mentioned_user_pokedex = get_pokedex(db, mentioned_user_pokes)
+    users.update_one({"discord_id": mentioned_user['discord_id']}, {"$set": {"poke_cards": mentioned_user_pokes, "pokedex": mentioned_user_pokedex}})
+
+    await message.channel.send('The Pokemon Card was given!')
+
+
 async def my_pokes_handler(db, message):
 
     user = user_exists(db, message.author.id)
