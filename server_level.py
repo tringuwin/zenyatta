@@ -233,11 +233,11 @@ async def server_points_handler(db, message, client):
 
         if level > server_level:
             final_string += 'The server level has ***INCREASED*** from **LEVEL '+str(server_level)+'** to **LEVEL '+str(level)+'**'
-            final_string = '\n\n'+changed_string
+            final_string += '\n\n'+changed_string
             final_string += '\n\nThank you to everyone who contributed! You can see the full list of rewards and how to contribute here: https://discord.com/channels/1130553449491210442/1234932215482155048' 
         else:
             final_string += 'The server level has *decreased* from **LEVEL '+str(server_level)+'** to **LEVEL '+str(level)+'**'
-            final_string = '\n\n'+changed_string
+            final_string += '\n\n'+changed_string
             final_string += '\n\nThe server level impacts things like Token Shop Stock, Daily Auctions, and SOL Prize money. Find out how you can contribute here: https://discord.com/channels/1130553449491210442/1234932215482155048' 
 
         await announcements_channel.send(final_string)
