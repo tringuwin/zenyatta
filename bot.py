@@ -1079,6 +1079,16 @@ async def handle_message(message, db, client):
 
         await message.channel.send('all singles done')
 
+    elif lower_message == '!singlepatch2' and is_admin:
+
+        single_cards = db['single_cards']
+        all_singles = single_cards.find()
+
+        for single in all_singles:
+            single_cards.update_one({'display': single['display']}, {"$set": {"owner": 0}})
+
+        await message.channel.send('all singles given owned id') 
+
 
     elif lower_message == '!initsinglecardbase' and is_admin:
 
