@@ -249,7 +249,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot):
         
     elif (message.channel.id == constants.CARD_TRADING_CHANNEL) or (message.channel.id == constants.PACK_OPEN_CHANNEL):
 
-        if lower_message.find('card') != -1 or lower_message.find('pack') != -1 or lower_message.find('token') != -1 or lower_message.find('donate') != -1 or lower_message.find('gallery') != 1:
+        if lower_message.find('card') != -1 or lower_message.find('pack') != -1 or lower_message.find('token') != -1 or lower_message.find('donate') != -1 or lower_message.find('gallery') != -1:
             return True, None
         
         
