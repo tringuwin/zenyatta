@@ -770,7 +770,7 @@ SCARLET_AND_VIOLET_DATA = {
         'card_img': 'https://i.imgur.com/1zTjktY.png'
     },
 
-    '124': {
+    '121': {
         'name': 'Stonjourner',
         'type': 'fighting',
         'card_img': 'https://i.imgur.com/oiAKbEv.png'
