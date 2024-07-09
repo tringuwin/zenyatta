@@ -1078,12 +1078,12 @@ async def handle_message(message, db, client):
                     power = 100
 
                 single_cards.insert_one({
-                    'display': +str(display['card_id'])+'-'+variant,
+                    'display': str(display['card_id'])+'-'+variant,
                     'card_id': display['card_id'],
                     'variant': variant,
                     'power': power
                 })
-                
+
         await message.channel.send('single database made')
 
 
