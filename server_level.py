@@ -221,7 +221,7 @@ async def server_points_handler(db, message, client):
         changed_string = 'What Changed:'
 
         if past_level_data['token_shop'] != level_data['token_shop']:
-            changed_string += '\n- Weekly token shop has ' +changed_word+ ' from **$'+str(past_level_data['token_shop'])+'** to **$'+str(level_data['token_shop'])+'**'
+            changed_string += '\n- Weekly Token Shop stock has ' +changed_word+ ' from **$'+str(past_level_data['token_shop'])+'** to **$'+str(level_data['token_shop'])+'**'
 
         if past_level_data['prize_money'] != level_data['prize_money']:
             changed_string += '\n- Weekly SOL Prize money has ' +changed_word+ ' from **$'+str(past_level_data['prize_money'])+'** to **$'+str(level_data['prize_money'])+'**'
