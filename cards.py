@@ -388,8 +388,13 @@ async def view_card_handler(client, db, message):
     elif card_owner_id == -2:
         owner = 'Not Added Yet'
 
+    single_cards = db['single_cards']
+    my_single_card = single_cards.find_one({'display': card_id+'-'+card_variant.upper()})
+    power = my_single_card['power']
+
     embed = discord.Embed(title='CARD '+card_id+'-'+card_variant.upper())
     embed.set_image(url=card_img)
+    embed.add_field(name='Power', value=str(power), inline=False)
     embed.set_footer(text=owner, icon_url=owner_icon)
 
     await message.channel.send(embed=embed)
