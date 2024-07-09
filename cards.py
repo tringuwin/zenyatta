@@ -47,16 +47,6 @@ def get_card_data_by_id(db, card_id):
 
 
 
-def get_card_owner_id_old(db, display):
-
-    constants_db = db['constants']
-    card_owners_obj = constants_db.find_one({'name': 'card_owners'})
-    card_owners = card_owners_obj['value']
-
-    if display in card_owners:
-        return card_owners[display]
-
-    return -2
 
 def get_card_owner_id(db, display):
 
@@ -70,13 +60,6 @@ def get_card_owner_id(db, display):
     
 
 def assign_owner_to_card(db, display, owner_id):
-
-    constants_db = db['constants']
-    card_owners_obj = constants_db.find_one({'name': 'card_owners'})
-    card_owners = card_owners_obj['value']
-
-    card_owners[display] = owner_id
-    constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": card_owners}})
 
     single_cards = db['single_cards']
     single_cards.update_one({"display": display}, {"$set": {"owner": owner_id}})
@@ -227,10 +210,6 @@ async def init_card_handler(db, message):
         })
 
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
-
-    constants_db = db['constants']
-    card_owners_obj = constants_db.find_one({'name': 'card_owners'})
-    card_owners_val = card_owners_obj['value']
     
     single_cards = db['single_cards']
     single_cards.insert_one({
@@ -241,9 +220,7 @@ async def init_card_handler(db, message):
         'owner': 0
     })
 
-    card_owners_val[card_id+'-A'] = user_copy_id
     for variant in USED_CARD_VARIANTS:
-        card_owners_val[card_id+'-'+variant] = 0
         single_cards.insert_one({
             'display': card_id+'-'+variant,
             'card_id': int(card_id),
@@ -252,7 +229,6 @@ async def init_card_handler(db, message):
             'owner': 0
         })
 
-    card_owners_val[card_id+'-S'] = 0
     single_cards.insert_one({
         'display': card_id+'-S',
         'card_id': int(card_id),
@@ -260,8 +236,6 @@ async def init_card_handler(db, message):
         'power': 100,
         'owner': 0
     })
-
-    constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": card_owners_val}})
 
 
 
@@ -303,13 +277,6 @@ async def init_custom_handler(db, message):
     })
 
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
-
-    constants_db = db['constants']
-    card_owners_obj = constants_db.find_one({'name': 'card_owners'})
-    card_owners_val = card_owners_obj['value']
-    
-    card_owners_val[card_id+'-A'] = 0
-    constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": card_owners_val}})
 
     single_cards = db['single_cards']
     single_cards.insert_one({
@@ -876,59 +843,4 @@ async def edit_card_handler(db, message):
     await message.channel.send('Card data updated.')
 
 
-
-# async def card_owners_handler(db, message):
-
-#     await message.channel.send("starting...")
-
-#     obj = {}
-#     for card_id in ALL_CARDS:
-
-#         card_data = ALL_CARDS[card_id]
-#         is_custom = False
-#         if ('custom' in card_data) and card_data['custom']:
-#             is_custom = True
-
-#         variant_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']
-#         if is_custom:
-#             variant_list = ['A']
-
-#         for variant in variant_list:
-
-#             card_display = card_id+'-'+variant
-#             obj[card_display] = -1
-
-
-#     users = db['users']
-#     all_users = users.find()
-#     for user in all_users:
-
-#         cards = get_user_cards(user)
-#         if len(cards) > 0:
-#             for card in cards:
-#                 card_display = card['card_display']
-#                 obj[card_display] = user['discord_id']
-        
-#         for_sale_cards = get_user_for_sale_cards(user)
-#         if len(for_sale_cards) > 0:
-#             for for_sale_card in for_sale_cards:
-#                 obj[for_sale_card] = user['discord_id']
-
-#     cards_db = db['cards']
-#     cards_obj = cards_db.find_one({'cards_id': 1})
-#     cards_val = cards_obj['cards']
-#     for card in cards_val:
-#         display = card['card_display']
-#         obj[display] = 0
-
-#     num_lost = 0
-#     for card_id in obj:
-#         card_owner = obj[card_id]
-#         if card_owner == -1:
-#             num_lost += 1
-
-#     constants_db = db['constants']
-#     constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": obj}})
-
-#     await message.channel.send('all done. number lost is '+str(num_lost))
 
