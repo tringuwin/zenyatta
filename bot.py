@@ -1733,6 +1733,13 @@ async def handle_message(message, db, client):
         clips_channel = guild.get_channel(constants.CLIPS_CHANNEL)
         await clips_channel.send('A new SOL Replay has been posted on YouTube! Go check it out! '+vod_link)
 
+    elif lower_message.startswith('!update|') and is_admin:
+        parts = message.content.split('|')
+        main_part = parts[1]
+        guild = await get_guild(client)
+        update_channel = guild.get_channel(constants.UPDATE_CHANNEL)
+        await update_channel.send('**[Zenyatta Version '+constants.VERSION+']**\n'+main_part)
+
     elif lower_message == '!applyleaguenotifs' and is_admin:
 
         guild = client.get_guild(constants.GUILD_ID)
