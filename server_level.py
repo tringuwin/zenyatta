@@ -221,13 +221,13 @@ async def server_points_handler(db, message, client):
         changed_string = 'What Changed:'
 
         if past_level_data['token_shop'] != level_data['token_shop']:
-            changed_string += f'\n- Weekly token shop has {changed_word} from **${past_level_data['token_shop']}** to **${level_data['token_shop']}**'
+            changed_string += '\n- Weekly token shop has ' +changed_word+ ' from **$'+str(past_level_data['token_shop'])+'** to **$'+str(level_data['token_shop'])
 
         if past_level_data['prize_money'] != level_data['prize_money']:
-            changed_string += f'\n- Weekly SOL Prize money has {changed_word} from **${past_level_data['prize_money']}** to **${level_data['prizemoney']}**'
+            changed_string += '\n- Weekly SOL Prize money has ' +changed_word+ ' from **$'+str(past_level_data['prize_money'])+'** to **$'+str(level_data['prize_money'])
 
         if past_level_data['auction'] != level_data['auction']:
-            changed_string += f'\n- Average Daily Auction value has {changed_word} from **${past_level_data['auction']}** to **${level_data['auction']}**'
+            changed_string += '\n- Average Daily Auction value has ' +changed_word+ ' from **$'+str(past_level_data['auction'])+'** to **$'+str(level_data['auction'])
 
         final_string = '🌟 **SERVER LEVEL UPDATE** 🌟\n\n'
 
