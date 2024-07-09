@@ -1735,10 +1735,17 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!update|') and is_admin:
         parts = message.content.split('|')
-        main_part = parts[1]
+        if len(parts) != 3:
+            await message.channel.send("Needs 3 parts. Command, op code, and message.")
+            return
+        op_code = parts[1]
+        main_part = parts[2]
         guild = await get_guild(client)
         update_channel = guild.get_channel(constants.UPDATE_CHANNEL)
-        await update_channel.send('**[Zenyatta Version '+constants.VERSION+']**\n'+main_part)
+        if op_code.lower() == 'd':
+            await update_channel.send('**[Zenyatta Version '+constants.VERSION+']**\n'+main_part)
+        elif op_code.lower() == 'w':
+            await update_channel.send('**[Spicy OW Website Update]**\n'+main_part)
         await message.channel.send('Update posted')
 
     elif lower_message == '!applyleaguenotifs' and is_admin:
