@@ -68,6 +68,10 @@ def assign_owner_to_card(db, display, owner_id):
     card_owners[display] = owner_id
     constants_db.update_one({"name": 'card_owners'}, {"$set": {"value": card_owners}})
 
+    single_cards = db['single_cards']
+    single_card = single_cards.find_one({'display': display})
+    single_card.update_one({"display": display}, {"$set": {"owner": owner_id}})
+
 
 async def cards_handler(db, message):
 
