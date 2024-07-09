@@ -1097,7 +1097,7 @@ async def handle_message(message, db, client):
 
         single_cards = db['single_cards']
         for card_display in card_owners_val:
-            single_cards.update_one({'display': single['display']}, {"$set": {"owner": card_owners_val[card_display]}})
+            single_cards.update_one({'display': card_display}, {"$set": {"owner": card_owners_val[card_display]}})
 
         await message.channel.send('all card owner ids updated')
 
