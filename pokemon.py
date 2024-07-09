@@ -340,7 +340,7 @@ async def give_poke_handler(db, message):
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_cards": user_pokes, "pokedex": new_pokedex}})
 
     pokemon = db['pokemon']
-    pokemon.update_one({"card_id": id}, {"$set": {"owner_id": -1}})
+    pokemon.update_one({"card_id": id}, {"$set": {"owner_id": mentioned_user_id}})
 
     mentioned_user_pokes = get_user_poke_cards(mentioned_user)
     mentioned_user_pokes.append(id)
