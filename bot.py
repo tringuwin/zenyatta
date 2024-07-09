@@ -1056,6 +1056,30 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!editcard ') and is_admin:
         await edit_card_handler(db, message)
 
+    elif lower_message == '!singlepatch' and is_admin:
+
+        single_cards = db['single_cards']
+        all_singles = single_cards.find()
+
+        power_dict = {
+            'A': 20,
+            'B': 18,
+            'C': 16,
+            'D': 14,
+            'E': 12,
+            'F': 10,
+            'G': 8,
+            'H': 6,
+            'I': 4,
+            'S': 100
+        }
+
+        for single in all_singles:
+            single_cards.update_one({'display': single['display']}, {"$set": {"power": power_dict[single['variant']]}})
+
+        await message.channel.send('all singles done')
+
+
     elif lower_message == '!initsinglecardbase' and is_admin:
 
         displays = db['display_cards']
