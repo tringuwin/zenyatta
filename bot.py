@@ -1739,6 +1739,7 @@ async def handle_message(message, db, client):
         guild = await get_guild(client)
         update_channel = guild.get_channel(constants.UPDATE_CHANNEL)
         await update_channel.send('**[Zenyatta Version '+constants.VERSION+']**\n'+main_part)
+        await message.channel.send('Update posted')
 
     elif lower_message == '!applyleaguenotifs' and is_admin:
 
