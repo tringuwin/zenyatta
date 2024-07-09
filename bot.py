@@ -1056,6 +1056,38 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!editcard ') and is_admin:
         await edit_card_handler(db, message)
 
+    elif lower_message == '!initsinglecardbase' and is_admin:
+
+        displays = db['display_cards']
+        all_displays = displays.find()
+
+        single_cards = db['single_cards']
+
+        for display in all_displays:
+
+            variant_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']
+
+            if ('custom' in display) and display['custom']:
+                variant_list = ['A']
+
+
+            for variant in variant_list:
+
+                power = 20
+                if variant == 'S':
+                    power = 100
+
+                single_cards.insert_one({
+                    'display': +str(display['card_id'])+'-'+variant,
+                    'card_id': display['card_id'],
+                    'variant': variant,
+                    'power': power
+                })
+                
+        await message.channel.send('single database made')
+
+
+
     elif lower_message == '!gallery':
         await message.channel.send('Check out the full SOL Card Gallery here: https://spicyragu.netlify.app/sol/gallery')
 
