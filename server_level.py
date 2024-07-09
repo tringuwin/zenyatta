@@ -173,6 +173,7 @@ async def server_points_handler(db, message, client):
     server_level_channel = client.get_channel(constants.SERVER_LEVEL_CHANNEL)
     level_message = await server_level_channel.fetch_message(constants.SERVER_LEVEL_MESSAGE)
 
+    past_level_data = ALL_LEVELS[str(server_level)]
     level_data = ALL_LEVELS[str(level)]
 
     level_string = 'CURRENT SERVER LEVEL: **'+str(level)+'**'
@@ -213,13 +214,30 @@ async def server_points_handler(db, message, client):
         guild = await get_guild(client)
         announcements_channel = guild.get_channel(constants.ANNOUNCEMENTS_CHANNEL_ID)
 
+        changed_word = 'decreased'
+        if level > server_level:
+            changed_word = 'increased'
+
+        changed_string = 'What Changed:'
+
+        if past_level_data['token_shop'] != level_data['token_shop']:
+            changed_string += f'\n- Weekly token shop has {changed_word} from **${past_level_data['token_shop']}** to **${level_data['token_shop']}**'
+
+        if past_level_data['prize_money'] != level_data['prize_money']:
+            changed_string += f'\n- Weekly SOL Prize money has {changed_word} from **${past_level_data['prize_money']}** to **${level_data['prizemoney']}**'
+
+        if past_level_data['auction'] != level_data['auction']:
+            changed_string += f'\n- Average Daily Auction value has {changed_word} from **${past_level_data['auction']}** to **${level_data['auction']}**'
+
         final_string = '🌟 **SERVER LEVEL UPDATE** 🌟\n\n'
 
         if level > server_level:
             final_string += 'The server level has ***INCREASED*** from **LEVEL '+str(server_level)+'** to **LEVEL '+str(level)+'**'
+            final_string = '\n'+changed_string
             final_string += '\n\nThank you to everyone who contributed! You can see the full list of rewards and how to contribute here: https://discord.com/channels/1130553449491210442/1234932215482155048' 
         else:
             final_string += 'The server level has *decreased* from **LEVEL '+str(server_level)+'** to **LEVEL '+str(level)+'**'
+            final_string = '\n'+changed_string
             final_string += '\n\nThe server level impacts things like Token Shop Stock, Daily Auctions, and SOL Prize money. Find out how you can contribute here: https://discord.com/channels/1130553449491210442/1234932215482155048' 
 
         await announcements_channel.send(final_string)
