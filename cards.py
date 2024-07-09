@@ -47,7 +47,7 @@ def get_card_data_by_id(db, card_id):
 
 
 
-def get_card_owner_id(db, display):
+def get_card_owner_id_old(db, display):
 
     constants_db = db['constants']
     card_owners_obj = constants_db.find_one({'name': 'card_owners'})
@@ -58,7 +58,7 @@ def get_card_owner_id(db, display):
 
     return -2
 
-def get_card_owner_id2(db, display):
+def get_card_owner_id(db, display):
 
     single_cards = db['single_cards']
     single_card = single_cards.find_one({'display': display})
