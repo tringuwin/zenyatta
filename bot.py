@@ -100,6 +100,7 @@ from command_handlers.league.rival_of import rival_of_handler
 from command_handlers.league.schedule import schedule_handler
 from command_handlers.league.set_apps_link import set_apps_link_handler
 from command_handlers.league.set_league_team import set_league_team_handler
+from command_handlers.league.set_lineup import set_lineup_handler
 from command_handlers.league.set_map import set_map_handler
 from command_handlers.league.set_score import set_score_handler
 from command_handlers.league.set_win import set_win_handler
@@ -681,7 +682,7 @@ async def handle_message(message, db, client):
         await toggle_apps_handler(db, message)
 
     elif lower_message == '!setlineup':
-        await message.author.send('Hey lol')
+        await set_lineup_handler(db, message)
 
     elif lower_message == '!lft':
         await message.channel.send('See the list of players looking to join a team here: https://spicyragu.netlify.app/sol/lft')
