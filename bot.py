@@ -680,6 +680,9 @@ async def handle_message(message, db, client):
     elif lower_message == '!toggleapps':
         await toggle_apps_handler(db, message)
 
+    elif lower_message == '!setlineup':
+        await message.author.send('Hey lol')
+
     elif lower_message == '!lft':
         await message.channel.send('See the list of players looking to join a team here: https://spicyragu.netlify.app/sol/lft')
 
