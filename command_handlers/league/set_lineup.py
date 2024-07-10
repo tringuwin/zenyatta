@@ -1,7 +1,7 @@
 
 from league import validate_admin
 import uuid
-
+import time
 
 async def set_lineup_handler(db, message):
 
@@ -21,12 +21,13 @@ async def set_lineup_handler(db, message):
     current_lineup_token = lineup_tokens.find_one({'discord_id': message.author.id})
 
     if current_lineup_token:
-        lineup_tokens.update_one({'discord_id': message.author.id}, {'$set': {'token': random_uuid_string}})
+        lineup_tokens.update_one({'discord_id': message.author.id}, {'$set': {'token': random_uuid_string, 'created': time.time()}})
     else:
         new_token = {
             'token': random_uuid_string,
             'discord_id': message.author.id,
-            'team_name': team_name
+            'team_name': team_name,
+            'created': time.time()
         }
         lineup_tokens.insert_one(new_token)
     
