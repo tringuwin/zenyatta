@@ -2,6 +2,7 @@
 from league import validate_admin
 import uuid
 import time
+import discord
 
 async def set_lineup_handler(db, message):
 
@@ -31,4 +32,8 @@ async def set_lineup_handler(db, message):
         }
         lineup_tokens.insert_one(new_token)
     
-    await message.author.send('Use this link if ye dare: '+random_uuid_string)
+    try:
+        await message.author.send('Use this link if ye dare: '+random_uuid_string)
+        await message.channel.send('A link to edit the lineup for '+team_name+' was sent to your DMs.')
+    except discord.Forbidden:
+        await message.channel.send('I tried to DM you a private link to edit the lineup for your team, but your privacy settings did not allow me to. Please check your privacy settings and try again.')
