@@ -1,5 +1,6 @@
 
 
+from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
 from teams import get_team_by_name
 from user import user_exists
@@ -7,10 +8,24 @@ from user import user_exists
 
 async def give_rewards_handler(db, message):
 
-    reward_per_round = [25, 50, 100, 300, 1000, 2000, 2000, 2000]
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await message.channel.send('Invalid num of params')
+        return
+    
+    event_id = params[1]
 
-    bracket = db['brackets'].find_one({'event_id': '35'})
-    event = db['events'].find_one({'event_id': '35'})
+    bracket = db['brackets'].find_one({'event_id': event_id})
+    if not bracket:
+        await message.channel.send('Bracket not found')
+        return
+    
+    event = db['events'].find_one({'event_id': event_id})
+    if not event:
+        await message.channel.send('Event not found')
+        return
+
+    reward_per_round = [25, 50, 100, 300, 1000, 2000, 2000, 2000]
 
     final_dict = {}
 
