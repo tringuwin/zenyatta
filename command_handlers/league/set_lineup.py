@@ -21,7 +21,7 @@ async def set_lineup_handler(db, message):
     current_lineup_token = lineup_tokens.find_one({'discord_id': message.author.id})
 
     if current_lineup_token:
-        lineup_tokens.update_one({'discord_id': message.author.id}, {'$set': {'token': random_uuid_string, 'created': time.time()}})
+        lineup_tokens.update_one({'discord_id': message.author.id}, {'$set': {'token': random_uuid_string, 'created': time.time(), 'team_name': team_name}})
     else:
         new_token = {
             'token': random_uuid_string,
