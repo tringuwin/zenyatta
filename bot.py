@@ -120,6 +120,7 @@ from command_handlers.xp_battle.battle_win import battle_win_handler
 from command_handlers.xp_battle.end_battle import end_battle_handler
 from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
+from lineups import check_lineup_tokens
 from poke_data import update_poke_data_db
 from pokemon import add_poke_handler, all_pokes_handler, get_pokedex, get_sort_index, give_poke_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, unopened_handler, view_poke_handler
 from command_handlers.profile import profile_handler
@@ -1785,6 +1786,8 @@ async def handle_message(message, db, client):
         await check_token_issue(db, message.channel)
 
         await check_streamlabs_raffles(db, message.channel)
+
+        await check_lineup_tokens(db, message)
 
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
