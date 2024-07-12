@@ -277,7 +277,10 @@ async def handle_message(message, db, client):
 
     channel = str(message.channel)
     if is_dm_channel(message.channel):
-        await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
+        if message.content.lower().startswith('!address '):
+            await message.channel.send('You found the secret command!')
+        else:
+            await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
         return
     
     has_bad_word = bad_work_checker(message.content)
