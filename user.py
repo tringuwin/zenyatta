@@ -102,6 +102,13 @@ def get_user_address(user):
     
     return None
 
+def get_user_order(user):
+
+    if 'order' in user:
+        return user['order']
+    
+    return []
+
 def get_lvl_info(user):
 
     level = 1

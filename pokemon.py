@@ -8,7 +8,7 @@ from helpers import can_be_int, valid_number_of_params
 import constants
 from poke_data import POKE_SETS
 from rewards import change_tokens
-from user import get_user_address, get_user_poke_cards, get_user_poke_points, user_exists
+from user import get_user_address, get_user_order, get_user_poke_cards, get_user_poke_points, user_exists
 import random
 import discord
 
@@ -391,6 +391,12 @@ async def unopened_handler(db, message):
 
 async def add_order_handler(db, message):
 
+    # correct params
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_number_of_params:
+        await invalid_number_of_params(message)
+        return
+
     # user exists
     user = user_exists(db, message.author.id)
     if not user:
@@ -402,11 +408,33 @@ async def add_order_handler(db, message):
     if not address:
         await message.channel.send('Your address has not been set yet in this server. Please use the command **!address Address Here** in a DM with me to set it.')
         return
+    
+    # validate integer id
+    card_id = params[1]
+    if not can_be_int(card_id):
+        await message.channel.send(card_id+' is not a valid card ID. It should be a number. Use **!mypokes** to see all your card IDs.')
+        return
+    card_id = int(card_id)
 
     # card in card inv
+    user_cards = get_user_poke_cards(user)
+    if not card_id in user_cards:
+        await message.channel.send('I could not find the card with the ID "'+str(card_id)+'" in your inventory. Please use **!mypokes** to see all your cards.')
+        return
 
     # less than 10 cards in order
+    user_order = get_user_order(user)
+    if len(user_order) >= 10:
+        await message.channel.send('The max number of cards that can be sent in one order is 10. If you complete this order, you can start a new one.')
+        return
 
     # remove from card inv and add to order
+    user_cards.remove(card_id)
+    user_order.append(card_id)
+
+    # save in database
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_cards": user_cards, "order": user_order}})
 
     # send confirmation showing how many cards in order
+    await message.channel.send('Card added to order! Total cards in order: '+str(len(user_order))+'/10')
