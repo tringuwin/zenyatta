@@ -278,7 +278,6 @@ async def handle_message(message, db, client):
     channel = str(message.channel)
     if is_dm_channel(message.channel):
         if message.content.lower().startswith('!address '):
-            await message.channel.send('You found the secret command!')
             users = db['users']
             user = user_exists(db, message.author.id)
             if not user:
