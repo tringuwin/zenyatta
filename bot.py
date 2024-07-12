@@ -371,6 +371,12 @@ async def handle_message(message, db, client):
     elif lower_message == '!helppoke':
         await help_poke_handler(message)
 
+    elif lower_message.startswith('!address'):
+        notice = await message.channel.send('Please only use this command in a direct message with me for your safety!')
+        await message.delete()
+        time.sleep(5)
+        await notice.delete()
+
     elif lower_message == '!version':
         await send_msg(message.channel, constants.VERSION, '!version')
     
