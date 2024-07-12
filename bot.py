@@ -179,7 +179,7 @@ from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has
 from helper_handlers.twitch_pack import twitch_pack_handler
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
-from helpers import can_be_int, get_constant_value, set_constant_value
+from helpers import can_be_int, get_constant_value, make_string_from_word_list, set_constant_value
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
@@ -279,6 +279,15 @@ async def handle_message(message, db, client):
     if is_dm_channel(message.channel):
         if message.content.lower().startswith('!address '):
             await message.channel.send('You found the secret command!')
+            users = db['users']
+            user = user_exists(db, message.author.id)
+            if not user:
+                await message.channel.send("You are not registered yet. Please register first.")
+            else:
+                user_address = make_string_from_word_list(message.content.split(), 1)
+                users.update_one({'discord_id': message.author.id}, {'$set': {'address': user_address}})
+
+            await message.channel.send('Your address has been added successfully!')
         else:
             await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
         return
