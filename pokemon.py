@@ -8,7 +8,7 @@ from helpers import can_be_int, valid_number_of_params
 import constants
 from poke_data import POKE_SETS
 from rewards import change_tokens
-from user import get_user_poke_cards, get_user_poke_points, user_exists
+from user import get_user_address, get_user_poke_cards, get_user_poke_points, user_exists
 import random
 import discord
 
@@ -389,3 +389,24 @@ async def unopened_handler(db, message):
     await message.channel.send('There are **'+str(num_unopened)+'** unopened Pokemon Cards. Check out the full list of unopened Pokemon Cards here! https://spicyragu.netlify.app/poke/unopened')
 
 
+async def add_order_handler(db, message):
+
+    # user exists
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+
+    # address exists
+    address = get_user_address(user)
+    if not address:
+        await message.channel.send('Your address has not been set yet in this server. Please use the command **!address Address Here** in a DM with me to set it.')
+        return
+
+    # card in card inv
+
+    # less than 10 cards in order
+
+    # remove from card inv and add to order
+
+    # send confirmation showing how many cards in order

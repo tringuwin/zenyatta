@@ -95,6 +95,13 @@ def get_last_sac(user):
     
     return 0
 
+def get_user_address(user):
+
+    if 'address' in user:
+        return user['address']
+    
+    return None
+
 def get_lvl_info(user):
 
     level = 1
