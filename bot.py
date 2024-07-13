@@ -1618,7 +1618,7 @@ async def handle_message(message, db, client):
         await order_handler(db, message)
 
     elif lower_message == '!buyorder':
-        await buy_order_handler(db, message)
+        await buy_order_handler(db, message, client)
 
     elif lower_message == '!setpokedex' and is_admin:
         users = db['users']

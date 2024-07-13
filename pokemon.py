@@ -3,7 +3,7 @@
 
 
 from common_messages import invalid_number_of_params, not_registered_response
-from discord_actions import get_member_by_username
+from discord_actions import get_guild, get_member_by_username
 from helpers import can_be_int, valid_number_of_params
 import constants
 from poke_data import POKE_SETS
@@ -535,7 +535,7 @@ async def order_handler(db, message):
     await message.channel.send(final_string)
 
 
-async def buy_order_handler(db, message):
+async def buy_order_handler(db, message, client):
 
     # user exists
     user = user_exists(db, message.author.id)
@@ -573,9 +573,51 @@ async def buy_order_handler(db, message):
     orders.insert_one(new_order)
 
     # wipe order, edit user database
-
+    users = db['users']
+    users.update_one({'discord_id': user['discord_id']}, {'$set': {'poke_points': new_user_pp, 'order': []}})
 
     # send notification in staff chat
+    guild = await get_guild(client)
+    order_channel = guild.get_channel(constants.POKE_ORDER_CHANNEL)
+
+    final_string = 'NEW ORDER:'
+    final_string += '\n--------------'
+    final_string += '\nUser Name: '+message.author.display_name
+    final_string += '\nBattle Tag: '+user['battle_tag']
+    final_string += '\nTotal Cards: '+str(len(order))
+    final_string += '\nAddress: '+user['address']
+    final_string += '\n--------------'
+
+    card_data = db['carddata']
+    poke_card_data_obj = card_data.find_one({'cards_id': 2})
+    poke_card_data = poke_card_data_obj['data']
+
+    pokemon = db['pokemon']
+    order_int = 1
+
+    for poke_id in order:
+
+        poke_data = pokemon.find_one({'card_id': poke_id})
+        if not poke_data:
+            await message.channel.send('Something went horribly wrong.')
+            return
+        
+        poke_set = poke_data['set']
+        poke_set_num = poke_data['set_num']
+        poke_display_data = poke_card_data[poke_set][poke_set_num]
+
+        addition_string = ''
+        if poke_data['holo_type'] == 'H':
+            addition_string = ' [HOLO]'
+        elif poke_data['holo_type'] == 'R':
+            addition_string = ' [REVERSE HOLO]'
+
+        poke_string = '\n'+str(order_int)+'. '+poke_display_data['name']+addition_string+' (Card '+str(poke_id)+')'
+        final_string += poke_string
+
+        order_int += 1
+
+    await order_channel.send(final_string)
 
     # send user confirmation
     await message.channel.send('Success! Your order was submitted. Our staff will contact you soon!')
