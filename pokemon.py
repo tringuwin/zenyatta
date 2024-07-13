@@ -480,3 +480,51 @@ async def rem_order_handler(db, message):
 
     # send confirmation showing how many cards in order
     await message.channel.send('Card removed from order. Total cards in order: '+str(len(user_order))+'/10')
+
+
+async def order_handler(db, message):
+
+    # user exists
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+    
+    # order exists
+    order = get_user_order(user)
+    if len(order) == 0:
+        await message.channel.send('You do not currently have any Pokemon Cards added to your order. You can add some cards to your order with the command **!addorder [card id]**')
+        return
+    
+    final_string = '**YOUR POKEMON CARD ORDER:**'
+
+    card_data = db['card_data']
+    poke_card_data_obj = card_data.find_one({'cards_id': 2})
+    poke_card_data = poke_card_data_obj['data']
+
+    pokemon = db['pokemon']
+    order_int = 1
+
+    for poke_id in order:
+
+        poke_data = pokemon.find_one({'card_id': poke_id})
+        if not poke_data:
+            await message.channel.send('Something went horribly wrong.')
+            return
+        
+        poke_set = poke_data['set']
+        poke_set_num = poke_data['set_num']
+        poke_display_data = poke_card_data[poke_set][poke_set_num]
+
+        addition_string = ''
+        if poke_data['holo_type'] == 'H':
+            addition_string = ' [HOLO]'
+        elif poke_data['holo_type'] == 'R':
+            addition_string = ' [REVERSE HOLO]'
+
+        poke_string = '\n'+str(order_int)+'. Card '+str(poke_id)+' ('+poke_display_data['name']+addition_string+')'
+        final_string += poke_string
+
+        order_int += 1
+
+    await message.channel.send(final_string)
