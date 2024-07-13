@@ -529,6 +529,6 @@ async def order_handler(db, message):
         order_int += 1
 
     final_string += '\n---------------------------'
-    final_string += 'To purchase this order, use the command **!buyorder**'
+    final_string += '\nTo purchase this order, use the command **!buyorder**'
 
     await message.channel.send(final_string)
