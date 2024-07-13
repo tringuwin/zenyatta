@@ -496,7 +496,8 @@ async def order_handler(db, message):
         await message.channel.send('You do not currently have any Pokemon Cards added to your order. You can add some cards to your order with the command **!addorder [card id]**')
         return
     
-    final_string = '**YOUR POKEMON CARD ORDER:**'
+    order_price = 500 + ( len(order) * 10)
+    final_string = '**YOUR POKEMON CARD ORDER | COST: '+str(order_price)+' PokePoints**'
 
     card_data = db['carddata']
     poke_card_data_obj = card_data.find_one({'cards_id': 2})
