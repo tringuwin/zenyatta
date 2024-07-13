@@ -498,7 +498,7 @@ async def order_handler(db, message):
     
     final_string = '**YOUR POKEMON CARD ORDER:**'
 
-    card_data = db['card_data']
+    card_data = db['carddata']
     poke_card_data_obj = card_data.find_one({'cards_id': 2})
     poke_card_data = poke_card_data_obj['data']
 
