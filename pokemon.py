@@ -533,3 +533,49 @@ async def order_handler(db, message):
     final_string += '\nTo purchase this order, use the command **!buyorder**'
 
     await message.channel.send(final_string)
+
+
+async def buy_order_handler(db, message):
+
+    # user exists
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+
+    # order exists
+    order = get_user_order(user)
+    if len(order) == 0:
+        await message.channel.send('You do not currently have any Pokemon Cards added to your order. You can add some cards to your order with the command **!addorder [card id]**')
+        return
+
+    # calc order cost
+    order_cost = 500 + ( len(order) * 10 )
+
+    # has enough pp
+    user_pp = get_user_poke_points(user)
+    if user_pp < order_cost:
+        await message.channel.send('It costs '+str(order_cost)+' <:poke:1233203367636107345> PokePoints to buy this order. You only have '+str(user_pp)+' <:poke:1233203367636107345> PokePoints.')
+        return
+
+    # take pp
+    new_user_pp = user_pp - order_cost
+
+    # add order to orders collection
+    orders = db['orders']
+    new_order = {
+        'user_id': message.author.id,
+        'user_tag': user['battle_tag'],
+        'cost': order_cost,
+        'cards': order,
+        'address': user['address']
+    }
+    orders.insert_one(new_order)
+
+    # wipe order, edit user database
+
+
+    # send notification in staff chat
+
+    # send user confirmation
+    await message.channel.send('Success! Your order was submitted. Our staff will contact you soon!')
