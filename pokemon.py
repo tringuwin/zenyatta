@@ -522,7 +522,7 @@ async def order_handler(db, message):
         elif poke_data['holo_type'] == 'R':
             addition_string = ' [REVERSE HOLO]'
 
-        poke_string = '\n'+str(order_int)+'. Card '+str(poke_id)+' ('+poke_display_data['name']+addition_string+')'
+        poke_string = '\n'+str(order_int)+'. '+poke_display_data['name']+addition_string+' (Card '+str(poke_id)+')'
         final_string += poke_string
 
         order_int += 1
