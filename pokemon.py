@@ -498,6 +498,7 @@ async def order_handler(db, message):
     
     order_price = 500 + ( len(order) * 10)
     final_string = '**YOUR POKEMON CARD ORDER | COST: '+str(order_price)+' <:poke:1233203367636107345> PokePoints**'
+    final_string += '\n---------------------------'
 
     card_data = db['carddata']
     poke_card_data_obj = card_data.find_one({'cards_id': 2})
