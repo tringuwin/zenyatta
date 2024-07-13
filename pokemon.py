@@ -424,7 +424,7 @@ async def add_order_handler(db, message):
 
     # less than 10 cards in order
     user_order = get_user_order(user)
-    if len(user_order) >= 10:
+    if len(user_order) >= 1:
         await message.channel.send('The max number of cards that can be sent in one order is 10. If you complete this order, you can start a new one.')
         return
 
