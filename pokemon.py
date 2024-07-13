@@ -393,7 +393,7 @@ async def add_order_handler(db, message):
 
     # correct params
     valid_params, params = valid_number_of_params(message, 2)
-    if not valid_number_of_params:
+    if not valid_params:
         await invalid_number_of_params(message)
         return
 
@@ -438,3 +438,45 @@ async def add_order_handler(db, message):
 
     # send confirmation showing how many cards in order
     await message.channel.send('Card added to order! Total cards in order: '+str(len(user_order))+'/10')
+
+
+async def rem_order_handler(db, message):
+
+    # correct params
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+
+    # user exists
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+    
+    # validate integer id
+    card_id = params[1]
+    if not can_be_int(card_id):
+        await message.channel.send(card_id+' is not a valid card ID. It should be a number. Use **!mypokes** to see all your card IDs.')
+        return
+    card_id = int(card_id)
+
+    # card in order
+    user_order = get_user_order(user)
+    if not card_id in user_order:
+        await message.channel.send('I could not find the card with the ID "'+str(card_id)+'" in your current order.')
+        return
+
+    # get user cards
+    user_cards = get_user_poke_cards(user)
+
+    # remove from order and add to card inv
+    user_order.remove(card_id)
+    user_cards.append(card_id)
+
+    # save in database
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_cards": user_cards, "order": user_order}})
+
+    # send confirmation showing how many cards in order
+    await message.channel.send('Card removed from order. Total cards in order: '+str(len(user_order))+'/10')

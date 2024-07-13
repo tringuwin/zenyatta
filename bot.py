@@ -122,7 +122,7 @@ from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
 from lineups import check_lineup_tokens
 from poke_data import update_poke_data_db
-from pokemon import add_order_handler, add_poke_handler, all_pokes_handler, get_pokedex, get_sort_index, give_poke_handler, my_pokes_handler, open_poke_handler, sell_poke_handler, unopened_handler, view_poke_handler
+from pokemon import add_order_handler, add_poke_handler, all_pokes_handler, get_pokedex, get_sort_index, give_poke_handler, my_pokes_handler, open_poke_handler, rem_order_handler, sell_poke_handler, unopened_handler, view_poke_handler
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
@@ -1610,6 +1610,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!addorder '):
         await add_order_handler(db, message)
+
+    elif lower_message.startswith('!remorder '):
+        await rem_order_handler(db, message)
 
     elif lower_message == '!setpokedex' and is_admin:
         users = db['users']
