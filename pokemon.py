@@ -11,6 +11,7 @@ from rewards import change_tokens
 from user import get_user_address, get_user_order, get_user_poke_cards, get_user_poke_points, user_exists
 import random
 import discord
+import uuid
 
 HOLO_TYPES = [
     'N',
@@ -561,6 +562,9 @@ async def buy_order_handler(db, message, client):
     # take pp
     new_user_pp = user_pp - order_cost
 
+    order_uuid = uuid.uuid4()
+    order_uuid_string = str(order_uuid)
+
     # add order to orders collection
     orders = db['orders']
     new_order = {
@@ -568,7 +572,8 @@ async def buy_order_handler(db, message, client):
         'user_tag': user['battle_tag'],
         'cost': order_cost,
         'cards': order,
-        'address': user['address']
+        'address': user['address'],
+        'order_id': order_uuid_string
     }
     orders.insert_one(new_order)
 
