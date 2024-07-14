@@ -591,6 +591,7 @@ async def buy_order_handler(db, message, client):
     final_string += '\nBattle Tag: '+user['battle_tag']
     final_string += '\nTotal Cards: '+str(len(order))
     final_string += '\nAddress: '+user['address']
+    final_string += '\nOrder ID: '+order_uuid_string
     final_string += '\n--------------'
 
     card_data = db['carddata']
