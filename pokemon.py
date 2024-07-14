@@ -627,3 +627,39 @@ async def buy_order_handler(db, message, client):
 
     # send user confirmation
     await message.channel.send('Success! Your order was submitted. Our staff will contact you soon!')
+
+
+async def cancel_order_handler(db, message):
+
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    order_id = params[1]
+
+    orders = db['orders']
+    order = orders.find_one({'order_id': order_id})
+    if not order:
+        await message.channel.send('Could not find and order with that ID.')
+        return
+    
+    order_user = user_exists(db, order['user_id'])
+    if not order_user:
+        await message.channel.send('I did not find the user with the user id associated with that order.')
+        return
+    
+    order_user_pokes = get_user_poke_cards(order_user)
+    order_user_pokes.extend(order['cards'])
+
+    user_pp = get_user_poke_points(order_user)
+    new_user_pp = user_pp + order['cost']
+
+    users = db['users']
+    users.update_one({'discord_id': order_user['discord_id']}, {'$set': {'poke_points': new_user_pp, 'poke_cards': order_user_pokes}})
+
+    orders.delete_one({'order_id': order_id})
+
+    await message.channel.send('Order cancelled and user refunded.')
+
+
