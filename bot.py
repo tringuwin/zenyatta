@@ -1620,6 +1620,9 @@ async def handle_message(message, db, client):
     elif lower_message == '!buyorder':
         await buy_order_handler(db, message, client)
 
+    elif lower_message.startswith('!cancelorder ') and is_admin:
+        pass
+
     elif lower_message == '!setpokedex' and is_admin:
         users = db['users']
         all_users = users.find()
