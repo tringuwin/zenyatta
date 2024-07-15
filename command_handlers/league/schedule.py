@@ -13,17 +13,12 @@ def team_name_to_emoji(team_name, guild):
 async def schedule_handler(db, message, client):
 
     final_string = "**SEASON 3 PLAYOFF SCHEDULE**"
-    final_string += '\n\n**Saturday, July 13th | Semi-Finals**'
-    final_string += '\nMATCH 1: <:evergreen:1241087086207959040> **Evergreen** VS <:ragu:1179505864294539324> **Ragu**'
-    final_string += '\nMATCH 2: <:instigators:1236040112798830763> **Instigators** VS <:saviors:1176588866828914748> **Saviors**'
-    final_string += '\n\n**Sunday, July 14th** | Semi-Finals'
-    final_string += '\nMATCH 1: <:eclipse:1174517640987938926> **Eclipse** VS <:olympians:1174062447779385464> **Olympians**'
 
     final_string += '\n\n**Saturday, July 20th | Grand-Finals**'
-    final_string += '\nMATCH 1: <:outliers:1200928308922167357> **Outliers** VS **TBD**'
-    final_string += '\nMATCH 2: <:misfits:1237197162354446336> **Misfits** VS **TBD**'
-    final_string += '\n\n**Sunday, July 21st** | Grand-Finals'
-    final_string += '\nMATCH 1: <:hunters:1245542818731134976> **Hunters** VS **TBD**'
+    final_string += '\nMATCH 1: <:outliers:1200928308922167357> **Outliers** VS <:evergreen:1241087086207959040> **Evergreen**'
+    final_string += '\nMATCH 2: <:misfits:1237197162354446336> **Misfits** VS <:saviors:1176588866828914748> **Saviors**'
+    final_string += '\n\n**Sunday, July 21st | Grand-Finals**'
+    final_string += '\nMATCH 1: <:hunters:1245542818731134976> **Hunters** VS <:eclipse:1174517640987938926> **Eclipse**'
 
     # final_string = '**GRAND FINALS : Sunday 5/5/2024 at 4:30 PM EST**'
     # final_string += '\nFresas VS Olympians'
