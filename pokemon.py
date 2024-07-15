@@ -663,3 +663,27 @@ async def cancel_order_handler(db, message):
     await message.channel.send('Order cancelled and user refunded.')
 
 
+async def finish_order_handler(db, message):
+
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    order_id = params[1]
+
+    orders = db['orders']
+    order = orders.find_one({'order_id': order_id})
+    if not order:
+        await message.channel.send('Could not find an order with that ID.')
+        return
+    
+    order_cards = order['cards']
+
+    pokemon = db['pokemon']
+    for card_id in order_cards:
+        pokemon.delete_one({'card_id': card_id})
+
+    orders.delete_one({'order_id': order_id})
+
+    await message.channel.send('Order completed and cards removed from database.')
