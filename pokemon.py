@@ -4,7 +4,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild, get_member_by_username
-from helpers import can_be_int, valid_number_of_params
+from helpers import can_be_int, get_constant_value, set_constant_value, valid_number_of_params
 import constants
 from poke_data import POKE_SETS
 from rewards import change_tokens
@@ -679,11 +679,19 @@ async def finish_order_handler(db, message):
         return
     
     order_cards = order['cards']
+    slots_constant = get_constant_value(db, "slots")
 
     pokemon = db['pokemon']
     for card_id in order_cards:
-        pokemon.delete_one({'card_id': card_id})
+        card_info = pokemon.find_one({'card_id': card_id})
+        if card_info:
+            page = str(card_info['page'])
+            slot = str(card_info['slot'])
+            slots_constant.remove(page+'-'+slot)
+            pokemon.delete_one({'card_id': card_id})
 
     orders.delete_one({'order_id': order_id})
+
+    set_constant_value(db, 'slots', slots_constant)
 
     await message.channel.send('Order completed and cards removed from database.')
