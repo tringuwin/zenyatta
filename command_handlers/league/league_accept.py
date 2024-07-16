@@ -43,6 +43,10 @@ async def league_accept_handler(db, message, client):
     league_team = league_teams.find_one({'name_lower': team_name_lower})
     real_team_name = league_team['team_name']
 
+    if league_team['roster_lock']:
+        await message.channel.send('This team currently has a roster lock (maybe because they are in the play-offs). Please try joining this team after the lock is removed.')
+        return
+
     if len(league_team['members']) >= 25:
         await message.channel.send('This League Team already has 25 players, which is the maximum allowed. Please contact an admin of this team if you think this is a mistake.')
         return

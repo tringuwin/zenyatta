@@ -670,8 +670,7 @@ async def handle_message(message, db, client):
         await league_invites_handler(db, message)
 
     elif lower_message.startswith('!leagueaccept '):
-        await message.channel.send('There is a roster lock in effect. This command is disabled until the Season 3 play-offs end.')
-        #await league_accept_handler(db, message, client)
+        await league_accept_handler(db, message, client)
 
     elif lower_message.startswith('!leaguedeny' ):
         await league_deny_handler(db, message)
