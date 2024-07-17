@@ -225,7 +225,7 @@ async def init_card_handler(db, message):
             'display': card_id+'-'+variant,
             'card_id': int(card_id),
             'variant': 'A',
-            'power': VARIANT_TO_POWER['variant'],
+            'power': VARIANT_TO_POWER[variant],
             'owner': 0
         })
 
