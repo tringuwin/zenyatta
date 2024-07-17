@@ -1135,9 +1135,11 @@ async def handle_message(message, db, client):
             if card['card_id'] != '796':
                 final_cards.append(card)
 
+        cards_db.update_one({'cards_id': 1}, {'$set': {'cards': final_cards}})
+
         await message.channel.send('size of final cards '+str(len(final_cards)))
 
-        await message.channel.send('patch done')
+        await message.channel.send('patch done 2')
 
     elif lower_message == '!initsinglecardbase' and is_admin:
 
