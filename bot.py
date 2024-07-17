@@ -1123,6 +1123,22 @@ async def handle_message(message, db, client):
 
         await message.channel.send('all card owner ids updated')
 
+    elif lower_message == '!patch796' and is_admin:
+
+        cards_db = db['cards']
+        card_group = cards_db.find_one({'cards_id': 1})
+
+        edit_cards = card_group['cards']
+        final_cards = []
+
+        for card in edit_cards:
+            if card['card_id'] != '796':
+                final_cards.append(card)
+
+        await message.channel.send('size of final cards '+str(len(final_cards)))
+
+        await message.channel.send('patch done')
+
     elif lower_message == '!initsinglecardbase' and is_admin:
 
         displays = db['display_cards']

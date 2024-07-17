@@ -220,6 +220,8 @@ async def init_card_handler(db, message):
         'owner': 0
     })
 
+    # BROKE HERE
+
     for variant in USED_CARD_VARIANTS:
         single_cards.insert_one({
             'display': card_id+'-'+variant,
