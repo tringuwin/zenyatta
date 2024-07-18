@@ -1734,6 +1734,9 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!lockon') and is_admin:
         await handle_lock(db, message, True)
 
+    elif lower_message.startswith('!lockoff') and is_admin:
+        await handle_lock(db, message, False)
+
     elif lower_message.startswith('!update|') and is_admin:
         parts = message.content.split('|')
         if len(parts) != 3:
