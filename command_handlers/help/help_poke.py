@@ -11,5 +11,10 @@ async def help_poke_handler(message):
     help_embed.add_field(name='!mypokes', value='See a list of pokemon card IDs that you own', inline=False)
     help_embed.add_field(name='!unopened', value='Get a link to a webpage that shows all Pokemon cards that have not been opened yet', inline=False)
     help_embed.add_field(name='!pokeleaderboard', value='See the leaderboard of users with the most unique Pokemon cards collected.', inline=False)
+    help_embed.add_field(name='!address [address here]', value='ONLY USE THIS COMMAND IN DMS WITH THE BOT. Sets your shipping address where your card orders will be sent.', inline=False)
+    help_embed.add_field(name='!order', value='See your current delivery order.', inline=False)
+    help_embed.add_field(name='!addorder [card id]', value='Add a Pokemon Card you own to your card order.', inline=False)
+    help_embed.add_field(name='!remorder [card id]', value='Remove a card in your current order.', inline=False)
+    help_embed.add_field(name='!buyorder', value='Use PokePoints to buy your current order. Will cause a shipment of your selected Pokemon cards to the address you specified.', inline=False)
 
     await message.channel.send(embed=help_embed)
