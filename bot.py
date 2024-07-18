@@ -1747,9 +1747,12 @@ async def handle_message(message, db, client):
         guild = await get_guild(client)
         update_channel = guild.get_channel(constants.UPDATE_CHANNEL)
         if op_code.lower() == 'd':
-            await update_channel.send('**[Zenyatta Version '+constants.VERSION+']**\n'+main_part)
+            update_msg = await update_channel.send('**[Zenyatta Version '+constants.VERSION+']**\n'+main_part)
         elif op_code.lower() == 'w':
-            await update_channel.send('**[Spicy OW Website Update]**\n'+main_part)
+            update_msg = await update_channel.send('**[Spicy OW Website Update]**\n'+main_part)
+
+        await update_msg.add_reaction("👍")
+
         await message.channel.send('Update posted')
 
     elif lower_message == '!applyleaguenotifs' and is_admin:
