@@ -1750,6 +1750,8 @@ async def handle_message(message, db, client):
             update_msg = await update_channel.send('**[Zenyatta Version '+constants.VERSION+']**\n'+main_part)
         elif op_code.lower() == 'w':
             update_msg = await update_channel.send('**[Spicy OW Website Update]**\n'+main_part)
+        elif op_code.lower() == 'u':
+            update_msg = await update_channel.send('**[Discord Update]**\n'+main_part)
 
         await update_msg.add_reaction("👍")
 
