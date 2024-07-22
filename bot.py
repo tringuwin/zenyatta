@@ -915,6 +915,37 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!twitchpack') and is_cp_helper:
         await twitch_pack_handler(client, db, message)
 
+    elif lower_message == '!legionpatch' and is_admin:
+
+        league_teams = db['league_teams']
+
+        outliers = league_teams.find_one({'name_lower': 'outliers'})
+        final_outliers_players = []
+        new_legion_players = []
+        for member in outliers['members']:
+            if member['discord_id'] != 795569525612478484:
+                new_legion_players.append(member)
+            else:
+                final_outliers_players.append(member)
+
+        league_teams.update_one({'name_lower': 'outliers'}, {'$set': {'members': final_outliers_players}})
+
+        legion = league_teams.find_one({'name_lower': 'legion'})
+        for member in new_legion_players:
+            legion['members'].append(member)
+
+            user = user_exists(db, member['discord_id'])
+            if user:
+                users.update_one({'discord_id': member['discord_id']}, {'$set': {'league_team': 'Legion'}})
+
+        league_teams.update_one({'name_lower': 'legion'}, {'$set': {'members': legion['members']}})
+
+        await message.channel.send('Transition complete')        
+
+        
+        
+
+
     elif lower_message == '!fortnite':
         await message.channel.send('fortnite')
 
