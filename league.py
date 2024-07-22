@@ -52,7 +52,8 @@ team_name_to_color = {
     'Angels': discord.Colour(0xfff395),
     'Phantoms': discord.Colour(0xededed),
     'Sentinels': discord.Colour(0x2c114f),
-    'Diamonds': discord.Colour(0x30FCE8)
+    'Diamonds': discord.Colour(0x30FCE8),
+    'Legion': discord.Colour(0x6e0002)
 }
 
 def get_team_color_by_name(team_name):
