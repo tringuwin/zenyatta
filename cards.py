@@ -332,7 +332,7 @@ async def open_pack_handler(db, message):
     
     user_packs = get_user_packs(user)
     if user_packs < 1:
-        await message.channel.send('You do not have any packs to open.')
+        await message.channel.send('You do not have any packs to open. (Find out all the ways to earn packs here: https://discord.com/channels/1130553449491210442/1211775904007716994/1211779108607098980)')
         return
     
     await change_packs(db, user, -1)
