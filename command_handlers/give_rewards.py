@@ -25,7 +25,7 @@ async def give_rewards_handler(db, message):
         await message.channel.send('Event not found')
         return
 
-    reward_per_round = [25, 50, 100, 300, 1000, 2000, 2000, 2000]
+    reward_per_round = [50, 100, 300, 500, 1000, 2000, 2000, 2000]
 
     final_dict = {}
 
