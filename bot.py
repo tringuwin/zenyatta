@@ -917,7 +917,7 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!legionpatch' and is_admin:
 
-        league_teams = db['league_teams']
+        league_teams = db['leagueteams']
 
         outliers = league_teams.find_one({'name_lower': 'outliers'})
         final_outliers_players = []
