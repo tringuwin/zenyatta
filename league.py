@@ -77,7 +77,7 @@ team_name_to_thumbnail = {
     'Misfits': 'https://i.imgur.com/Aauu5rq.png',
     'Hunters': 'https://i.imgur.com/HEeAJwK.png',
     'Angels': '',
-    'Diamonds': '',
+    'Diamonds': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1721793187/Diamonds_q79bq9.png',
     'Phantoms': '',
     'Sentinels': '',
     'Legion': ''
