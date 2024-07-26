@@ -2006,6 +2006,7 @@ def run_discord_bot(db):
             default_msg = "Welcome to the Spicy OW "+str(spicy_emoji)+" Discord Server! I'm *Zenyatta*, the server's helper bot. "
             default_msg += "\n\nIf you're interested in joining a **League Team**, you can apply to as many teams as you'd like here: https://spicyragu.netlify.app/sol/apply"
             default_msg += '\n\nFeel free to check out this short video which explains how to find a team to join! https://youtu.be/sKHUjwMKspg'
+            default_msg += '\n\nTo find a team fast, you can make a post in this channel with some info about yourself and what you are looking for in a team! https://discord.com/channels/1130553449491210442/1171266378813149244'
             default_msg += '\n\nYou can also find more information about our League here: https://discord.com/channels/1130553449491210442/1178427939453411469'
             default_msg += '\n\nThank you for joining! If you have any questions, feel free to ask our friendly staff here: https://discord.com/channels/1130553449491210442/1202441473027477504'
 
