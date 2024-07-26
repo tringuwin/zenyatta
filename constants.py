@@ -275,7 +275,8 @@ NO_MAP_NAME = 'https://i.postimg.cc/hPNGk6G1/No-Map.png'
 TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians',  'Fresas', 'Outliers', 'Phoenix', 
              'Celestials', 'Saturn', 'Evergreen', 'Misfits', 'Hunters', 'Legion', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels']
 
-EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix', 'Saturn', 'Celestials', 'Evergreen', 'Misfits', 'Hunters']
+EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix', 
+               'Saturn', 'Celestials', 'Evergreen', 'Misfits', 'Hunters', 'Diamonds']
 
 LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassidy', 'dva', 'doomfist', 'echo', 'genji', 'hanzo', 'illari', 
                         'junker queen', 'junkrat', 'kiriko', 'lifeweaver', 'lucio', 'mauga', 'mei', 'mercy', 'moira', 'orisa', 'ramattra', 'reaper', 
@@ -284,6 +285,7 @@ LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassi
 
 LEAGUE_SEASON = 3
 LEAGUE_WEEK = 6
+SEASON_ACTIVE = False
 
 REACTION_ROLE_CHANNEL = 1178440747817631784
 
