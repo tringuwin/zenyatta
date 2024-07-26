@@ -129,7 +129,6 @@ async def update_team_info(client, team, db):
         embed.add_field(name=name_string, value=value_string, inline=False)
 
     embed.set_footer(text='Available TPP: '+str(available_tpp))
-    embed.set_d
 
     await info_message.edit(embed=embed, content='')
 
