@@ -94,7 +94,7 @@ async def update_team_info(client, team, db):
 
     available_tpp = 100
     num_members_on_team = str(len(team['members']))
-    embed_description = '(Test Description)'
+    embed_description = '(Test Description) <:polar:1173786406238298242>'
     embed = discord.Embed(title=team['team_name'].upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', color=team_name_to_color[team['team_name']], description=embed_description)
     embed.set_thumbnail(url=team_name_to_thumbnail[team['team_name']])
 
