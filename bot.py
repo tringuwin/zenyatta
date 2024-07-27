@@ -1124,12 +1124,13 @@ async def handle_message(message, db, client):
 
         await message.channel.send('all card owner ids updated')
 
-    elif lower_message == '!lftpatch' and is_admin:
+    elif lower_message == '!lftpatch2' and is_admin:
 
         lft_users = db['lft_users']
+        all_lft_users = lft_users.find()
         cur_time = time.time()
 
-        for user in lft_users:
+        for user in all_lft_users:
 
             lft_users.update_one({'user_id': user['user_id']}, {'$set': {'bump_time': cur_time}})
 
