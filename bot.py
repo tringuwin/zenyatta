@@ -1124,23 +1124,16 @@ async def handle_message(message, db, client):
 
         await message.channel.send('all card owner ids updated')
 
-    elif lower_message == '!patch796' and is_admin:
+    elif lower_message == '!lftpatch' and is_admin:
 
-        cards_db = db['cards']
-        card_group = cards_db.find_one({'cards_id': 1})
+        lft_users = db['lft_users']
+        cur_time = time.time()
 
-        edit_cards = card_group['cards']
-        final_cards = []
+        for user in lft_users:
 
-        for card in edit_cards:
-            if card['card_id'] != '796':
-                final_cards.append(card)
+            lft_users.update_one({'user_id': user['user_id']}, {'$set': {'bump_time': cur_time}})
 
-        cards_db.update_one({'cards_id': 1}, {'$set': {'cards': final_cards}})
-
-        await message.channel.send('size of final cards '+str(len(final_cards)))
-
-        await message.channel.send('patch done 2')
+        await message.channel.send('LFT patch done')
 
     elif lower_message == '!initsinglecardbase' and is_admin:
 
