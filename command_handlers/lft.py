@@ -1,3 +1,4 @@
+import time
 
 def get_lft_user(db, member, user):
 
@@ -16,6 +17,8 @@ def get_lft_user(db, member, user):
     if disc != '0':
         final_name = final_name+"#"+disc
 
+    bump_time = time.time()
+
     return True, {
         
         'user_id': member.id,
@@ -29,6 +32,7 @@ def get_lft_user(db, member, user):
             'hero2': 'None',
             'hero3': 'None',
             'hero4': 'None'
-        }
+        },
+        'bump_time': bump_time
     }
 
