@@ -83,6 +83,7 @@ from command_handlers.league.league_kick import league_kick_handler
 from command_handlers.league.league_leave import league_leave_handler
 from command_handlers.league.league_order import league_order_handler
 from command_handlers.league.league_xp import league_xp_handler, total_league_xp_handler
+from command_handlers.league.lft.bump_lft import bump_lft_handler
 from command_handlers.league.lft.set_lft_color import set_lft_color_handler
 from command_handlers.league.lft.set_lft_hero import set_lft_hero_handler
 from command_handlers.league.lft.set_rank import set_rank_handler
@@ -718,6 +719,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!updatelft'):
         await update_lft_handler(db, message)
+
+    elif lower_message == '!bumplft':
+        await bump_lft_handler(db, message)
 
     elif lower_message.startswith('!setleagueteam ') and is_admin:
         # !setleagueteam [user_id] [team name]
