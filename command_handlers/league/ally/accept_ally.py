@@ -69,4 +69,4 @@ async def accept_ally_handler(db, message, client):
     await league_notifs_channel.send(str(my_team_emoji)+' '+team_name+' and '+str(other_team_emoji)+' '+other_team_obj['team_name']+' are now Allies!')
 
     # confirmation message
-    await message.channel.send(team_name+' and '+other_team_obj['team_name']+'are now Allies!')
+    await message.channel.send(team_name+' and '+other_team_obj['team_name']+' are now Allies!')
