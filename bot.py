@@ -71,6 +71,7 @@ from command_handlers.league.ally.accept_rival import accept_rival_handler
 from command_handlers.league.ally.ally_request import ally_request_handler
 from command_handlers.league.ally.ally_requests import ally_requests_handler
 from command_handlers.league.ally.deny_ally import deny_ally_handler
+from command_handlers.league.ally.deny_rival import deny_rival_handler
 from command_handlers.league.ally.rival_request import rival_request_handler
 from command_handlers.league.ally.rival_requests import rival_requests_handler
 from command_handlers.league.change_role import change_role_handler
@@ -1104,6 +1105,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!denyally '):
         await deny_ally_handler(db, message)
+
+    elif lower_message.startswith('!denyrival '):
+        await deny_rival_handler(db, message)
 
     elif lower_message == '!allyrequests':
         await ally_requests_handler(db, message)
