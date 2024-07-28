@@ -66,6 +66,7 @@ from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.add_loss import add_loss_handler
 from command_handlers.league.add_win import add_win_handler
+from command_handlers.league.ally.accept_ally import accept_ally_handler
 from command_handlers.league.ally.ally_request import ally_request_handler
 from command_handlers.league.ally.rival_request import rival_request_handler
 from command_handlers.league.change_role import change_role_handler
@@ -1090,6 +1091,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!rivalrequest'):
         await rival_request_handler(db, message)
+
+    elif lower_message.startswith('!acceptally'):
+        await accept_ally_handler(db, message, client)
 
     elif lower_message == '!allyrivalpatch2' and is_admin:
 

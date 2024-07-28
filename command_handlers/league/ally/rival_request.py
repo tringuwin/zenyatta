@@ -18,6 +18,10 @@ async def rival_request_handler(db, message):
     
     team_name_to_req = params[1].lower()
 
+    if team_name.lower() == team_name_to_req:
+        await message.channel.send('You cannot send a Rival Request to your own team.')
+        return
+
     league_teams = db['leagueteams']
 
     my_team_obj = league_teams.find_one({'team_name': team_name})
