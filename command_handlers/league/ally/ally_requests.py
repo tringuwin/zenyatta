@@ -19,7 +19,7 @@ async def ally_requests_handler(db, message):
     
     ally_reqs = my_team['ally_reqs']
     if len(ally_reqs) == 0:
-        await message.channel.send('Your team does not currently have any Ally requests from any other teams.')
+        await message.channel.send('Your team does not currently have any Ally Requests from any other teams.')
         return
     
     final_string = '**ALLY REQUESTS FOR '+team_name.upper()+'**'
@@ -27,7 +27,7 @@ async def ally_requests_handler(db, message):
     cur_index = 1
     for ally in my_team['ally_reqs']:
 
-        final_string += '\n'+cur_index+'. '+ally+' (To accept this Ally Request, use the command **!acceptally '+ally+')'
+        final_string += '\n'+cur_index+'. '+ally+' ( To accept this Ally Request, use the command **!acceptally '+ally+' )'
 
         cur_index += 1
 
