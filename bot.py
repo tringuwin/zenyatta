@@ -1083,62 +1083,15 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!editcard ') and is_admin:
         await edit_card_handler(db, message)
 
-    elif lower_message == '!singlepatch' and is_admin:
+    elif lower_message == '!allyrivalpatch' and is_admin:
 
-        single_cards = db['single_cards']
-        all_singles = single_cards.find()
+        league_teams = db['leagueteams']
 
-        power_dict = {
-            'A': 20,
-            'B': 18,
-            'C': 16,
-            'D': 14,
-            'E': 12,
-            'F': 10,
-            'G': 8,
-            'H': 6,
-            'I': 4,
-            'S': 100
-        }
+        for team in league_teams:
 
-        for single in all_singles:
-            single_cards.update_one({'display': single['display']}, {"$set": {"power": power_dict[single['variant']]}})
+            league_teams.update_one({'team_name': team['team_name']}, {'$set': {'allies': [], 'rivals': [], 'ally_reqs': [], 'rival_reqs': []}})
 
-        await message.channel.send('all singles done')
-
-    elif lower_message == '!singlepatch2' and is_admin:
-
-        single_cards = db['single_cards']
-        all_singles = single_cards.find()
-
-        for single in all_singles:
-            single_cards.update_one({'display': single['display']}, {"$set": {"owner": 0}})
-
-        await message.channel.send('all singles given owned id') 
-
-    elif lower_message == '!singlepatch3' and is_admin:
-
-        constants_db = db['constants']
-        card_owners_obj = constants_db.find_one({'name': 'card_owners'})
-        card_owners_val = card_owners_obj['value']
-
-        single_cards = db['single_cards']
-        for card_display in card_owners_val:
-            single_cards.update_one({'display': card_display}, {"$set": {"owner": card_owners_val[card_display]}})
-
-        await message.channel.send('all card owner ids updated')
-
-    elif lower_message == '!lftpatch2' and is_admin:
-
-        lft_users = db['lft_users']
-        all_lft_users = lft_users.find()
-        cur_time = time.time()
-
-        for user in all_lft_users:
-
-            lft_users.update_one({'user_id': user['user_id']}, {'$set': {'bump_time': cur_time}})
-
-        await message.channel.send('LFT patch done')
+        await message.channel.send('ally patch complete')
 
     elif lower_message == '!initsinglecardbase' and is_admin:
 
