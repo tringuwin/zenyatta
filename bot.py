@@ -1099,17 +1099,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!acceptrival'):
         await accept_rival_handler(db, message, client)
 
-    elif lower_message == '!allyrivalpatch2' and is_admin:
-
-        league_teams = db['leagueteams']
-        all_league_teams = league_teams.find()
-
-        for team in all_league_teams:
-
-            league_teams.update_one({'team_name': team['team_name']}, {'$set': {'allies': [], 'rivals': [], 'ally_reqs': [], 'rival_reqs': []}})
-
-        await message.channel.send('ally patch complete')
-
     elif lower_message == '!initsinglecardbase' and is_admin:
 
         displays = db['display_cards']

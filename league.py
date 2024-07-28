@@ -83,6 +83,45 @@ team_name_to_thumbnail = {
     'Legion': ''
 }
 
+
+async def make_team_description(client, team):
+
+    if len(team['allies']) == 0 and len(team['rivals']) == 0:
+        return ''
+
+    guild = await get_guild(client)
+    final_desc = ''
+
+    has_allies = False
+
+    if len(team['allies']) > 0:
+        has_allies = True
+        ally_string = 'Allies:'
+        for ally in team['allies']:
+            ally_emoji_id = constants.LEAGUE_TO_EMOJI_ID[ally]
+            ally_emoji = guild.get_emoji(ally_emoji_id)
+            ally_string += ' '+str(ally_emoji)+' '+ally
+
+        final_desc += ally_string
+
+    if len(team['rivals']) > 0:
+        if has_allies:
+            final_desc += '\n'
+
+        rival_string = 'Rivals:'
+        for rival in team['rivals']:
+            rival_emoji_id = constants.LEAGUE_TO_EMOJI_ID[rival]
+            rival_emoji = guild.get_emoji(rival_emoji_id)
+            rival_string += ' '+str(rival_emoji)+' '+rival
+
+        final_desc += rival_string
+    
+    return final_desc
+        
+
+
+
+
 async def update_team_info(client, team, db):
 
     team_message_id = team['team_info_msg_id']
@@ -94,8 +133,8 @@ async def update_team_info(client, team, db):
 
     available_tpp = 100
     num_members_on_team = str(len(team['members']))
-    #embed_description = '(Test Description) <:polar:1173786406238298242>\n<:polar:1173786406238298242>'
-    embed = discord.Embed(title=team['team_name'].upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', color=team_name_to_color[team['team_name']])
+    embed_description = await make_team_description(client, team)
+    embed = discord.Embed(title=team['team_name'].upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', color=team_name_to_color[team['team_name']], description=embed_description)
     embed.set_thumbnail(url=team_name_to_thumbnail[team['team_name']])
 
     for member in team['members']:
