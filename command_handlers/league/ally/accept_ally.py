@@ -48,14 +48,14 @@ async def accept_ally_handler(db, message, client):
         await message.channel.send('This team is currently a Rival of '+team_name+'. Remove them as a Rival before they can be your Ally.')
         return
 
-    # edit data for other team, remove ally request and add ally
-    other_team_obj['ally_reqs'].remove(team_name)
-    other_team_obj['allies'].append(team_name)
-    league_teams.update_one({'name_lower': team_name_to_accept}, {'$set': {'ally_reqs': other_team_obj['ally_reqs'], 'allies': other_team_obj['allies']}})
-
-    # add ally to my team
+    # edit data for my team, remove ally request and add ally
+    my_team_obj['ally_reqs'].remove(other_team_obj['team_name'])
     my_team_obj['allies'].append(other_team_obj['team_name'])
-    league_teams.update_one({'name_lower': team_name}, {'$set': {'allies': my_team_obj['allies']}})
+    league_teams.update_one({'team_name': team_name}, {'$set': {'ally_reqs': my_team_obj['ally_reqs'], 'allies': my_team_obj['allies']}})
+
+    # add ally to other team
+    other_team_obj['allies'].append(team_name)
+    league_teams.update_one({'team_name': other_team_obj['team_name']}, {'$set': {'allies': other_team_obj['allies']}})
 
     # league notifs message
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
