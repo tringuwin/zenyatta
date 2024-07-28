@@ -69,6 +69,7 @@ from command_handlers.league.add_win import add_win_handler
 from command_handlers.league.ally.accept_ally import accept_ally_handler
 from command_handlers.league.ally.accept_rival import accept_rival_handler
 from command_handlers.league.ally.ally_request import ally_request_handler
+from command_handlers.league.ally.ally_requests import ally_requests_handler
 from command_handlers.league.ally.rival_request import rival_request_handler
 from command_handlers.league.change_role import change_role_handler
 from command_handlers.league.change_team_owner import change_team_owner_handler
@@ -1087,10 +1088,10 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!editcard ') and is_admin:
         await edit_card_handler(db, message)
 
-    elif lower_message.startswith('!allyrequest'):
+    elif lower_message.startswith('!allyrequest '):
         await ally_request_handler(db, message)
 
-    elif lower_message.startswith('!rivalrequest'):
+    elif lower_message.startswith('!rivalrequest '):
         await rival_request_handler(db, message)
 
     elif lower_message.startswith('!acceptally'):
@@ -1098,6 +1099,10 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!acceptrival'):
         await accept_rival_handler(db, message, client)
+
+    elif lower_message == '!allyrequests':
+        await ally_requests_handler(db, message)
+
 
     elif lower_message == '!initsinglecardbase' and is_admin:
 
