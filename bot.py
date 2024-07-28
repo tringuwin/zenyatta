@@ -1095,6 +1095,9 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!acceptally'):
         await accept_ally_handler(db, message, client)
 
+    elif lower_message.startswith('!acceptrival'):
+        await accept_rival_handler(db, message, client)
+
     elif lower_message == '!allyrivalpatch2' and is_admin:
 
         league_teams = db['leagueteams']
