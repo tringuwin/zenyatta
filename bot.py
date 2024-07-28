@@ -67,6 +67,7 @@ from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.add_loss import add_loss_handler
 from command_handlers.league.add_win import add_win_handler
 from command_handlers.league.ally.accept_ally import accept_ally_handler
+from command_handlers.league.ally.accept_rival import accept_rival_handler
 from command_handlers.league.ally.ally_request import ally_request_handler
 from command_handlers.league.ally.rival_request import rival_request_handler
 from command_handlers.league.change_role import change_role_handler
