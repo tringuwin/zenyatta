@@ -1083,11 +1083,12 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!editcard ') and is_admin:
         await edit_card_handler(db, message)
 
-    elif lower_message == '!allyrivalpatch' and is_admin:
+    elif lower_message == '!allyrivalpatch2' and is_admin:
 
         league_teams = db['leagueteams']
+        all_league_teams = league_teams.find()
 
-        for team in league_teams:
+        for team in all_league_teams:
 
             league_teams.update_one({'team_name': team['team_name']}, {'$set': {'allies': [], 'rivals': [], 'ally_reqs': [], 'rival_reqs': []}})
 
