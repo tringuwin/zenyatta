@@ -48,7 +48,11 @@ async def make_league_team_handler(db, message, client):
         'team_info_msg_id': new_team_message.id,
         'team_role_id': team_role,
         'name_lower': team_name.lower(),
-        'roster_lock': False
+        'roster_lock': False,
+        'allies': [],
+        'rivals': [],
+        'ally_reqs': [],
+        'rival_reqs': []
     }
 
     league_teams.insert_one(new_team)

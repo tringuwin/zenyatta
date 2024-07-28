@@ -1083,6 +1083,10 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!editcard ') and is_admin:
         await edit_card_handler(db, message)
 
+    elif lower_message.startswith('!allyrequest') and is_admin:
+
+        pass
+
     elif lower_message == '!allyrivalpatch2' and is_admin:
 
         league_teams = db['leagueteams']
