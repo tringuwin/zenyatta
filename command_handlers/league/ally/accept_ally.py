@@ -34,7 +34,7 @@ async def accept_ally_handler(db, message, client):
         return
 
     # has ally request
-    if not (team_name in other_team_obj['ally_reqs']):
+    if not (other_team_obj['team_name'] in my_team_obj['ally_reqs']):
         await message.channel.send('This team did not send your team an Ally Request.')
         return
 
