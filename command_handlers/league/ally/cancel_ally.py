@@ -1,0 +1,43 @@
+
+
+from common_messages import invalid_number_of_params
+from helpers import valid_number_of_params
+from league import validate_admin
+
+
+async def cancel_ally_handler(db, message):
+
+    valid_admin, _, team_name, _ = await validate_admin(db, message)
+
+    if not valid_admin:
+        await message.channel.send('You are not a team admin of a league team.')
+        return
+
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    team_name_to_deny = params[1].lower()
+
+    league_teams = db['leagueteams']
+
+    my_team_obj = league_teams.find_one({'team_name': team_name})
+    if not my_team_obj:
+        await message.channel.send('Something went very wrong...')
+        return
+    
+    other_team_obj = league_teams.find_one({'name_lower': team_name_to_deny})
+    if not other_team_obj:
+        await message.channel.send('I did not find any league teams with that name... Check the spelling of the team name.')
+        return
+
+    if not (my_team_obj['team_name'] in other_team_obj['ally_reqs']):
+        await message.channel.send('Your team did not send an Ally Request to '+other_team_obj['team_name'])
+        return
+    
+    other_team_obj['ally_reqs'].remove(my_team_obj['team_name'])
+    league_teams.update_one({'team_name': other_team_obj['team_name']}, {'$set': {'ally_reqs': other_team_obj['ally_reqs']}})
+
+    # confirmation message
+    await message.channel.send('Ally Request successfully cancelled.')
