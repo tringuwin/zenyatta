@@ -60,5 +60,5 @@ async def del_ally_handler(db, message, client):
     # confirmation message
     await message.channel.send(team_name+' and '+other_team_obj['team_name']+' are no longer Allies.')
 
-    await update_team_info(client, team_name, db)
-    await update_team_info(client, other_team_obj['team_name'], db)
+    await update_team_info(client, my_team_obj, db)
+    await update_team_info(client, other_team_obj, db)
