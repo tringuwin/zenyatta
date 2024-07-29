@@ -59,6 +59,7 @@ from command_handlers.help.help_cards import help_cards_handler
 from command_handlers.help.help_casino import help_casino_handler
 from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.help.help_league import help_league_handler
+from command_handlers.help.help_league_admin import help_league_admin_handler
 from command_handlers.help.help_lft import help_lft_handler
 from command_handlers.help.help_poke import help_poke_handler
 from command_handlers.helper_salary import helper_salary_handler
@@ -374,6 +375,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!helpleague':
         await help_league_handler(message)
+
+    elif lower_message == '!helpleagueadmin':
+        await help_league_admin_handler(message)
 
     elif lower_message == '!helpgems':
         await help_gems_handler(message)
