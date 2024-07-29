@@ -3,7 +3,7 @@
 from common_messages import invalid_number_of_params
 from discord_actions import get_guild
 from helpers import valid_number_of_params
-from league import validate_admin
+from league import update_team_info, validate_admin
 import constants
 
 async def del_ally_handler(db, message, client):
@@ -59,3 +59,6 @@ async def del_ally_handler(db, message, client):
 
     # confirmation message
     await message.channel.send(team_name+' and '+other_team_obj['team_name']+' are no longer Allies.')
+
+    await update_team_info(client, team_name, db)
+    await update_team_info(client, other_team_obj['team_name'], db)
