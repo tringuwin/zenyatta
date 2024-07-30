@@ -27,7 +27,7 @@ async def ally_requests_handler(db, message):
     cur_index = 1
     for ally in my_team['ally_reqs']:
 
-        final_string += '\n'+cur_index+'. '+ally+' ( To accept this Ally Request, use the command **!acceptally '+ally+' )'
+        final_string += '\n'+str(cur_index)+'. '+ally+' ( To accept this Ally Request, use the command **!acceptally '+ally+' )'
 
         cur_index += 1
 
