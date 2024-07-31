@@ -25,7 +25,7 @@ async def rival_requests_handler(db, message):
     cur_index = 1
     for rival in my_team['rival_reqs']:
 
-        final_string += '\n'+str(cur_index)+'. '+rival+' ( To accept this Rival Request, use the command **!acceptrival '+rival+' )'
+        final_string += '\n'+str(cur_index)+'. '+rival+' ( To accept this Rival Request, use the command **!acceptrival '+rival+'** )'
 
         cur_index += 1
 
