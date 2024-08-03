@@ -118,6 +118,7 @@ from command_handlers.league.set_apps_link import set_apps_link_handler
 from command_handlers.league.set_league_team import set_league_team_handler
 from command_handlers.league.set_lineup import set_lineup_handler
 from command_handlers.league.set_map import set_map_handler
+from command_handlers.league.set_min_rank import set_min_rank_handler
 from command_handlers.league.set_score import set_score_handler
 from command_handlers.league.set_win import set_win_handler
 from command_handlers.league.standings import standings_handler
@@ -717,6 +718,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!setappslink'):
         await set_apps_link_handler(db, message)
+
+    elif lower_message.startswith('!setminrank'):
+        await set_min_rank_handler(db, message)
 
     elif lower_message == '!toggleapps':
         await toggle_apps_handler(db, message)
