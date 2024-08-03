@@ -12,7 +12,7 @@ async def help_league_admin_handler(message):
     help_embed.add_field(name='!maketeamadmin @Player', value='Owner command to make a member of your league team an admin.', inline=False)
     help_embed.add_field(name='!removeteamadmin @Player', value='Owner command to remove admin role from a member of your league team.', inline=False)
     help_embed.add_field(name='!leaguekick @Player', value='Admin command to kick a player from your league team.', inline=False)
-    help_embed.add_field(name='!setappslink', value='Admin command to set the link for a Google Form that players can use to apply to the team.', inline=False)
+    help_embed.add_field(name='!setappslink [link here]', value='Admin command to set the link for a Google Form that players can use to apply to the team.', inline=False)
     help_embed.add_field(name='!toggleapps', value='Admin command to set applications to open or closed for a team.', inline=False)
     help_embed.add_field(name='!setminrank [rank]', value='Show the minimum rank players should be to apply to your team on the application page.', inline=False)
     help_embed.add_field(name='!pingteam', value='Admin command to ping all members of your league team.', inline=False)
