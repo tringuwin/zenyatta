@@ -1,4 +1,5 @@
 import constants
+from helpers import get_constant_value, set_constant_value
 
 
 async def general_league_xp(db, message, client, start_string, constant_name):
@@ -34,3 +35,18 @@ async def league_xp_handler(db, message, client):
 async def total_league_xp_handler(db, message, client):
 
     await general_league_xp(db, message, client, '**ALL-TIME LEAGUE XP STANDINGS:**', 'league_xp_total')
+
+
+async def wipe_league_xp_handler(db, message):
+
+    league_xp_obj = get_constant_value(db, 'league_xp')
+
+    for team in league_xp_obj:
+        league_xp_obj[team] = 0
+
+    set_constant_value(db, 'league_xp', league_xp_obj)
+
+    await message.channel.send('Monthly League XP wiped.')
+
+    
+

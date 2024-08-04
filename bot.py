@@ -707,6 +707,9 @@ async def handle_message(message, db, client):
     elif lower_message == '!leaguexptotal':
         await total_league_xp_handler(db, message, client)
 
+    elif lower_message == '!wipeleaguexp' and is_admin:
+        await wipe_league_xp_handler(db, message)
+
     elif lower_message == '!pingteam':
         await ping_team_handler(db, message, client)
 
