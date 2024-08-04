@@ -51,7 +51,12 @@ async def league_accept_handler(db, message, client):
         await message.channel.send('This League Team already has 25 players, which is the maximum allowed. Please contact an admin of this team if you think this is a mistake.')
         return
     
+    season_active = False
+    team_swaps = 0
     if constants.SEASON_ACTIVE:
+        
+        season_active = True
+
         await message.channel.send('If you see this message something went very wrong, please notify staff.')
 
         # check if they have enough swaps
@@ -61,13 +66,16 @@ async def league_accept_handler(db, message, client):
             return
 
         # check if they can move divs
-
-
-        return
     
+
     remove_league_invite(user, real_team_name, db)
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": real_team_name}})
+
+    update_obj = {"league_team": real_team_name}
+    if season_active:
+        update_obj = {"league_team": real_team_name, 'team_swaps': team_swaps - 1}
+
+    users.update_one({"discord_id": user['discord_id']}, {"$set": update_obj})
 
 
     league_team['members'].append(
