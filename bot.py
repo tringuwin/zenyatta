@@ -96,7 +96,7 @@ from command_handlers.league.league_invites import league_invites_handler
 from command_handlers.league.league_kick import league_kick_handler
 from command_handlers.league.league_leave import league_leave_handler
 from command_handlers.league.league_order import league_order_handler
-from command_handlers.league.league_xp import league_xp_handler, total_league_xp_handler
+from command_handlers.league.league_xp import league_xp_handler, total_league_xp_handler, wipe_league_xp_handler
 from command_handlers.league.lft.bump_lft import bump_lft_handler
 from command_handlers.league.lft.set_lft_color import set_lft_color_handler
 from command_handlers.league.lft.set_lft_hero import set_lft_hero_handler
