@@ -15,6 +15,7 @@ async def end_auction(db, client):
 
     guild = await get_guild(client)
     auction_channel = guild.get_channel(constants.DAILY_AUCTION_CHANNEL)
+    redemptions_channel = guild.get_channel(constants.OFFER_REDEMPTIONS_CHANNEL_ID)
 
     won_string = 'No one bid on the item!'
     if data['highest_bidder_id'] != 0:
@@ -37,6 +38,7 @@ async def end_auction(db, client):
     final_string += 'Auction Ended!\n'
     final_string += won_string
     
+    await redemptions_channel.send(won_string)
     await auction_channel.send(final_string)
 
 

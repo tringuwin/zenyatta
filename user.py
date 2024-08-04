@@ -305,6 +305,13 @@ def get_user_wlt(user):
         't': 0
     }
 
+def get_user_team_swaps(user):
+
+    if 'team_swaps' in user:
+        return user['team_swaps']
+    
+    return 3
+
 def get_user_bets(user):
 
     if 'bets' in user:

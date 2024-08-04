@@ -5,7 +5,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild, get_role_by_id
 from helpers import make_string_from_word_list
 from league import remove_league_invite, update_team_info
-from user import get_league_invites, get_league_team, user_exists
+from user import get_league_invites, get_league_team, get_user_team_swaps, user_exists
 import constants
 
 async def league_accept_handler(db, message, client):
@@ -53,6 +53,16 @@ async def league_accept_handler(db, message, client):
     
     if constants.SEASON_ACTIVE:
         await message.channel.send('If you see this message something went very wrong, please notify staff.')
+
+        # check if they have enough swaps
+        team_swaps = get_user_team_swaps(user)
+        if team_swaps < 1:
+            await message.channel.send('You have already joined a team 3 times this season, which is the maximum allowed in one season.')
+            return
+
+        # check if they can move divs
+
+
         return
     
     remove_league_invite(user, real_team_name, db)
