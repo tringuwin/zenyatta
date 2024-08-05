@@ -312,6 +312,13 @@ def get_user_team_swaps(user):
     
     return 3
 
+def get_user_div(user):
+
+    if 'user_div' in user:
+        return user['user_div']
+    
+    return 0
+
 def get_user_bets(user):
 
     if 'bets' in user:

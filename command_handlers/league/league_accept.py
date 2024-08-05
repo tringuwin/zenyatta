@@ -5,7 +5,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild, get_role_by_id
 from helpers import make_string_from_word_list
 from league import remove_league_invite, update_team_info
-from user import get_league_invites, get_league_team, get_user_team_swaps, user_exists
+from user import get_league_invites, get_league_team, get_user_div, get_user_div_swap, get_user_team_swaps, user_exists
 import constants
 
 async def league_accept_handler(db, message, client):
@@ -53,6 +53,7 @@ async def league_accept_handler(db, message, client):
     
     season_active = False
     team_swaps = 0
+    div_joined = 0
     if constants.SEASON_ACTIVE:
         
         season_active = True
@@ -66,6 +67,14 @@ async def league_accept_handler(db, message, client):
             return
 
         # check if they can move divs
+        user_div = get_user_div(user)
+        if (user_div != league_team['div']):
+
+            if user_div != 0:
+                await message.channel.send('You are division locked for the rest of this season. You can only join teams in Division '+str(user_div)+' until the season ends.')
+                return
+            else:
+                div_joined = league_team['div']
     
 
     remove_league_invite(user, real_team_name, db)
@@ -73,7 +82,10 @@ async def league_accept_handler(db, message, client):
 
     update_obj = {"league_team": real_team_name}
     if season_active:
-        update_obj = {"league_team": real_team_name, 'team_swaps': team_swaps - 1}
+        if div_joined != 0:
+            update_obj = {"league_team": real_team_name, 'team_swaps': team_swaps - 1, 'user_div': div_joined}
+        else:
+            update_obj = {"league_team": real_team_name, 'team_swaps': team_swaps - 1}
 
     users.update_one({"discord_id": user['discord_id']}, {"$set": update_obj})
 

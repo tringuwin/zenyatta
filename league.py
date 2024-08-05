@@ -76,7 +76,7 @@ team_name_to_thumbnail = {
     'Evergreen': 'https://i.imgur.com/k4wFF5R.png',
     'Misfits': 'https://i.imgur.com/Aauu5rq.png',
     'Hunters': 'https://i.imgur.com/HEeAJwK.png',
-    'Angels': '',
+    'Angels': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1722880276/Angels_xsl8cj.png',
     'Diamonds': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1721793187/Diamonds_q79bq9.png',
     'Phantoms': '',
     'Sentinels': '',
