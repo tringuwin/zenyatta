@@ -731,6 +731,27 @@ async def handle_message(message, db, client):
     elif lower_message == '!setlineup':
         await set_lineup_handler(db, message)
 
+    elif lower_message == '!resetteamrules' and is_admin:
+
+        users = db['users']
+        all_users = users.find()
+
+        for user in all_users:
+
+            changes_made = False
+            set_array = {}
+
+            if 'team_swaps' in user:
+                changes_made = True
+                set_array['team_swaps'] = 3
+
+            if 'user_div' in user:
+                changes_made = True
+                set_array['user_div'] = 0
+
+            if changes_made:
+                users.update_one({'discord_id': user['discord_id']}, {'$set': set_array})
+
     elif lower_message == '!lft':
         await message.channel.send('See the list of players looking to join a team here: https://spicyragu.netlify.app/sol/lft')
 
