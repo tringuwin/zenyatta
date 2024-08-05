@@ -22,7 +22,7 @@ async def league_accept_handler(db, message, client):
     
     user_league_team = get_league_team(user)
     if user_league_team != "None":
-        await message.channel.send('You are already on a league team. Please leave that team before joining another team.')
+        await message.channel.send('You are already on a league team. Please leave that team before joining another team. Use the command **!leagueleave** to leave your current team.')
         return
     
     team_name_to_join = make_string_from_word_list(word_list, 1)
@@ -115,6 +115,9 @@ async def league_accept_handler(db, message, client):
     team_emoji = guild.get_emoji(team_emoji_id)
     
     await league_notifs_channel.send(str(team_emoji)+' User '+message.author.mention+' has joined the team "'+real_team_name+'".')
-    await message.channel.send('You have successfully joined this team!')
+    if div_joined != 0:
+        await message.channel.send('You have successfully joined this team! You are now locked in **Division '+str(div_joined)+'** for the rest of this season.')
+    else:
+        await message.channel.send('You have successfully joined this team!')
 
 
