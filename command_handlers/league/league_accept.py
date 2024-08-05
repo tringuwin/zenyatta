@@ -5,7 +5,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild, get_role_by_id
 from helpers import make_string_from_word_list
 from league import remove_league_invite, update_team_info
-from user import get_league_invites, get_league_team, get_user_div, get_user_div_swap, get_user_team_swaps, user_exists
+from user import get_league_invites, get_league_team, get_user_div, get_user_team_swaps, user_exists
 import constants
 
 async def league_accept_handler(db, message, client):
