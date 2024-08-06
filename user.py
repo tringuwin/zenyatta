@@ -319,6 +319,13 @@ def get_user_div(user):
     
     return 0
 
+def get_user_esub(user):
+
+    if 'esub' in user:
+        return user['esub']
+    
+    return False
+
 def get_user_bets(user):
 
     if 'bets' in user:
