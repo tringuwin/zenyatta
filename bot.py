@@ -123,6 +123,7 @@ from command_handlers.league.set_score import set_score_handler
 from command_handlers.league.set_win import set_win_handler
 from command_handlers.league.standings import standings_handler
 from command_handlers.league.toggle_apps import toggle_apps_handler
+from command_handlers.league.toggle_esub import toggle_esub_handler
 from command_handlers.league.update_team import update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
@@ -730,6 +731,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!setlineup':
         await set_lineup_handler(db, message)
+
+    elif lower_message == '!toggleesub':
+        await toggle_esub_handler(db, message, client)
 
     elif lower_message == '!resetteamrules' and is_admin:
 
