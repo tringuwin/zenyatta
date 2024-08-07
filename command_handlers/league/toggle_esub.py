@@ -1,6 +1,7 @@
 
 
 from common_messages import not_registered_response
+from discord_actions import get_role_by_id
 from user import get_user_esub, get_user_ranks, user_exists
 
 
@@ -109,6 +110,12 @@ async def toggle_esub_handler(db, message, client):
             await message.channel.send('Your current ranks are not elligible to be an Emergency Sub.')
             return
         
+        for sub_role in e_sub_ranks:
+            role_key = sub_role+'_'+str(e_sub_ranks[sub_role])
+            role_id = DIV_TO_ROLE_ID[role_key]
+            role = await get_role_by_id(client, role_id)
+            await message.aithor.add_roles(role)
+
         final_string = 'You have been given the following Emergency Sub roles:'
         for sub_role in e_sub_ranks:
             div_num = e_sub_ranks[sub_role]
