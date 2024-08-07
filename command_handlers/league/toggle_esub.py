@@ -109,7 +109,13 @@ async def toggle_esub_handler(db, message, client):
             await message.channel.send('Your current ranks are not elligible to be an Emergency Sub.')
             return
         
-        await message.channel.send('Valid for '+str(e_sub_ranks)+' ranks')
+        final_string = 'You have been given the following Emergency Sub roles:'
+        for sub_role in e_sub_ranks:
+            div_num = e_sub_ranks[sub_role]
+            final_string += '\n'+sub_role.upper()+': Division '+str(div_num)+' Emergency Sub'
+
+        await message.channel.send(final_string)
+            
 
     else:
 
