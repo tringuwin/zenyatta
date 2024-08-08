@@ -107,7 +107,7 @@ async def toggle_esub_handler(db, message, client):
             e_sub_ranks[rank] = rank_num
 
         if len(e_sub_ranks) == 0:
-            await message.channel.send('Your current ranks are not elligible to be an Emergency Sub.')
+            await message.channel.send('Your current ranks are not elligible to be an Emergency Sub. Your must have ranks between Silver 5 and Master 3 to qualify.')
             return
         
         role_ids = []
