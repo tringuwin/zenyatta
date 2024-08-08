@@ -2,7 +2,7 @@
 
 from common_messages import not_registered_response
 from discord_actions import get_role_by_id
-from user import get_user_esub, get_user_ranks, user_exists
+from user import get_user_esub, get_user_esub_roles, get_user_ranks, user_exists
 
 
 RANK_TO_ESUB_VALUE = {
@@ -129,6 +129,11 @@ async def toggle_esub_handler(db, message, client):
         await message.channel.send(final_string)
             
     else:
+
+        user_esub_roles = get_user_esub_roles(user)
+        for role_id in user_esub_roles:
+            role = await get_role_by_id(client, role_id)
+            await message.author.remove_role(role)
 
         users = db['users']
         users.update_one({'discord_id': user['discord_id']}, {'$set': {'esub': False, 'esub_roles': []}})

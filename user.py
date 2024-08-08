@@ -326,6 +326,13 @@ def get_user_esub(user):
     
     return False
 
+def get_user_esub_roles(user):
+
+    if 'esub_roles' in user:
+        return user['esub_roles']
+    
+    return []
+
 def get_user_bets(user):
 
     if 'bets' in user:
