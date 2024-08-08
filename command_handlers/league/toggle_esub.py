@@ -128,8 +128,10 @@ async def toggle_esub_handler(db, message, client):
 
         await message.channel.send(final_string)
             
-
     else:
 
-        return
+        users = db['users']
+        users.update_one({'discord_id': user['discord_id']}, {'$set': {'esub': False, 'esub_roles': []}})
+
+        await message.channel.send('You are no longer an Emergency Sub! You can turn it back on anytime.')
 
