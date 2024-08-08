@@ -110,11 +110,16 @@ async def toggle_esub_handler(db, message, client):
             await message.channel.send('Your current ranks are not elligible to be an Emergency Sub.')
             return
         
+        role_ids = []
         for sub_role in e_sub_ranks:
             role_key = sub_role+'_'+str(e_sub_ranks[sub_role])
             role_id = DIV_TO_ROLE_ID[role_key]
+            role_ids.append(role_id)
             role = await get_role_by_id(client, role_id)
             await message.author.add_roles(role)
+
+        users = db['users']
+        users.update_one({'discord_id': user['discord_id']}, {'$set': {'esub': True, 'esub_roles': role_ids}})
 
         final_string = 'You have been given the following Emergency Sub roles:'
         for sub_role in e_sub_ranks:
