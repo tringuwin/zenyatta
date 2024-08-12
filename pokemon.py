@@ -20,7 +20,8 @@ HOLO_TYPES = [
 ]
 
 SET_SORT_INDEX = {
-    'SV': 10000
+    'SV': 10000,
+    'TM': 80000
 }
 
 # 10,000 place: set
