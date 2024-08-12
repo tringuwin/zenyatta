@@ -539,6 +539,41 @@ async def handle_message(message, db, client):
         final_string = 'Please make a ticket here to show staff a screenshot of your ranks: https://discord.com/channels/1130553449491210442/1202441473027477504/1202442124390440970'
         final_string += '\n\nSend a screenshot of your career profile that includes both your ranks and battle tag.'
         await message.channel.send(final_string)
+
+    elif lower_message == '!initteamlineups':
+
+        league_teams = db['leagueteams']
+
+        all_teams = league_teams.find()
+
+        default_lineup = {
+            'tank': {
+                'role:': 'tank',
+                'user_id': 0
+            },
+            'dps1': {
+                'role:': 'dps',
+                'user_id': 0
+            },
+            'dps2': {
+                'role:': 'dps',
+                'user_id': 0
+            },
+            'sup1': {
+                'role:': 'support',
+                'user_id': 0
+            },
+            'sup2': {
+                'role:': 'support',
+                'user_id': 0
+            },
+        }
+
+        for team in all_teams:
+            league_teams.update_one({'team_name': team['team_name']}, {'$set': {'lineup': default_lineup}})
+
+        await message.channel.send('done')
+
     
     # pi-pi chan
 
