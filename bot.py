@@ -540,40 +540,6 @@ async def handle_message(message, db, client):
         final_string += '\n\nSend a screenshot of your career profile that includes both your ranks and battle tag.'
         await message.channel.send(final_string)
 
-    elif lower_message == '!initteamlineups':
-
-        league_teams = db['leagueteams']
-
-        all_teams = league_teams.find()
-
-        default_lineup = {
-            'tank': {
-                'role:': 'tank',
-                'user_id': 0
-            },
-            'dps1': {
-                'role:': 'dps',
-                'user_id': 0
-            },
-            'dps2': {
-                'role:': 'dps',
-                'user_id': 0
-            },
-            'sup1': {
-                'role:': 'support',
-                'user_id': 0
-            },
-            'sup2': {
-                'role:': 'support',
-                'user_id': 0
-            },
-        }
-
-        for team in all_teams:
-            league_teams.update_one({'team_name': team['team_name']}, {'$set': {'lineup': default_lineup}})
-
-        await message.channel.send('done')
-
     
     # pi-pi chan
 
@@ -2091,6 +2057,8 @@ def run_discord_bot(db):
                 await send_msg(message.channel, 'Network error. Please try your command again.', 'Network Error')
         except discord.errors.NotFound as e:
             await send_msg(message.channel, 'ERROR: I tried to delete a message but it was already deleted.', '404 Error')
+        except discord.errors.HTTPException as e:
+            await send_msg(message.channel, message.author.mention+' You are sending commands too fast, please slow down for a moment.')
         except Exception as e:
             print(e)
             traceback.print_exc()
