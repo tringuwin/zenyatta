@@ -1,5 +1,6 @@
 
-
+import constants
+from discord_actions import get_guild
 from helpers import get_constant_value, set_constant_value
 
 
@@ -35,9 +36,13 @@ async def make_vote_handler(db, message, client):
     current_vote['active'] = True
     current_vote['title'] = upper_title
     current_vote['options'] = options
+    current_vote['voted_users'] = []
 
     set_constant_value(db, 'sub_vote', current_vote)
 
-    await message.channel.send(final_string)
+    guild = await get_guild(client)
+    sub_vote_channel = guild.get_channel(constants.SUB_VOTE_CHANNEL)
+    await sub_vote_channel.send(final_string)
+    await message.channel.send('Vote started')
 
 
