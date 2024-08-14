@@ -4,6 +4,7 @@ import time
 import discord
 import aiohttp
 from datetime import timedelta
+from admin_handlers.cancel_vote import cancel_vote_handler
 from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_battle_handler import force_battle_handler
@@ -601,6 +602,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!makevote') and is_admin:
         await make_vote_handler(db, message, client)
+
+    elif lower_message == '!cancelvote' and is_admin:
+        await cancel_vote_handler(db, message, client)
 
     elif lower_message == '!subtimer':
         await message.channel.send('Twitch Lootboxes are now given instantly when you subscribe or re-subscribe!')
