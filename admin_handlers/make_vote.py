@@ -20,7 +20,7 @@ async def make_vote_handler(db, message, client):
     title = message_parts.pop(0)
     upper_title = title.upper()
 
-    final_string = f'{upper_title}:'
+    final_string = '**'+upper_title+':**'
     index = 1
     options = []
     for message_part in message_parts:

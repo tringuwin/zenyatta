@@ -6,7 +6,7 @@ from helpers import can_be_int, get_constant_value, set_constant_value, valid_nu
 
 async def update_vote(client, current_vote):
 
-    final_string = current_vote['title']+':'
+    final_string = '**'+current_vote['title']+':**'
     index = 1
     for option in current_vote['options']:
         final_string += '\n'+str(index)+'. '+option['name']+' : **'+str(option['votes'])+' VOTES** | use **!vote '+str(index)+'** to vote'
