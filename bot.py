@@ -133,6 +133,7 @@ from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.rp import rp_handler
 from command_handlers.twitch import twitch_handler
+from command_handlers.vote import vote_handler
 from command_handlers.xp_battle.battle_no_show import battle_no_show_handler
 from command_handlers.xp_battle.battle_teams import battle_teams_handler
 from command_handlers.xp_battle.battle_win import battle_win_handler
@@ -605,6 +606,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!cancelvote' and is_admin:
         await cancel_vote_handler(db, message, client)
+
+    elif lower_message == '!vote':
+        await vote_handler(db, message, client)
 
     elif lower_message == '!subtimer':
         await message.channel.send('Twitch Lootboxes are now given instantly when you subscribe or re-subscribe!')
