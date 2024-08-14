@@ -17,4 +17,4 @@ async def cancel_vote_handler(db, message, client):
     current_vote['active'] = False
     set_constant_value(db, 'sub_vote', current_vote)
 
-    message.channel.send('Vote cancelled')
+    await message.channel.send('Vote cancelled')
