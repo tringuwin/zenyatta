@@ -1,12 +1,19 @@
 
 from common_messages import invalid_number_of_params
 import constants
-from discord_actions import get_role_by_id
+from discord_actions import get_message_by_channel_and_id, get_role_by_id
 from helpers import can_be_int, get_constant_value, set_constant_value, valid_number_of_params
 
-async def update_vote():
+async def update_vote(client, current_vote):
 
-    pass
+    final_string = f'{current_vote['title']}:'
+    index = 1
+    for option in current_vote['options']:
+        final_string += '\n'+str(index)+'. '+option['name']+' : '+str(option['votes'])+' VOTES'
+        index += 1
+
+    vote_message = await get_message_by_channel_and_id(client, constants.SUB_VOTE_CHANNEL, current_vote['vote_msg_id'])
+    await vote_message.edit(content=final_string)
 
 async def vote_handler(db, message, client):
 
@@ -48,7 +55,7 @@ async def vote_handler(db, message, client):
     set_constant_value(db, 'sub_vote', current_vote)
 
     await message.channel.send('You successfully voted for option '+str(vote_option)+'!')
-    await update_vote()
+    await update_vote(client, current_vote)
     
 
 
