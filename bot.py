@@ -607,7 +607,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!cancelvote' and is_admin:
         await cancel_vote_handler(db, message, client)
 
-    elif lower_message == '!vote':
+    elif lower_message.startswith('!vote'):
         await vote_handler(db, message, client)
 
     elif lower_message == '!subtimer':
