@@ -52,7 +52,29 @@ async def make_league_team_handler(db, message, client):
         'allies': [],
         'rivals': [],
         'ally_reqs': [],
-        'rival_reqs': []
+        'rival_reqs': [],
+        'lineup': {
+            'tank': {
+                'role': 'tank',
+                'user_id': 0
+            },
+            'dps1': {
+                'role': 'dps',
+                'user_id': 0
+            },
+            'dps2': {
+                'role': 'dps',
+                'user_id': 0
+            },
+            'sup1': {
+                'role': 'support',
+                'user_id': 0
+            },
+            'sup2': {
+                'role': 'support',
+                'user_id': 0
+            },
+        }
     }
 
     league_teams.insert_one(new_team)

@@ -1,6 +1,6 @@
 
 
-from helpers import get_constant_value
+from helpers import get_constant_value, set_constant_value
 
 
 async def make_vote_handler(db, message, client):
@@ -19,12 +19,24 @@ async def make_vote_handler(db, message, client):
     title = message_parts.pop(0)
     upper_title = title.upper()
 
-
     final_string = f'{upper_title}:'
     index = 1
+    options = []
     for message_part in message_parts:
         final_string += '\n'+str(index)+'. '+message_part
+
+        options.append({
+            'name': message_part,
+            'votes': 0
+        })
+
         index += 1
+
+    current_vote['active'] = True
+    current_vote['title'] = upper_title
+    current_vote['options'] = options
+
+    set_constant_value(db, 'sub_vote', current_vote)
 
     await message.channel.send(final_string)
 
