@@ -22,6 +22,7 @@ from admin_handlers.give_sac import give_sac_handler
 from admin_handlers.give_sub_boxes import give_sub_boxes_handler
 from admin_handlers.give_twitch_lootbox import give_twitch_lootbox_handler
 from admin_handlers.give_xp import give_xp_handler
+from admin_handlers.make_vote import make_vote_handler
 from admin_handlers.prune_sac import prune_sac_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
@@ -597,6 +598,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!bid '):
         await bid_handler(db, message, client)
+
+    elif lower_message.startswith('!makevote') and is_admin:
+        await make_vote_handler(db, message, client)
 
     elif lower_message == '!subtimer':
         await message.channel.send('Twitch Lootboxes are now given instantly when you subscribe or re-subscribe!')
