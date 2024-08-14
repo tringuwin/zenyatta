@@ -1,6 +1,14 @@
 
 
+from helpers import get_constant_value
+
+
 async def make_vote_handler(db, message, client):
+
+    current_vote = get_constant_value(db, 'sub_vote')
+    if current_vote['active']:
+        await message.channel.send('There is currently an active vote. End that one before starting a new one.')
+        return
 
     message_parts = message.content.split('|')
     if len(message_parts) < 4:
