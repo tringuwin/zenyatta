@@ -1963,6 +1963,10 @@ def run_discord_bot(db):
             guild = await get_guild(client)
             role = guild.get_role(constants.TOKEN_NOTIF_ROLE_ID)
             await give_role(member, role, 'Raw Reaction Add')
+        elif message_id ==  constants.SUB_VOTE_NOTIF_MSG:
+            guild = await get_guild(client)
+            role = guild.get_role(constants.SUB_VOTE_ROLE_ID)
+            await give_role(member, role, 'Raw Reaction Add')
         elif channel_id == constants.REACTION_ROLE_CHANNEL:
             if message_id in constants.HERO_MESSAGE_TO_ROLE:
                 role_id = constants.HERO_MESSAGE_TO_ROLE[message_id]
@@ -2019,6 +2023,10 @@ def run_discord_bot(db):
         elif message_id ==  constants.TOKEN_SHOP_NOTIF_MSG:
             member = get_member(guild, user_id, 'Raw Reaction Remove')
             role = guild.get_role(constants.TOKEN_NOTIF_ROLE_ID)
+            await remove_role(member, role, 'Notifs Settings')
+        elif message_id ==  constants.SUB_VOTE_NOTIF_MSG:
+            member = get_member(guild, user_id, 'Raw Reaction Remove')
+            role = guild.get_role(constants.SUB_VOTE_ROLE_ID)
             await remove_role(member, role, 'Notifs Settings')
         elif channel_id == constants.REACTION_ROLE_CHANNEL:
             member = get_member(guild, user_id, 'Raw Reaction Remove')
