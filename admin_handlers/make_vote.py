@@ -33,16 +33,18 @@ async def make_vote_handler(db, message, client):
 
         index += 1
 
-    current_vote['active'] = True
-    current_vote['title'] = upper_title
-    current_vote['options'] = options
-    current_vote['voted_users'] = []
-
     set_constant_value(db, 'sub_vote', current_vote)
 
     guild = await get_guild(client)
     sub_vote_channel = guild.get_channel(constants.SUB_VOTE_CHANNEL)
-    await sub_vote_channel.send(final_string)
+    vote_msg = await sub_vote_channel.send(final_string)
+
+    current_vote['active'] = True
+    current_vote['title'] = upper_title
+    current_vote['options'] = options
+    current_vote['voted_users'] = []
+    current_vote['vote_msg_id'] = vote_msg.id
+
     await message.channel.send('Vote started')
 
 
