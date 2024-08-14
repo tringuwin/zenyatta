@@ -24,7 +24,7 @@ async def make_vote_handler(db, message, client):
     index = 1
     options = []
     for message_part in message_parts:
-        final_string += '\n'+str(index)+'. '+message_part+' : 0 VOTES'
+        final_string += '\n'+str(index)+'. '+message_part+' : **0 VOTES** | use **!vote '+str(index)+'** to vote'
 
         options.append({
             'name': message_part,

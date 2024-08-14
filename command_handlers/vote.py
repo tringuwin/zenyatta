@@ -9,7 +9,7 @@ async def update_vote(client, current_vote):
     final_string = current_vote['title']+':'
     index = 1
     for option in current_vote['options']:
-        final_string += '\n'+str(index)+'. '+option['name']+' : '+str(option['votes'])+' VOTES'
+        final_string += '\n'+str(index)+'. '+option['name']+' : **'+str(option['votes'])+' VOTES** | use **!vote '+str(index)+'** to vote'
         index += 1
 
     vote_message = await get_message_by_channel_and_id(client, constants.SUB_VOTE_CHANNEL, current_vote['vote_msg_id'])
