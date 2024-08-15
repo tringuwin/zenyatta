@@ -35,6 +35,7 @@ async def make_vote_handler(db, message, client):
 
     guild = await get_guild(client)
     sub_vote_channel = guild.get_channel(constants.SUB_VOTE_CHANNEL)
+    await sub_vote_channel.send('<@&1273403775024894062>')
     vote_msg = await sub_vote_channel.send(final_string)
 
     current_vote['active'] = True
