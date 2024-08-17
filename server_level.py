@@ -142,7 +142,7 @@ def level_to_token_shop_cash(level):
     
     return ALL_LEVELS[str(level)]['token_shop']
 
-async def server_points_handler(db, message, client):
+async def sub_points_handler(db, message, client):
 
     valid_params, params = valid_number_of_params(message, 2)
 
@@ -150,16 +150,16 @@ async def server_points_handler(db, message, client):
         await invalid_number_of_params(message)
         return
     
-    num_points = params[1]
-    if not can_be_int(num_points):
-        await message.channel.send(num_points+' is not a number')
+    num_subs = params[1]
+    if not can_be_int(num_subs):
+        await message.channel.send(num_subs+' is not a number')
         return
     
-    num_points = int(num_points)
-    orig_points = num_points
+    num_subs = int(num_subs)
+    orig_subs = num_subs
     level = 0
-    while num_points > 5000:
-        num_points -= 5000
+    while num_subs > 20:
+        num_subs -= 20
         level += 1
 
     constants_db = db['constants']
@@ -168,7 +168,7 @@ async def server_points_handler(db, message, client):
     prize_money_obj = constants_db.find_one({'name': 'prize_money'})
     prize_money = prize_money_obj['value']
 
-    points_to_next_level = 5000 - num_points
+    subs_to_next_level = 20 - num_subs
 
     server_level_channel = client.get_channel(constants.SERVER_LEVEL_CHANNEL)
     level_message = await server_level_channel.fetch_message(constants.SERVER_LEVEL_MESSAGE)
@@ -177,8 +177,8 @@ async def server_points_handler(db, message, client):
     level_data = ALL_LEVELS[str(level)]
 
     level_string = 'CURRENT SERVER LEVEL: **'+str(level)+'**'
-    level_string += '\nCURRENT SERVER POINTS: **'+format(orig_points, ',')+'**'
-    level_string += '\nPOINTS TO NEXT LEVEL: **'+format(points_to_next_level, ',')+'**'
+    level_string += '\nCURRENT TWITCH SUBSCRIBERS: **'+format(orig_subs, ',')+'**'
+    level_string += '\nTWITCH SUBS TO NEXT LEVEL: **'+format(subs_to_next_level, ',')+'**'
     level_string += '\n-----------------------------------'
     level_string += '\nSERVER STATS:'
     level_string += '\nToken Shop Stock Added Per Week: **$'+str(level_data['token_shop'])+'**'
@@ -198,8 +198,8 @@ async def server_points_handler(db, message, client):
     for _ in range(5):
         level_copy += 1
         new_level_data = ALL_LEVELS[str(level_copy)]
-        points_for_level = int(level_copy * 5000)
-        next_string += '\nLEVEL '+str(level_copy)+' ('+format(points_for_level, ',')+' Points) : '+new_level_data['info']
+        subs_for_level = int(level_copy * 5000)
+        next_string += '\nLEVEL '+str(level_copy)+' ('+format(subs_for_level, ',')+' Twitch Subs) : '+new_level_data['info']
 
     next_string += '\n-----------------------------------'
 
@@ -242,7 +242,7 @@ async def server_points_handler(db, message, client):
 
         await announcements_channel.send(final_string)
     
-    await message.channel.send('level: '+str(level)+' - points: '+str(num_points))
+    await message.channel.send('level: '+str(level)+' - subs: '+str(num_subs))
 
     
 

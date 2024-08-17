@@ -207,7 +207,7 @@ from payroll import check_payroll
 from random_event import react_to_event, try_random_event
 from rewards import change_xp, give_eggs_command, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from roster_lock import handle_lock
-from server_level import server_points_handler
+from server_level import sub_points_handler
 from streamlabs import check_streamlabs_raffles
 from teams import get_team_by_name
 from time_helpers import check_weekly, long_enough_for_gift
@@ -974,7 +974,7 @@ async def handle_message(message, db, client):
         await force_league_add_handler(db, message, client)
 
     elif lower_message.startswith('!serverpoints ') and is_admin:
-        await server_points_handler(db, message, client)
+        await sub_points_handler(db, message, client)
 
     elif lower_message.startswith('!twitch10') and is_cp_helper:
         await twitch_tokens_handler(client, db, message, 10)
