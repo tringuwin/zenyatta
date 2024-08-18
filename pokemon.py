@@ -157,7 +157,7 @@ async def add_poke_handler(db, message):
 
     constants_db.update_one({"name": 'all_pokes'}, {"$set": {"value": all_pokes_val}})
 
-    await message.channel.send('Card added! Insert to storage Page '+str(page)+', Slot '+str(slot))
+    await message.channel.send('Card added! Insert to storage Page '+str(page)+', Slot '+str(slot)+' | Card ID: **'+str(card_id)+'**')
 
 def del_poke_handler(db, message):
 
