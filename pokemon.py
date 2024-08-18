@@ -159,6 +159,10 @@ async def add_poke_handler(db, message):
 
     await message.channel.send('Card added! Insert to storage Page '+str(page)+', Slot '+str(slot))
 
+def del_poke_handler(db, message):
+
+    pass
+
 def get_rarity_string(holo_type):
 
     if holo_type == 'H':
