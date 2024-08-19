@@ -159,9 +159,37 @@ async def add_poke_handler(db, message):
 
     await message.channel.send('Card added! Insert to storage Page '+str(page)+', Slot '+str(slot)+' | Card ID: **'+str(card_id)+'**')
 
-def del_poke_handler(db, message):
+async def del_poke_handler(db, message):
 
-    pass
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await message.channel.send('Invalid number of params.')
+        return
+    
+    card_id = params[1]
+    if not can_be_int(card_id):
+        await message.channel.send(card_id+' is not an integer.')
+        return
+    card_id = int(card_id)
+
+    pokemon = db['pokemon']
+    poke = pokemon.find_one({'card_id': card_id})
+    if not poke:
+        await message.channel.send('There is no card with that ID.')
+        return
+    
+    slot_string = str(poke['page'])+'-'+str(poke['slot'])
+    slots_constant = get_constant_value(db, 'slots')
+    slots_constant.remove(slot_string)
+
+    set_constant_value(db, 'slots', slots_constant)
+
+    pokemon.delete_one({'card_id': card_id})
+
+    await message.channel.send('Deleted pokemond card.')
+    
+
+
 
 def get_rarity_string(holo_type):
 
@@ -604,8 +632,8 @@ async def buy_order_handler(db, message, client):
     poke_card_data = poke_card_data_obj['data']
 
     pokemon = db['pokemon']
-    order_int = 1
 
+    unsorted_pokes = []
     for poke_id in order:
 
         poke_data = pokemon.find_one({'card_id': poke_id})
@@ -623,7 +651,19 @@ async def buy_order_handler(db, message, client):
         elif poke_data['holo_type'] == 'R':
             addition_string = ' [REVERSE HOLO]'
 
-        poke_string = '\n'+str(order_int)+'. '+poke_display_data['name']+addition_string+' (Card '+str(poke_id)+') [ Page '+str(poke_data['page'])+' Slot '+str(poke_data['slot'])+' ]'
+        unsorted_pokes.append({
+            'name': poke_display_data['name'],
+            'page': poke_data['page'],
+            'slot': poke_data['slot'],
+            'add_string': addition_string
+        })
+
+    sorted_pokes = sorted(unsorted_pokes, key=lambda x: (x["page"], x["slot"]))
+
+    order_int = 1
+    for sorted_poke in sorted_pokes:
+
+        poke_string = '\n'+str(order_int)+'. '+sorted_poke['name']+sorted_poke['add_string']+' (Card '+str(poke_id)+') [ Page '+str(sorted_poke['page'])+' Slot '+str(sorted_poke['slot'])+' ]'
         final_string += poke_string
 
         order_int += 1
