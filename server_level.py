@@ -198,7 +198,7 @@ async def sub_points_handler(db, message, client):
     for _ in range(5):
         level_copy += 1
         new_level_data = ALL_LEVELS[str(level_copy)]
-        subs_for_level = int(level_copy * 5000)
+        subs_for_level = int(level_copy * 20)
         next_string += '\nLEVEL '+str(level_copy)+' ('+format(subs_for_level, ',')+' Twitch Subs) : '+new_level_data['info']
 
     next_string += '\n-----------------------------------'
