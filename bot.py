@@ -2093,7 +2093,9 @@ def run_discord_bot(db):
         except discord.errors.NotFound as e:
             await send_msg(message.channel, 'ERROR: I tried to delete a message but it was already deleted.', '404 Error')
         except discord.errors.HTTPException as e:
-            await send_msg(message.channel, message.author.mention+' You are sending commands too fast, please slow down for a moment.')
+            print('HTTP Exception')
+            print(e)
+            await send_msg(message.channel, message.author.mention+' You are sending commands too fast, please slow down for a moment.', 'HTTP Exception')
         except Exception as e:
             print(e)
             traceback.print_exc()
