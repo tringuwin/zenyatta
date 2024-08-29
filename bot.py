@@ -1460,62 +1460,292 @@ async def handle_message(message, db, client):
     elif lower_message == '!initschedule' and is_admin:
 
         new_schedule = {
-            'season': 3,
+            'season': 4,
             'weeks': [
                 {
                     'week': 1,
-                    'matches': [
-                        ['June 1st (Sat) : Match 1' ,'Hunters', 'Fresas'],
-                        ['June 1st (Sat) : Match 2', 'Evergreen', 'Polar'],
-                        ['June 1st (Sat) : Match 3', 'Instigators', 'Celestials'],
-                        ['June 2nd (Sun) : Match 1', 'Eclipse', 'Phoenix'],
-                        ['June 2nd (Sun) : Match 2', 'Guardians', 'Outliers'],
-                        ['June 2nd (Sun) : Match 3', 'Saturn', 'Misfits'],
-                    ]
+                    'days': [
+                        {
+                            'date': 'Saturday, August 31st',
+                            'start_time': '4:00',
+                            'matches': [
+                                {
+                                    'home': 'Legion',
+                                    'away': 'Olympians',
+                                    'time': '4 PM'
+                                },
+                                {
+                                    'home': 'Ragu',
+                                    'away': 'Phantoms',
+                                    'time': '5 PM'
+                                },
+                                {
+                                    'home': 'Diamonds',
+                                    'away': 'Angels',
+                                    'time': '6 PM'
+                                },
+                                {
+                                    'home': 'Instigators',
+                                    'away': 'Saviors',
+                                    'time': '7 PM'
+                                },
+                            ]
+                        },
+                        {
+                            'date': 'Sunday, September 1st',
+                            'start_time': '4:00',
+                            'matches': [
+                                {
+                                    'home': 'Eclipse',
+                                    'away': 'Hunters',
+                                    'time': '4 PM'
+                                },
+                                {
+                                    'home': 'Sentinels',
+                                    'away': 'Misfits',
+                                    'time': '5 PM'
+                                },
+                                {
+                                    'home': 'Celestials',
+                                    'away': 'Guardians',
+                                    'time': '6 PM'
+                                },
+                                {
+                                    'home': 'Fresas',
+                                    'away': 'Outliers',
+                                    'time': '7 PM'
+                                },
+                            ]
+                        },
+                    ] 
                 },
                 {
                     'week': 2,
-                    'matches': [
-                        ['June 8th (Sat) : Match 1' ,'Phoenix', 'Olympians'],
-                        ['June 8th (Sat) : Match 2', 'Ragu', 'Outliers'],
-                        ['June 8th (Sat) : Match 3', 'Saviors', 'Saturn'],
-                        ['June 9th (Sun) : Match 1', 'Eclipse', 'Hunters'],
-                        ['June 9th (Sun) : Match 2', 'Guardians', 'Evergreen'],
-                        ['June 9th (Sun) : Match 3', 'Celestials', 'Misfits'],
-                    ]
+                    'days': [
+                        {
+                            'date': 'Saturday, September 7th',
+                            'start_time': '4:00',
+                            'matches': [
+                                {
+                                    'home': 'Phoenix',
+                                    'away': 'Hunters',
+                                    'time': '4 PM'
+                                },
+                                {
+                                    'home': 'Misfits',
+                                    'away': 'Polar',
+                                    'time': '5 PM'
+                                },
+                                {
+                                    'home': 'Diamonds',
+                                    'away': 'Celestials',
+                                    'time': '6 PM'
+                                },
+                                {
+                                    'home': 'Evergreen',
+                                    'away': 'Fresas',
+                                    'time': '7 PM'
+                                },
+                            ]
+                        },
+                        {
+                            'date': 'Sunday, September 8th',
+                            'start_time': '4:00',
+                            'matches': [
+                                {
+                                    'home': 'Olympians',
+                                    'away': 'Eclipse',
+                                    'time': '4 PM'
+                                },
+                                {
+                                    'home': 'Ragu',
+                                    'away': 'Sentinels',
+                                    'time': '5 PM'
+                                },
+                                {
+                                    'home': 'Angels',
+                                    'away': 'Saturn',
+                                    'time': '6 PM'
+                                },
+                                {
+                                    'home': 'Outliers',
+                                    'away': 'Saviors',
+                                    'time': '7 PM'
+                                },
+                            ]
+                        },
+                    ] 
                 },
                 {
                     'week': 3,
-                    'matches': [
-                        ['June 15th (Sat) : Match 1' ,'Phoenix', 'Hunters'],
-                        ['June 15th (Sat) : Match 2', 'Polar', 'Guardians'],
-                        ['June 15th (Sat) : Match 3', 'Celestials', 'Saviors'],
-                        ['June 16th (Sun) : Match 1', 'Olympians', 'Fresas'],
-                        ['June 16th (Sun) : Match 2', 'Evergreen', 'Ragu'],
-                        ['June 16th (Sun) : Match 3', 'Misfits', 'Instigators'],
-                    ]
+                    'days': [
+                        {
+                            'date': 'Saturday, September 14th',
+                            'start_time': '4:00',
+                            'matches': [
+                                {
+                                    'home': 'Legion',
+                                    'away': 'Eclipse',
+                                    'time': '4 PM'
+                                },
+                                {
+                                    'home': 'Sentinels',
+                                    'away': 'Polar',
+                                    'time': '5 PM'
+                                },
+                                {
+                                    'home': 'Angels',
+                                    'away': 'Guardians',
+                                    'time': '6 PM'
+                                },
+                                {
+                                    'home': 'Saviors',
+                                    'away': 'Fresas',
+                                    'time': '7 PM'
+                                },
+                            ]
+                        },
+                        {
+                            'date': 'Sunday, September 15th',
+                            'start_time': '4:00',
+                            'matches': [
+                                {
+                                    'home': 'Olympians',
+                                    'away': 'Phoenix',
+                                    'time': '4 PM'
+                                },
+                                {
+                                    'home': 'Phantoms',
+                                    'away': 'Misfits',
+                                    'time': '5 PM'
+                                },
+                                {
+                                    'home': 'Saturn',
+                                    'away': 'Diamonds',
+                                    'time': '6 PM'
+                                },
+                                {
+                                    'home': 'Instigators',
+                                    'away': 'Evergreen',
+                                    'time': '7 PM'
+                                },
+                            ]
+                        },
+                    ] 
                 },
                 {
                     'week': 4,
-                    'matches': [
-                        ['June 22nd (Sat) : Match 1' ,'Fresas', 'Eclipse'],
-                        ['June 22nd (Sat) : Match 2', 'Outliers', 'Evergreen'],
-                        ['June 22nd (Sat) : Match 3', 'Saviors', 'Instigators'],
-                        ['June 23rd (Sun) : Match 1', 'Hunters', 'Olympians'],
-                        ['June 23rd (Sun) : Match 2', 'Polar', 'Ragu'],
-                        ['June 23th (Sun) : Match 3', 'Saturn', 'Celestials'],
-                    ]
+                    'days': [
+                        {
+                            'date': 'Saturday, September 21st',
+                            'start_time': '4:00',
+                            'matches': [
+                                {
+                                    'home': 'Eclipse',
+                                    'away': 'Phoenix',
+                                    'time': '4 PM'
+                                },
+                                {
+                                    'home': 'Phantoms',
+                                    'away': 'Sentinels',
+                                    'time': '5 PM'
+                                },
+                                {
+                                    'home': 'Saturn',
+                                    'away': 'Celestials',
+                                    'time': '6 PM'
+                                },
+                                {
+                                    'home': 'Evergreen',
+                                    'away': 'Outliers',
+                                    'time': '7 PM'
+                                },
+                            ]
+                        },
+                        {
+                            'date': 'Sunday, September 22nd',
+                            'start_time': '4:00',
+                            'matches': [
+                                {
+                                    'home': 'Hunters',
+                                    'away': 'Legion',
+                                    'time': '4 PM'
+                                },
+                                {
+                                    'home': 'Polar',
+                                    'away': 'Ragu',
+                                    'time': '5 PM'
+                                },
+                                {
+                                    'home': 'Guardians',
+                                    'away': 'Diamonds',
+                                    'time': '6 PM'
+                                },
+                                {
+                                    'home': 'Fresas',
+                                    'away': 'Instigators',
+                                    'time': '7 PM'
+                                },
+                            ]
+                        },
+                    ] 
                 },
                 {
                     'week': 5,
-                    'matches': [
-                        ['June 29th (Sat) : Match 1' ,'Olympians', 'Eclipse'],
-                        ['June 29th (Sat) : Match 2', 'Ragu', 'Guardians'],
-                        ['June 29th (Sat) : Match 3', 'Instigators', 'Saturn'],
-                        ['June 30th (Sun) : Match 1', 'Fresas', 'Phoenix'],
-                        ['June 30th (Sun) : Match 2', 'Outliers', 'Polar'],
-                        ['June 30th (Sun) : Match 3', 'Misfits', 'Saviors'],
-                    ]
+                    'days': [
+                        {
+                            'date': 'Saturday, September 28th',
+                            'start_time': '4:00',
+                            'matches': [
+                                {
+                                    'home': 'Hunters',
+                                    'away': 'Olympians',
+                                    'time': '4 PM'
+                                },
+                                {
+                                    'home': 'Misfits',
+                                    'away': 'Ragu',
+                                    'time': '5 PM'
+                                },
+                                {
+                                    'home': 'Guardians',
+                                    'away': 'Saturn',
+                                    'time': '6 PM'
+                                },
+                                {
+                                    'home': 'Outliers',
+                                    'away': 'Instigators',
+                                    'time': '7 PM'
+                                },
+                            ]
+                        },
+                        {
+                            'date': 'Sunday, September 29th',
+                            'start_time': '4:00',
+                            'matches': [
+                                {
+                                    'home': 'Phoenix',
+                                    'away': 'Legion',
+                                    'time': '4 PM'
+                                },
+                                {
+                                    'home': 'Polar',
+                                    'away': 'Phantoms',
+                                    'time': '5 PM'
+                                },
+                                {
+                                    'home': 'Celestials',
+                                    'away': 'Angels',
+                                    'time': '6 PM'
+                                },
+                                {
+                                    'home': 'Saviors',
+                                    'away': 'Evergreen',
+                                    'time': '7 PM'
+                                },
+                            ]
+                        },
+                    ] 
                 },
             ]
         }
