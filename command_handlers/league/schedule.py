@@ -41,7 +41,7 @@ async def schedule_handler(db, message, client):
         for day in week['days']:
 
             final_string += '\n----------------'
-            final_string += '\n**'+week['date']+'**'
+            final_string += '\n**'+day['date']+'**'
 
             for match in day['matches']:
                 match_time = match['time']
