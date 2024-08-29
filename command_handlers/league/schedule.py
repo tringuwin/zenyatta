@@ -58,7 +58,7 @@ async def schedule_handler(db, message, client):
             match_index += 1
 
         weeks += 1
-        if weeks == 2:
+        if weeks == 1:
             break
 
     final_string += '\n----------------'
