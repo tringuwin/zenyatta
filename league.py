@@ -51,7 +51,7 @@ team_name_to_color = {
     'Hunters': discord.Colour(0x41564e),
     'Angels': discord.Colour(0xfff395),
     'Phantoms': discord.Colour(0xaabdcc),
-    'Sentinels': discord.Colour(0x2c114f),
+    'Sentinels': discord.Colour(0x401b7a),
     'Diamonds': discord.Colour(0x78f0da),
     'Legion': discord.Colour(0x6e0002)
 }
