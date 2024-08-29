@@ -31,30 +31,30 @@ async def schedule_handler(db, message, client):
     guild = await get_guild(client)
 
     final_string = '**~ LEAGUE SCHEDULE ~**'
-    index = 1
     weeks = 0
     for week in season_schedule['weeks']:
-
-        if index < constants.LEAGUE_WEEK:
-            index += 1
-            continue
 
 
         final_string += '\n----------------'
         final_string += '\n**WEEK '+str(week['week'])+'**'
-        for match in week['matches']:
-            # date = match[0]
-            team1 = match[1]
-            team2 = match[2]
 
-            team1_emoji = team_name_to_emoji(team1, guild)
-            team2_emoji = team_name_to_emoji(team2, guild)
-            # final_string += '\n'+date
-            final_string += '\n'+str(team1_emoji)+' **'+team1+'** VS '+str(team2_emoji)+' **'+team2+'**'
+        for day in week['days']:
 
-        index += 1
+            final_string += '\n----------------'
+            final_string += '\n**'+week['date']+'**'
+
+            for match in day['matches']:
+                match_time = match['time']
+                home_team = match['home']
+                away_team = match['away']
+
+                home_emoji = team_name_to_emoji(home_team, guild)
+                away_emoji = team_name_to_emoji(away_team, guild)
+                # final_string += '\n'+date
+                final_string += '\n'+str(home_emoji)+' **'+home_team+'** VS '+str(away_emoji)+' **'+away_team+'**'
+
         weeks += 1
-        if weeks == 3:
+        if weeks == 2:
             break
 
     final_string += '\n----------------'
