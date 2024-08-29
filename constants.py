@@ -1,5 +1,5 @@
 
-VERSION = '1.10.14'
+VERSION = '1.10.15'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -157,7 +157,7 @@ LEAGUE_TO_EMOJI_ID = {
     'Phantoms': 1274435777559789690,
     'Angels': 1270065321226801233,
     'Legion': 1168952409125556304,
-    'Sentinels': 1168952409125556304, 
+    'Sentinels': 1278802858338291753, 
 }
 
 LEVEL_ROLE_IDS = [
@@ -280,7 +280,7 @@ TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 
              'Celestials', 'Saturn', 'Evergreen', 'Misfits', 'Hunters', 'Legion', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels']
 
 EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix', 
-               'Saturn', 'Celestials', 'Evergreen', 'Misfits', 'Hunters', 'Diamonds', 'Angels', 'Phantoms']
+               'Saturn', 'Celestials', 'Evergreen', 'Misfits', 'Hunters', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels']
 
 LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassidy', 'dva', 'doomfist', 'echo', 'genji', 'hanzo', 'illari', 
                         'junker queen', 'junkrat', 'kiriko', 'lifeweaver', 'lucio', 'mauga', 'mei', 'mercy', 'moira', 'orisa', 'ramattra', 'reaper', 

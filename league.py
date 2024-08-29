@@ -79,7 +79,7 @@ team_name_to_thumbnail = {
     'Angels': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1722880276/Angels_xsl8cj.png',
     'Diamonds': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1721793187/Diamonds_q79bq9.png',
     'Phantoms': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1723919677/Phantoms_pffpsp.png',
-    'Sentinels': '',
+    'Sentinels': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1724962139/Sentinels_a6ndm4.png',
     'Legion': ''
 }
 
