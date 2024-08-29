@@ -50,7 +50,7 @@ async def schedule_handler(db, message, client):
                 home_emoji = team_name_to_emoji(home_team, guild)
                 away_emoji = team_name_to_emoji(away_team, guild)
                 # final_string += '\n'+date
-                match_string = "MATCH "+str(match_index)+' : '+match_time+' EST : '
+                match_string = "Match "+str(match_index)+' : '+match_time+' EST : '
                 teams_string = str(home_emoji)+' **'+home_team+'** VS '+str(away_emoji)+' **'+away_team+'**'
                 final_string += '\n'+match_string+teams_string
 
@@ -60,7 +60,7 @@ async def schedule_handler(db, message, client):
         if weeks == 1:
             break
 
-    final_string += '\n----------------'
+    final_string += '\n\n----------------'
     final_string += '\n5 Total Weeks in the Regular Season'
     final_string += '\nSee the full Schedule here: https://spicyragu.netlify.app/sol/schedule'
 
