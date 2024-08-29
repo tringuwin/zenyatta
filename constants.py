@@ -287,8 +287,8 @@ LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassi
                         'reinhardt', 'roadhog', 'sigma', 'sojourn', 'soldier 76', 'sombra', 'symmetra', 'torbjorn', 'tracer', 'venture', 'widowmaker', 
                         'winston', 'wrecking ball', 'zarya', 'zenyatta', 'pharah']
 
-LEAGUE_SEASON = 3
-LEAGUE_WEEK = 6
+LEAGUE_SEASON = 4
+LEAGUE_WEEK = 1
 SEASON_ACTIVE = False
 
 REACTION_ROLE_CHANNEL = 1178440747817631784
