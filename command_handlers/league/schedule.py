@@ -38,10 +38,10 @@ async def schedule_handler(db, message, client):
         final_string += '\n----------------'
         final_string += '\n**WEEK '+str(week['week'])+'**'
 
+        match_index = 1
         for day in week['days']:
 
-            final_string += '\n----------------'
-            final_string += '\n**'+day['date']+'**'
+            final_string += '\n\n**'+day['date']+'**'
 
             for match in day['matches']:
                 match_time = match['time']
@@ -51,7 +51,11 @@ async def schedule_handler(db, message, client):
                 home_emoji = team_name_to_emoji(home_team, guild)
                 away_emoji = team_name_to_emoji(away_team, guild)
                 # final_string += '\n'+date
-                final_string += '\n'+str(home_emoji)+' **'+home_team+'** VS '+str(away_emoji)+' **'+away_team+'**'
+                match_string = "MATCH "+str(match_index)+' | '+match_time+' EST : '
+                teams_string = str(home_emoji)+' **'+home_team+'** VS '+str(away_emoji)+' **'+away_team+'**'
+                final_string += '\n'+match_string+teams_string
+
+            match_index += 1
 
         weeks += 1
         if weeks == 2:
