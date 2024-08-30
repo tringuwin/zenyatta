@@ -50,7 +50,7 @@ async def standings_handler(db, message, client):
             }
         )
 
-    div_groups = [[], [], []]
+    div_groups = [[], [], [], []]
     for team in final_teams:
         if team['team_name'] in season_object['divs'][0]:
             div_groups[0].append(team)
