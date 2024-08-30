@@ -16,7 +16,7 @@ def create_player_info(db, lineup_role):
 
 def create_lineup_info(db, team):
 
-    team_string = team['team_name'].upper()+'\n'
+    team_string = '**'+team['team_name'].upper()+'**--------------'
 
     lineup = team['lineup']
 
