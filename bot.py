@@ -1475,7 +1475,7 @@ async def handle_message(message, db, client):
                             'matches': [
                                 {
                                     'home': 'Legion',
-                                    'away': 'Olympians',
+                                    'away': 'Sentinels',
                                     'time': '4 PM'
                                 },
                                 {
@@ -1505,7 +1505,7 @@ async def handle_message(message, db, client):
                                     'time': '4 PM'
                                 },
                                 {
-                                    'home': 'Sentinels',
+                                    'home': 'Olympians',
                                     'away': 'Misfits',
                                     'time': '5 PM'
                                 },
@@ -1557,13 +1557,13 @@ async def handle_message(message, db, client):
                             'start_time': '4:00',
                             'matches': [
                                 {
-                                    'home': 'Olympians',
+                                    'home': 'Sentinels',
                                     'away': 'Eclipse',
                                     'time': '4 PM'
                                 },
                                 {
                                     'home': 'Ragu',
-                                    'away': 'Sentinels',
+                                    'away': 'Olympians',
                                     'time': '5 PM'
                                 },
                                 {
@@ -1593,7 +1593,7 @@ async def handle_message(message, db, client):
                                     'time': '4 PM'
                                 },
                                 {
-                                    'home': 'Sentinels',
+                                    'home': 'Olympians',
                                     'away': 'Polar',
                                     'time': '5 PM'
                                 },
@@ -1614,7 +1614,7 @@ async def handle_message(message, db, client):
                             'start_time': '4:00',
                             'matches': [
                                 {
-                                    'home': 'Olympians',
+                                    'home': 'Sentinels',
                                     'away': 'Phoenix',
                                     'time': '4 PM'
                                 },
@@ -1651,7 +1651,7 @@ async def handle_message(message, db, client):
                                 },
                                 {
                                     'home': 'Phantoms',
-                                    'away': 'Sentinels',
+                                    'away': 'Olympians',
                                     'time': '5 PM'
                                 },
                                 {
@@ -1703,7 +1703,7 @@ async def handle_message(message, db, client):
                             'matches': [
                                 {
                                     'home': 'Hunters',
-                                    'away': 'Olympians',
+                                    'away': 'Sentinels',
                                     'time': '4 PM'
                                 },
                                 {
