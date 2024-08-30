@@ -35,8 +35,8 @@ async def match_lineups_handler(db, message):
         await message.channel.send('invalid num of params')
         return
     
-    home_team_name = params[1]
-    away_team_name = params[2]
+    home_team_name = params[1].lower()
+    away_team_name = params[2].lower()
 
     league_teams = db['leagueteams']
 
