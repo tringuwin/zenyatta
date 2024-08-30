@@ -79,7 +79,7 @@ async def standings_handler(db, message, client):
     final_string += '\n-----------------------'
     final_string += '\n'+make_div_standings_string(sorted_teams_3, 3, guild)
     final_string += '\n-----------------------'
-    final_string += '\n'+make_div_standings_string(sorted_teams_4, 3, guild)
+    final_string += '\n'+make_div_standings_string(sorted_teams_4, 4, guild)
 
     final_string += '\n-----------------------'
     final_string += '\nTeams ranked 1-3 will make it to the playoffs.'
