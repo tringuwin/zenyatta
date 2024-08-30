@@ -53,7 +53,7 @@ team_name_to_color = {
     'Phantoms': discord.Colour(0xaabdcc),
     'Sentinels': discord.Colour(0x401b7a),
     'Diamonds': discord.Colour(0x78f0da),
-    'Legion': discord.Colour(0x6e0002)
+    'Legion': discord.Colour(0xff0d1a)
 }
 
 def get_team_color_by_name(team_name):
@@ -80,7 +80,7 @@ team_name_to_thumbnail = {
     'Diamonds': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1721793187/Diamonds_q79bq9.png',
     'Phantoms': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1723919677/Phantoms_pffpsp.png',
     'Sentinels': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1724962139/Sentinels_a6ndm4.png',
-    'Legion': ''
+    'Legion': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1725049269/Legion_v1kzyb.png'
 }
 
 
