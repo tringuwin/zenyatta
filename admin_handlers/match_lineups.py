@@ -12,7 +12,7 @@ def create_player_info(db, lineup_role):
     if user:
         username = user['battle_tag']
 
-    return '\n*'+lineup_role['role'].upper()+'*\n'+username+'\n---'
+    return '\n'+lineup_role['role'].upper()+'\n*'+username+'*\n---'
 
 def create_lineup_info(db, team):
 
@@ -53,6 +53,6 @@ async def match_lineups_handler(db, message):
     home_team_info_string = create_lineup_info(db, home_team)
     away_team_info_string = create_lineup_info(db, away_team)
 
-    final_string = home_team_info_string+'\n\n\n'+away_team_info_string
+    final_string = home_team_info_string+'\n\n'+away_team_info_string
 
     await message.channel.send(final_string)
