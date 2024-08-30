@@ -62,10 +62,11 @@ async def standings_handler(db, message, client):
     sorted_teams_1 = sorted(div_groups[0], key=lambda x: x["score"], reverse=True)
     sorted_teams_2 = sorted(div_groups[1], key=lambda x: x["score"], reverse=True)
     sorted_teams_3 = sorted(div_groups[2], key=lambda x: x["score"], reverse=True)
+    sorted_teams_4 = sorted(div_groups[3], key=lambda x: x["score"], reverse=True)
     # start temp code
-    stored = sorted_teams_3[1]
-    sorted_teams_3[1] = sorted_teams_3[2]
-    sorted_teams_3[2] = stored
+    # stored = sorted_teams_3[1]
+    # sorted_teams_3[1] = sorted_teams_3[2]
+    # sorted_teams_3[2] = stored
     # end temp code
     final_string = '**LEAGUE STANDINGS**\n-----------------------'
     guild = await get_guild(client)
@@ -75,6 +76,8 @@ async def standings_handler(db, message, client):
     final_string += '\n'+make_div_standings_string(sorted_teams_2, 2, guild)
     final_string += '\n-----------------------'
     final_string += '\n'+make_div_standings_string(sorted_teams_3, 3, guild)
+    final_string += '\n-----------------------'
+    final_string += '\n'+make_div_standings_string(sorted_teams_4, 3, guild)
 
     final_string += '\n-----------------------'
     final_string += '\nTeams ranked 1-3 will make it to the playoffs.'
