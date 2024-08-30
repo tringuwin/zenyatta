@@ -5,9 +5,9 @@ from user import user_exists
 
 
 
-def create_player_info(db, team, lineup_role):
+def create_player_info(db, lineup_role):
 
-    user = user_exists(lineup_role['user_id'])
+    user = user_exists(db, lineup_role['user_id'])
     username = '**[NOT SET]**'
     if user:
         username = user['battle_tag']
@@ -20,11 +20,11 @@ def create_lineup_info(db, team):
 
     lineup = team['lineup']
 
-    team_string += create_lineup_info(lineup['tank'])
-    team_string += create_lineup_info(lineup['dps1'])
-    team_string += create_lineup_info(lineup['dps2'])
-    team_string += create_lineup_info(lineup['sup1'])
-    team_string += create_lineup_info(lineup['sup2'])
+    team_string += create_lineup_info(db, lineup['tank'])
+    team_string += create_lineup_info(db, lineup['dps1'])
+    team_string += create_lineup_info(db, lineup['dps2'])
+    team_string += create_lineup_info(db, lineup['sup1'])
+    team_string += create_lineup_info(db, lineup['sup2'])
 
     return team_string
 
