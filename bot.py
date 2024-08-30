@@ -1314,7 +1314,7 @@ async def handle_message(message, db, client):
         standings = db['standings']
         new_standings = {
             # [win, loss]
-            'season': 3,
+            'season': 4,
             'teams': {
                 'Olympians': [0, 0, 0],
                 'Polar': [0, 0, 0],
@@ -1330,12 +1330,18 @@ async def handle_message(message, db, client):
                 'Evergreen': [0, 0, 0],
                 'Saturn': [0, 0, 0],
                 'Celestials': [0, 0, 0],
-                'Misfits': [0, 0, 0]
+                'Misfits': [0, 0, 0],
+                'Legion': [0, 0, 0],
+                'Diamonds': [0, 0, 0],
+                'Angels': [0, 0, 0],
+                'Sentinels': [0, 0, 0],
+                'Phantoms': [0, 0, 0]
             },
             'divs': [
-                ['Olympians', 'Eclipse', 'Phoenix', 'Hunters', 'Fresas'],
-                ['Polar', 'Ragu', 'Outliers', 'Guardians', 'Evergreen'],
-                ['Instigators', 'Saviors', 'Saturn', 'Celestials', 'Misfits']
+                ['Legion', 'Eclipse', 'Phoenix', 'Hunters', 'Sentinels'],
+                ['Polar', 'Ragu', 'Olympians', 'Phantoms', 'Misfits'],
+                ['Instigators', 'Saviors', 'Fresas', 'Outliers', 'Evergreen'],
+                ['Celestials', 'Guardians', 'Saturn', 'Angels', 'Diamonds']
             ]
         }
         standings.insert_one(new_standings)
