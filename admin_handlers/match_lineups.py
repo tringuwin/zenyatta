@@ -20,11 +20,11 @@ def create_lineup_info(db, team):
 
     lineup = team['lineup']
 
-    team_string += create_lineup_info(db, lineup['tank'])
-    team_string += create_lineup_info(db, lineup['dps1'])
-    team_string += create_lineup_info(db, lineup['dps2'])
-    team_string += create_lineup_info(db, lineup['sup1'])
-    team_string += create_lineup_info(db, lineup['sup2'])
+    team_string += create_player_info(db, lineup['tank'])
+    team_string += create_player_info(db, lineup['dps1'])
+    team_string += create_player_info(db, lineup['dps2'])
+    team_string += create_player_info(db, lineup['sup1'])
+    team_string += create_player_info(db, lineup['sup2'])
 
     return team_string
 
