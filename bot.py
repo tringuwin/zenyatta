@@ -25,6 +25,7 @@ from admin_handlers.give_sub_boxes import give_sub_boxes_handler
 from admin_handlers.give_twitch_lootbox import give_twitch_lootbox_handler
 from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.make_vote import make_vote_handler
+from admin_handlers.match_lineups import match_lineups_handler
 from admin_handlers.prune_sac import prune_sac_handler
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
@@ -748,6 +749,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!setlineup':
         await set_lineup_handler(db, message)
+
+    elif lower_message.startswith('!matchlineups') and is_admin:
+        await match_lineups_handler(db, message)
 
     elif lower_message == '!toggleesub':
         await toggle_esub_handler(db, message, client)
