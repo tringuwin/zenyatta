@@ -12,7 +12,7 @@ def create_player_info(db, lineup_role):
     if user:
         username = user['battle_tag']
 
-    return '\n*'+lineup_role['role'].upper()+': '+username
+    return '\n'+lineup_role['role'].upper()+': **'+username+'**'
 
 def create_lineup_info(db, team):
 
