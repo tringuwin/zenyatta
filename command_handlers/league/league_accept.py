@@ -58,8 +58,6 @@ async def league_accept_handler(db, message, client):
         
         season_active = True
 
-        await message.channel.send('If you see this message something went very wrong, please notify staff.')
-
         # check if they have enough swaps
         team_swaps = get_user_team_swaps(user)
         if team_swaps < 1:
