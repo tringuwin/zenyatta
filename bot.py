@@ -128,7 +128,7 @@ from command_handlers.league.set_win import set_win_handler
 from command_handlers.league.standings import standings_handler
 from command_handlers.league.toggle_apps import toggle_apps_handler
 from command_handlers.league.toggle_esub import toggle_esub_handler
-from command_handlers.league.update_team import update_team_handler
+from command_handlers.league.update_team import update_team, update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
@@ -213,7 +213,7 @@ from streamlabs import check_streamlabs_raffles
 from teams import get_team_by_name
 from time_helpers import check_weekly, long_enough_for_gift
 from twitch_token import check_token_issue
-from user import get_knows_gift, get_last_gift, get_lvl_info, get_role_id_by_level, notify_user_of_gift, user_exists
+from user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_role_id_by_level, notify_user_of_gift, user_exists
 from xp_battles import add_to_battle, how_many_handler, remove_from_battle
 
 
@@ -2322,11 +2322,18 @@ def run_discord_bot(db):
 
     @client.event
     async def on_raw_member_remove(payload):
-        print('payload is')
-        print(payload)
         guild_user = payload.user
         user_id = guild_user.id
-        print(str(user_id)+' user_id user left the server')
+        
+        db_user = user_exists(db, user_id)
+        if db_user:
+
+            user_league_team = get_league_team(db_user)
+            if user_league_team != 'None':
+                users = db['users']
+                users.update_one({'discord_id': user_id}, {'$set': {'league_team': 'None'}})
+
+                await update_team(db, user_league_team, client)
 
 
 

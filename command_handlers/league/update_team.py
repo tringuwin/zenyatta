@@ -6,16 +6,12 @@ import discord
 from user import user_exists
 
 
-async def update_team(db, team_name, client, message):
+async def update_team(db, team_name, client):
 
     print('update team started')
     guild = await get_guild(client)
     league_teams = db['leagueteams']
     team_object = league_teams.find_one({'team_name': team_name})
-
-    if not team_object:
-        await message.channel.send('Team not found')
-        return
     
     print('checkpoint 0')
     final_team_members = []
@@ -51,6 +47,6 @@ async def update_team_handler(db, message, client):
 
     team_name = message.content.split()[1]
 
-    await update_team(db, team_name, client, message)
+    await update_team(db, team_name, client)
 
     await message.channel.send('Team details updated.')

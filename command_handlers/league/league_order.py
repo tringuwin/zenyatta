@@ -62,6 +62,6 @@ async def league_order_handler(db, message, client):
 
     await message.channel.send('Please wait... This may take a while...')
     
-    await update_team(db, team_name, client, message)
+    await update_team(db, team_name, client)
 
     await message.channel.send(team_name+' was updated.')
