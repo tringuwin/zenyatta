@@ -2320,6 +2320,13 @@ def run_discord_bot(db):
         except Exception:
             print('Could not DM user.')
 
+    @client.event
+    async def on_raw_member_remove(payload):
+        guild_user = payload['user']
+        user_id = guild_user.id
+        print(str(user_id)+' user_id user left the server')
+
+
 
     @client.event
     async def on_message(message):
