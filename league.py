@@ -77,7 +77,7 @@ team_name_to_thumbnail = {
     'Misfits': 'https://i.imgur.com/Aauu5rq.png',
     'Hunters': 'https://i.imgur.com/HEeAJwK.png',
     'Angels': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1722880276/Angels_xsl8cj.png',
-    'Diamonds': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1721793187/Diamonds_q79bq9.png',
+    'Diamonds': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1725381856/Diamonds_mg3ter.png',
     'Phantoms': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1723919677/Phantoms_pffpsp.png',
     'Sentinels': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1724962139/Sentinels_a6ndm4.png',
     'Legion': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1725049269/Legion_v1kzyb.png'
