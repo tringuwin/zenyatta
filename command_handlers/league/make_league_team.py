@@ -74,7 +74,8 @@ async def make_league_team_handler(db, message, client):
                 'role': 'support',
                 'user_id': 0
             },
-        }
+        },
+        'banter': False
     }
 
     league_teams.insert_one(new_team)

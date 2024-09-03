@@ -676,6 +676,15 @@ async def handle_message(message, db, client):
         # !makeleagueteam [team role id] @Owner [Team Name]
         await make_league_team_handler(db, message, client)
 
+    elif lower_message == '!initbanter':
+
+        league_teams = db['leagueteams']
+        all_teams = league_teams.find()
+        for team in all_teams:
+            league_teams.update_one({'team_name': team['team_name']}, {'$set': {'banter': False}})
+
+        await message.channel.send('done')
+
     elif lower_message.startswith('!changeteamowner') and is_admin:
         # !changeteamowner @player team name
         await change_team_owner_handler(db, message, client)
