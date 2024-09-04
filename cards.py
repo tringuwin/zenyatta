@@ -483,6 +483,41 @@ async def sell_card_handler(db, message):
     
     await message.channel.send('You sold the card "'+input_card+'" for 20 tokens!')
 
+async def sell_all_cards_handler(db, message):
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+    
+    cards = get_user_cards(user)
+
+    # check if no cards and short circuit if so
+    num_cards = len(cards)
+    if num_cards == 0:
+        await message.channel.send('You have no cards that can be sold. You may have listed cards. You will need to unlist them first before using this command.')
+        return
+
+    tokens_to_earn = num_cards * 20
+    
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": []}})
+    await change_tokens(db, user, tokens_to_earn)
+
+    card_database = db['cards']
+    card_group = card_database.find_one({'cards_id': 1})
+    edit_cards = card_group['cards']
+    for card in cards:
+        edit_cards.append(card)
+
+    card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
+
+    for card in cards:
+        assign_owner_to_card(db, card['card_display'], 0)
+    
+    await message.channel.send('You sold the all your cards! You sold '+str(num_cards)+' cards for a total of **'+str(tokens_to_earn)+' Tokens**!')
+
+
 
 async def give_card_handler(db, message):
 
