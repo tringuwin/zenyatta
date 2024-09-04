@@ -580,6 +580,22 @@ async def handle_message(message, db, client):
         #await message.channel.send('This command is disabled until Season 3 starts on June 1st 2024.')
         await schedule_handler(db, message, client)
 
+    elif lower_message == '!datepatch':
+
+        schedule_db = db['schedule']
+        cur_schedule = schedule_db.find_one({'season': 4})
+        schedule_weeks = cur_schedule['weeks']
+        for week in schedule_weeks:
+            for day in week['days']:
+                day['day_data'] = {
+                    'day': 0,
+                    'month': 0,
+                    'year': 2024
+                }
+
+        schedule_db.update_one({'season': 4}, {'$set': {'weeks': schedule_weeks}})
+
+
     # elif lower_message == '!buyticket':
     #     #await message.channel.send('There is no raffle at the moment.')
     #     await buy_ticket_handler(db, message, 1)
