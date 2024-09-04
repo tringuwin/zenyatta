@@ -31,8 +31,12 @@ async def schedule_handler(db, message, client):
     guild = await get_guild(client)
 
     weeks = 0
+    week_index = 1
     for week in season_schedule['weeks']:
 
+        if week_index < constants.LEAGUE_WEEK:
+            week_index += 1
+            continue
 
         final_string = '\n**SEASON 4 WEEK '+str(week['week'])+'**'
 
@@ -56,6 +60,7 @@ async def schedule_handler(db, message, client):
 
                 match_index += 1
 
+        week_index += 1
         weeks += 1
         if weeks == 1:
             break
