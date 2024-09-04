@@ -350,7 +350,7 @@ async def handle_message(message, db, client):
             return
         else:
             # add to warnings array
-            await message.channel.send(message.author.mention+' '+' users without Image Perms are not allowed to post links. Please ask a Helper for Image Perms. **Your account has been flagged as potentially dangerous, and if you post a link without image permission again, you will be automatically banned by the bot.**')
+            await message.channel.send(message.author.mention+' '+' Image permission is off by default to keep the server safe! To get perms, just make a ticket and ask for it here: https://discord.com/channels/1130553449491210442/1202441473027477504\n\n**Please be careful, if you send another image or link before getting this permission, the auto-mod will think you are a spam bot and ban you.**')
             warned_users.append(message.author.id)
             db_constants.update_one({"name": 'warnings'}, {"$set": {"value": warned_users}})
             guild = await get_guild(client)
