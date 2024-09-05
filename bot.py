@@ -1351,6 +1351,19 @@ async def handle_message(message, db, client):
         standings.insert_one(new_standings)
         await message.channel.send('standings initated')
 
+    elif lower_message == '!standingsmappatch' and is_admin:
+
+        standings = db['standings']
+        s4 = standings.find_one({'season': 4})
+
+        for team_name in s4['teams']:
+            team = s4['teams'][team_name]
+            team.append(0)
+            s4['teams'][team_name] == team
+
+        standings.update_one({'season': 4}, {'$set': {'teams': s4['teams']}})
+        
+        await message.channel.send('patched')
 
     elif lower_message == '!initauction' and is_admin:
 
