@@ -1,6 +1,6 @@
 
 
-from helpers import generic_find_user, valid_number_of_params
+from helpers import can_be_int, generic_find_user, valid_number_of_params
 from rewards import change_xp
 
 
@@ -11,6 +11,10 @@ async def give_xp_handler(client, db, message):
         await message.channel.send('Invalid number of params')
         return
     
+    if not can_be_int(params[2]):
+        await message.channel.send(params[2]+' is not a number.')
+        return
+
     user_id = params[1]
     num_xp = int(params[2])
 
