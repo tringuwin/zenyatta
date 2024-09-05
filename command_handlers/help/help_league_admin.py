@@ -5,6 +5,7 @@ async def help_league_admin_handler(message):
 
     help_embed = discord.Embed(title='List of league team admin commands:')
     help_embed.add_field(name='!helpally', value='Show a list of league team admin commands related to League Team Allies and Rivals.', inline=False)
+    help_embed.add_field(name='!setlineup', value='The bot will DM you a secure link to the SOL website to set the lineup for your team.', inline=False)
     help_embed.add_field(name='!leagueinvite @User', value='Admin command to invite a user to your league team', inline=False)
     help_embed.add_field(name='!leaguecancelinvite @User', value="Admin command to cancel a user's pending invite to your team.", inline=False)
     help_embed.add_field(name='!changetpp username [tpp number]', value='Admin command to change the TPP of a player on your league team.', inline=False)
