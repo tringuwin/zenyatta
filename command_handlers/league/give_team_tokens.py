@@ -20,15 +20,13 @@ async def give_team_tokens_handler(db, message):
         return
     tokens_to_give = int(tokens_to_give)
     
-    team_name = make_string_from_word_list(word_parts, 2)
-    if not team_name in constants.TEAM_LIST:
-        await message.channel.send(team_name+' is not a valid team name')
-        return
+    team_name = word_parts[2]
+    lower_team_name = team_name.lower()
     
     league_teams = db['leagueteams']
-    team_obj = league_teams.find_one({'team_name': team_name})
+    team_obj = league_teams.find_one({'name_lower': lower_team_name})
     if not team_obj:
-        await message.channel.send('Internal error: did not find team')
+        await message.channel.send('Did not find team')
         return
     
     total_team_tpp = 0
