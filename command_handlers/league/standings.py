@@ -46,7 +46,8 @@ async def standings_handler(db, message, client):
                 'team': team,
                 'win_percent': win_percent,
                 'team_name': team_name,
-                'score': score
+                'score': score,
+                'map_diff': team[2]
             }
         )
 
@@ -61,10 +62,10 @@ async def standings_handler(db, message, client):
         elif team['team_name'] in season_object['divs'][3]:
             div_groups[3].append(team)
 
-    sorted_teams_1 = sorted(div_groups[0], key=lambda x: x["score"], reverse=True)
-    sorted_teams_2 = sorted(div_groups[1], key=lambda x: x["score"], reverse=True)
-    sorted_teams_3 = sorted(div_groups[2], key=lambda x: x["score"], reverse=True)
-    sorted_teams_4 = sorted(div_groups[3], key=lambda x: x["score"], reverse=True)
+    sorted_teams_1 = sorted(div_groups[0], key=lambda x: (x["score"], x["map_diff"]), reverse=True)
+    sorted_teams_2 = sorted(div_groups[1], key=lambda x: (x["score"], x["map_diff"]), reverse=True)
+    sorted_teams_3 = sorted(div_groups[2], key=lambda x: (x["score"], x["map_diff"]), reverse=True)
+    sorted_teams_4 = sorted(div_groups[3], key=lambda x: (x["score"], x["map_diff"]), reverse=True)
     # start temp code
     # stored = sorted_teams_3[1]
     # sorted_teams_3[1] = sorted_teams_3[2]
