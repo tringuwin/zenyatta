@@ -12,7 +12,7 @@ async def give_xp_handler(client, db, message):
         return
     
     if not can_be_int(params[2]):
-        await message.channel.send(params[2]+' is not a number.')
+        await message.channel.send('"'+params[2]+'" is not a number.')
         return
 
     user_id = params[1]
