@@ -109,6 +109,7 @@ from command_handlers.league.lft.toggle_lft import toggle_lft_handler
 from command_handlers.league.lft.update_lft import update_lft_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
+from command_handlers.league.map_diff import map_diff_handler
 from command_handlers.league.ping_team import ping_team_handler
 from command_handlers.league.prune_team import prune_team_handler
 from command_handlers.league.remove_team_admin import remove_team_admin_handler
@@ -1391,6 +1392,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!addloss') and is_admin:
         await add_loss_handler(db, message)
+
+    elif lower_message.startswith('!mapdiff') and is_admin:
+        await map_diff_handler(db, message)
 
     elif lower_message == '!initmaps' and is_admin:
 
