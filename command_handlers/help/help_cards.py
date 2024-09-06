@@ -9,6 +9,7 @@ async def help_cards_handler(message):
     help_embed.add_field(name='!openpack', value='Opens one of your card packs and gives you a card.', inline=False)
     help_embed.add_field(name='!viewcard [Card-ID]', value='Shows the image for any card.', inline=False)
     help_embed.add_field(name='!sellcard [Card-ID]', value='Sells any card for 20 tokens.', inline=False)
+    help_embed.add_field(name='!sellallcards', value='Sells all your unlisted cards for 20 tokens each. Be carefuly, there is no confirmation message.', inline=False)
     help_embed.add_field(name='!givecard @Player [Card-ID]', value='Give a card to another user.', inline=False)
     help_embed.add_field(name='!listcard [Card-ID] [price]', value='Put your card for sale on the card market.', inline=False)
     help_embed.add_field(name='!unlistcard [Card-ID]', value='Take a card off sale of the card market.', inline=False)
