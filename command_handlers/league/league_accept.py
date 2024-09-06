@@ -7,6 +7,25 @@ from helpers import make_string_from_word_list
 from league import remove_league_invite, update_team_info
 from user import get_league_invites, get_league_team, get_user_div, get_user_team_swaps, user_exists
 import constants
+from datetime import datetime
+import pytz
+
+def match_day_soft_lock():
+    # Get the current time in EST
+    est = pytz.timezone('America/New_York')
+    current_time = datetime.now(est)
+    
+    # Define the start and end times
+    start_time = current_time.replace(hour=15, minute=45, second=0, microsecond=0)
+    end_time = current_time.replace(hour=21, minute=0, second=0, microsecond=0)
+    
+    # Check if it's Saturday or Sunday
+    if current_time.weekday() in [5, 6]:  # Saturday=5, Sunday=6
+        # Check if current time is between 3:45 PM and 7:30 PM
+        if start_time <= current_time <= end_time:
+            return True
+    return False
+
 
 async def league_accept_handler(db, message, client):
 
@@ -23,6 +42,10 @@ async def league_accept_handler(db, message, client):
     user_league_team = get_league_team(user)
     if user_league_team != "None":
         await message.channel.send('You are already on a league team. Please leave that team before joining another team. Use the command **!leagueleave** to leave your current team.')
+        return
+    
+    if constants.SEASON_ACTIVE and match_day_soft_lock():
+        await message.channel.send('Players are not allowed to join teams from 3:45 PM EST to 9:00 PM EST on SOL match days. Please try again later.')
         return
     
     team_name_to_join = make_string_from_word_list(word_list, 1)
