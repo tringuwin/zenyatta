@@ -14,13 +14,13 @@ async def give_team_tokens_handler(db, message):
         await invalid_number_of_params(message)
         return
     
-    tokens_to_give = word_parts[1]
+    tokens_to_give = word_parts[2]
     if not can_be_int(tokens_to_give):
         await message.channel.send(tokens_to_give+' is not an integer')
         return
     tokens_to_give = int(tokens_to_give)
     
-    team_name = word_parts[2]
+    team_name = word_parts[1]
     lower_team_name = team_name.lower()
     
     league_teams = db['leagueteams']
