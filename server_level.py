@@ -158,7 +158,7 @@ async def sub_points_handler(db, message, client):
     num_subs = int(num_subs)
     orig_subs = num_subs
     level = 0
-    while num_subs > 20:
+    while num_subs >= 20:
         num_subs -= 20
         level += 1
 
