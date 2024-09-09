@@ -11,7 +11,8 @@ VALID_RANKS = [
     'platinum',
     'diamond',
     'master',
-    'grandmaster'
+    'grandmaster',
+    'champ'
 ]
 
 async def set_min_rank_handler(db, message):
@@ -29,7 +30,7 @@ async def set_min_rank_handler(db, message):
     
     rank = params[1].lower()
     if not rank in VALID_RANKS:
-        await message.channel.send('That is not a valid rank. Please enter a rank in the range bronze to grandmaster.')
+        await message.channel.send('That is not a valid rank. Please enter a rank in the range bronze to champ.')
         return
 
     apps = db['applications']

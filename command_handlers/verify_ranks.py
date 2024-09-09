@@ -11,7 +11,8 @@ tiers_and_value = {
     'Rank_Platinum': 400,
     'Rank_Diamond': 500,
     'Rank_Master': 600,
-    'Rank_GrandMaster': 700
+    'Rank_GrandMaster': 700,
+    'Rank_Champ': 800,
 }
 
 divs_and_value = {

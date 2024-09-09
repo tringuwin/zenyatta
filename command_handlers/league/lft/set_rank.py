@@ -12,7 +12,8 @@ RANK_STRINGS = {
     'p': 'Rank_Platinum',
     'd': 'Rank_Diamond',
     'm': 'Rank_Master',
-    'gm': 'Rank_GrandMaster'
+    'gm': 'Rank_GrandMaster',
+    'c': 'Rank_Champ'
 }
 
 TIER_STRINGS = {

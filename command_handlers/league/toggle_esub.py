@@ -49,6 +49,12 @@ RANK_TO_ESUB_VALUE = {
     'Rank_GrandMaster_Division_2': 0,
     'Rank_GrandMaster_Division_1': 0,
 
+    'Rank_Champ Division_5': 0,
+    'Rank_Champ Division_4': 0,
+    'Rank_Champ Division_3': 0,
+    'Rank_Champ Division_2': 0,
+    'Rank_Champ Division_1': 0,
+
 }
 
 DIV_TO_ROLE_ID = {

@@ -49,6 +49,12 @@ RANK_TEXT_TO_ID = {
     'Rank_GrandMaster Division_3': 'GM3',
     'Rank_GrandMaster Division_2': 'GM2',
     'Rank_GrandMaster Division_1': 'GM1',
+
+    'Rank_Champ Division_5': 'C5',
+    'Rank_Champ Division_4': 'C4',
+    'Rank_Champ Division_3': 'C3',
+    'Rank_Champ Division_2': 'C2',
+    'Rank_Champ Division_1': 'C1',
 }
 
 def make_rank_string(ranks):
