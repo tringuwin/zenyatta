@@ -13,10 +13,13 @@ async def map_diff_handler(db, message):
         await invalid_number_of_params(message)
         return
 
-    team_name = params[1]
-    if not team_name in constants.TEAM_LIST:
-        await message.channel.send(team_name+' is not a valid team name')
+    team_name_lower = params[1].lower()
+    league_teams = db['leagueteams']
+    my_team = league_teams.find_one({'name_lower': team_name_lower})
+    if not my_team:
+        await message.channel.send(params[1]+' is not a valid team name')
         return
+    team_name = my_team['team_name']
     
     num_to_add = params[2]
     if not can_be_int(num_to_add):

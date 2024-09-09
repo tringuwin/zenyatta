@@ -1,20 +1,23 @@
 
 from common_messages import invalid_number_of_params
-from helpers import make_string_from_word_list
+from helpers import valid_number_of_params
 
 import constants
 
 async def add_loss_handler(db, message):
 
-    word_parts = message.content.split()
-    if len(word_parts) < 2:
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
         await invalid_number_of_params(message)
         return
     
-    team_name = make_string_from_word_list(word_parts, 1)
-    if not team_name in constants.TEAM_LIST:
-        await message.channel.send(team_name+' is not a valid team name')
+    team_name_lower = params[1].lower()
+    league_teams = db['leagueteams']
+    my_team = league_teams.find_one({'name_lower': team_name_lower})
+    if not my_team:
+        await message.channel.send(params[1]+' is not a valid team name')
         return
+    team_name = my_team['team_name']
     
     standings = db['standings']
     standings_obj = standings.find_one({'season': constants.LEAGUE_SEASON})
