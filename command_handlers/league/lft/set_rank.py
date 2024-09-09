@@ -179,6 +179,32 @@ VALID_RANKS = {
         'div': TIER_STRINGS['1']
     },
 
+    'c5': {
+        'rank': RANK_STRINGS['c'],
+        'div': TIER_STRINGS['5']
+    },
+
+    'c4': {
+        'rank': RANK_STRINGS['c'],
+        'div': TIER_STRINGS['4']
+    },
+
+    'c3': {
+        'rank': RANK_STRINGS['c'],
+        'div': TIER_STRINGS['3']
+    },
+
+    'c2': {
+        'rank': RANK_STRINGS['c'],
+        'div': TIER_STRINGS['2']
+    },
+
+    'c1': {
+        'rank': RANK_STRINGS['c'],
+        'div': TIER_STRINGS['1']
+    },
+
+
 }
 
 async def set_rank_handler(db, message):
