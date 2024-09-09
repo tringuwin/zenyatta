@@ -415,7 +415,7 @@ async def handle_message(message, db, client):
         time.sleep(5)
         await notice.delete()
 
-    elif lower_message == '!version':
+    elif lower_message == '!version' or lower_message == '!v':
         await send_msg(message.channel, constants.VERSION, '!version')
     
     elif lower_message.startswith('!battle '):
