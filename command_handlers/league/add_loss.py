@@ -1,6 +1,6 @@
 
 from common_messages import invalid_number_of_params
-from helpers import valid_number_of_params
+from helpers import get_constant_value, valid_number_of_params
 
 import constants
 
@@ -18,11 +18,13 @@ async def add_loss_handler(db, message):
         await message.channel.send(params[1]+' is not a valid team name')
         return
     team_name = my_team['team_name']
+
+    league_season = get_constant_value(db, 'league_season')
     
     standings = db['standings']
-    standings_obj = standings.find_one({'season': constants.LEAGUE_SEASON})
+    standings_obj = standings.find_one({'season': league_season})
     standings_obj['teams'][team_name][1] += 1
 
-    standings.update_one({"season": constants.LEAGUE_SEASON}, {"$set": {"teams": standings_obj['teams']}})
+    standings.update_one({"season": league_season}, {"$set": {"teams": standings_obj['teams']}})
 
     await message.channel.send('team loss added')

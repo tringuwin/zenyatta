@@ -1,6 +1,7 @@
 
 import constants
 from discord_actions import get_guild
+from helpers import get_constant_value
 from user import get_league_invites, get_league_team, user_exists
 import discord
 
@@ -200,8 +201,10 @@ def user_admin_on_team(user_id, league_team):
 
 def get_team_record_string(db, team_name):
 
+    league_season = get_constant_value(db, 'league_season')
+
     standings = db['standings']
-    standings_obj = standings.find_one({'season': constants.LEAGUE_SEASON})
+    standings_obj = standings.find_one({'season': league_season})
 
     team_record = standings_obj['teams'][team_name]
     return 'W: '+str(team_record[0])+' L: '+str(team_record[1])

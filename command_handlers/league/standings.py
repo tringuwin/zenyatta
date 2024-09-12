@@ -2,6 +2,7 @@
 
 from discord_actions import get_guild
 import constants
+from helpers import get_constant_value
 
 
 def make_div_standings_string(div_teams, div_num, guild):
@@ -26,8 +27,10 @@ def make_div_standings_string(div_teams, div_num, guild):
 
 async def standings_handler(db, message, client):
 
+    league_season = get_constant_value(db, 'league_season')
+
     standings = db['standings']
-    season_object = standings.find_one({'season': constants.LEAGUE_SEASON})
+    season_object = standings.find_one({'season': league_season})
 
     final_teams = []
     teams = season_object['teams']

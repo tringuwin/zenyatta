@@ -1,5 +1,5 @@
 
-VERSION = '1.10.32'
+VERSION = '1.10.33'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -287,7 +287,6 @@ LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassi
                         'reinhardt', 'roadhog', 'sigma', 'sojourn', 'soldier 76', 'sombra', 'symmetra', 'torbjorn', 'tracer', 'venture', 'widowmaker', 
                         'winston', 'wrecking ball', 'zarya', 'zenyatta', 'pharah']
 
-LEAGUE_SEASON = 4
 LEAGUE_WEEK = 2
 SEASON_ACTIVE = True
 
