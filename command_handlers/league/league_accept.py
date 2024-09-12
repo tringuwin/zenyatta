@@ -74,39 +74,39 @@ async def league_accept_handler(db, message, client):
         await message.channel.send('This League Team already has 25 players, which is the maximum allowed. Please contact an admin of this team if you think this is a mistake.')
         return
     
-    season_active = False
-    team_swaps = 0
-    div_joined = 0
-    if constants.SEASON_ACTIVE:
+    # season_active = False
+    # team_swaps = 0
+    # div_joined = 0
+    # if constants.SEASON_ACTIVE:
         
-        season_active = True
+    #     season_active = True
 
-        # check if they have enough swaps
-        team_swaps = get_user_team_swaps(user)
-        if team_swaps < 1:
-            await message.channel.send('You have already joined a team 3 times this season, which is the maximum allowed in one season.')
-            return
+    #     # check if they have enough swaps
+    #     team_swaps = get_user_team_swaps(user)
+    #     if team_swaps < 1:
+    #         await message.channel.send('You have already joined a team 3 times this season, which is the maximum allowed in one season.')
+    #         return
 
-        # check if they can move divs
-        user_div = get_user_div(user)
-        if (user_div != league_team['div']):
+    #     # check if they can move divs
+    #     user_div = get_user_div(user)
+    #     if (user_div != league_team['div']):
 
-            if user_div != 0:
-                await message.channel.send('You are division locked for the rest of this season. You can only join teams in Division '+str(user_div)+' until the season ends.')
-                return
-            else:
-                div_joined = league_team['div']
+    #         if user_div != 0:
+    #             await message.channel.send('You are division locked for the rest of this season. You can only join teams in Division '+str(user_div)+' until the season ends.')
+    #             return
+    #         else:
+    #             div_joined = league_team['div']
     
 
     remove_league_invite(user, real_team_name, db)
     users = db['users']
 
     update_obj = {"league_team": real_team_name}
-    if season_active:
-        if div_joined != 0:
-            update_obj = {"league_team": real_team_name, 'team_swaps': team_swaps - 1, 'user_div': div_joined}
-        else:
-            update_obj = {"league_team": real_team_name, 'team_swaps': team_swaps - 1}
+    # if season_active:
+    #     if div_joined != 0:
+    #         update_obj = {"league_team": real_team_name, 'team_swaps': team_swaps - 1, 'user_div': div_joined}
+    #     else:
+    #         update_obj = {"league_team": real_team_name, 'team_swaps': team_swaps - 1}
 
     users.update_one({"discord_id": user['discord_id']}, {"$set": update_obj})
 
@@ -136,9 +136,9 @@ async def league_accept_handler(db, message, client):
     team_emoji = guild.get_emoji(team_emoji_id)
     
     await league_notifs_channel.send(str(team_emoji)+' User '+message.author.mention+' has joined the team "'+real_team_name+'".')
-    if div_joined != 0:
-        await message.channel.send('You have successfully joined this team! You are now locked in **Division '+str(div_joined)+'** for the rest of this season.')
-    else:
-        await message.channel.send('You have successfully joined this team!')
+    # if div_joined != 0:
+    #     await message.channel.send('You have successfully joined this team! You are now locked in **Division '+str(div_joined)+'** for the rest of this season.')
+    # else:
+    await message.channel.send('You have successfully joined this team!')
 
 
