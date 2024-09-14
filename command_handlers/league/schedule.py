@@ -27,6 +27,7 @@ async def schedule_handler(db, message, client):
     # await message.channel.send(final_string)
 
     league_season = get_constant_value(db, 'league_season')
+    league_week = get_constant_value(db, 'league_week')
 
     schedule = db['schedule']
     season_schedule = schedule.find_one({'season': league_season})
@@ -37,7 +38,7 @@ async def schedule_handler(db, message, client):
     week_index = 1
     for week in season_schedule['weeks']:
 
-        if week_index < constants.LEAGUE_WEEK:
+        if week_index < league_week:
             week_index += 1
             continue
 
