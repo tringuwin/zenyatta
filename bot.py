@@ -57,6 +57,7 @@ from command_handlers.getdetails import get_details_handler
 from command_handlers.gg_ez import gg_ez_handler
 from command_handlers.gift import gift_handler
 from command_handlers.give_rewards import give_rewards_handler
+from command_handlers.gp import gp_handler
 from command_handlers.hello import hello_handler
 from command_handlers.help.help_ally import help_ally_handler
 from command_handlers.help.help_bonus import help_bonus_handler
@@ -1844,6 +1845,9 @@ async def handle_message(message, db, client):
             await give_packs_command(client, db, word_list[1], float(word_list[2]), message)
         else:
             await send_msg(message.channel, 'Invalid number of arguments.', '!givepacks')
+
+    elif lower_message.startswith('!gp') and (is_admin or is_tp_helper):
+        await gp_handler(db, message)
 
     elif lower_message.startswith('!givegems ') and is_admin:
         await give_gems_handler(db, message, client)
