@@ -4,6 +4,7 @@ async def help_poke_handler(message):
 
     help_embed = discord.Embed(title='List of commands related to pokemon cards:')
     help_embed.add_field(name='!openpoke', value='Spend 100 PokePoints to open earn a real pokemon card!', inline=False)
+    help_embed.add_field(name='!sellpp', value='Sells all your PokePoints. You earn 1 Token per 5 PokePoints', inline=False)
     help_embed.add_field(name='!sellpoke [card id]', value='Sell a pokemon card for 20 Tokens', inline=False)
     help_embed.add_field(name='!viewpoke [card id]', value='View a pokemon card', inline=False)
     help_embed.add_field(name='!givepoke @user [card id]', value='Give one of your pokemon cards to another user', inline=False)

@@ -12,15 +12,15 @@ async def sell_pp_handler(db, message):
         return
 
     pp = get_user_poke_points(user)
-    if pp < 10:
-        await message.channel.send('Minimum amount of PokePoints that can be sold is 10.')
+    if pp < 5:
+        await message.channel.send('Minimum amount of PokePoints that can be sold is 5.')
         return
     
     tokens_earned = 0
     sold_pp = 0
-    while pp > 10:
-        pp -= 10
-        sold_pp += 10
+    while pp > 5:
+        pp -= 5
+        sold_pp += 5
         tokens_earned += 1
 
     users = db['users']
