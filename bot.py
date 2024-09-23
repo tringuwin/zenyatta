@@ -111,6 +111,7 @@ from command_handlers.league.lft.update_lft import update_lft_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
 from command_handlers.league.map_diff import map_diff_handler
+from command_handlers.league.match_end import match_end_handler
 from command_handlers.league.ping_team import ping_team_handler
 from command_handlers.league.prune_team import prune_team_handler
 from command_handlers.league.remove_team_admin import remove_team_admin_handler
@@ -136,6 +137,7 @@ from command_handlers.mine import mine_handler
 from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.rp import rp_handler
+from command_handlers.sell_pp import sell_pp_handler
 from command_handlers.twitch import twitch_handler
 from command_handlers.vote import vote_handler
 from command_handlers.xp_battle.battle_no_show import battle_no_show_handler
@@ -476,6 +478,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!sellpickaxe':
         await sell_pickaxe_for_tokens(db, message)
+
+    elif lower_message == '!sellpp':
+        await sell_pp_handler(db, message)
 
     elif lower_message == '!dailygift' or lower_message == '!gift':
         await gift_handler(db, message, client, is_admin)
@@ -1396,6 +1401,10 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!mapdiff') and is_admin:
         await map_diff_handler(db, message)
+
+    # !matchend winTeam winScore loseTeam loseScore
+    elif lower_message.startswith('!matchend') and is_admin:
+        await match_end_handler(db, message)
 
     elif lower_message == '!initmaps' and is_admin:
 
