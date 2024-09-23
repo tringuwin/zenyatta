@@ -18,7 +18,7 @@ async def sell_pp_handler(db, message):
     
     tokens_earned = 0
     sold_pp = 0
-    while pp > 5:
+    while pp >= 5:
         pp -= 5
         sold_pp += 5
         tokens_earned += 1
