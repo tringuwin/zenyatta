@@ -18,8 +18,8 @@ def make_div_standings_string(div_teams, div_num, guild):
             rank_emoji = '🟩'
         elif index == 2 or index == 3:
             rank_emoji = '🟦'
-        elif index == 5 and div_num != 4:
-            rank_emoji = '🟥'
+        # elif index == 5 and div_num != 4:
+        #     rank_emoji = '🟥'
         div_string += '\n'+rank_emoji+' '+str(index)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'% | MD: '+str(team['team'][2]) 
         index += 1
 
@@ -87,7 +87,7 @@ async def standings_handler(db, message, client):
 
     final_string += '\n-----------------------'
     final_string += '\nTeams ranked 1-3 will make it to the playoffs.'
-    final_string += '\n🟩 = Will play in Div Finals | 🟦 = Will play in Div Semi-Finals | ⬜ = Will miss playoffs | 🟥 = Will be relegated to lower Div next season'
+    final_string += '\n🟩 = Will play in Div Finals | 🟦 = Will play in Div Semi-Finals | ⬜ = Will miss playoffs'#| 🟥 = Will be relegated to lower Div next season'
     #final_string += '\nTeam ranked 7-10th will be demoted to Division 2 next season.'
     #final_string += '\nSee the standings page on the website here: https://spicyragu.netlify.app/sol/standings'
 
