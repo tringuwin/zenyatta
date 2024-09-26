@@ -2339,7 +2339,8 @@ def run_discord_bot(db):
             registered_user = user_exists(db, member.id)
             if registered_user:
                 registered_role = guild.get_role(constants.REGISTERED_ROLE)
-                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs, league_notifs, level_1_role, registered_role)
+                image_perm_role = guild.get_role(constants.IMAGE_PERMS_ROLE)
+                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs, league_notifs, level_1_role, registered_role, image_perm_role)
             else:
                 await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs, league_notifs, level_1_role)
 
