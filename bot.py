@@ -2352,7 +2352,7 @@ def run_discord_bot(db):
             default_msg += "\n\nIf you're interested in joining a **League Team**, you can apply to as many teams as you'd like here: https://spicyragu.netlify.app/sol/apply"
             default_msg += '\n\nFeel free to check out this short video which explains how to find a team to join! https://youtu.be/sKHUjwMKspg'
             default_msg += '\n\nTo find a team fast, you can make a post in this channel with some info about yourself and what you are looking for in a team! https://discord.com/channels/1130553449491210442/1171266378813149244'
-            default_msg += "\n\nIf you're ranked Plat or below, or you'd like to practice playing in a League Format, you should check out our Jr League where anyone can join a team ***without applying!*** https://discord.gg/5ek6W6tSSj"
+            default_msg += "\n\nIf you're ranked Plat or below, or you'd like to practice playing in a League Format, you should check out our Jr League where anyone can join a team ***without applying!*** https://discord.gg/Usp8RQGCRn"
             default_msg += '\n\nThank you for joining! If you have any questions, feel free to ask our friendly staff here: https://discord.com/channels/1130553449491210442/1202441473027477504'
 
             await member.send(default_msg)
