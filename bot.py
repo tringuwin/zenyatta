@@ -1405,7 +1405,7 @@ async def handle_message(message, db, client):
 
     # !matchend winTeam winScore loseTeam loseScore
     elif lower_message.startswith('!matchend') and is_admin:
-        await match_end_handler(db, message)
+        await match_end_handler(db, message, client)
 
     elif lower_message == '!initmaps' and is_admin:
 

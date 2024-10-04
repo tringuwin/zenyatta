@@ -9,36 +9,9 @@ from rewards import change_tokens
 from user import get_user_bets, user_exists
 import constants
 
-async def finish_bet_handler(db, message, client):
+async def finish_bet(db, message, client, bet, team_won, team_loss):
 
-    valid_params, params = valid_number_of_params(message, 3)
-
-    if not valid_params:
-        await message.channel.send('need 3 params')
-        return
-    
-    bet_id = params[1]
-
-    if not can_be_int(bet_id):
-        await message.channel.send(bet_id+' is not a number')
-        return
-    bet_id  = int(bet_id)
-
-    bets = db['bets']
-    bet = bets.find_one({'bet_id': bet_id})
-    if not bet:
-        await message.channel.send('Bet with id not found.')
-        return    
-
-    team_won_input = params[2].lower()
-    team_won = None
-    team_loss = None
-    if team_won_input == bet['team_1'].lower():
-        team_won = '1'
-        team_loss = '2'
-    if team_won_input == bet['team_2'].lower():
-        team_won = '2'
-        team_loss = '1'
+    bet_id = bet['bet_id']
 
     if not team_won:
         await message.channel.send('That is not a valid team name for this match.')
@@ -102,6 +75,43 @@ async def finish_bet_handler(db, message, client):
     await bet_msg_1.delete()
     await bet_msg_2.delete()
 
+    bets = db['bets']
     bets.delete_one({'bet_id': bet_id})
 
     await message.channel.send('Bet payout complete')
+
+
+
+async def finish_bet_handler(db, message, client):
+
+    valid_params, params = valid_number_of_params(message, 3)
+
+    if not valid_params:
+        await message.channel.send('need 3 params')
+        return
+    
+    bet_id = params[1]
+
+    if not can_be_int(bet_id):
+        await message.channel.send(bet_id+' is not a number')
+        return
+    bet_id  = int(bet_id)
+
+    bets = db['bets']
+    bet = bets.find_one({'bet_id': bet_id})
+    if not bet:
+        await message.channel.send('Bet with id not found.')
+        return
+    
+    team_won_input = params[2].lower()
+    team_won = None
+    team_loss = None
+    if team_won_input == bet['team_1'].lower():
+        team_won = '1'
+        team_loss = '2'
+    if team_won_input == bet['team_2'].lower():
+        team_won = '2'
+        team_loss = '1'
+    
+    await finish_bet(db, message, client, bet, team_won, team_loss)
+    

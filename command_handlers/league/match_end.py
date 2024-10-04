@@ -1,10 +1,11 @@
 
 
+from command_handlers.bets.finish_bet import finish_bet
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, get_constant_value, valid_number_of_params
 
 
-async def match_end_handler(db, message):
+async def match_end_handler(db, message, client):
 
     valid_params, params = valid_number_of_params(message, 5)
 
@@ -57,5 +58,30 @@ async def match_end_handler(db, message):
     standings_obj['teams'][lose_team_real_name][2] -= map_diff
 
     standings.update_one({"season": league_season}, {"$set": {"teams": standings_obj['teams']}})
+
+    # check for bets too
+
+    bets = db['bets']
+    team_won = 0
+    team_loss = 0
+    match_bet_valid = False
+
+    valid_bet = bets.find_one({'team_1': win_team_real_name, 'team_2': lose_team_real_name})
+    if valid_bet:
+        team_won = 1
+        team_loss = 2
+        match_bet_valid = True
+    else:
+        valid_bet = bets.find_one({'team_2': win_team_real_name, 'team_1': lose_team_real_name})
+
+        if valid_bet:
+            team_won = 2
+            team_loss = 1
+            match_bet_valid = True
+        else:
+            await message.channel.send('Could not find the bet for this matchup.')
+
+    if match_bet_valid:
+        await finish_bet(db, message, client, valid_bet, team_won, team_loss)
 
     await message.channel.send('match info recorded')
