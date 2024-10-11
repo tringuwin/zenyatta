@@ -4,6 +4,7 @@ from datetime import datetime
 import pytz
 
 from discord_actions import get_guild
+from helpers import get_constant_value
 from server_level import level_to_prize_money, level_to_token_shop_cash
 from shop import update_shop
 
@@ -118,6 +119,16 @@ async def check_weekly(client, db, channel, message):
         await channel.send('Has not been a week for prize money constant')
         return
     
+    # get the full amount of money
+    #funding = get_constant_value(db, 'funding')
+
+    # subract expenses
+    #total_funding = funding['raw_funding']
+
+    # subtract owner share
+
+    # divide among prize pools
+    
     constants_db = db['constants']
     server_level_obj = constants_db.find_one({'name': 'server_level'})
     server_level_num = server_level_obj['value']['level']
@@ -134,7 +145,7 @@ async def check_weekly(client, db, channel, message):
     # token shop refill
 
     # get weekly token shop cash
-    token_shop_cash = level_to_token_shop_cash(server_level_num)
+    token_shop_cash = 12.30 #level_to_token_shop_cash(server_level_num)
 
     # edit prices
     shop = db['shop']
