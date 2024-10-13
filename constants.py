@@ -157,7 +157,11 @@ LEAGUE_TO_EMOJI_ID = {
     'Phantoms': 1274435777559789690,
     'Angels': 1270065321226801233,
     'Legion': 1279173590218182666,
-    'Sentinels': 1278802858338291753, 
+    'Sentinels': 1278802858338291753,
+    'Lotus': 1278858168826593312, #default
+    'Deadlock': 1278858168826593312, #default
+    'Horizon': 1278858168826593312, #default
+    'Monarchs': 1278858168826593312, #default
 }
 
 LEVEL_ROLE_IDS = [
