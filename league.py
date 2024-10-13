@@ -57,7 +57,7 @@ team_name_to_color = {
     'Legion': discord.Colour(0xff0d1a),
     'Lotus': discord.Colour(0xf891a2),
     'Deadlock': discord.Colour(0x000000),
-    'Horizon': discord.Colour(0x000000),
+    'Horizon': discord.Colour(0xdc624d),
     'Monarchs': discord.Colour(0x000000),
 }
 
