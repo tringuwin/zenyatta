@@ -120,14 +120,19 @@ async def check_weekly(client, db, channel, message):
         return
     
     # get the full amount of money
-    #funding = get_constant_value(db, 'funding')
+    funding = get_constant_value(db, 'funding')
+    total_funding = funding['raw_funding']
 
     # subract expenses
-    #total_funding = funding['raw_funding']
+    left_after_expenses = total_funding - funding['expenses']
 
     # subtract owner share
+    left_after_share = left_after_expenses * funding['owner_percent']
 
     # divide among prize pools
+    token_shop_funding = round(left_after_share * funding['percentages']['token_shop'], 2)
+    daily_auction_funding = round(left_after_share * funding['percentages']['daily_auction'], 2)
+    prize_money = round(left_after_share * funding['percentages']['prize_money'], 2)
     
     constants_db = db['constants']
     server_level_obj = constants_db.find_one({'name': 'server_level'})
