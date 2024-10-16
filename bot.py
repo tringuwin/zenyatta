@@ -334,6 +334,7 @@ async def handle_message(message, db, client):
     is_league_helper = (not message.author.bot) and member_has_role(message.author, constants.LEAGUE_REWARDS_ROLE_ID)
     is_cp_helper = (not message.author.bot) and member_has_role(message.author, constants.CHANNEL_POINTS_ROLE_ID)
     is_tp_helper = (not message.author.bot) and member_has_role(message.author, constants.TWITCH_PACKS_ROLE_ID)
+    is_league_commands_user = (not message.author.bot) and member_has_role(message.author, constants.LEAGUE_COMMANDS_PERMS_ROLE)
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
 
@@ -685,7 +686,7 @@ async def handle_message(message, db, client):
         # !makeleagueteam [team role id] @Owner [Team Name]
         await make_league_team_handler(db, message, client)
 
-    elif lower_message.startswith('!changeteamowner') and is_admin:
+    elif lower_message.startswith('!changeteamowner') and is_league_commands_user:
         # !changeteamowner @player team name
         await change_team_owner_handler(db, message, client)
 
@@ -983,7 +984,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!forceleagueremove') and is_admin:
         await force_league_remove_handler(db, message, client)
 
-    elif lower_message.startswith('!forceleagueadd') and is_admin:
+    elif lower_message.startswith('!forceleagueadd') and is_league_commands_user:
         await force_league_add_handler(db, message, client)
 
     elif lower_message.startswith('!subpoints ') and is_admin:
