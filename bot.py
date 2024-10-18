@@ -380,12 +380,7 @@ async def handle_message(message, db, client):
     valid_channel, response = is_valid_channel(message, lower_message, is_helper, is_push_bot)
 
     if not valid_channel:
-        
-        await message.delete()
-        warning = await message.channel.send(message.author.mention+" "+response)
-
-        time.sleep(10)
-        await warning.delete()
+        await message.channel.send(message.author.mention+" "+response)
         return
 
 
