@@ -114,6 +114,7 @@ from command_handlers.league.map_diff import map_diff_handler
 from command_handlers.league.match_end import match_end_handler
 from command_handlers.league.next_week import next_week_handler
 from command_handlers.league.ping_team import ping_team_handler
+from command_handlers.league.power_rankings import power_rankings_handler
 from command_handlers.league.prune_team import prune_team_handler
 from command_handlers.league.remove_team_admin import remove_team_admin_handler
 from command_handlers.league.reset_map import reset_map_handler
@@ -584,6 +585,9 @@ async def handle_message(message, db, client):
     elif lower_message == '!standings':
         #await message.channel.send('This command is disabled until Season 3 starts on June 1st 2024.')
         await standings_handler(db, message, client)
+
+    elif lower_message == '!powerrankings':
+        await power_rankings_handler(message, client)
 
     elif lower_message == '!schedule':
         #await message.channel.send('This command is disabled until Season 3 starts on June 1st 2024.')
