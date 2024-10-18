@@ -2395,7 +2395,7 @@ def run_discord_bot(db):
         except discord.errors.HTTPException as e:
             print('HTTP Exception')
             print(e)
-            await send_msg(message.channel, message.author.mention+' You are sending commands too fast, please slow down for a moment.', 'HTTP Exception')
+            await send_msg(message.channel, "I'm overloaded at the moment and was not able to properly process this request.", 'HTTP Exception')
         except Exception as e:
             print(e)
             traceback.print_exc()
