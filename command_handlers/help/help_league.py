@@ -12,5 +12,6 @@ async def help_league_handler(message):
     help_embed.add_field(name='!leagueaccept [team name]', value='Accept an invite to join a league team.', inline=False)
     help_embed.add_field(name='!leaguedeny [team name]', value='Deny an invite to join a league team.', inline=False)
     help_embed.add_field(name='!leagueleave', value='Leave your current league team.', inline=False)
+    help_embed.add_field(name='!powerrankings', value='See the current league power rankings (opinion based).', inline=False)
 
     await message.channel.send(embed=help_embed)
