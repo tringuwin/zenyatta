@@ -44,7 +44,7 @@ async def power_rankings_handler(message, client):
         team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team]
         team_emoji = guild.get_emoji(team_emoji_id)
 
-        final_string += '\n'+str(team_index)+'. '+team_emoji+' '+team
+        final_string += '\n'+str(team_index)+'. '+str(team_emoji)+' '+team
 
         team_index += 1
 
