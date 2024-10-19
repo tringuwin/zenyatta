@@ -5,8 +5,8 @@ POWER_RANKINGS = [
 
     'Phantoms',
     'Hunters',
-    'Sentinels',
     'Polar',
+    'Sentinels',
     'Lotus',
     'Outliers',
     'Fresas',
@@ -30,7 +30,7 @@ POWER_RANKINGS = [
 
 ]
 
-LAST_UPDATED = '10/18/2024 8:41 PM EST'
+LAST_UPDATED = '10/18/2024 10:19 PM EST'
 
 async def power_rankings_handler(message, client):
 
