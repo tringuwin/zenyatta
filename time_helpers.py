@@ -135,22 +135,18 @@ async def check_weekly(client, db, channel, message):
     prize_money = round(left_after_share * funding['percentages']['prize_money'], 2)
     
     constants_db = db['constants']
-    server_level_obj = constants_db.find_one({'name': 'server_level'})
-    server_level_num = server_level_obj['value']['level']
-
-    new_money = level_to_prize_money(server_level_num)
 
     prize_money_obj = constants_db.find_one({'name': 'prize_money'})
     old_money = prize_money_obj['value']
 
-    constants_db.update_one({"name": 'prize_money'}, {"$set": {"value": int(new_money+old_money)}})
+    constants_db.update_one({"name": 'prize_money'}, {"$set": {"value": int(prize_money+old_money)}})
 
     await channel.send('Prize money added to total!')
 
     # token shop refill
 
     # get weekly token shop cash
-    token_shop_cash = 12.30 #level_to_token_shop_cash(server_level_num)
+    token_shop_cash = token_shop_funding
 
     # edit prices
     shop = db['shop']
