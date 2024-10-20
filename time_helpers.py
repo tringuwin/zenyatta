@@ -139,7 +139,8 @@ async def check_weekly(client, db, channel, message):
     prize_money_obj = constants_db.find_one({'name': 'prize_money'})
     old_money = prize_money_obj['value']
 
-    constants_db.update_one({"name": 'prize_money'}, {"$set": {"value": int(prize_money+old_money)}})
+    if prize_money > 0:
+        constants_db.update_one({"name": 'prize_money'}, {"$set": {"value": int(prize_money+old_money)}})
 
     await channel.send('Prize money added to total!')
 
