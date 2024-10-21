@@ -52,6 +52,7 @@ from command_handlers.buy_ticket import buy_ticket_handler
 from command_handlers.deny_gem_trade import deny_gem_trade_handler
 from command_handlers.donate import donate_handler
 from command_handlers.donate_pass import donate_pass_handler
+from command_handlers.funding import funding_handler
 from command_handlers.gems import gems_handler
 from command_handlers.getdetails import get_details_handler
 from command_handlers.gg_ez import gg_ez_handler
@@ -992,6 +993,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!subpoints ') and is_admin:
         await sub_points_handler(db, message, client)
+
+    elif lower_message.startswith('!funding') and is_admin:
+        await funding_handler(db, message, client)
 
     elif lower_message.startswith('!twitch10') and is_cp_helper:
         await twitch_tokens_handler(client, db, message, 10)
