@@ -55,7 +55,7 @@ team_name_to_color = {
     'Sentinels': discord.Colour(0x401b7a),
     'Diamonds': discord.Colour(0x78f0da),
     'Legion': discord.Colour(0xff0d1a),
-    'Lotus': discord.Colour(0xf891a2),
+    'Lotus': discord.Colour(0xfcb2c5),
     'Deadlock': discord.Colour(0xa60322),
     'Horizon': discord.Colour(0xdd4f36),
     'Monarchs': discord.Colour(0x94000a),
