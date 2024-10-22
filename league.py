@@ -58,7 +58,7 @@ team_name_to_color = {
     'Lotus': discord.Colour(0xfcb2c5),
     'Deadlock': discord.Colour(0xa60322),
     'Horizon': discord.Colour(0xdd4f36),
-    'Monarchs': discord.Colour(0x94000a),
+    'Monarchs': discord.Colour(0xffec50),
 }
 
 def get_team_color_by_name(team_name):
