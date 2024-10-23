@@ -32,7 +32,7 @@ async def update_shop(db, message):
     channel = await get_shop_channel(message)
     offer_msg = await get_shop_message(the_shop, channel, 'offers_message_id')
 
-    offers_string = '***The Token Shop can only be used by Twitch Subscribers. The Token Shop is Re-Stocked at around noon EST each Friday.*** (To Access, subscribe here: https://www.twitch.tv/spicyraguow )\n'
+    offers_string = '***The Token Shop can only be used by Twitch Subscribers. The Token Shop is Re-Stocked at around noon EST each Friday.*** (To Access, subscribe here: https://www.twitch.tv/solnetwork )\n'
     offers_string += '*Prices for these items change on a weekly basis. If an item fully sells out, the price is raised 100 tokens, otherwise, the price is lowered 100 tokens.*\n\n'
     offers_string += '-------------------------------\n**AVAILABLE REWARDS**\n-------------------------------\n'
 
