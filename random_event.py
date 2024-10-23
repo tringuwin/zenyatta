@@ -35,7 +35,8 @@ random_event_list = [
     ['Token', 15, 'Ashe let you borrow B.O.B! **(🪙 15)**'],
     ['Token', 12, 'Zarya taught you some weightlifting skills! **(🪙 12)**'],
     ['Token', 10, 'Winston gave you some Peanut Butter! **(🪙 10)**'],
-    ['Token', 8, 'Sigma gave you a lesson in astrophysics!**(🪙 8)**'],
+    ['Token', 8, 'Sigma gave you a lesson in astrophysics! **(🪙 8)**'],
+    ['Token', 6, 'Juno gave you a rock from Mars! **(🪙 6)**)'],
     ['Token', 5, 'Echo taught you a new skill! **(🪙 5)**'],
     ['Token', 3, 'Orisa gave you a ride on her back! **(🪙 3)**'],
     ['Token', 1, 'Bastion waved to you! **(🪙 1)**'],
@@ -47,6 +48,7 @@ random_event_list = [
     ['Token', -10, 'Reaper shot you in the back... **(🪙 -10)**'],
     ['Token', -12, "You stepped in Widowmaker's venom mine... **(🪙 -12)**"],
     ['Token', -15, 'Moira experimented on you... **(🪙 -15)**'],
+    ['Token', -18, 'Venture dug through your yard... **(🪙 -18)**']
     ['Token', -20, 'Doomfist punched you into a wall... **(🪙 -20)**'],
     ['Token', -25, 'Genji deflected your ult... **(🪙 -25)**'],
     ['Token', -30, 'Hanzo 1 shot you from across the map... **(🪙 -30)**'],
