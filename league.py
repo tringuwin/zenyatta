@@ -86,7 +86,7 @@ team_name_to_thumbnail = {
     'Phantoms': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1723919677/Phantoms_pffpsp.png',
     'Sentinels': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1724962139/Sentinels_a6ndm4.png',
     'Legion': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1725049269/Legion_v1kzyb.png',
-    'Lotus': '',
+    'Lotus': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1729704776/Lotus_yjrz8x.png',
     'Deadlock': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1729637115/Deadlock_ejk1ro.png',
     'Horizon': '',
     'Monarchs': '',
