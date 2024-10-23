@@ -15,9 +15,9 @@ POWER_RANKINGS = [
     'Ragu',
     'Evergreen',
     'Misfits',
-    'Angels',
     'Deadlock',
     'Phoenix',
+    'Angels',
     'Legion',
     'Eclipse',
     'Olympians',
@@ -30,7 +30,7 @@ POWER_RANKINGS = [
 
 ]
 
-LAST_UPDATED = '10/23/2024 7:10 PM EST'
+LAST_UPDATED = '10/23/2024 7:27 PM EST'
 
 async def power_rankings_handler(message, client):
 
