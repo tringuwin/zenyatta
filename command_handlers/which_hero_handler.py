@@ -2,7 +2,7 @@ import random
 import constants
 
 
-ALL_HEROES = ['Mauga', 'Ana', 'Ashe', 'Baptiste', 'Bastion', 'Brigitte', 'Cassidy', 'D.va', 'Doomfist', 'Echo', 'Genji', 
+ALL_HEROES = ['Ana', 'Ashe', 'Baptiste', 'Bastion', 'Brigitte', 'Cassidy', 'D.va', 'Doomfist', 'Echo', 'Genji', 
               'Hanzo', 'Illari', 'Junker Queen', 'Junkrat', 'Juno', 'Kiriko', 'Lifeweaver', 'Lucio', 'Mauga', 'Mei', 'Mercy', 'Moira', 
               'Orisa', 'Pharah', 'Ramattra', 'Reaper', 'Reinhardt', 'Roadhog', 'Sigma', 'Sojourn', 'Soldier: 76', 
               'Sombra', 'Symmetra', 'Torbjorn', 'Tracer', 'Venture', 'Widowmaker', 'Winston', 'Wrecking Ball', 'Zarya', 'Zenyatta']
