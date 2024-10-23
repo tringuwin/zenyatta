@@ -48,7 +48,7 @@ random_event_list = [
     ['Token', -10, 'Reaper shot you in the back... **(🪙 -10)**'],
     ['Token', -12, "You stepped in Widowmaker's venom mine... **(🪙 -12)**"],
     ['Token', -15, 'Moira experimented on you... **(🪙 -15)**'],
-    ['Token', -18, 'Venture dug through your yard... **(🪙 -18)**']
+    ['Token', -18, 'Venture dug through your yard... **(🪙 -18)**'],
     ['Token', -20, 'Doomfist punched you into a wall... **(🪙 -20)**'],
     ['Token', -25, 'Genji deflected your ult... **(🪙 -25)**'],
     ['Token', -30, 'Hanzo 1 shot you from across the map... **(🪙 -30)**'],
