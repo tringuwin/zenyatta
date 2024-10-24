@@ -4,16 +4,16 @@ from discord_actions import get_guild
 POWER_RANKINGS = [
 
     'Phantoms',
-    'Hunters',
     'Lotus',
+    'Hunters',
     'Polar',
     'Sentinels',
     'Outliers',
+    'Evergreen',
     'Fresas',
     'Horizon',
     'Monarchs',
     'Ragu',
-    'Evergreen',
     'Misfits',
     'Deadlock',
     'Phoenix',
@@ -30,7 +30,7 @@ POWER_RANKINGS = [
 
 ]
 
-LAST_UPDATED = '10/23/2024 7:27 PM EST'
+LAST_UPDATED = '10/23/2024 9:55 PM EST'
 
 async def power_rankings_handler(message, client):
 
