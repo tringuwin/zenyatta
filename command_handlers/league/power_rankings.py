@@ -4,12 +4,12 @@ from discord_actions import get_guild
 POWER_RANKINGS = [
 
     'Phantoms',
-    'Lotus',
     'Hunters',
+    'Lotus',
+    'Evergreen',
     'Polar',
     'Sentinels',
     'Outliers',
-    'Evergreen',
     'Fresas',
     'Horizon',
     'Monarchs',
