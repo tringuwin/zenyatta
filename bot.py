@@ -546,8 +546,8 @@ async def handle_message(message, db, client):
         await donate_pass_handler(db, message)
 
     elif lower_message.startswith('!solojoin'):
-        await message.channel.send('This command is not currently enabled! Check back later')
-        #await solo_join_handler(db, message, client)
+        # await message.channel.send('This command is not currently enabled! Check back later')
+        await solo_join_handler(db, message, client)
 
     elif lower_message.startswith('!invitedby'):
         await invited_by_handler(db, message)
