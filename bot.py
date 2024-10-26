@@ -225,9 +225,9 @@ from user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, g
 from xp_battles import add_to_battle, how_many_handler, remove_from_battle
 
 
-def is_valid_channel(message, lower_message, is_helper, is_push_bot):
+def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_admin):
 
-    if is_helper or is_push_bot:
+    if is_helper or is_push_bot or is_tourney_admin:
         return True, None
     
     if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband') or lower_message == '!fortnite' or lower_message == '!zorp' or lower_message == '!howdy' or lower_message == '!sigma' or lower_message == '!buzzcut':
@@ -342,6 +342,7 @@ async def handle_message(message, db, client):
     is_cp_helper = (not message.author.bot) and member_has_role(message.author, constants.CHANNEL_POINTS_ROLE_ID)
     is_tp_helper = (not message.author.bot) and member_has_role(message.author, constants.TWITCH_PACKS_ROLE_ID)
     is_league_commands_user = (not message.author.bot) and member_has_role(message.author, constants.LEAGUE_COMMANDS_PERMS_ROLE)
+    is_tourney_admin = (not message.author.bot) and member_has_role(message.author, constants.TOURNEY_COMMANDS_PERMS_ROLE)
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
 
@@ -379,7 +380,7 @@ async def handle_message(message, db, client):
     if (not is_command) and (not is_push_bot):
         return
 
-    valid_channel, response = is_valid_channel(message, lower_message, is_helper, is_push_bot)
+    valid_channel, response = is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_admin)
 
     if not valid_channel:
         await message.channel.send(message.author.mention+" "+response)
@@ -899,7 +900,7 @@ async def handle_message(message, db, client):
 
         await wipe_tourney(db, message)
 
-    elif lower_message == '!starttourney' and is_admin:
+    elif lower_message == '!starttourney' and is_tourney_admin:
 
         guild = client.get_guild(constants.GUILD_ID)
 
@@ -1318,7 +1319,7 @@ async def handle_message(message, db, client):
         await message.channel.send('Raffle reset')
 
 
-    elif lower_message.startswith('!win ') and is_admin:
+    elif lower_message.startswith('!win ') and is_tourney_admin:
 
         # !win [winner 1 or 2]
         word_list = message.content.split()
@@ -1328,7 +1329,7 @@ async def handle_message(message, db, client):
         else:
             await message.channel.send("Invalid number of arguments.")
 
-    elif lower_message.startswith('!noshow ') and is_admin:
+    elif lower_message.startswith('!noshow ') and is_tourney_admin:
 
         # !noshow [loser 1 or 2]
         word_list = message.content.split()
@@ -1338,7 +1339,7 @@ async def handle_message(message, db, client):
         else:
             await message.channel.send("Invalid number of arguments.")
 
-    elif lower_message == '!bothnoshow' and is_admin:
+    elif lower_message == '!bothnoshow' and is_tourney_admin:
 
         guild = client.get_guild(constants.GUILD_ID)
 
