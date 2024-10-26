@@ -30,7 +30,7 @@ POWER_RANKINGS = [
 
 ]
 
-LAST_UPDATED = '10/23/2024 10:23 PM EST'
+LAST_UPDATED = '10/26/2024 1:01 AM EST'
 
 async def power_rankings_handler(message, client):
 
