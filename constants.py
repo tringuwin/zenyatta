@@ -159,8 +159,8 @@ LEAGUE_TO_EMOJI_ID = {
     'Angels': 1270065321226801233,
     'Legion': 1279173590218182666,
     'Sentinels': 1278802858338291753,
-    'Lotus': 1278858168826593312, #default
-    'Deadlock': 1278858168826593312, #default
+    'Lotus': 1298683346314072234,
+    'Deadlock': 1298375893839773818,
     'Horizon': 1278858168826593312, #default
     'Monarchs': 1278858168826593312, #default
 }
