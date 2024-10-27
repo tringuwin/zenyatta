@@ -23,6 +23,6 @@ async def trade_gem_set_handler(db, message):
 
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {'gems': user_gems}})
-    await change_tokens(db, user, 1000)
+    await change_tokens(db, user, 1000, 'trade-gem-set')
 
     await message.channel.send('Success! You traded in 1 of each Gem for 1,000 Tokens!')

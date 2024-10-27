@@ -47,7 +47,7 @@ async def sell_gems_handler(db, message):
 
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {'gems': users_gems}})
-    await change_tokens(db, user, tokens_to_give)
+    await change_tokens(db, user, tokens_to_give, 'sell-gem')
 
     await message.channel.send('Success! You sold '+str(num_to_sell)+' '+color_to_sell+' gems for '+str(tokens_to_give)+' Tokens!')
 

@@ -32,7 +32,7 @@ async def end_auction(db, client):
         if member:
             user = user_exists(db, member.id)
             if user:
-                await change_tokens(db, user, int(user_bid * -1))
+                await change_tokens(db, user, int(user_bid * -1), 'daily-auction')
 
     final_string = '--------------------------------\n'
     final_string += 'Auction Ended!\n'

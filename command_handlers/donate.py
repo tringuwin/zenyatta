@@ -64,6 +64,6 @@ async def donate_handler(db, message):
         await message.channel.send("Thank you! But I don't need any tokens!")
         return
     
-    await change_tokens(db, user, -1*int_tokens)
-    await change_tokens(db, donate_to_user, int_tokens)
+    await change_tokens(db, user, -1*int_tokens, 'donate')
+    await change_tokens(db, donate_to_user, int_tokens, 'donate')
     await message.channel.send('Donation successful!')

@@ -239,7 +239,7 @@ async def open_handler(db, message, client):
 
     if prize[0] == 'Token':
         final_string += str(prize[1])+" Tokens!!** 🪙"
-        await change_tokens(db, user, prize[1])
+        await change_tokens(db, user, prize[1], 'opening-lootbox')
     elif prize[0] == 'Gem':
 
         guild = await get_guild(client)

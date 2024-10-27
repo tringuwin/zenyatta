@@ -86,7 +86,7 @@ async def process_gift(db, current_time, existing_user, message, client):
     message_string += '\n*Come back in 8 hours for another gift!*'
 
     if total_tokens_to_give > 0:
-        await change_tokens(db, existing_user, total_tokens_to_give)
+        await change_tokens(db, existing_user, total_tokens_to_give, 'gift')
 
     await message.channel.send(message_string)
 

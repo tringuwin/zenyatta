@@ -60,7 +60,7 @@ async def invited_by_handler(db, message):
     
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"invited_valid": False}})
-    await change_tokens(db, user, 100)
-    await change_tokens(db, inviter_user, 100)
+    await change_tokens(db, user, 100, 'invited-by')
+    await change_tokens(db, inviter_user, 100, 'invited-by')
 
     await message.channel.send('Success! You and your inviter both got 100 bonus tokens! 🪙')

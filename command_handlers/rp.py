@@ -28,6 +28,6 @@ async def rp_handler(client, db, message):
 
     pack_points = round(float(float(points) / 100.0), 2)
     
-    await change_tokens(db, user, points)
+    await change_tokens(db, user, points, 'rogue-points')
     await change_packs(db, user, pack_points)
     await message.channel.send(f'Gave user {points} tokens and {pack_points} packs for their Rogue Order')

@@ -97,7 +97,7 @@ async def mine_handler(db, message, client):
 
 
     net_change = change_in_tokens + payout
-    await change_tokens(db, user, net_change)
+    await change_tokens(db, user, net_change, 'mineshaft')
 
     final_string = ''
     if mine_was_pickaxe:

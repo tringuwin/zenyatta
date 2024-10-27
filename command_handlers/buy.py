@@ -62,7 +62,7 @@ async def buy_handler(db, message, client):
     shop.update_one({"shop_id":2}, {"$set": {"offers": the_shop['offers']}})
 
     await update_shop(db, message)
-    await change_tokens(db, user, -1 * offer['price'])
+    await change_tokens(db, user, -1 * offer['price'], 'token-shop')
     if buy_item != 7:
         users = db['users']
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"last_token_shop": time.time()}})

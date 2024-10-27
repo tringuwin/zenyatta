@@ -82,11 +82,11 @@ async def rps_handler(db, message):
         final_string += "It's a **Tie**! You get your bet back."
     elif zen_won:
         final_string += 'You lose. You lost '+str(bet)+' tokens.'
-        await change_tokens(db, user, -1*bet)
+        await change_tokens(db, user, -1*bet, 'rps')
     else:
         payout = bet - 1
         final_string += 'You win! You won **'+str(payout)+' Tokens!**'
-        await change_tokens(db, user, payout)
+        await change_tokens(db, user, payout, 'rps')
 
     await message.channel.send(final_string)
 
