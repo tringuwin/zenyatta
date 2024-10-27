@@ -91,9 +91,9 @@ def update_token_tracker(db, source, num):
         }
 
         if num > 0:
-            new_tracked_source[source]['given'] += num
+            new_tracked_source['given'] += num
         elif num < 0:
-            new_tracked_source[source]['taken'] += abs(num)
+            new_tracked_source['taken'] += abs(num)
 
         token_tracker[source] = new_tracked_source
 
