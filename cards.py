@@ -470,7 +470,7 @@ async def sell_card_handler(db, message):
     removed_card = cards.pop(card_index)
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": cards}})
-    await change_tokens(db, user, 20)
+    await change_tokens(db, user, 20, 'sell-sol-card')
 
     card_database = db['cards']
     card_group = card_database.find_one({'cards_id': 1})
@@ -502,7 +502,7 @@ async def sell_all_cards_handler(db, message):
     
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": []}})
-    await change_tokens(db, user, tokens_to_earn)
+    await change_tokens(db, user, tokens_to_earn, 'sell-sol-card')
 
     card_database = db['cards']
     card_group = card_database.find_one({'cards_id': 1})

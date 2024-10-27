@@ -113,7 +113,7 @@ async def react_to_event(db, client, message_id, member):
     await chat_channel.send(member.mention+" "+event_message)
 
     if chosen_random_event[0] == 'Token':
-        await change_tokens(db, user, chosen_random_event[1])
+        await change_tokens(db, user, chosen_random_event[1], 'random-event')
     else:
         users = db['users']
         gem_color = chosen_random_event[1]
