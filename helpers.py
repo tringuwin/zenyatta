@@ -70,3 +70,34 @@ def set_constant_value(db, constant_name, new_val):
     constants_db = db['constants']
     constants_db.update_one({"name": constant_name}, {"$set": {"value": new_val}})
     
+def update_token_tracker(db, source, num):
+
+    token_tracker = get_constant_value(db, 'token_tracker')
+
+    if source in token_tracker:
+
+        token_tracker[source]['total'] += num
+        if num > 0:
+            token_tracker[source]['given'] += num
+        elif num < 0:
+            token_tracker[source]['taken'] += abs(num)
+
+    else:
+
+        new_tracked_source = {
+            'total': num,
+            'given': 0,
+            'taken': 0,
+        }
+
+        if num > 0:
+            new_tracked_source[source]['given'] += num
+        elif num < 0:
+            new_tracked_source[source]['taken'] += abs(num)
+
+        token_tracker[source] = new_tracked_source
+
+    set_constant_value(db, 'token_tracker', token_tracker)
+
+
+
