@@ -790,6 +790,7 @@ async def total_packs_handler(db, message):
     await message.channel.send('There are a total of **'+str(len(all_packs))+' Cards** left in packs.')
 
 
+
 async def make_card_handler(db, message):
 
     params = message.content.split()
