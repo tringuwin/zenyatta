@@ -28,7 +28,7 @@ async def buy_ticket_handler(db, message, amount):
         await message.channel.send(message.author.mention+' You do not have enough tokens for this. You only have **'+str(user_tokens)+ ' tokens** right now and you need **'+str(cost)+'** for this purchase.')
         return
     
-    await change_tokens(db, user, -1*cost)
+    await change_tokens(db, user, -1*cost, 'buy-ticket')
 
     all_tickets = get_all_tickets(db) + amount
     user_tickets = get_user_tickets(user) + amount

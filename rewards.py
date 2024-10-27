@@ -38,7 +38,7 @@ async def give_tokens_command(client, db, user_id, num, message):
         await message.channel.send('Could not find user with that ID')
         return
     
-    await change_tokens(db, user, num)
+    await change_tokens(db, user, num, 'admin-give-tokens')
     await message.channel.send('Tokens given')
 
 
@@ -93,7 +93,7 @@ async def sell_pass_for_tokens(db, message):
 
     if 'passes' in user and user['passes'] > 0:
         await change_passes(db, user, -1)
-        await change_tokens(db, user, 10)
+        await change_tokens(db, user, 10, 'sell-priority-pass')
         await message.channel.send('You sold 1 Priority Pass for **10 Tokens!**')
     else:
         await message.channel.send('You do not have any priority passes to sell.')
@@ -109,7 +109,7 @@ async def sell_pickaxe_for_tokens(db, message):
 
     if 'pickaxes' in user and user['pickaxes'] > 0:
         await change_pickaxes(db, user, -1)
-        await change_tokens(db, user, 15)
+        await change_tokens(db, user, 15, 'sell-pickaxe')
         await message.channel.send('You sold 1 Pickaxe for **15 Tokens!**')
     else:
         await message.channel.send('You do not have any pickaxes to sell.')

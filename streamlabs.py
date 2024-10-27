@@ -82,7 +82,7 @@ async def check_streamlabs_raffles(db, channel):
         # handle give prize
         if prize_name == '500 Tokens':
             print('Giving 500 tokens to '+winner_twitch)
-            await change_tokens(db, user, 500)
+            await change_tokens(db, user, 500, 'streamlabs-raffle-prize')
         elif prize_name == 'SOL Card Pack':
             print('Giving a pack to '+winner_twitch)
             await change_packs(db, user, 1)
