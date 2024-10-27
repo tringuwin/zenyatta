@@ -47,7 +47,7 @@ async def give_team_tokens_handler(db, message):
             await message.channel.send('Critical error. No TPP set and team owner not found. No tokens sent.')
             return
         
-        change_tokens(db, owner_user, tokens_to_give)
+        change_tokens(db, owner_user, tokens_to_give, 'sol-match-tokens')
         await message.channel.send('Tokens sent to the team owner.')
 
     else:
@@ -57,7 +57,7 @@ async def give_team_tokens_handler(db, message):
             tokens_to_get_raw = float(tokens_to_give) * member_tpp_percent
             final_tokens = math.floor(tokens_to_get_raw)
             user = user_exists(db, member['discord_id'])
-            await change_tokens(db, user, final_tokens) 
+            await change_tokens(db, user, final_tokens, 'sol-match-tokens') 
 
 
         await message.channel.send('Done')

@@ -79,7 +79,7 @@ async def bet_handler(db, message):
         await message.channel.send('You cannot bet on both teams in a match. You have already bet on '+past_bet_on_team+' for this match.')
         return
     
-    await change_tokens(db, user, int(-1*tokens_to_bet))
+    await change_tokens(db, user, int(-1*tokens_to_bet), 'sol-bet')
 
     users = db['users']
 

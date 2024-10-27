@@ -14,6 +14,6 @@ async def twitch_tokens_handler(client, db, message, num):
         await message.channel.send("I could not find that user. (Maybe they're not registered yet?)")
         return
     
-    await change_tokens(db, user, num)
+    await change_tokens(db, user, num, 'token-redemption')
     await message.channel.send('Token redemption successfully given to user!')
     

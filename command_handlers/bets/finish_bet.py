@@ -34,7 +34,7 @@ async def finish_bet(db, message, client, bet, team_won, team_loss):
         user = user_exists(db, int(winner_id))
         if user:
             print('Giving '+str(tokens_to_win)+' tokens to '+user['battle_tag'])
-            await change_tokens(db, user, tokens_to_win)
+            await change_tokens(db, user, tokens_to_win, 'sol-bet')
 
 
     users = db['users']
