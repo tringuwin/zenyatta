@@ -33,7 +33,7 @@ async def make_all_cards_from_data(db, message, client):
 
             time.sleep(1)
 
-            await init_card(message, db, new_id)
+            await init_card(message, db, str(new_id))
 
             time.sleep(1)
 
