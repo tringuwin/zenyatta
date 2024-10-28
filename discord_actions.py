@@ -83,7 +83,7 @@ def member_has_state_role(member):
 
     for role in member.roles:
         for state_name in constants.STATE_INFO:
-            state_info = constants.STATE_INFO['state_name']
+            state_info = constants.STATE_INFO[state_name]
             if role.id == state_info['role']:
                 return True
             
