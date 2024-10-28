@@ -2384,7 +2384,6 @@ def run_discord_bot(db):
             for state_name in constants.STATE_INFO:
                 state_info = constants.STATE_INFO[state_name]
                 if state_info['react_msg'] == message_id:
-                    guild = await get_guild(client)
                     state_role = guild.get_role(state_info['role'])
                     await remove_role(member, state_role, 'Raw Reaction Remove')
                     break
