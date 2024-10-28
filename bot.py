@@ -2378,7 +2378,16 @@ def run_discord_bot(db):
             member = get_member(guild, user_id, 'Raw Reaction Remove')
             if message_id in constants.HERO_MESSAGE_TO_ROLE:
                 role = guild.get_role(constants.HERO_MESSAGE_TO_ROLE[message_id])
-                await remove_role(member, role, 'Raw Reaction Add')
+                await remove_role(member, role, 'Raw Reaction Remove')
+
+        elif channel_id == constants.STATE_CUP_CHANNEL:
+            for state_name in constants.STATE_INFO:
+                state_info = constants.STATE_INFO[state_name]
+                if state_info['react_msg'] == message_id:
+                    guild = await get_guild(client)
+                    state_role = guild.get_role(state_info['role'])
+                    await remove_role(member, state_role, 'Raw Reaction Remove')
+                    break
 
     @client.event
     async def on_member_join(member):
