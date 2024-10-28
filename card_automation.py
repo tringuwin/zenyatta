@@ -26,7 +26,7 @@ async def make_all_cards_from_data(db, message, client):
                 'card_id': new_id
             }
 
-            #display_cards.insert_one(new_obj)
+            display_cards.insert_one(new_obj)
             print(new_obj)
 
             await message.channel.send('New card added with ID of **'+str(new_id)+'**')
