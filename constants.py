@@ -299,6 +299,265 @@ SEASON_ACTIVE = False
 
 REACTION_ROLE_CHANNEL = 1178440747817631784
 
+
+STATE_INFO = {
+    'Alabama': {
+        'role': 1300474765839962193,
+        'channel': 0,
+        'react_msg': 1300528308504629398,
+    },
+    'Alaska': {
+        'role': 1300474901123170354,
+        'channel': 0,
+        'react_msg': 1300548503046455306,
+    },
+    'Arizona': {
+        'role': 1300474990768160778,
+        'channel': 0,
+        'react_msg': 1300548556641406987,
+    },
+    'Arkansas': {
+        'role': 1300474990768160778,
+        'channel': 0,
+        'react_msg': 1300548592246984886,
+    },
+    'California': {
+        'role': 1300475315537318021,
+        'channel': 0,
+        'react_msg': 1300548630381334549,
+    },
+    'Colorado': {
+        'role': 1300475364241444957,
+        'channel': 0,
+        'react_msg': 1300548669304602735,
+    },
+    'Connecticut': {
+        'role': 1300475406654247044,
+        'channel': 0,
+        'react_msg': 1300548706772451348,
+    },
+    'Delaware': {
+        'role': 1300475651744206960,
+        'channel': 0,
+        'react_msg': 1300548744286310481,
+    },
+    'Florida': {
+        'role': 1300475707679445033,
+        'channel': 0,
+        'react_msg': 1300548807120912386,
+    },
+    'Georgia': {
+        'role': 1300475743305859156,
+        'channel': 0,
+        'react_msg': 1300548850494210118,
+    },
+    'Hawaii': {
+        'role': 1300475798943436862,
+        'channel': 0,
+        'react_msg': 1300548894874144851,
+    },
+    'Idaho': {
+        'role': 1300475836880916520,
+        'channel': 0,
+        'react_msg': 1300548921168494724,
+    },
+    'Illinois': {
+        'role': 1300476305116237898,
+        'channel': 0,
+        'react_msg': 1300548979313872968,
+    },
+    'Indiana': {
+        'role': 1300476349168877630,
+        'channel': 0,
+        'react_msg': 1300549009517182976,
+    },
+    'Iowa': {
+        'role': 1300476385432830083,
+        'channel': 0,
+        'react_msg': 1300549042169708657,
+    },
+    'Kansas': {
+        'role': 1300476428898533407,
+        'channel': 0,
+        'react_msg': 1300549073073344614,
+    },
+    'Kentucky': {
+        'role': 1300476559047524423,
+        'channel': 0,
+        'react_msg': 1300549122625110056,
+    },
+    'Louisiana': {
+        'role': 1300476590873907303,
+        'channel': 0,
+        'react_msg': 1300549156930191383,
+    },
+    'Maine': {
+        'role': 1300476647790743592,
+        'channel': 0,
+        'react_msg': 1300549201612116029,
+    },
+    'Maryland': {
+        'role': 1300476685526896682,
+        'channel': 0,
+        'react_msg': 1300549242510770277,
+    },
+    'Massachusetts': {
+        'role': 1300476725540425728,
+        'channel': 0,
+        'react_msg': 1300549286706286725,
+    },
+    'Michigan': {
+        'role': 1300476916347834431,
+        'channel': 0,
+        'react_msg': 1300549319237177376,
+    },
+    'Minnesota': {
+        'role': 1300476986581581915,
+        'channel': 0,
+        'react_msg': 1300549347423027200,
+    },
+    'Mississippi': {
+        'role': 1300477037437390908,
+        'channel': 0,
+        'react_msg': 1300549376376176770,
+    },
+    'Missouri': {
+        'role': 1300477106354131095,
+        'channel': 0,
+        'react_msg': 1300549424627585098,
+    },
+    'Montana': {
+        'role': 1300477142340997214,
+        'channel': 0,
+        'react_msg': 1300549496014372985,
+    },
+    'Nebraska': {
+        'role': 1300477370553335933,
+        'channel': 0,
+        'react_msg': 1300549529354895452,
+    },
+    'Nevada': {
+        'role': 1300477371945586758,
+        'channel': 0,
+        'react_msg': 1300549579812638761,
+    },
+    'New Hampshire': {
+        'role': 1300480953709367346,
+        'channel': 0,
+        'react_msg': 1300549623424749628,
+    },
+    'New Jersey': {
+        'role': 1300480995228778516,
+        'channel': 0,
+        'react_msg': 1300549665204469830,
+    },
+    'New Mexico': {
+        'role': 1300481042129354772,
+        'channel': 0,
+        'react_msg': 1300549693142732810,
+    },
+    'New York': {
+        'role': 1300481092750671932,
+        'channel': 0,
+        'react_msg': 1300549719533162508,
+    },
+    'North Carolina': {
+        'role': 1300481129543110666,
+        'channel': 0,
+        'react_msg': 1300549765704192010,
+    },
+    'North Dakota': {
+        'role': 1300482790650937384,
+        'channel': 0,
+        'react_msg': 1300549795118579753,
+    },
+    'Ohio': {
+        'role': 1300482852353474600,
+        'channel': 0,
+        'react_msg': 1300549835283370036,
+    },
+    'Oklahoma': {
+        'role': 1300482897966399489,
+        'channel': 0,
+        'react_msg': 1300549859916386304,
+    },
+    'Oregon': {
+        'role': 1300482941666721843,
+        'channel': 0,
+        'react_msg': 1300549883488374814,
+    },
+    'Pennsylvania': {
+        'role': 1300482985556054098,
+        'channel': 0,
+        'react_msg': 1300549906041409567,
+    },
+    'Rhode Island': {
+        'role': 1300483063645601924,
+        'channel': 0,
+        'react_msg': 1300549935921369149,
+    },
+    'South Carolina': {
+        'role': 1300486659313238058,
+        'channel': 0,
+        'react_msg': 1300549968049868831,
+    },
+    'South Dakota': {
+        'role': 1300486709275922463,
+        'channel': 0,
+        'react_msg': 1300550001046458398,
+    },
+    'Tennessee': {
+        'role': 1300486950758649856,
+        'channel': 0,
+        'react_msg': 1300550041282543628,
+    },
+    'Texas': {
+        'role': 1300486997931982889,
+        'channel': 0,
+        'react_msg': 1300550070168457266,
+    },
+    'Utah': {
+        'role': 1300487132615409755,
+        'channel': 0,
+        'react_msg': 1300550095296659517,
+    },
+    'Vermont': {
+        'role': 1300487169533804660,
+        'channel': 0,
+        'react_msg': 1300550127324237875,
+    },
+    'Virginia': {
+        'role': 1300487214429507715,
+        'channel': 0,
+        'react_msg': 1300550148136636426,
+    },
+    'Washington': {
+        'role': 1300487285313376367,
+        'channel': 0,
+        'react_msg': 1300550173780348949,
+    },
+    'West Virginia': {
+        'role': 1300487334495780865,
+        'channel': 0,
+        'react_msg': 1300550203115569283,
+    },
+    'Wisconsin': {
+        'role': 1300487418587119616,
+        'channel': 0,
+        'react_msg': 1300550239664472124,
+    },
+    'Wyoming': {
+        'role': 1300487510689976381,
+        'channel': 0,
+        'react_msg': 1300550269620326481,
+    },
+    'International': {
+        'role': 1300487566994309162,
+        'channel': 0,
+        'react_msg': 1300550330181882017
+    }
+}
+
 HERO_MESSAGE_TO_ROLE = {
     1178747693221285978: 1178441147480289280, #ana
     1178747734879117323: 1178441650289266810, #ashe

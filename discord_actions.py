@@ -79,6 +79,15 @@ def member_has_role(member, role_id):
     
     return False
 
+def member_has_state_role(member):
+
+    for role in member.roles:
+        for state_name in constants.STATE_INFO:
+            state_info = constants.STATE_INFO['state_name']
+            if role.id == state_info['role']:
+                return True
+            
+    return False
 
 def is_dm_channel(channel):
 
