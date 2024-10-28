@@ -142,20 +142,8 @@ VARIANT_TO_POWER = {
     'I': 4
 }
 
-async def init_card_handler(db, message):
+async def init_card(message, db, card_id):
 
-    word_parts = message.content.split()
-
-    if len(word_parts) != 2:
-        await message.channel.send('Invalid number of parameters.')
-        return
-
-    card_id = word_parts[1]
-
-    if not can_be_int(card_id):
-        await message.channel.send(card_id+' is not a number.')
-        return
-    
     card_info = get_card_data_by_id(db, int(card_id))
     if not card_info:
         await message.channel.send('I did not find a card with that ID.')
@@ -242,6 +230,22 @@ async def init_card_handler(db, message):
 
 
     await message.channel.send('success')
+
+async def init_card_handler(db, message):
+
+    word_parts = message.content.split()
+
+    if len(word_parts) != 2:
+        await message.channel.send('Invalid number of parameters.')
+        return
+
+    card_id = word_parts[1]
+
+    if not can_be_int(card_id):
+        await message.channel.send(card_id+' is not a number.')
+        return
+    
+    await init_card(message, db, card_id)
 
 
 async def init_custom_handler(db, message):

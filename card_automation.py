@@ -1,4 +1,5 @@
 import time
+from cards import init_card
 from helpers import can_be_int, get_constant_value
 from user import user_exists
 
@@ -29,6 +30,10 @@ async def make_all_cards_from_data(db, message, client):
             print(new_obj)
 
             await message.channel.send('New card added with ID of **'+str(new_id)+'**')
+
+            time.sleep(1)
+
+            await init_card(message, db, new_id)
 
             time.sleep(1)
 
