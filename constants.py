@@ -552,11 +552,6 @@ STATE_INFO = {
         'channel': 0,
         'react_msg': 1300550269620326481,
     },
-    'International': {
-        'role': 1300487566994309162,
-        'channel': 0,
-        'react_msg': 1300550330181882017
-    }
 }
 
 HERO_MESSAGE_TO_ROLE = {
