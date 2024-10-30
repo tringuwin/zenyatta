@@ -305,6 +305,14 @@ def bad_work_checker(message_text):
     return False
 
 
+def non_tenor_link(message_text):
+
+    if message_text.startswith('https://tenor.com'):
+        return False
+
+    if (message_text.find('http') != -1):
+        return True
+
 async def handle_message(message, db, client):
 
     random_event_chance = random.randint(1, 100)
@@ -348,7 +356,7 @@ async def handle_message(message, db, client):
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
 
     lower_message = user_message.lower()
-    if (not has_image_perms) and (lower_message.find('discord.gg') != -1 or lower_message.find('http') != -1):
+    if (not has_image_perms) and ( lower_message.find('discord.gg') != -1 or (non_tenor_link(lower_message)) ):
         await message.delete()
 
         db_constants = db['constants']
