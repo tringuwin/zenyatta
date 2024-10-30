@@ -1,8 +1,5 @@
 
 VERSION = '1.10.51'
-REBASE_TEST_VAR = 'This is already on master'
-REBASE_TEST_VAR2 = 'butt guy'
-BONUS_MASTER_COMMIT = 'hot dog its a bonus master commit'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
