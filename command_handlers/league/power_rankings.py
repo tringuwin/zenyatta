@@ -34,6 +34,9 @@ LAST_UPDATED = '10/27/2024 11:53 AM EST'
 
 async def power_rankings_handler(message, client):
 
+    await message.channel.send('Power rankings will return after SOL Week 1 concludes!')
+    return
+
     guild = await get_guild(client)
 
     final_string = '**CURRENT SOL POWER RANKINGS**'
