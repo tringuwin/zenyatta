@@ -2174,7 +2174,7 @@ async def handle_message(message, db, client):
 
                 for member in client.get_all_members():
                     if state_role in member.roles:
-                        final_string += '\n'+member.name
+                        final_string += '\n'+member.display_name+' ('+member.name+')'
 
                 await message.channel.send(final_string)
 
