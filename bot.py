@@ -2165,7 +2165,7 @@ async def handle_message(message, db, client):
         word_parts = lower_message.split()
         team_name = make_string_from_word_list(word_parts, 1)
 
-        final_string = '**PLAYERS ON TEAM '+team_name.upper()+':**'
+        final_string = '**PLAYERS ON TEAM '+team_name.upper()+':**\n'
 
         for state_name in constants.STATE_INFO:
             if state_name.lower() == team_name:
@@ -2174,7 +2174,7 @@ async def handle_message(message, db, client):
 
                 for member in client.get_all_members():
                     if state_role in member.roles:
-                        final_string += '\n'+member.display_name+' ('+member.name+')'
+                        final_string += '\n**'+member.display_name+'** ( '+member.name+' )'
 
                 await message.channel.send(final_string)
 
