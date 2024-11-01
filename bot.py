@@ -2161,6 +2161,30 @@ async def handle_message(message, db, client):
         else:
             await message.channel.send('Problem getting avatar')
 
+    elif lower_message.startswith('!stateplayers'):
+        word_parts = lower_message.split()
+        team_name = make_string_from_word_list(word_parts, 1)
+
+        final_string = '**PLAYERS ON TEAM '+team_name.upper()+':**'
+
+        for state_name in constants.STATE_INFO:
+            if state_name.lower() == team_name:
+                state_role_id = constants.STATE_INFO[state_name]['role']
+                state_role = await get_role_by_id(client, state_role_id)
+
+                for member in client.get_all_members():
+                    if state_role in member.roles:
+                        final_string += '\n'+member.name
+
+                await message.channel.send(final_string)
+
+                return
+
+
+        
+        await message.channel.send('I did not find any state called "'+str(team_name)+'"')
+    
+
     elif lower_message == '!testerror' and is_admin:
 
         test = {
