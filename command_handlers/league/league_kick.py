@@ -17,6 +17,11 @@ async def league_kick_handler(db, message, client):
         return
     
     is_admin, my_team, team_name, is_owner = await validate_admin(db, message)
+    
+    if not my_team:
+        await message.channel.send("You're not on a league teame... So you can't kick people... dumbass...")
+        return
+
     team_members = my_team['members']
 
     if not is_admin:

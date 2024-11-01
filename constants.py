@@ -1,5 +1,5 @@
 
-VERSION = '1.10.51'
+VERSION = '1.10.52'
 
 # test master change
 # additional master commit 1
