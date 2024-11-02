@@ -295,7 +295,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     return False, 'Please only use commands in a valid channel'
 
 
-def bad_work_checker(message_text):
+def bad_word_checker(message_text):
 
     lower_message = message_text.lower()
     for bad_word in constants.VERY_BAD_WORD_LIST:
@@ -335,7 +335,7 @@ async def handle_message(message, db, client):
             await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
         return
     
-    has_bad_word = bad_work_checker(message.content)
+    has_bad_word = bad_word_checker(message.content)
     if has_bad_word:
         guild = await get_guild(client)
         helpers_channel = guild.get_channel(constants.HELPERS_CHANNEL)
