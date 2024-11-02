@@ -231,7 +231,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     if is_helper or is_push_bot or is_tourney_admin:
         return True, None
     
-    if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband') or lower_message == '!fortnite' or lower_message == '!zorp' or lower_message == '!howdy' or lower_message == '!sigma' or lower_message == '!buzzcut':
+    if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband') or lower_message == '!fortnite' or lower_message == '!zorp' or lower_message == '!howdy' or lower_message == '!sigma' or lower_message == '!buzzcut' or lower_message=='!pingstate':
         return True, None
 
     if message.channel.id == constants.BOT_CHANNEL:
@@ -352,6 +352,7 @@ async def handle_message(message, db, client):
     is_tp_helper = (not message.author.bot) and member_has_role(message.author, constants.TWITCH_PACKS_ROLE_ID)
     is_league_commands_user = (not message.author.bot) and member_has_role(message.author, constants.LEAGUE_COMMANDS_PERMS_ROLE)
     is_tourney_admin = (not message.author.bot) and member_has_role(message.author, constants.TOURNEY_COMMANDS_PERMS_ROLE)
+    is_state_captain = (not message.author.bot) and member_has_role(message.author, constants.STATE_CAPTAIN_ROLE)
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
 
@@ -2160,6 +2161,28 @@ async def handle_message(message, db, client):
             await message.channel.send('('+avatar_link+')')
         else:
             await message.channel.send('Problem getting avatar')
+
+    elif lower_message == '!pingstate':
+
+        if not is_state_captain:
+            await message.channel.send('Only state captains can ping a state team!')
+            return 
+        
+        team_role_id = None
+
+        for state_name in constants.STATE_INFO:
+
+            if member_has_role(message.author, state_role_id):
+                team_role_id = constants.STATE_INFO[state_name]['role']
+                break
+
+        if not team_role_id:
+            await message.channel.send('I could not determine which state team you are on')
+            return
+        
+        role_ping = f'<@&{team_role_id}>'
+        await message.channel.send(role_ping)
+
 
     elif lower_message.startswith('!stateplayers'):
         word_parts = lower_message.split()
