@@ -2171,9 +2171,9 @@ async def handle_message(message, db, client):
         team_role_id = None
 
         for state_name in constants.STATE_INFO:
-
+            state_role_id = constants.STATE_INFO[state_name]['role']
             if member_has_role(message.author, state_role_id):
-                team_role_id = constants.STATE_INFO[state_name]['role']
+                team_role_id = state_role_id
                 break
 
         if not team_role_id:
