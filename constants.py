@@ -1,9 +1,5 @@
 
-VERSION = '1.10.52'
-
-# test master change
-# additional master commit 1
-# additional master commit 2
+VERSION = '1.10.53'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442

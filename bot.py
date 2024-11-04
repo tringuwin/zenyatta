@@ -74,6 +74,7 @@ from command_handlers.help.help_poke import help_poke_handler
 from command_handlers.helper_salary import helper_salary_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
+from command_handlers.league.make_sol_week import make_sol_week
 from command_handlers.league.add_loss import add_loss_handler
 from command_handlers.league.add_win import add_win_handler
 from command_handlers.league.ally.accept_ally import accept_ally_handler
@@ -1557,6 +1558,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!nextweek' and is_admin:
         await next_week_handler(db, message)
+
+    elif lower_message == '!makesolweek' and is_admin:
+        await make_sol_week(db, message)
 
     elif lower_message == '!initschedule' and is_admin:
 
