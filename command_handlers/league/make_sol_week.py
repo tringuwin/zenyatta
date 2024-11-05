@@ -52,7 +52,8 @@ async def make_sol_week(db, message):
                 'day': day_num,
                 'month': month_num,
                 'year': year_num
-            }
+            },
+            'weekday': day_of_week
         }
 
         days_obj.append(today_obj)
