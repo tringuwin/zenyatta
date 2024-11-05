@@ -39,16 +39,19 @@ async def make_sol_week(db, message):
         
         day_of_week = current_date.strftime("%A")
         month_name = current_date.strftime("%B")
-        day_with_suffix = get_day_with_suffix(day)
+        day_num = current_date.strftime("%d")
+        month_num = current_date.strftime("%m")
+        year_num = current_date.strftime("%Y")
+        day_with_suffix = get_day_with_suffix(day_num)
 
         today_obj = {
             'date': f'{day_of_week}, {month_name} {day_with_suffix}',
             'start_time': 'TBD',
             'matches': [],
             'day_data': {
-                'day': day,
-                'month': month,
-                'year': year
+                'day': day_num,
+                'month': month_num,
+                'year': year_num
             }
         }
 
