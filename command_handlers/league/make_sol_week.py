@@ -4,6 +4,13 @@ from helpers import get_constant_value, valid_number_of_params
 from datetime import datetime, timedelta
 
 
+def get_day_with_suffix(day):
+    if 10 <= day % 100 <= 20:  # Special case for '11th', '12th', '13th', etc.
+        suffix = 'th'
+    else:
+        suffix = {1: 'st', 2: 'nd', 3: 'rd'}.get(day % 10, 'th')
+    return f"{day}{suffix}"
+
 async def make_sol_week(db, message):
     
     valid_params, params = valid_number_of_params(message, 4)
@@ -31,10 +38,17 @@ async def make_sol_week(db, message):
         current_date = start_date + timedelta(days=i)
         
         day_of_week = current_date.strftime("%A")
+        month_name = current_date.strftime("%B")
+        day_with_suffix = get_day_with_suffix(day)
 
         today_obj = {
-            'date': day_of_week,
+            'date': f'{day_of_week}, {month_name} {day_with_suffix}',
             'matches': [],
+            'day_data': {
+                'day': day,
+                'month': month,
+                'year': year
+            }
         }
 
         days_obj.append(today_obj)
