@@ -1559,7 +1559,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!nextweek' and is_admin:
         await next_week_handler(db, message)
 
-    elif lower_message == '!makesolweek' and is_admin:
+    elif lower_message.startswith('!makesolweek') and is_admin:
         await make_sol_week(db, message)
 
     elif lower_message == '!initschedule' and is_admin:
