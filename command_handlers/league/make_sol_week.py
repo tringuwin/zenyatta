@@ -37,6 +37,8 @@ async def make_sol_week(db, message):
             'matches': [],
         }
 
+        days_obj.append(today_obj)
+
     new_week_obj = {
         'week': weeks_in_season + 1,
         'days': days_obj
