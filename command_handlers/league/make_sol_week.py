@@ -23,8 +23,6 @@ async def make_sol_week(db, message):
     month = int(params[2])
     year = int(params[3])
 
-    # todo
-
     league_season = 5 #get_constant_value(db, 'league_season')
 
     schedule_db = db['schedule']
