@@ -1,6 +1,8 @@
 
-
+import constants
+from command_handlers.bets.new_bet import new_bet
 from common_messages import invalid_number_of_params
+from discord_actions import get_guild
 from helpers import valid_number_of_params
 
 
@@ -63,7 +65,7 @@ def sort_matches_by_time(matches):
     return sorted_matches
 
 
-async def make_sol_match(db, message):
+async def make_sol_match(client, db, message):
 
     valid_params, params = valid_number_of_params(message, 5)
 
@@ -86,11 +88,13 @@ async def make_sol_match(db, message):
     if not team_1_obj:
         await message.channel.send('Could not find team '+team_1)
         return
+    team_1_name = team_1_obj['team_name']
     
     team_2_obj = league_teams.find_one({'name_lower': team_2})
     if not team_2_obj:
         await message.channel.send('Could not find team '+team_2)
         return
+    team_2_name = team_2_obj['team_name']
 
     league_season = 5 #get_constant_value(db, 'league_season')
 
@@ -134,8 +138,8 @@ async def make_sol_match(db, message):
 
     # create match object and insert
     match_obj = {
-        'home': team_1_obj['team_name'],
-        'away': team_2_obj['team_name'],
+        'home': team_1_name,
+        'away': team_2_name,
         'time': str(match_start_est)+' PM',
         'raw_time': match_start_est
     }
@@ -148,6 +152,15 @@ async def make_sol_match(db, message):
     league_schedule['weeks'][week_index] = week_data
 
     schedules.update_one({'season': league_season}, {'$set': {'weeks': league_schedule['weeks']}})
+
+    guild = await get_guild(client)
+    team_1_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_1_name]
+    team_1_emoji = guild.get_emoji(team_1_emoji_id)
+    team_2_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_2_name]
+    team_2_emoji = guild.get_emoji(team_2_emoji_id)
+
+    bet_title = 'WEEK '+str(week_num)+' : '+match_weekday.upper()+' : '+str(team_1_emoji)+' '+team_1_name+' VS '+str(team_2_emoji)+' '+team_2_name
+    await new_bet(client, db, bet_title, team_1_name, team_2_name, True)
 
     await message.channel.send('Match added successfully')
 

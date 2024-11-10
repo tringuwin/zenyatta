@@ -1531,7 +1531,7 @@ async def handle_message(message, db, client):
         await make_sol_week(db, message)
 
     elif lower_message.startswith('!makesolmatch') and is_admin:
-        await make_sol_match(db, message)
+        await make_sol_match(client, db, message)
 
     elif lower_message == '!initschedule' and is_admin:
 
