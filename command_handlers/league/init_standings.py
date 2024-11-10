@@ -14,8 +14,8 @@ async def init_standings(db, message):
     all_teams = {}
 
     leagueteams = db['leagueteams']
-    all_teams = leagueteams.find()
-    for team in all_teams:
+    all_db_teams = leagueteams.find()
+    for team in all_db_teams:
         new_team_obj = {
             'wins': 0,
             'losses': 0,
