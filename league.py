@@ -215,4 +215,8 @@ def get_team_record_string(db, team_name):
     standings_obj = standings.find_one({'season': league_season})
 
     team_record = standings_obj['teams'][team_name]
-    return 'W: '+str(team_record[0])+' L: '+str(team_record[1])
+
+    team_wins = team_record['wins']
+    team_losses = team_record['losses']
+
+    return 'W: '+str(team_wins)+' L: '+str(team_losses)

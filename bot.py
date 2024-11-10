@@ -2214,7 +2214,7 @@ async def handle_message(message, db, client):
         await send_msg(bot_channel, 'Updating Bets', 'Check Long')
         # await give_sub_boxes_handler(db, message, client)
         # await prune_sac_handler(db, message, client)
-        # await update_bets(db, message.channel, client)
+        await update_bets(db, message.channel, client)
 
     elif lower_message == 'check gifts' and is_push_bot:
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
