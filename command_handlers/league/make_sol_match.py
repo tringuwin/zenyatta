@@ -101,7 +101,7 @@ async def make_sol_match(db, message):
         await message.channel.send('There is not a schedule for the current league season')
         return
     
-    if len(schedules) < week_num:
+    if len(league_schedule['weeks']) < week_num:
         await message.channel.send('That week number is too high')
         return
     
