@@ -74,6 +74,7 @@ from command_handlers.help.help_poke import help_poke_handler
 from command_handlers.helper_salary import helper_salary_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
+from command_handlers.league.init_standings import init_standings
 from command_handlers.league.make_sol_match import make_sol_match
 from command_handlers.league.make_sol_week import make_sol_week
 from command_handlers.league.add_loss import add_loss_handler
@@ -1381,41 +1382,7 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!initstandings' and is_admin:
 
-        standings = db['standings']
-        new_standings = {
-            # [win, loss]
-            'season': 4,
-            'teams': {
-                'Olympians': [0, 0, 0],
-                'Polar': [0, 0, 0],
-                'Eclipse': [0, 0, 0],
-                'Saviors': [0, 0, 0],
-                'Ragu': [0, 0, 0],
-                'Instigators': [0, 0, 0],
-                'Guardians': [0, 0, 0],
-                'Fresas': [0, 0, 0],
-                'Outliers': [0, 0, 0],
-                'Phoenix': [0, 0, 0],
-                'Hunters': [0, 0, 0],
-                'Evergreen': [0, 0, 0],
-                'Saturn': [0, 0, 0],
-                'Celestials': [0, 0, 0],
-                'Misfits': [0, 0, 0],
-                'Legion': [0, 0, 0],
-                'Diamonds': [0, 0, 0],
-                'Angels': [0, 0, 0],
-                'Sentinels': [0, 0, 0],
-                'Phantoms': [0, 0, 0]
-            },
-            'divs': [
-                ['Legion', 'Eclipse', 'Phoenix', 'Hunters', 'Sentinels'],
-                ['Polar', 'Ragu', 'Olympians', 'Phantoms', 'Misfits'],
-                ['Instigators', 'Saviors', 'Fresas', 'Outliers', 'Evergreen'],
-                ['Celestials', 'Guardians', 'Saturn', 'Angels', 'Diamonds']
-            ]
-        }
-        standings.insert_one(new_standings)
-        await message.channel.send('standings initated')
+        await init_standings(db, message)
 
     elif lower_message == '!standingsmappatch' and is_admin:
 
