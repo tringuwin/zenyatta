@@ -160,7 +160,7 @@ async def make_sol_match(client, db, message):
     team_2_emoji = guild.get_emoji(team_2_emoji_id)
 
     bet_title = 'WEEK '+str(week_num)+' : '+match_weekday.upper()+' : '+str(team_1_emoji)+' '+team_1_name+' VS '+str(team_2_emoji)+' '+team_2_name
-    await new_bet(client, db, bet_title, team_1_name, team_2_name, True)
+    await new_bet(client, db, bet_title, team_1_name, team_2_name, False)
 
     await message.channel.send('Match added successfully')
 
