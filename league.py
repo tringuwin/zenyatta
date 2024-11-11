@@ -57,7 +57,7 @@ team_name_to_color = {
     'Legion': discord.Colour(0xff0d1a),
     'Lotus': discord.Colour(0xfcb2c5),
     'Deadlock': discord.Colour(0xa60322),
-    'Horizon': discord.Colour(0xdd4f36),
+    'Horizon': discord.Colour(0xfd8500),
     'Monarchs': discord.Colour(0xffec50),
 }
 
@@ -88,7 +88,7 @@ team_name_to_thumbnail = {
     'Legion': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1725049269/Legion_v1kzyb.png',
     'Lotus': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1729704776/Lotus_yjrz8x.png',
     'Deadlock': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1729637115/Deadlock_ejk1ro.png',
-    'Horizon': '',
+    'Horizon': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1731283566/Horizon_lseweb.png',
     'Monarchs': '',
 }
 
