@@ -140,7 +140,8 @@ async def toggle_esub_handler(db, message, client):
         user_esub_roles = get_user_esub_roles(user)
         for role_id in user_esub_roles:
             role = await get_role_by_id(client, role_id)
-            await message.author.remove_roles(role)
+            if role:
+                await message.author.remove_roles(role)
 
         users = db['users']
         users.update_one({'discord_id': user['discord_id']}, {'$set': {'esub': False, 'esub_roles': []}})
