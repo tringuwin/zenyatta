@@ -164,7 +164,7 @@ LEAGUE_TO_EMOJI_ID = {
     'Sentinels': 1278802858338291753,
     'Lotus': 1298683346314072234,
     'Deadlock': 1298375893839773818,
-    'Horizon': 1278858168826593312, #default
+    'Horizon': 1305322090513301564,
     'Monarchs': 1278858168826593312, #default
 }
 
@@ -290,7 +290,7 @@ TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 
 
 EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix', 
                'Saturn', 'Celestials', 'Evergreen', 'Misfits', 'Hunters', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels', 'Legion',
-               'Lotus', 'Deadlock']
+               'Lotus', 'Deadlock', 'Horizon']
 
 LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassidy', 'dva', 'doomfist', 'echo', 'genji', 'hanzo', 'illari', 
                         'junker queen', 'junkrat', 'juno', 'kiriko', 'lifeweaver', 'lucio', 'mauga', 'mei', 'mercy', 'moira', 'orisa', 'ramattra', 'reaper', 
