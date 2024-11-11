@@ -7,13 +7,13 @@ from user import get_user_esub, get_user_esub_roles, get_user_ranks, user_exists
 
 RANK_TO_ESUB_VALUE = {
 
-    'Rank_Bronze_Division_5': 0,
-    'Rank_Bronze_Division_4': 0,
-    'Rank_Bronze_Division_3': 0,
-    'Rank_Bronze_Division_2': 0,
-    'Rank_Bronze_Division_1': 0,
+    'Rank_Bronze_Division_5': 1,
+    'Rank_Bronze_Division_4': 1,
+    'Rank_Bronze_Division_3': 1,
+    'Rank_Bronze_Division_2': 1,
+    'Rank_Bronze_Division_1': 1,
 
-    'Rank_Silver_Division_5': 4,
+    'Rank_Silver_Division_5': 1,
     'Rank_Silver_Division_4': 4,
     'Rank_Silver_Division_3': 4,
     'Rank_Silver_Division_2': 4,
