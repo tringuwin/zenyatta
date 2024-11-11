@@ -58,7 +58,7 @@ team_name_to_color = {
     'Lotus': discord.Colour(0xfcb2c5),
     'Deadlock': discord.Colour(0xa60322),
     'Horizon': discord.Colour(0xfd8500),
-    'Monarchs': discord.Colour(0xffec50),
+    'Monarchs': discord.Colour(0x955d01),
 }
 
 def get_team_color_by_name(team_name):
@@ -89,7 +89,7 @@ team_name_to_thumbnail = {
     'Lotus': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1729704776/Lotus_yjrz8x.png',
     'Deadlock': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1729637115/Deadlock_ejk1ro.png',
     'Horizon': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1731283566/Horizon_lseweb.png',
-    'Monarchs': '',
+    'Monarchs': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1731283566/Monarchs_zfeaxw.png',
 }
 
 
