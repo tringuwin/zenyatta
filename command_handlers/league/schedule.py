@@ -72,7 +72,7 @@ async def schedule_handler(db, message, client):
         if weeks == 1:
             break
 
-    final_string += '\nSee the full Schedule here: https://spicyragu.netlify.app/sol/schedule'
+    final_string += '\n\nSee the full Schedule here: https://spicyragu.netlify.app/sol/schedule'
 
     await message.channel.send(final_string)
 
