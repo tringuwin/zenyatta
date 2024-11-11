@@ -14,32 +14,32 @@ RANK_TO_ESUB_VALUE = {
     'Rank_Bronze_Division_1': 1,
 
     'Rank_Silver_Division_5': 1,
-    'Rank_Silver_Division_4': 4,
-    'Rank_Silver_Division_3': 4,
-    'Rank_Silver_Division_2': 4,
-    'Rank_Silver_Division_1': 4,
+    'Rank_Silver_Division_4': 1,
+    'Rank_Silver_Division_3': 1,
+    'Rank_Silver_Division_2': 1,
+    'Rank_Silver_Division_1': 1,
 
-    'Rank_Gold_Division_5': 4,
-    'Rank_Gold_Division_4': 4,
-    'Rank_Gold_Division_3': 4,
-    'Rank_Gold_Division_2': 3,
-    'Rank_Gold_Division_1': 3,
+    'Rank_Gold_Division_5': 1,
+    'Rank_Gold_Division_4': 1,
+    'Rank_Gold_Division_3': 1,
+    'Rank_Gold_Division_2': 1,
+    'Rank_Gold_Division_1': 1,
 
-    'Rank_Platinum_Division_5': 3,
-    'Rank_Platinum_Division_4': 3,
-    'Rank_Platinum_Division_3': 3,
-    'Rank_Platinum_Division_2': 2,
-    'Rank_Platinum_Division_1': 2,
+    'Rank_Platinum_Division_5': 1,
+    'Rank_Platinum_Division_4': 1,
+    'Rank_Platinum_Division_3': 1,
+    'Rank_Platinum_Division_2': 1,
+    'Rank_Platinum_Division_1': 1,
 
-    'Rank_Diamond_Division_5': 2,
-    'Rank_Diamond_Division_4': 2,
-    'Rank_Diamond_Division_3': 2,
+    'Rank_Diamond_Division_5': 1,
+    'Rank_Diamond_Division_4': 1,
+    'Rank_Diamond_Division_3': 1,
     'Rank_Diamond_Division_2': 1,
     'Rank_Diamond_Division_1': 1,
 
-    'Rank_Master_Division_5': 1,
-    'Rank_Master_Division_4': 1,
-    'Rank_Master_Division_3': 1,
+    'Rank_Master_Division_5': 0,
+    'Rank_Master_Division_4': 0,
+    'Rank_Master_Division_3': 0,
     'Rank_Master_Division_2': 0,
     'Rank_Master_Division_1': 0,
 
@@ -59,21 +59,21 @@ RANK_TO_ESUB_VALUE = {
 
 DIV_TO_ROLE_ID = {
 
-    'tank_1': 1242984652134813717,
-    'offense_1': 1242985354106114058,
-    'support_1': 1242985545655648306,
+    'tank_1': 1305667046742298634,
+    'offense_1': 1305667076362604595,
+    'support_1': 1305667121539452928,
 
-    'tank_2': 1242984687920746496,
-    'offense_2': 1242985420552142960,
-    'support_2': 1242985681446506597,
+    # 'tank_2': 1242984687920746496,
+    # 'offense_2': 1242985420552142960,
+    # 'support_2': 1242985681446506597,
 
-    'tank_3': 1242984723777847417,
-    'offense_3': 1242985492249837568,
-    'support_3': 1242985767735660636,
+    # 'tank_3': 1242984723777847417,
+    # 'offense_3': 1242985492249837568,
+    # 'support_3': 1242985767735660636,
 
-    'tank_4': 1270116909634818060,
-    'offense_4': 1270116996134080624,
-    'support_4': 1270117048734974014,
+    # 'tank_4': 1270116909634818060,
+    # 'offense_4': 1270116996134080624,
+    # 'support_4': 1270117048734974014,
 
 }
 
@@ -113,7 +113,7 @@ async def toggle_esub_handler(db, message, client):
             e_sub_ranks[rank] = rank_num
 
         if len(e_sub_ranks) == 0:
-            await message.channel.send('Your current ranks are not elligible to be an Emergency Sub. Your must have ranks between Silver 5 and Master 3 to qualify.')
+            await message.channel.send('Your current ranks are not elligible to be an Emergency Sub. You must have ranks between Bronze 5 and Diamond 1 to qualify.')
             return
         
         role_ids = []
