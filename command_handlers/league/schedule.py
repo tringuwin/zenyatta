@@ -46,6 +46,9 @@ async def schedule_handler(db, message, client):
 
         for day in week['days']:
 
+            if len(day['matches']) < 1:
+                continue
+
             final_string += '\n\n**'+day['date']+'**'
             final_string += '\n------------------'
             match_index = 1
