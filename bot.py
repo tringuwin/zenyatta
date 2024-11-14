@@ -598,8 +598,8 @@ async def handle_message(message, db, client):
         await random_map_handler(message)
 
     elif lower_message == '!standings':
-        #await message.channel.send('This command is disabled until Season 3 starts on June 1st 2024.')
-        await standings_handler(db, message, client)
+        await message.channel.send('This command is being fixed. Try again soon!')
+        #await standings_handler(db, message, client)
 
     elif lower_message == '!powerrankings':
         await power_rankings_handler(message, client)
@@ -1382,8 +1382,8 @@ async def handle_message(message, db, client):
         await give_rewards_handler(db, message)
 
     elif lower_message == '!initstandings' and is_admin:
-        await message.channel.send('This command is being fixed, please try again later!')
-        #await init_standings(db, message)
+        #await message.channel.send('This command is being fixed, please try again later!')
+        await init_standings(db, message)
 
     elif lower_message == '!standingsmappatch' and is_admin:
 
