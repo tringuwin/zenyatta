@@ -779,7 +779,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!setlineup':
         await set_lineup_handler(db, message)
 
-    elif lower_message.startswith('!matchlineups') and is_admin:
+    elif lower_message.startswith('!matchlineups') and is_tourney_admin:
         await match_lineups_handler(db, message)
 
     elif lower_message == '!toggleesub':
