@@ -113,6 +113,9 @@ def been_a_week(db):
 
 async def check_weekly(client, db, channel, message):
 
+    await channel.send('Prizes disabled until further notice.')
+    return
+
     week_passed = been_a_week(db)
 
     if not week_passed:
