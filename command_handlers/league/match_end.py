@@ -99,7 +99,7 @@ async def match_end_handler(db, message, client):
             await message.channel.send('Could not find the bet for this matchup.')
 
     if match_bet_valid:
-        await finish_bet(db, message, client, valid_bet, team_won, team_loss)
+        await finish_bet(db, message, client, valid_bet, str(team_won), str(team_loss))
 
     await message.channel.send('match info recorded')
 
