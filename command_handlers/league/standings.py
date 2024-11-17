@@ -118,7 +118,7 @@ async def standings_main(db, message, client, top):
         for i in range(13, 25):
             teams_to_log.append(sorted_teams[i])
 
-    final_string = '**SEASON '+str(league_season)+' STANDINGS**\n'
+    final_string = '**SEASON '+str(league_season)+' STANDINGS (TOP 12)**\n' if top else '**SEASON '+str(league_season)+' STANDINGS (BOTTOM 12)**\n'
     detail_string = 'To view the bottom 12 teams, use the command **!standings2**' if top else 'To view the top 12 teams, use the command **!standings**'
 
     guild = await get_guild(client)
