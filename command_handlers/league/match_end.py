@@ -5,7 +5,7 @@ from common_messages import invalid_number_of_params
 from helpers import can_be_int, get_constant_value, valid_number_of_params
 
 
-async def calculate_team_points(team_data):
+def calculate_team_points(team_data):
 
     win_total = team_data['wins'] * 10
     map_total = team_data['map_wins'] - team_data['map_losses']
