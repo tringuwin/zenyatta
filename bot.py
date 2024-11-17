@@ -117,7 +117,7 @@ from command_handlers.league.lft.update_lft import update_lft_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
 from command_handlers.league.map_diff import map_diff_handler
-from command_handlers.league.match_end import match_end_handler
+from command_handlers.league.match_end import match_end_handler, team_e_subs
 from command_handlers.league.next_week import next_week_handler
 from command_handlers.league.ping_team import ping_team_handler
 from command_handlers.league.power_rankings import power_rankings_handler
@@ -598,8 +598,8 @@ async def handle_message(message, db, client):
         await random_map_handler(message)
 
     elif lower_message == '!standings':
-        await message.channel.send('This command is being fixed. Try again soon!')
-        #await standings_handler(db, message, client)
+        #await message.channel.send('This command is being fixed. Try again soon!')
+        await standings_handler(db, message, client)
 
     elif lower_message == '!powerrankings':
         await power_rankings_handler(message, client)
@@ -1431,6 +1431,9 @@ async def handle_message(message, db, client):
     # !matchend winTeam winScore loseTeam loseScore
     elif lower_message.startswith('!matchend') and is_admin:
         await match_end_handler(db, message, client)
+
+    elif lower_message.startswith('!teamesubs') and is_admin:
+        await team_e_subs(db, message)
 
     elif lower_message == '!initmaps' and is_admin:
 

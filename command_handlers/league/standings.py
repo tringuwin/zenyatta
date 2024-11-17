@@ -25,7 +25,7 @@ def make_div_standings_string(div_teams, div_num, guild):
 
     return div_string
 
-async def standings_handler(db, message, client):
+async def standings_handler_old(db, message, client):
 
     league_season = get_constant_value(db, 'league_season')
 
@@ -95,3 +95,36 @@ async def standings_handler(db, message, client):
     
 
         
+async def standings_handler(db, message, client):
+
+    league_season = get_constant_value(db, 'league_season')
+
+    standings = db['standings']
+    season_object = standings.find_one({'season': league_season})
+
+    all_teams = []
+    for team_name in season_object['teams']:
+        team_obj = season_object['teams'][team_name]
+        team_obj['team_name'] = team_name
+        all_teams.append(team_obj)
+
+    sorted_teams = sorted(all_teams[0], key=lambda x: (x["points"], x["wins"], x['map_wins']), reverse=True)
+
+    final_string = '**SEASON '+str(league_season)+' STANDINGS**\n\n'
+
+    guild = await get_guild(client)
+
+    rank = 1
+
+    for team in sorted_teams:
+
+        team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team['team_name']]
+        team_emoji = guild.get_emoji(team_emoji_id)
+
+        final_string += '\n'+str(rank)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['points'])+' Points'
+
+        rank += 1
+
+    await message.channel.send(final_string)
+
+
