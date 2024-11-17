@@ -106,7 +106,7 @@ async def match_end_handler(db, message, client):
 
 async def team_e_subs(db, message):
 
-    valid_params, params = valid_number_of_params(message, 5)
+    valid_params, params = valid_number_of_params(message, 3)
 
     if not valid_params:
         await invalid_number_of_params(message)
