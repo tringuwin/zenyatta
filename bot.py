@@ -1382,7 +1382,6 @@ async def handle_message(message, db, client):
         await give_rewards_handler(db, message)
 
     elif lower_message == '!initstandings' and is_admin:
-        #await message.channel.send('This command is being fixed, please try again later!')
         await init_standings(db, message)
 
     elif lower_message == '!standingsmappatch' and is_admin:

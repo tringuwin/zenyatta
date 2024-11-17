@@ -19,7 +19,9 @@ async def init_standings(db, message):
         new_team_obj = {
             'wins': 0,
             'losses': 0,
-            'map_diff': 0,
+            'map_wins': 0,
+            'map_losses': 0,
+            'esubs': 0,
             'points': 0
         }
         all_teams[team['team_name']] = new_team_obj
