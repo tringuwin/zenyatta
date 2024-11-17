@@ -5,6 +5,16 @@ from common_messages import invalid_number_of_params
 from helpers import can_be_int, get_constant_value, valid_number_of_params
 
 
+async def calculate_team_points(team_data):
+
+    win_total = team_data['wins'] * 10
+    map_total = team_data['map_wins'] - team_data['map_losses']
+    e_sub_total = team_data['esubs'] * -1
+
+    return win_total + map_total + e_sub_total
+
+
+
 async def match_end_handler(db, message, client):
 
     valid_params, params = valid_number_of_params(message, 5)
@@ -45,17 +55,24 @@ async def match_end_handler(db, message, client):
     win_team_real_name = win_team['team_name']
     lose_team_real_name = lose_team['team_name']
 
-    map_diff = win_score - lose_score
-
     league_season = get_constant_value(db, 'league_season')
     
     standings = db['standings']
     standings_obj = standings.find_one({'season': league_season})
 
-    standings_obj['teams'][win_team_real_name][0] += 1
-    standings_obj['teams'][win_team_real_name][2] += map_diff
-    standings_obj['teams'][lose_team_real_name][1] += 1
-    standings_obj['teams'][lose_team_real_name][2] -= map_diff
+    standings_obj['teams'][win_team_real_name]['wins'] += 1
+    standings_obj['teams'][win_team_real_name]['map_wins'] += win_score
+    standings_obj['teams'][win_team_real_name]['map_losses'] += lose_score
+
+    standings_obj['teams'][lose_team_real_name]['losses'] += 1
+    standings_obj['teams'][lose_team_real_name]['map_wins'] += lose_score
+    standings_obj['teams'][lose_team_real_name]['map_losses'] += win_score
+
+    winner_points = calculate_team_points(standings_obj['teams'][win_team_real_name])
+    loser_points = calculate_team_points(standings_obj['teams'][lose_team_real_name])
+
+    standings_obj['teams'][win_team_real_name]['points'] += winner_points
+    standings_obj['teams'][lose_team_real_name]['points'] += loser_points
 
     standings.update_one({"season": league_season}, {"$set": {"teams": standings_obj['teams']}})
 
