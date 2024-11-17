@@ -128,6 +128,9 @@ async def standings_handler(db, message, client):
 
         rank += 1
 
+        if rank == 13:
+            break
+
     await message.channel.send(final_string)
 
 
