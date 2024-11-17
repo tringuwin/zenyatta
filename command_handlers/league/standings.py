@@ -94,8 +94,8 @@ async def standings_handler_old(db, message, client):
     await message.channel.send(final_string)
     
 
-        
-async def standings_handler(db, message, client):
+
+async def standings_main(db, message, client, top):
 
     league_season = get_constant_value(db, 'league_season')
 
@@ -110,27 +110,43 @@ async def standings_handler(db, message, client):
 
     sorted_teams = sorted(all_teams, key=lambda x: (x["points"], x["wins"], x['map_wins']), reverse=True)
 
+    teams_to_log = []
+    if top:
+        for i in range(12):
+            teams_to_log.append(sorted_teams[i])
+    else:
+        for i in range(13, 24):
+            teams_to_log.append(sorted_teams[i])
+
     final_string = '**SEASON '+str(league_season)+' STANDINGS**\n'
+    detail_string = 'To view the bottom 12 teams, use the command **!standings2**' if top else 'To view the top 12 teams, use the command **!standings**'
 
     guild = await get_guild(client)
 
-    rank = 1
+    rank = 1 if top else 13
 
-    for team in sorted_teams:
+    for team in teams_to_log:
 
         team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team['team_name']]
         team_emoji = guild.get_emoji(team_emoji_id)
 
         map_string = str(team['map_wins'])+' MW | '+str(team['map_losses'])+' ML | '
-        e_sub_string = str(team['esubs'])+' ESUBS'
+        e_sub_string = str(team['esubs'])+' ES'
 
         final_string += '\n'+str(rank)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['points'])+' PTS | '+str(team['wins'])+' W | '+str(team['losses'])+' L | '+map_string+e_sub_string
 
         rank += 1
 
-        if rank == 13:
-            break
+    final_string += '\n\n'+detail_string
 
     await message.channel.send(final_string)
 
+        
+async def standings_handler(db, message, client):
 
+    await standings_main(db, message, client, True)
+
+
+async def standings2_handler(db, message, client):
+
+    await standings_main(db, message, client, False)

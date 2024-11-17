@@ -136,7 +136,7 @@ from command_handlers.league.set_map import set_map_handler
 from command_handlers.league.set_min_rank import set_min_rank_handler
 from command_handlers.league.set_score import set_score_handler
 from command_handlers.league.set_win import set_win_handler
-from command_handlers.league.standings import standings_handler
+from command_handlers.league.standings import standings2_handler, standings_handler
 from command_handlers.league.toggle_apps import toggle_apps_handler
 from command_handlers.league.toggle_esub import toggle_esub_handler
 from command_handlers.league.update_team import update_team, update_team_handler
@@ -600,6 +600,9 @@ async def handle_message(message, db, client):
     elif lower_message == '!standings':
         #await message.channel.send('This command is being fixed. Try again soon!')
         await standings_handler(db, message, client)
+
+    elif lower_message == '!standings2':
+        await standings2_handler(db, message, client)
 
     elif lower_message == '!powerrankings':
         await power_rankings_handler(message, client)
