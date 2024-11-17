@@ -115,7 +115,7 @@ async def standings_main(db, message, client, top):
         for i in range(12):
             teams_to_log.append(sorted_teams[i])
     else:
-        for i in range(13, 25):
+        for i in range(12, 23):
             teams_to_log.append(sorted_teams[i])
 
     final_string = '**SEASON '+str(league_season)+' STANDINGS (TOP 12)**\n' if top else '**SEASON '+str(league_season)+' STANDINGS (BOTTOM 12)**\n'
