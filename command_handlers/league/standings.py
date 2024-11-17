@@ -110,7 +110,7 @@ async def standings_handler(db, message, client):
 
     sorted_teams = sorted(all_teams, key=lambda x: (x["points"], x["wins"], x['map_wins']), reverse=True)
 
-    final_string = '**SEASON '+str(league_season)+' STANDINGS**\n\n'
+    final_string = '**SEASON '+str(league_season)+' STANDINGS**\n'
 
     guild = await get_guild(client)
 
@@ -121,7 +121,10 @@ async def standings_handler(db, message, client):
         team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team['team_name']]
         team_emoji = guild.get_emoji(team_emoji_id)
 
-        final_string += '\n'+str(rank)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['points'])+' Pts | '+str(team['wins'])+' W | '+str(team['losses'])+' L '
+        map_string = str(team['map_wins'])+' MW | '+str(team['map_losses'])+' ML | '
+        e_sub_string = str(team['esubs'])+' ESUBS'
+
+        final_string += '\n'+str(rank)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['points'])+' PTS | '+str(team['wins'])+' W | '+str(team['losses'])+' L | '+map_string+e_sub_string
 
         rank += 1
 
