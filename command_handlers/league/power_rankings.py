@@ -21,15 +21,15 @@ POWER_RANKINGS = [
     'Angels',
     'Olympians',
     'Phoenix',
+    'Guardians',
     'Diamonds',
     'Celestials',
     'Saviors',
     'Saturn',
-    'Guardians',
     'Instigators',
 ]
 
-LAST_UPDATED = '11/19/2024 1:52 AM EST'
+LAST_UPDATED = '11/19/2024 2:09 AM EST'
 
 async def power_rankings_handler(message, client):
 
@@ -50,7 +50,7 @@ async def power_rankings_handler(message, client):
 
         team_index += 1
 
-    final_string += '\n\n*Based off of rosters and limited knowledge. May be very innacurate,  take with a grain of salt*'
+    final_string += '\n\n*Based off of rosters and limited knowledge. May be very innacurate, take with a grain of salt*'
     final_string += '\n**Last Updated: '+LAST_UPDATED+'**'
 
     await message.channel.send(final_string)
