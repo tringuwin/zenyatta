@@ -50,7 +50,7 @@ async def power_rankings_handler(message, client):
 
         team_index += 1
 
-    final_string += '\n\n*Based off of rosters and limited scrim/match knowledge. May be very innacurate,  take with a grain of salt*'
+    final_string += '\n\n*Based off of rosters and limited knowledge. May be very innacurate,  take with a grain of salt*'
     final_string += '\n**Last Updated: '+LAST_UPDATED+'**'
 
     await message.channel.send(final_string)
