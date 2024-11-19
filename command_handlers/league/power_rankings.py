@@ -23,9 +23,9 @@ POWER_RANKINGS = [
     'Phoenix',
     'Diamonds',
     'Celestials',
+    'Saviors',
     'Saturn',
     'Guardians',
-    'Saviors',
     'Instigators',
 ]
 
