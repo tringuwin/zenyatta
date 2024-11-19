@@ -4,38 +4,37 @@ from discord_actions import get_guild
 POWER_RANKINGS = [
 
     'Phantoms',
-    'Hunters',
     'Polar',
+    'Hunters',
     'Lotus',
     'Sentinels',
-    'Outliers',
     'Monarchs',
     'Evergreen',
     'Horizon',
+    'Outliers',
     'Fresas',
     'Ragu',
+    'Legion',
+    'Eclipse',
     'Deadlock',
     'Misfits',
-    'Phoenix',
     'Angels',
-    'Legion',
     'Olympians',
-    'Eclipse',
-    'Saturn',
+    'Phoenix',
+    'Diamonds',
     'Celestials',
+    'Saturn',
     'Guardians',
     'Saviors',
-    'Diamonds',
     'Instigators',
-
 ]
 
 LAST_UPDATED = '10/27/2024 11:53 AM EST'
 
 async def power_rankings_handler(message, client):
 
-    await message.channel.send('Power rankings will return after SOL Week 1 concludes!')
-    return
+    # await message.channel.send('Power rankings will return after SOL Week 1 concludes!')
+    # return
 
     guild = await get_guild(client)
 
