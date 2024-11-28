@@ -71,8 +71,8 @@ async def match_end_handler(db, message, client):
     winner_points = calculate_team_points(standings_obj['teams'][win_team_real_name])
     loser_points = calculate_team_points(standings_obj['teams'][lose_team_real_name])
 
-    standings_obj['teams'][win_team_real_name]['points'] += winner_points
-    standings_obj['teams'][lose_team_real_name]['points'] += loser_points
+    standings_obj['teams'][win_team_real_name]['points'] = winner_points
+    standings_obj['teams'][lose_team_real_name]['points'] = loser_points
 
     standings.update_one({"season": league_season}, {"$set": {"teams": standings_obj['teams']}})
 
