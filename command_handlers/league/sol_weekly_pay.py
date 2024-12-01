@@ -70,7 +70,7 @@ def group_teams_by_score(sorted_teams):
 
 async def sol_weekly_pay(db, message):
 
-    league_season = get_constant_value('league_season')
+    league_season = get_constant_value(db, 'league_season')
 
     standings_db = db['standings']
     season_standings = standings_db.find_one({'season': league_season})
