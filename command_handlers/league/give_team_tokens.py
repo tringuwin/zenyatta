@@ -7,28 +7,17 @@ from rewards import change_tokens
 
 from user import user_exists
 
-async def give_team_tokens_handler(db, message):
 
-    word_parts = message.content.split()
-    if len(word_parts) < 3:
-        await invalid_number_of_params(message)
-        return
-    
-    tokens_to_give = word_parts[2]
-    if not can_be_int(tokens_to_give):
-        await message.channel.send(tokens_to_give+' is not an integer')
-        return
-    tokens_to_give = int(tokens_to_give)
-    
-    team_name = word_parts[1]
+async def give_team_tokens(message, db, team_name, tokens_to_give):
+
     lower_team_name = team_name.lower()
-    
+
     league_teams = db['leagueteams']
     team_obj = league_teams.find_one({'name_lower': lower_team_name})
     if not team_obj:
         await message.channel.send('Did not find team')
         return
-    
+
     total_team_tpp = 0
     tpp_table = []
     for member in team_obj['members']:
@@ -61,6 +50,25 @@ async def give_team_tokens_handler(db, message):
 
 
         await message.channel.send('Done')
+
+
+
+async def give_team_tokens_handler(db, message):
+
+    word_parts = message.content.split()
+    if len(word_parts) < 3:
+        await invalid_number_of_params(message)
+        return
+    
+    tokens_to_give = word_parts[2]
+    if not can_be_int(tokens_to_give):
+        await message.channel.send(tokens_to_give+' is not an integer')
+        return
+    tokens_to_give = int(tokens_to_give)
+    
+    team_name = word_parts[1]
+
+    await give_team_tokens(message, db, team_name, tokens_to_give)
     
 
     

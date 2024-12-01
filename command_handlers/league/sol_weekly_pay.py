@@ -1,5 +1,7 @@
 
+from command_handlers.league.give_team_tokens import give_team_tokens
 from helpers import get_constant_value
+import time
 
 
 TOKENS_PER_PLACE = {
@@ -67,7 +69,7 @@ def group_teams_by_score(sorted_teams):
 
 
 
-def give_reward_based_on_placement(score_groups):
+async def give_reward_based_on_placement(db, message, score_groups):
 
     for score in score_groups:
 
@@ -76,7 +78,9 @@ def give_reward_based_on_placement(score_groups):
         tokens_to_give = TOKENS_PER_PLACE[lowest_place_in_group]
 
         for team in group_data['teams']:
-            print('Giving '+str(tokens_to_give)+' tokens to '+team['name'])
+            await give_team_tokens(message, db, team['name'], tokens_to_give)
+            await message.channel.send('Sent '+str(tokens_to_give)+' tokens to '+team['name'])
+            time.sleep(1)
 
 
 async def sol_weekly_pay(db, message):
@@ -100,6 +104,8 @@ async def sol_weekly_pay(db, message):
 
     groups_of_teams_by_score = group_teams_by_score(sorted_teams)
 
-    give_reward_based_on_placement(groups_of_teams_by_score)
+    await give_reward_based_on_placement(db, message, groups_of_teams_by_score)
+
+    await message.channel.send('Command success')
 
     
