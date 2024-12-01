@@ -38,7 +38,7 @@ TOKENS_PER_TIER = {
 
 def sort_league_teams_by_points(all_teams):
 
-    return sorted(all_teams, key=lambda x: (x["score"]), reverse=True) 
+    return sorted(all_teams, key=lambda x: (x["points"]), reverse=True) 
 
 
 def group_teams_by_score(sorted_teams):
@@ -49,7 +49,7 @@ def group_teams_by_score(sorted_teams):
     for i in range(len(sorted_teams)):
 
         team = sorted_teams[i]
-        team_score = team['score']
+        team_score = team['points']
 
         score_group = groups_of_teams_by_score[team_score]
         if score_group:
