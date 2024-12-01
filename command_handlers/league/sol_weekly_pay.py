@@ -51,8 +51,8 @@ def group_teams_by_score(sorted_teams):
         team = sorted_teams[i]
         team_score = team['points']
 
-        score_group = groups_of_teams_by_score[team_score]
-        if score_group:
+        if team_score in groups_of_teams_by_score:
+            score_group = groups_of_teams_by_score[team_score] 
             score_group['teams'].append(team)
             score_group['lowest_place'] = place_index
         else:
