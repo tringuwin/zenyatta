@@ -79,6 +79,11 @@ async def sol_weekly_pay(db, message):
         return
     
     all_teams = season_standings['teams']
+    array_of_teams = []
+    for team_name in all_teams:
+        team_obj = all_teams[team_name]
+        team_obj['name'] = team_name
+        array_of_teams.append(team_obj)
 
     sorted_teams = sort_league_teams_by_points(all_teams)
 
