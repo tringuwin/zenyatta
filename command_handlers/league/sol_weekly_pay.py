@@ -2,7 +2,7 @@
 from helpers import get_constant_value
 
 
-TOKENS_PER_TIER = {
+TOKENS_PER_PLACE = {
 
     1: 5000,
     2: 4000,
@@ -63,9 +63,20 @@ def group_teams_by_score(sorted_teams):
 
         place_index += 1
 
-    print(groups_of_teams_by_score)
+    return groups_of_teams_by_score
 
 
+
+def give_reward_based_on_placement(score_groups):
+
+    for score in score_groups:
+
+        group_data = score_groups[score]
+        lowest_place_in_group = group_data['lowest_place']
+        tokens_to_give = TOKENS_PER_PLACE[lowest_place_in_group]
+
+        for team in group_data['teams']:
+            print('Giving '+str(tokens_to_give)+' tokens to '+team['name'])
 
 
 async def sol_weekly_pay(db, message):
@@ -88,5 +99,7 @@ async def sol_weekly_pay(db, message):
     sorted_teams = sort_league_teams_by_points(array_of_teams)
 
     groups_of_teams_by_score = group_teams_by_score(sorted_teams)
+
+    give_reward_based_on_placement(groups_of_teams_by_score)
 
     
