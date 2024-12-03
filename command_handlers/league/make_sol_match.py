@@ -3,7 +3,7 @@ import constants
 from command_handlers.bets.new_bet import new_bet
 from common_messages import invalid_number_of_params
 from discord_actions import get_guild
-from helpers import valid_number_of_params
+from helpers import get_constant_value, valid_number_of_params
 
 
 TIMESLOT_TO_INFO = {
@@ -96,7 +96,7 @@ async def make_sol_match(client, db, message):
         return
     team_2_name = team_2_obj['team_name']
 
-    league_season = 5 #get_constant_value(db, 'league_season')
+    league_season = get_constant_value(db, 'league_season')
 
     schedules = db['schedule']
 

@@ -23,7 +23,7 @@ async def make_sol_week(db, message):
     month = int(params[2])
     year = int(params[3])
 
-    league_season = 5 #get_constant_value(db, 'league_season')
+    league_season = get_constant_value(db, 'league_season')
 
     schedule_db = db['schedule']
     this_season_schedule = schedule_db.find_one({'season': league_season})
