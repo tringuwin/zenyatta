@@ -2,7 +2,7 @@ import random
 
 MAPS = [
 
-    [ #Control
+    [ # Control
         'Busan', 
         'Nepal',
         'Ilios',
@@ -11,7 +11,7 @@ MAPS = [
         'Antarctic Peninsula',
         'Samoa'
     ],
-    [ #Escort
+    [ # Escort
         'Circuit Royal',
         'Dorado',
         'Route 66',
@@ -21,7 +21,7 @@ MAPS = [
         'Watchpoint: Gibraltar',
         'Shambali Monastery'
     ],
-    [ #Hybrid
+    [ # Hybrid
         'Blizzard World',
         'Numbani',
         'Hollywood',
@@ -33,11 +33,16 @@ MAPS = [
     [ # Push
         'Colosseo',
         'Esperanca',
-        'New Queen Street'
+        'New Queen Street',
+        'Runasapi'
     ],
     [ # Flashpoint
         'New Junk City',
         'Survasa'
+    ],
+    [ # Clash
+        'Hanaoka',
+        'Throne of Anubis'
     ]
 
 ]
