@@ -46,7 +46,7 @@ from command_handlers.battle_leaderboard import battle_leaderboard_handler
 from command_handlers.bets.bet import bet_handler
 from command_handlers.bets.finish_bet import finish_bet_handler
 from command_handlers.bets.my_bets import my_bets_handler
-from command_handlers.bets.new_bet import new_bet_handler, update_bets
+from command_handlers.bets.new_bet import check_open_bets, new_bet_handler, update_bets
 from command_handlers.bets.void_bet import void_bet_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.bracket import bracket_handler
@@ -2270,6 +2270,8 @@ async def handle_message(message, db, client):
         await check_streamlabs_raffles(db, message.channel)
 
         await check_lineup_tokens(db, message)
+
+        await check_open_bets(db, message)
 
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')

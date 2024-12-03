@@ -1,5 +1,6 @@
 
 
+import time
 from discord_actions import get_guild
 import constants
 import discord
@@ -162,3 +163,25 @@ async def update_bets(db, channel, client):
     await channel.send('Updated bets')
 
 
+async def check_open_bets(db, message):
+
+    bets = db['bets']
+    all_bets = bets.find()
+
+    current_time = time.time()
+
+    bet_ids_to_close = []
+
+    for bet in all_bets:
+        if bet['timestamp'] < current_time:
+            bet_ids_to_close.append(bet['bet_id'])
+
+    bets_closed = len(bet_ids_to_close)
+    for bet_id_to_close in bet_ids_to_close:
+        bets.update_one({'bet_id': bet_id_to_close}, {'$set': {'open': False}})
+
+    result_message = 'Closed '+str(bets_closed)+' bets' if bets_closed > 0 else 'No bets were closed.'
+    await message.channel.send(result_message)
+
+
+    
