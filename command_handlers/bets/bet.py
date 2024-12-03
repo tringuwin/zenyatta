@@ -1,9 +1,24 @@
 
 
+import time
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
 from user import get_league_team, get_user_bets, get_user_tokens, user_exists
+
+
+def bet_is_expired(bet_obj):
+
+    if 'timestamp' in bet_obj:
+        current_time = time.time()
+        if current_time > bet_obj['timestamp']:
+            return True
+
+    return False
+
+def close_bet(bets, bet_obj):
+    bets.update_one({'bet_id': bet_obj['bet_id']}, {'$set': {'open': False}})
+
 
 
 async def bet_handler(db, message):
@@ -59,6 +74,11 @@ async def bet_handler(db, message):
         return
     
     if not bet_obj['open']:
+        await message.channel.send('This match is not open for betting right now.')
+        return
+    
+    if bet_is_expired(bet_obj):
+        close_bet(bets, bet_obj)
         await message.channel.send('This match is not open for betting right now.')
         return
     
