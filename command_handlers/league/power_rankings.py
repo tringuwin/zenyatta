@@ -4,32 +4,33 @@ from discord_actions import get_guild
 POWER_RANKINGS = [
 
     'Phantoms',
-    'Polar',
-    'Hunters',
     'Lotus',
-    'Sentinels',
-    'Monarchs',
     'Evergreen',
+    'Polar',
     'Horizon',
-    'Outliers',
-    'Fresas',
-    'Ragu',
+    'Hunters',
     'Legion',
-    'Eclipse',
+    'Fresas',
+    'Outliers',
+    'Monarchs',
     'Deadlock',
-    'Misfits',
-    'Angels',
     'Olympians',
-    'Guardians',
-    'Diamonds',
+    'Ragu',
     'Phoenix',
-    'Celestials',
-    'Saviors',
+    'Eclipse',
+    'Guardians',
+    'Misfits',
     'Saturn',
+    'Diamonds',
+    'Angels',
+    'Celestials',
+    'Sentinels',
+    'Saviors',
     'Instigators',
+
 ]
 
-LAST_UPDATED = '11/19/2024 2:09 AM EST'
+LAST_UPDATED = '12/3/2024 2:00 AM EST'
 
 async def power_rankings_handler(message, client):
 
