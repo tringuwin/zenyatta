@@ -7,7 +7,7 @@ import discord
 from league import get_team_color_by_name, get_team_record_string
 
 
-async def new_bet(client, db, title, team_1_name, team_2_name, uses_home_away):
+async def new_bet(client, db, title, team_1_name, team_2_name, uses_home_away, timestamp=None):
 
     guild = await get_guild(client)
     bet_channel = guild.get_channel(constants.BET_CHANNEL_ID)
@@ -47,6 +47,9 @@ async def new_bet(client, db, title, team_1_name, team_2_name, uses_home_away):
         'open': True,
         'uses_home_away': uses_home_away
     }
+
+    if timestamp:
+        bet_obj['timestamp'] = timestamp
 
     bets = db['bets']
     bets.insert_one(bet_obj)

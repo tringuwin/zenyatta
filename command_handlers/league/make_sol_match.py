@@ -1,4 +1,6 @@
 
+from datetime import datetime
+import pytz
 import constants
 from command_handlers.bets.new_bet import new_bet
 from common_messages import invalid_number_of_params
@@ -63,6 +65,19 @@ def sort_matches_by_time(matches):
 
     sorted_matches = sorted(matches, key=lambda obj: obj['raw_time'])
     return sorted_matches
+
+
+def calculate_tick_of_match(year, month, day, hour):
+
+    hour_converted_to_pm = hour + 12
+
+    est = pytz.timezone('US/Eastern')
+    naive_datetime = datetime(year, month, day, hour_converted_to_pm, 0, 0)
+    est_datetime = est.localize(naive_datetime, is_dst=None)
+
+    timestamp_ms = int(est_datetime.timestamp())
+
+    return timestamp_ms
 
 
 async def make_sol_match(client, db, message):
@@ -160,7 +175,9 @@ async def make_sol_match(client, db, message):
     team_2_emoji = guild.get_emoji(team_2_emoji_id)
 
     bet_title = 'WEEK '+str(week_num)+' : '+match_weekday.upper()+' : '+str(team_1_emoji)+' '+team_1_name+' VS '+str(team_2_emoji)+' '+team_2_name
-    await new_bet(client, db, bet_title, team_1_name, team_2_name, False)
+    match_day_numbers = day_data['day_data']
+    timestamp_of_match = calculate_tick_of_match(match_day_numbers['year'], match_day_numbers['month'], match_day_numbers['day'], match_start_est)
+    await new_bet(client, db, bet_title, team_1_name, team_2_name, False, timestamp_of_match)
 
     await message.channel.send('Match added successfully')
 
