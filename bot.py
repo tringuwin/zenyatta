@@ -77,7 +77,7 @@ from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.sol_weekly_pay import sol_weekly_pay
 from command_handlers.league.init_standings import init_standings
 from command_handlers.league.make_sol_match import make_sol_match
-from command_handlers.league.make_sol_week import make_sol_week
+from command_handlers.league.make_sol_week import bump_sol_week, make_sol_week
 from command_handlers.league.add_loss import add_loss_handler
 from command_handlers.league.add_win import add_win_handler
 from command_handlers.league.ally.accept_ally import accept_ally_handler
@@ -1539,6 +1539,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!makesolweek') and is_admin:
         await make_sol_week(db, message)
+
+    elif lower_message.startswith('!bumpsolweek') and is_admin:
+        await bump_sol_week(db, message)
 
     elif lower_message.startswith('!makesolmatch') and is_admin:
         await make_sol_match(client, db, message)

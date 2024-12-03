@@ -1,6 +1,6 @@
 
 from common_messages import invalid_number_of_params
-from helpers import get_constant_value, valid_number_of_params
+from helpers import get_constant_value, set_constant_value, valid_number_of_params
 from datetime import datetime, timedelta
 
 
@@ -66,3 +66,12 @@ async def make_sol_week(db, message):
     schedule_db.update_one({'season': league_season}, {'$set': {'weeks': this_season_schedule['weeks']}})
 
     await message.channel.send('Added week to league season')
+
+
+async def bump_sol_week(db, message):
+
+    current_week = get_constant_value(db, 'league_week')
+    new_league_week = current_week + 1
+    set_constant_value(db, 'league_week', new_league_week)
+
+    await message.channel.send('League week bumped from '+str(current_week)+' to '+str(new_league_week))
