@@ -121,19 +121,16 @@ async def standings_main(db, message, client, top):
     final_string = '**SEASON '+str(league_season)+' STANDINGS (TOP 12)**\n' if top else '**SEASON '+str(league_season)+' STANDINGS (BOTTOM 12)**\n'
     detail_string = 'To view the bottom 12 teams, use the command **!standings2**' if top else 'To view the top 12 teams, use the command **!standings**'
 
-    guild = await get_guild(client)
-
     rank = 1 if top else 13
 
     for team in teams_to_log:
 
-        team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team['team_name']]
-        team_emoji = guild.get_emoji(team_emoji_id)
+        team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING(team['team_name'])
 
         map_string = str(team['map_wins'])+' MW | '+str(team['map_losses'])+' ML | '
         e_sub_string = str(team['esubs'])+' ES'
 
-        final_string += '\n'+str(rank)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['points'])+' PTS | '+str(team['wins'])+' W | '+str(team['losses'])+' L | '+map_string+e_sub_string
+        final_string += '\n'+str(rank)+'. '+team_emoji_string+' '+team['team_name']+' | '+str(team['points'])+' PTS | '+str(team['wins'])+' W | '+str(team['losses'])+' L | '+map_string+e_sub_string
 
         rank += 1
 
