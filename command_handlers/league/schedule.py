@@ -4,12 +4,6 @@ import constants
 from discord_actions import get_guild
 from helpers import get_constant_value
 
-def team_name_to_emoji(team_name, guild):
-    
-    team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_name]
-    team_emoji = guild.get_emoji(team_emoji_id)
-    return team_emoji
-
 
 async def schedule_handler(db, message, client):
 
@@ -58,11 +52,11 @@ async def schedule_handler(db, message, client):
                 home_team = match['home']
                 away_team = match['away']
 
-                home_emoji = team_name_to_emoji(home_team, guild)
-                away_emoji = team_name_to_emoji(away_team, guild)
+                home_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[home_team]
+                away_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[away_team]
                 # final_string += '\n'+date
                 match_string = "Match "+str(match_index)+' : '+match_time+' EST : '
-                teams_string = str(home_emoji)+' **'+home_team+'** VS '+str(away_emoji)+' **'+away_team+'**'
+                teams_string = home_emoji_string+' **'+home_team+'** VS '+away_emoji_string+' **'+away_team+'**'
                 final_string += '\n'+match_string+teams_string
 
                 match_index += 1
