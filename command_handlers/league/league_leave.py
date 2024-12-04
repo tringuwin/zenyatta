@@ -48,11 +48,9 @@ async def league_leave_handler(db, message, client):
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
 
-    guild = await get_guild(client)
-    team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_object['team_name']]
-    team_emoji = guild.get_emoji(team_emoji_id)
+    team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_object['team_name']]
 
-    await league_notifs_channel.send(str(team_emoji)+' User '+message.author.mention+' has left the team "'+team_object['team_name']+'".')
+    await league_notifs_channel.send(team_emoji_string+' User '+message.author.mention+' has left the team "'+team_object['team_name']+'".')
 
     await message.channel.send('You have successfully left the team "'+team_object['team_name']+'"')
     
