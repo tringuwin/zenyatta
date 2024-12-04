@@ -72,11 +72,9 @@ async def league_kick_handler(db, message, client):
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
 
-    guild = await get_guild(client)
-    team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_name]
-    team_emoji = guild.get_emoji(team_emoji_id)
+    team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_name]
 
-    await league_notifs_channel.send(str(team_emoji)+' Team Update for '+team_name+": "+member_to_find.mention+" was kicked by "+message.author.mention)
+    await league_notifs_channel.send(team_emoji_string+' Team Update for '+team_name+": "+member_to_find.mention+" was kicked by "+message.author.mention)
 
     my_team['members'] = final_members
     await update_team_info(client, my_team, db)
