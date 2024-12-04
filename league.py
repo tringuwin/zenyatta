@@ -98,7 +98,6 @@ async def make_team_description(client, team):
     if len(team['allies']) == 0 and len(team['rivals']) == 0:
         return ''
 
-    guild = await get_guild(client)
     final_desc = ''
 
     has_allies = False
@@ -107,9 +106,8 @@ async def make_team_description(client, team):
         has_allies = True
         ally_string = 'Allies:'
         for ally in team['allies']:
-            ally_emoji_id = constants.LEAGUE_TO_EMOJI_ID[ally]
-            ally_emoji = guild.get_emoji(ally_emoji_id)
-            ally_string += ' '+str(ally_emoji)+' '+ally
+            ally_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[ally]
+            ally_string += ' '+ally_emoji_string+' '+ally
 
         final_desc += ally_string
 
@@ -119,9 +117,8 @@ async def make_team_description(client, team):
 
         rival_string = 'Rivals:'
         for rival in team['rivals']:
-            rival_emoji_id = constants.LEAGUE_TO_EMOJI_ID[rival]
-            rival_emoji = guild.get_emoji(rival_emoji_id)
-            rival_string += ' '+str(rival_emoji)+' '+rival
+            rival_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[rival]
+            rival_string += ' '+rival_emoji_string+' '+rival
 
         final_desc += rival_string
     
