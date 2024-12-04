@@ -1,7 +1,6 @@
 
 
 import constants
-from discord_actions import get_guild
 from helpers import get_constant_value
 
 
@@ -25,8 +24,6 @@ async def schedule_handler(db, message, client):
 
     schedule = db['schedule']
     season_schedule = schedule.find_one({'season': league_season})
-
-    guild = await get_guild(client)
 
     weeks = 0
     week_index = 1

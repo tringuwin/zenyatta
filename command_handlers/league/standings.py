@@ -1,18 +1,15 @@
 
-
-from discord_actions import get_guild
 import constants
 from helpers import get_constant_value
 
 
-def make_div_standings_string(div_teams, div_num, guild):
+def make_div_standings_string(div_teams, div_num):
 
     div_string = '**DIVISION '+str(div_num)+' STANDINGS:**'
 
     index = 1 
     for team in div_teams:
-        team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team['team_name']]
-        team_emoji = guild.get_emoji(team_emoji_id)
+        team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team['team_name']]
         rank_emoji = '⬜'
         if index == 1:
             rank_emoji = '🟩'
@@ -20,7 +17,7 @@ def make_div_standings_string(div_teams, div_num, guild):
             rank_emoji = '🟦'
         # elif index == 5 and div_num != 4:
         #     rank_emoji = '🟥'
-        div_string += '\n'+rank_emoji+' '+str(index)+'. '+str(team_emoji)+' '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'% | MD: '+str(team['team'][2]) 
+        div_string += '\n'+rank_emoji+' '+str(index)+'. '+team_emoji_string+' '+team['team_name']+' | '+str(team['team'][0])+' W | '+str(team['team'][1])+' L | '+str(team['win_percent'])+'% | MD: '+str(team['team'][2]) 
         index += 1
 
     return div_string
@@ -75,15 +72,14 @@ async def standings_handler_old(db, message, client):
     sorted_teams_2[1] = stored
     # end temp code
     final_string = '**LEAGUE STANDINGS**\n-----------------------'
-    guild = await get_guild(client)
 
-    final_string += '\n'+make_div_standings_string(sorted_teams_1, 1, guild)
+    final_string += '\n'+make_div_standings_string(sorted_teams_1, 1)
     final_string += '\n-----------------------'
-    final_string += '\n'+make_div_standings_string(sorted_teams_2, 2, guild)
+    final_string += '\n'+make_div_standings_string(sorted_teams_2, 2)
     final_string += '\n-----------------------'
-    final_string += '\n'+make_div_standings_string(sorted_teams_3, 3, guild)
+    final_string += '\n'+make_div_standings_string(sorted_teams_3, 3)
     final_string += '\n-----------------------'
-    final_string += '\n'+make_div_standings_string(sorted_teams_4, 4, guild)
+    final_string += '\n'+make_div_standings_string(sorted_teams_4, 4)
 
     final_string += '\n-----------------------'
     final_string += '\nTeams ranked 1-3 will make it to the playoffs.'
