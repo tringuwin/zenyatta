@@ -43,9 +43,8 @@ async def my_bets_handler(db, message, client):
         payout_rate = get_team_payout_rate(my_total, other_total)
         payout = math.floor(payout_rate * float(bet['tokens']))
 
-        team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[bet['team']]
-        team_emoji = guild.get_emoji(team_emoji_id)
-        bet_string += str(team_emoji)+' '+bet['team']+' | 🪙 '+str(bet['tokens'])+' | Potential Payout: 🪙 '+str(payout)
+        team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[bet['team']]
+        bet_string += team_emoji_string+' '+bet['team']+' | 🪙 '+str(bet['tokens'])+' | Potential Payout: 🪙 '+str(payout)
 
         final_string += bet_string
 
