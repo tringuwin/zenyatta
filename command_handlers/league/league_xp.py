@@ -12,14 +12,10 @@ async def general_league_xp(db, message, client, start_string, constant_name):
 
     final_string = start_string
 
-    guild = client.get_guild(constants.GUILD_ID)
-
-
     index = 1
     for team, xp in sorted_list:
-        team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team]
-        team_emoji = guild.get_emoji(team_emoji_id)
-        final_string += '\n' + str(index)+'. '+str(team_emoji)+' '+team+': '+str(xp)+' XP'
+        team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team]
+        final_string += '\n' + str(index)+'. '+team_emoji_string+' '+team+': '+str(xp)+' XP'
 
         index += 1
 
