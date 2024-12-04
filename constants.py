@@ -1,5 +1,5 @@
 
-VERSION = '1.10.60'
+VERSION = '1.10.61'
 
 EVENT_ROLE = 1153799657416310957
 GUILD_ID = 1130553449491210442
@@ -166,6 +166,33 @@ LEAGUE_TO_EMOJI_ID = {
     'Deadlock': 1298375893839773818,
     'Horizon': 1305322090513301564,
     'Monarchs': 1305323035611631616,
+}
+
+TEAM_NAME_TO_EMOJI_EMBED_STRING = {
+    'Olympians': '<:olympians:1174062447779385464>',
+    'Polar': '<:polar:1173786406238298242>',
+    'Eclipse': '<:eclipse:1174517640987938926>',
+    'Saviors': '<:saviors:1176588866828914748>',
+    'Ragu': '<:ragu:1179505864294539324>',
+    'Instigators': '<:instigators:1236040112798830763>',
+    'Guardians': '<:guardians:1200148962443800616>',
+    'Fresas': '<:fresas:1200202833170026669>',
+    'Outliers': '<:outliers:1200928308922167357>',
+    'Phoenix': '<:phoenix:1200926320767545484>',
+    'Saturn': '<:saturn:1236025870460780654>',
+    'Celestials': '<:celestials:1241135985258135573>',
+    'Misfits': '<:misfits:1237197162354446336>',
+    'Evergreen': '<:evergreen:1241087086207959040>',
+    'Hunters': '<:hunters:1245542818731134976>',
+    'Diamonds': '<:diamonds:1280213177782501437>',
+    'Phantoms': '<:phantoms:1274435777559789690>',
+    'Angels': '<:angels:1270065321226801233>',
+    'Legion': '<:legion:1279173590218182666>',
+    'Sentinels': '<:sentinels:1278802858338291753>',
+    'Lotus': '<:lotus:1298683346314072234>',
+    'Deadlock': '<:deadlock:1298375893839773818>',
+    'Horizon': '<:horizon:1305322090513301564>',
+    'Monarchs': '<:monarchs:1305323035611631616>',
 }
 
 LEVEL_ROLE_IDS = [
