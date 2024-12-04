@@ -1,5 +1,4 @@
 from common_messages import invalid_number_of_params
-from discord_actions import get_guild
 from helpers import valid_number_of_params
 from league import update_team_info, validate_admin
 import constants
@@ -47,13 +46,10 @@ async def del_rival_handler(db, message, client):
     # league notifs message
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
 
-    guild = await get_guild(client)
-    my_team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_name]
-    my_team_emoji = guild.get_emoji(my_team_emoji_id)
-    other_team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[other_team_obj['team_name']]
-    other_team_emoji = guild.get_emoji(other_team_emoji_id)
+    my_team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_name]
+    other_team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[other_team_obj['team_name']]
     
-    await league_notifs_channel.send(str(my_team_emoji)+' '+team_name+' and '+str(other_team_emoji)+' '+other_team_obj['team_name']+' are no longer Rivals.')
+    await league_notifs_channel.send(my_team_emoji_string+' '+team_name+' and '+other_team_emoji_string+' '+other_team_obj['team_name']+' are no longer Rivals.')
 
     # confirmation message
     await message.channel.send(team_name+' and '+other_team_obj['team_name']+' are no longer Rivals.')
