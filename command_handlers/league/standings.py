@@ -125,7 +125,7 @@ async def standings_main(db, message, client, top):
 
     for team in teams_to_log:
 
-        team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING(team['team_name'])
+        team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team['team_name']]
 
         map_string = str(team['map_wins'])+' MW | '+str(team['map_losses'])+' ML | '
         e_sub_string = str(team['esubs'])+' ES'
