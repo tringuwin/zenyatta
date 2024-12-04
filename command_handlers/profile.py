@@ -121,21 +121,18 @@ async def profile_handler(db, message, client):
 
     league_team_string = league_team
     if league_team in constants.EMOJI_TEAMS:
-        team_emoji_id = constants.LEAGUE_TO_EMOJI_ID[league_team]
-        team_emoji = guild.get_emoji(team_emoji_id)
-        league_team_string = str(team_emoji)+' '+league_team_string
+        team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[league_team]
+        league_team_string = team_emoji_string+' '+league_team_string
 
     fan_of_string = fan_of
     if fan_of in constants.EMOJI_TEAMS:
-        fan_emoji_id = constants.LEAGUE_TO_EMOJI_ID[fan_of]
-        fan_emoji = guild.get_emoji(fan_emoji_id)
-        fan_of_string = str(fan_emoji)+' '+fan_of_string
+        fan_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[fan_of]
+        fan_of_string = fan_emoji_string+' '+fan_of_string
 
     rival_of_string = rival_of
     if rival_of in constants.EMOJI_TEAMS:
-        rival_emoji_id = constants.LEAGUE_TO_EMOJI_ID[rival_of]
-        rival_emoji = guild.get_emoji(rival_emoji_id)
-        rival_of_string = str(rival_emoji)+' '+rival_of_string
+        rival_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[rival_of]
+        rival_of_string = rival_emoji_string+' '+rival_of_string
         
     final_string += 'League Team: **'+league_team_string+"**\n"
     final_string += 'Fan of Team: **'+fan_of_string+'**\n'
