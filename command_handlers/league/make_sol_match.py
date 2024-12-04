@@ -4,7 +4,6 @@ import pytz
 import constants
 from command_handlers.bets.new_bet import new_bet
 from common_messages import invalid_number_of_params
-from discord_actions import get_guild
 from helpers import get_constant_value, valid_number_of_params
 
 
@@ -168,13 +167,10 @@ async def make_sol_match(client, db, message):
 
     schedules.update_one({'season': league_season}, {'$set': {'weeks': league_schedule['weeks']}})
 
-    guild = await get_guild(client)
-    team_1_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_1_name]
-    team_1_emoji = guild.get_emoji(team_1_emoji_id)
-    team_2_emoji_id = constants.LEAGUE_TO_EMOJI_ID[team_2_name]
-    team_2_emoji = guild.get_emoji(team_2_emoji_id)
+    team_1_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_1_name]
+    team_2_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_2_name]
 
-    bet_title = 'WEEK '+str(week_num)+' : '+match_weekday.upper()+' : '+str(team_1_emoji)+' '+team_1_name+' VS '+str(team_2_emoji)+' '+team_2_name
+    bet_title = 'WEEK '+str(week_num)+' : '+match_weekday.upper()+' : '+team_1_emoji_string+' '+team_1_name+' VS '+team_2_emoji_string+' '+team_2_name
     match_day_numbers = day_data['day_data']
     timestamp_of_match = calculate_tick_of_match(match_day_numbers['year'], match_day_numbers['month'], match_day_numbers['day'], match_start_est)
     await new_bet(client, db, bet_title, team_1_name, team_2_name, False, timestamp_of_match)
