@@ -196,6 +196,13 @@ def get_sub_lootboxes(user):
     else:
         return 0
     
+def get_subcount(user):
+
+    if 'subcount' in user:
+        return user['subcount']
+    else:
+        return 0
+    
 def get_last_sub_box(user):
 
     if 'last_sub_box' in user:
