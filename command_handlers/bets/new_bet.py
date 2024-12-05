@@ -169,7 +169,7 @@ async def check_open_bets(db, message):
     bet_ids_to_close = []
 
     for bet in all_bets:
-        if ('timestamp' in bet) and bet['timestamp'] < current_time:
+        if (bet['open']) and ('timestamp' in bet) and bet['timestamp'] < current_time:
             bet_ids_to_close.append(bet['bet_id'])
 
     bets_closed = len(bet_ids_to_close)
