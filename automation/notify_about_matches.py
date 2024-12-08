@@ -1,8 +1,8 @@
 from datetime import datetime
 import pytz
-from discord_actions import get_role_by_id
+from discord_actions import get_guild, get_role_by_id
 from helpers import get_constant_value
-
+import constants
 
 def get_current_time_est():
     # Define the EST timezone
@@ -74,7 +74,11 @@ async def notify_team_owners(client, db, day):
     final_team_owners_message += '\n\n'
     final_team_owners_message += 'This is an automated message to remind you to make sure you have set the lineup for your team for your match today.'
     final_team_owners_message += '\nTo do this, please go to this channel: https://discord.com/channels/1130553449491210442/1130553489106411591 and use the command **!setlineup** and follow the instructions that command gives.'
+    final_team_owners_message += '\n\nGood luck in your match!'
 
+    guild = await get_guild(client)
+    team_owners_channel = guild.get_channel(constants.TEAM_OWNERS_CHANNEL)
+    await team_owners_channel.send(final_team_owners_message)
 
 
 async def check_notify_about_matches(client, db, message):
@@ -95,20 +99,23 @@ async def check_notify_about_matches(client, db, message):
         return
 
     year, month, day, hour = get_current_time_est()
+    if hour < 12:
+        await message.channel.send('Not past noon yet.')
+        return
+
     schedule_day, day_index = get_schedule_day(schedule_week, year, month, day)
     if not schedule_day:
         await message.channel.send('Could not find today in the schedule for this week.')
         return
     
-    if day['notified_about_matches']:
+    if schedule_day['notified_about_matches']:
         await message.channel.send('Already notified about the matches today.')
         return
-    
 
-    if len(day['matches']) > 0:
+    if len(schedule_day['matches']) > 0:
         pass
         # Notify team owners here
-        #await notify_team_owners(client, db, day)
+        #await notify_team_owners(client, db, schedule_day)
         # Notify league accouncements here
     await message.channel.send('This is an example notification of the matches today')
 
