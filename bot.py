@@ -2278,7 +2278,7 @@ async def handle_message(message, db, client):
 
         await check_open_bets(db, message)
 
-        await check_notify_about_matches(db, message)
+        await check_notify_about_matches(client, db, message)
 
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')

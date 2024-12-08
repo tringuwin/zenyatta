@@ -1,5 +1,6 @@
 from datetime import datetime
 import pytz
+from discord_actions import get_role_by_id
 from helpers import get_constant_value
 
 
@@ -35,7 +36,7 @@ def get_schedule_week(season_schedule, league_week):
 def get_schedule_day(schedule_week, year, month, day):
 
     day_index = 0
-    for day in schedule_week:
+    for day in schedule_week['days']:
 
         day_data = day['day_data']
         if day_data['year'] == year and day_data['month'] == month and day_data['year']:
@@ -57,14 +58,26 @@ def get_teams_playing_today(day):
 
     return teams_playing_today
 
-async def notify_team_owners(day):
+async def notify_team_owners(client, db, day):
 
     teams_playing_today = get_teams_playing_today(day)
 
     final_team_owners_message = ''
+    league_teams = db['leagueteams']
+
+    for team_name in teams_playing_today:
+        team_object = league_teams.find_one({'team_name': team_name})
+        team_role_id = team_object['team_role_id']
+        team_role = await get_role_by_id(client, team_role_id)
+        final_team_owners_message += team_role.mention+' '
+
+    final_team_owners_message += '\n\n'
+    final_team_owners_message += 'This is an automated message to remind you to make sure you have set the lineup for your team for your match today.'
+    final_team_owners_message += '\nTo do this, please go to this channel: https://discord.com/channels/1130553449491210442/1130553489106411591 and use the command **!setlineup** and follow the instructions that command gives.'
 
 
-async def check_notify_about_matches(db, message):
+
+async def check_notify_about_matches(client, db, message):
 
     league_season = get_constant_value(db, 'league_season')
     league_week = get_constant_value(db, 'league_week')
@@ -95,7 +108,7 @@ async def check_notify_about_matches(db, message):
     if len(day['matches']) > 0:
         pass
         # Notify team owners here
-        #await notify_team_owners(day)
+        #await notify_team_owners(client, db, day)
         # Notify league accouncements here
     await message.channel.send('This is an example notification of the matches today')
 
