@@ -74,6 +74,7 @@ from command_handlers.help.help_poke import help_poke_handler
 from command_handlers.helper_salary import helper_salary_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
+from command_handlers.league.weekly_roster_reset import weekly_roster_reset
 from command_handlers.league.sol_weekly_pay import sol_weekly_pay
 from command_handlers.league.init_standings import init_standings
 from command_handlers.league.make_sol_match import make_sol_match
@@ -605,8 +606,11 @@ async def handle_message(message, db, client):
     elif lower_message == '!standings2':
         await standings2_handler(db, message, client)
 
-    elif lower_message == '!solweeklypay':
+    elif lower_message == '!solweeklypay' and is_admin:
         await sol_weekly_pay(db, message)
+
+    elif lower_message == '!weeklyrosterreset' and is_admin:
+        await weekly_roster_reset(db, message)
 
     elif lower_message == '!powerrankings':
         await power_rankings_handler(message, client)
