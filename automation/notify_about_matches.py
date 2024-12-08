@@ -119,6 +119,8 @@ async def check_notify_about_matches(client, db, message):
         # Notify league accouncements here
     await message.channel.send('This is an example notification of the matches today')
 
+    print('notify day is')
+    print(season_schedule['weeks'][league_week-1]['days'][day_index])
     season_schedule['weeks'][league_week-1]['days'][day_index]['notified_about_matches'] = True
     schedule_db.update_one({'season': league_season}, {'&set': {'weeks': season_schedule['weeks']}})
 
