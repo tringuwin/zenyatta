@@ -21,7 +21,7 @@ def get_current_time_est():
 
 def get_season_schedule(schedule_db, league_season):
 
-    return schedule_db.find({'season': league_season})
+    return schedule_db.find_one({'season': league_season})
     
 
 def get_schedule_week(season_schedule, league_week):
@@ -45,6 +45,23 @@ def get_schedule_day(schedule_week, year, month, day):
 
     return None, 0
 
+
+def get_teams_playing_today(day):
+
+    teams_playing_today = []
+    matches = day['matches']
+
+    for match in matches:
+        teams_playing_today.append(match['home'])
+        teams_playing_today.append(match['away'])
+
+    return teams_playing_today
+
+async def notify_team_owners(day):
+
+    teams_playing_today = get_teams_playing_today(day)
+
+    final_team_owners_message = ''
 
 
 async def check_notify_about_matches(db, message):
@@ -74,8 +91,12 @@ async def check_notify_about_matches(db, message):
         await message.channel.send('Already notified about the matches today.')
         return
     
-    # Notify team owners here
-    # Notify league accouncements here
+
+    if len(day['matches']) > 0:
+        pass
+        # Notify team owners here
+        #await notify_team_owners(day)
+        # Notify league accouncements here
     await message.channel.send('This is an example notification of the matches today')
 
     season_schedule['weeks'][league_week-1]['days'][day_index]['notified_about_matches'] = True
