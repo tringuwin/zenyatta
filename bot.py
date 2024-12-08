@@ -32,6 +32,7 @@ from admin_handlers.set_level import set_level_handler
 from admin_handlers.sub_rewards import gift_rewards_handler, sub_rewards_handler
 from admin_handlers.total_league import total_league_handler
 from auction import check_auction
+from automation.notify_about_matches import check_notify_about_matches
 from card_automation import make_all_cards_from_data
 from card_matches.card_match_utils import make_match_card
 from cards import buy_card_handler, cards_handler, edit_card_handler, give_card_handler, init_card_handler, init_custom_handler, list_card_handler, make_card_handler, open_pack_handler, sell_all_cards_handler, sell_card_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
@@ -2276,6 +2277,8 @@ async def handle_message(message, db, client):
         await check_lineup_tokens(db, message)
 
         await check_open_bets(db, message)
+
+        await check_notify_about_matches(db, message)
 
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
