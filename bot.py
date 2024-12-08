@@ -2429,14 +2429,14 @@ def run_discord_bot(db):
                 role = guild.get_role(constants.HERO_MESSAGE_TO_ROLE[message_id])
                 await remove_role(member, role, 'Raw Reaction Remove')
 
-        elif channel_id == constants.STATE_CUP_CHANNEL:
-            for state_name in constants.STATE_INFO:
-                state_info = constants.STATE_INFO[state_name]
-                if state_info['react_msg'] == message_id:
-                    state_role = guild.get_role(state_info['role'])
-                    member = get_member(guild, user_id, 'Raw Reaction Remove')
-                    await remove_role(member, state_role, 'Raw Reaction Remove')
-                    break
+        # elif channel_id == constants.STATE_CUP_CHANNEL:
+        #     for state_name in constants.STATE_INFO:
+        #         state_info = constants.STATE_INFO[state_name]
+        #         if state_info['react_msg'] == message_id:
+        #             state_role = guild.get_role(state_info['role'])
+        #             member = get_member(guild, user_id, 'Raw Reaction Remove')
+        #             await remove_role(member, state_role, 'Raw Reaction Remove')
+        #             break
 
     @client.event
     async def on_member_join(member):
