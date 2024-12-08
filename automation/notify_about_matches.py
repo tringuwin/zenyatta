@@ -39,7 +39,7 @@ def get_schedule_day(schedule_week, year, month, day):
     for day in schedule_week['days']:
 
         day_data = day['day_data']
-        if day_data['year'] == year and day_data['month'] == month and day_data['year']:
+        if day_data['year'] == year and day_data['month'] == month and day_data['day'] == day:
             return day, day_index
 
         day_index += 1
