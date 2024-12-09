@@ -10,7 +10,7 @@ async def weekly_roster_reset(db, message):
 
         for role_name in team_lineup:
             team_lineup[role_name]['user_id'] = 0
-            league_teams.update_one({'team_name': team['team_name']}, {'$set', {'lineup': team_lineup}})
+            league_teams.update_one({'team_name': team['team_name']}, {'$set': {'lineup': team_lineup}})
 
     await message.channel.send('Reset lineups for all league teams')
 
