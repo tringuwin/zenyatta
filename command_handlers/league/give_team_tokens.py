@@ -36,7 +36,7 @@ async def give_team_tokens(message, db, team_name, tokens_to_give):
             await message.channel.send('Critical error. No TPP set and team owner not found. No tokens sent.')
             return
         
-        change_tokens(db, owner_user, tokens_to_give, 'sol-match-tokens')
+        await change_tokens(db, owner_user, tokens_to_give, 'sol-match-tokens')
         await message.channel.send('Tokens sent to the team owner.')
 
     else:
