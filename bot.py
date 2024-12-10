@@ -54,6 +54,7 @@ from command_handlers.bracket import bracket_handler
 from command_handlers.buy_ticket import buy_ticket_handler
 from command_handlers.deny_gem_trade import deny_gem_trade_handler
 from command_handlers.donate import donate_handler
+from command_handlers.donate_packs import donate_packs
 from command_handlers.donate_pass import donate_pass_handler
 from command_handlers.funding import funding_handler
 from command_handlers.gems import gems_handler
@@ -558,6 +559,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!donate '):
         await donate_handler(db, message)
+
+    elif lower_message.startswith('!donatepacks '):
+        await donate_packs(db, message)
 
     elif lower_message.startswith('!donatepass'):
         await donate_pass_handler(db, message)
