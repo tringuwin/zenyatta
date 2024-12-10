@@ -27,6 +27,7 @@ async def schedule_handler(db, message, client):
 
     weeks = 0
     week_index = 1
+    total_matches_added = 0
     for week in season_schedule['weeks']:
 
         if week_index < league_week:
@@ -57,11 +58,15 @@ async def schedule_handler(db, message, client):
                 final_string += '\n'+match_string+teams_string
 
                 match_index += 1
+                total_matches_added += 1
 
         week_index += 1
         weeks += 1
         if weeks == 1:
             break
+
+    if total_matches_added == 0:
+        final_string += '\n\nLooks like the matches for this week have not been added yet. They usually appear on Wednesday. Check back soon!'
 
     final_string += '\n\nSee the full Schedule here: https://spicyragu.netlify.app/sol/schedule'
 
