@@ -52,6 +52,6 @@ async def donate_packs(db, message):
         await message.channel.send("Thank you! But I don't need any packs!")
         return
     
-    await change_packs(db, user, -1*int_packs, 'donate')
-    await change_packs(db, donate_to_user, int_packs, 'donate')
+    await change_packs(db, user, -1*int_packs)
+    await change_packs(db, donate_to_user, int_packs)
     await message.channel.send('Donation successful!')
