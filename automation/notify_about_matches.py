@@ -35,10 +35,16 @@ def get_schedule_week(season_schedule, league_week):
 
 def get_schedule_day(schedule_week, year, month, day):
 
-    day_index = 0
-    for day in schedule_week['days']:
+    print('year '+str(year))
+    print('month '+str(month))
+    print('day '+str(day))
 
-        day_data = day['day_data']
+    day_index = 0
+    for schedule_day in schedule_week['days']:
+
+        day_data = schedule_day['day_data']
+        print('day '+str(schedule_day))
+        print(day_data)
         if day_data['year'] == year and day_data['month'] == month and day_data['day'] == day:
             return day, day_index
 
