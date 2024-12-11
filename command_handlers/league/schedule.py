@@ -1,7 +1,7 @@
 
 
 import constants
-from helpers import get_constant_value
+from helpers import get_constant_value, get_league_emoji_from_team_name
 
 
 async def schedule_handler(db, message, client):
@@ -50,8 +50,8 @@ async def schedule_handler(db, message, client):
                 home_team = match['home']
                 away_team = match['away']
 
-                home_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[home_team]
-                away_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[away_team]
+                home_emoji_string = get_league_emoji_from_team_name(home_team)
+                away_emoji_string = get_league_emoji_from_team_name(away_team)
                 # final_string += '\n'+date
                 match_string = "Match "+str(match_index)+' : '+match_time+' EST : '
                 teams_string = home_emoji_string+' **'+home_team+'** VS '+away_emoji_string+' **'+away_team+'**'

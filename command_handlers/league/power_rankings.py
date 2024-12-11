@@ -1,5 +1,6 @@
 import constants
 from discord_actions import get_guild
+from helpers import get_league_emoji_from_team_name
 
 POWER_RANKINGS = [
 
@@ -44,7 +45,7 @@ async def power_rankings_handler(message, client):
     team_index = 1
     for team in POWER_RANKINGS:
 
-        emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team]
+        emoji_string = get_league_emoji_from_team_name(team)
 
         final_string += '\n'+str(team_index)+'. '+emoji_string+' '+team
 

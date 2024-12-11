@@ -1,6 +1,7 @@
 
 from api import give_role
 from discord_actions import get_guild, get_role_by_id
+from helpers import get_league_emoji_from_team_name
 from league import update_team_info
 from user import get_league_team, user_exists
 import constants
@@ -56,7 +57,7 @@ async def force_league_add_handler(db, message, client):
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
 
-    team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_name_to_join]
+    team_emoji_string = get_league_emoji_from_team_name(team_name_to_join)
 
     await league_notifs_channel.send(team_emoji_string+' User '+mentioned_user.mention+' has joined the team "'+team_name_to_join+'".')
     await message.channel.send('Added user to league team.')

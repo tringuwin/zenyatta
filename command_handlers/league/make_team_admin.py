@@ -1,4 +1,5 @@
 
+from helpers import get_league_emoji_from_team_name
 from league import update_team_info, user_admin_on_team, validate_admin
 from user import get_league_team, user_exists
 import constants
@@ -47,7 +48,7 @@ async def make_team_admin_handler(db, message, client):
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
 
-    team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_name]
+    team_emoji_string = get_league_emoji_from_team_name(team_name)
 
     await league_notifs_channel.send(team_emoji_string+' Team Update for '+team_name+": "+mentioned_member.mention+" is now a team admin.")
 

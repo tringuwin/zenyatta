@@ -1,7 +1,7 @@
 
 
 from common_messages import invalid_number_of_params
-from helpers import valid_number_of_params
+from helpers import get_league_emoji_from_team_name, valid_number_of_params
 from league import update_team_info, validate_admin
 import constants
 
@@ -48,8 +48,8 @@ async def del_ally_handler(db, message, client):
     # league notifs message
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
 
-    my_team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_name]
-    other_team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[other_team_obj['team_name']]
+    my_team_emoji_string = get_league_emoji_from_team_name(team_name)
+    other_team_emoji_string = get_league_emoji_from_team_name(other_team_obj['team_name'])
     
     await league_notifs_channel.send(my_team_emoji_string+' '+team_name+' and '+other_team_emoji_string+' '+other_team_obj['team_name']+' are no longer Allies.')
 

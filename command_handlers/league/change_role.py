@@ -1,7 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from discord_actions import get_guild, get_member_by_username
-from helpers import generic_find_user, make_string_from_word_list
+from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
 from league import update_team_info, validate_admin
 import constants
 from user import user_exists
@@ -58,7 +58,7 @@ async def change_role_handler(db, message, client):
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
 
-    team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_name]
+    team_emoji_string = get_league_emoji_from_team_name(team_name)
 
     if mentioned_member:
         await league_notifs_channel.send(team_emoji_string+' Team Update for '+team_name+": "+mentioned_member.mention+"'s role has been changed to "+new_role)

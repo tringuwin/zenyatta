@@ -3,6 +3,7 @@
 from api import remove_role
 from common_messages import not_registered_response
 from discord_actions import get_guild, get_role_by_id
+from helpers import get_league_emoji_from_team_name
 from league import update_team_info
 from user import get_league_team, user_exists
 import constants
@@ -48,7 +49,7 @@ async def league_leave_handler(db, message, client):
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
 
-    team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_object['team_name']]
+    team_emoji_string = get_league_emoji_from_team_name(team_object['team_name'])
 
     await league_notifs_channel.send(team_emoji_string+' User '+message.author.mention+' has left the team "'+team_object['team_name']+'".')
 

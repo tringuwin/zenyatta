@@ -5,6 +5,7 @@ from discord_actions import get_guild
 import constants
 import discord
 
+from helpers import get_league_emoji_from_team_name
 from league import get_team_color_by_name, get_team_record_string
 
 
@@ -15,8 +16,8 @@ async def new_bet(client, db, title, team_1_name, team_2_name, uses_home_away, t
 
     title_msg = await bet_channel.send('**'+title+'**')
 
-    team_1_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_1_name]
-    team_2_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_2_name]
+    team_1_emoji_string = get_league_emoji_from_team_name(team_1_name)
+    team_2_emoji_string = get_league_emoji_from_team_name(team_2_name)
 
     team_1_title = 'HOME TEAM: ' if uses_home_away else 'TEAM 1: '
     team_2_title = 'AWAY TEAM: ' if uses_home_away else 'TEAM 2: '
@@ -128,11 +129,11 @@ async def update_bets(db, channel, client):
     for bet in all_bets:
 
         team_1_name = bet['team_1']
-        team_1_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_1_name]
+        team_1_emoji_string = get_league_emoji_from_team_name(team_1_name)
         team_1_total = total_tokens_on_team(bet['team_1_betters'])
 
         team_2_name = bet['team_2']
-        team_2_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_2_name]
+        team_2_emoji_string = get_league_emoji_from_team_name(team_2_name)
         team_2_total = total_tokens_on_team(bet['team_2_betters'])
 
         uses_home_away = bet['uses_home_away']

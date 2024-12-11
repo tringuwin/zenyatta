@@ -3,7 +3,7 @@
 from api import give_role
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild, get_role_by_id
-from helpers import make_string_from_word_list
+from helpers import get_league_emoji_from_team_name, make_string_from_word_list
 from league import remove_league_invite, update_team_info
 from user import get_league_invites, get_league_team, get_user_div, get_user_team_swaps, user_exists
 import constants
@@ -131,7 +131,7 @@ async def league_accept_handler(db, message, client):
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
 
-    team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[real_team_name]
+    team_emoji_string = get_league_emoji_from_team_name(real_team_name)
     
     await league_notifs_channel.send(team_emoji_string+' User '+message.author.mention+' has joined the team "'+real_team_name+'".')
     # if div_joined != 0:

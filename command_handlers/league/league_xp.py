@@ -1,5 +1,5 @@
 import constants
-from helpers import get_constant_value, set_constant_value
+from helpers import get_constant_value, get_league_emoji_from_team_name, set_constant_value
 
 
 async def general_league_xp(db, message, client, start_string, constant_name):
@@ -14,7 +14,7 @@ async def general_league_xp(db, message, client, start_string, constant_name):
 
     index = 1
     for team, xp in sorted_list:
-        team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team]
+        team_emoji_string = get_league_emoji_from_team_name(team)
         final_string += '\n' + str(index)+'. '+team_emoji_string+' '+team+': '+str(xp)+' XP'
 
         index += 1

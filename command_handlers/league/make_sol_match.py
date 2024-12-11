@@ -4,7 +4,7 @@ import pytz
 import constants
 from command_handlers.bets.new_bet import new_bet
 from common_messages import invalid_number_of_params
-from helpers import get_constant_value, valid_number_of_params
+from helpers import get_constant_value, get_league_emoji_from_team_name, valid_number_of_params
 
 
 TIMESLOT_TO_INFO = {
@@ -167,8 +167,8 @@ async def make_sol_match(client, db, message):
 
     schedules.update_one({'season': league_season}, {'$set': {'weeks': league_schedule['weeks']}})
 
-    team_1_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_1_name]
-    team_2_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_2_name]
+    team_1_emoji_string = get_league_emoji_from_team_name(team_1_name)
+    team_2_emoji_string = get_league_emoji_from_team_name(team_2_name)
 
     bet_title = 'WEEK '+str(week_num)+' : '+match_weekday.upper()+' : '+team_1_emoji_string+' '+team_1_name+' VS '+team_2_emoji_string+' '+team_2_name
     match_day_numbers = day_data['day_data']

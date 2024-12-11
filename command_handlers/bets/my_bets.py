@@ -3,6 +3,7 @@
 from command_handlers.bets.new_bet import get_team_payout_rate, total_tokens_on_team
 from common_messages import not_registered_response
 from discord_actions import get_guild
+from helpers import get_league_emoji_from_team_name
 from user import get_user_bets, user_exists
 import constants
 import math
@@ -43,7 +44,7 @@ async def my_bets_handler(db, message, client):
         payout_rate = get_team_payout_rate(my_total, other_total)
         payout = math.floor(payout_rate * float(bet['tokens']))
 
-        team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[bet['team']]
+        team_emoji_string = get_league_emoji_from_team_name(bet['team'])
         bet_string += team_emoji_string+' '+bet['team']+' | 🪙 '+str(bet['tokens'])+' | Potential Payout: 🪙 '+str(payout)
 
         final_string += bet_string

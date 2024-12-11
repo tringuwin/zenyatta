@@ -1,6 +1,6 @@
 
 import constants
-from helpers import get_constant_value
+from helpers import get_constant_value, get_league_emoji_from_team_name
 
 
 def make_div_standings_string(div_teams, div_num):
@@ -9,7 +9,7 @@ def make_div_standings_string(div_teams, div_num):
 
     index = 1 
     for team in div_teams:
-        team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team['team_name']]
+        team_emoji_string = get_league_emoji_from_team_name(team['team_name'])
         rank_emoji = '⬜'
         if index == 1:
             rank_emoji = '🟩'
@@ -121,7 +121,7 @@ async def standings_main(db, message, client, top):
 
     for team in teams_to_log:
 
-        team_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team['team_name']]
+        team_emoji_string = get_league_emoji_from_team_name(team['team_name'])
 
         map_string = str(team['map_wins'])+' MW | '+str(team['map_losses'])+' ML | '
         e_sub_string = str(team['esubs'])+' ES'

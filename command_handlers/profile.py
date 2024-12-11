@@ -126,12 +126,12 @@ async def profile_handler(db, message, client):
 
     fan_of_string = fan_of
     if fan_of in constants.EMOJI_TEAMS:
-        fan_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[fan_of]
+        fan_emoji_string = get_league_emoji_from_team_name(fan_of)
         fan_of_string = fan_emoji_string+' '+fan_of_string
 
     rival_of_string = rival_of
     if rival_of in constants.EMOJI_TEAMS:
-        rival_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[rival_of]
+        rival_emoji_string = get_league_emoji_from_team_name(rival_of)
         rival_of_string = rival_emoji_string+' '+rival_of_string
         
     final_string += 'League Team: **'+league_team_string+"**\n"

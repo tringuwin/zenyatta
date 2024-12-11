@@ -1,7 +1,7 @@
 
 import constants
 from discord_actions import get_guild
-from helpers import get_constant_value
+from helpers import get_constant_value, get_league_emoji_from_team_name
 from user import get_league_invites, get_league_team, user_exists
 import discord
 
@@ -106,7 +106,7 @@ async def make_team_description(client, team):
         has_allies = True
         ally_string = 'Allies:'
         for ally in team['allies']:
-            ally_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[ally]
+            ally_emoji_string = get_league_emoji_from_team_name(ally)
             ally_string += ' '+ally_emoji_string+' '+ally
 
         final_desc += ally_string
@@ -117,7 +117,7 @@ async def make_team_description(client, team):
 
         rival_string = 'Rivals:'
         for rival in team['rivals']:
-            rival_emoji_string = constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[rival]
+            rival_emoji_string = get_league_emoji_from_team_name(rival)
             rival_string += ' '+rival_emoji_string+' '+rival
 
         final_desc += rival_string
