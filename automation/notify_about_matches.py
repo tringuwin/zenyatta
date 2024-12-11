@@ -83,7 +83,7 @@ async def notify_team_owners(client, db, day):
     final_team_owners_message += '\n\nGood luck in your match!'
 
     guild = await get_guild(client)
-    team_owners_channel = guild.get_channel(constants.TEAM_OWNERS_CHANNEL)
+    team_owners_channel = guild.get_channel(constants.ADMIN_COMMAND_CHANNEL) #guild.get_channel(constants.TEAM_OWNERS_CHANNEL)
     await team_owners_channel.send(final_team_owners_message)
 
 
@@ -121,11 +121,11 @@ async def check_notify_about_matches(client, db, message):
         return
 
     if len(schedule_day['matches']) > 0:
-        pass
         # Notify team owners here
-        #await notify_team_owners(client, db, schedule_day)
+        await notify_team_owners(client, db, schedule_day)
         # Notify league accouncements here
-    await message.channel.send('This is an example notification of the matches today')
+    else:
+        await message.channel.send('There are no matches today to notify about.')
 
     season_schedule['weeks'][league_week-1]['days'][day_index]['notified_about_matches'] = True
     schedule_db.update_one({'season': league_season}, {'$set': {'weeks': season_schedule['weeks']}})
