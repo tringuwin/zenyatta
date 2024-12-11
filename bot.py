@@ -2216,6 +2216,10 @@ async def handle_message(message, db, client):
         }
         test2 = test['test2']
 
+    elif lower_message == '!getpfplink' and is_admin:
+
+        await message.channel.send(message.author.avatar.url)
+
     elif lower_message == '!makereactionroles' and is_admin:
 
         reaction_roles = [
