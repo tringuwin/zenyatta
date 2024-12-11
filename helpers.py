@@ -1,6 +1,7 @@
 
 from discord_actions import get_member_by_username
 from user import twitch_user_exists, user_exists
+import constants
 
 def valid_number_of_params(message, num_params):
     
@@ -100,4 +101,10 @@ def update_token_tracker(db, source, num):
     set_constant_value(db, 'token_tracker', token_tracker)
 
 
+def get_league_emoji_from_team_name(team_name):
+
+    if team_name in constants.TEAM_NAME_TO_EMOJI_EMBED_STRING:
+        return constants.TEAM_NAME_TO_EMOJI_EMBED_STRING[team_name]
+    
+    return constants.DEFAULT_TEAM_EMOJI
 
