@@ -79,7 +79,7 @@ async def notify_team_owners(client, db, day):
 
     final_team_owners_message += '\n\n'
     final_team_owners_message += 'This is an automated message to remind you to make sure you have set the lineup for your team for your match today.'
-    final_team_owners_message += '\nTo do this, please go to this channel: https://discord.com/channels/1130553449491210442/1130553489106411591 and use the command **!setlineup** and follow the instructions that command gives.'
+    final_team_owners_message += '\n\nTo do this, please go to this channel: https://discord.com/channels/1130553449491210442/1130553489106411591 and use the command **!setlineup** and follow the instructions that command gives.'
     final_team_owners_message += '\n\nGood luck in your match!'
 
     guild = await get_guild(client)
