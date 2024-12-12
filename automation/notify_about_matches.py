@@ -83,7 +83,7 @@ async def notify_team_owners(client, db, day):
     final_team_owners_message += '\n\nGood luck in your match!'
 
     guild = await get_guild(client)
-    team_owners_channel = guild.get_channel(constants.ADMIN_COMMAND_CHANNEL) #guild.get_channel(constants.TEAM_OWNERS_CHANNEL)
+    team_owners_channel = guild.get_channel(constants.TEAM_OWNERS_CHANNEL)
     await team_owners_channel.send(final_team_owners_message)
 
 
@@ -104,8 +104,8 @@ async def notify_league_announcements(client, day):
     final_string += "\n\n*Tune in on twitch to watch these matches live! We'll also be giving away raffles for viewers!*"
 
     guild = await get_guild(client)
-    team_owners_channel = guild.get_channel(constants.ADMIN_COMMAND_CHANNEL) #replace with league notifs channel
-    await team_owners_channel.send(final_string)
+    announcements_channel = guild.get_channel(constants.ANNOUNCEMENTS_CHANNEL_ID)
+    await announcements_channel.send(final_string)
 
 
 
