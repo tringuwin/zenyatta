@@ -87,6 +87,11 @@ async def notify_team_owners(client, db, day):
     await team_owners_channel.send(final_team_owners_message)
 
 
+async def notify_league_announcements(client, db, day):
+
+    pass
+
+
 async def check_notify_about_matches(client, db, message):
 
     league_season = get_constant_value(db, 'league_season')
@@ -124,6 +129,7 @@ async def check_notify_about_matches(client, db, message):
         # Notify team owners here
         await notify_team_owners(client, db, schedule_day)
         # Notify league accouncements here
+        await notify_league_announcements(client, db, schedule_day)
     else:
         await message.channel.send('There are no matches today to notify about.')
 
