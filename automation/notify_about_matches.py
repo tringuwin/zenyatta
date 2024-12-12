@@ -101,7 +101,8 @@ async def notify_league_announcements(client, day):
     final_string = constants.LEAGUE_NOTIFS_MENTION+'\n\n'
     final_string += '**SOL MATCHES TODAY**\n'
     final_string += matches_string
-    final_string += "\n\n*Tune in on twitch to watch these matches live! We'll also be giving away raffles for viewers!*"
+    final_string += "\n\nTune in on twitch to watch these matches live! We'll also be giving away raffles for viewers!"
+    final_string += "\n\nAlso, don't forget to place your token bet here: https://discord.com/channels/1130553449491210442/1248421720721719346"
 
     guild = await get_guild(client)
     announcements_channel = guild.get_channel(constants.ANNOUNCEMENTS_CHANNEL_ID)
