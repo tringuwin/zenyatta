@@ -1,7 +1,7 @@
 from datetime import datetime
 import pytz
 from discord_actions import get_guild, get_role_by_id
-from helpers import get_constant_value
+from helpers import get_constant_value, get_league_emoji_from_team_name
 import constants
 
 def get_current_time_est():
@@ -87,9 +87,26 @@ async def notify_team_owners(client, db, day):
     await team_owners_channel.send(final_team_owners_message)
 
 
-async def notify_league_announcements(client, db, day):
+async def notify_league_announcements(client, day):
 
-    pass
+    matches = day['matches']
+    matches_string = ''
+
+    match_index = 1
+    for match in matches:
+        matches_string += '\nMATCH '+str(match_index)+' | '+match['time']+' EST | '+get_league_emoji_from_team_name(match['home'])+' **'+match['home']+'** VS '+get_league_emoji_from_team_name(match['away'])+' **'+match['away']+'**'
+
+        match_index += 1
+
+    final_string = constants.LEAGUE_NOTIFS_MENTION+'\n\n'
+    final_string += '**SOL MATCHES TODAY**\n'
+    final_string += matches_string
+    final_string += "\n\n*Tune in on twitch to watch these matches live! We'll also be giving away raffles for viewers!*"
+
+    guild = await get_guild(client)
+    team_owners_channel = guild.get_channel(constants.ADMIN_COMMAND_CHANNEL) #replace with league notifs channel
+    await team_owners_channel.send(final_string)
+
 
 
 async def check_notify_about_matches(client, db, message):
@@ -129,7 +146,7 @@ async def check_notify_about_matches(client, db, message):
         # Notify team owners here
         await notify_team_owners(client, db, schedule_day)
         # Notify league accouncements here
-        await notify_league_announcements(client, db, schedule_day)
+        await notify_league_announcements(client, schedule_day)
     else:
         await message.channel.send('There are no matches today to notify about.')
 
