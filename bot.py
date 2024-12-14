@@ -33,7 +33,7 @@ from admin_handlers.sub_rewards import gift_rewards_handler, sub_rewards_handler
 from admin_handlers.total_league import total_league_handler
 from auction import check_auction
 from automation.notify_about_matches import check_notify_about_matches
-from automation.raffle import start_raffle
+from automation.raffle import end_raffle, start_raffle
 from automation.update_top_subs_avatars import update_top_subs_avatars
 from card_automation import make_all_cards_from_data
 from card_matches.card_match_utils import make_match_card
@@ -2120,6 +2120,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!startraffle' and is_tourney_admin:
         await start_raffle(db, message)
+
+    elif lower_message == '!endraffle' and is_tourney_admin:
+        await end_raffle(db, message)
 
     elif lower_message.startswith('!lockon') and is_admin:
         await handle_lock(db, message, True)
