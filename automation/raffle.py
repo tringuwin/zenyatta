@@ -64,11 +64,18 @@ async def end_raffle(db, message):
         async with session.post(
             'https://streamlabs.com/api/v5/giveaway/active/winner/pick?token=B032D12F02A4ED3AA822'
         ) as response:
-            print('response is')
-            print(response)
             if response.status != 200:
                 pick_error = True
                 print('pick failed with code '+str(response.status))
+            else:
+                try:
+                    # Attempt to parse the JSON response
+                    pick_result = await response.json()
+                    print('Pick result:', pick_result)
+                except aiohttp.ContentTypeError:
+                    # Handle the case where the response is not JSON
+                    pick_error = True
+                    print('Pick failed: Response is not JSON')
 
     if pick_error:
         await message.channel.send('This command failed. Please let Spicy know.')
