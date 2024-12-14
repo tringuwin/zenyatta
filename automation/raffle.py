@@ -64,7 +64,8 @@ async def end_raffle(db, message):
         async with session.post(
             'https://streamlabs.com/api/v5/giveaway/active/close?token=B032D12F02A4ED3AA822'
         ) as response:
-            pick_result  = await response.json()
+            print('response is')
+            print(response)
             if response.status != 200:
                 pick_error = True
                 print('pick failed with code '+str(response.status))
