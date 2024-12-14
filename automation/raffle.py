@@ -100,7 +100,11 @@ async def end_raffle(db, message):
         return
     
     set_constant_value(db, 'raffle_status', 'NONE') 
-    await message.channel.send('Raffle ended.')
+
+    if 'name' in pick_result:
+        await message.channel.send('Raffle ended. '+pick_result['name']+' has won 500 Tokens!')
+    else:
+        await message.channel.send('Raffle ended. No winner assigned.')
 
 
     
