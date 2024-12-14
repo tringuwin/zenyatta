@@ -99,6 +99,7 @@ async def end_raffle(db, message):
         await message.channel.send('This command failed. Please let Spicy know.')
         return
     
+    set_constant_value(db, 'raffle_status', 'NONE') 
     await message.channel.send('Raffle ended.')
 
 
