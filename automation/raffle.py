@@ -62,7 +62,7 @@ async def end_raffle(db, message):
     pick_result = None
     async with aiohttp.ClientSession() as session:
         async with session.post(
-            'https://streamlabs.com/api/v5/giveaway/active/close?token=B032D12F02A4ED3AA822'
+            'https://streamlabs.com/api/v5/giveaway/active/winner/pick?token=B032D12F02A4ED3AA822'
         ) as response:
             print('response is')
             print(response)
