@@ -28,5 +28,5 @@ async def start_raffle(db, message):
         await message.channel.send('This command failed. Please let spicy ragu know.')
         return
 
-    set_constant_value(db, 'raffle_staus', 'ACTIVE') 
+    set_constant_value(db, 'raffle_status', 'ACTIVE') 
     await message.channel.send('500 Token Raffle Started on solnetwork')
