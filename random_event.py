@@ -36,7 +36,7 @@ random_event_list = [
     ['Token', 12, 'Zarya taught you some weightlifting skills! **(🪙 12)**'],
     ['Token', 10, 'Winston gave you some Peanut Butter! **(🪙 10)**'],
     ['Token', 8, 'Sigma gave you a lesson in astrophysics! **(🪙 8)**'],
-    ['Token', 6, 'Juno gave you a rock from Mars! **(🪙 6)**)'],
+    ['Token', 6, 'Juno gave you a rock from Mars! **(🪙 6)**'],
     ['Token', 5, 'Echo taught you a new skill! **(🪙 5)**'],
     ['Token', 3, 'Orisa gave you a ride on her back! **(🪙 3)**'],
     ['Token', 1, 'Bastion waved to you! **(🪙 1)**'],
