@@ -50,7 +50,7 @@ async def end_raffle(db, message):
             if response.status != 200:
                 close_error = True
                 print('close failed with code '+str(response.status))
-                close_result = await response.json()
+                close_result = await response.text()
                 print('close json is')
                 print(close_result)
 
