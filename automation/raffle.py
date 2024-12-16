@@ -50,6 +50,10 @@ async def end_raffle(db, message):
             if response.status != 200:
                 close_error = True
                 print('close failed with code '+str(response.status))
+                close_result = await response.json()
+                print('close json is')
+                print(close_result)
+
 
     if close_error:
         await message.channel.send('This command failed. Please let Spicy know.')
