@@ -51,9 +51,9 @@ async def end_raffle(db, message):
                 close_error = True
                 print('close failed with code '+str(response.status))
                 close_result = await response.text()
-                print('close json is')
+                print('close result is')
                 print(close_result)
-                if close_result == 'Unable to close the giveaway':
+                if response.status == 400:
                     print('Was not able to close the giveaway, but that is okay, carry on')
                     close_error = False
 
