@@ -735,7 +735,7 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!makeleagueteam') and is_admin:
         # !makeleagueteam [team role id] @Owner [Team Name]
-        await make_league_team_handler(db, message, client)
+        await make_league_team_handler(db, message, client, context)
 
     elif lower_message.startswith('!changeteamowner') and is_league_commands_user:
         # !changeteamowner @player team name

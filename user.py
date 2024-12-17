@@ -362,10 +362,14 @@ def toggle_off_gift_notify(db, user):
 
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"gift_notify": False}})
 
-def set_user_league_team(db, user, team):
+def set_user_league_team(db, user, team, context):
 
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": team}})
+    
+    if context == 'OW':
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": team}})
+    else:
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"rivals_league_team": team}})
 
 
 def user_entered_event(user, event_id):
