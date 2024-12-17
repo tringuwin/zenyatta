@@ -3,7 +3,7 @@ from common_messages import not_registered_response
 from discord_actions import get_guild, get_member_by_username
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
 from poke_data import ALL_POKE_NUM
-from user import get_fan_of, get_league_team, get_lvl_info, get_rival_of, get_rivals_username, get_twitch_username, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_tokens, user_exists
+from user import get_fan_of, get_fan_of_rivals, get_league_team, get_lvl_info, get_rival_of, get_rival_of_rivals, get_rivals_league_team, get_rivals_username, get_twitch_username, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_tokens, user_exists
 import constants
 
 
@@ -149,12 +149,72 @@ async def overwatch_profile(message, client, user):
 
 async def rivals_profile(message, client, user):
 
-    rivals_username = get_rivals_username(user)
-    if rivals_username == '':
-        await message.channel.send('You have not registered your marvel rivals username yet. Please register it first.\n\n Use the command **!username MarvelRivalUsername** to register it.')
-        return
+    guild = await get_guild(client)
+
+    username = get_rivals_username(user)
+    if username == '':
+        username = '[Unknown Username]'
+
+    level, xp = get_lvl_info(user)
+    league_team = get_rivals_league_team(user)
+    fan_of = get_fan_of_rivals(user)
+    rival_of = get_rival_of_rivals(user)
+    tokens = get_user_tokens(user)
+    passes = get_user_passes(user)
+    pickaxes = get_user_pickaxes(user)
+    packs = get_user_packs(user)
+    poke_points = get_user_poke_points(user)
+    twitch_username = get_twitch_username(user)
+    pokedex = get_user_pokedex(user)
     
-    await message.channel.send('Example profile for '+rivals_username)
+    final_string = "**USER PROFILE FOR "+username+':**\n'
+    final_string += 'Twitch Username: **'+twitch_username+'**\n'
+    final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
+
+    league_team_string = league_team
+    if league_team in constants.EMOJI_TEAMS:
+        team_emoji_string = get_league_emoji_from_team_name(league_team)
+        league_team_string = team_emoji_string+' '+league_team_string
+
+    fan_of_string = fan_of
+    if fan_of in constants.EMOJI_TEAMS:
+        fan_emoji_string = get_league_emoji_from_team_name(fan_of)
+        fan_of_string = fan_emoji_string+' '+fan_of_string
+
+    rival_of_string = rival_of
+    if rival_of in constants.EMOJI_TEAMS:
+        rival_emoji_string = get_league_emoji_from_team_name(rival_of)
+        rival_of_string = rival_emoji_string+' '+rival_of_string
+        
+    final_string += 'League Team: **'+league_team_string+"**\n"
+    final_string += 'Fan of Team: **'+fan_of_string+'**\n'
+    final_string += 'Rival of Team: **'+rival_of_string+'**\n'
+
+    pack_emoji = guild.get_emoji(constants.PACK_EMOJI_ID)
+    poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
+    final_string +='\n'
+    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+str(poke_emoji)+' '+str(poke_points)+'\n'
+
+    gems = get_user_gems(user)
+    gem_line_1 = ''
+    gem_line_2 = ''
+
+    gem_index = 1
+    for color, amount in gems.items():
+        emoji_id = constants.COLOR_TO_EMOJI_ID[color]
+        gem_emoji = guild.get_emoji(emoji_id)
+        if gem_index < 6:
+            gem_line_1 += str(gem_emoji)+' '+str(amount)+' '
+        else:
+            gem_line_2 += str(gem_emoji)+' '+str(amount)+' '
+        gem_index +=1
+
+    final_string +='\n'
+    final_string += gem_line_1+'\n'+gem_line_2
+
+    final_string += '\n\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
+
+    await message.channel.send(final_string)
 
 
 
@@ -172,7 +232,7 @@ async def profile_handler(db, message, client, context):
         user = await generic_find_user(client, db, username)
     
     if not_reg:
-        await not_registered_response(message)
+        await not_registered_response(message, context)
         return
 
     if not user:

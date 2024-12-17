@@ -261,10 +261,22 @@ def get_fan_of(user):
         return user['fan_of']
     return 'None'
 
+def get_fan_of_rivals(user):
+
+    if 'fan_of_rivals' in user:
+        return user['fan_of_rivals']
+    return 'None'
+
 def get_rival_of(user):
 
     if 'rival_of' in user:
         return user['rival_of']
+    return 'None'
+
+def get_rival_of_rivals(user):
+
+    if 'rival_of_rivals' in user:
+        return user['rival_of_rivals']
     return 'None'
 
 def get_last_token_shop(user):
