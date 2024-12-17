@@ -347,6 +347,15 @@ def get_user_bets(user):
     
     return []
 
+
+def get_rivals_username(user):
+
+    if 'rivals_username' in user:
+        return user['rivals_username']
+    
+    return ''
+
+
 def toggle_off_gift_notify(db, user):
 
     users = db['users']

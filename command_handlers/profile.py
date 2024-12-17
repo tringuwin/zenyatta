@@ -3,7 +3,7 @@ from common_messages import not_registered_response
 from discord_actions import get_guild, get_member_by_username
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
 from poke_data import ALL_POKE_NUM
-from user import get_fan_of, get_league_team, get_lvl_info, get_rival_of, get_twitch_username, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_tokens, user_exists
+from user import get_fan_of, get_league_team, get_lvl_info, get_rival_of, get_rivals_username, get_twitch_username, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_tokens, user_exists
 import constants
 
 
@@ -78,26 +78,7 @@ def make_rank_string(ranks):
 
 
 
-async def profile_handler(db, message, client):
-
-    word_list = message.content.split()
-    user = None
-    not_reg = False
-    if len(word_list) == 1:
-        user = user_exists(db, message.author.id)
-        if not user:
-            not_reg = True
-    else:
-        username = make_string_from_word_list(word_list, 1)
-        user = await generic_find_user(client, db, username)
-    
-    if not_reg:
-        await not_registered_response(message)
-        return
-
-    if not user:
-        await message.channel.send('User not found.')
-        return
+async def overwatch_profile(message, client, user):
     
     guild = await get_guild(client)
 
@@ -163,3 +144,42 @@ async def profile_handler(db, message, client):
     final_string += '\n\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
 
     await message.channel.send(final_string)
+
+
+
+async def rivals_profile(message, client, user):
+
+    rivals_username = get_rivals_username(user)
+    if rivals_username == '':
+        await message.channel.send('You have not registered your marvel rivals username yet. Please register it first. (There is no way to do this yet.)')
+        return
+    
+    await message.channel.send('Example profile for '+rivals_username)
+
+
+
+async def profile_handler(db, message, client, context):
+
+    word_list = message.content.split()
+    user = None
+    not_reg = False
+    if len(word_list) == 1:
+        user = user_exists(db, message.author.id)
+        if not user:
+            not_reg = True
+    else:
+        username = make_string_from_word_list(word_list, 1)
+        user = await generic_find_user(client, db, username)
+    
+    if not_reg:
+        await not_registered_response(message)
+        return
+
+    if not user:
+        await message.channel.send('User not found.')
+        return
+
+    if context == 'OW':
+        await overwatch_profile(db, message, client, user)
+    else:
+        await rivals_profile(db, message, client, user)

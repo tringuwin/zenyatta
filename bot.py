@@ -611,7 +611,7 @@ async def handle_message(message, db, client):
         await bracket_handler(message)
 
     elif lower_message.startswith('!profile') or lower_message.startswith('!p ') or lower_message == '!p':
-        await profile_handler(db, message, client)
+        await profile_handler(db, message, client, context)
 
     elif lower_message == '!randommap':
         await random_map_handler(message)
