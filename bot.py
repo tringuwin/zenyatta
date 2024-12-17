@@ -348,6 +348,12 @@ async def handle_message(message, db, client):
     message_channel = message.channel
     if message_channel:
         print(message_channel)
+        try:
+            print('category id')
+            print(message_channel.category_id)
+            print(message.channel.category.name)
+        except:
+            print('error')
 
     # context = 'OW'
     # category_id = channel.category.id
