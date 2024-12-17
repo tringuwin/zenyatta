@@ -1,16 +1,13 @@
 
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info, user_admin_on_team, validate_admin
-from user import get_league_team, user_exists
+from league_helpers import get_league_notifs_channel, get_league_team_with_context, get_league_teams_collection
+from user import user_exists
 import constants
 
 async def remove_team_admin_handler(db, message, client, context):
 
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
-
-    _, _, team_name, is_owner = await validate_admin(db, message)
+    _, _, team_name, is_owner = await validate_admin(db, message, context)
 
     if not is_owner:
         await message.channel.send('You are not the owner of a league team.')
@@ -27,12 +24,12 @@ async def remove_team_admin_handler(db, message, client, context):
         await message.channel.send('That user is not registered yet.')
         return
     
-    user_league_team = get_league_team(user)
+    user_league_team = get_league_team_with_context(user, context)
     if user_league_team != team_name:
         await message.channel.send('That user is not on your team.')
         return
     
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
     team_object = league_teams.find_one({'team_name': team_name})
     if not team_object:
         await message.channel.send('Team was not found.')
@@ -49,13 +46,13 @@ async def remove_team_admin_handler(db, message, client, context):
 
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": new_members}})
 
-    league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
+    league_notifs_channel = get_league_notifs_channel(client, context)
 
     team_emoji_string = get_league_emoji_from_team_name(team_name)
 
     await league_notifs_channel.send(team_emoji_string+' Team Update for '+team_name+": "+mentioned_member.mention+" is no longer a team admin.")
 
     team_object['members'] = new_members
-    await update_team_info(client, team_object, db)
+    await update_team_info(client, team_object, db, context)
     
     await message.channel.send('User is no longer an admin of your league team')
