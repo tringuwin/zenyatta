@@ -4,20 +4,17 @@ from command_handlers.league.update_team import update_team
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, valid_number_of_params
 from league import validate_admin
+from league_helpers import get_league_teams_collection
 
 
 async def league_order_handler(db, message, client, context):
-
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
 
     valid_params, params = valid_number_of_params(message, 3)
     if not valid_params:
         await invalid_number_of_params(message)
         return
     
-    valid_admin, team, team_name, _ = await validate_admin(db, message)
+    valid_admin, team, team_name, _ = await validate_admin(db, message, context)
 
     if not valid_admin:
         await message.channel.send('You are not an admin of a league team.')
@@ -61,11 +58,11 @@ async def league_order_handler(db, message, client, context):
     team_members[first_spot] = team_members[second_spot]
     team_members[second_spot] = hold_first
 
-    teams_db = db['leagueteams']
+    teams_db = get_league_teams_collection(db, context)
     teams_db.update_one({"team_name": team_name}, {"$set": {"members": team_members}})
 
     await message.channel.send('Please wait... This may take a while...')
     
-    await update_team(db, team_name, client)
+    await update_team(db, team_name, client, context)
 
     await message.channel.send(team_name+' was updated.')
