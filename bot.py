@@ -220,7 +220,7 @@ from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has
 from helper_handlers.twitch_pack import twitch_pack_handler
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
-from helpers import can_be_int, get_constant_value, make_string_from_word_list, set_constant_value
+from helpers import can_be_int, get_constant_value, is_bot_commands_channel, make_string_from_word_list, set_constant_value
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_eggs, output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
@@ -244,7 +244,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband') or lower_message == '!fortnite' or lower_message == '!zorp' or lower_message == '!howdy' or lower_message == '!sigma' or lower_message == '!buzzcut' or lower_message=='!pingstate':
         return True, None
 
-    if message.channel.id == constants.BOT_CHANNEL:
+    if is_bot_commands_channel(message.channel):
 
         if lower_message.startswith('!wager'):
             return False, 'Please only use the wager command in the Roulette Channel.'
