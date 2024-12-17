@@ -1,20 +1,17 @@
 
 from common_messages import not_registered_response
+from league_helpers import get_league_invites_with_context
 from user import get_league_invites, user_exists
 
 
 async def league_invites_handler(db, message, context):
 
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
-
     user = user_exists(db, message.author.id)
     if not user:
-        await not_registered_response(message)
+        await not_registered_response(message, context)
         return
     
-    user_invites = get_league_invites(user)
+    user_invites = get_league_invites_with_context(user, context)
     
     if len(user_invites) == 0:
         await message.channel.send(message.author.mention+' You do not have any league team invites at this time. Contact a team owner to join a team!')
