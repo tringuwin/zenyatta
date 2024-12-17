@@ -1,15 +1,11 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from discord_actions import get_role_by_id
 from helpers import make_string_from_word_list
-from league import remove_league_invite, update_team_info
-from user import get_league_invites, get_league_team, user_exists
+from league import remove_league_invite
+from league_helpers import get_league_invites_with_context, get_league_teams_collection
+from user import user_exists
 
 async def league_deny_handler(db, message, context):
-
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
 
     word_list = message.content.split()
     if len(word_list) < 2:
@@ -18,12 +14,12 @@ async def league_deny_handler(db, message, context):
 
     user = user_exists(db, message.author.id)
     if not user:
-        await not_registered_response(message)
+        await not_registered_response(message, context)
         return
     
     team_name_to_deny = make_string_from_word_list(word_list, 1)
     team_name_lower = team_name_to_deny.lower()
-    user_invites = get_league_invites(user)
+    user_invites = get_league_invites_with_context(user, context)
 
     found_team = False
     for invite in user_invites:
@@ -35,10 +31,10 @@ async def league_deny_handler(db, message, context):
         await message.channel.send('You do not have a team invite from the team "'+team_name_to_deny+'". Please check the spelling of the team name.')
         return
     
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
     league_team = league_teams.find_one({'name_lower': team_name_lower})
     real_team_name = league_team['team_name']
     
-    remove_league_invite(user, real_team_name, db)
+    remove_league_invite(user, real_team_name, db, context)
 
     await message.channel.send('Successfully removed the invite from that team.')

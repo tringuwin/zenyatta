@@ -1,7 +1,7 @@
 
 from league import validate_admin
 from league_helpers import get_league_invites_field, get_league_invites_with_context
-from user import get_league_invites, get_league_team, user_exists
+from user import user_exists
 
 
 async def league_cancel_invite_handler(db, message, context):

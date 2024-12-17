@@ -189,7 +189,7 @@ async def update_team_info(client, team, db, context='OW'):
     await info_message.edit(embed=embed, content='')
 
 
-def remove_league_invite(user, team_name, db, context):
+def remove_league_invite(user, team_name, db, context='OW'):
 
     league_invites = get_league_invites_with_context(user, context)
     invites_field = 'league_invites' if context == 'OW' else 'rivals_league_invites'
