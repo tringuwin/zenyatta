@@ -873,7 +873,7 @@ async def handle_message(message, db, client):
         await force_delete_league_team_handler(db, message)
 
     elif lower_message.startswith('!updateteam ') and is_admin:
-        await update_team_handler(db, message, client)
+        await update_team_handler(db, message, client, context)
 
     elif lower_message.startswith('!giveteamtokens ') and is_admin:
         await give_team_tokens_handler(db, message)

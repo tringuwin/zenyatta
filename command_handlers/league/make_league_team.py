@@ -2,27 +2,11 @@
 from api import give_role
 from discord_actions import get_role_by_id
 from helpers import make_string_from_word_list
+from league_helpers import get_league_notifs_channel, get_league_teams_collection, get_team_info_channel
 from user import set_user_league_team, user_exists
 import constants
 
 
-def get_team_info_channel(client, context):
-
-    team_info_channel_id = constants.TEAM_INFO_CHANNEL if context == 'OW' else constants.RIVALS_TEAM_INFO_CHANNEL
-    return client.get_channel(team_info_channel_id)
-
-
-def get_league_notifs_channel(client, context):
-
-    league_notifs_channel = constants.TEAM_NOTIFS_CHANNEL if context == 'OW' else constants.RIVALS_TEAM_NOTIFS_CHANNEL
-    return client.get_channel(league_notifs_channel)
-
-
-def get_league_teams_db(db, context):
-
-    collection_name = 'leagueteams' if context == 'OW' else 'rivals_leagueteams'
-
-    return db[collection_name]
 
 
 async def make_league_team_handler(db, message, client, context):
@@ -50,7 +34,7 @@ async def make_league_team_handler(db, message, client, context):
 
     await give_role(team_owner, role, 'Make League Team')
     
-    league_teams = get_league_teams_db(db, context)
+    league_teams = get_league_teams_collection(db, context)
 
     new_team = {
         'team_name': team_name,

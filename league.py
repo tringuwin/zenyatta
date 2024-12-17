@@ -2,6 +2,7 @@
 import constants
 from discord_actions import get_guild
 from helpers import get_constant_value, get_league_emoji_from_team_name
+from league_helpers import get_team_info_channel
 from user import get_league_invites, get_league_team, user_exists
 import discord
 
@@ -126,12 +127,24 @@ async def make_team_description(client, team):
         
 
 
+def make_member_game_id(db, member, context):
+    
+    member_id = '[Battle Tag Not Found]' if context == 'OW' else '[Username Not Found]'
 
+    user = user_exists(db, member['discord_id'])
 
-async def update_team_info(client, team, db):
+    if user:
+        if context == 'OW':
+            member_id = user['battle_tag'].split('#')[0]
+        else:
+            member_id = user['rivals_username']
+
+    return member_id
+
+async def update_team_info(client, team, db, context):
 
     team_message_id = team['team_info_msg_id']
-    team_info_channel = client.get_channel(constants.TEAM_INFO_CHANNEL)
+    team_info_channel = get_team_info_channel(client, context)
 
     info_message = await team_info_channel.fetch_message(team_message_id)
 
@@ -154,12 +167,9 @@ async def update_team_info(client, team, db):
         if guild_member:
             member_mention = guild_member.mention
 
-        member_battle_tag = '[Battle Tag Not Found]'
-        user = user_exists(db, member['discord_id'])
-        if user:
-            member_battle_tag = user['battle_tag'].split('#')[0]
+        member_game_id = make_member_game_id(db, member, context)
 
-        name_string = member_battle_tag+' - '+member['role']
+        name_string = member_game_id+' - '+member['role']
 
         value_string = ''
         if member['is_owner']:
