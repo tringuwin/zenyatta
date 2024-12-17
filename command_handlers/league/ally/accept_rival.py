@@ -2,10 +2,11 @@ from common_messages import invalid_number_of_params
 from helpers import get_league_emoji_from_team_name, valid_number_of_params
 from league import update_team_info, validate_admin
 import constants
+from league_helpers import get_league_notifs_channel, get_league_teams_collection
 
-async def accept_rival_handler(db, message, client):
+async def accept_rival_handler(db, message, client, context):
 
-    valid_admin, _, team_name, _ = await validate_admin(db, message)
+    valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
     if not valid_admin:
         await message.channel.send('You are not a team admin of a league team.')
@@ -18,7 +19,7 @@ async def accept_rival_handler(db, message, client):
     
     team_name_to_accept = params[1].lower()
 
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
 
     my_team_obj = league_teams.find_one({'team_name': team_name})
     if not my_team_obj:
@@ -55,7 +56,7 @@ async def accept_rival_handler(db, message, client):
     league_teams.update_one({'team_name': other_team_obj['team_name']}, {'$set': {'rivals': other_team_obj['rivals']}})
 
     # league notifs message
-    league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
+    league_notifs_channel = get_league_notifs_channel(client, context)
 
     my_team_emoji_string = get_league_emoji_from_team_name(team_name)
     other_team_emoji_string = get_league_emoji_from_team_name(other_team_obj['team_name'])
@@ -65,5 +66,5 @@ async def accept_rival_handler(db, message, client):
     # confirmation message
     await message.channel.send(team_name+' and '+other_team_obj['team_name']+' are now Rivals!')
 
-    await update_team_info(client, my_team_obj, db)
-    await update_team_info(client, other_team_obj, db)
+    await update_team_info(client, my_team_obj, db, context)
+    await update_team_info(client, other_team_obj, db, context)
