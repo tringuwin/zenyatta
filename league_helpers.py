@@ -32,3 +32,10 @@ def get_league_invites_with_context(user, context):
         return get_league_invites(user)
     else:
         return get_rivals_league_invites(user)
+
+def get_league_team_field(context):
+
+    if context == 'OW':
+        return 'league_team'
+    else:
+        return 'rivals_league_team'

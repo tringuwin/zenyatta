@@ -4,13 +4,9 @@ from common_messages import invalid_number_of_params
 from discord_actions import get_guild, get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info, validate_admin
-import constants
+from league_helpers import get_league_notifs_channel, get_league_team_field, get_league_teams_collection
 
 async def league_kick_handler(db, message, client, context):
-    
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
 
     word_list = message.content.split()
     if len(word_list) != 2:
@@ -21,7 +17,7 @@ async def league_kick_handler(db, message, client, context):
         await message.channel.send('Please mention the player to kick.')
         return
     
-    is_admin, my_team, team_name, is_owner = await validate_admin(db, message)
+    is_admin, my_team, team_name, is_owner = await validate_admin(db, message, context)
     
     if not my_team:
         await message.channel.send("You're not on a league team... So you can't kick people... dumbass...")
@@ -66,22 +62,23 @@ async def league_kick_handler(db, message, client, context):
         if member['discord_id'] != member_to_find.id:
             final_members.append(member)
 
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": final_members}})
 
     users = db['users']
-    users.update_one({"discord_id": member_to_find.id}, {"$set": {"league_team": 'None'}})
+    league_team_field = get_league_team_field(context)
+    users.update_one({"discord_id": member_to_find.id}, {"$set": {league_team_field: 'None'}})
     role = await get_role_by_id(client, my_team['team_role_id'])
     if role:
         await remove_role(member_to_find, role, 'League Kick')
 
-    league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
+    league_notifs_channel = get_league_notifs_channel(client, context)
 
     team_emoji_string = get_league_emoji_from_team_name(team_name)
 
     await league_notifs_channel.send(team_emoji_string+' Team Update for '+team_name+": "+member_to_find.mention+" was kicked by "+message.author.mention)
 
     my_team['members'] = final_members
-    await update_team_info(client, my_team, db)
+    await update_team_info(client, my_team, db, context)
 
     await message.channel.send("User was kicked from the league team.")
