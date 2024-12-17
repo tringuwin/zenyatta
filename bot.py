@@ -227,6 +227,7 @@ from payroll import check_payroll
 from random_event import react_to_event, try_random_event
 from rewards import change_xp, give_eggs_command, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from roster_lock import handle_lock
+from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from server_level import sub_points_handler
 from streamlabs import check_streamlabs_raffles
 from teams import get_team_by_name
@@ -2310,6 +2311,9 @@ async def handle_message(message, db, client):
         await check_notify_about_matches(client, db, message)
 
         await update_top_subs_avatars(guild, db, message)
+
+    elif context == 'MR':
+        await route_rivals_message(db, message, lower_message)
 
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
