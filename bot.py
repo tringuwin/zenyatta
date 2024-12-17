@@ -345,6 +345,10 @@ async def handle_message(message, db, client):
             await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
         return
     
+    message_channel = message.channel
+    if message_channel:
+        if 'category_id' in message_channel:
+            print(message_channel.category_id)
     # context = 'OW'
     # category_id = channel.category.id
     # print('------')
