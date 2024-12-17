@@ -180,6 +180,6 @@ async def profile_handler(db, message, client, context):
         return
 
     if context == 'OW':
-        await overwatch_profile(db, message, client, user)
+        await overwatch_profile(message, client, user)
     else:
-        await rivals_profile(db, message, client, user)
+        await rivals_profile(message, client, user)
