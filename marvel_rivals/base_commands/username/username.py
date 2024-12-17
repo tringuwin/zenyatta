@@ -9,7 +9,7 @@ async def username_handler(db, message):
 
     word_parts = message.content.split()
     rivals_username = make_string_from_word_list(word_parts, 1)
-    print('submitted username '+str(rivals_username))
+    print('submitted username "'+str(rivals_username)+'"')
 
     if len(rivals_username) > 30:
         await message.channel.send('The marvel rivals username you provided is not valid.')
