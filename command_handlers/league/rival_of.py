@@ -1,15 +1,11 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-import constants
 from helpers import valid_number_of_params
-from user import get_league_team, user_exists
+from league_helpers import get_league_team_with_context, get_league_teams_collection, get_rival_of_field
+from user import user_exists
 
 async def rival_of_handler(db, message, context):
     
-    if context == 'MR':
-        await message.channel.send('This command is not ready yet for Marvel Rivals.')
-        return
-
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
         await invalid_number_of_params(message)
@@ -17,15 +13,16 @@ async def rival_of_handler(db, message, context):
     
     user = user_exists(db, message.author.id)
     if not user:
-        await not_registered_response(message)
+        await not_registered_response(message, context)
         return
     
     raw_team = params[1]
+    
+    league_teams = get_league_teams_collection(db, context)
     found_team = None
-    for team in constants.TEAM_LIST:
-        if team.lower() == raw_team.lower():
-            found_team = team
-            break
+    found_team_object = league_teams.find_one({'name_lower': raw_team.lower()})
+    if found_team_object:
+        found_team = found_team_object['team_name']
 
     if not found_team:
         if raw_team.lower() == 'none':
@@ -35,12 +32,13 @@ async def rival_of_handler(db, message, context):
         await message.channel.send('There is no team named '+str(raw_team))
         return
     
-    league_team = get_league_team(user)
+    league_team = get_league_team_with_context(user)
     if (league_team != 'None') and (league_team == found_team):
         await message.channel.send('You are a member of the team '+league_team+' so it cannot be your rival!')
         return
     
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"rival_of": found_team}})
+    rival_of_field = get_rival_of_field(context)
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {rival_of_field: found_team}})
 
     await message.channel.send("Success! You're now a rival of "+found_team)

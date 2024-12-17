@@ -13,7 +13,7 @@ async def fan_of_handler(db, message, context):
     
     user = user_exists(db, message.author.id)
     if not user:
-        await not_registered_response(message)
+        await not_registered_response(message, context)
         return
     
     raw_team = params[1]
