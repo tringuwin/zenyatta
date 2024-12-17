@@ -1,15 +1,12 @@
 
 from league import validate_admin
+from league_helpers import get_league_invites_field, get_league_invites_with_context
 from user import get_league_invites, get_league_team, user_exists
 
 
 async def league_cancel_invite_handler(db, message, context):
 
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
-
-    valid_admin, _, team_name, _ = await validate_admin(db, message)
+    valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
     if not valid_admin:
         await message.channel.send('You are not an admin of a league team.')
@@ -26,7 +23,7 @@ async def league_cancel_invite_handler(db, message, context):
         await message.channel.send('That user is not registered yet.')
         return
 
-    league_invites = get_league_invites(user)
+    league_invites = get_league_invites_with_context(user, context)
 
     found_invite = False
     final_invites = []
@@ -41,6 +38,7 @@ async def league_cancel_invite_handler(db, message, context):
         return
 
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_invites": final_invites}})
+    league_invites_field = get_league_invites_field(context)
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {league_invites_field: final_invites}})
 
     await message.channel.send('League invite successfully cancelled.')

@@ -39,3 +39,10 @@ def get_league_team_field(context):
         return 'league_team'
     else:
         return 'rivals_league_team'
+    
+def get_league_invites_field(context):
+
+    if context == 'OW':
+        return 'league_invites'
+    else:
+        return 'rivals_league_invites'
