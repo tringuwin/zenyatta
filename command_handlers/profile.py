@@ -151,7 +151,7 @@ async def rivals_profile(message, client, user):
 
     rivals_username = get_rivals_username(user)
     if rivals_username == '':
-        await message.channel.send('You have not registered your marvel rivals username yet. Please register it first. Use the command **!username MarvelRivalUsername** to register it.')
+        await message.channel.send('You have not registered your marvel rivals username yet. Please register it first.\n\n Use the command **!username MarvelRivalUsername** to register it.')
         return
     
     await message.channel.send('Example profile for '+rivals_username)
