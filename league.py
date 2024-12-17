@@ -137,7 +137,8 @@ def make_member_game_id(db, member, context):
         if context == 'OW':
             member_id = user['battle_tag'].split('#')[0]
         else:
-            member_id = user['rivals_username']
+            if 'rivals_username' in user:
+                member_id = user['rivals_username']
 
     return member_id
 
