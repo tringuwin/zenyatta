@@ -1,11 +1,12 @@
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
 from league import validate_admin
+from league_helpers import get_league_teams_collection
 
 
-async def rival_request_handler(db, message):
+async def rival_request_handler(db, message, context):
 
-    valid_admin, _, team_name, _ = await validate_admin(db, message)
+    valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
     if not valid_admin:
         await message.channel.send('You are not a team admin of a league team.')
@@ -22,7 +23,7 @@ async def rival_request_handler(db, message):
         await message.channel.send('You cannot send a Rival Request to your own team.')
         return
 
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
 
     my_team_obj = league_teams.find_one({'team_name': team_name})
     if not my_team_obj:

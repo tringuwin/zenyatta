@@ -799,6 +799,42 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!leagueorder'):
         await league_order_handler(db, message, client, context)
 
+    elif lower_message.startswith('!allyrequest '):
+        await ally_request_handler(db, message, context)
+
+    elif lower_message.startswith('!rivalrequest '):
+        await rival_request_handler(db, message, context)
+
+    elif lower_message.startswith('!acceptally '):
+        await accept_ally_handler(db, message, client)
+
+    elif lower_message.startswith('!acceptrival '):
+        await accept_rival_handler(db, message, client)
+
+    elif lower_message.startswith('!delally '):
+        await del_ally_handler(db, message, client)
+
+    elif lower_message.startswith('!delrival '):
+        await del_rival_handler(db, message, client)
+
+    elif lower_message.startswith('!denyally '):
+        await deny_ally_handler(db, message)
+
+    elif lower_message.startswith('!denyrival '):
+        await deny_rival_handler(db, message)
+
+    elif lower_message.startswith('!cancelally '):
+        await cancel_ally_handler(db, message)
+
+    elif lower_message.startswith('!cancelrival '):
+        await cancel_rival_handler(db, message)
+
+    elif lower_message == '!allyrequests':
+        await ally_requests_handler(db, message)
+
+    elif lower_message == '!rivalrequests':
+        await rival_requests_handler(db, message)
+
     elif lower_message.startswith('!setappslink'):
         await set_apps_link_handler(db, message, context)
 
@@ -1259,42 +1295,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!editcard ') and is_admin:
         await edit_card_handler(db, message)
-
-    elif lower_message.startswith('!allyrequest '):
-        await ally_request_handler(db, message)
-
-    elif lower_message.startswith('!rivalrequest '):
-        await rival_request_handler(db, message)
-
-    elif lower_message.startswith('!acceptally '):
-        await accept_ally_handler(db, message, client)
-
-    elif lower_message.startswith('!acceptrival '):
-        await accept_rival_handler(db, message, client)
-
-    elif lower_message.startswith('!delally '):
-        await del_ally_handler(db, message, client)
-
-    elif lower_message.startswith('!delrival '):
-        await del_rival_handler(db, message, client)
-
-    elif lower_message.startswith('!denyally '):
-        await deny_ally_handler(db, message)
-
-    elif lower_message.startswith('!denyrival '):
-        await deny_rival_handler(db, message)
-
-    elif lower_message.startswith('!cancelally '):
-        await cancel_ally_handler(db, message)
-
-    elif lower_message.startswith('!cancelrival '):
-        await cancel_rival_handler(db, message)
-
-    elif lower_message == '!allyrequests':
-        await ally_requests_handler(db, message)
-
-    elif lower_message == '!rivalrequests':
-        await rival_requests_handler(db, message)
 
 
     elif lower_message == '!initsinglecardbase' and is_admin:
