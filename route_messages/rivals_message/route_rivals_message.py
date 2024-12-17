@@ -1,7 +1,7 @@
 
 
 from api import send_msg
-from marvel_rivals.base_commands.username import username_handler
+from marvel_rivals.base_commands.username.username import username_handler
 
 
 async def route_rivals_message(db, message, lower_message):

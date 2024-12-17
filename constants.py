@@ -1,3 +1,4 @@
+import copy
 
 VERSION = '1.10.66'
 
@@ -569,6 +570,20 @@ STATE_INFO = {
     },
 }
 
+DEFAULT_BLANK_USER = {
+    "entries": [],
+    'teams': [],
+    'passes': 1,
+    'pickaxes': 0,
+    'invited_valid': True,
+    'level': 1,
+    'xp': 0,
+    'gems': copy.deepcopy(DEFAULT_GEMS),
+    'lootboxes': [],
+    'league_team': 'None',
+    'league_invites': []
+}
+
 HERO_MESSAGE_TO_ROLE = {
     1178747693221285978: 1178441147480289280, #ana
     1178747734879117323: 1178441650289266810, #ashe
@@ -628,4 +643,3 @@ TOKEN_SHOP_USD_PRICES = [
 
 
 VERY_BAD_WORD_LIST = ['nigger', 'nigga', 'hitler', 'faggot', 'retard', 'beaner', 'chink']
-

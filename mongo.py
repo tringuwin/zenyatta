@@ -37,22 +37,11 @@ def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
         users.update_one({"discord_id": discord_id}, {"$set": {"battle_tag": battle_tag, "lower_tag": lower_tag}})
     else:
 
-        new_user = {
-            "battle_tag": battle_tag,
-            "lower_tag": lower_tag,
-            "discord_id": discord_id,
-            "entries": [],
-            'teams': [],
-            'passes': 1,
-            'pickaxes': 0,
-            'invited_valid': True,
-            'level': 1,
-            'xp': 0,
-            'gems': copy.deepcopy(constants.DEFAULT_GEMS),
-            'lootboxes': [],
-            'league_team': 'None',
-            'league_invites': []
-        }
+        new_user = copy.deepcopy(constants.DEFAULT_BLANK_USER)
+        new_user["battle_tag"] = battle_tag
+        new_user["lower_tag"] = lower_tag
+        new_user["discord_id"] = discord_id
+
         users.insert_one(new_user)
 
 
