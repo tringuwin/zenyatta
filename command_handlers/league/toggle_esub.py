@@ -83,7 +83,11 @@ def user_ranks_empty(user_ranks):
     return (user_ranks['tank']['tier'] == 'none') and (user_ranks['offense']['tier'] == 'none') and (user_ranks['support']['tier'] == 'none')
 
 
-async def toggle_esub_handler(db, message, client):
+async def toggle_esub_handler(db, message, client, context):
+
+    if context == 'MR':
+        await message.channel.send('This command is not ready yet for Marvel Rivals.')
+        return
 
     user = user_exists(db, message.author.id)
     if not user:

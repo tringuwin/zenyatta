@@ -852,7 +852,7 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!toggleesub':
         #await message.channel.send('This command is being fixed. Try again soon!')
-        await toggle_esub_handler(db, message, client)
+        await toggle_esub_handler(db, message, client, context)
 
     elif lower_message == '!resetteamrules' and is_admin:
 
