@@ -5,7 +5,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild, get_role_by_id
 from helpers import get_league_emoji_from_team_name, make_string_from_word_list
 from league import remove_league_invite, update_team_info
-from league_helpers import get_league_invites_with_context, get_league_team_with_context, get_league_teams_collection
+from league_helpers import get_league_invites_with_context, get_league_notifs_channel, get_league_team_with_context, get_league_teams_collection
 from user import get_user_div, get_user_team_swaps, user_exists
 import constants
 from datetime import datetime
@@ -130,7 +130,7 @@ async def league_accept_handler(db, message, client, context):
 
     await update_team_info(client, league_team, db, context)
 
-    league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
+    league_notifs_channel = get_league_notifs_channel(client, context)
 
     team_emoji_string = get_league_emoji_from_team_name(real_team_name)
     
