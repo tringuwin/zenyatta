@@ -763,7 +763,7 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!leagueinvite '):
         # !leagueinvite @player
-        await league_invite_handler(db, message, context, context)
+        await league_invite_handler(db, message, context)
 
     elif lower_message.startswith('!leaguecancelinvite '):
         # !leaguecancelinvite @player
