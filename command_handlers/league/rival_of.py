@@ -4,8 +4,12 @@ import constants
 from helpers import valid_number_of_params
 from user import get_league_team, user_exists
 
-async def rival_of_handler(db, message):
+async def rival_of_handler(db, message, context):
     
+    if context == 'MR':
+        await message.channel.send('This command is not ready yet for Marvel Rivals.')
+        return
+
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
         await invalid_number_of_params(message)
