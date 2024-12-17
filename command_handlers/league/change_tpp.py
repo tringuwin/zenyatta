@@ -2,20 +2,17 @@
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, generic_find_user, valid_number_of_params
 from league import update_team_info, validate_admin
+from league_helpers import get_league_teams_collection
 
 
 async def change_tpp_handler(db, message, client, context):
-
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
 
     valid_params, params = valid_number_of_params(message, 3)
     if not valid_params:
         await invalid_number_of_params(message)
         return
     
-    is_admin, my_team, team_name, _ = await validate_admin(db, message)
+    is_admin, my_team, team_name, _ = await validate_admin(db, message, context)
 
     team_members = my_team['members']
 
@@ -64,10 +61,10 @@ async def change_tpp_handler(db, message, client, context):
         return
     
     my_team['members'][at_member_index]['TPP'] = tpp_offer
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": my_team['members']}})
 
-    await update_team_info(client, my_team, db)
+    await update_team_info(client, my_team, db, context)
 
     await message.channel.send("User's TPP was successfully updated.")
 
