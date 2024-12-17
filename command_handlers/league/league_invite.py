@@ -3,7 +3,11 @@ from league import validate_admin
 from user import get_league_invites, get_league_team, user_exists
 
 
-async def league_invite_handler(db, message):
+async def league_invite_handler(db, message, context):
+
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
 
     valid_admin, _, team_name, _ = await validate_admin(db, message)
 
