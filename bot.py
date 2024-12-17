@@ -833,7 +833,7 @@ async def handle_message(message, db, client):
         await ally_requests_handler(db, message, context)
 
     elif lower_message == '!rivalrequests':
-        await rival_requests_handler(db, message)
+        await rival_requests_handler(db, message, context)
 
     elif lower_message.startswith('!setappslink'):
         await set_apps_link_handler(db, message, context)
