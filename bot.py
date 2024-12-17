@@ -915,10 +915,10 @@ async def handle_message(message, db, client):
         await give_team_tokens_handler(db, message)
 
     elif lower_message.startswith('!fanof'):
-        await fan_of_handler(db, message)
+        await fan_of_handler(db, message, context)
 
     elif lower_message.startswith('!rivalof'):
-        await rival_of_handler(db, message)
+        await rival_of_handler(db, message, context)
 
     elif lower_message.startswith('!bandforband '):
         await band_for_band_handler(db, message)
