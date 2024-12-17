@@ -1,15 +1,11 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-import constants
 from helpers import valid_number_of_params
-from user import get_league_team, user_exists
+from league_helpers import get_fan_of_field, get_league_teams_collection
+from user import user_exists
 
 async def fan_of_handler(db, message, context):
     
-    if context == 'MR':
-        await message.channel.send('This command is not ready yet for Marvel Rivals.')
-        return
-
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
         await invalid_number_of_params(message)
@@ -21,11 +17,12 @@ async def fan_of_handler(db, message, context):
         return
     
     raw_team = params[1]
+
+    league_teams = get_league_teams_collection(db, context)
     found_team = None
-    for team in constants.TEAM_LIST:
-        if team.lower() == raw_team.lower():
-            found_team = team
-            break
+    found_team_object = league_teams.find_one({'name_lower': raw_team.lower()})
+    if found_team_object:
+        found_team = found_team_object['team_name']
 
     if not found_team:
         if raw_team.lower() == 'none':
@@ -36,6 +33,7 @@ async def fan_of_handler(db, message, context):
         return
     
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"fan_of": found_team}})
+    fan_of_field = get_fan_of_field(context)
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {fan_of_field: found_team}})
 
     await message.channel.send("Success! You're now a fan of "+found_team)
