@@ -345,6 +345,7 @@ async def handle_message(message, db, client):
             await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
         return
     
+    context = 'OW'
     message_channel = message.channel
     if message_channel:
         print(message_channel)
@@ -352,8 +353,12 @@ async def handle_message(message, db, client):
             print('category id')
             print(message_channel.category_id)
             print(message.channel.category.name)
+            if message_channel.category_id == constants.RIVALS_CATEGORY_ID:
+                context = 'MR'
         except:
             print('error')
+
+    print('context is '+context)
 
     # context = 'OW'
     # category_id = channel.category.id
