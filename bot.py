@@ -345,12 +345,12 @@ async def handle_message(message, db, client):
             await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
         return
     
-    context = 'OW'
-    category_id = channel.category.id
-    print('------')
-    print(category_id)
-    print(channel.category.name)
-    print('------')
+    # context = 'OW'
+    # category_id = channel.category.id
+    # print('------')
+    # print(category_id)
+    # print(channel.category.name)
+    # print('------')
     
     has_bad_word = bad_word_checker(message.content)
     if has_bad_word:
