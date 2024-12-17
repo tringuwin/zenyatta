@@ -5,26 +5,23 @@ from common_messages import not_registered_response
 from discord_actions import get_guild, get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info
-from user import get_league_team, user_exists
+from league_helpers import get_league_notifs_channel, get_league_team_with_context, get_league_teams_collection
+from user import user_exists
 import constants
 
 async def league_leave_handler(db, message, client, context):
 
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
-
     user = user_exists(db, message.author.id)
     if not user:
-        await not_registered_response(message)
+        await not_registered_response(message, context)
         return
     
-    league_team = get_league_team(user)
+    league_team = get_league_team_with_context(user, context)
     if league_team == 'None':
         await message.channel.send('You are not currently on a League Team.')
         return
     
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
     team_object = league_teams.find_one({'team_name': league_team})
     if not team_object:
         await message.channel.send('ERROR LEAVING TEAM: PLEASE CONTACT STAFF')
@@ -35,7 +32,8 @@ async def league_leave_handler(db, message, client, context):
         return
     
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": 'None'}})
+    league_team_field = 'league_team' if context == 'OW' else 'rivals_league_team'
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {league_team_field: 'None'}})
     
     team_role_id = team_object['team_role_id']
     team_role = await get_role_by_id(client, team_role_id)
@@ -49,9 +47,9 @@ async def league_leave_handler(db, message, client, context):
     league_teams.update_one({'team_name': team_object['team_name']}, {"$set": {"members": final_members}})
     team_object['members'] = final_members
 
-    await update_team_info(client, team_object, db)
+    await update_team_info(client, team_object, db, context)
 
-    league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
+    league_notifs_channel = get_league_notifs_channel(client, context)
 
     team_emoji_string = get_league_emoji_from_team_name(team_object['team_name'])
 
