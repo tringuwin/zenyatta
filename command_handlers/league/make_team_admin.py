@@ -5,8 +5,12 @@ from user import get_league_team, user_exists
 import constants
 
 
-async def make_team_admin_handler(db, message, client):
+async def make_team_admin_handler(db, message, client, context):
     
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
+
     _, _, team_name, is_owner = await validate_admin(db, message)
 
     if not is_owner:

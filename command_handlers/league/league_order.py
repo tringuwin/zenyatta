@@ -6,7 +6,11 @@ from helpers import can_be_int, valid_number_of_params
 from league import validate_admin
 
 
-async def league_order_handler(db, message, client):
+async def league_order_handler(db, message, client, context):
+
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
 
     valid_params, params = valid_number_of_params(message, 3)
     if not valid_params:

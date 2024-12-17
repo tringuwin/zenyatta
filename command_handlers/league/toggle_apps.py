@@ -2,7 +2,11 @@
 from league import validate_admin
 
 
-async def toggle_apps_handler(db, message):
+async def toggle_apps_handler(db, message, context):
+
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
 
     valid_admin, _, team_name, _ = await validate_admin(db, message)
 

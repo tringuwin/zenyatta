@@ -4,7 +4,11 @@ from helpers import can_be_int, generic_find_user, valid_number_of_params
 from league import update_team_info, validate_admin
 
 
-async def change_tpp_handler(db, message, client):
+async def change_tpp_handler(db, message, client, context):
+
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
 
     valid_params, params = valid_number_of_params(message, 3)
     if not valid_params:

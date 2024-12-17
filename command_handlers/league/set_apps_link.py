@@ -5,7 +5,11 @@ from helpers import valid_number_of_params
 from league import validate_admin
 
 
-async def set_apps_link_handler(db, message):
+async def set_apps_link_handler(db, message, context):
+
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
 
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:

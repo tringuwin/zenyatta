@@ -6,8 +6,12 @@ from helpers import get_league_emoji_from_team_name
 from league import update_team_info, validate_admin
 import constants
 
-async def league_kick_handler(db, message, client):
+async def league_kick_handler(db, message, client, context):
     
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
+
     word_list = message.content.split()
     if len(word_list) != 2:
         await invalid_number_of_params(message)

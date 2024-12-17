@@ -4,7 +4,11 @@ import uuid
 import time
 import discord
 
-async def set_lineup_handler(db, message):
+async def set_lineup_handler(db, message, context):
+
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
 
     valid_admin, _, team_name, _ = await validate_admin(db, message)
 

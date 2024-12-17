@@ -739,47 +739,47 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!changeteamowner') and is_league_commands_user:
         # !changeteamowner @player team name
-        await change_team_owner_handler(db, message, client)
+        await change_team_owner_handler(db, message, client, context)
 
     elif lower_message.startswith('!changetpp'):
         # !changetpp @Player [new tpp]
-        await change_tpp_handler(db, message, client)
+        await change_tpp_handler(db, message, client, context)
 
     elif lower_message.startswith('!changerole'):
         # !changerole @Player [new role]
-        await change_role_handler(db, message, client)
+        await change_role_handler(db, message, client, context)
 
     elif lower_message.startswith('!leaguekick '):
         # !leaguekick @Player
-        await league_kick_handler(db, message, client)
+        await league_kick_handler(db, message, client, context)
 
     elif lower_message.startswith('!maketeamadmin'):
         # !maketeamadmin @Player
-        await make_team_admin_handler(db, message, client)
+        await make_team_admin_handler(db, message, client, context)
 
     elif lower_message.startswith('!removeteamadmin'):
         # !removeteamadmin @Player
-        await remove_team_admin_handler(db, message, client)
+        await remove_team_admin_handler(db, message, client, context)
 
     elif lower_message.startswith('!leagueinvite '):
         # !leagueinvite @player
-        await league_invite_handler(db, message, context)
+        await league_invite_handler(db, message, context, context)
 
     elif lower_message.startswith('!leaguecancelinvite '):
         # !leaguecancelinvite @player
-        await league_cancel_invite_handler(db, message)
+        await league_cancel_invite_handler(db, message, context)
 
     elif lower_message == '!leagueinvites':
-        await league_invites_handler(db, message)
+        await league_invites_handler(db, message, context)
 
     elif lower_message.startswith('!leagueaccept '):
         await league_accept_handler(db, message, client, context)
 
     elif lower_message.startswith('!leaguedeny' ):
-        await league_deny_handler(db, message)
+        await league_deny_handler(db, message, context)
 
     elif lower_message == '!leagueleave':
-        await league_leave_handler(db, message, client)
+        await league_leave_handler(db, message, client, context)
 
     elif lower_message == '!leaguexp':
         await league_xp_handler(db, message, client)
@@ -791,25 +791,25 @@ async def handle_message(message, db, client):
         await wipe_league_xp_handler(db, message)
 
     elif lower_message == '!pingteam':
-        await ping_team_handler(db, message, client)
+        await ping_team_handler(db, message, client, context)
 
     elif lower_message == '!pruneteam':
-        await prune_team_handler(db, message, client)
+        await prune_team_handler(db, message, client, context)
 
     elif lower_message.startswith('!leagueorder'):
-        await league_order_handler(db, message, client)
+        await league_order_handler(db, message, client, context)
 
     elif lower_message.startswith('!setappslink'):
-        await set_apps_link_handler(db, message)
+        await set_apps_link_handler(db, message, context)
 
     elif lower_message.startswith('!setminrank'):
-        await set_min_rank_handler(db, message)
+        await set_min_rank_handler(db, message, context)
 
     elif lower_message == '!toggleapps':
-        await toggle_apps_handler(db, message)
+        await toggle_apps_handler(db, message, context)
 
     elif lower_message == '!setlineup':
-        await set_lineup_handler(db, message)
+        await set_lineup_handler(db, message, context)
 
     elif lower_message.startswith('!matchlineups') and is_tourney_admin:
         await match_lineups_handler(db, message)

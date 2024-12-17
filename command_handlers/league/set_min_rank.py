@@ -15,7 +15,11 @@ VALID_RANKS = [
     'champ'
 ]
 
-async def set_min_rank_handler(db, message):
+async def set_min_rank_handler(db, message, context):
+
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
 
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:

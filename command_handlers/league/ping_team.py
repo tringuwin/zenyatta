@@ -2,7 +2,11 @@ from discord_actions import get_role_by_id
 from league import validate_admin
 
 
-async def ping_team_handler(db, message, client):
+async def ping_team_handler(db, message, client, context):
+
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
 
     valid_admin, _, team_name, _ = await validate_admin(db, message)
 

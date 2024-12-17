@@ -5,7 +5,11 @@ from helpers import make_string_from_word_list
 from league import remove_league_invite, update_team_info
 from user import get_league_invites, get_league_team, user_exists
 
-async def league_deny_handler(db, message):
+async def league_deny_handler(db, message, context):
+
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
 
     word_list = message.content.split()
     if len(word_list) < 2:

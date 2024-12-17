@@ -8,7 +8,11 @@ from league import update_team_info
 from user import get_league_team, user_exists
 import constants
 
-async def league_leave_handler(db, message, client):
+async def league_leave_handler(db, message, client, context):
+
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
 
     user = user_exists(db, message.author.id)
     if not user:

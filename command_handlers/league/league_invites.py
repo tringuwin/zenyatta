@@ -3,7 +3,11 @@ from common_messages import not_registered_response
 from user import get_league_invites, user_exists
 
 
-async def league_invites_handler(db, message):
+async def league_invites_handler(db, message, context):
+
+    if context == 'MR':
+        await message.channel.send('Command is not ready yet for Marvel Rivals.')
+        return
 
     user = user_exists(db, message.author.id)
     if not user:
