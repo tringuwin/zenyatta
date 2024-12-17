@@ -2,21 +2,21 @@
 import constants
 from discord_actions import get_guild
 from helpers import get_constant_value, get_league_emoji_from_team_name
-from league_helpers import get_league_invites_with_context, get_team_info_channel
-from user import get_league_invites, get_league_team, user_exists
+from league_helpers import get_league_invites_with_context, get_league_team_with_context, get_league_teams_collection, get_team_info_channel
+from user import get_league_invites, user_exists
 import discord
 
-async def validate_admin(db, message):
+async def validate_admin(db, message, context='OW'):
 
     user = user_exists(db, message.author.id)
     if not user:
         return None, None, None, None
     
-    user_team = get_league_team(user)
+    user_team = get_league_team_with_context(user, context)
     if user_team == "None":
         return None, None, None, None
 
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
     my_team = league_teams.find_one({'team_name': user_team})
     if not my_team:
         return None, None, None, None
