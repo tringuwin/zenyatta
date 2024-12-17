@@ -169,7 +169,7 @@ async def rivals_profile(message, client, user):
     
     final_string = "**USER PROFILE FOR "+username+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
-    final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
+    final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n\n'
 
     league_team_string = league_team
     if league_team in constants.EMOJI_TEAMS:
