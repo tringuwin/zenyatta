@@ -2,7 +2,7 @@
 import constants
 from discord_actions import get_guild
 from helpers import get_constant_value, get_league_emoji_from_team_name
-from league_helpers import get_team_info_channel
+from league_helpers import get_league_invites_with_context, get_team_info_channel
 from user import get_league_invites, get_league_team, user_exists
 import discord
 
@@ -142,7 +142,7 @@ def make_member_game_id(db, member, context):
 
     return member_id
 
-async def update_team_info(client, team, db, context):
+async def update_team_info(client, team, db, context='OW'):
 
     team_message_id = team['team_info_msg_id']
     team_info_channel = get_team_info_channel(client, context)
@@ -189,9 +189,10 @@ async def update_team_info(client, team, db, context):
     await info_message.edit(embed=embed, content='')
 
 
-def remove_league_invite(user, team_name, db):
+def remove_league_invite(user, team_name, db, context):
 
-    league_invites = get_league_invites(user)
+    league_invites = get_league_invites_with_context(user, context)
+    invites_field = 'league_invites' if context == 'OW' else 'rivals_league_invites'
     final_invites = []
 
     for invite in league_invites:
@@ -199,7 +200,7 @@ def remove_league_invite(user, team_name, db):
             final_invites.append(invite)
 
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_invites": final_invites}})
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {invites_field: final_invites}})
 
 
 def user_admin_on_team(user_id, league_team):

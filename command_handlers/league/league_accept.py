@@ -5,7 +5,8 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild, get_role_by_id
 from helpers import get_league_emoji_from_team_name, make_string_from_word_list
 from league import remove_league_invite, update_team_info
-from user import get_league_invites, get_league_team, get_user_div, get_user_team_swaps, user_exists
+from league_helpers import get_league_invites_with_context, get_league_team_with_context, get_league_teams_collection
+from user import get_user_div, get_user_team_swaps, user_exists
 import constants
 from datetime import datetime
 import pytz
@@ -27,7 +28,7 @@ def match_day_soft_lock():
     return False
 
 
-async def league_accept_handler(db, message, client):
+async def league_accept_handler(db, message, client, context):
 
     word_list = message.content.split()
     if len(word_list) < 2:
@@ -36,10 +37,10 @@ async def league_accept_handler(db, message, client):
 
     user = user_exists(db, message.author.id)
     if not user:
-        await not_registered_response(message)
+        await not_registered_response(message, context)
         return
     
-    user_league_team = get_league_team(user)
+    user_league_team = get_league_team_with_context(user, context)
     if user_league_team != "None":
         await message.channel.send('You are already on a league team. Please leave that team before joining another team. Use the command **!leagueleave** to leave your current team.')
         return
@@ -50,7 +51,7 @@ async def league_accept_handler(db, message, client):
     
     team_name_to_join = make_string_from_word_list(word_list, 1)
     team_name_lower = team_name_to_join.lower()
-    user_invites = get_league_invites(user)
+    user_invites = get_league_invites_with_context(user, context)
 
     found_team = False
     for invite in user_invites:
@@ -62,7 +63,7 @@ async def league_accept_handler(db, message, client):
         await message.channel.send('You do not have a team invite from the team "'+team_name_to_join+'". Please check the spelling of the team name.')
         return
     
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
     league_team = league_teams.find_one({'name_lower': team_name_lower})
     real_team_name = league_team['team_name']
 
@@ -98,10 +99,10 @@ async def league_accept_handler(db, message, client):
     #             div_joined = league_team['div']
     
 
-    remove_league_invite(user, real_team_name, db)
+    remove_league_invite(user, real_team_name, db, context)
     users = db['users']
 
-    update_obj = {"league_team": real_team_name}
+    update_obj = {"league_team": real_team_name} if context == 'OW' else {'rivals_league_team': real_team_name}
     # if season_active:
     #     if div_joined != 0:
     #         update_obj = {"league_team": real_team_name, 'team_swaps': team_swaps - 1, 'user_div': div_joined}
@@ -127,7 +128,7 @@ async def league_accept_handler(db, message, client):
     if role:
         await give_role(message.author, role, 'League Accept')
 
-    await update_team_info(client, league_team, db)
+    await update_team_info(client, league_team, db, context)
 
     league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
 

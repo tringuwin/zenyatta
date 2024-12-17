@@ -216,10 +216,24 @@ def get_league_team(user):
     else:
         return 'None'
     
+def get_rivals_league_team(user):
+    if 'rivals_league_team' in user:
+        return user['rivals_league_team']
+    else:
+        return 'None'
+
+    
 def get_league_invites(user):
 
     if 'league_invites' in user:
         return user['league_invites']
+    else:
+        return []
+    
+def get_rivals_league_invites(user):
+
+    if 'rivals_league_invites' in user:
+        return user['rivals_league_invites']
     else:
         return []
     
