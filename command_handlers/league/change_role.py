@@ -4,20 +4,17 @@ from discord_actions import get_guild, get_member_by_username
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
 from league import update_team_info, validate_admin
 import constants
+from league_helpers import get_league_notifs_channel, get_league_teams_collection
 from user import user_exists
 
 async def change_role_handler(db, message, client, context):
-
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
 
     word_list = message.content.split()
     if len(word_list) < 3:
         await invalid_number_of_params(message)
         return
     
-    is_admin, my_team, team_name, _ = await validate_admin(db, message)
+    is_admin, my_team, team_name, _ = await validate_admin(db, message, context)
     team_members = my_team['members']
 
     if not is_admin:
@@ -57,10 +54,10 @@ async def change_role_handler(db, message, client, context):
     new_role = make_string_from_word_list(word_list, 2)
     
     my_team['members'][at_member_index]['role'] = new_role
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": my_team['members']}})
 
-    league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
+    league_notifs_channel = get_league_notifs_channel(client, context)
 
     team_emoji_string = get_league_emoji_from_team_name(team_name)
 
@@ -70,6 +67,6 @@ async def change_role_handler(db, message, client, context):
         await league_notifs_channel.send(team_emoji_string+' Team Update for '+team_name+": "+username+"'s role has been changed to "+new_role)
 
 
-    await update_team_info(client, my_team, db)
+    await update_team_info(client, my_team, db, context)
 
     await message.channel.send("User's role was successfully updated.")
