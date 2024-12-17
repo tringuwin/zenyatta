@@ -346,7 +346,7 @@ async def handle_message(message, db, client):
         return
     
     context = 'OW'
-    category_id = channel.category_id
+    category_id = channel.category.id
     print('------')
     print(category_id)
     print(channel.category.name)
