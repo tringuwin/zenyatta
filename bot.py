@@ -827,7 +827,7 @@ async def handle_message(message, db, client):
         await cancel_ally_handler(db, message, context)
 
     elif lower_message.startswith('!cancelrival '):
-        await cancel_rival_handler(db, message)
+        await cancel_rival_handler(db, message, context)
 
     elif lower_message == '!allyrequests':
         await ally_requests_handler(db, message)
