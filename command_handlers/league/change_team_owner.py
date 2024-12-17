@@ -1,21 +1,18 @@
 
 from common_messages import invalid_number_of_params
 from helpers import make_string_from_word_list
+from league_helpers import get_league_team_with_context, get_league_teams_collection
 from user import get_league_team, user_exists
 
 
-async def change_team_owner_handler(db, message, client, context):
-
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
+async def change_team_owner_handler(db, message, context):
 
     word_parts = message.content.split()
     if len(word_parts) < 3:
         await invalid_number_of_params(message)
         return
     
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
     team_name = make_string_from_word_list(word_parts, 2)
     team_obj = league_teams.find_one({'team_name': team_name})
     if not team_obj:
@@ -33,7 +30,7 @@ async def change_team_owner_handler(db, message, client, context):
         await message.channel.send('That user is not registered')
         return
     
-    user_league_team = get_league_team(user)
+    user_league_team = get_league_team_with_context(user, context)
     if user_league_team != team_name:
         await message.channel.send('That user is not part of this team.')
         return
