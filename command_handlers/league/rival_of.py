@@ -32,7 +32,7 @@ async def rival_of_handler(db, message, context):
         await message.channel.send('There is no team named '+str(raw_team))
         return
     
-    league_team = get_league_team_with_context(user)
+    league_team = get_league_team_with_context(user, context)
     if (league_team != 'None') and (league_team == found_team):
         await message.channel.send('You are a member of the team '+league_team+' so it cannot be your rival!')
         return
