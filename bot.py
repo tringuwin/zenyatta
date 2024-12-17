@@ -818,7 +818,7 @@ async def handle_message(message, db, client):
         await del_rival_handler(db, message, client, context)
 
     elif lower_message.startswith('!denyally '):
-        await deny_ally_handler(db, message)
+        await deny_ally_handler(db, message, context)
 
     elif lower_message.startswith('!denyrival '):
         await deny_rival_handler(db, message)
