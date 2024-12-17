@@ -7,11 +7,7 @@ from league import validate_admin
 
 async def prune_team_handler(db, message, client, context):
 
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
-
-    valid_admin, _, team_name, _ = await validate_admin(db, message)
+    valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
     if not valid_admin:
         await message.channel.send('You are not an admin of a league team.')
@@ -19,6 +15,6 @@ async def prune_team_handler(db, message, client, context):
     
     await message.channel.send('Prune Team command is processing... (this might take a while)')
     
-    await update_team(db, team_name, client)
+    await update_team(db, team_name, client, context)
 
     await message.channel.send(team_name+' was updated.')
