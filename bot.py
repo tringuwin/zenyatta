@@ -347,18 +347,9 @@ async def handle_message(message, db, client):
     
     context = 'OW'
     message_channel = message.channel
-    if message_channel:
-        print(message_channel)
-        try:
-            print('category id')
-            print(message_channel.category_id)
-            print(message.channel.category.name)
-            if message_channel.category_id == constants.RIVALS_CATEGORY_ID:
-                context = 'MR'
-        except:
-            print('error')
+    if message_channel.category_id == constants.RIVALS_CATEGORY_ID:
+        context = 'MR'
 
-    print('context is '+context)
 
     # context = 'OW'
     # category_id = channel.category.id
@@ -413,10 +404,6 @@ async def handle_message(message, db, client):
             helpers_channel = guild.get_channel(constants.HELPERS_CHANNEL)
             await helpers_channel.send('WARN REPORT: User "'+message.author.name+'" was *warned* for sending a link without Image Permission. Please review the logs and check if what they sent was allowed. If it was allowed, please give them image perms immediately to prevent them from being accidently banned.')
             return
-
-    # peanut butter check
-    # if lower_message.find('peanut butter') != -1:
-    #     await message.channel.send('<:Winton:1243994564268920933> Did someone say peanut butter? <:Winton:1243994564268920933>')
 
     is_command = len(user_message) > 0 and (user_message[0] == '!')
     if (not is_command) and (not is_push_bot):
