@@ -806,7 +806,7 @@ async def handle_message(message, db, client):
         await rival_request_handler(db, message, context)
 
     elif lower_message.startswith('!acceptally '):
-        await accept_ally_handler(db, message, client)
+        await accept_ally_handler(db, message, client, context)
 
     elif lower_message.startswith('!acceptrival '):
         await accept_rival_handler(db, message, client)
