@@ -2160,15 +2160,15 @@ async def handle_message(message, db, client):
 
         await message.channel.send('Update posted')
 
-    elif lower_message == '!applyleaguenotifs' and is_admin:
+    elif lower_message == '!giveeveryonerole' and is_admin:
 
         guild = client.get_guild(constants.GUILD_ID)
-        league_notifs = guild.get_role(constants.LEAGUE_NOTIFS_ROLE)
+        overwatch_role = guild.get_role(constants.OVERWATCH_ROLE)
 
         num = 1
         for member in client.get_all_members():
             
-            await member.add_roles(league_notifs)
+            await member.add_roles(overwatch_role)
             time.sleep(0.5)
             print('applied to user '+str(num))
             num += 1
