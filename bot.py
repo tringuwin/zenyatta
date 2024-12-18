@@ -233,7 +233,7 @@ from streamlabs import check_streamlabs_raffles
 from teams import get_team_by_name
 from time_helpers import check_weekly, long_enough_for_gift
 from twitch_token import check_token_issue
-from user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_role_id_by_level, notify_user_of_gift, user_exists
+from user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_rivals_league_team, get_role_id_by_level, notify_user_of_gift, user_exists
 from xp_battles import add_to_battle, how_many_handler, remove_from_battle
 
 
@@ -2542,7 +2542,14 @@ def run_discord_bot(db):
                 users = db['users']
                 users.update_one({'discord_id': user_id}, {'$set': {'league_team': 'None'}})
 
-                await update_team(db, user_league_team, client)
+                await update_team(db, user_league_team, client, 'OW')
+
+            user_rivals_league_team = get_rivals_league_team(db_user)
+            if user_rivals_league_team != 'None':
+                users = db['users']
+                users.update_one({'discord_id': user_id}, {'$set': {'rivals_league_team': 'None'}})
+
+                await update_team(db, user_rivals_league_team, client, 'MR')
 
 
 
