@@ -16,11 +16,8 @@ def get_character_response(character_context, user_prompt):
     Returns:
         str: The AI's response in character.
     """
-    # Combine the character context with the user's prompt
-    full_prompt = f"{character_context}\n\nYou are now in character. Respond to the following:\n{user_prompt}"
-    
     # Send the prompt to OpenAI's GPT model
-    response = openai.ChatCompletion.create(
+    response = openai.Chat.create(
         model="gpt-4",  # Use "gpt-4" or another model depending on your needs
         messages=[
             {"role": "system", "content": character_context},
