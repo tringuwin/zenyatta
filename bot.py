@@ -2571,7 +2571,7 @@ def run_discord_bot(db):
             if e.errno == 104:
                 await send_msg(message.channel, 'Network error. Please try your command again.', 'Network Error')
         except discord.errors.NotFound as e:
-            await send_msg(message.channel, 'ERROR: I tried to delete a message but it was already deleted.', '404 Error')
+            await send_msg(message.channel, 'ERROR: I tried to delete a message but it was already deleted.\n'+str(e), '404 Error')
         except discord.errors.HTTPException as e:
             print('HTTP Exception')
             print(e)
