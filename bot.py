@@ -163,6 +163,7 @@ from command_handlers.xp_battle.end_battle import end_battle_handler
 from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
 from lineups import check_lineup_tokens
+from open_ai.open_ai import wizard_test
 from poke_data import update_poke_data_db
 from pokemon import add_order_handler, add_poke_handler, all_pokes_handler, buy_order_handler, cancel_order_handler, del_poke_handler, finish_order_handler, get_pokedex, get_sort_index, give_poke_handler, my_pokes_handler, open_poke_handler, order_handler, rem_order_handler, sell_poke_handler, unopened_handler, view_poke_handler
 from command_handlers.profile import profile_handler
@@ -2260,6 +2261,10 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!makecaster ') and is_admin:
         await make_caster_handler(db, message)
+
+    elif lower_message == '!wizardtest' and is_admin:
+        wizard_test()
+        await message.channel.send('test done')
 
     elif lower_message == 'check long' and is_push_bot:
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
