@@ -35,7 +35,7 @@ async def make_caster_handler(db, message):
         'username': username,
         'discord_id': user_id,
         'roles': [],
-        'token': uuid.uuid4(),
+        'token': str(uuid.uuid4()),
         'relations': make_empty_relations_matrix(casters),
         'platform': 'NONE',
         'groupPreference': 'NONE'
