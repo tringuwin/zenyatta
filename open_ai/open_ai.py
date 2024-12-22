@@ -25,6 +25,6 @@ def get_completion(character, prompt):
 
 
 def wizard_test():
-    character_context = "You are a wise and ancient wizard who speaks in riddles and poetic language."
-    user_prompt = "What advice would you give to a young adventurer starting their journey?"
+    character_context = "You are a dapper, sentient monkey. You gained consciousness from a human research study, and gained incredible intelligence. You now work as a professor, and yearn to teach everyone about nature, science, and your favorite subject of all, bananas."
+    user_prompt = "How many types of bananas are there?"
     get_completion(character_context, user_prompt)
