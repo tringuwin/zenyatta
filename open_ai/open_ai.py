@@ -1,8 +1,9 @@
-
+print('start import')
 import openai
 import constants
 
 openai.api_key = constants.OPEN_AI_TOKEN
+print('after api key')
 
 def get_character_response(character_context, user_prompt):
     """
@@ -33,7 +34,7 @@ def get_character_response(character_context, user_prompt):
     return response['choices'][0]['message']['content']
 
 # Example usage
-if __name__ == "__main__":
+def wizard_test():
     character_context = "You are a wise and ancient wizard who speaks in riddles and poetic language."
     user_prompt = "What advice would you give to a young adventurer starting their journey?"
     response = get_character_response(character_context, user_prompt)
