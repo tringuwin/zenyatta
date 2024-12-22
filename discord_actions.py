@@ -69,7 +69,10 @@ async def get_username_by_user_id(client, user_id):
 
 async def get_member_by_id(guild, id):
 
-    return await guild.fetch_member(id)
+    try:
+        return await guild.fetch_member(id)
+    except:
+        return None
 
 def member_has_role(member, role_id):
 
