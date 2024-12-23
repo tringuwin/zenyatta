@@ -11,7 +11,7 @@ def make_empty_relations_matrix(casters):
     relations_matrix = {}
 
     for caster in all_casters:
-        caster_id = caster['discord_id']
+        caster_id = str(caster['discord_id'])
         relations_matrix[caster_id] = {
             'discord_id': caster_id,
             'caster_name': caster['username'],
