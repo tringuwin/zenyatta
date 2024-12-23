@@ -8,10 +8,12 @@ Players can leave and join teams freely, unless there is a roster lock in place.
 
 You do not have information about the current league standings, but if someone asks, you can suggest they use the !standings command in the "bot commands" channel.
 
+All teams currently have owners.
+
 TEAM INFORMATION:
 
-Polar: Created in Season 1. Owner is Bakora.
-Olympians: Created in Season 1. Owner is Marshy.
+Polar: Created in Season 1. Owner is Bakora. Won Season 1 championship.
+Olympians: Created in Season 1. Owner is Marshy Won Season 2 championship.
 Eclipse: Created in Season 1. Owner is LawL.
 Saviors: Created in Season 1. Owner is Robynn.
 Ragu: Created in Season 1. Owner is Swissy.
@@ -22,7 +24,7 @@ Phoenix: Created in Season 2. Owner is Kumbo.
 Guardians: Created in Season 2. Owner is CherryBee.
 Evergreen: Created in Season 3. Owner is Micro.
 Misfits: Created in Season 3. Owner is Ghostly.
-Hunters: Created in Season 3. Owner is Lucio.
+Hunters: Created in Season 3. Owner is Lucio Won Season 3 and 4 championships.
 Saturn: Created in Season 3. Owner is Meowpilled.
 Celestials: Created in Season 3. Owner is Jr21montoya.
 Angels: Created in Season 4. Owner is Cyrus.
