@@ -12,9 +12,28 @@ def make_empty_relations_matrix(casters):
 
     for caster in all_casters:
         caster_id = caster['discord_id']
-        relations_matrix[caster_id] = 0
+        relations_matrix[caster_id] = {
+            'discord_id': caster_id,
+            'caster_name': caster['username'],
+            'relation': 0
+        }
 
     return relations_matrix
+
+
+def add_relation_to_other_casters(casters, username, user_id):
+
+    all_casters = casters.find()
+
+    for caster in all_casters:
+        caster_relations = caster['relations']
+        caster_relations[user_id] = {
+            'discord_id': user_id,
+            'caster_name': username,
+            'relation': 0
+        }
+        casters.update_one({'discord_id': caster['discord_id']}, {'$set': {'relations': caster_relations}})
+
 
 
 
@@ -31,6 +50,8 @@ async def make_caster_handler(db, message):
 
     casters = db['casters']
 
+    add_relation_to_other_casters(casters, username, user_id)
+
     new_caster = {
         'username': username,
         'discord_id': user_id,
@@ -38,7 +59,8 @@ async def make_caster_handler(db, message):
         'token': str(uuid.uuid4()),
         'relations': make_empty_relations_matrix(casters),
         'platform': 'NONE',
-        'groupPreference': 'NONE'
+        'groupPreference': 'NONE',
+        'isTrial': True
     }
 
     casters.insert_one(new_caster)
