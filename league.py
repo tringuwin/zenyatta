@@ -135,7 +135,10 @@ def make_member_game_id(db, member, context):
 
     if user:
         if context == 'OW':
-            member_id = user['battle_tag'].split('#')[0]
+            try:
+                member_id = user['battle_tag'].split('#')[0]
+            except Exception as e:
+                raise Exception('Could not find a battle tag for user with id '+str(member['discord_id']))
         else:
             if 'rivals_username' in user:
                 member_id = user['rivals_username']
