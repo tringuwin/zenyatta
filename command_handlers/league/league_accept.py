@@ -4,7 +4,7 @@ from api import give_role
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild, get_role_by_id
 from helpers import get_league_emoji_from_team_name, make_string_from_word_list
-from league import remove_league_invite, update_team_info
+from league import has_username_for_game, remove_league_invite, update_team_info
 from league_helpers import get_league_invites_with_context, get_league_notifs_channel, get_league_team_with_context, get_league_teams_collection
 from user import get_user_div, get_user_team_swaps, user_exists
 import constants
@@ -74,6 +74,13 @@ async def league_accept_handler(db, message, client, context):
     if len(league_team['members']) >= 25:
         await message.channel.send('This League Team already has 25 players, which is the maximum allowed. Please contact an admin of this team if you think this is a mistake.')
         return
+    
+    if not has_username_for_game(user, context):
+        if context == 'OW':
+            await message.channel.send('Please link your battle tag before joining an Overwatch team. Use the command **!battle BattleTagHere#1234** to do this.')
+        elif context == 'MR':
+            await message.channel.send('Please link your Marvel Rivals username before joining a Marvel Rivals team. Use the command **!username UsernameHere** to do this.')
+
     
     # season_active = False
     # team_swaps = 0

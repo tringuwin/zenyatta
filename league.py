@@ -232,3 +232,15 @@ def get_team_record_string(db, team_name):
     team_losses = team_record['losses']
 
     return 'W: '+str(team_wins)+' L: '+str(team_losses)
+
+
+def has_username_for_game(user, context):
+
+    if context == 'OW':
+        if 'battle_tag' in user:
+            return True
+    elif context == 'MR':
+        if 'rivals_username' in user:
+            return True
+
+    return False
