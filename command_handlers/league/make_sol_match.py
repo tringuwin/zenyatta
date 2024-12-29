@@ -157,7 +157,8 @@ async def make_sol_match(client, db, message):
         'time': str(match_start_est)+' PM',
         'raw_time': match_start_est,
         'home_score': 0,
-        'away_score': 0
+        'away_score': 0,
+        'left_team': 'home'
     }
 
     day_data['matches'].append(match_obj)
