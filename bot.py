@@ -7,6 +7,7 @@ from datetime import timedelta
 from admin_handlers.cancel_vote import cancel_vote_handler
 from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.end_vote import end_vote_handler
+from admin_handlers.feature import feature_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_battle_handler import force_battle_handler
 from admin_handlers.force_delete_team import force_delete_team_handler
@@ -486,6 +487,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith("!suggest "):
         await suggest_handler(message, client)
+
+    elif lower_message.startswith('!feature ') and is_admin:
+        await feature_handler(message, client)
 
     elif lower_message == "!tokens":
         await output_tokens(db, message)
