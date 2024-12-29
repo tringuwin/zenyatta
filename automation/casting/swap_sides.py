@@ -8,7 +8,7 @@ from helpers import get_constant_value
 async def swap_sides(db, message):
 
     command_parts = message.content.split()
-    if command_parts != 1:
+    if command_parts != 2:
         await message.channel.send('Please send the name of one of the two teams playing in the match to swap. Example: **!swapsides Polar**')
         return
     team_name = command_parts[1]
