@@ -33,6 +33,7 @@ from admin_handlers.sub_rewards import gift_rewards_handler, sub_rewards_handler
 from admin_handlers.total_league import total_league_handler
 from auction import check_auction
 from automation.casting.swap_sides import swap_sides
+from automation.casting.update_score import add_point, remove_point
 from automation.notify_about_matches import check_notify_about_matches
 from automation.raffle import end_raffle, start_raffle
 from automation.update_top_subs_avatars import update_top_subs_avatars
@@ -2142,6 +2143,12 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!swapsides') and is_tourney_admin:
         await swap_sides(db, message)
+
+    elif lower_message.startswith('!addpoint') and is_tourney_admin:
+        await add_point(db, message)
+
+    elif lower_message.startswith('!removepoint') and is_tourney_admin:
+        await remove_point(db, message)
 
     elif lower_message.startswith('!lockon') and is_admin:
         await handle_lock(db, message, True)

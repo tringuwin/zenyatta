@@ -4,13 +4,13 @@ from discord_actions import is_dm_channel
 import constants
 
 BLACK_LIST = [
-
+    1291074955999580252  # banz
 ]
 
 async def suggest_handler(message, client):
     
     if message.author.id in BLACK_LIST:
-        await message.channel.send('You are not allowed to use this command anymore due to abusing it.')
+        await message.channel.send('You are temporarily not allowed to use this command anymore due to abusing it.')
         return
 
     idea = message.content[len("!suggest "):].strip()
