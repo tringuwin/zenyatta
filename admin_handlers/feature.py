@@ -17,7 +17,7 @@ async def feature_handler(message, client):
 
     feature_msg = await feature_channel.send(embed=embed_msg)
     await feature_msg.add_reaction("✅")
-    await feature.add_reaction("❌")
+    await feature_msg.add_reaction("❌")
 
     message_channel = message.channel
     await message_channel.send('Feature request sent.')
