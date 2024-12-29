@@ -35,7 +35,7 @@ async def update_score(db, message, team_name, score_change):
         return
     
     schedule_db.update_one({'season': league_season}, {'$set': {'weeks': season['weeks']}})
-    await message.channel.send('Added ')
+    await message.channel.send('Score updated.')
 
 
 
