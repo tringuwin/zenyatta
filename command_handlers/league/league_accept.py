@@ -80,6 +80,7 @@ async def league_accept_handler(db, message, client, context):
             await message.channel.send('Please link your battle tag before joining an Overwatch team. Use the command **!battle BattleTagHere#1234** to do this.')
         elif context == 'MR':
             await message.channel.send('Please link your Marvel Rivals username before joining a Marvel Rivals team. Use the command **!username UsernameHere** to do this.')
+        return
 
     
     # season_active = False
