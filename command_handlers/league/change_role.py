@@ -52,6 +52,9 @@ async def change_role_handler(db, message, client, context):
         return
     
     new_role = make_string_from_word_list(word_list, 2)
+    if len(new_role) > 20:
+        await message.channel.send('Roles must be 20 letters or less.')
+        return
     
     my_team['members'][at_member_index]['role'] = new_role
     league_teams = get_league_teams_collection(db, context)
