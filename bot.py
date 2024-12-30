@@ -159,6 +159,7 @@ from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.rp import rp_handler
 from command_handlers.sell_pp import sell_pp_handler
+from command_handlers.team_page import team_page_handler
 from command_handlers.twitch import twitch_handler
 from command_handlers.vote import vote_handler
 from command_handlers.xp_battle.battle_no_show import battle_no_show_handler
@@ -858,6 +859,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!setlineup':
         await set_lineup_handler(db, message, context)
+
+    elif lower_message.startswith('!teampage'):
+        await team_page_handler(db, message)
 
     elif lower_message.startswith('!matchlineups') and is_tourney_admin:
         await match_lineups_handler(db, message)
