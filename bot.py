@@ -37,6 +37,7 @@ from automation.casting.swap_sides import swap_sides
 from automation.casting.update_score import add_point, remove_point
 from automation.notify_about_matches import check_notify_about_matches
 from automation.raffle import end_raffle, start_raffle
+from automation.update_team_avatars import update_team_avatars
 from automation.update_top_subs_avatars import update_top_subs_avatars
 from card_automation import make_all_cards_from_data
 from card_matches.card_match_utils import make_match_card
@@ -2334,6 +2335,8 @@ async def handle_message(message, db, client):
         await check_notify_about_matches(client, db, message)
 
         await update_top_subs_avatars(guild, db, message)
+
+        await update_team_avatars(guild, db, message)
 
     elif context == 'MR':
         await route_rivals_message(db, message, lower_message)
