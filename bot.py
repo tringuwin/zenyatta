@@ -752,7 +752,7 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!changeteamowner') and is_league_commands_user:
         # !changeteamowner @player team name
-        await change_team_owner_handler(db, message, client, context)
+        await change_team_owner_handler(db, message, context)
 
     elif lower_message.startswith('!changetpp'):
         # !changetpp @Player [new tpp]
