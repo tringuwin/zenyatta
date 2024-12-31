@@ -162,6 +162,7 @@ from command_handlers.sell_pp import sell_pp_handler
 from command_handlers.team_page import team_page_handler
 from command_handlers.twitch import twitch_handler
 from command_handlers.vote import vote_handler
+from command_handlers.website import website_handler
 from command_handlers.xp_battle.battle_no_show import battle_no_show_handler
 from command_handlers.xp_battle.battle_teams import battle_teams_handler
 from command_handlers.xp_battle.battle_win import battle_win_handler
@@ -862,6 +863,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!teampage'):
         await team_page_handler(db, message)
+
+    elif lower_message == '!website':
+        await website_handler(message)
 
     elif lower_message.startswith('!matchlineups') and is_tourney_admin:
         await match_lineups_handler(db, message)
