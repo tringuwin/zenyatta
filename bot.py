@@ -60,6 +60,7 @@ from command_handlers.bets.void_bet import void_bet_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.bracket import bracket_handler
 from command_handlers.buy_ticket import buy_ticket_handler
+from command_handlers.card_search import card_search_handler
 from command_handlers.deny_gem_trade import deny_gem_trade_handler
 from command_handlers.donate import donate_handler
 from command_handlers.donate_packs import donate_packs
@@ -866,6 +867,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!website':
         await website_handler(message)
+
+    elif lower_message == '!cardsearch':
+        await card_search_handler(message)
 
     elif lower_message.startswith('!matchlineups') and is_tourney_admin:
         await match_lineups_handler(db, message)
