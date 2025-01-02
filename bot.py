@@ -85,6 +85,7 @@ from command_handlers.help.help_poke import help_poke_handler
 from command_handlers.helper_salary import helper_salary_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
+from command_handlers.league.picks.picks import picks_handler
 from command_handlers.league.sol_week_end import sol_week_end
 from command_handlers.league.weekly_roster_reset import weekly_roster_reset
 from command_handlers.league.sol_weekly_pay import sol_weekly_pay
@@ -1594,6 +1595,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!makesolmatch') and is_admin:
         await make_sol_match(client, db, message)
+
+    elif lower_message == '!picks':
+        await picks_handler(db, message)
 
     elif lower_message == '!initschedule' and is_admin:
 
