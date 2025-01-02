@@ -28,7 +28,8 @@ def make_or_fetch_user_picks(picks_db, league_season, user):
             'user_id': user.id,
             'season': league_season,
             'picks': blank_picks,
-            'token': str(uuid.uuid4())
+            'token': str(uuid.uuid4()),
+            'complete': False
         }
 
         picks_db.insert_one(picks_obj)
