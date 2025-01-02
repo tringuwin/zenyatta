@@ -11,7 +11,8 @@ async def update_team(db, team_name, client, context):
 
     guild = await get_guild(client)
     league_teams = get_league_teams_collection(db, context)
-    team_object = league_teams.find_one({'team_name': team_name})
+    team_name_lower = team_name.lower()
+    team_object = league_teams.find_one({'name_lower': team_name_lower})
 
     league_team_field = 'league_team' if context == 'OW' else 'rivals_league_team'
 
