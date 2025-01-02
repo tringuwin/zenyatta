@@ -17,10 +17,7 @@ def find_user_with_battle_tag(db, lower_tag):
 
     existing_user = users.find_one(search_query)
 
-    if existing_user:
-        return True
-    else:
-        return False
+    return existing_user
     
 def create_or_update_battle_tag(db, battle_tag, lower_tag, discord_id):
 

@@ -19,8 +19,13 @@ async def battle_link(db, message, client, user, battle_tag):
         return
         
     lower_tag = battle_tag.lower()
-    if find_user_with_battle_tag(db, lower_tag):
-        await message.channel.send("That Battle Tag has already been connected with a discord account. (Maybe you've already linked it?)")
+    user_with_battle_tag = find_user_with_battle_tag(db, lower_tag)
+
+    if user_with_battle_tag:
+        if user_with_battle_tag['discord_id'] == message.author.id:
+            await message.channel.send("You've already linked this battle tag.")
+        else:
+            await message.channel.send("That Battle Tag has already been connected to a different discord account. Please contact staff if you need help.")
         return
     
     create_or_update_battle_tag(db, battle_tag, lower_tag, user.id)
@@ -33,8 +38,8 @@ async def battle_link(db, message, client, user, battle_tag):
 
     await message.channel.send("Success! Your Battle Tag has been linked to the Spicy OW server! (Please note: if you change your Battle Tag please use the !battle command again to update it!)")
 
-async def battle_handler(db, message, client):
 
+async def battle_handler(db, message, client):
 
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
