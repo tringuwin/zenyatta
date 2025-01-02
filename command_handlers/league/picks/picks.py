@@ -22,13 +22,16 @@ def make_or_fetch_user_picks(picks_db, league_season, user):
 
     picks_obj = picks_db.find_one({'season': league_season, 'user_id': user.id})
     if not picks_obj:
-        picks_obj = copy.deepcopy(SEASON_TO_PICK_ARRAY[league_season])
-        picks_db.insert_one({
+        blank_picks = copy.deepcopy(SEASON_TO_PICK_ARRAY[league_season])
+
+        picks_obj = {
             'user_id': user.id,
             'season': league_season,
-            'picks': picks_obj,
+            'picks': blank_picks,
             'token': str(uuid.uuid4())
-        })
+        }
+
+        picks_db.insert_one(picks_obj)
     
     return picks_obj
 
