@@ -1,6 +1,5 @@
 
 import time
-from api import send_msg
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_role_by_id, give_role_to_user
 from helpers import can_be_int, valid_number_of_params
@@ -15,7 +14,7 @@ async def buy_handler(db, message, client):
 
     twitch_sub_role = await get_role_by_id(client, constants.TWITCH_SUB_ROLE)
     if not twitch_sub_role in message.author.roles:
-        await message.channel.send('The Token Shop can only be used by Twitch Subscribers.')
+        await message.reply('The Token Shop can only be used by Twitch Subscribers.')
         return
 
     valid_params, params = valid_number_of_params(message, 2)
@@ -25,7 +24,7 @@ async def buy_handler(db, message, client):
     
     raw_buy_item = params[1]
     if not can_be_int(raw_buy_item):
-        await message.channel.send('Command not formatted correctly. Reference the Token Shop to see how to buy items.')
+        await message.reply('Command not formatted correctly. Reference the Token Shop to see how to buy items.')
         return
     buy_item = int(raw_buy_item)
 
@@ -37,12 +36,12 @@ async def buy_handler(db, message, client):
     shop = db['shop']
     the_shop = shop.find_one({'shop_id': 2})
     if buy_item < 1 or buy_item > len(the_shop['offers']):
-        await message.channel.send('There is no item with that id.')
+        await message.reply('There is no item with that id.')
         return
     offer = the_shop['offers'][buy_item - 1]
 
     if offer['in_stock'] < 1:
-        await message.channel.send('That item is not currently in stock.')
+        await message.reply('That item is not currently in stock.')
         return
     
     if buy_item != 7:
@@ -50,11 +49,11 @@ async def buy_handler(db, message, client):
         long_enough, time_diff = long_enough_for_shop(last_token_shop)
         if not long_enough:
             time_left = time_to_shop(time_diff)
-            await message.channel.send('You have used the Token Shop less than a week ago. You can use the shop again in **'+time_left+'**')
+            await message.reply('You have used the Token Shop less than a week ago. You can use the shop again in **'+time_left+'**')
             return
 
     if offer['price'] > get_user_tokens(user):
-        await message.channel.send('You do not have enough tokens to redeem this reward.')
+        await message.reply('You do not have enough tokens to redeem this reward.')
         return
 
     offer['in_stock'] -= 1
@@ -72,7 +71,7 @@ async def buy_handler(db, message, client):
         if buy_item == 7:
             # give player 500 poke-points
             await change_pp(db, user, 500)
-            await message.channel.send('Success! You redeemed 500 PokePoints!')
+            await message.reply('Success! You redeemed 500 PokePoints!')
 
     else:
         redemptions_channel = await get_redemptions_channel(message)
@@ -80,6 +79,6 @@ async def buy_handler(db, message, client):
         final_string += '\n**It may take up to a week for you to be contacted. DO NOT PING/MESSAGE STAFF ABOUT REWARDS UNLESS IT HAS BEEN LONGER THAN 1 WEEK.**'
         final_string += '\n\nIf you would like to gift this reward to another user, please make a ticket in https://discord.com/channels/1130553449491210442/1202441473027477504 immediately.'
         await redemptions_channel.send('**User Redeemed Reward: '+offer['item_name']+'**\n'+'User ID: '+str(message.author.id)+'\nUser Name: '+message.author.display_name+'\nBattle Tag: '+user['battle_tag'])
-        await message.channel.send(final_string)
+        await message.reply(final_string)
 
     # send back confirm message
