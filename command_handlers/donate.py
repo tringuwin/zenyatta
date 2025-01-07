@@ -56,10 +56,6 @@ async def donate_handler(db, message):
         await message.channel.send("You can't donate to yourself...")
         return
     
-    if donate_to_user['discord_id'] == constants.SPICY_RAGU_ID:
-        await message.channel.send("Thank you! But Spicy doesn't need tokens since he owns the server!")
-        return
-    
     if donate_to_user['discord_id'] == constants.ZEN_ID:
         await message.channel.send("Thank you! But I don't need any tokens!")
         return
