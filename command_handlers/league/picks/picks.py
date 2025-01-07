@@ -8,8 +8,7 @@ SEASON_5_PICK_ARRAY = {
     'round2': ['None', 'None', 'None', 'None'],
     'round3': ['None', 'None'],
     'round4': ['None'],
-    'leftScore': -1,
-    'rightScore': -1
+    'loserScore': -1,
 }
 
 SEASON_TO_PICK_ARRAY = {
@@ -29,7 +28,8 @@ def make_or_fetch_user_picks(picks_db, league_season, user):
             'season': league_season,
             'picks': blank_picks,
             'token': str(uuid.uuid4()),
-            'complete': False
+            'complete': False,
+            'score': 0
         }
 
         picks_db.insert_one(picks_obj)
