@@ -23,6 +23,6 @@ async def call_me_handler(db, message, context):
         return
     
     users = db['users']
-    users.update_one({'discord_id': user['discord_id']}, {'call': call_me_text})
+    users.update_one({'discord_id': user['discord_id']}, {'$set': {'call': call_me_text}})
 
     await message.channel.send('Your preference has been saved.')
