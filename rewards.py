@@ -172,21 +172,21 @@ async def level_up(user, orig_level, new_level, client, db):
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
 
-    member = await get_user_from_guild(client, user['discord_id'])
-    if member:
+    # member = await get_user_from_guild(client, user['discord_id'])
+    # if member:
 
-        guild = await get_guild(client)
+    #     guild = await get_guild(client)
 
-        adjusted_orig_level = orig_level - 1
-        orig_level_id = constants.LEVEL_ROLE_IDS[adjusted_orig_level]
-        orig_level_role = guild.get_role(orig_level_id)
+    #     adjusted_orig_level = orig_level - 1
+    #     orig_level_id = constants.LEVEL_ROLE_IDS[adjusted_orig_level]
+    #     orig_level_role = guild.get_role(orig_level_id)
 
-        adjusted_new_level = new_level - 1
-        new_level_id = constants.LEVEL_ROLE_IDS[adjusted_new_level]
-        new_level_role = guild.get_role(new_level_id)
+    #     adjusted_new_level = new_level - 1
+    #     new_level_id = constants.LEVEL_ROLE_IDS[adjusted_new_level]
+    #     new_level_role = guild.get_role(new_level_id)
 
-        await give_role(member, new_level_role, 'Level Up')
-        await remove_role(member, orig_level_role, 'Level Up')
+    #     await give_role(member, new_level_role, 'Level Up')
+    #     await remove_role(member, orig_level_role, 'Level Up')
 
 
 
