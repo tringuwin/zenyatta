@@ -389,6 +389,13 @@ def get_user_minute_points(user):
     
     return 0
 
+def get_user_drop_boxes(user):
+
+    if 'drop_boxes' in user:
+        return user['drop_boxes']
+    
+    return 0
+
 
 def toggle_off_gift_notify(db, user):
 
