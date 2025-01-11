@@ -158,6 +158,7 @@ from command_handlers.league.toggle_esub import toggle_esub_handler
 from command_handlers.league.update_team import update_team, update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
+from command_handlers.next_drop import next_drop
 from command_handlers.open import open_handler
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.rp import rp_handler
@@ -2180,6 +2181,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!lockoff') and is_admin:
         await handle_lock(db, message, False)
+
+    elif lower_message.startswith('!nextdrop') and is_admin:
+        await next_drop(db, message)
 
     elif lower_message.startswith('!update|') and is_admin:
         parts = message.content.split('|')

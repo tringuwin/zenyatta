@@ -382,6 +382,14 @@ def get_rivals_username(user):
     return ''
 
 
+def get_user_minute_points(user):
+
+    if 'minute_points' in user:
+        return user['minute_points']
+    
+    return 0
+
+
 def toggle_off_gift_notify(db, user):
 
     users = db['users']
