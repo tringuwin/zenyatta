@@ -20,7 +20,7 @@ async def next_drop(db, message):
 
     percent = minute_points * 10
 
-    final_string = 'Your next Spicy Drop is '+str(percent)+'% ready! Just watch **'+str(10-minute_points)+' minutes** on one of our official twitch channels to claim it!'
+    final_string = 'Your next <:spicy_drop:1327677388720701450> Spicy Drop is '+str(percent)+'% ready! Just watch **'+str(10-minute_points)+' minutes** on one of our official twitch channels to claim it!'
     final_string += '\n\n'
 
     boxes_left = 10
