@@ -20,4 +20,19 @@ async def next_drop(db, message):
 
     percent = minute_points * 10
 
-    await message.channel.send('Your next Spicy Drop is '+str(percent)+'% ready! Just watch **'+str(10-minute_points)+' minutes** on one of our official twitch channels to claim it!')
+    final_string = 'Your next Spicy Drop is '+str(percent)+'% ready! Just watch **'+str(10-minute_points)+' minutes** on one of our official twitch channels to claim it!'
+    final_string += '\n\n'
+
+    boxes_left = 10
+    while boxes_left > 0:
+
+        if minute_points > 0:
+            final_string += '🟩'
+            minute_points -= 1
+        else:
+            final_string += '⬜'
+
+
+        boxes_left -= 1
+
+    await message.channel.send()
