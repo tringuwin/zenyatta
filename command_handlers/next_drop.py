@@ -35,4 +35,4 @@ async def next_drop(db, message):
 
         boxes_left -= 1
 
-    await message.channel.send()
+    await message.channel.send(final_string)
