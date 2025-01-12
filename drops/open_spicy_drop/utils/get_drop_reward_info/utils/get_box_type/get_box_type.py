@@ -28,7 +28,7 @@ BOX_DISTRIBUTION = {
 
 def get_box_type():
 
-    return 'PACK_BOX'
+    return 'MONEY_BOX'
 
     all_boxes = []
 
