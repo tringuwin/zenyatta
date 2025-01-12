@@ -28,6 +28,8 @@ BOX_DISTRIBUTION = {
 
 def get_box_type():
 
+    return 'PACK_BOX'
+
     all_boxes = []
 
     for box_name in BOX_DISTRIBUTION:
