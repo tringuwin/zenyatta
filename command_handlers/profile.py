@@ -3,7 +3,7 @@ from common_messages import not_registered_response
 from discord_actions import get_guild, get_member_by_username
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
 from poke_data import ALL_POKE_NUM
-from user import get_fan_of, get_fan_of_rivals, get_league_team, get_lvl_info, get_rival_of, get_rival_of_rivals, get_rivals_league_team, get_rivals_username, get_twitch_username, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_tokens, user_exists
+from user import get_fan_of, get_fan_of_rivals, get_league_team, get_lvl_info, get_rival_of, get_rival_of_rivals, get_rivals_league_team, get_rivals_username, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_tokens, user_exists
 import constants
 
 
@@ -94,6 +94,7 @@ async def overwatch_profile(message, client, user):
     twitch_username = get_twitch_username(user)
     ranks = get_user_ranks(user)
     pokedex = get_user_pokedex(user)
+    drops = get_user_drop_boxes(user)
     
     final_string = "**USER PROFILE FOR "+user['battle_tag']+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
@@ -121,8 +122,9 @@ async def overwatch_profile(message, client, user):
 
     pack_emoji = guild.get_emoji(constants.PACK_EMOJI_ID)
     poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
+    drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
-    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+str(poke_emoji)+' '+str(poke_points)+'\n'
+    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' '+str(poke_emoji)+' '+str(poke_points)+'\n'
 
     gems = get_user_gems(user)
     gem_line_1 = ''
@@ -166,6 +168,7 @@ async def rivals_profile(message, client, user):
     poke_points = get_user_poke_points(user)
     twitch_username = get_twitch_username(user)
     pokedex = get_user_pokedex(user)
+    drops = get_user_drop_boxes(user)
     
     final_string = "**USER PROFILE FOR "+username+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
@@ -192,8 +195,9 @@ async def rivals_profile(message, client, user):
 
     pack_emoji = guild.get_emoji(constants.PACK_EMOJI_ID)
     poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
+    drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
-    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+str(poke_emoji)+' '+str(poke_points)+'\n'
+    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' '+str(poke_emoji)+' '+str(poke_points)+'\n'
 
     gems = get_user_gems(user)
     gem_line_1 = ''
