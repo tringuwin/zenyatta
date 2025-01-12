@@ -2190,7 +2190,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!drops':
         await drops(db, message)
 
-    elif lower_message == '!opendrop' and is_admin:
+    elif lower_message == '!opendrop':
         await open_drop(db, client, message)
 
     elif lower_message.startswith('!update|') and is_admin:
