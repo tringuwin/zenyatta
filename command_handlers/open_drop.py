@@ -7,7 +7,7 @@ from user import get_user_drop_boxes, user_exists
 
 async def open_drop(db, client, message):
 
-    user = user_exists(db)
+    user = user_exists(db, message.author.id)
     if not user:
         await not_registered_response(message)
         return
