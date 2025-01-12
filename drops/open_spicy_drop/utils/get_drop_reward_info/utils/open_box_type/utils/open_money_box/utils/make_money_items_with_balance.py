@@ -1,6 +1,6 @@
 import math
 
-MONEY_REWARDS = {
+MONEY_REWARDS = [
     ['BATTLE_BALANCE_1', 1.00],
     ['BATTLE_BALANCE_3', 3.00],
     ['BATTLE_BALANCE_5', 5.00],
@@ -9,7 +9,7 @@ MONEY_REWARDS = {
     ['AMAZON_10', 10.00],
     ['AMAZON_25', 25.00],
     ['SOL_JERSEY', 100.00]
-}
+]
 
 
 def make_money_items_with_balance(balance):
