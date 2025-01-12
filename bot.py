@@ -161,6 +161,7 @@ from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.next_drop import next_drop
 from command_handlers.open import open_handler
+from command_handlers.open_drop import open_drop
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.rp import rp_handler
 from command_handlers.sell_pp import sell_pp_handler
@@ -2188,6 +2189,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!drops':
         await drops(db, message)
+
+    elif lower_message == '!opendrop' and is_admin:
+        await open_drop(db, client, message)
 
     elif lower_message.startswith('!update|') and is_admin:
         parts = message.content.split('|')

@@ -1,6 +1,6 @@
 import copy
 
-VERSION = '1.10.76'
+VERSION = '1.10.77'
 
 STREAMLABS_TOKEN = 'B032D12F02A4ED3AA822'
 
@@ -159,6 +159,19 @@ COLOR_TO_EMOJI_ID = {
     'pink': 1159202453028360334,
     'white': 1159202441116516362,
     'black': 1159202439031959643
+}
+
+GEM_COLOR_TO_STRING = {
+    'red': '<:gemred:1159202371998597211>',
+    'blue': '<:gemblue:1159202447676424292>',
+    'yellow': '<:gemyellow:1159202451652624495>',
+    'green': '<:gemgreen:1159202443947679885>',
+    'purple': '<:gempurple:1159202449068916837>',
+    'orange': '<:gemorange:1159202446128730153>',
+    'teal': '<:gemteal:1159202442559361104>',
+    'pink': '<:gempink:1159202453028360334>',
+    'white': '<:gemwhite:1159202441116516362>',
+    'black': '<:gemblack:1159202439031959643>'
 }
 
 TEAM_NAME_TO_EMOJI_EMBED_STRING = {
