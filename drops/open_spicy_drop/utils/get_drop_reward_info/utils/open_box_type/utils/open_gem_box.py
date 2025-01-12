@@ -7,7 +7,7 @@ def open_gem_box():
 
     gem_color = random.choice(constants.GEM_COLORS)
 
-    user_message = f'You opened a {gem_color} gem! '+constants.GEM_COLOR_TO_STRING(gem_color)
+    user_message = f'You opened a {gem_color} gem! '+constants.GEM_COLOR_TO_STRING[gem_color]
 
     reward_type = 'GEM_'+gem_color.upper()
 
