@@ -4,7 +4,7 @@ from user import get_user_gems, user_exists
 import constants
 
 
-async def gems_handler(db, message, guild):
+async def gems_handler(db, message):
     
     user = user_exists(db, message.author.id)
     if not user:

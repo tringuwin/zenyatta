@@ -132,12 +132,11 @@ async def overwatch_profile(message, client, user):
 
     gem_index = 1
     for color, amount in gems.items():
-        emoji_id = constants.COLOR_TO_EMOJI_ID[color]
-        gem_emoji = guild.get_emoji(emoji_id)
+        gem_emoji_string = constants.GEM_COLOR_TO_STRING[color]
         if gem_index < 6:
-            gem_line_1 += str(gem_emoji)+' '+str(amount)+' '
+            gem_line_1 += gem_emoji_string+' '+str(amount)+' '
         else:
-            gem_line_2 += str(gem_emoji)+' '+str(amount)+' '
+            gem_line_2 += gem_emoji_string+' '+str(amount)+' '
         gem_index +=1
 
     final_string +='\n'
@@ -205,12 +204,11 @@ async def rivals_profile(message, client, user):
 
     gem_index = 1
     for color, amount in gems.items():
-        emoji_id = constants.COLOR_TO_EMOJI_ID[color]
-        gem_emoji = guild.get_emoji(emoji_id)
+        gem_emoji_string = constants.GEM_COLOR_TO_STRING[color]
         if gem_index < 6:
-            gem_line_1 += str(gem_emoji)+' '+str(amount)+' '
+            gem_line_1 += gem_emoji_string+' '+str(amount)+' '
         else:
-            gem_line_2 += str(gem_emoji)+' '+str(amount)+' '
+            gem_line_2 += gem_emoji_string+' '+str(amount)+' '
         gem_index +=1
 
     final_string +='\n'

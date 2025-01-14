@@ -7,7 +7,7 @@ import random
 import constants
 
 
-async def give_gem(db, user, client):
+async def give_gem(db, user):
 
     random_gem = random.choice(constants.GEM_COLORS)
     user_gems = get_user_gems(user)
@@ -16,17 +16,15 @@ async def give_gem(db, user, client):
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"gems": user_gems}})
 
-    guild = await get_guild(client)
-    gem_emoji_id = constants.COLOR_TO_EMOJI_ID[random_gem]
-    gem_emoji = guild.get_emoji(gem_emoji_id)
+    gem_emoji_string = constants.GEM_COLOR_TO_STRING[random_gem]
 
-    return str(gem_emoji)+' **You found a '+random_gem+' gem!!** '+str(gem_emoji)
+    return gem_emoji_string+' **You found a '+random_gem+' gem!!** '+gem_emoji_string
     
 
 
 
 
-async def process_gift(db, current_time, existing_user, message, client):
+async def process_gift(db, current_time, existing_user, message):
 
     is_sub = member_has_role(message.author, constants.TWITCH_SUB_ROLE)
     is_booster = member_has_role(message.author, constants.SERVER_BOOSTER_ROLE)
@@ -50,7 +48,7 @@ async def process_gift(db, current_time, existing_user, message, client):
             await change_pickaxes(db, existing_user, 1)
             message_string += "⛏️ You found a **Pickaxe!** ⛏️ Use it in the Mineshaft!"
         elif prize_index <= 30:
-            message_part = await give_gem(db, existing_user, client)
+            message_part = await give_gem(db, existing_user)
             message_string += message_part
         else:
             tokens = random.randint(10, 20)
@@ -67,7 +65,7 @@ async def process_gift(db, current_time, existing_user, message, client):
             await change_pickaxes(db, existing_user, 1)
             message_string += "⛏️ You found a **Pickaxe!** ⛏️ Use it in the Mineshaft!"
         elif prize_index <= 15:
-            message_part = await give_gem(db, existing_user, client)
+            message_part = await give_gem(db, existing_user)
             message_string += message_part
         else:
             tokens = random.randint(2, 5)
@@ -92,7 +90,7 @@ async def process_gift(db, current_time, existing_user, message, client):
 
 
 
-async def gift_handler(db, message, client, is_admin):
+async def gift_handler(db, message, is_admin):
 
     existing_user = user_exists(db, message.author.id)
     if not existing_user:
@@ -105,11 +103,11 @@ async def gift_handler(db, message, client, is_admin):
         long_enough, diff_in_time = long_enough_for_gift(last_gift_time)
        
         if long_enough or is_admin:
-            await process_gift(db, current_time, existing_user, message, client)
+            await process_gift(db, current_time, existing_user, message)
         else:
             await message.channel.send(message.author.mention+" Your gift is not ready yet. Next gift in **"+time_to_gift(diff_in_time)+"**")
 
     else:
-        await process_gift(db, current_time, existing_user, message, client)
+        await process_gift(db, current_time, existing_user, message)
 
         

@@ -514,7 +514,7 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!gems':
         guild = await get_guild(client)
-        await gems_handler(db, message, guild)
+        await gems_handler(db, message)
 
     elif lower_message == '!lootboxes':
         await lootboxes_handler(db, message)
@@ -535,7 +535,7 @@ async def handle_message(message, db, client):
         await sell_pp_handler(db, message)
 
     elif lower_message == '!dailygift' or lower_message == '!gift':
-        await gift_handler(db, message, client, is_admin)
+        await gift_handler(db, message, is_admin)
 
     elif lower_message == "!hello":
         await hello_handler(message)
