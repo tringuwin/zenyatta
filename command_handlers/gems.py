@@ -15,9 +15,8 @@ async def gems_handler(db, message, guild):
 
     user_gems = get_user_gems(user)
     for color, amount in user_gems.items():
-        emoji_id = constants.COLOR_TO_EMOJI_ID[color]
-        gem_emoji = guild.get_emoji(emoji_id)
-        final_string += str(gem_emoji)+' '+color+': **'+str(amount)+'**\n'
+        gem_emoji_string = constants.GEM_COLOR_TO_STRING[color]
+        final_string += gem_emoji_string+' '+color+': **'+str(amount)+'**\n'
 
     final_string += '--------------\n'
     final_string += 'Each gem is worth 50 Tokens seperately.\n'
