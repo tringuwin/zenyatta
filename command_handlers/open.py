@@ -173,7 +173,7 @@ lootboxes = {
 }
 
 
-async def open_handler(db, message, client):
+async def open_handler(db, message):
 
     user = user_exists(db, message.author.id)
     if not user:
@@ -242,18 +242,15 @@ async def open_handler(db, message, client):
         await change_tokens(db, user, prize[1], 'opening-lootbox')
     elif prize[0] == 'Gem':
 
-        guild = await get_guild(client)
-
         gem_color = random.choice(constants.GEM_COLORS)
-        gem_emoji_id = constants.COLOR_TO_EMOJI_ID[gem_color]
-        gem_emoji = guild.get_emoji(gem_emoji_id)
+        gem_color_string = constants.GEM_COLOR_TO_STRING[gem_color]
 
         if prize[1] == 1:
             final_string += '1 Gem!! '
         else:
             final_string += str(prize[1])+' Gems!! '
 
-        final_string += "**"+str(gem_emoji)
+        final_string += "**"+gem_color_string
 
         user_gems = get_user_gems(user)
         user_gems[gem_color] += prize[1]

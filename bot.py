@@ -578,7 +578,7 @@ async def handle_message(message, db, client):
         await twager_handler(db, message)
 
     elif lower_message == '!mine':
-        await mine_handler(db, message, client)
+        await mine_handler(db, message)
 
     elif lower_message.startswith('!blackjack'):
         await blackjack_handler(db, message, client)
@@ -2004,7 +2004,7 @@ async def handle_message(message, db, client):
         await prune_sac_handler(db, message, client)
 
     elif lower_message.startswith('!open '):
-        await open_handler(db, message, client)
+        await open_handler(db, message)
 
     elif lower_message.startswith('!sellgems '):
         await sell_gems_handler(db, message)

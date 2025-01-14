@@ -30,7 +30,7 @@ flair = {
 }
 
 
-async def mine_handler(db, message, client):
+async def mine_handler(db, message):
 
     user = user_exists(db, message.author.id)
     if not user:
@@ -83,10 +83,8 @@ async def mine_handler(db, message, client):
 
     if is_gem:
         payout = 0
-        my_gem_id = constants.COLOR_TO_EMOJI_ID[gem_color]
-        guild = await get_guild(client)
-        gem_emoji = guild.get_emoji(my_gem_id)
-        my_flair = str(gem_emoji)
+        gem_color_string = constants.GEM_COLOR_TO_STRING[gem_color]
+        my_flair = gem_color_string
         user_gems = get_user_gems(user)
         user_gems[gem_color] += 1
         users = db['users']
