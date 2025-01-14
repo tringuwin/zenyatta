@@ -13,7 +13,7 @@ async def next_drop(db, message):
     
     twitch_username = get_twitch_username(user)
     if twitch_username == '[not set]':
-        await message.channel.send('Your twitch is not linked with this server! Please link it with this command: **!twitch UsernameHere**')
+        await message.reply('Your twitch is not linked with this server! Please link it with this command: **!twitch UsernameHere**')
         return
     
     minute_points = get_user_minute_points(user)
@@ -35,4 +35,4 @@ async def next_drop(db, message):
 
         boxes_left -= 1
 
-    await message.channel.send(final_string)
+    await message.reply(final_string)
