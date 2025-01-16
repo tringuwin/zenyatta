@@ -160,6 +160,7 @@ from command_handlers.league.update_team import update_team, update_team_handler
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.money.give_money import give_money
+from command_handlers.money.money import money
 from command_handlers.next_drop import next_drop
 from command_handlers.open import open_handler
 from command_handlers.open_drop import open_drop
@@ -1915,6 +1916,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!givemoney ') and is_admin:
         await give_money(client, db, message)
+
+    elif lower_message == '!money':
+        await money(db, message)
 
     elif lower_message.startswith('!givexp ') and (is_admin or is_league_helper):
         await give_xp_handler(client, db, message)
