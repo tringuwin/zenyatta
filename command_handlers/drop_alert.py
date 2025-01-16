@@ -41,3 +41,4 @@ async def drop_alert(client, db, message):
     alert_message += '\n\n*I cannot see responses here. If you need help, please contact staff by making a support ticket.*'
 
     await member.send(alert_message)
+    await message.channel.send('Alert sent successfully.')
