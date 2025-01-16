@@ -7,7 +7,8 @@ from helpers import generic_find_user, valid_number_of_params
 
 
 ALERT_CODE_TO_MESSAGE = {
-    'sent1': 'Your $1 Battle Balance from your drop <:spicy_drop:1327677388720701450> has been sent to your account!'
+    'sent1': 'Your $1 Battle Balance from your drop <:spicy_drop:1327677388720701450> has been sent to your account!',
+    'friend1': "Hello, for staff to gift you the $1 Battle Balance from your drop <:spicy_drop:1327677388720701450>, You will need to be friends with SpicyRagu's overwatch account for 3 days, due to blizzard's rules. A friend request will be sent to your account now, please accept when you can.",
 }
 
 
