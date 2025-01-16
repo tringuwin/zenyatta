@@ -37,6 +37,6 @@ async def drop_alert(client, db, message):
         return
 
     alert_message = ALERT_CODE_TO_MESSAGE[alert_code]
-    alert_message += '\n\nI cannot see responses here. If you need help, please contact staff by making a support ticket.'
+    alert_message += '\n\n*I cannot see responses here. If you need help, please contact staff by making a support ticket.*'
 
     await member.send(alert_message)
