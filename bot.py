@@ -65,6 +65,7 @@ from command_handlers.deny_gem_trade import deny_gem_trade_handler
 from command_handlers.donate import donate_handler
 from command_handlers.donate_packs import donate_packs
 from command_handlers.donate_pass import donate_pass_handler
+from command_handlers.drop_alert import drop_alert
 from command_handlers.drops import drops
 from command_handlers.funding import funding_handler
 from command_handlers.gems import gems_handler
@@ -2197,6 +2198,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!opendrop':
         await open_drop(db, client, message)
+
+    elif lower_message.startswith('!dropalert ') and is_admin:
+        await drop_alert(db, client, message)
 
     elif lower_message.startswith('!update|') and is_admin:
         parts = message.content.split('|')
