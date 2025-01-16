@@ -46,6 +46,13 @@ def get_user_tokens(user):
     
     return 0
 
+def get_user_money(user):
+
+    if 'money' in user:
+        return user['money']
+    
+    return 0.00
+
 def get_user_passes(user):
 
     if 'passes' in user:
