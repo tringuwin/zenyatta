@@ -37,4 +37,11 @@ async def prune_picks(db, message):
         if not pick_is_done(pick['picks']):
             pick_ids_to_delete.append(pick['token'])
 
-    print(pick_ids_to_delete)
+    num_deleted = 0
+    for id_to_delete in pick_ids_to_delete:
+        picks_db.delete_one({'token': id_to_delete})
+        num_deleted += 1
+
+    await message.channel.send('Command success, deleted '+str(num_deleted)+' picks.')
+
+    
