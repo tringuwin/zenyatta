@@ -2200,7 +2200,7 @@ async def handle_message(message, db, client):
         await open_drop(db, client, message)
 
     elif lower_message.startswith('!dropalert ') and is_admin:
-        await drop_alert(db, client, message)
+        await drop_alert(client, db, message)
 
     elif lower_message.startswith('!update|') and is_admin:
         parts = message.content.split('|')
