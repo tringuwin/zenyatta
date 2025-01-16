@@ -1,5 +1,6 @@
 
 
+from discord_actions import get_guild, get_member_by_id
 from helpers import generic_find_user, valid_number_of_params
 
 
@@ -25,6 +26,12 @@ async def drop_alert(client, db, message):
         await message.channel.send('Could not find a matching user.')
         return
     
+    guild = await get_guild(client)
+    member = await get_member_by_id(guild, user['discord_id'])
+    if not member:
+        await message.channel.send('Could not find member in the server.')
+        return
+    
     if not alert_code in ALERT_CODE_TO_MESSAGE:
         await message.channel.send('Invalid alert code.')
         return
@@ -32,4 +39,4 @@ async def drop_alert(client, db, message):
     alert_message = ALERT_CODE_TO_MESSAGE[alert_code]
     alert_message += '\n\nI cannot see responses here. If you need help, please contact staff by making a support ticket.'
 
-    await user.send(alert_message)
+    await member.send(alert_message)
