@@ -214,7 +214,7 @@ async def init_card(message, db, card_id):
         single_cards.insert_one({
             'display': card_id+'-'+variant,
             'card_id': int(card_id),
-            'variant': 'A',
+            'variant': variant,
             'power': VARIANT_TO_POWER[variant],
             'owner': 0
         })
