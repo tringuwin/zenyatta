@@ -1405,7 +1405,9 @@ async def handle_message(message, db, client):
                     'new_variant': real_variant
                 })
 
-        print(cards_to_fix)
+        for card_to_fix in cards_to_fix:
+            single_cards.update_one({'display': card_to_fix['card_display']}, {'$set': {'variant': card_to_fix['new_variant']}})
+
         await message.channel.send('success')
 
 
