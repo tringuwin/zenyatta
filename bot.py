@@ -62,6 +62,7 @@ from command_handlers.bets.void_bet import void_bet_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
 from command_handlers.bracket import bracket_handler
 from command_handlers.buy_ticket import buy_ticket_handler
+from command_handlers.card_page import card_page
 from command_handlers.card_search import card_search_handler
 from command_handlers.deny_gem_trade import deny_gem_trade_handler
 from command_handlers.donate import donate_handler
@@ -1380,6 +1381,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!allcards':
         await message.channel.send('View all your cards here: https://spicyragu.netlify.app/sol/user-cards/'+str(message.author.id))
+
+    elif lower_message.startswith('!cardpage '):
+        await card_page(db, message)
 
     elif lower_message == '!initcarddata':
         await init_card_data_db(db, message)
