@@ -1390,6 +1390,11 @@ async def handle_message(message, db, client):
     elif lower_message == '!updatepokedata':
         await update_poke_data_db(db, message)
 
+    elif lower_message == '!variantissuefix' and is_admin:
+
+        single_cards = db['single_cards']
+        #all_cards = 
+
 
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']

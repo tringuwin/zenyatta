@@ -4,7 +4,8 @@ from discord_actions import is_dm_channel
 import constants
 
 BLACK_LIST = [
-    1291074955999580252  # banz
+    1291074955999580252,  # banz
+    1247921202698260535, # lilac
 ]
 
 async def suggest_handler(message, client):
