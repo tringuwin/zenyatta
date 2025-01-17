@@ -1393,7 +1393,20 @@ async def handle_message(message, db, client):
     elif lower_message == '!variantissuefix' and is_admin:
 
         single_cards = db['single_cards']
-        #all_cards = 
+        all_cards = single_cards.find()
+
+        cards_to_fix = []
+        for card in all_cards:
+            real_variant = card['display'].split('-')[1]
+            recorded_variant = card['variant']
+            if real_variant != recorded_variant:
+                cards_to_fix.append({
+                    'card_display': card['display'],
+                    'new_variant': real_variant
+                })
+
+        print(cards_to_fix)
+        await message.channel.send('success')
 
 
     elif lower_message == '!resetraffle' and is_admin:
