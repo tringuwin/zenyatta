@@ -173,6 +173,7 @@ from command_handlers.rp import rp_handler
 from command_handlers.sell_pp import sell_pp_handler
 from command_handlers.team_page import team_page_handler
 from command_handlers.twitch import twitch_handler
+from command_handlers.twitch_api.start_pred import start_pred
 from command_handlers.vote import vote_handler
 from command_handlers.website import website_handler
 from command_handlers.xp_battle.battle_no_show import battle_no_show_handler
@@ -2194,6 +2195,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!removepoint') and is_tourney_admin:
         await remove_point(db, message)
+
+    elif lower_message.startswith('!startpred ') and is_tourney_admin:
+        await start_pred(db, message)
 
     elif lower_message.startswith('!lockon') and is_admin:
         await handle_lock(db, message, True)

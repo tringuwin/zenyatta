@@ -638,6 +638,10 @@ HERO_MESSAGE_TO_ROLE = {
 }
 
 
+MAIN_BROADCASTER_ID = '192319978'
+TWITCH_CLIENT_ID = '46t2o4ora6yz8o1x5ws18qn2ueiz4v'
+
+
 TOKEN_SHOP_USD_PRICES = [
     6, # 500 ow coins
     11, # 1,000 ow coins
