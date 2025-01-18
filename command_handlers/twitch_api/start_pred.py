@@ -51,7 +51,7 @@ async def start_pred(db, message):
         'broadcaster_id': constants.MAIN_BROADCASTER_ID,
         'prediction_window': seconds,
         'title': 'Who will win?',
-        'outcomes': [choice1, choice2]
+        'outcomes': [{'title': choice1}, {'title': choice2}]
     }
 
     start_pred_twitch_call(db, data)
