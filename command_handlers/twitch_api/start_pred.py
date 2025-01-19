@@ -1,6 +1,6 @@
 
 import requests
-from command_handlers.twitch_api.twitch_helpers import get_twitch_token
+from command_handlers.twitch_api.twitch_helpers import get_broadcaster_id_from_channel, get_twitch_constant_name_from_channel, get_twitch_token, is_valid_channel
 from helpers import can_be_int, set_constant_value, valid_number_of_params
 import constants
 
@@ -30,14 +30,20 @@ def start_pred_twitch_call(db, data):
 
 async def start_pred(db, message):
 
-    valid_params, params = valid_number_of_params(message, 4)
+    valid_params, params = valid_number_of_params(message, 5)
     if not valid_params:
-        await message.reply('The command was not formatted correctly. There can only be two options and each option must be one word. The last part is how many minutes it will be open. Example: **!startpred Polar Olympians 10**')
+        await message.reply('The command was not formatted correctly. There can only be two options and each option must be one word. The last part is how many minutes it will be open. Example: **!startpred main Polar Olympians 10**')
         return
 
-    choice1 = params[1]
-    choice2 = params[2]
-    minutes = params[3]
+    channel = params[1]
+    channel_lower = channel.lower()
+    choice1 = params[2]
+    choice2 = params[3]
+    minutes = params[4]
+
+    if not is_valid_channel(channel_lower):
+        await message.channel.send(channel+' is not a valid channel name. It must be either main or second.')
+        return
 
     if not can_be_int(minutes):
         await message.channel.send(minutes+' is not a number.')
@@ -46,7 +52,7 @@ async def start_pred(db, message):
     seconds = minutes * 60
 
     data = {
-        'broadcaster_id': constants.MAIN_BROADCASTER_ID,
+        'broadcaster_id': get_broadcaster_id_from_channel(channel_lower),
         'prediction_window': seconds,
         'title': 'Who will win?',
         'outcomes': [{'title': choice1}, {'title': choice2}]
@@ -72,7 +78,8 @@ async def start_pred(db, message):
             ]
         }
 
-        set_constant_value(db, 'twitch_main_pred', save_object)
+        constant_name = get_twitch_constant_name_from_channel(channel_lower)
+        set_constant_value(db, constant_name, save_object)
 
     await message.channel.send('Started prediction.')
 
