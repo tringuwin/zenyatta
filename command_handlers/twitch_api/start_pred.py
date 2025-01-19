@@ -1,6 +1,6 @@
 
 import requests
-from helpers import can_be_int, get_constant_value, valid_number_of_params
+from helpers import can_be_int, get_constant_value, set_constant_value, valid_number_of_params
 import constants
 
 
@@ -25,9 +25,9 @@ def start_pred_twitch_call(db, data):
     headers = make_start_pred_headers(db)
 
     response = requests.post('https://api.twitch.tv/helix/predictions', headers=headers, json=data)
-    print(response)
     response_json = response.json()
-    print(response_json)
+
+    return response_json
 
 
 async def start_pred(db, message):
@@ -54,7 +54,34 @@ async def start_pred(db, message):
         'outcomes': [{'title': choice1}, {'title': choice2}]
     }
 
-    start_pred_twitch_call(db, data)
+    twitch_json = start_pred_twitch_call(db, data)
+    if twitch_json:
+        twitch_data = twitch_json['data'][0]
+        prediction_id = twitch_data['id']
+        outcomes = twitch_json['outcomes']
+        
+        save_object = {
+            'pred_id': prediction_id,
+            'outcomes': [
+                {
+                    'title': outcomes[0]['title'],
+                    'outcome_id': outcomes[0]['id']
+                },
+                {
+                    'title': outcomes[1]['title'],
+                    'outcome_id': outcomes[1]['id']
+                }
+            ]
+        }
+
+        set_constant_value(db, 'twitch_main_pred', save_object)
+
+    await message.channel.send('Successfully saved prediction.')
+
+
+
+
+
 
 
 
