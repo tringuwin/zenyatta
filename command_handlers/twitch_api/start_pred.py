@@ -1,12 +1,9 @@
 
 import requests
-from helpers import can_be_int, get_constant_value, set_constant_value, valid_number_of_params
+from command_handlers.twitch_api.twitch_helpers import get_twitch_token
+from helpers import can_be_int, set_constant_value, valid_number_of_params
 import constants
 
-
-def get_twitch_token(db):
-
-    return get_constant_value(db, 'twitch_token')
 
 
 
@@ -77,7 +74,7 @@ async def start_pred(db, message):
 
         set_constant_value(db, 'twitch_main_pred', save_object)
 
-    await message.channel.send('Successfully saved prediction.')
+    await message.channel.send('Started prediction.')
 
 
 
