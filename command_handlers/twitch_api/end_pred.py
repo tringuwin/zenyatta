@@ -21,7 +21,12 @@ def end_pred_twitch_call(db, prediction_id, winning_id):
     prediction_params = '?broadcaster_id='+constants.MAIN_BROADCASTER_ID+'&id='+str(prediction_id)+'&status=resolved&winning_outcome_id='+winning_id
 
     response = requests.patch('https://api.twitch.tv/helix/predictions'+prediction_params, headers=headers)
-    print(response.status_code)
+    status_code = response.status_code
+
+    if status_code == 200:
+        return True
+    
+    return False
 
 
 
@@ -46,6 +51,10 @@ async def end_pred(db, message):
     if pred_choice == -1:
         await message.channel.send('Could not find a prediction result with the name '+choice)
 
-    end_pred_twitch_call(db, pred_data['pred_id'], pred_data['outcomes'][pred_choice]['outcome_id'])
-
+    worked = end_pred_twitch_call(db, pred_data['pred_id'], pred_data['outcomes'][pred_choice]['outcome_id'])
+    if not worked:
+        await message.channel.send('Something went wrong.')
+        return
+    
+    await message.channel.send('Prediction ended.')
     
