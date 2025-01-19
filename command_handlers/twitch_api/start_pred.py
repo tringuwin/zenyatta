@@ -26,6 +26,7 @@ def start_pred_twitch_call(db, data):
 
     response = requests.post('https://api.twitch.tv/helix/predictions', headers=headers, json=data)
     response_json = response.json()
+    print(response_json)
 
     return response_json
 
