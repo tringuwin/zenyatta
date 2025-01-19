@@ -58,7 +58,7 @@ async def start_pred(db, message):
     if twitch_json:
         twitch_data = twitch_json['data'][0]
         prediction_id = twitch_data['id']
-        outcomes = twitch_json['outcomes']
+        outcomes = twitch_data['outcomes']
         
         save_object = {
             'pred_id': prediction_id,
