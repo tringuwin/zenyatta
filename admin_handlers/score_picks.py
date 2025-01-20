@@ -12,6 +12,8 @@ def calculate_picks_score(picks):
         score += 1
     if picks['round1'][2] == 'Lotus':
         score += 1
+    if picks['round1'][3] == 'Outliers':
+        score += 1
 
     return score
 
