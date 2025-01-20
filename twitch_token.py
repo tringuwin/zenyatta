@@ -1,6 +1,6 @@
 
 twitch_token_url = 'https://id.twitch.tv/oauth2/authorize?client_id=46t2o4ora6yz8o1x5ws18qn2ueiz4v&redirect_uri=https://spicy-ragu-api-7d24f98c9e91.herokuapp.com/dva-webhook&response_type=code&scope=channel:manage:redemptions%20bits:read%20channel:read:subscriptions%20moderator:read:chatters%20channel:manage:predictions'
-twitch_token_url_second = 'https://id.twitch.tv/oauth2/authorize?client_id=9ne2vin1hxd22nitknksqo0q9imwb1&redirect_uri=https://spicy-ragu-api-7d24f98c9e91.herokuapp.com/dva-webhook-2&response_type=code&scope=channel:manage:redemptions%20bits:read%20channel:read:subscriptions%20moderator:read:chatters%20channel:manage:predictions'
+twitch_token_url_second = 'https://id.twitch.tv/oauth2/authorize?client_id=flqc4bwzq9w2i6bxyybbuxrjnxtn6g&redirect_uri=https://spicy-ragu-api-7d24f98c9e91.herokuapp.com/dva-webhook-2&response_type=code&scope=channel:manage:redemptions%20bits:read%20channel:read:subscriptions%20moderator:read:chatters%20channel:manage:predictions'
 
 async def check_token_issue(db, channel):
 
