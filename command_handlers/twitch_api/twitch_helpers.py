@@ -5,14 +5,23 @@ from helpers import get_constant_value
 
 
 
-def get_twitch_token(db):
+def get_twitch_token(db, channel_name):
 
-    return get_constant_value(db, 'twitch_token')
+    if channel_name == 'main':
+        return get_constant_value(db, 'twitch_token')
+    elif channel_name == 'second':
+        return get_constant_value(db, 'twitch_token_second')
+    
+    raise Exception('Could not find token for channel name: '+channel_name)
 
 
 def is_valid_channel(channel_name):
 
     return ((channel_name == 'main') or (channel_name == 'second'))
+
+def get_client_id(channel_name):
+
+    return channel_name == constants.TWITCH_CLIENT_ID if channel_name == 'main' else constants.SECOND_CLIENT_ID
 
 
 def get_broadcaster_id_from_channel(channel):

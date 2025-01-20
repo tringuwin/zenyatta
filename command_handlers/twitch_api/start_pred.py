@@ -1,25 +1,25 @@
 
 import requests
-from command_handlers.twitch_api.twitch_helpers import get_broadcaster_id_from_channel, get_twitch_constant_name_from_channel, get_twitch_token, is_valid_channel
+from command_handlers.twitch_api.twitch_helpers import get_broadcaster_id_from_channel, get_client_id, get_twitch_constant_name_from_channel, get_twitch_token, is_valid_channel
 from helpers import can_be_int, set_constant_value, valid_number_of_params
 import constants
 
 
 
 
-def make_start_pred_headers(db):
+def make_start_pred_headers(db, channel_name):
 
     return {
-        'Authorization': 'Bearer '+get_twitch_token(db),
-        'Client-Id': constants.TWITCH_CLIENT_ID,
+        'Authorization': 'Bearer '+get_twitch_token(db, channel_name),
+        'Client-Id': get_client_id(channel_name),
         'Content-Type': 'application/json'
     }
 
 
 
-def start_pred_twitch_call(db, data):
+def start_pred_twitch_call(db, data, channel_name):
 
-    headers = make_start_pred_headers(db)
+    headers = make_start_pred_headers(db, channel_name)
 
     response = requests.post('https://api.twitch.tv/helix/predictions', headers=headers, json=data)
     response_json = response.json()
@@ -58,7 +58,7 @@ async def start_pred(db, message):
         'outcomes': [{'title': choice1}, {'title': choice2}]
     }
 
-    twitch_json = start_pred_twitch_call(db, data)
+    twitch_json = start_pred_twitch_call(db, data, channel_lower)
     if twitch_json:
         twitch_data = twitch_json['data'][0]
         prediction_id = twitch_data['id']
