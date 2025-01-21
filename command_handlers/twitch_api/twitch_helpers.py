@@ -23,6 +23,15 @@ def get_client_id(channel_name):
 
     return constants.TWITCH_CLIENT_ID if channel_name == 'main' else constants.SECOND_CLIENT_ID
 
+def get_callback_url(channel_name):
+
+    if channel_name == 'main':
+        return 'https://spicy-ragu-api-7d24f98c9e91.herokuapp.com/dva-webhook'
+    elif channel_name == 'second':
+        return 'https://spicy-ragu-api-7d24f98c9e91.herokuapp.com/dva-webhook-2'
+    
+    raise Exception('Could not find callback url for channel name: '+channel_name)
+
 
 def get_broadcaster_id_from_channel(channel):
 
