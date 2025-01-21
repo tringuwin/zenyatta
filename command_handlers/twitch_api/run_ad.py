@@ -6,9 +6,7 @@ import requests
 def run_ad_twitch_call(headers, data):
 
     result = requests.post('https://api.twitch.tv/helix/channels/commercial', headers=headers, json=data)
-    print(result)
-    result_json = result.json()
-    print(result_json)
+    return result
 
 
 def make_run_ad_headers(db, channel_name):
@@ -26,6 +24,15 @@ def make_run_ad_data(channel_name):
         'length': 90
     }
 
+async def respond_based_on_result(message, result):
+
+    status_code = result.status_code
+
+    if status_code == 400:
+        await message.send('This channel is not currently live, so ads cannot be run.')
+        return
+    
+    await message.channel.send('Something went wrong...')
 
 async def run_ad(db, message, channel_name):
 
@@ -33,3 +40,4 @@ async def run_ad(db, message, channel_name):
     data = make_run_ad_data(channel_name)
 
     result = run_ad_twitch_call(headers, data)
+    await respond_based_on_result(message, result)
