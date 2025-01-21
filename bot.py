@@ -174,6 +174,7 @@ from command_handlers.sell_pp import sell_pp_handler
 from command_handlers.team_page import team_page_handler
 from command_handlers.twitch import twitch_handler
 from command_handlers.twitch_api.end_pred import end_pred
+from command_handlers.twitch_api.raid_channel import raid_channel
 from command_handlers.twitch_api.run_ad import run_ad
 from command_handlers.twitch_api.start_pred import start_pred
 from command_handlers.vote import vote_handler
@@ -2210,6 +2211,12 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!adsecond' and is_tourney_admin:
         await run_ad(db, message, 'second')
+
+    elif lower_message == '!raidmain' and is_tourney_admin:
+        await raid_channel(db, message, 'second', 'main')
+
+    elif lower_message == '!raidsecond' and is_tourney_admin:
+        await raid_channel(db, message, 'main', 'second')
 
     elif lower_message.startswith('!lockon') and is_admin:
         await handle_lock(db, message, True)
