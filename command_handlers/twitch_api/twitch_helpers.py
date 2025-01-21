@@ -21,7 +21,7 @@ def is_valid_channel(channel_name):
 
 def get_client_id(channel_name):
 
-    return channel_name == constants.TWITCH_CLIENT_ID if channel_name == 'main' else constants.SECOND_CLIENT_ID
+    return constants.TWITCH_CLIENT_ID if channel_name == 'main' else constants.SECOND_CLIENT_ID
 
 
 def get_broadcaster_id_from_channel(channel):
