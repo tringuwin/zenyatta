@@ -31,6 +31,8 @@ async def respond_based_on_result(message, result):
         await message.channel.send('Raid could not be started.')
         return
     
+    print(result)
+    print(result.json())
     await message.channel.send('Something went wrong...')
 
 
