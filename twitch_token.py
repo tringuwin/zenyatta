@@ -12,7 +12,7 @@ def create_token_url(channel_name):
     client_id = get_client_id(channel_name)
     callback_url = get_callback_url(channel_name)
 
-    return f'https://id.twitch.tv/oauth2/authorize?client_id={client_id}&redirect_uri={callback_url}&response_type=code&scope=channel:manage:redemptions%20bits:read%20channel:read:subscriptions%20moderator:read:chatters%20channel:manage:predictions'
+    return f'https://id.twitch.tv/oauth2/authorize?client_id={client_id}&redirect_uri={callback_url}&response_type=code&scope=channel:manage:redemptions%20bits:read%20channel:read:subscriptions%20moderator:read:chatters%20channel:manage:predictions%20channel:edit:commercial'
 
 
 async def check_token_issue(db, channel):
