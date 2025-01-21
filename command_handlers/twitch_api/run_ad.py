@@ -29,7 +29,7 @@ async def respond_based_on_result(message, result):
     status_code = result.status_code
 
     if status_code == 400:
-        await message.send('This channel is not currently live, so ads cannot be run.')
+        await message.channel.send('This channel is not currently live, so ads cannot be run.')
         return
     
     await message.channel.send('Something went wrong...')
