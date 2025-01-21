@@ -13,9 +13,9 @@ async def drops(db, message):
     
     twitch_username = get_twitch_username(user)
     if twitch_username == '[not set]':
-        await message.channel.send('Your twitch is not linked with this server! Please link it with this command: **!twitch UsernameHere**')
+        await message.reply('Your twitch is not linked with this server! Please link it with this command: **!twitch UsernameHere**')
         return
     
     user_drops = get_user_drop_boxes(user)
 
-    await message.channel.send('<:spicy_drop:1327677388720701450> **'+str(user_drops)+'**')
+    await message.reply('<:spicy_drop:1327677388720701450> **'+str(user_drops)+'**')
