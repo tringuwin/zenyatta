@@ -2609,7 +2609,6 @@ def run_discord_bot(db):
         tourney_notifs = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
         twitch_notifs = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
         league_notifs = guild.get_role(constants.LEAGUE_NOTIFS_ROLE)
-        overwatch_role = guild.get_role(constants.OVERWATCH_ROLE)
         # level_1_id = get_role_id_by_level(1)
         # level_1_role = guild.get_role(level_1_id)
 
@@ -2619,9 +2618,9 @@ def run_discord_bot(db):
             if registered_user:
                 registered_role = guild.get_role(constants.REGISTERED_ROLE)
                 image_perm_role = guild.get_role(constants.IMAGE_PERMS_ROLE)
-                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs, league_notifs, overwatch_role, registered_role, image_perm_role)
+                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs, league_notifs, registered_role, image_perm_role)
             else:
-                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs, league_notifs, overwatch_role)
+                await member.add_roles(role, server_notifs, tourney_notifs, twitch_notifs, league_notifs)
 
         try:
 
