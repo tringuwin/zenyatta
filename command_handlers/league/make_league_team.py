@@ -82,7 +82,12 @@ async def make_league_team_handler(db, message, client, context):
                 'user_id': 0
             },
         },
-        'banter': False
+        'banter': False,
+        'applications': {
+            'appsOpen': False,
+            'appsLink': '',
+            'min': 'none'
+        }
     }
 
     league_teams.insert_one(new_team)
