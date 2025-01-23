@@ -131,8 +131,6 @@ async def check_notify_about_matches(client, db, message):
         await message.channel.send('Could not find today in the schedule for this week.')
         return
     
-    print('notify day is')
-    print(season_schedule['weeks'][league_week-1]['days'][day_index])
     if schedule_day['notified_about_matches']:
         await message.channel.send('Already notified about the matches today.')
         return

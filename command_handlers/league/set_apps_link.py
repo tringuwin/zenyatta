@@ -24,21 +24,16 @@ async def set_apps_link_handler(db, message, context):
     
     apps_link = params[1]
 
-    apps = db['applications']
-    apps_obj = apps.find_one({'teams_id': 1})
-    apps_teams = apps_obj['teams']
+    team_name_lower = team_name.lower()
 
-    found_app = False
-    for team in apps_teams:
-        if team['team'] == team_name:
-            team['appsLink'] = apps_link
-            found_app = True
-            break
-
-    if not found_app:
+    league_teams = db['leagueteams']
+    my_team = league_teams.find_one({'name_lower': team_name_lower})
+    if not my_team:
         await message.channel.send('Was not able to set the application for this team because this team is not yet listed on the application website. If you think this is a mistake please contact the server owner.')
         return
 
-    apps.update_one({"teams_id": 1}, {"$set": {"teams": apps_teams}})
+    my_team['applications']['appsLink'] = apps_link
+
+    league_teams.update_one({"name_lower": team_name_lower}, {"$set": {"applications": my_team['applications']}})
     await message.channel.send('Application link for '+team_name+' has been updated.')
     
