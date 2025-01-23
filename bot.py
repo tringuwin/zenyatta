@@ -282,6 +282,8 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
             return False, 'Please only open packs in the openening packs channel: https://discord.com/channels/1130553449491210442/1233596350306713600'
         elif lower_message.startswith('!openpoke'):
             return False, 'Please only open cards in the openening packs channel: https://discord.com/channels/1130553449491210442/1233596350306713600'
+        elif lower_message.startswith('!opendrop'):
+            return False, 'Please only open drops in the opening drops channel: https://discord.com/channels/1130553449491210442/1332055598057001021'
         else:
             return True, None
         
@@ -323,6 +325,11 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     elif (message.channel.id == constants.CARD_TRADING_CHANNEL) or (message.channel.id == constants.PACK_OPEN_CHANNEL):
 
         if lower_message.find('card') != -1 or lower_message.find('pack') != -1 or lower_message.find('token') != -1 or lower_message.find('donate') != -1 or lower_message.find('gallery') != -1  or lower_message.find('poke') != -1 or lower_message.find('unopened') != -1:
+            return True, None
+        
+    elif (message.channel.id == constants.OPENING_DROPS_CHANNEL):
+
+        if lower_message.find('drop') != 1:
             return True, None
         
         
