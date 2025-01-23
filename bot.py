@@ -233,7 +233,6 @@ from command_handlers.teams.kick_player import kick_player_handler
 from command_handlers.teams.leave_team import leave_team_handler
 from command_handlers.teams.my_invites import my_invites_handler
 from command_handlers.teams.make_team import make_team_handler
-from command_handlers.hatch import hatch_handler
 from command_handlers.help.help import help_handler
 from command_handlers.teams.team_details import team_details_hanlder
 from command_handlers.teams.team_join import team_join_handler
@@ -574,9 +573,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!whichteam'):
         await which_team_handler(message)
-
-    elif lower_message == '!hatch':
-        await hatch_handler(db, message)
 
     elif lower_message.startswith('!wager'):
         await wager_handler(db, message)
