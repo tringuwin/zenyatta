@@ -141,22 +141,6 @@ async def output_packs(db, message):
     else:
         await not_registered_response(message)
 
-async def output_eggs(db, message):
-
-    existing_user = user_exists(db, message.author.id)
-
-    if existing_user:
-
-        if "eggs" in existing_user:
-            await message.channel.send("Your Eggs: 🥚**"+str(existing_user['eggs'])+"**")
-        else:
-            users = db['users']
-            users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"eggs": 0}})
-            await message.channel.send("Your Eggs: 🥚**0**")
-
-    else:
-        await not_registered_response(message)
-
 
 async def output_pickaxes(db, message):
 

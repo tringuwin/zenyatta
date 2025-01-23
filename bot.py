@@ -246,10 +246,10 @@ from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import can_be_int, get_constant_value, is_bot_commands_channel, make_string_from_word_list, set_constant_value
 from api import get_member, give_role, remove_role, send_msg
-from mongo import output_eggs, output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
+from mongo import output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
 from random_event import react_to_event, try_random_event
-from rewards import change_xp, give_eggs_command, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
+from rewards import change_xp, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from roster_lock import handle_lock
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from server_level import sub_points_handler
@@ -528,9 +528,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!lootboxes':
         await lootboxes_handler(db, message)
-
-    elif lower_message == "!eggs":
-        await output_eggs(db, message)
 
     elif lower_message == '!pickaxes':
         await output_pickaxes(db, message)
@@ -1955,15 +1952,6 @@ async def handle_message(message, db, client):
         word_list = message.content.split()
         if len(word_list) == 3:
             await give_passes_command(client, db, word_list[1], int(word_list[2]), message)
-        else:
-            await message.channel.send("Invalid number of arguments.")
-
-    elif lower_message.startswith('!giveeggs ') and is_admin:
-
-        # !giveeggs [winner id] [eggs]
-        word_list = message.content.split()
-        if len(word_list) == 3:
-            await give_eggs_command(db, int(word_list[1]), int(word_list[2]), message)
         else:
             await message.channel.send("Invalid number of arguments.")
 
