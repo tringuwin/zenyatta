@@ -14,24 +14,22 @@ async def toggle_apps_handler(db, message, context):
         await message.channel.send('You are not an admin of a league team.')
         return
 
-    apps = db['applications']
-    apps_obj = apps.find_one({'teams_id': 1})
-    apps_teams = apps_obj['teams']
 
+    team_name_lower = team_name.lower()
+
+    league_teams = db['leagueteams']
+    my_team = league_teams.find_one({'name_lower': team_name_lower})
+    if not my_team:
+        await message.channel.send('Was not able to set the minimum rank for this team because this team is not yet listed on the application website. If you think this is a mistake please contact the server owner.')
+        return
+    
     current_value = True
+    if my_team['applications']['appsOpen']:
+        current_value = False
 
-    for team in apps_teams:
-        if team['team'] == team_name:
+    my_team['applications']['appsOpen'] = current_value
+    league_teams.update_one({"name_lower": team_name_lower}, {"$set": {"applications": my_team['applications']}})
 
-            if team['appsLink'] == 'None':
-                await message.channel.send(message.author.mention+" You need to set the Google Form link for your team's applications before using this command. (Use **!setappslink LinkHere**)")
-                return
-
-            team['appsOpen'] = not team['appsOpen']
-            current_value = team['appsOpen']
-            break
-
-    apps.update_one({"teams_id": 1}, {"$set": {"teams": apps_teams}})
     if current_value:
         await message.channel.send('Applications for '+team_name+' are now **ON**')
     else:
