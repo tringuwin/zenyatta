@@ -878,22 +878,6 @@ async def handle_message(message, db, client):
     elif lower_message == '!setlineup':
         await set_lineup_handler(db, message, context)
 
-    elif lower_message == '!marvelapps' and is_admin:
-
-        rivals_teams = db['rivals_leagueteams']
-        all_teams = rivals_teams.find()
-
-        apps_data = {
-            'appsOpen': False,
-            'appsLink': '',
-            'min': 'none'
-        }
-
-        for team in all_teams:
-            rivals_teams.update_one({'team_name': team['team_name']}, {'$set': {'applications': apps_data}})
-
-        await message.channel.send('done')        
-
     elif lower_message.startswith('!callme '):
         await call_me_handler(db, message, context)
 
