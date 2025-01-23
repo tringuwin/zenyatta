@@ -11,7 +11,6 @@ async def toggle_apps_handler(db, message, context):
         await message.channel.send('You are not an admin of a league team.')
         return
 
-
     team_name_lower = team_name.lower()
 
     league_teams = get_league_teams_collection(db, context)

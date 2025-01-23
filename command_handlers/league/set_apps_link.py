@@ -3,13 +3,10 @@
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
 from league import validate_admin
+from league_helpers import get_league_teams_collection
 
 
 async def set_apps_link_handler(db, message, context):
-
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
 
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
@@ -26,7 +23,7 @@ async def set_apps_link_handler(db, message, context):
 
     team_name_lower = team_name.lower()
 
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
     my_team = league_teams.find_one({'name_lower': team_name_lower})
     if not my_team:
         await message.channel.send('Was not able to set the application for this team because this team is not yet listed on the application website. If you think this is a mistake please contact the server owner.')
