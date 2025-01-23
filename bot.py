@@ -328,7 +328,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
             return True, None
         
     elif (message.channel.id == constants.OPENING_DROPS_CHANNEL):
-
+        print('in opening drops channel')
         if lower_message.find('drop') != 1:
             return True, None
         
