@@ -2499,12 +2499,6 @@ def run_discord_bot(db):
             guild = await get_guild(client)
             role = guild.get_role(constants.MARVEL_RIVALS_ROLE)
             await give_role(member, role, 'Raw Reaction Add')
-        elif channel_id == constants.REACTION_ROLE_CHANNEL:
-            if message_id in constants.HERO_MESSAGE_TO_ROLE:
-                role_id = constants.HERO_MESSAGE_TO_ROLE[message_id]
-                guild = await get_guild(client)
-                role = guild.get_role(role_id)
-                await give_role(member, role, 'Reaction Roles')
 
         elif channel_id == constants.STATE_CUP_CHANNEL:
             if not (member_has_state_role(member)):
@@ -2586,11 +2580,6 @@ def run_discord_bot(db):
             member = get_member(guild, user_id, 'Raw Reaction Remove')
             role = guild.get_role(constants.OVERWATCH_ROLE)
             await remove_role(member, role, 'Notifs Settings')
-        elif channel_id == constants.REACTION_ROLE_CHANNEL:
-            member = get_member(guild, user_id, 'Raw Reaction Remove')
-            if message_id in constants.HERO_MESSAGE_TO_ROLE:
-                role = guild.get_role(constants.HERO_MESSAGE_TO_ROLE[message_id])
-                await remove_role(member, role, 'Raw Reaction Remove')
 
         # elif channel_id == constants.STATE_CUP_CHANNEL:
         #     for state_name in constants.STATE_INFO:
