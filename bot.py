@@ -82,6 +82,7 @@ from command_handlers.help.help_ally import help_ally_handler
 from command_handlers.help.help_bonus import help_bonus_handler
 from command_handlers.help.help_cards import help_cards_handler
 from command_handlers.help.help_casino import help_casino_handler
+from command_handlers.help.help_drops import help_drops_handler
 from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.help.help_league import help_league_handler
 from command_handlers.help.help_league_admin import help_league_admin_handler
@@ -475,6 +476,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!helppoke':
         await help_poke_handler(message)
+
+    elif lower_message == '!helpdrops':
+        await help_drops_handler(message)
 
     elif lower_message.startswith('!address'):
         notice = await message.channel.send(message.author.mention+' Please only use this command in a direct message with me for your safety!')
