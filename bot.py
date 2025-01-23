@@ -872,6 +872,29 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!setminrank'):
         await set_min_rank_handler(db, message, context)
 
+    elif lower_message == '!moveappsdata' and is_admin:
+
+        league_teams = db['leagueteams']
+        apps = db['applications']
+        all_team_apps = apps.find_one({'teams_id': 1})['teams']
+        
+        for team in all_team_apps:
+            team_name = team['team']
+
+            apps_data = {
+                'appsOpen': team['appsOpen'],
+                'appsLink': team['appsLink'],
+                'min': team['min']
+            }
+
+            league_teams.update_one({'team_name': team_name}, {'$set': {'applications': apps_data}})
+
+        await message.channel.send('done')
+
+
+
+
+
     elif lower_message == '!toggleapps':
         await toggle_apps_handler(db, message, context)
 
