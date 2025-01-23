@@ -4,7 +4,7 @@ from helpers import valid_number_of_params
 from league import validate_admin
 
 
-VALID_RANKS = [
+VALID_RANKS_OW = [
     'bronze',
     'silver',
     'gold',
@@ -15,11 +15,19 @@ VALID_RANKS = [
     'champ'
 ]
 
-async def set_min_rank_handler(db, message, context):
+VALID_RANKS_MR = [
+    'bronze',
+    'silver',
+    'gold',
+    'platinum',
+    'diamond',
+    'grandmaster',
+    'celestial',
+    'eternity',
+    'one-above-all'
+]
 
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
+async def set_min_rank_handler(db, message, context):
 
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
@@ -33,7 +41,10 @@ async def set_min_rank_handler(db, message, context):
         return
     
     rank = params[1].lower()
-    if not rank in VALID_RANKS:
+
+    valid_ranks = VALID_RANKS_OW if context == 'OW' else VALID_RANKS_MR
+
+    if not rank in valid_ranks:
         await message.channel.send('That is not a valid rank. Please enter a rank in the range bronze to champ.')
         return
 
