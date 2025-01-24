@@ -1388,7 +1388,7 @@ async def handle_message(message, db, client):
         await message.channel.send(f'Check out the SOL Card Market here!\n\n{constants.WEBSITE_DOMAIN}/sol/card-market')
 
     elif lower_message == '!allcards':
-        await message.channel.send('View all your cards here: https://spicyragu.netlify.app/sol/user-cards/'+str(message.author.id))
+        await message.channel.send(f'View all your cards here: {constants.WEBSITE_DOMAIN}/sol/user-cards/'+str(message.author.id))
 
     elif lower_message.startswith('!cardpage '):
         await card_page(db, message)
@@ -2610,7 +2610,7 @@ def run_discord_bot(db):
             guild = await get_guild(client)
             spicy_emoji = guild.get_emoji(1168952409125556304)
             default_msg = "Welcome to the Spicy OW "+str(spicy_emoji)+" Discord Server! I'm *Zenyatta*, the server's helper bot. "
-            default_msg += "\n\nIf you're interested in joining a **League Team**, you can apply to as many teams as you'd like here: https://spicyragu.netlify.app/sol/apply"
+            default_msg += f"\n\nIf you're interested in joining a **League Team**, you can apply to as many teams as you'd like here: {constants.WEBSITE_DOMAIN}/sol/apply"
             default_msg += '\n\nFeel free to check out this short video which explains how to find a team to join! https://youtu.be/sKHUjwMKspg'
             default_msg += '\n\nTo find a team fast, you can make a post in this channel with some info about yourself and what you are looking for in a team! https://discord.com/channels/1130553449491210442/1171266378813149244'
             default_msg += "\n\nIf you're ranked Plat or below, or you'd like to practice playing in a League Format, you should check out our Jr League where anyone can join a team ***without applying!*** https://discord.gg/Usp8RQGCRn"

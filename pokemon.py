@@ -410,7 +410,7 @@ async def my_pokes_handler(db, message):
 
 async def all_pokes_handler(message):
 
-    await message.channel.send(message.author.mention+' See all your Pokemon card here: https://spicyragu.netlify.app/poke/user-cards/'+str(message.author.id))
+    await message.channel.send(message.author.mention+f' See all your Pokemon card here: {constants.WEBSITE_DOMAIN}/poke/user-cards/'+str(message.author.id))
 
 async def unopened_handler(db, message):
 
