@@ -409,6 +409,7 @@ async def handle_message(message, db, client):
     is_state_captain = (not message.author.bot) and member_has_role(message.author, constants.STATE_CAPTAIN_ROLE)
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
+    is_esub_helper = (not message.author.bot and member_has_role(message.author, constants.ESUB_HELPER_ROLE))
 
     lower_message = user_message.lower()
     if (not has_image_perms) and ( lower_message.find('discord.gg') != -1 or (non_tenor_link(lower_message)) ):
@@ -1943,7 +1944,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!givexp ') and (is_admin or is_league_helper):
         await give_xp_handler(client, db, message)
 
-    elif lower_message.startswith('!esub ') and is_admin:
+    elif lower_message.startswith('!esub ') and (is_admin or is_esub_helper):
         await e_sub_handler(client, db, message)
 
     elif lower_message.startswith('!rp') and is_admin:
