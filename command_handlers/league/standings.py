@@ -85,7 +85,6 @@ async def standings_handler_old(db, message, client):
     final_string += '\nTeams ranked 1-3 will make it to the playoffs.'
     final_string += '\n🟩 = Will play in Div Finals | 🟦 = Will play in Div Semi-Finals | ⬜ = Will miss playoffs'#| 🟥 = Will be relegated to lower Div next season'
     #final_string += '\nTeam ranked 7-10th will be demoted to Division 2 next season.'
-    #final_string += '\nSee the standings page on the website here: https://spicyragu.netlify.app/sol/standings'
 
     await message.channel.send(final_string)
     

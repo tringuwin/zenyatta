@@ -68,7 +68,7 @@ async def schedule_handler(db, message, client):
     if total_matches_added == 0:
         final_string += '\n\nLooks like the matches for this week have not been added yet. They usually appear on Wednesday. Check back soon!'
 
-    final_string += '\n\nSee the full Schedule here: https://spicyragu.netlify.app/sol/schedule'
+    final_string += f'\n\nSee the full Schedule here: {constants.WEBSITE_DOMAIN}/sol/schedule'
 
     await message.channel.send(final_string)
 

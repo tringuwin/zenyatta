@@ -2,7 +2,7 @@
 from command_handlers.lft import get_lft_user
 from common_messages import not_registered_response
 from user import user_exists
-
+import constants
 
 async def toggle_lft_handler(db, message):
 
@@ -22,7 +22,7 @@ async def toggle_lft_handler(db, message):
         lft_users.update_one({"user_id": lft_user['user_id']}, {"$set": {"is_on": new_is_on}})
 
     if new_is_on:
-        await message.channel.send('Looking For Team is now **ON**. You will appear in the list of players looking for a team here: https://spicyragu.netlify.app/sol/lft')
+        await message.channel.send(f'Looking For Team is now **ON**. You will appear in the list of players looking for a team here: {constants.WEBSITE_DOMAIN}/sol/lft')
     else:
         await message.channel.send('Looking For Team is now **OFF**. You will no longer appear on the list of players looking for a team')
 

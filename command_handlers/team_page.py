@@ -2,7 +2,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
-
+import constants
 
 async def team_page_handler(db, message): 
 
@@ -21,6 +21,6 @@ async def team_page_handler(db, message):
         return
     
     final_string = 'Click the link below to see the team page for '+team['team_name']
-    final_string += '\n\n'+'https://spicyragu.netlify.app/sol/team/'+lower_team_name
+    final_string += '\n\n'+f'{constants.WEBSITE_DOMAIN}/sol/team/'+lower_team_name
     
     await message.channel.send(final_string)

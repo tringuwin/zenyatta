@@ -1,4 +1,6 @@
 
+import constants
+
 async def battle_leaderboard_handler(db, message):
 
     users = db['users']
@@ -31,7 +33,7 @@ async def battle_leaderboard_handler(db, message):
         final_string += '\n'+str(x)+'. **'+rank_user['battle_tag']+'** | '+str(rank_user['percent'])+'% | W: '+str(rank_user['w'])+' | L: '+str(rank_user['l'])+' | T: '+str(rank_user['t'])
 
     final_string += '\n------------------------'
-    final_string += '\nSee the full battle leaderboard here!\nhttps://spicyragu.netlify.app/battle-leaderboard'
+    final_string += f'\nSee the full battle leaderboard here!\n{constants.WEBSITE_DOMAIN}/battle-leaderboard'
 
     await message.channel.send(final_string)
 

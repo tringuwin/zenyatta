@@ -1,4 +1,6 @@
 
+import constants
+
 async def token_leaderboard_handler(db, message):
     
     users = db['users']
@@ -22,6 +24,6 @@ async def token_leaderboard_handler(db, message):
         user_index += 1
 
     final_string += '------------------------\n'
-    final_string += 'See the full token leaderboard here!\nhttps://spicyragu.netlify.app/token-leaderboard'
+    final_string += f'See the full token leaderboard here!\n{constants.WEBSITE_DOMAIN}/token-leaderboard'
 
     await message.channel.send(final_string)

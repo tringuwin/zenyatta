@@ -1,7 +1,6 @@
 
 from poke_data import ALL_POKE_NUM
 
-
 async def poke_leaderboard_handler(db, message):
     
     users = db['users']
@@ -23,8 +22,5 @@ async def poke_leaderboard_handler(db, message):
         final_string += "**"+str(user_index)+".** "+first_part
         final_string += ' | '+str(user['pokedex'])+'/'+str(ALL_POKE_NUM)+'\n'
         user_index += 1
-
-    # final_string += '------------------------\n'
-    # final_string += 'See the full token leaderboard here!\nhttps://spicyragu.netlify.app/token-leaderboard'
 
     await message.channel.send(final_string)

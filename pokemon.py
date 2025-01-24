@@ -420,7 +420,7 @@ async def unopened_handler(db, message):
 
     num_unopened = len(filtered_cards)
 
-    await message.channel.send('There are **'+str(num_unopened)+'** unopened Pokemon Cards. Check out the full list of unopened Pokemon Cards here! https://spicyragu.netlify.app/poke/unopened')
+    await message.channel.send('There are **'+str(num_unopened)+f'** unopened Pokemon Cards. Check out the full list of unopened Pokemon Cards here! {constants.WEBSITE_DOMAIN}/poke/unopened')
 
 
 async def add_order_handler(db, message):

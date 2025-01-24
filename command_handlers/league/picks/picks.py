@@ -2,6 +2,7 @@
 import copy
 from helpers import get_constant_value
 import uuid
+import constants
 
 SEASON_5_PICK_ARRAY = {
     'round1': ['None', 'None', 'None', 'None'],
@@ -58,7 +59,7 @@ async def picks_handler(db, message):
         await message.channel.send('Picks cannot be edited right now. Make sure to enter the next challenge.')
         return
 
-    picks_message = "Use this link to edit your picks. Don't share this link with anyone, or they'll be able to edit your picks!\n\nhttps://spicyragu.netlify.app/sol/picks/"+user_picks['token']
+    picks_message = f"Use this link to edit your picks. Don't share this link with anyone, or they'll be able to edit your picks!\n\n{constants.WEBSITE_DOMAIN}/sol/picks/"+user_picks['token']
 
     try:
         await message.author.send(picks_message)

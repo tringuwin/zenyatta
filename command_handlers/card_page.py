@@ -1,7 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, valid_number_of_params
-
+import constants
 
 async def card_page(db, message):
 
@@ -22,4 +22,4 @@ async def card_page(db, message):
         await message.channel.send('There is no card with the ID: '+str(card_id))
         return
     
-    await message.reply('Check out this page to see who owns each variant of this card:\n\nhttps://spicyragu.netlify.app/sol/card/'+str(card_id))
+    await message.reply(f'Check out this page to see who owns each variant of this card:\n\n{constants.WEBSITE_DOMAIN}/sol/card/'+str(card_id))
