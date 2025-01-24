@@ -922,7 +922,7 @@ async def handle_message(message, db, client):
                 users.update_one({'discord_id': user['discord_id']}, {'$set': set_array})
 
     elif lower_message == '!lft':
-        await message.channel.send('See the list of players looking to join a team here: https://spicyragu.netlify.app/sol/lft')
+        await message.channel.send(f'See the list of players looking to join a team here: {constants.WEBSITE_DOMAIN}/sol/lft')
 
     elif lower_message == '!togglelft':
         await toggle_lft_handler(db, message)
