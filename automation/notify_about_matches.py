@@ -100,7 +100,8 @@ async def notify_league_announcements(client, day):
 
     guild = await get_guild(client)
     announcements_channel = guild.get_channel(constants.ANNOUNCEMENTS_CHANNEL_ID)
-    await announcements_channel.send(final_string)
+    announcement_message = await announcements_channel.send(final_string)
+    await announcement_message.add_reaction('🔥')
 
 
 
