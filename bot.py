@@ -1203,7 +1203,7 @@ async def handle_message(message, db, client):
         guild = await get_guild(client)
         spicy_emoji = guild.get_emoji(1168952409125556304)
         default_msg = "Welcome to the Spicy OW "+str(spicy_emoji)+" Discord Server! I'm *Zenyatta*, the server's helper bot. "
-        default_msg += "\n\nIf you're interested in joining a **League Team**, you can see which teams have applications open here: https://spicyragu.netlify.app/sol/apply"
+        default_msg += f"\n\nIf you're interested in joining a **League Team**, you can see which teams have applications open here: {constants.WEBSITE_DOMAIN}/sol/apply"
         default_msg += '\n\nYou can also find more information about our League here: https://discord.com/channels/1130553449491210442/1178427939453411469'
         default_msg += '\n\nThank you for joining! If you have any questions, feel free to ask here: https://discord.com/channels/1130553449491210442/1166410753184632933'
 
@@ -1376,7 +1376,7 @@ async def handle_message(message, db, client):
 
 
     elif lower_message == '!gallery':
-        await message.channel.send('Check out the full SOL Card Gallery here: https://spicyragu.netlify.app/sol/gallery')
+        await message.channel.send(f'Check out the full SOL Card Gallery here: {constants.WEBSITE_DOMAIN}/sol/gallery')
 
     elif lower_message == '!openpack':
         await open_pack_handler(db, message)
@@ -1385,7 +1385,7 @@ async def handle_message(message, db, client):
         await total_packs_handler(db, message)
 
     elif lower_message == '!cardmarket':
-        await message.channel.send('Check out the SOL Card Market here!\n\nhttps://spicyragu.netlify.app/sol/card-market')
+        await message.channel.send(f'Check out the SOL Card Market here!\n\n{constants.WEBSITE_DOMAIN}/sol/card-market')
 
     elif lower_message == '!allcards':
         await message.channel.send('View all your cards here: https://spicyragu.netlify.app/sol/user-cards/'+str(message.author.id))
