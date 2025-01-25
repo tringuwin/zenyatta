@@ -1,6 +1,6 @@
 
 
-BEST_POSSIBLE_SCORE = 4
+BEST_POSSIBLE_SCORE = 5
 
 
 
@@ -15,6 +15,9 @@ def calculate_picks_score(picks):
     if picks['round1'][2] == 'Lotus':
         score += 1
     if picks['round1'][3] == 'Outliers':
+        score += 1
+
+    if picks['round2'][3] == 'Outliers':
         score += 1
 
     return score

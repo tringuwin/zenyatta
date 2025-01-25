@@ -522,6 +522,18 @@ async def sell_all_cards_handler(db, message):
     await message.channel.send('You sold the all your cards! You sold '+str(num_cards)+' cards for a total of **'+str(tokens_to_earn)+' Tokens**!')
 
 
+async def release_cards(db, message):
+
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    user_id = params[1]
+    
+    # if not can_be_int(user_id):
+    #     await messages.channel.send(user_id+ '')
+    #     return
 
 async def give_card_handler(db, message):
 
