@@ -496,7 +496,6 @@ async def sell_all_cards_handler(db, message):
     
     cards = get_user_cards(user)
 
-    # check if no cards and short circuit if so
     num_cards = len(cards)
     if num_cards == 0:
         await message.channel.send('You have no cards that can be sold. You may have listed cards. You will need to unlist them first before using this command.')
@@ -531,9 +530,39 @@ async def release_cards(db, message):
     
     user_id = params[1]
     
-    # if not can_be_int(user_id):
-    #     await messages.channel.send(user_id+ '')
-    #     return
+    if not can_be_int(user_id):
+        await message.channel.send(user_id + ' is not a number')
+        return
+    user_id = int(user_id)
+
+    user = user_exists(db, user_id)
+    if not user:
+        await message.channel.send('Could not find a user with that id.')
+        return
+    
+    cards = get_user_cards(user)
+
+    num_cards = len(cards)
+    if num_cards == 0:
+        await message.channel.send('They have no cards.')
+        return
+    
+    users = db['users']
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": []}})
+
+    card_database = db['cards']
+    card_group = card_database.find_one({'cards_id': 1})
+    edit_cards = card_group['cards']
+    for card in cards:
+        edit_cards.append(card)
+
+    card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
+
+    for card in cards:
+        assign_owner_to_card(db, card['card_display'], 0)
+    
+    await message.channel.send('Returned '+str(num_cards)+' to packs.')
+
 
 async def give_card_handler(db, message):
 
