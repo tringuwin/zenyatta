@@ -60,6 +60,7 @@ async def start_pred(db, message):
 
     twitch_json = start_pred_twitch_call(db, data, channel_lower)
     if twitch_json:
+        print(twitch_json)
         twitch_data = twitch_json['data'][0]
         prediction_id = twitch_data['id']
         outcomes = twitch_data['outcomes']
