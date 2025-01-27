@@ -6,6 +6,7 @@ import constants
 BLACK_LIST = [
     1291074955999580252,  # banz
     1247921202698260535, # lilac
+    513207840878624776, # kaz
 ]
 
 async def suggest_handler(message, client):
