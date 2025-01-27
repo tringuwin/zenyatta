@@ -766,7 +766,7 @@ async def force_unlist(db, message):
 
     for_sale_cards = get_user_for_sale_cards(user)
     for card in for_sale_cards:
-        await unlist_card(db, resell_db, edit_group, card, user)
+        unlist_card(db, resell_db, edit_group, card, user)
 
     await message.channel.send('Unlisted all of the cards for the user')
 
