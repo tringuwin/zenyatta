@@ -741,6 +741,37 @@ async def unlist_card_handler(db, message):
     await message.channel.send('Card was successfully unlisted!')
 
 
+async def force_unlist(db, message):
+
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    user_id = params[1]
+    
+    if not can_be_int(user_id):
+        await message.channel.send(user_id + ' is not a number')
+        return
+    user_id = int(user_id)
+
+    user = user_exists(db, user_id)
+    if not user:
+        await message.channel.send('Could not find a user with that id.')
+        return
+    
+    resell_db = db['resell']
+    resell_group = resell_db.find_one({'cards_id': 1})
+    edit_group = resell_group['cards']
+
+    for_sale_cards = get_user_for_sale_cards(user)
+    for card in for_sale_cards:
+        await unlist_card(db, resell_db, edit_group, card, user)
+
+    await message.channel.send('Unlisted all of the cards for the user')
+
+
+
 async def buy_card_handler(db, message):
 
     # verify word parts
