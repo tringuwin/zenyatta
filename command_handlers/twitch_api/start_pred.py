@@ -83,7 +83,7 @@ async def start_pred(db, message):
             constant_name = get_twitch_constant_name_from_channel(channel_lower)
             set_constant_value(db, constant_name, save_object)
         else:
-            await message.channel.send('command failed with error: '+str(twitch_json))
+            await message.channel.send('Command failed with error: '+twitch_json['message'])
 
     await message.channel.send('Started prediction.')
 
