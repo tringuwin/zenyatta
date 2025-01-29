@@ -60,27 +60,30 @@ async def start_pred(db, message):
 
     twitch_json = start_pred_twitch_call(db, data, channel_lower)
     if twitch_json:
-        print(twitch_json)
-        twitch_data = twitch_json['data'][0]
-        prediction_id = twitch_data['id']
-        outcomes = twitch_data['outcomes']
         
-        save_object = {
-            'pred_id': prediction_id,
-            'outcomes': [
-                {
-                    'title': outcomes[0]['title'],
-                    'outcome_id': outcomes[0]['id']
-                },
-                {
-                    'title': outcomes[1]['title'],
-                    'outcome_id': outcomes[1]['id']
-                }
-            ]
-        }
+        if 'data' in twitch_json:
+            twitch_data = twitch_json['data'][0]
+            prediction_id = twitch_data['id']
+            outcomes = twitch_data['outcomes']
+            
+            save_object = {
+                'pred_id': prediction_id,
+                'outcomes': [
+                    {
+                        'title': outcomes[0]['title'],
+                        'outcome_id': outcomes[0]['id']
+                    },
+                    {
+                        'title': outcomes[1]['title'],
+                        'outcome_id': outcomes[1]['id']
+                    }
+                ]
+            }
 
-        constant_name = get_twitch_constant_name_from_channel(channel_lower)
-        set_constant_value(db, constant_name, save_object)
+            constant_name = get_twitch_constant_name_from_channel(channel_lower)
+            set_constant_value(db, constant_name, save_object)
+        else:
+            await message.channel.send('command failed with error: '+str(twitch_json))
 
     await message.channel.send('Started prediction.')
 
