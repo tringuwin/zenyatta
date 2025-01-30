@@ -1038,7 +1038,7 @@ async def handle_message(message, db, client):
 
 
     elif lower_message.startswith('!endbattle') and is_admin:
-        await end_battle_handler(db, message)
+        await end_battle_handler(db, message, context)
 
     elif lower_message == '!startbattle' and is_admin:
         await start_battle_handler(db, message, client, context)
