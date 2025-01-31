@@ -2,6 +2,7 @@
 from command_handlers.xp_battle.battle_helpers import get_battle_constant_name, get_battle_game_name, get_default_game_teams
 from discord_actions import get_guild
 import constants
+from helpers import set_constant_value
 
 
 async def start_battle_handler(db, message, client, context):
@@ -29,5 +30,6 @@ async def start_battle_handler(db, message, client, context):
     battle_info['current_players'] = []
     battle_info['current_teams'] = get_default_game_teams(context)
     constants_db.update_one({"name": battle_constant_name}, {"$set": {"value": battle_info}})
+    set_constant_value(db, 'battle_context', context)
 
     await message.channel.send('Battle Sign-Up Started')
