@@ -1,5 +1,6 @@
 
 
+from command_handlers.xp_battle.battle_helpers import get_battle_constant_name, get_battle_upper_player_limit, get_battle_user_display
 from discord_actions import get_guild
 from helpers import get_constant_value, set_constant_value
 from user import user_exists
@@ -7,9 +8,10 @@ from xp_battles import init_player_pools
 import random
 import constants
 
-async def end_reg_handler(db, message, client):
+async def end_reg_handler(db, message, client, context):
 
-    battle_info = get_constant_value(db, 'battle')
+    battle_constant_name = get_battle_constant_name(context)
+    battle_info = get_constant_value(db, battle_constant_name)
 
     if not battle_info['battle_on']:
         await message.channel.send('There is no battle right now.')
@@ -20,31 +22,31 @@ async def end_reg_handler(db, message, client):
         return
 
     number_sign_ups = len(battle_info['sign_ups'])
-    if number_sign_ups < 9:
-        await message.channel.send('There are only '+str(number_sign_ups)+' players signed up for the battle. We need at least 9 players to start.')
+    battle_upper_limit = get_battle_upper_player_limit(context)
+    if number_sign_ups < battle_upper_limit:
+        await message.channel.send('There are only '+str(number_sign_ups)+' players signed up for the battle. We need at least '+str(battle_upper_limit)+' players to start.')
         return
 
     battle_info['reg_open'] = False
     current_players = []
 
-    while len(current_players) < 9:
+    while len(current_players) < battle_upper_limit:
 
         battle_info['player_pools'] = init_player_pools(battle_info)
 
         valid_players = battle_info['player_pools']['valid_pool'] 
 
-        while len(valid_players) > 0 and len(current_players) < 9:
+        while len(valid_players) > 0 and len(current_players) < battle_upper_limit:
             index = random.randint(0, len(valid_players) - 1) 
             removed_item = valid_players.pop(index)
             battle_info['sign_ups'].remove(removed_item)
             current_players.append(removed_item)  
 
-        if len(current_players) < 9:
+        if len(current_players) < battle_upper_limit:
 
             past_players = battle_info['past_players']
             past_players.pop(0)
             battle_info['past_players'] = past_players
-
 
 
     battle_info['current_players'] = current_players
@@ -57,7 +59,8 @@ async def end_reg_handler(db, message, client):
     for player_id in current_players:
 
         user = user_exists(db, player_id)
-        final_string += '\n'+str(index)+'. '+user['battle_tag']+' | '+'<@'+str(user['discord_id'])+'>'
+        user_display = get_battle_user_display(user, context)
+        final_string += '\n'+str(index)+'. '+user_display+' | '+'<@'+str(user['discord_id'])+'>'
 
         index += 1
 
@@ -67,4 +70,4 @@ async def end_reg_handler(db, message, client):
     public_message = await battle_channel.send(final_string)
     battle_info['players_msg'] = public_message.id
 
-    set_constant_value(db, 'battle', battle_info)
+    set_constant_value(db, battle_constant_name, battle_info)
