@@ -1047,7 +1047,7 @@ async def handle_message(message, db, client):
         await how_many_handler(db, message, context)
 
     elif lower_message.startswith('!bns') and is_admin:
-        await battle_no_show_handler(db, message, client)
+        await battle_no_show_handler(db, message, client, context)
 
     elif lower_message == '!endreg' and is_admin:
         await end_reg_handler(db, message, client)
