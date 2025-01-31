@@ -1,5 +1,6 @@
 
 
+from command_handlers.xp_battle.battle_helpers import get_battle_constant_name
 from discord_actions import get_guild
 from user import user_exists
 import discord
@@ -48,10 +49,11 @@ async def remove_from_battle(db, member, battle_info):
     constants_db.update_one({"name": "battle"}, {"$set": {"value": battle_info}})
 
 
-async def how_many_handler(db, message):
+async def how_many_handler(db, message, context):
 
     constants_db = db['constants']
-    battle_obj = constants_db.find_one({'name': 'battle'})
+    battle_constant_name = get_battle_constant_name(context)
+    battle_obj = constants_db.find_one({'name': battle_constant_name})
     battle_info = battle_obj['value']
 
     number_sign_ups = len(battle_info['sign_ups'])

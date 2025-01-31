@@ -1044,7 +1044,7 @@ async def handle_message(message, db, client):
         await start_battle_handler(db, message, client, context)
 
     elif lower_message == '!hm' and is_admin:
-        await how_many_handler(db, message)
+        await how_many_handler(db, message, context)
 
     elif lower_message.startswith('!bns') and is_admin:
         await battle_no_show_handler(db, message, client)
