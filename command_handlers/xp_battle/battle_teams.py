@@ -1,16 +1,18 @@
 
 
+from command_handlers.xp_battle.battle_helpers import create_battle_teams, get_battle_constant_name, get_battle_user_display, get_battle_user_wlt, get_blue_team_name, get_red_team_name
 from discord_actions import get_guild
 from helpers import get_constant_value, set_constant_value
 import random
 
-from user import get_user_wlt, user_exists
+from user import user_exists
 import constants
 
 
-async def battle_teams_handler(db, message, client):
+async def battle_teams_handler(db, message, client, context):
 
-    battle_info = get_constant_value(db, 'battle')
+    battle_constant_name = get_battle_constant_name(context)
+    battle_info = get_constant_value(db, battle_constant_name)
 
     if not battle_info['battle_on']:
         await message.channel.send('There is no battle right now.')
@@ -26,7 +28,7 @@ async def battle_teams_handler(db, message, client):
             players_with_wlt.append({'user_id': player_id, 'points': -1000.0})
         else:
             user = user_exists(db, player_id)
-            wlt = get_user_wlt(user)
+            wlt = get_battle_user_wlt(user, context)
             points = wlt['w'] - wlt['l']
             players_with_wlt.append({'user_id': player_id, 'points': points})
 
@@ -64,43 +66,45 @@ async def battle_teams_handler(db, message, client):
         index += 1
 
 
-    overwatch_team = []
-    talon_team = []
+    blue_team = []
+    red_team = []
 
-    team_1_color = random.choice(['overwatch', 'talon'])
-    if team_1_color == 'talon':
-        talon_team = team_1
-        overwatch_team = team_2
+    team_1_color = random.choice(['blue', 'red'])
+    if team_1_color == 'red':
+        red_team = team_1
+        blue_team = team_2
     else:
-        talon_team = team_2
-        overwatch_team = team_1
+        red_team = team_2
+        blue_team = team_1
 
-    battle_info['current_teams'] = {
-        'overwatch': overwatch_team,
-        'talon': talon_team
-    }
+    battle_info['current_teams'] = create_battle_teams(blue_team, red_team, context)
 
-    set_constant_value(db, 'battle', battle_info)
+    set_constant_value(db, battle_constant_name, battle_info)
 
-    final_string = '**🔵 OVERWATCH 🔵**'
+    blue_team_name = get_blue_team_name(context)
+    red_team_name = get_red_team_name(context)
+
+    final_string = f'**🔵 {blue_team_name} 🔵**'
     user_index = 0
-    for user_id in overwatch_team:
+    for user_id in blue_team:
         if user_id == -1:
             final_string += '\n'+str(user_index)+'. '+'BOT 🤖'
         else:
             user = user_exists(db, user_id)
-            final_string += '\n'+str(user_index)+'. '+user['battle_tag']+' | '+'<@'+str(user['discord_id'])+'>'
+            user_display = get_battle_user_display(user, context)
+            final_string += '\n'+str(user_index)+'. '+user_display+' | '+'<@'+str(user['discord_id'])+'>'
 
         user_index += 1
 
-    final_string += '\n\n**🔴 TALON 🔴**'
+    final_string += f'\n\n**🔴 {red_team_name} 🔴**'
     user_index = 0
-    for user_id in talon_team:
+    for user_id in red_team:
         if user_id == -1:
             final_string += '\n'+str(user_index)+'. '+'BOT 🤖'
         else:
             user = user_exists(db, user_id)
-            final_string += '\n'+str(user_index)+'. '+user['battle_tag']+' | '+'<@'+str(user['discord_id'])+'>'
+            user_display = get_battle_user_display(user, context)
+            final_string += '\n'+str(user_index)+'. '+user_display+' | '+'<@'+str(user['discord_id'])+'>'
 
         user_index += 1
         

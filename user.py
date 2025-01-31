@@ -345,6 +345,17 @@ def get_user_wlt(user):
         't': 0
     }
 
+def get_user_mr_wlt(user):
+
+    if 'mr_wlt' in user:
+        return user['mr_wlt']
+    
+    return {
+        'w': 0,
+        'l': 0,
+        't': 0
+    }
+
 def get_user_team_swaps(user):
 
     if 'team_swaps' in user:

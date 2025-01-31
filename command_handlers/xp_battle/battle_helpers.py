@@ -1,4 +1,7 @@
 
+from user import get_user_mr_wlt, get_user_wlt
+
+
 def get_battle_constant_name(context):
 
     if context == 'OW':
@@ -45,7 +48,7 @@ def get_display_key(context):
     elif context == 'MR':
         return 'rivals_username'
     
-    raise Exception('Upper player limit does not exist for context: '+context)
+    raise Exception('Display key does not exist for context: '+context)
 
 
 def get_battle_user_display(user, context):
@@ -56,3 +59,51 @@ def get_battle_user_display(user, context):
         return user[display_key]
 
     return '[USER NOT FOUND]'
+
+
+def get_battle_user_wlt(user, context):
+
+    if context == 'OW':
+        return get_user_wlt(user)
+    elif context == 'MR':
+        return get_user_mr_wlt(user)
+    
+    raise Exception('wlt value does not exist for context: '+context)
+
+
+def create_battle_teams(blue_team, red_team, context):
+
+    if context == 'OW':
+
+        return {
+            'overwatch': blue_team,
+            'talon': red_team
+        }
+    
+    elif context == 'MR':
+
+        return {
+            'avengers': blue_team,
+            'hydra': red_team
+        }
+    
+    raise Exception('cannot create teams for context: '+context)
+
+
+def get_blue_team_name(context):
+
+    if context == 'OW':
+        return 'OVERWATCH'
+    elif context == 'MR':
+        return 'AVENGERS'
+    
+    raise Exception('blue team name does not exist for context: '+context)
+
+def get_red_team_name(context):
+
+    if context == 'OW':
+        return 'TALON'
+    elif context == 'MR':
+        return 'HYDRA'
+    
+    raise Exception('red team name does not exist for context: '+context)
