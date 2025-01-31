@@ -107,3 +107,21 @@ def get_red_team_name(context):
         return 'HYDRA'
     
     raise Exception('red team name does not exist for context: '+context)
+
+def get_battle_team_names(context):
+
+    if context == 'OW':
+        return ['overwatch', 'talon']
+    elif context == 'MR':
+        return ['avengers', 'hydra']
+    
+    raise Exception('battle team names do not exist for context: '+context)
+
+def get_wlt_constant_name(context):
+
+    if context == 'OW':
+        return 'wlt'
+    elif context == 'MR':
+        return 'mr_wlt'
+    
+    raise Exception('wlt constant name does not exist for context: '+context)
