@@ -180,6 +180,7 @@ from command_handlers.twitch_api.run_ad import run_ad
 from command_handlers.twitch_api.start_pred import start_pred
 from command_handlers.vote import vote_handler
 from command_handlers.website import website_handler
+from command_handlers.xp_battle.battle_helpers import get_battle_constant_name
 from command_handlers.xp_battle.battle_no_show import battle_no_show_handler
 from command_handlers.xp_battle.battle_teams import battle_teams_handler
 from command_handlers.xp_battle.battle_win import battle_win_handler
@@ -2444,10 +2445,12 @@ def run_discord_bot(db):
                 return
             
             constants_db = db['constants']
-            battle_obj = constants_db.find_one({'name': 'battle'})
+            battle_context = get_constant_value(db, 'battle_context')
+            battle_constant_name = get_battle_constant_name(battle_context)
+            battle_obj = constants_db.find_one({'name': battle_constant_name})
             battle_info = battle_obj['value']
             if message_id == battle_info['reg_message_id']:
-                await add_to_battle(db, member, battle_info, client)
+                await add_to_battle(db, member, battle_info, client, battle_context)
             
             return
 
@@ -2530,10 +2533,12 @@ def run_discord_bot(db):
             member = get_member(guild, user_id, 'Raw Reaction Remove')
 
             constants_db = db['constants']
-            battle_obj = constants_db.find_one({'name': 'battle'})
+            battle_context = get_constant_value(db, 'battle_context')
+            battle_constant_name = get_battle_constant_name(battle_context)
+            battle_obj = constants_db.find_one({'name': battle_constant_name})
             battle_info = battle_obj['value']
             if message_id == battle_info['reg_message_id']:
-                await remove_from_battle(db, member, battle_info)
+                await remove_from_battle(db, member, battle_info, battle_constant_name)
             
             return
 
