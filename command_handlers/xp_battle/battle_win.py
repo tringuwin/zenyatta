@@ -22,8 +22,8 @@ async def battle_win_handler(db, message, client, context):
     
     team_winner = params[1].lower()
     battle_team_names = get_battle_team_names(context)
-    red_team = battle_team_names[0]
-    blue_team = battle_team_names[1]
+    blue_team = battle_team_names[0]
+    red_team = battle_team_names[1]
     if team_winner != red_team and team_winner != blue_team and team_winner != 'tie':
         await message.channel.send(f'Invalid team name. Must be {red_team}, {blue_team} or tie.')
         return
