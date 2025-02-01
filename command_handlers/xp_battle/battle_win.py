@@ -51,7 +51,7 @@ async def battle_win_handler(db, message, client, context):
             if user_id == -1:
                 continue
             user = user_exists(db, user_id)
-            user_wlt = get_battle_user_wlt(user)
+            user_wlt = get_battle_user_wlt(user, context)
             user_wlt['t'] += 1
             wlt_constant_name = get_wlt_constant_name(context)
             users.update_one({"discord_id": user['discord_id']}, {"$set": {wlt_constant_name: user_wlt}})
