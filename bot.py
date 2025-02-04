@@ -29,6 +29,7 @@ from admin_handlers.make_vote import make_vote_handler
 from admin_handlers.match_lineups import match_lineups_handler
 from admin_handlers.prune_picks import prune_picks
 from admin_handlers.prune_sac import prune_sac_handler
+from admin_handlers.register_role import register_role
 from admin_handlers.score_picks import score_picks
 from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
@@ -1351,38 +1352,8 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!editcard ') and is_admin:
         await edit_card_handler(db, message)
 
-
-    elif lower_message == '!initsinglecardbase' and is_admin:
-
-        displays = db['display_cards']
-        all_displays = displays.find()
-
-        single_cards = db['single_cards']
-
-        for display in all_displays:
-
-            variant_list = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']
-
-            if ('custom' in display) and display['custom']:
-                variant_list = ['A']
-
-
-            for variant in variant_list:
-
-                power = 20
-                if variant == 'S':
-                    power = 100
-
-                single_cards.insert_one({
-                    'display': str(display['card_id'])+'-'+variant,
-                    'card_id': display['card_id'],
-                    'variant': variant,
-                    'power': power
-                })
-
-        await message.channel.send('single database made')
-
-
+    elif lower_message.startswith('!registerrole') and is_admin:
+        await register_role(db, message)
 
     elif lower_message == '!gallery':
         await message.channel.send(f'Check out the full SOL Card Gallery here: {constants.WEBSITE_DOMAIN}/sol/gallery')
@@ -1559,41 +1530,6 @@ async def handle_message(message, db, client):
         }
         map_names.insert_one(new_map_names)
         await message.channel.send('map names initated')
-
-    elif lower_message == '!initlocalfiles' and is_admin:
-
-        local_files = db['localfiles']
-        # new_local_files = {
-        #     'files_id': 1,
-        #     'files': {
-        #         'map_wins': {
-        #             'version': 1,
-        #             'data': {
-        #                 'map1': 'None',
-        #                 'map2': 'None',
-        #                 'map3': 'None',
-        #                 'map4': 'None',
-        #                 'map5': 'None',
-        #                 'map6': 'None',
-        #                 'map7': 'None'
-        #             }
-        #         }
-        #     }
-        # }
-        files = local_files.find_one({'files_id': 1})
-        scores = {
-            'version': 1,
-            'data': {
-                'score1': 0,
-                'score2': 0,
-                'score3': 8,
-                'score4': 0
-            }
-        }
-        files['files']['scores'] = scores
-
-        local_files.update_one({"files_id": 1}, {"$set": {"files": files['files']}})
-        await message.channel.send('local files updated')
 
     elif lower_message.startswith('!setmap') and is_admin:
         await set_map_handler(db, message)

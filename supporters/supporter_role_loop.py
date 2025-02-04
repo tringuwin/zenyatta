@@ -14,3 +14,5 @@ async def supporter_role_loop(message, client):
         members_string += '\n'+member.name
 
     await message.channel.send('role members:\n' +members_string)
+
+    
