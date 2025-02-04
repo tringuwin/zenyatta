@@ -1364,6 +1364,16 @@ async def handle_message(message, db, client):
     elif lower_message == '!totalpacks':
         await total_packs_handler(db, message)
 
+    elif lower_message == '!1711':
+
+        cards = db['cards']
+        all_cards = cards.find_one({'cards_id': 1})
+        card_list = all_cards['cards']
+
+        for card in card_list:
+            if card['card_display'] == '1171-A':
+                await message.channel.send('is in packs')
+
     elif lower_message == '!cardmarket':
         await message.channel.send(f'Check out the SOL Card Market here!\n\n{constants.WEBSITE_DOMAIN}/sol/card-market')
 

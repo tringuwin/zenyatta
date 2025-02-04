@@ -34,6 +34,7 @@ async  def assign_custom_role(client, guild, custom_roles, user_id):
 def release_custom_role(custom_roles, role_id):
 
     pass
+    # custom_roles.update_one({'role_id': role_id, {'$set': {''}}})
 
 
 async def supporter_role_loop(db, message, client):
@@ -65,7 +66,7 @@ async def supporter_role_loop(db, message, client):
 
         member = get_member(guild, role_user_id, 'Supporter Role Loop')
         if not member:
-            release_custom_role()
+            release_custom_role(custom_roles, role['role_id'])
 
 
     
