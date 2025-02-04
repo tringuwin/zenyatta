@@ -3,11 +3,12 @@ from api import give_role
 from discord_actions import get_guild, get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info
+from league_helpers import get_league_notifs_channel, get_league_team_with_context, get_league_teams_collection
 from user import get_league_team, user_exists
 import constants
 
 
-async def force_league_add_handler(db, message, client):
+async def force_league_add_handler(db, message, client, context):
 
     mentioned_user = message.mentions[0]
     if not mentioned_user:
@@ -26,16 +27,18 @@ async def force_league_add_handler(db, message, client):
         await message.channel.send('user not reg')
         return
     
-    user_league_team = get_league_team(user)
+    user_league_team = get_league_team_with_context(user, context)
     if user_league_team != "None":
         await message.channel.send('That user is already on a league team.')
         return
     
-    users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": team_name_to_join}})
-
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection(db, context)
     league_team = league_teams.find_one({'team_name': team_name_to_join})
+    real_team_name = league_team['team_name']
+
+    users = db['users']
+    update_obj = {"league_team": real_team_name} if context == 'OW' else {'rivals_league_team': real_team_name}
+    users.update_one({"discord_id": user['discord_id']}, {"$set": update_obj})
 
     league_team['members'].append(
         {
@@ -53,11 +56,11 @@ async def force_league_add_handler(db, message, client):
     if role:
         await give_role(mentioned_user, role, 'League Accept')
 
-    await update_team_info(client, league_team, db)
+    await update_team_info(client, league_team, db, context)
 
-    league_notifs_channel = client.get_channel(constants.TEAM_NOTIFS_CHANNEL)
+    league_notifs_channel = get_league_notifs_channel(client, context)
 
-    team_emoji_string = get_league_emoji_from_team_name(team_name_to_join)
+    team_emoji_string = get_league_emoji_from_team_name(real_team_name)
 
     await league_notifs_channel.send(team_emoji_string+' User '+mentioned_user.mention+' has joined the team "'+team_name_to_join+'".')
     await message.channel.send('Added user to league team.')

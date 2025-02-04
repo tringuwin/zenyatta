@@ -1122,7 +1122,7 @@ async def handle_message(message, db, client):
         await force_league_remove_handler(db, message, client)
 
     elif lower_message.startswith('!forceleagueadd') and is_league_commands_user:
-        await force_league_add_handler(db, message, client)
+        await force_league_add_handler(db, message, client, context)
 
     elif lower_message.startswith('!subpoints ') and is_admin:
         await sub_points_handler(db, message, client)
