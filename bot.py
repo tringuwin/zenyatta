@@ -255,6 +255,7 @@ from roster_lock import handle_lock
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from server_level import sub_points_handler
 from streamlabs import check_streamlabs_raffles
+from supporters.supporter_role_loop import supporter_role_loop
 from teams import get_team_by_name
 from time_helpers import check_weekly, long_enough_for_gift
 from twitch_token import check_token_issue
@@ -2414,6 +2415,8 @@ async def handle_message(message, db, client):
         await update_top_subs_avatars(guild, db, message)
 
         await update_team_avatars(guild, db, message)
+
+        await supporter_role_loop(message, client)
 
     elif context == 'MR':
         await route_rivals_message(db, message, lower_message)
