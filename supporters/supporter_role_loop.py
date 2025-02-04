@@ -19,7 +19,7 @@ async  def assign_custom_role(client, guild, custom_roles, user_id):
     if not empty_custom_role:
         raise Exception('No available custom roles, please register more.')
 
-    custom_role = get_role_by_id(client, empty_custom_role['role_id'])
+    custom_role = await get_role_by_id(client, empty_custom_role['role_id'])
     if not custom_role:
         raise Exception('Could not find custom role with id of: '+str(empty_custom_role['role_id']))
     
