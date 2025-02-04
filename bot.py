@@ -2352,7 +2352,7 @@ async def handle_message(message, db, client):
 
         await update_team_avatars(guild, db, message)
 
-        await supporter_role_loop(message, client)
+        await supporter_role_loop(db, message, client)
 
     elif context == 'MR':
         await route_rivals_message(db, message, lower_message)
