@@ -31,10 +31,12 @@ async  def assign_custom_role(client, guild, custom_roles, user_id):
     custom_roles.update_one({'role_id': empty_custom_role['role_id']}, {'$set': {'user_id': user_id}})
 
 
-def release_custom_role(custom_roles, role_id):
+async def release_custom_role(client, custom_roles, role_id):
 
-    pass
-    # custom_roles.update_one({'role_id': role_id, {'$set': {''}}})
+    custom_roles.update_one({'role_id': role_id}, {'$set': {'user_id': 0}})
+
+    role = await get_role_by_id(client, role_id)
+    await role.edit(name='Custom Role')
 
 
 async def supporter_role_loop(db, message, client):
@@ -66,7 +68,12 @@ async def supporter_role_loop(db, message, client):
 
         member = get_member(guild, role_user_id, 'Supporter Role Loop')
         if not member:
-            release_custom_role(custom_roles, role['role_id'])
+            await release_custom_role(client, custom_roles, role['role_id'])
+
+        if not (member.id in supporter_users):
+            discord_role = await get_role_by_id(client, role['role_id'])
+            await member.remove_roles(discord_role)
+            await release_custom_role(client, custom_roles, role['role_id'])
 
 
     
