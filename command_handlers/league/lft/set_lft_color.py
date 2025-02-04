@@ -1,25 +1,11 @@
 
 from command_handlers.lft import get_lft_user
 from common_messages import invalid_number_of_params, not_registered_response
-from helpers import valid_number_of_params
+from helpers import is_valid_hex_code, valid_number_of_params
 from user import user_exists
 
 
-def is_valid_hex_code(s):
-    # Optional: Check for starting hash symbol and adjust the string
-    if s.startswith('#'):
-        s = s[1:]
 
-    # Check the length of the string
-    if len(s) not in [3, 6]:
-        return False
-
-    # Check each character
-    for char in s:
-        if char.lower() not in "0123456789abcdef":
-            return False
-
-    return True
 
 
 async def set_lft_color_handler(db, message):

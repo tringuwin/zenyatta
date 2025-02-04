@@ -112,3 +112,20 @@ def get_league_emoji_from_team_name(team_name):
 def is_bot_commands_channel(channel):
 
     return (channel.id == constants.BOT_CHANNEL) or (channel.id == constants.RIVALS_BOT_CHANNEL)
+
+
+def is_valid_hex_code(s):
+    # Optional: Check for starting hash symbol and adjust the string
+    if s.startswith('#'):
+        s = s[1:]
+
+    # Check the length of the string
+    if len(s) not in [3, 6]:
+        return False
+
+    # Check each character
+    for char in s:
+        if char.lower() not in "0123456789abcdef":
+            return False
+
+    return True

@@ -256,6 +256,7 @@ from roster_lock import handle_lock
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from server_level import sub_points_handler
 from streamlabs import check_streamlabs_raffles
+from supporters.role_commands.role_color import role_color
 from supporters.role_commands.role_name import role_name
 from supporters.supporter_role_loop import supporter_role_loop
 from teams import get_team_by_name
@@ -891,6 +892,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!rolename '):
         await role_name(client, db, message)
+
+    elif lower_message.startswith('!rolecolor '):
+        await role_color(client, db, message)
 
     elif lower_message.startswith('!teampage'):
         await team_page_handler(db, message)
