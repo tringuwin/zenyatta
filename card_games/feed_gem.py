@@ -67,7 +67,7 @@ async def feed_gem(db, message):
     
     user_gems[gem_color_lower] -= 1
     users = db['users']
-    users.update_one({'user_id': user['user_id']}, {'$set': {'gems': user_gems}})
+    users.update_one({'user_id': user['discord_id']}, {'$set': {'gems': user_gems}})
 
     card_id = int(card_display.split('-')[0])
     display_cards = db['display_cards']
@@ -75,13 +75,15 @@ async def feed_gem(db, message):
     display_card_gems = display_card['gems']
     power_increase = int(display_card_gems[GEM_COLOR_TO_INDEX[gem_color_lower]])
 
+    single_cards = db['single_cards']
+    change_card_power(single_cards, card_display_upper, power_increase)
+
     reply_message = 'Your card **'+NUMBER_TO_RESULT[power_increase]+'** the '+gem_color+' gem! '+constants.GEM_COLOR_TO_STRING[gem_color_lower]
     reply_message += "\n\nThe card's power rose by **"+str(power_increase)+"**!"
 
-    await message.channel.send('Would increase power by '+str(power_increase)+'.')
+    await message.channel.send(reply_message)
 
-    # single_cards = db['single_cards']
-    # change_card_power(db)
+    
 
 
     
