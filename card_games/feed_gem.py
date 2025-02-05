@@ -20,6 +20,13 @@ GEM_COLOR_TO_INDEX = {
     'black': 9
 }
 
+NUMBER_TO_RESULT = {
+    5: 'LOVED',
+    3: 'Really Liked',
+    2: 'Liked',
+    1: 'Disliked'
+}
+
 async def feed_gem(db, message):
 
     user = user_exists(db, message.author.id)
