@@ -75,6 +75,9 @@ async def feed_gem(db, message):
     display_card_gems = display_card['gems']
     power_increase = int(display_card_gems[GEM_COLOR_TO_INDEX[gem_color_lower]])
 
+    reply_message = 'Your card **'+NUMBER_TO_RESULT[power_increase]+'** the '+gem_color+' gem! '+constants.GEM_COLOR_TO_STRING[gem_color_lower]
+    reply_message += "\n\nThe card's power rose by **"+str(power_increase)+"**!"
+
     await message.channel.send('Would increase power by '+str(power_increase)+'.')
 
     # single_cards = db['single_cards']
