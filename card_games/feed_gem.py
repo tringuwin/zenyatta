@@ -66,9 +66,8 @@ async def feed_gem(db, message):
         return
     
     user_gems[gem_color_lower] -= 1
-    print(user_gems)
     users = db['users']
-    users.update_one({'user_id': user['discord_id']}, {'$set': {'gems': user_gems}})
+    users.update_one({'discord_id': user['discord_id']}, {'$set': {'gems': user_gems}})
 
     card_id = int(card_display.split('-')[0])
     display_cards = db['display_cards']
