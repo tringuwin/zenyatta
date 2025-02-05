@@ -34,8 +34,13 @@ async def donate_gems(db, message):
         return
     
     amount = params[3]
-    if (not can_be_int(amount)) or amount < 1:
+    if (not can_be_int(amount)):
         await message.channel.send(amount+' is not a valid number.')
+        return
+    
+    amount = int(amount)
+    if amount < 1:
+        await message.channel.send('You must donate at least 1 gem.')
         return
     
     user_gems = get_user_gems(user)
