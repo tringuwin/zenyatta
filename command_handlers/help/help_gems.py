@@ -10,5 +10,6 @@ async def help_gems_handler(message):
     help_embed.add_field(name='!denygemtrade', value='Deny a gem trade offer.', inline=False)
     help_embed.add_field(name='!acceptgemtrade', value='Accept a gem trade offer.', inline=False)
     help_embed.add_field(name='!tradegemset', value='Trade in a set of all 10 gem colors for 1,000 Tokens.', inline=False)
+    help_embed.add_field(name='!feedgem [card-id] [gem color]', value='Feed a gem to one of your cards to increase the power of the card.', inline=False)
 
     await message.channel.send(embed=help_embed)
