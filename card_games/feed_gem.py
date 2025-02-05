@@ -58,7 +58,7 @@ async def feed_gem(db, message):
         await message.channel.send('You do not have any '+gem_color+' gems.')
         return
     
-    user_gems[constants.GEM_COLORS[gem_color_lower]] -= 1
+    user_gems[gem_color_lower] -= 1
     users = db['users']
     users.update_one({'user_id': user['user_id']}, {'$set': {'gems': user_gems}})
 
