@@ -81,7 +81,7 @@ async def feed_gem(db, message):
     reply_message = 'Your card **'+NUMBER_TO_RESULT[power_increase]+'** the '+gem_color+' gem! '+constants.GEM_COLOR_TO_STRING[gem_color_lower]
     reply_message += "\n\nThe card's power rose by **"+str(power_increase)+"**!"
 
-    await message.channel.send(reply_message)
+    await message.channel.reply(reply_message)
 
     
 

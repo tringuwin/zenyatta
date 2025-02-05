@@ -1281,7 +1281,7 @@ async def handle_message(message, db, client):
 
         await message.channel.send('all display cards updated')
 
-    elif lower_message.startswith('!feedgem') and is_admin:
+    elif lower_message.startswith('!feedgem '):
 
         await feed_gem(db, message)
 
