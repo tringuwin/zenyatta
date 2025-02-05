@@ -61,7 +61,7 @@ async def feed_gem(db, message):
         return
     
     user_gems = get_user_gems(user)
-    if user_gems[constants.GEM_COLORS[gem_color_lower]] < 1:
+    if user_gems[gem_color_lower] < 1:
         await message.channel.send('You do not have any '+gem_color+' gems.')
         return
     
