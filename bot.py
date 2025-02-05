@@ -519,7 +519,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!gems':
         await gems_handler(db, message)
 
-    elif lower_message.startswith('!donategems ') and is_admin:
+    elif lower_message.startswith('!donategems '):
         await donate_gems(db, message)
 
     elif lower_message == '!lootboxes':
