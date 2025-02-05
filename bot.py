@@ -1271,9 +1271,14 @@ async def handle_message(message, db, client):
         db_cards.insert_one(new_entry)
         await message.channel.send('init success')
 
-    elif lower_message == '!displaygem' and is_admin:
+    elif lower_message == '!displaygemall' and is_admin:
         
-        await message.channel.send(get_gem_preferences())
+        display_cards = db['display_cards']
+        all_display_cards = display_cards.find()
+        for display_card in all_display_cards:
+            display_cards.update_one({'card_id': display_card['card_id']}, {'$set': {'gems': get_gem_preferences()}})
+
+        await message.channel.send('all display cards updated')
 
 
     # elif lower_message == '!cardowners' and is_admin:

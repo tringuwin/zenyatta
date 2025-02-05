@@ -1,4 +1,5 @@
 import time
+from card_games.get_gem_preferences import get_gem_preferences
 from cards import init_card
 from helpers import can_be_int, get_constant_value
 from user import user_exists
@@ -23,7 +24,8 @@ async def make_all_cards_from_data(db, message, client):
                 'player_id': user_id,
                 'normal_img': player_data['normal_img'],
                 'special_img': player_data['special_img'],
-                'card_id': new_id
+                'card_id': new_id,
+                'gems': get_gem_preferences(),
             }
 
             display_cards.insert_one(new_obj)

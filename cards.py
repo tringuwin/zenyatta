@@ -1,6 +1,7 @@
 
 
 import discord
+from card_games.get_gem_preferences import get_gem_preferences
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_username_by_user_id
 from helpers import can_be_int, valid_number_of_params
@@ -903,7 +904,8 @@ async def make_card_handler(db, message):
         'player_id': user_id,
         'normal_img': params[2],
         'special_img': params[3],
-        'card_id': new_id
+        'card_id': new_id,
+        'gems': get_gem_preferences(),
     }
     if is_custom:
         new_obj['custom'] = True
