@@ -163,6 +163,7 @@ from command_handlers.league.standings import standings2_handler, standings_hand
 from command_handlers.league.toggle_apps import toggle_apps_handler
 from command_handlers.league.toggle_esub import toggle_esub_handler
 from command_handlers.league.update_team import update_team, update_team_handler
+from command_handlers.league.wipe_team import wipe_team
 from command_handlers.lootboxes import lootboxes_handler
 from command_handlers.mine import mine_handler
 from command_handlers.money.give_money import give_money
@@ -1132,6 +1133,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forceleagueadd') and is_league_commands_user:
         await force_league_add_handler(db, message, client, context)
+
+    elif lower_message.startswith('!wipeteam ') and is_admin:
+        await wipe_team(db, message, client, context)
 
     elif lower_message.startswith('!subpoints ') and is_admin:
         await sub_points_handler(db, message, client)
@@ -2325,6 +2329,9 @@ async def handle_message(message, db, client):
         await update_bets(db, message.channel, client)
 
     elif lower_message == 'check gifts' and is_push_bot:
+
+        print('check gifts loop')
+
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
         await send_msg(bot_channel, 'Checking gifts', 'Check Gifts')
         guild = await get_guild(client)
