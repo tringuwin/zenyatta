@@ -69,6 +69,7 @@ from command_handlers.card_page import card_page
 from command_handlers.card_search import card_search_handler
 from command_handlers.deny_gem_trade import deny_gem_trade_handler
 from command_handlers.donate import donate_handler
+from command_handlers.donate_gems import donate_gems
 from command_handlers.donate_packs import donate_packs
 from command_handlers.donate_pass import donate_pass_handler
 from command_handlers.drop_alert import drop_alert
@@ -516,8 +517,10 @@ async def handle_message(message, db, client):
         await cards_handler(db, message)
 
     elif lower_message == '!gems':
-        guild = await get_guild(client)
         await gems_handler(db, message)
+
+    elif lower_message.startswith('!donategems ') and is_admin:
+        await donate_gems(db, message)
 
     elif lower_message == '!lootboxes':
         await lootboxes_handler(db, message)
