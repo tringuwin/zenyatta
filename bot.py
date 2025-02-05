@@ -43,6 +43,7 @@ from automation.raffle import end_raffle, start_raffle
 from automation.update_team_avatars import update_team_avatars
 from automation.update_top_subs_avatars import update_top_subs_avatars
 from card_automation import make_all_cards_from_data
+from card_games.feed_gem import feed_gem
 from card_games.get_gem_preferences import get_gem_preferences
 from card_matches.card_match_utils import make_match_card
 from cards import buy_card_handler, cards_handler, edit_card_handler, force_unlist, give_card_handler, init_card_handler, init_custom_handler, list_card_handler, make_card_handler, open_pack_handler, release_cards, sell_all_cards_handler, sell_card_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
@@ -1280,6 +1281,9 @@ async def handle_message(message, db, client):
 
         await message.channel.send('all display cards updated')
 
+    elif lower_message.startswith('!feedgem') and is_admin:
+
+        await feed_gem(db, message)
 
     # elif lower_message == '!cardowners' and is_admin:
 
