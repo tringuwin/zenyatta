@@ -43,6 +43,7 @@ from automation.raffle import end_raffle, start_raffle
 from automation.update_team_avatars import update_team_avatars
 from automation.update_top_subs_avatars import update_top_subs_avatars
 from card_automation import make_all_cards_from_data
+from card_games.get_gem_preferences import get_gem_preferences
 from card_matches.card_match_utils import make_match_card
 from cards import buy_card_handler, cards_handler, edit_card_handler, force_unlist, give_card_handler, init_card_handler, init_custom_handler, list_card_handler, make_card_handler, open_pack_handler, release_cards, sell_all_cards_handler, sell_card_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
 from cards_data import init_card_data_db, init_display_cards, update_card_data_db
@@ -251,8 +252,9 @@ from helpers import can_be_int, get_constant_value, is_bot_commands_channel, mak
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
-from random_event import react_to_event, try_random_event
-from rewards import change_xp, give_packs_command, give_passes_command, change_tokens, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
+from random_event.check_random_event_on_message import check_random_event_on_message
+from random_event.random_event import react_to_event
+from rewards import change_xp, give_packs_command, give_passes_command, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from roster_lock import handle_lock
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from server_level import sub_points_handler
@@ -260,10 +262,11 @@ from streamlabs import check_streamlabs_raffles
 from supporters.role_commands.role_color import role_color
 from supporters.role_commands.role_name import role_name
 from supporters.supporter_role_loop import supporter_role_loop
-from teams import get_team_by_name
 from time_helpers import check_weekly, long_enough_for_gift
 from twitch_token import check_token_issue
 from user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_rivals_league_team, get_role_id_by_level, notify_user_of_gift, user_exists
+from user_input.bad_word_checker import bad_word_checker
+from user_input.non_tenor_link import non_tenor_link
 from xp_battles import add_to_battle, how_many_handler, remove_from_battle
 
 
@@ -342,29 +345,10 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     return False, 'Please only use commands in a valid channel'
 
 
-def bad_word_checker(message_text):
-
-    lower_message = message_text.lower()
-    for bad_word in constants.VERY_BAD_WORD_LIST:
-        if lower_message.find(bad_word) != -1:
-            return True
-        
-    return False
-
-
-def non_tenor_link(message_text):
-
-    if message_text.startswith('https://tenor.com'):
-        return False
-
-    if (message_text.find('http') != -1):
-        return True
 
 async def handle_message(message, db, client):
 
-    random_event_chance = random.randint(1, 100)
-    if random_event_chance == 100:
-        await try_random_event(db, client)
+    await check_random_event_on_message(db, client)
 
     channel = str(message.channel)
     if is_dm_channel(message.channel):
@@ -386,14 +370,6 @@ async def handle_message(message, db, client):
     message_channel = message.channel
     if message_channel.category_id == constants.RIVALS_CATEGORY_ID or message_channel.category_id == constants.RIVALS_TEAMS_CATEGORY_ID:
         context = 'MR'
-
-
-    # context = 'OW'
-    # category_id = channel.category.id
-    # print('------')
-    # print(category_id)
-    # print(channel.category.name)
-    # print('------')
     
     has_bad_word = bad_word_checker(message.content)
     if has_bad_word:
@@ -1295,6 +1271,11 @@ async def handle_message(message, db, client):
         db_cards.insert_one(new_entry)
         await message.channel.send('init success')
 
+    elif lower_message == '!displaygem' and is_admin:
+        
+        await message.channel.send(get_gem_preferences())
+
+
     # elif lower_message == '!cardowners' and is_admin:
 
     #     await card_owners_handler(db, message)
@@ -1598,303 +1579,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!scorepicks') and is_admin:
         await score_picks(db, message)
-
-    elif lower_message == '!initschedule' and is_admin:
-
-        new_schedule = {
-            'season': 4,
-            'weeks': [
-                {
-                    'week': 1,
-                    'days': [
-                        {
-                            'date': 'Saturday, August 31st',
-                            'start_time': '4:00',
-                            'matches': [
-                                {
-                                    'home': 'Legion',
-                                    'away': 'Sentinels',
-                                    'time': '4 PM'
-                                },
-                                {
-                                    'home': 'Ragu',
-                                    'away': 'Phantoms',
-                                    'time': '5 PM'
-                                },
-                                {
-                                    'home': 'Diamonds',
-                                    'away': 'Angels',
-                                    'time': '6 PM'
-                                },
-                                {
-                                    'home': 'Instigators',
-                                    'away': 'Saviors',
-                                    'time': '7 PM'
-                                },
-                            ]
-                        },
-                        {
-                            'date': 'Sunday, September 1st',
-                            'start_time': '4:00',
-                            'matches': [
-                                {
-                                    'home': 'Eclipse',
-                                    'away': 'Hunters',
-                                    'time': '4 PM'
-                                },
-                                {
-                                    'home': 'Olympians',
-                                    'away': 'Misfits',
-                                    'time': '5 PM'
-                                },
-                                {
-                                    'home': 'Celestials',
-                                    'away': 'Guardians',
-                                    'time': '6 PM'
-                                },
-                                {
-                                    'home': 'Fresas',
-                                    'away': 'Outliers',
-                                    'time': '7 PM'
-                                },
-                            ]
-                        },
-                    ] 
-                },
-                {
-                    'week': 2,
-                    'days': [
-                        {
-                            'date': 'Saturday, September 7th',
-                            'start_time': '4:00',
-                            'matches': [
-                                {
-                                    'home': 'Phoenix',
-                                    'away': 'Hunters',
-                                    'time': '4 PM'
-                                },
-                                {
-                                    'home': 'Misfits',
-                                    'away': 'Polar',
-                                    'time': '5 PM'
-                                },
-                                {
-                                    'home': 'Diamonds',
-                                    'away': 'Celestials',
-                                    'time': '6 PM'
-                                },
-                                {
-                                    'home': 'Evergreen',
-                                    'away': 'Fresas',
-                                    'time': '7 PM'
-                                },
-                            ]
-                        },
-                        {
-                            'date': 'Sunday, September 8th',
-                            'start_time': '4:00',
-                            'matches': [
-                                {
-                                    'home': 'Sentinels',
-                                    'away': 'Eclipse',
-                                    'time': '4 PM'
-                                },
-                                {
-                                    'home': 'Ragu',
-                                    'away': 'Olympians',
-                                    'time': '5 PM'
-                                },
-                                {
-                                    'home': 'Angels',
-                                    'away': 'Saturn',
-                                    'time': '6 PM'
-                                },
-                                {
-                                    'home': 'Outliers',
-                                    'away': 'Saviors',
-                                    'time': '7 PM'
-                                },
-                            ]
-                        },
-                    ] 
-                },
-                {
-                    'week': 3,
-                    'days': [
-                        {
-                            'date': 'Saturday, September 14th',
-                            'start_time': '4:00',
-                            'matches': [
-                                {
-                                    'home': 'Legion',
-                                    'away': 'Eclipse',
-                                    'time': '4 PM'
-                                },
-                                {
-                                    'home': 'Olympians',
-                                    'away': 'Polar',
-                                    'time': '5 PM'
-                                },
-                                {
-                                    'home': 'Angels',
-                                    'away': 'Guardians',
-                                    'time': '6 PM'
-                                },
-                                {
-                                    'home': 'Saviors',
-                                    'away': 'Fresas',
-                                    'time': '7 PM'
-                                },
-                            ]
-                        },
-                        {
-                            'date': 'Sunday, September 15th',
-                            'start_time': '4:00',
-                            'matches': [
-                                {
-                                    'home': 'Sentinels',
-                                    'away': 'Phoenix',
-                                    'time': '4 PM'
-                                },
-                                {
-                                    'home': 'Phantoms',
-                                    'away': 'Misfits',
-                                    'time': '5 PM'
-                                },
-                                {
-                                    'home': 'Saturn',
-                                    'away': 'Diamonds',
-                                    'time': '6 PM'
-                                },
-                                {
-                                    'home': 'Instigators',
-                                    'away': 'Evergreen',
-                                    'time': '7 PM'
-                                },
-                            ]
-                        },
-                    ] 
-                },
-                {
-                    'week': 4,
-                    'days': [
-                        {
-                            'date': 'Saturday, September 21st',
-                            'start_time': '4:00',
-                            'matches': [
-                                {
-                                    'home': 'Eclipse',
-                                    'away': 'Phoenix',
-                                    'time': '4 PM'
-                                },
-                                {
-                                    'home': 'Phantoms',
-                                    'away': 'Olympians',
-                                    'time': '5 PM'
-                                },
-                                {
-                                    'home': 'Saturn',
-                                    'away': 'Celestials',
-                                    'time': '6 PM'
-                                },
-                                {
-                                    'home': 'Evergreen',
-                                    'away': 'Outliers',
-                                    'time': '7 PM'
-                                },
-                            ]
-                        },
-                        {
-                            'date': 'Sunday, September 22nd',
-                            'start_time': '4:00',
-                            'matches': [
-                                {
-                                    'home': 'Hunters',
-                                    'away': 'Legion',
-                                    'time': '4 PM'
-                                },
-                                {
-                                    'home': 'Polar',
-                                    'away': 'Ragu',
-                                    'time': '5 PM'
-                                },
-                                {
-                                    'home': 'Guardians',
-                                    'away': 'Diamonds',
-                                    'time': '6 PM'
-                                },
-                                {
-                                    'home': 'Fresas',
-                                    'away': 'Instigators',
-                                    'time': '7 PM'
-                                },
-                            ]
-                        },
-                    ] 
-                },
-                {
-                    'week': 5,
-                    'days': [
-                        {
-                            'date': 'Saturday, September 28th',
-                            'start_time': '4:00',
-                            'matches': [
-                                {
-                                    'home': 'Hunters',
-                                    'away': 'Sentinels',
-                                    'time': '4 PM'
-                                },
-                                {
-                                    'home': 'Misfits',
-                                    'away': 'Ragu',
-                                    'time': '5 PM'
-                                },
-                                {
-                                    'home': 'Guardians',
-                                    'away': 'Saturn',
-                                    'time': '6 PM'
-                                },
-                                {
-                                    'home': 'Outliers',
-                                    'away': 'Instigators',
-                                    'time': '7 PM'
-                                },
-                            ]
-                        },
-                        {
-                            'date': 'Sunday, September 29th',
-                            'start_time': '4:00',
-                            'matches': [
-                                {
-                                    'home': 'Phoenix',
-                                    'away': 'Legion',
-                                    'time': '4 PM'
-                                },
-                                {
-                                    'home': 'Polar',
-                                    'away': 'Phantoms',
-                                    'time': '5 PM'
-                                },
-                                {
-                                    'home': 'Celestials',
-                                    'away': 'Angels',
-                                    'time': '6 PM'
-                                },
-                                {
-                                    'home': 'Saviors',
-                                    'away': 'Evergreen',
-                                    'time': '7 PM'
-                                },
-                            ]
-                        },
-                    ] 
-                },
-            ]
-        }
-
-        schedule = db['schedule']
-        schedule.insert_one(new_schedule)
-        await message.channel.send('Schedule inserted')
         
     elif (lower_message.startswith('!givetokens ') or lower_message.startswith('!gt ')) and is_admin:
 

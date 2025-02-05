@@ -1,0 +1,85 @@
+Placements:
+
+SEASON 1:
+1: Polar
+2: Eclipse
+3: Olympians
+4: Ragu
+5: Saviors
+
+SEASON 2:
+1: Olympians
+2: Fresas
+3: Eclipse
+4: Phoenix
+5: Ragu
+6: Outliers
+7: Polar
+8: Guardians
+9: Saviors
+10: Instigators
+
+SEASON 3:
+1. Hunters
+2. Eclipse
+3. Olympians
+4. Phoenix
+5. Fresas
+6. Outliers
+7. Evergreen
+8. Ragu
+9. Polar
+10. Guardians
+11. Misfits
+12. Saviors
+13. Instigators
+14. Saturn
+15. Celestials
+
+SEASON 4:
+1. Hunters
+2. Sentinels
+3. Phoenix
+4. Eclipse
+5. Legion
+6. Polar
+7. Olympians
+8. Misfits
+9. Phantoms
+10. Ragu
+11. Outliers
+12. Fresas
+13. Evergreen
+14. Saviors
+15. Instigators
+16. Celestials
+17. Saturn
+18. Angels
+19. Guardians
+20. Diamonds
+
+SEASON 5:
+1. 
+2. 
+3. Outliers
+4. Fresas
+5. Evergreen
+6. Hunters
+7. Horizon
+8. Lotus
+9. Eclipse
+10. Legion
+11. Diamonds
+12. Saturn
+13. Polar
+14. Deadlock
+15. Ragu
+16. Angels
+17. Saviors
+18. Guardians
+19. Phoenix
+20. Olympians
+21. Monarchs
+22. Celestials
+23. Misfits
+24. Instigators
