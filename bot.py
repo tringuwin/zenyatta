@@ -1275,35 +1275,32 @@ async def handle_message(message, db, client):
         db_cards.insert_one(new_entry)
         await message.channel.send('init success')
 
-    elif lower_message == '!displaygemall' and is_admin:
-        
-        display_cards = db['display_cards']
-        all_display_cards = display_cards.find()
-        for display_card in all_display_cards:
-            display_cards.update_one({'card_id': display_card['card_id']}, {'$set': {'gems': get_gem_preferences()}})
+    elif lower_message == '!initleaguehistory' and is_admin:
 
-        await message.channel.send('all display cards updated')
+        league_teams = db['leagueteams']
+        all_teams = league_teams.find()
+
+        default_history = {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0
+        }
+
+        for team in all_teams:
+            league_teams.update_one({'team_name': team['team_name']}, {'$set': {'history': default_history}})
+
+        await message.channel.send('all history updated')
+
+
 
     elif lower_message.startswith('!feedgem '):
 
         await feed_gem(db, message)
 
-    # elif lower_message == '!cardowners' and is_admin:
-
-    #     await card_owners_handler(db, message)
-
     elif lower_message == '!wipecarddatabase' and is_admin:
         await wipe_card_database_handler(db, message)
-
-    elif lower_message == '!initreselldatabase' and is_admin:
-
-        db_cards = db['resell']
-        new_entry = {
-            'cards': {},
-            'cards_id': 1
-        }
-        db_cards.insert_one(new_entry)
-        await message.channel.send('init success')
 
     elif lower_message.startswith('!wipeplayercards ') and is_admin:
         await wipe_player_cards_handler(db, message)
@@ -1368,20 +1365,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!totalpacks':
         await total_packs_handler(db, message)
-
-    elif lower_message == '!1711':
-
-        cards = db['cards']
-        all_cards = cards.find_one({'cards_id': 1})
-        card_list = all_cards['cards']
-
-        for card in card_list:
-            print(card['card_display'])
-            if card['card_display'] == '1171-A':
-                await message.channel.send('is in packs')
-                return
-            
-        await message.channel.send('not in packs')
 
     elif lower_message == '!cardmarket':
         await message.channel.send(f'Check out the SOL Card Market here!\n\n{constants.WEBSITE_DOMAIN}/sol/card-market')
