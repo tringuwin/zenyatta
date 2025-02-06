@@ -28,7 +28,6 @@ async def process_gift(db, current_time, existing_user, message):
 
     is_sub = member_has_role(message.author, constants.TWITCH_SUB_ROLE)
     is_booster = member_has_role(message.author, constants.SERVER_BOOSTER_ROLE)
-    # is_sac = member_has_role(message.author, constants.SAC_ROLE)
 
     users = db['users']
     users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"last_gift": current_time, "knows_gift": False}})
@@ -76,9 +75,6 @@ async def process_gift(db, current_time, existing_user, message):
     if is_booster:
         message_string += "\n~ You also found **5 Bonus Tokens** 🪙 for being a Server Booster! 🍅 ~"
         total_tokens_to_give += 5
-    # if is_sac:
-    #     message_string += '\n~ You also found **10 Bonus Tokens** 🪙 for using the Fortnite Creator Code: "SPICYRAGU"! 👑 ~'
-    #     total_tokens_to_give += 10
     if is_sub:
         message_string += "\n~ Since you're a Twitch Sub, you get better gift rewards! 🟣 ~"
     message_string += '\n*Come back in 8 hours for another gift!*'

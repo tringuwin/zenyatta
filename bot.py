@@ -21,14 +21,12 @@ from admin_handlers.gen_bracket import gen_bracket_handler
 from admin_handlers.give_gems import give_gems_handler
 from admin_handlers.give_lootbox import give_lootbox_handler
 from admin_handlers.give_random_gem import give_random_gem_handler
-from admin_handlers.give_sac import give_sac_handler
 from admin_handlers.give_sub_boxes import give_sub_boxes_handler
 from admin_handlers.give_twitch_lootbox import give_twitch_lootbox_handler
 from admin_handlers.give_xp import give_xp_handler
 from admin_handlers.make_vote import make_vote_handler
 from admin_handlers.match_lineups import match_lineups_handler
 from admin_handlers.prune_picks import prune_picks
-from admin_handlers.prune_sac import prune_sac_handler
 from admin_handlers.register_role import register_role
 from admin_handlers.score_picks import score_picks
 from admin_handlers.set_item_price import set_item_price_handler
@@ -965,9 +963,6 @@ async def handle_message(message, db, client):
 
     # ADMIN COMMANDS
 
-    # elif lower_message.startswith('!givesac ') and is_helper:
-    #     await give_sac_handler(db, message, client)
-
     elif lower_message.startswith('!startauction') and is_admin:
         await start_auction_handler(db, message, client)
 
@@ -1666,9 +1661,6 @@ async def handle_message(message, db, client):
     elif lower_message == '!givesubboxes' and is_admin:
         await give_sub_boxes_handler(db, message, client)
 
-    elif lower_message == '!prunesac' and is_admin:
-        await prune_sac_handler(db, message, client)
-
     elif lower_message.startswith('!open '):
         await open_handler(db, message)
 
@@ -2004,7 +1996,6 @@ async def handle_message(message, db, client):
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
         await send_msg(bot_channel, 'Updating Bets', 'Check Long')
         # await give_sub_boxes_handler(db, message, client)
-        # await prune_sac_handler(db, message, client)
         await update_bets(db, message.channel, client)
 
     elif lower_message == 'check gifts' and is_push_bot:

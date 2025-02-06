@@ -95,13 +95,6 @@ def get_user_tickets(user):
     
     return 0
 
-def get_last_sac(user):
-
-    if 'last_sac' in user:
-        return user['last_sac']
-    
-    return 0
-
 def get_user_address(user):
 
     if 'address' in user:
