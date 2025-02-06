@@ -256,6 +256,7 @@ from random_event.check_random_event_on_message import check_random_event_on_mes
 from random_event.random_event import react_to_event
 from rewards import change_xp, give_packs_command, give_passes_command, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from roster_lock import handle_lock
+from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from server_level import sub_points_handler
 from streamlabs import check_streamlabs_raffles
@@ -350,21 +351,11 @@ async def handle_message(message, db, client):
 
     await check_random_event_on_message(db, client)
 
-    channel = str(message.channel)
     if is_dm_channel(message.channel):
-        if message.content.lower().startswith('!address '):
-            users = db['users']
-            user = user_exists(db, message.author.id)
-            if not user:
-                await message.channel.send("You are not registered yet. Please register first.")
-            else:
-                user_address = make_string_from_word_list(message.content.split(), 1)
-                users.update_one({'discord_id': message.author.id}, {'$set': {'address': user_address}})
-
-            await message.channel.send('Your address has been added successfully!')
-        else:
-            await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
+        await route_dm_message(db, message)
         return
+    
+    channel = str(message.channel)
     
     context = 'OW'
     message_channel = message.channel
