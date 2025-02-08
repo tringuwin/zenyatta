@@ -54,14 +54,14 @@ def get_battle_expire_time():
 
     return time.time() + 60*60*24
 
-async def create_card_battle(db, user, card_id, battle_type, min_power, max_power):
+async def create_card_battle(client, db, user, card_id, battle_type, min_power, max_power):
 
     users = db['users']
     user_battle_cards = get_user_battle_cards(user)
     user_battle_cards.append(card_id)
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"battle_cards": user_battle_cards}})
 
-    battle_embed_message = await send_battle_embed(db, card_id, battle_type, min_power, max_power)
+    battle_embed_message = await send_battle_embed(client, db, card_id, user['discord_id'], battle_type, min_power, max_power)
 
     card_battles = db['card_battles']
     battle_info = {
