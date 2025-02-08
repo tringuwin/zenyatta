@@ -38,7 +38,8 @@ async def show_battle_result(client, db, winner_single, loser_single):
     loser_embed.set_image(url=loser_img)
 
     battle_results_channel = client.get_channel(constants.CARD_BATTLE_RESULTS_CHANNEL)
-    await battle_results_channel.send(embeds=[general_embed, winner_embed, loser_embed])
+    battle_result_message = await battle_results_channel.send(embeds=[general_embed, winner_embed, loser_embed])
+    return battle_result_message
 
 
 
@@ -53,7 +54,8 @@ async def process_battle(client, db, card_battle, challenger_single_card):
     winner_single = defender_single_card if winner == 'defender' else challenger_single_card
     loser_single = defender_single_card if winner == 'challenger' else challenger_single_card
 
-    await show_battle_result(client, db, winner_single, loser_single)
+    battle_result_message = await show_battle_result(client, db, winner_single, loser_single)
+    return battle_result_message
 
 
 async def fight_card(client, db, message):
@@ -103,8 +105,8 @@ async def fight_card(client, db, message):
         await message.channel.send('Your card does not meet the power requirements for this battle.')
         return
     
-    await process_battle(client, db, card_battle, single_card)
-    await message.channel.send('Battle complete!')
+    battle_result_message = await process_battle(client, db, card_battle, single_card)
+    await message.channel.send('Battle complete! You can see the result here: '+battle_result_message.jump_url)
 
 
     
