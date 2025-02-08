@@ -33,11 +33,20 @@ def validate_card_id_for_battle(user, card_id):
     return True, None
 
 
+def get_embed_color_from_battle_type(battle_type):
+
+    if battle_type == 'duel':
+        return discord.Color.yellow()
+    elif battle_type == 'capture':
+        return discord.Color.green()
+    elif battle_type == 'elimination':
+        return discord.Color.red()
+
 async def send_battle_embed(client, db, card_display, user_id, battle_type, min_power, max_power):
 
     card_img = get_card_image_by_display(db, card_display)
 
-    embed = discord.Embed(title='BATTLE FOR CARD '+card_display)
+    embed = discord.Embed(title='BATTLE FOR CARD '+card_display, color=get_embed_color_from_battle_type(battle_type))
     embed.add_field(name='Owner', value='<@'+str(user_id)+'>', inline=False)
     embed.add_field(name='Battle Type', value=battle_type, inline=True)
     embed.add_field(name='Minimum Power', value=min_power, inline=False)
