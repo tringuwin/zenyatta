@@ -56,7 +56,7 @@ async def feed_gem(db, message):
     
     battle_cards = get_user_battle_cards(user)
     if card_display_upper in battle_cards:
-        await message.channel.send('This card is currently in a battle so it cannot be given at this time.')
+        await message.channel.send('This card is currently in a battle so it cannot be boosted at this time.')
         return
 
     gem_color = params[2]
