@@ -31,7 +31,7 @@ async def show_battle_result(client, db, winner_single, loser_single):
     loser_embed = discord.Embed(title='BATTLE LOSER', color=discord.Color.red())
     loser_embed.set_image(url=loser_img)
 
-    battle_results_channel = await client.get_channel(constants.CARD_BATTLE_RESULTS_CHANNEL)
+    battle_results_channel = client.get_channel(constants.CARD_BATTLE_RESULTS_CHANNEL)
     await battle_results_channel.send(embeds=[winner_embed, loser_embed])
 
 
