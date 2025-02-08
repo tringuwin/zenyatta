@@ -44,6 +44,7 @@ from card_automation import make_all_cards_from_data
 from card_games.automation.clear_expired_battles import clear_expired_battles
 from card_games.card_battle import card_battle
 from card_games.feed_gem import feed_gem
+from card_games.fight_card import fight_card
 from card_matches.card_match_utils import make_match_card
 from cards import buy_card_handler, cards_handler, edit_card_handler, force_unlist, give_card_handler, init_card_handler, init_custom_handler, list_card_handler, make_card_handler, open_pack_handler, release_cards, sell_all_cards_handler, sell_card_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
 from cards_data import init_card_data_db, init_display_cards, update_card_data_db
@@ -1335,6 +1336,10 @@ async def handle_message(message, db, client):
         # !cardbattle [card id] [battle type] [min power] [max power]
         await card_battle(client, db, message)
 
+    elif lower_message.startswith('!fightcard ') and is_admin:
+        # !fightcard [other card id] [my card id]
+        await fight_card(client, db, message)
+
     elif lower_message == '!makeallcardsfromdata' and is_admin:
         await make_all_cards_from_data(db, message, client)
 
@@ -2048,7 +2053,7 @@ async def handle_message(message, db, client):
 
         await supporter_role_loop(db, message, client)
 
-        await clear_expired_battles(db, message)
+        await clear_expired_battles(client, db, message)
 
     elif context == 'MR':
         await route_rivals_message(db, message, lower_message)
