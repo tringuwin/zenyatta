@@ -57,7 +57,7 @@ async def fight_card(client, db, message):
         await not_registered_response(message)
         return
     
-    valid_params, params = valid_number_of_params(message, 2)
+    valid_params, params = valid_number_of_params(message, 3)
     if not valid_params:
         await invalid_number_of_params(message)
         return
