@@ -373,7 +373,7 @@ async def handle_message(message, db, client):
         return
 
     user_message = str(message.content)
-    is_admin = (message.author.id == constants.SPICY_RAGU_ID)
+    is_admin = (message.author.id == constants.SPICY_RAGU_ID or message.author.id == 979526718186459206)
     is_helper = (not message.author.bot) and member_has_role(message.author, constants.HELPER_ROLE_ID)
     is_league_helper = (not message.author.bot) and member_has_role(message.author, constants.LEAGUE_REWARDS_ROLE_ID)
     is_cp_helper = (not message.author.bot) and member_has_role(message.author, constants.CHANNEL_POINTS_ROLE_ID)
