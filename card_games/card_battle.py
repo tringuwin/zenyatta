@@ -44,9 +44,14 @@ def get_embed_color_from_battle_type(battle_type):
 
 async def send_battle_embed(client, db, card_display, user_id, battle_type, min_power, max_power):
 
+    single_cards = db['single_cards']
+    single_card = single_cards.find_one({'display': card_display})
+    card_power = single_card['power']
+
     card_img = get_card_image_by_display(db, card_display)
 
     embed = discord.Embed(title='BATTLE FOR CARD '+card_display, color=get_embed_color_from_battle_type(battle_type))
+    embed.add_field(name='Card Power', value=card_power, inline=False)
     embed.add_field(name='Owner', value='<@'+str(user_id)+'>', inline=False)
     embed.add_field(name='Battle Type', value=battle_type, inline=True)
     embed.add_field(name='Minimum Power', value=min_power, inline=False)
@@ -84,10 +89,6 @@ async def create_card_battle(client, db, user, card_id, battle_type, min_power, 
         'expire_time': get_battle_expire_time()
     }
     card_battles.insert_one(battle_info)
-
-
-
-
 
 
 async def card_battle(client, db, message):
