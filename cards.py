@@ -475,6 +475,7 @@ async def sell_card_handler(db, message):
     battle_cards = get_user_battle_cards(user)
     if input_card in battle_cards:
         await message.channel.send('This card is currently in a battle so it cannot be sold at this time.')
+        return
     
     removed_card = cards.pop(card_index)
     users = db['users']
@@ -592,7 +593,7 @@ async def give_card_handler(db, message):
         return
     
     if give_mention.id == constants.ZEN_ID:
-        await message.channel.send('You can give cards to me, sorry!')
+        await message.channel.send('You cannot give cards to me, sorry!')
         return
 
     cards = get_user_cards(user)
@@ -607,6 +608,11 @@ async def give_card_handler(db, message):
             return
 
         await message.channel.send('I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
+        return
+    
+    battle_cards = get_user_battle_cards(user)
+    if input_card in battle_cards:
+        await message.channel.send('This card is currently in a battle so it cannot be given at this time.')
         return
     
     removed_card = cards.pop(card_index)
