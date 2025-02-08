@@ -4,7 +4,7 @@ from card_games.utils.change_card_power import change_card_power
 from cards import get_card_index
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import valid_number_of_params
-from user import get_user_cards, get_user_for_sale_cards, get_user_gems, user_exists
+from user import get_user_battle_cards, get_user_cards, get_user_for_sale_cards, get_user_gems, user_exists
 import constants
 
 GEM_COLOR_TO_INDEX = {
@@ -54,6 +54,11 @@ async def feed_gem(db, message):
         await message.channel.send('I did not find the card "'+card_display+'" in your inventory. Check your inventory with **!cards**')
         return
     
+    battle_cards = get_user_battle_cards(user)
+    if card_display_upper in battle_cards:
+        await message.channel.send('This card is currently in a battle so it cannot be given at this time.')
+        return
+
     gem_color = params[2]
     gem_color_lower = params[2].lower()
     if not gem_color_lower in constants.GEM_COLORS:
