@@ -51,11 +51,11 @@ async def send_battle_embed(client, db, card_display, user_id, battle_type, min_
     card_img = get_card_image_by_display(db, card_display)
 
     embed = discord.Embed(title='BATTLE FOR CARD '+card_display, color=get_embed_color_from_battle_type(battle_type))
-    embed.add_field(name='Card Power', value=card_power, inline=False)
-    embed.add_field(name='Owner', value='<@'+str(user_id)+'>', inline=False)
-    embed.add_field(name='Battle Type', value=battle_type, inline=True)
-    embed.add_field(name='Minimum Power', value=min_power, inline=False)
-    embed.add_field(name='Maximum Power', value=max_power, inline=True)
+    embed.add_field(name='Card Power', value=card_power)
+    embed.add_field(name='Owner', value='<@'+str(user_id)+'>')
+    embed.add_field(name='Battle Type', value=battle_type)
+    embed.add_field(name='Minimum Power', value=min_power)
+    embed.add_field(name='Maximum Power', value=max_power)
     embed.set_image(url=card_img)
 
     guild = await get_guild(client)
