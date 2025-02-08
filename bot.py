@@ -41,6 +41,7 @@ from automation.raffle import end_raffle, start_raffle
 from automation.update_team_avatars import update_team_avatars
 from automation.update_top_subs_avatars import update_top_subs_avatars
 from card_automation import make_all_cards_from_data
+from card_games.automation.clear_expired_battles import clear_expired_battles
 from card_games.card_battle import card_battle
 from card_games.feed_gem import feed_gem
 from card_matches.card_match_utils import make_match_card
@@ -2046,6 +2047,8 @@ async def handle_message(message, db, client):
         await update_team_avatars(guild, db, message)
 
         await supporter_role_loop(db, message, client)
+
+        await clear_expired_battles(db, message)
 
     elif context == 'MR':
         await route_rivals_message(db, message, lower_message)
