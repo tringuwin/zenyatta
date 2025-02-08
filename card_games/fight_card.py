@@ -25,14 +25,20 @@ async def show_battle_result(client, db, winner_single, loser_single):
     winner_img = get_card_image_by_display(db, winner_single['display'])
     loser_img = get_card_image_by_display(db, loser_single['display'])
 
+    general_embed = discord.Embed(title='BATTLE RESULT', color=discord.Color('#ffffff'), description='This is a test description.')
+
     winner_embed = discord.Embed(title='BATTLE WINNER', color=discord.Color.green())
+    winner_embed.add_field(name='Owner', value='<@'+str(winner_single['owner'])+'>', inline=False)
+    winner_embed.add_field(name='Power', value=winner_single['power'], inline=False)
     winner_embed.set_image(url=winner_img)
 
     loser_embed = discord.Embed(title='BATTLE LOSER', color=discord.Color.red())
+    loser_embed.add_field(name='Owner', value='<@'+str(loser_single['owner'])+'>', inline=False)
+    loser_embed.add_field(name='Power', value=loser_single['power'], inline=False)
     loser_embed.set_image(url=loser_img)
 
     battle_results_channel = client.get_channel(constants.CARD_BATTLE_RESULTS_CHANNEL)
-    await battle_results_channel.send(embeds=[winner_embed, loser_embed])
+    await battle_results_channel.send(embeds=[general_embed, winner_embed, loser_embed])
 
 
 
