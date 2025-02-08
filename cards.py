@@ -493,6 +493,23 @@ async def sell_card_handler(db, message):
     
     await message.channel.send('You sold the card "'+input_card+'" for 20 tokens!')
 
+
+def get_card_sell_status_groups(cards, battle_cards):
+
+    groups = {
+        'sellable': [],
+        'in_battle': []
+    }
+
+    for card in cards:
+        if not (card['card_display'] in battle_cards):
+            groups['sellable'].append(card)
+        else:
+            groups['in_battle'].append(card)
+
+    return groups
+
+
 async def sell_all_cards_handler(db, message):
 
     user = user_exists(db, message.author.id)
@@ -501,30 +518,33 @@ async def sell_all_cards_handler(db, message):
         return
     
     cards = get_user_cards(user)
+    battle_cards = get_user_battle_cards(user)
+    card_status_groups = get_card_sell_status_groups(cards, battle_cards)
 
-    num_cards = len(cards)
-    if num_cards == 0:
+    num_sellable = len(card_status_groups['sellable'])
+
+    if num_sellable == 0:
         await message.channel.send('You have no cards that can be sold. You may have listed cards. You will need to unlist them first before using this command.')
         return
 
-    tokens_to_earn = num_cards * 20
+    tokens_to_earn = num_sellable * 20
     
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": []}})
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": card_status_groups['in_battle']}})
     await change_tokens(db, user, tokens_to_earn, 'sell-sol-card')
 
     card_database = db['cards']
     card_group = card_database.find_one({'cards_id': 1})
     edit_cards = card_group['cards']
-    for card in cards:
+    for card in card_status_groups['sellable']:
         edit_cards.append(card)
 
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
 
-    for card in cards:
+    for card in card_status_groups['sellable']:
         assign_owner_to_card(db, card['card_display'], 0)
     
-    await message.channel.send('You sold the all your cards! You sold '+str(num_cards)+' cards for a total of **'+str(tokens_to_earn)+' Tokens**!')
+    await message.channel.send('You sold the all your cards! You sold '+str(num_sellable)+' cards for a total of **'+str(tokens_to_earn)+' Tokens**!')
 
 
 async def release_cards(db, message):
