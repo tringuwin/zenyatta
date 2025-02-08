@@ -47,7 +47,7 @@ async def process_battle(client, db, card_battle, challenger_single_card):
     winner_single = defender_single_card if winner == 'defender' else challenger_single_card
     loser_single = defender_single_card if winner == 'challenger' else challenger_single_card
 
-    show_battle_result(client, db, winner_single, loser_single)
+    await show_battle_result(client, db, winner_single, loser_single)
 
 
 async def fight_card(client, db, message):
