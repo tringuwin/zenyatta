@@ -1,13 +1,54 @@
 
 
-from cards import get_card_index
+from cards import get_card_image_by_display, get_card_index
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import valid_number_of_params
 from user import get_user_battle_cards, get_user_cards, user_exists
 import time
+import random
+import discord
+import constants
 
-async def process_battle():
-    pass
+
+def get_battle_winner(defender_power, challenger_power):
+
+    total = defender_power + challenger_power
+    random_choice = random.randint(1, total)
+    if random_choice <= defender_power:
+        return 'defender'
+    else:
+        return 'challenger'
+
+
+async def show_battle_result(client, db, winner_single, loser_single):
+
+    winner_img = get_card_image_by_display(db, winner_single['display'])
+    loser_img = get_card_image_by_display(db, loser_single['display'])
+
+    winner_embed = discord.Embed(title='BATTLE WINNER', color=discord.Color.green())
+    winner_embed.set_image(url=winner_img)
+
+    loser_embed = discord.Embed(title='BATTLE LOSER', color=discord.Color.red())
+    loser_embed.set_image(url=loser_img)
+
+    battle_results_channel = await client.get_channel(constants.CARD_BATTLE_RESULTS_CHANNEL)
+    await battle_results_channel.send(embeds=[winner_embed, loser_embed])
+
+
+
+async def process_battle(client, db, card_battle, challenger_single_card):
+    
+    single_cards = db['single_cards']
+    defender_single_card = single_cards.find_one({'display': card_battle['card_display']})
+    defender_power = defender_single_card['power']
+    challenger_power = challenger_single_card['power']
+
+    winner = get_battle_winner(defender_power, challenger_power)
+    winner_single = defender_single_card if winner == 'defender' else challenger_single_card
+    loser_single = defender_single_card if winner == 'challenger' else challenger_single_card
+
+    show_battle_result(client, db, winner_single, loser_single)
+
 
 async def fight_card(client, db, message):
 
@@ -56,7 +97,7 @@ async def fight_card(client, db, message):
         await message.channel.send('Your card does not meet the power requirements for this battle.')
         return
     
-    await process_battle()
+    await process_battle(client, db, card_battle, single_card)
     await message.channel.send('Battle complete!')
 
 
