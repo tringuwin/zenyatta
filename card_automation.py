@@ -1,8 +1,7 @@
 import time
 from card_games.get_gem_preferences import get_gem_preferences
 from cards import init_card
-from helpers import can_be_int, get_constant_value
-from user import user_exists
+from helpers import get_constant_value
 
 
 async def make_all_cards_from_data(db, message, client):

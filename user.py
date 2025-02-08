@@ -293,6 +293,13 @@ def get_user_cards(user):
     
     return []
 
+def get_user_battle_cards(user):
+
+    if 'battle_cards' in user:
+        return user['battle_cards']
+    
+    return []
+
 def get_user_for_sale_cards(user):
 
     if 'for_sale_cards' in user:

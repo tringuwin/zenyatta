@@ -41,8 +41,8 @@ from automation.raffle import end_raffle, start_raffle
 from automation.update_team_avatars import update_team_avatars
 from automation.update_top_subs_avatars import update_top_subs_avatars
 from card_automation import make_all_cards_from_data
+from card_games.card_battle import card_battle
 from card_games.feed_gem import feed_gem
-from card_games.get_gem_preferences import get_gem_preferences
 from card_matches.card_match_utils import make_match_card
 from cards import buy_card_handler, cards_handler, edit_card_handler, force_unlist, give_card_handler, init_card_handler, init_custom_handler, list_card_handler, make_card_handler, open_pack_handler, release_cards, sell_all_cards_handler, sell_card_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
 from cards_data import init_card_data_db, init_display_cards, update_card_data_db
@@ -90,7 +90,6 @@ from command_handlers.help.help_league import help_league_handler
 from command_handlers.help.help_league_admin import help_league_admin_handler
 from command_handlers.help.help_lft import help_lft_handler
 from command_handlers.help.help_poke import help_poke_handler
-from command_handlers.helper_salary import helper_salary_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.call_me import call_me_handler
@@ -248,13 +247,13 @@ from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has
 from helper_handlers.twitch_pack import twitch_pack_handler
 from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
-from helpers import can_be_int, get_constant_value, is_bot_commands_channel, make_string_from_word_list, set_constant_value
+from helpers import get_constant_value, is_bot_commands_channel, make_string_from_word_list, set_constant_value
 from api import get_member, give_role, remove_role, send_msg
 from mongo import output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
 from random_event.check_random_event_on_message import check_random_event_on_message
 from random_event.random_event import react_to_event
-from rewards import change_xp, give_packs_command, give_passes_command, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
+from rewards import give_packs_command, give_passes_command, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from roster_lock import handle_lock
 from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
@@ -1331,6 +1330,10 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!forceunlist ') and is_admin:
         await force_unlist(db, message)
 
+    elif lower_message.startswith('!cardbattle ') and is_admin:
+        # !cardbattle [card id] [battle type] [min power] [max power]
+        await card_battle(client, db, message)
+
     elif lower_message == '!makeallcardsfromdata' and is_admin:
         await make_all_cards_from_data(db, message, client)
 
@@ -2216,15 +2219,6 @@ def run_discord_bot(db):
             role = guild.get_role(constants.OVERWATCH_ROLE)
             await remove_role(member, role, 'Notifs Settings')
 
-        # elif channel_id == constants.STATE_CUP_CHANNEL:
-        #     for state_name in constants.STATE_INFO:
-        #         state_info = constants.STATE_INFO[state_name]
-        #         if state_info['react_msg'] == message_id:
-        #             state_role = guild.get_role(state_info['role'])
-        #             member = get_member(guild, user_id, 'Raw Reaction Remove')
-        #             await remove_role(member, state_role, 'Raw Reaction Remove')
-        #             break
-
     @client.event
     async def on_member_join(member):
         guild = client.get_guild(constants.GUILD_ID)
@@ -2233,8 +2227,6 @@ def run_discord_bot(db):
         tourney_notifs = guild.get_role(constants.TOURNEY_NOTIFS_ROLE)
         twitch_notifs = guild.get_role(constants.TWITCH_NOTIFS_ROLE)
         league_notifs = guild.get_role(constants.LEAGUE_NOTIFS_ROLE)
-        # level_1_id = get_role_id_by_level(1)
-        # level_1_role = guild.get_role(level_1_id)
 
         if role is not None:
 
