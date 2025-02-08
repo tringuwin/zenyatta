@@ -567,24 +567,26 @@ async def release_cards(db, message):
         return
     
     cards = get_user_cards(user)
+    battle_cards = get_user_battle_cards(user)
+    card_status_groups = get_card_sell_status_groups(cards, battle_cards)
 
-    num_cards = len(cards)
+    num_cards = len(card_status_groups['sellable'])
     if num_cards == 0:
         await message.channel.send('They have no cards.')
         return
     
     users = db['users']
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": []}})
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"cards": card_status_groups['in_battle']}})
 
     card_database = db['cards']
     card_group = card_database.find_one({'cards_id': 1})
     edit_cards = card_group['cards']
-    for card in cards:
+    for card in card_status_groups['sellable']:
         edit_cards.append(card)
 
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
 
-    for card in cards:
+    for card in card_status_groups['sellable']:
         assign_owner_to_card(db, card['card_display'], 0)
     
     await message.channel.send('Returned '+str(num_cards)+' to packs.')
