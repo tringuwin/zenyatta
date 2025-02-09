@@ -44,12 +44,12 @@ async def show_battle_result(client, db, winner_single, loser_single, battle_typ
 
     general_embed = discord.Embed(title='BATTLE RESULT', color=discord.Color.from_str('#ffffff'), description=make_battle_description(winner_single, loser_single, battle_type))
 
-    winner_embed = discord.Embed(title='BATTLE WINNER', color=discord.Color.green())
+    winner_embed = discord.Embed(title='BATTLE WINNER ('+winner_single['display']+')', color=discord.Color.green())
     winner_embed.add_field(name='Owner', value='<@'+str(winner_single['owner'])+'>', inline=False)
     winner_embed.add_field(name='Power', value=winner_single['power'], inline=False)
     winner_embed.set_image(url=winner_img)
 
-    loser_embed = discord.Embed(title='BATTLE LOSER', color=discord.Color.red())
+    loser_embed = discord.Embed(title='BATTLE LOSER ('+loser_single['display']+')', color=discord.Color.red())
     loser_embed.add_field(name='Owner', value='<@'+str(loser_single['owner'])+'>', inline=False)
     loser_embed.add_field(name='Power', value=loser_single['power'], inline=False)
     loser_embed.set_image(url=loser_img)
