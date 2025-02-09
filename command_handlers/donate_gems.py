@@ -27,6 +27,10 @@ async def donate_gems(db, message):
         await message.channel.send('The user you mentioned is not registered.')
         return
     
+    if user_to_donate['discord_id'] == user['discord_id']:
+        await message.channel.send('You cannot donate gems to yourself.')
+        return
+    
     gem_color = params[2]
     gem_color_lower = gem_color.lower()
     if not gem_color_lower in constants.GEM_COLORS:
