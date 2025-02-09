@@ -20,12 +20,29 @@ def get_battle_winner(defender_power, challenger_power):
         return 'challenger'
 
 
-async def show_battle_result(client, db, winner_single, loser_single):
+def make_battle_description(winner_single, loser_single, battle_type):
+
+    winner_mention = '<@'+str(winner_single['owner'])+'>'
+    loser_mention = '<@'+str(loser_single['owner'])+'>'
+    winner_display = winner_single['display']
+    loser_display = loser_single['display']
+
+    if battle_type == 'duel':
+        return winner_mention+'\'s card "'+winner_display+'" has defeated '+loser_mention+'\'s card "'+loser_display+'" The winning card gained power, the losing card lost power.'
+    elif battle_type == 'capture':
+        return winner_mention+'\'s card "'+winner_display+'" has captured '+loser_mention+'\'s card "'+loser_display+'" The losing card lost a small amount of power.'
+    elif battle_type == 'elimination':
+        return winner_mention+'\'s card "'+winner_display+'" has eliminated '+loser_mention+'\'s card "'+loser_display+'" The winning card gained power, the losing card was returned to packs.'
+    
+    return 'ERROR'
+
+
+async def show_battle_result(client, db, winner_single, loser_single, battle_type):
 
     winner_img = get_card_image_by_display(db, winner_single['display'])
     loser_img = get_card_image_by_display(db, loser_single['display'])
 
-    general_embed = discord.Embed(title='BATTLE RESULT', color=discord.Color.from_str('#ffffff'), description='This is a test description.')
+    general_embed = discord.Embed(title='BATTLE RESULT', color=discord.Color.from_str('#ffffff'), description=make_battle_description(winner_single, loser_single, battle_type))
 
     winner_embed = discord.Embed(title='BATTLE WINNER', color=discord.Color.green())
     winner_embed.add_field(name='Owner', value='<@'+str(winner_single['owner'])+'>', inline=False)
@@ -54,7 +71,7 @@ async def process_battle(client, db, card_battle, challenger_single_card):
     winner_single = defender_single_card if winner == 'defender' else challenger_single_card
     loser_single = defender_single_card if winner == 'challenger' else challenger_single_card
 
-    battle_result_message = await show_battle_result(client, db, winner_single, loser_single)
+    battle_result_message = await show_battle_result(client, db, winner_single, loser_single, card_battle['battle_type'])
     return battle_result_message
 
 
