@@ -66,6 +66,19 @@ def assign_owner_to_card(db, display, owner_id):
     single_cards.update_one({"display": display}, {"$set": {"owner": owner_id}})
 
 
+def split_cards_and_battle_cards(all_cards, battle_card_displays):
+
+    user_cards = []
+    battle_cards = []
+
+    for card in all_cards:
+        if card['card_display'] in battle_card_displays:
+            battle_cards.append(card)
+        else:
+            user_cards.append(card)
+
+    return user_cards, battle_cards
+
 async def cards_handler(db, message):
 
     user = user_exists(db, message.author.id)
@@ -73,10 +86,12 @@ async def cards_handler(db, message):
         await not_registered_response(message)
         return
     
-    user_cards = get_user_cards(user)
+    all_user_cards = get_user_cards(user)
+    battle_card_displays = get_user_battle_cards(user)
+    user_cards, battle_cards = split_cards_and_battle_cards(all_user_cards, battle_card_displays)
     user_for_sale_cards = get_user_for_sale_cards(user)
 
-    if len(user_cards) == 0 and len(user_for_sale_cards) == 0:
+    if len(user_cards) + len(battle_cards) + len(user_for_sale_cards) == 0:
         await message.channel.send('You do not have any cards at the moment... Open packs to get cards!')
         return
 
@@ -115,6 +130,18 @@ async def cards_handler(db, message):
         comma_separated_string = ", ".join(all_card_displays)
         final_string += '\n'+comma_separated_string
 
+    if len(battle_cards) > 0:
+
+        if final_string == 'none':
+            final_string = '**YOUR BATTLE CARDS:**'
+        else:
+            final_string += '\n**YOUR BATTLE CARDS:**'
+
+        all_card_displays = []
+        for card in battle_cards:
+            all_card_displays.append(card)
+        comma_separated_string = ", ".join(all_card_displays)
+        final_string += '\n'+comma_separated_string
 
     if len(final_string) > 2000:
         await message.channel.send('Sorry, you have too many cards to use this command! Try the command **!allcards** instead.')
