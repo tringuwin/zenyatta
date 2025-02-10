@@ -92,7 +92,7 @@ def process_power_changes(single_cards, winner_single, loser_single, battle_type
         
         power_stolen = math.ceil(loser_power * 0.5)
 
-        winner_power + power_stolen
+        winner_power += power_stolen
         loser_power -= (power_stolen + 1)
 
         update_card_power(single_cards, winner_single, winner_power)
