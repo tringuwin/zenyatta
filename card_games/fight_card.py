@@ -171,6 +171,7 @@ def process_elimination_movement(db, card_battle, challenger_single_card, winner
     loser_card_index = get_card_index(loser_user_cards, card_to_remove_display)
     loser_card = loser_user_cards[loser_card_index]
     del loser_user_cards[loser_card_index]
+    users.update_one({"discord_id": loser_user['discord_id']}, {"$set": {"cards": loser_user_cards}})
 
     cards = db['cards']
     cards_obj = cards.find_one({'cards_id': 1})
