@@ -37,7 +37,7 @@ def make_battle_description(winner_single, loser_single, battle_type):
     return 'ERROR'
 
 
-async def show_battle_result(client, db, winner_single, loser_single, battle_type):
+async def show_battle_result(client, db, winner_single, winner_original_power, loser_single, loser_original_power, battle_type):
 
     winner_img = get_card_image_by_display(db, winner_single['display'])
     loser_img = get_card_image_by_display(db, loser_single['display'])
@@ -46,12 +46,14 @@ async def show_battle_result(client, db, winner_single, loser_single, battle_typ
 
     winner_embed = discord.Embed(title='BATTLE WINNER ('+winner_single['display']+')', color=discord.Color.green())
     winner_embed.add_field(name='Owner', value='<@'+str(winner_single['owner'])+'>', inline=False)
-    winner_embed.add_field(name='Power', value=winner_single['power'], inline=False)
+    winner_embed.add_field(name='Original Power', value=winner_original_power, inline=False)
+    winner_embed.add_field(name='New Power', value=winner_single['power'], inline=False)
     winner_embed.set_image(url=winner_img)
 
     loser_embed = discord.Embed(title='BATTLE LOSER ('+loser_single['display']+')', color=discord.Color.red())
     loser_embed.add_field(name='Owner', value='<@'+str(loser_single['owner'])+'>', inline=False)
-    loser_embed.add_field(name='Power', value=loser_single['power'], inline=False)
+    loser_embed.add_field(name='Original Power', value=loser_original_power, inline=False)
+    loser_embed.add_field(name='New Power', value=loser_single['power'], inline=False)
     loser_embed.set_image(url=loser_img)
 
     battle_results_channel = client.get_channel(constants.CARD_BATTLE_RESULTS_CHANNEL)
@@ -71,7 +73,10 @@ async def process_battle(client, db, card_battle, challenger_single_card):
     winner_single = defender_single_card if winner == 'defender' else challenger_single_card
     loser_single = defender_single_card if winner == 'challenger' else challenger_single_card
 
-    battle_result_message = await show_battle_result(client, db, winner_single, loser_single, card_battle['battle_type'])
+    winner_original_power = winner_single['power']
+    loser_original_power = loser_single['power']
+
+    battle_result_message = await show_battle_result(client, db, winner_single, winner_original_power, loser_single, loser_original_power, card_battle['battle_type'])
     return battle_result_message
 
 
