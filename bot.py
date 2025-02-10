@@ -2053,7 +2053,7 @@ async def handle_message(message, db, client):
 
         await supporter_role_loop(db, message, client)
 
-        await clear_expired_battles(client, db, message)
+        #await clear_expired_battles(client, db, message)
 
     elif context == 'MR':
         await route_rivals_message(db, message, lower_message)
