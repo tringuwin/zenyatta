@@ -110,6 +110,12 @@ async def card_battle(client, db, message):
         await message.channel.send(error)
         return
     
+    single_cards = db['single_cards']
+    single_card = single_cards.find_one({'display': card_id})
+    if single_card['power'] < 2:
+        await message.channel.send('Card power must be at least 2 to be used in a battle.')
+        return
+    
     battle_type = params[2].lower()
     if battle_type not in BATTLE_TYPES:
         await message.channel.send('Invalid battle type. Please choose from duel, capture, or elimination.')
