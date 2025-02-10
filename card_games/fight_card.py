@@ -152,7 +152,34 @@ def process_capture_movement(db, card_battle, challenger_single_card, winner):
 
 def process_elimination_movement(db, card_battle, challenger_single_card, winner):
 
-    pass
+    remove_battle_card_from_defender(db, card_battle)
+
+    users = db['users']
+    defender_user = users.find_one({'discord_id': card_battle['user_id']})
+    challenger_user = users.find_one({'discord_id': challenger_single_card['owner']})
+
+    loser_user = None
+    card_to_remove_display = None
+    if winner == 'defender':
+        loser_user = challenger_user
+        card_to_remove_display = challenger_single_card['display']
+    else:
+        loser_user = defender_user
+        card_to_remove_display = card_battle['card_display']
+
+    loser_user_cards = get_user_cards(loser_user)
+    loser_card_index = get_card_index(loser_user_cards, card_to_remove_display)
+    loser_card = loser_user_cards[loser_card_index]
+    del loser_user_cards[loser_card_index]
+
+    cards = db['cards']
+    cards_obj = cards.find_one({'cards_id': 1})
+    cards_obj['cards'].append(loser_card)
+    cards.update_one({'cards_id': 1}, {"$set": {"cards": cards_obj['cards']}})
+
+    single_cards = db['single_cards']
+    single_cards.update_one({'display': card_to_remove_display}, {"$set": {"owner": 0}})
+
 
 
 def process_card_movement(db, card_battle, challenger_single_card, winner):
