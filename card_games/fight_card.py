@@ -101,7 +101,7 @@ def process_power_changes(single_cards, winner_single, loser_single, battle_type
     return winner_power, loser_power
 
 
-def process_duel_movement(db, card_battle, challenger_single_card, winner):
+def remove_battle_card_from_defender(db, card_battle):
 
     users = db['users']
     user = users.find_one({'discord_id': card_battle['user_id']})
@@ -112,11 +112,50 @@ def process_duel_movement(db, card_battle, challenger_single_card, winner):
 
 
 
+def process_duel_movement(db, card_battle, challenger_single_card, winner):
+
+    remove_battle_card_from_defender(db, card_battle)
+
+def process_capture_movement(db, card_battle, challenger_single_card, winner):
+
+    remove_battle_card_from_defender(db, card_battle)
+
+    users = db['users']
+    defender_user = users.find_one({'discord_id': card_battle['user_id']})
+    challenger_user = users.find_one({'discord_id': challenger_single_card['owner']})
+
+    winner_user = None
+    loser_user = None
+    transfer_card_display = None
+    if winner == 'defender':
+        winner_user = defender_user
+        loser_user = challenger_user
+        transfer_card_display = challenger_single_card['display']
+    else:
+        winner_user = challenger_user
+        loser_user = defender_user
+        transfer_card_display = card_battle['card_display']
+
+    loser_user_cards = get_user_cards(loser_user)
+    loser_card_index = get_card_index(loser_user_cards, transfer_card_display)
+    transfer_card = loser_user_cards[loser_card_index]
+    del loser_user_cards[loser_card_index]
+    users.update_one({"discord_id": loser_user['discord_id']}, {"$set": {"cards": loser_user_cards}})
+
+    winner_user_cards = get_user_cards(winner_user)
+    winner_user_cards.append(transfer_card)
+    users.update_one({"discord_id": winner_user['discord_id']}, {"$set": {"cards": winner_user_cards}})
+
+
+
+
 def process_card_movement(db, card_battle, challenger_single_card, winner):
 
     battle_type = card_battle['battle_type']
     if battle_type == 'duel':
-        process_duel_movement(db, card_battle, challenger_single_card, winner)
+        process_duel_movement(db, card_battle)
+    elif battle_type == 'capture':
+        process_capture_movement(db, card_battle, challenger_single_card, winner)
 
 
 async def process_battle(client, db, card_battle, challenger_single_card):
@@ -154,7 +193,7 @@ async def fight_card(client, db, message):
         await invalid_number_of_params(message)
         return
     
-    user_card_display = params[2]
+    user_card_display = params[2].upper()
     user_cards = get_user_cards(user)
     user_card_index = get_card_index(user_cards, user_card_display)
     if user_card_index == -1:
@@ -166,7 +205,7 @@ async def fight_card(client, db, message):
         await message.channel.send('This card is currently in a battle so it cannot be used in another battle at this time.')
         return
 
-    opp_card_display = params[1]
+    opp_card_display = params[1].upper()
     card_battles = db['card_battles']
     card_battle = card_battles.find_one({'card_display': opp_card_display})
     if not card_battle:
