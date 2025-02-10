@@ -2,6 +2,7 @@
 
 from cards import get_card_image_by_display, get_card_index
 from common_messages import invalid_number_of_params, not_registered_response
+from discord_actions import get_message_by_channel_and_id
 from helpers import valid_number_of_params
 from user import get_user_battle_cards, get_user_cards, user_exists
 import math
@@ -169,6 +170,11 @@ async def fight_card(client, db, message):
         return
     
     battle_result_message = await process_battle(client, db, card_battle, single_card)
+
+    battle_message_id = card_battle['message_id']
+    battle_message = await get_message_by_channel_and_id(client, constants.CARD_BATTLE_CHANNEL, battle_message_id)
+    await battle_message.delete()
+
     await message.channel.send('Battle complete! You can see the result here: '+battle_result_message.jump_url)
 
 
