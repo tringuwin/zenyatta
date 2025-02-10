@@ -146,7 +146,13 @@ def process_capture_movement(db, card_battle, challenger_single_card, winner):
     winner_user_cards.append(transfer_card)
     users.update_one({"discord_id": winner_user['discord_id']}, {"$set": {"cards": winner_user_cards}})
 
+    single_cards = db['single_cards']
+    single_cards.update_one({'display': transfer_card_display}, {"$set": {"owner": winner_user['discord_id']}})
 
+
+def process_elimination_movement(db, card_battle, challenger_single_card, winner):
+
+    pass
 
 
 def process_card_movement(db, card_battle, challenger_single_card, winner):
@@ -156,6 +162,8 @@ def process_card_movement(db, card_battle, challenger_single_card, winner):
         process_duel_movement(db, card_battle)
     elif battle_type == 'capture':
         process_capture_movement(db, card_battle, challenger_single_card, winner)
+    elif battle_type == 'elimination':
+        process_elimination_movement(db, card_battle, challenger_single_card, winner)  
 
 
 async def process_battle(client, db, card_battle, challenger_single_card):
