@@ -1332,11 +1332,11 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!forceunlist ') and is_admin:
         await force_unlist(db, message)
 
-    elif lower_message.startswith('!cardbattle ') and is_admin:
+    elif lower_message.startswith('!cardbattle '):
         # !cardbattle [card id] [battle type] [min power] [max power]
         await card_battle(client, db, message)
 
-    elif lower_message.startswith('!fightcard ') and is_admin:
+    elif lower_message.startswith('!fightcard '):
         # !fightcard [other card id] [my card id]
         await fight_card(client, db, message)
 
