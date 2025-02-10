@@ -112,7 +112,7 @@ def remove_battle_card_from_defender(db, card_battle):
 
 
 
-def process_duel_movement(db, card_battle, challenger_single_card, winner):
+def process_duel_movement(db, card_battle):
 
     remove_battle_card_from_defender(db, card_battle)
 
