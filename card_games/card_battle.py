@@ -121,8 +121,8 @@ async def card_battle(client, db, message):
         return
     min_power = int(min_power)
     
-    if min_power < 1:
-        await message.channel.send('Minimum power must be at least 1.')
+    if min_power < 2:
+        await message.channel.send('Minimum power must be at least 2.')
         return
     
     max_power = params[4]
