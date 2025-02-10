@@ -100,6 +100,25 @@ def process_power_changes(single_cards, winner_single, loser_single, battle_type
     
     return winner_power, loser_power
 
+
+def process_duel_movement(db, card_battle, challenger_single_card, winner):
+
+    users = db['users']
+    user = users.find_one({'discord_id': card_battle['user_id']})
+    user_battle_cards = get_user_battle_cards(user)
+    if card_battle['card_display'] in user_battle_cards:
+        user_battle_cards.remove(card_battle['card_display'])
+        users.update_one({"discord_id": user['discord_id']}, {"$set": {"battle_cards": user_battle_cards}})
+
+
+
+def process_card_movement(db, card_battle, challenger_single_card, winner):
+
+    battle_type = card_battle['battle_type']
+    if battle_type == 'duel':
+        process_duel_movement(db, card_battle, challenger_single_card, winner)
+
+
 async def process_battle(client, db, card_battle, challenger_single_card):
     
     single_cards = db['single_cards']
@@ -117,6 +136,7 @@ async def process_battle(client, db, card_battle, challenger_single_card):
     battle_type = card_battle['battle_type']
 
     new_winner_power, new_loser_power = process_power_changes(single_cards, winner_single, loser_single, battle_type)
+    process_card_movement(db, card_battle, challenger_single_card, winner)
 
     battle_result_message = await show_battle_result(client, db, winner_single, winner_original_power, new_winner_power, loser_single, loser_original_power, new_loser_power, card_battle['battle_type'])
     return battle_result_message
