@@ -17,8 +17,9 @@ async def clear_expired_battles(client, db, message):
             
             user = users.find_one({'discord_id': battle['user_id']})
             user_battle_cards = user['battle_cards']
-            user_battle_cards.remove(battle['card_display'])
-            users.update_one({'discord_id': user['discord_id']}, {'$set': {'battle_cards': user_battle_cards}})
+            if battle['card_display'] in user_battle_cards:
+                user_battle_cards.remove(battle['card_display'])
+                users.update_one({'discord_id': user['discord_id']}, {'$set': {'battle_cards': user_battle_cards}})
 
             battle_message = await get_message_by_channel_and_id(client, constants.CARD_BATTLE_CHANNEL, battle['message_id'])
             await battle_message.delete()
