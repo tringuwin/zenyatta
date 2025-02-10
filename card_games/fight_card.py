@@ -177,6 +177,9 @@ async def fight_card(client, db, message):
     battle_message = await get_message_by_channel_and_id(client, constants.CARD_BATTLE_CHANNEL, battle_message_id)
     await battle_message.delete()
 
+    opp_mention = '<@'+str(card_battle['user_id'])+'>'
+    await battle_result_message.reply(opp_mention+' '+message.author.mention)
+
     await message.channel.send('Battle complete! You can see the result here: '+battle_result_message.jump_url)
 
 
