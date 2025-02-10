@@ -1,0 +1,20 @@
+CARD BATTLE RULES:
+
+Duel:
+
+Losing card loses 10% of its power (rounded up) plus 1
+Winning card gains 10% of the loser's power
+
+Elimination
+
+Losing card loses 50% of its power (rounded up) plus 1
+Losing card removed from player's inventory 
+Losing card added back to the packs
+Winning card gains 50% of the loser's power
+
+Capture
+
+Losing card loses 1 power
+Losing card removed from player's inventory
+Losing card added to winning player's inventory
+

@@ -56,7 +56,7 @@ async def send_battle_embed(client, db, card_display, user_id, battle_type, min_
     embed.add_field(name='Battle Type', value=battle_type, inline=False)
     embed.add_field(name='Minimum Power', value=min_power)
     embed.add_field(name='Maximum Power', value=max_power)
-    embed.add_field(name='Command to Challenge', value='!fightcard '+card_display+' [your card id]')
+    embed.add_field(name='Command to Challenge', value='!fightcard '+card_display+' [your card id]', inline=False)
     embed.set_image(url=card_img)
 
     guild = await get_guild(client)
