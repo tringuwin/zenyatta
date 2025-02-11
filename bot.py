@@ -260,6 +260,7 @@ from rewards import give_packs_command, give_passes_command, give_pickaxes_comma
 from roster_lock import handle_lock
 from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
+from route_messages.utils.get_context import get_context
 from server_level import sub_points_handler
 from streamlabs import check_streamlabs_raffles
 from supporters.role_commands.role_color import role_color
@@ -351,18 +352,14 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
 
 async def handle_message(message, db, client):
 
-    await check_random_event_on_message(db, client)
-
     if is_dm_channel(message.channel):
         await route_dm_message(db, message)
         return
     
+    # does this get used?
     channel = str(message.channel)
     
-    context = 'OW'
-    message_channel = message.channel
-    if message_channel.category_id == constants.RIVALS_CATEGORY_ID or message_channel.category_id == constants.RIVALS_TEAMS_CATEGORY_ID:
-        context = 'MR'
+    context = get_context(message)
     
     has_bad_word = bad_word_checker(message.content)
     if has_bad_word:
@@ -421,7 +418,6 @@ async def handle_message(message, db, client):
     if not valid_channel:
         await message.channel.send(message.author.mention+" "+response)
         return
-
 
     if lower_message == '!help':
         await help_handler(message)
@@ -2157,6 +2153,7 @@ def run_discord_bot(db):
         if message.author == client.user:
             return
         try:
+            await check_random_event_on_message(db, client)
             await handle_message(message, db, client)
         except aiohttp.client_exceptions.ClientOSError as e:
             if e.errno == 104:
