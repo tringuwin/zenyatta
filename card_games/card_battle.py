@@ -117,6 +117,13 @@ async def card_battle(client, db, message):
         return
     
     battle_type = params[2].lower()
+    if battle_type == 'd':
+        battle_type = 'duel'
+    elif battle_type == 'c':
+        battle_type = 'capture'
+    elif battle_type == 'e':
+        battle_type = 'elimination'
+        
     if battle_type not in BATTLE_TYPES:
         await message.channel.send('Invalid battle type. Please choose from duel, capture, or elimination.')
         return
