@@ -537,13 +537,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!ask '):
         await ask_handler(message)
 
-    elif lower_message == '!spicyowrank':
-
-        response = 'Spicy OW is the **61st** highest ranked Overwatch Discord Server'
-        response += "\nNext Server to Beat: **Hangzhou Spark**"
-
-        await message.channel.send(response)
-
     elif lower_message == '!gg ez':
         await gg_ez_handler(message)
 
@@ -651,27 +644,6 @@ async def handle_message(message, db, client):
     elif lower_message == '!schedule':
         #await message.channel.send('This command is disabled until Season 3 starts on June 1st 2024.')
         await schedule_handler(db, message, client)
-
-
-    # elif lower_message == '!buyticket':
-    #     #await message.channel.send('There is no raffle at the moment.')
-    #     await buy_ticket_handler(db, message, 1)
-    
-    # elif lower_message.startswith('!buyticket '):
-    #     #await message.channel.send('There is no raffle at the moment.')
-    #     params = lower_message.split()
-    #     if len(params) == 2:
-    #         raw_amount = params[1]
-    #         if can_be_int(raw_amount):
-    #             await buy_ticket_handler(db, message, int(raw_amount))
-    #         else:
-    #             await send_msg(message.channel, message.author.mention+' Please enter a number of tickets to buy.', '!buyticket')
-    #     else:
-    #         await send_msg(message.channel, message.author.mention+' Invalid number of parameters.', '!buyticket')
-
-
-    # elif lower_message == '!raffle':
-    #     await raffle_handler(db, message)
 
     elif lower_message.startswith('!bid '):
         await bid_handler(db, message, client)
