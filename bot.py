@@ -257,6 +257,7 @@ from random_event.check_random_event_on_message import check_random_event_on_mes
 from random_event.random_event import react_to_event
 from rewards import give_packs_command, give_passes_command, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from roster_lock import handle_lock
+from route_messages.admin_message.route_admin_message import route_admin_message
 from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from server_level import sub_points_handler
@@ -1970,6 +1971,9 @@ async def handle_message(message, db, client):
 
         await message.channel.send(message.author.avatar.url)
 
+    elif lower_message.startswith('!makecaster '):
+        await make_caster_handler(db, message)
+
     elif lower_message == '!makereactionroles' and is_admin:
 
         reaction_roles = [
@@ -1988,9 +1992,6 @@ async def handle_message(message, db, client):
             
             message = await channel.send('Add an emoji reaction to get the '+discord_role.mention+ ' role. Remove the reaction to remove it. Default is **OFF**.\n*'+role['extra']+'*')
             await message.add_reaction("✅")
-
-    elif lower_message.startswith('!makecaster ') and is_admin:
-        await make_caster_handler(db, message)
 
     elif lower_message == 'check long' and is_push_bot:
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
