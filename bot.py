@@ -63,6 +63,7 @@ from command_handlers.bets.my_bets import my_bets_handler
 from command_handlers.bets.new_bet import check_open_bets, new_bet_handler, update_bets
 from command_handlers.bets.void_bet import void_bet_handler
 from command_handlers.blackjack import blackjack_handler, check_for_black_jack
+from command_handlers.bonus.eight_ball import eight_ball_handler
 from command_handlers.bracket import bracket_handler
 from command_handlers.buy_ticket import buy_ticket_handler
 from command_handlers.card_page import card_page
@@ -257,7 +258,6 @@ from random_event.check_random_event_on_message import check_random_event_on_mes
 from random_event.random_event import react_to_event
 from rewards import give_packs_command, give_passes_command, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
 from roster_lock import handle_lock
-from route_messages.admin_message.route_admin_message import route_admin_message
 from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from server_level import sub_points_handler
@@ -1194,97 +1194,12 @@ async def handle_message(message, db, client):
         await message.channel.send(default_msg)
 
     elif lower_message.startswith('!8ball'):
-
-        eight_ball = [
-            'It is certain',
-            'It is decidedly so',
-            'Without a doubt',
-            'Yes definitely',
-            'You may rely on it',
-            'Reply hazy, try again',
-            'Ask again later',
-            'Better not tell you now',
-            'Cannot predict now',
-            'Concentrate and ask again',
-            "Don't count on it",
-            'My reply is no',
-            'My sources say no',
-            'Outlook not so good',
-            'Very doubtful'
-        ]
-
-        await message.channel.send(random.choice(eight_ball))
+        await eight_ball_handler(message)
 
     elif lower_message.startswith('!thisgif'):
-
         await message.channel.send('https://i.imgur.com/J2jCzIb.png')
 
-    elif lower_message.startswith('!initraffleconst') and is_admin:
-        
-        db_constants = db['constants']
-        new_entry = {
-            'name': 'raffle_total',
-            'value': 0
-        }
-        db_constants.insert_one(new_entry)
-
-        await message.channel.send('init success')
-
-    elif lower_message == '!initwarningsconst' and is_admin:
-
-        db_constants = db['constants']
-        new_entry = {
-            'name': 'warnings',
-            'value': []
-        }
-        db_constants.insert_one(new_entry)
-        await message.channel.send('warnings init complete')
-
-    elif lower_message.startswith('!initrandomevent') and is_admin:
-
-        db_constants = db['constants']
-        new_entry = {
-            'name': 'random_event',
-            'last_event': 0,
-            'event_msg_id': 0,
-            'claimed': 0
-        }
-        db_constants.insert_one(new_entry)
-
-        await message.channel.send('init success')
-
-    elif lower_message == '!initcarddatabase' and is_admin:
-
-        db_cards = db['cards']
-        new_entry = {
-            'cards': [],
-            'cards_id': 1
-        }
-        db_cards.insert_one(new_entry)
-        await message.channel.send('init success')
-
-    elif lower_message == '!initleaguehistory' and is_admin:
-
-        league_teams = db['leagueteams']
-        all_teams = league_teams.find()
-
-        default_history = {
-            '1': 0,
-            '2': 0,
-            '3': 0,
-            '4': 0,
-            '5': 0
-        }
-
-        for team in all_teams:
-            league_teams.update_one({'team_name': team['team_name']}, {'$set': {'history': default_history}})
-
-        await message.channel.send('all history updated')
-
-
-
     elif lower_message.startswith('!feedgem '):
-
         await feed_gem(db, message)
 
     elif lower_message == '!wipecarddatabase' and is_admin:
@@ -1294,15 +1209,12 @@ async def handle_message(message, db, client):
         await wipe_player_cards_handler(db, message)
 
     elif lower_message.startswith('!initcard ') and is_admin:
-
         await init_card_handler(db, message)
 
     elif lower_message == '!initdisplaycards' and is_admin:
-
         await init_display_cards(db, message)
 
     elif lower_message.startswith('!initcustom ') and is_admin:
-
         await init_custom_handler(db, message)
 
     elif lower_message.startswith('!viewcard '):
@@ -1510,24 +1422,6 @@ async def handle_message(message, db, client):
         }
         maps.insert_one(new_maps)
         await message.channel.send('maps initated')
-
-    elif lower_message == '!initmapnames' and is_admin:
-
-        map_names = db['mapnames']
-        new_map_names = {
-            'maps_id': 1,
-            'maps': {
-                'map1': '',
-                'map2': '',
-                'map3': '',
-                'map4': '',
-                'map5': '',
-                'map6': '',
-                'map7': ''
-            }
-        }
-        map_names.insert_one(new_map_names)
-        await message.channel.send('map names initated')
 
     elif lower_message.startswith('!setmap') and is_admin:
         await set_map_handler(db, message)
