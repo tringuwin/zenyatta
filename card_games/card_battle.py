@@ -96,7 +96,7 @@ async def card_battle(client, db, message):
 
     valid_params, params = valid_number_of_params(message, 5)
     if not valid_params:
-        await message.channel.send('Invalid number of parameters. Command should be in the format **!cardbattle [card id] [battle type] [min power] [max power]')
+        await message.channel.send('Invalid number of parameters. Command should be in the format **!cardbattle [card id] [battle type] [min power] [max power]**')
         return
     
     user = user_exists(db, message.author.id)
