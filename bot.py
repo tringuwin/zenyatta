@@ -244,7 +244,7 @@ from command_handlers.help.help import help_handler
 from command_handlers.teams.team_details import team_details_hanlder
 from command_handlers.teams.team_join import team_join_handler
 from command_handlers.teams.teams import teams_handler
-from command_handlers.wager import twager_handler, wager_handler
+from command_handlers.wager import wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has_role, member_has_state_role
 from helper_handlers.twitch_pack import twitch_pack_handler
