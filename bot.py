@@ -286,8 +286,6 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
 
         if lower_message.startswith('!wager'):
             return False, 'Please only use the wager command in the Roulette Channel.'
-        elif lower_message.startswith('!twager'):
-            return False, 'Please only use the twager command in the Roulette Channel.'
         elif lower_message.startswith('!blackjack'):
             return False, 'Please only use the blackjack command in the Blackjack Channel.'
         elif lower_message.startswith('!mine'):
@@ -303,10 +301,10 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
         
     elif message.channel.id == constants.CASINO_CHANNEL:
 
-        if lower_message.startswith('!wager') or lower_message.startswith('!twager') or lower_message.startswith('!tokens') or lower_message.startswith('!help'):
+        if lower_message.startswith('!wager') or lower_message.startswith('!tokens') or lower_message.startswith('!help'):
             return True, None
         else:
-            return False, 'Only these commands are allowed in the Roulette Channel: !wager, !twager, !tokens, !helpcasino, !help'
+            return False, 'Only these commands are allowed in the Roulette Channel: !wager, !tokens, !helpcasino, !help'
         
     elif message.channel.id == constants.BLACKJACK_CHANNEL:
 
@@ -553,9 +551,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!wager'):
         await wager_handler(db, message)
-
-    elif lower_message.startswith('!twager'):
-        await twager_handler(db, message)
 
     elif lower_message == '!mine':
         await mine_handler(db, message)
