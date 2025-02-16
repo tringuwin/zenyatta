@@ -2,8 +2,8 @@ CARD BATTLE RULES:
 
 Duel:
 
-Losing card loses 10% of its power (rounded up) plus 1
-Winning card gains 10% of the loser's power
+Losing card loses 20% of its power (rounded up) plus 1
+Winning card gains 20% of the loser's power
 
 Elimination
 

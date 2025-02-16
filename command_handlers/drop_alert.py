@@ -8,6 +8,7 @@ from helpers import generic_find_user, valid_number_of_params
 
 ALERT_CODE_TO_MESSAGE = {
     'sent1': 'Your $1 Battle Balance from your drop <:spicy_drop:1327677388720701450> has been sent to your account!',
+    'sent3': 'Your $3 Battle Balance from your drop <:spicy_drop:1327677388720701450> has been sent to your account!',
     'sent5': 'Your $5 Battle Balance from your drop <:spicy_drop:1327677388720701450> has been sent to your account!',
     'friend1': "Hello, for staff to gift you the $1 Battle Balance from your drop <:spicy_drop:1327677388720701450>, You will need to be friends with SpicyRagu's overwatch account for 3 days, due to blizzard's rules. A friend request will be sent to your account now, please accept when you can.",
     'usd1': "Our staff tried to send you the $1 Battle Balance you earned from your twitch drop <:spicy_drop:1327677388720701450>, but we were not able to as your account uses a different currency than USD. Your winnings have been added to your account. You can check this balance with the command **!money** and future earnings can be added to it until you'd like to redeem it for a prize that we can send like Overwatch Coins. You also have the option to gift it to another user, just let staff know.",
