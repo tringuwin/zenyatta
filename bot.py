@@ -37,6 +37,7 @@ from auction import check_auction
 from automation.casting.swap_sides import swap_sides
 from automation.casting.update_score import add_point, remove_point
 from automation.notify_about_matches import check_notify_about_matches
+from automation.process_trophy_rewards import process_trophy_rewards
 from automation.raffle import end_raffle, start_raffle
 from automation.update_team_avatars import update_team_avatars
 from automation.update_top_subs_avatars import update_top_subs_avatars
@@ -1858,8 +1859,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == 'check gifts' and is_push_bot:
 
-        print('check gifts loop')
-
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
         await send_msg(bot_channel, 'Checking gifts', 'Check Gifts')
         guild = await get_guild(client)
@@ -1912,6 +1911,8 @@ async def handle_message(message, db, client):
         await supporter_role_loop(db, message, client)
 
         await clear_expired_battles(client, db, message)
+
+        await process_trophy_rewards(db, message)
 
     elif context == 'MR':
         await route_rivals_message(db, message, lower_message)
