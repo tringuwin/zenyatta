@@ -414,6 +414,13 @@ def get_user_drop_boxes(user):
     
     return 0
 
+def get_user_trophies(user):
+
+    if 'trophies' in user:
+        return user['trophies']
+    
+    return 0
+
 
 def toggle_off_gift_notify(db, user):
 

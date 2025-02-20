@@ -37,7 +37,7 @@ from auction import check_auction
 from automation.casting.swap_sides import swap_sides
 from automation.casting.update_score import add_point, remove_point
 from automation.notify_about_matches import check_notify_about_matches
-from automation.process_trophy_rewards import process_trophy_rewards
+from automation.process_trophy_rewards.process_trophy_rewards import process_trophy_rewards
 from automation.raffle import end_raffle, start_raffle
 from automation.update_team_avatars import update_team_avatars
 from automation.update_top_subs_avatars import update_top_subs_avatars

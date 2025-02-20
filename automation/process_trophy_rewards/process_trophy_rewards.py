@@ -1,5 +1,6 @@
 
 
+from automation.process_trophy_rewards.utils.give_trophy_rewards import give_trophy_rewards
 from helpers import get_constant_value, set_constant_value
 import time
 
@@ -11,10 +12,6 @@ def next_trophy_day(trophy_next_day):
         return True
     
     return False
-
-def give_trophy_rewards(db):
-
-    pass
 
 
 async def process_trophy_rewards(db, message):
