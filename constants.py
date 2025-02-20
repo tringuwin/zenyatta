@@ -192,7 +192,9 @@ TEAM_NAME_TO_EMOJI_EMBED_STRING = {
     'Deadlock': '<:deadlock:1298375893839773818>',
     'Horizon': '<:horizon:1305322090513301564>',
     'Monarchs': '<:monarchs:1305323035611631616>',
-    'Aces': '<:solwhite:1278858168826593312>'
+    'Aces': '<:solwhite:1278858168826593312>',
+    'Mantas': '<:solwhite:1278858168826593312>'
+
 }
 
 DEFAULT_TEAM_EMOJI = '<:solwhite:1278858168826593312>'
@@ -288,7 +290,7 @@ NO_MAP_NAME = 'https://i.postimg.cc/hPNGk6G1/No-Map.png'
 
 TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians',  'Fresas', 'Outliers', 'Phoenix', 
              'Celestials', 'Saturn', 'Evergreen', 'Misfits', 'Hunters', 'Legion', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels',
-             'Lotus', 'Deadlock', 'Horizon', 'Monarchs', 'Aces']
+             'Lotus', 'Deadlock', 'Horizon', 'Monarchs', 'Aces', 'Mantas']
 
 EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix', 
                'Saturn', 'Celestials', 'Evergreen', 'Misfits', 'Hunters', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels', 'Legion',
