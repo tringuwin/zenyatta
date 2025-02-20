@@ -121,10 +121,10 @@ async def overwatch_profile(message, client, user):
     final_string += 'Rival of Team: **'+rival_of_string+'**\n'
 
     pack_emoji = guild.get_emoji(constants.PACK_EMOJI_ID)
-    poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
+    #poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
     drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
-    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' '+str(poke_emoji)+'\n'
+    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+'\n'
 
     gems = get_user_gems(user)
     gem_line_1 = ''
@@ -193,10 +193,10 @@ async def rivals_profile(message, client, user):
     final_string += 'Rival of Team: **'+rival_of_string+'**\n'
 
     pack_emoji = guild.get_emoji(constants.PACK_EMOJI_ID)
-    poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
+    #poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
     drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
-    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' '+str(poke_emoji)+'\n'
+    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+'\n'
 
     gems = get_user_gems(user)
     gem_line_1 = ''
