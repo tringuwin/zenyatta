@@ -60,6 +60,7 @@ team_name_to_color = {
     'Deadlock': discord.Colour(0xa60322),
     'Horizon': discord.Colour(0xfd8500),
     'Monarchs': discord.Colour(0x955d01),
+    'Aces': discord.Colour(0xA3A3A3)
 }
 
 def get_team_color_by_name(team_name):
@@ -91,6 +92,7 @@ team_name_to_thumbnail = {
     'Deadlock': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1729637115/Deadlock_ejk1ro.png',
     'Horizon': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1731283566/Horizon_lseweb.png',
     'Monarchs': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1731283566/Monarchs_zfeaxw.png',
+    'Aces': '',
 }
 
 
