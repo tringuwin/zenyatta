@@ -1731,6 +1731,16 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!dropalert ') and is_admin:
         await drop_alert(client, db, message)
 
+    elif lower_message == '!cleartrophies' and is_admin:
+
+        users = db['users']
+        all_users = users.find()
+        for user in all_users:
+            if 'trophies' in user:
+                users.update_one({"discord_id": user['discord_id']}, {"$set": {"trophies": 0}})
+
+        await message.channel.send('cleared all trophies')
+
     elif lower_message.startswith('!update|') and is_admin:
         parts = message.content.split('|')
         if len(parts) != 3:
