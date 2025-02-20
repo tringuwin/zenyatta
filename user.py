@@ -421,6 +421,13 @@ def get_user_trophies(user):
     
     return 0
 
+def get_user_total_trophies(user):
+
+    if 'total_trophies' in user:
+        return user['total_trophies']
+    
+    return 0
+
 
 def toggle_off_gift_notify(db, user):
 

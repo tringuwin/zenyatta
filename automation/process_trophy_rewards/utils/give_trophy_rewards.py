@@ -1,5 +1,5 @@
 
-from user import get_user_trophies, user_exists
+from user import get_user_total_trophies, get_user_trophies, user_exists
 
 
 def group_cards_by_score(top_cards):
@@ -87,8 +87,10 @@ def give_trophies_to_players(db, trophies_per_owner):
 
         user_trophies = get_user_trophies(owner_user)
         new_trophies = user_trophies + trophies_per_owner[owner_id]
+        total_trophies = get_user_total_trophies(owner_user)
+        new_total_trophies = total_trophies + trophies_per_owner[owner_id]
 
-        users.update_one({'discord_id': owner_id}, {'$set': {'trophies': new_trophies}})
+        users.update_one({'discord_id': owner_id}, {'$set': {'trophies': new_trophies, 'total_trophies': new_total_trophies}})
 
 def give_trophy_rewards(db):
     
