@@ -90,10 +90,10 @@ async def overwatch_profile(message, client, user):
     passes = get_user_passes(user)
     pickaxes = get_user_pickaxes(user)
     packs = get_user_packs(user)
-    poke_points = get_user_poke_points(user)
+    #poke_points = get_user_poke_points(user)
     twitch_username = get_twitch_username(user)
     ranks = get_user_ranks(user)
-    pokedex = get_user_pokedex(user)
+    #pokedex = get_user_pokedex(user)
     drops = get_user_drop_boxes(user)
     
     final_string = "**USER PROFILE FOR "+user['battle_tag']+':**\n'
@@ -124,7 +124,7 @@ async def overwatch_profile(message, client, user):
     poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
     drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
-    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' '+str(poke_emoji)+' '+str(poke_points)+'\n'
+    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' '+str(poke_emoji)+'\n'
 
     gems = get_user_gems(user)
     gem_line_1 = ''
@@ -142,7 +142,7 @@ async def overwatch_profile(message, client, user):
     final_string +='\n'
     final_string += gem_line_1+'\n'+gem_line_2
 
-    final_string += '\n\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
+    #final_string += '\n\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
 
     await message.channel.send(final_string)
 
@@ -164,9 +164,9 @@ async def rivals_profile(message, client, user):
     passes = get_user_passes(user)
     pickaxes = get_user_pickaxes(user)
     packs = get_user_packs(user)
-    poke_points = get_user_poke_points(user)
+    #poke_points = get_user_poke_points(user)
     twitch_username = get_twitch_username(user)
-    pokedex = get_user_pokedex(user)
+    #pokedex = get_user_pokedex(user)
     drops = get_user_drop_boxes(user)
     
     final_string = "**USER PROFILE FOR "+username+':**\n'
@@ -196,7 +196,7 @@ async def rivals_profile(message, client, user):
     poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
     drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
-    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' '+str(poke_emoji)+' '+str(poke_points)+'\n'
+    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' '+str(poke_emoji)+'\n'
 
     gems = get_user_gems(user)
     gem_line_1 = ''
@@ -214,7 +214,7 @@ async def rivals_profile(message, client, user):
     final_string +='\n'
     final_string += gem_line_1+'\n'+gem_line_2
 
-    final_string += '\n\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
+    #final_string += '\n\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
 
     await message.channel.send(final_string)
 
