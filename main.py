@@ -1,5 +1,6 @@
 import bot
 import constants
+import stripe
 
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -18,4 +19,7 @@ if __name__ == '__main__':
     except Exception as e:
         print(e)
 
-    bot.run_discord_bot(db)
+    # In-memory store for tracking purchases (use DB for production)
+    user_sessions = {}
+
+    bot.run_discord_bot(db, user_sessions)

@@ -3,6 +3,7 @@ import random
 import time
 import discord
 import aiohttp
+import stripe
 from datetime import timedelta
 from admin_handlers.cancel_vote import cancel_vote_handler
 from admin_handlers.delete_by_tag import delete_by_tag_handler
@@ -349,7 +350,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
 
 
 
-async def handle_message(message, db, client):
+async def handle_message(message, db, client, user_sessions):
 
     if is_dm_channel(message.channel):
         await route_dm_message(db, message)
@@ -847,6 +848,29 @@ async def handle_message(message, db, client):
     elif lower_message == '!toggleesub':
         #await message.channel.send('This command is being fixed. Try again soon!')
         await toggle_esub_handler(db, message, client, context)
+
+    elif lower_message == '!teststripe' and is_admin:
+
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price_data': {
+                    'currency': 'usd',
+                    'unit_amount': 100,  # $1.00
+                    'product_data': {
+                        'name': 'Card Pack',
+                    },
+                },
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url=constants.WEBSITE_DOMAIN + '/success',
+            cancel_url=constants.WEBSITE_DOMAIN  + '/cancel',
+            metadata={'discord_user_id': str(message.author.id)}  # To identify user
+        )
+    
+        user_sessions[session.id] = message.author.id  # Store session to user mapping
+        await message.channel.send(f"Buy your pack here: {session.url}")
 
     elif lower_message == '!resetteamrules' and is_admin:
 
@@ -1930,7 +1954,7 @@ async def handle_message(message, db, client):
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
 
-def run_discord_bot(db):
+def run_discord_bot(db, user_sessions):
     intents = discord.Intents.all()
     intents.message_content = True
     intents.reactions = True
@@ -2160,7 +2184,7 @@ def run_discord_bot(db):
             return
         try:
             await check_random_event_on_message(db, client)
-            await handle_message(message, db, client)
+            await handle_message(message, db, client, user_sessions)
         except aiohttp.client_exceptions.ClientOSError as e:
             if e.errno == 104:
                 await send_msg(message.channel, 'Network error. Please try your command again.', 'Network Error')
