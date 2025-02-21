@@ -853,7 +853,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!make50codes' and is_admin:
         await make_50_codes_handler(db, message)
 
-    elif lower_message.startswith('!redeem'):
+    elif lower_message.startswith('!redeem '):
         await redeem_code(db, message)
 
     elif lower_message == '!resetteamrules' and is_admin:
