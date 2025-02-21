@@ -177,6 +177,7 @@ from command_handlers.next_drop import next_drop
 from command_handlers.open import open_handler
 from command_handlers.open_drop import open_drop
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
+from command_handlers.redeem_code import redeem_code
 from command_handlers.rp import rp_handler
 from command_handlers.sell_pp import sell_pp_handler
 from command_handlers.team_page import team_page_handler
@@ -851,6 +852,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!make50codes' and is_admin:
         await make_50_codes_handler(db, message)
+
+    elif lower_message.startswith('!redeem'):
+        await redeem_code(db, message)
 
     elif lower_message == '!resetteamrules' and is_admin:
 
