@@ -139,7 +139,7 @@ async def card_battle(client, db, message):
 
     min_power = None
 
-    if params >= 4:
+    if len(params) >= 4:
         min_power = params[3]
         if not can_be_int(min_power):
             await message.channel.send(min_power+' is not a valid number. Minimum power must be a number.')
@@ -156,7 +156,7 @@ async def card_battle(client, db, message):
 
     max_power = None
 
-    if params >= 5:
+    if len(params) >= 5:
 
         if not can_be_int(max_power):
             await message.channel.send(max_power+' is not a valid number. Maximum power must be a number.')
