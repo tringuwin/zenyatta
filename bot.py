@@ -1425,6 +1425,37 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!bumpsolweek') and is_admin:
         await bump_sol_week(db, message)
 
+    elif lower_message == '!makematchups' and is_admin:
+        
+        matchups = db['matchups']
+
+        TEST_MATCHUPS = [
+            ['Angels', 'Celestials'],
+            ['Deadlock', 'Diamonds'],
+            ['Eclipse', 'Evergreen'],
+            ['Fresas', 'Guardians'],
+            ['Horizon', 'Hunters'],
+            ['Instigators', 'Legion'],
+            ['Lotus', 'Misfits'],
+            ['Monarchs', 'Olympians'],
+            ['Outliers', 'Phantoms'],
+            ['Phoenix', 'Polar'],
+            ['Ragu', 'Saturn'],
+            ['Saviors', 'Sentinels'],
+            ['Aces', 'Mantas']
+        ]
+
+        for matchup in TEST_MATCHUPS:
+            new_matchup = {
+                'context': 'OW',
+                'team1': matchup[0],
+                'team2': matchup[1],
+                'timeslot': 'NONE'
+            }
+            matchups.insert_one(new_matchup)
+
+        await message.channel.send('Test matchups made')
+
     elif lower_message.startswith('!makesolmatch') and is_admin:
         await make_sol_match(client, db, message)
 
