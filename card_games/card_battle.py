@@ -158,6 +158,7 @@ async def card_battle(client, db, message):
 
     if len(params) >= 5:
 
+        max_power = params[4]
         if not can_be_int(max_power):
             await message.channel.send(max_power+' is not a valid number. Maximum power must be a number.')
             return
