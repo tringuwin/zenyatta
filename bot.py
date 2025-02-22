@@ -1157,8 +1157,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!testdm' and is_admin:
 
         guild = await get_guild(client)
-        spicy_emoji = guild.get_emoji(1168952409125556304)
-        default_msg = "Welcome to the Spicy OW "+str(spicy_emoji)+" Discord Server! I'm *Zenyatta*, the server's helper bot. "
+        default_msg = "Welcome to the Spicy Esports Discord Server! I'm *Giselle*, the server's helper bot. "
         default_msg += f"\n\nIf you're interested in joining a **League Team**, you can see which teams have applications open here: {constants.WEBSITE_DOMAIN}/sol/apply"
         default_msg += '\n\nYou can also find more information about our League here: https://discord.com/channels/1130553449491210442/1178427939453411469'
         default_msg += '\n\nThank you for joining! If you have any questions, feel free to ask here: https://discord.com/channels/1130553449491210442/1166410753184632933'
@@ -1450,6 +1449,8 @@ async def handle_message(message, db, client):
                 'context': 'OW',
                 'team1': matchup[0],
                 'team2': matchup[1],
+                'team1_timeslot': 'NONE',
+                'team2_timeslot': 'NONE',
                 'timeslot': 'NONE'
             }
             matchups.insert_one(new_matchup)
@@ -1790,7 +1791,7 @@ async def handle_message(message, db, client):
         guild = await get_guild(client)
         update_channel = guild.get_channel(constants.UPDATE_CHANNEL)
         if op_code.lower() == 'd':
-            update_msg = await update_channel.send('**[Zenyatta Version '+constants.VERSION+']**\n'+main_part)
+            update_msg = await update_channel.send('**[Giselle Version '+constants.VERSION+']**\n'+main_part)
         elif op_code.lower() == 'w':
             update_msg = await update_channel.send('**[Spicy OW Website Update]**\n'+main_part)
         elif op_code.lower() == 'u':
@@ -2157,8 +2158,7 @@ def run_discord_bot(db):
         try:
 
             guild = await get_guild(client)
-            spicy_emoji = guild.get_emoji(1168952409125556304)
-            default_msg = "Welcome to the Spicy OW "+str(spicy_emoji)+" Discord Server! I'm *Zenyatta*, the server's helper bot. "
+            default_msg = "Welcome to the Spicy Esports Discord Server! I'm *Giselle*, the server's helper bot. "
             default_msg += f"\n\nIf you're interested in joining a **League Team**, you can apply to as many teams as you'd like here: {constants.WEBSITE_DOMAIN}/sol/apply"
             default_msg += '\n\nFeel free to check out this short video which explains how to find a team to join! https://youtu.be/sKHUjwMKspg'
             default_msg += '\n\nTo find a team fast, you can make a post in this channel with some info about yourself and what you are looking for in a team! https://discord.com/channels/1130553449491210442/1171266378813149244'
