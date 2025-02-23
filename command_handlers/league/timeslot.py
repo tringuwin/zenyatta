@@ -18,9 +18,24 @@ def get_team_index(team_name, matchup):
     else:
         return 2
     
-async def notify_both_teams_about_timeslot():
+async def notify_both_teams_about_timeslot(client, db, matchup, timeslot):
 
-    pass
+    team_owners_channel = client.get_channel(1171875033816236032) # this is currently sending to admin commands, change this later
+
+    league_teams = db['leagueteams']
+    team1 = league_teams.find_one({'team_name': matchup['team1']})
+    team2 = league_teams.find_one({'team_name': matchup['team2']})
+
+    team_1_role_id = team1['team_role_id']
+    team_2_role_id = team2['team_role_id']
+
+    team_1_mention = f'<@&{team_1_role_id}>'
+    team_2_mention = f'<@&{team_2_role_id}>'
+
+    timeslot_info = constants.TIMESLOT_TO_INFO[timeslot]
+    timeslot_string = f'Your match will take place at {timeslot_info[0]} at {timeslot_info[1]} PM EST.'
+
+    await team_owners_channel.send(f'{team_1_mention} {team_2_mention} {timeslot_string}')
 
 async def timeslot_handler(db, message, context):
 
