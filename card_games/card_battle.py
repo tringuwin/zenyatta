@@ -40,7 +40,7 @@ def get_embed_color_from_battle_type(battle_type):
     if battle_type == 'duel':
         return discord.Color.yellow()
     elif battle_type == 'capture':
-        return discord.Color.green()
+        return discord.Color.blue()
     elif battle_type == 'elimination':
         return discord.Color.red()
 
