@@ -827,7 +827,7 @@ async def handle_message(message, db, client):
         await set_lineup_handler(db, message, context)
 
     elif lower_message.startswith('!timeslot '):
-        await timeslot_handler(db, message, context)
+        await timeslot_handler(db, message, client, context)
 
     elif lower_message.startswith('!callme '):
         await call_me_handler(db, message, context)

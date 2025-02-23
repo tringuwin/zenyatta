@@ -37,7 +37,7 @@ async def notify_both_teams_about_timeslot(client, db, matchup, timeslot):
 
     await team_owners_channel.send(f'{team_1_mention} {team_2_mention} {timeslot_string}')
 
-async def timeslot_handler(db, message, context):
+async def timeslot_handler(db, message, client, context):
 
     if context == 'MR':
         await message.channel.send('Command is not ready yet for Marvel Rivals.')
@@ -81,7 +81,7 @@ async def timeslot_handler(db, message, context):
     if other_team_timeslot == requested_timeslot:
         matchups.update_one({'_id': my_matchup['_id']}, {'$set': {'timeslot': requested_timeslot, 'team'+str(my_team_index)+'_timeslot': requested_timeslot}})
         await message.channel.send('Both teams agreed on the timeslot "'+requested_timeslot+'"!')
-        await notify_both_teams_about_timeslot()
+        await notify_both_teams_about_timeslot(client, db, my_matchup, requested_timeslot)
         return
 
     matchups.update_one({'_id': my_matchup['_id']}, {'$set': {'team'+str(my_team_index)+'_timeslot': requested_timeslot}})
