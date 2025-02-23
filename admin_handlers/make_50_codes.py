@@ -30,15 +30,22 @@ def format_new_codes(new_codes):
     return new_codes_string
 
 
-async def make_50_codes_handler(db, message):
+PACK_NUM_TO_CONSTANT_NAME = {
+    1: 'pack_codes',
+    10: 'pack_codes_10',
+}
 
-    pack_codes = get_constant_value(db, 'pack_codes')
+
+async def make_50_codes_handler(db, message, code_weight):
+
+    pack_codes_constant = PACK_NUM_TO_CONSTANT_NAME[code_weight]
+    pack_codes = get_constant_value(db, pack_codes_constant)
     new_codes = make_50_new_codes()
     new_codes_string = format_new_codes(new_codes)
 
     for new_code in new_codes:
         pack_codes.append(new_code)
 
-    set_constant_value(db, 'pack_codes', pack_codes)
+    set_constant_value(db, pack_codes_constant, pack_codes)
 
     await message.channel.send(new_codes_string)

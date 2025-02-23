@@ -855,7 +855,10 @@ async def handle_message(message, db, client):
         await toggle_esub_handler(db, message, client, context)
 
     elif lower_message == '!make50codes' and is_admin:
-        await make_50_codes_handler(db, message)
+        await make_50_codes_handler(db, message, 1)
+
+    elif lower_message == '!make50codes10' and is_admin:
+        await make_50_codes_handler(db, message, 10)
 
     elif lower_message.startswith('!redeem '):
         await redeem_code(db, message)
