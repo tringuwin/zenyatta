@@ -33,6 +33,9 @@ def format_new_codes(new_codes):
 PACK_NUM_TO_CONSTANT_NAME = {
     1: 'pack_codes',
     10: 'pack_codes_10',
+    25: 'pack_codes_25',
+    50: 'pack_codes_50',
+    100: 'pack_codes_100',
 }
 
 

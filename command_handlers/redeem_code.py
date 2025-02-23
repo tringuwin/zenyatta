@@ -8,6 +8,9 @@ from user import get_user_packs, user_exists
 CODE_ARRAY_TO_WEIGHT = {
     'pack_codes': 1,
     'pack_codes_10': 10,
+    'pack_codes_25': 25,
+    'pack_codes_50': 50,
+    'pack_codes_100': 100,
 }
 
 

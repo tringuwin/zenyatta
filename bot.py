@@ -860,6 +860,15 @@ async def handle_message(message, db, client):
     elif lower_message == '!make50codes10' and is_admin:
         await make_50_codes_handler(db, message, 10)
 
+    elif lower_message == '!make50codes25' and is_admin:
+        await make_50_codes_handler(db, message, 25)
+
+    elif lower_message == '!make50codes50' and is_admin:
+        await make_50_codes_handler(db, message, 50)
+    
+    elif lower_message == '!make50codes100' and is_admin:
+        await make_50_codes_handler(db, message, 100)
+
     elif lower_message.startswith('!redeem '):
         await redeem_code(db, message)
 
