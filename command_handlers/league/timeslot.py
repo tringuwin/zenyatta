@@ -20,7 +20,7 @@ def get_team_index(team_name, matchup):
     
 async def notify_both_teams_about_timeslot(client, db, matchup, timeslot):
 
-    team_owners_channel = client.get_channel(1171875033816236032) # this is currently sending to admin commands, change this later
+    team_owners_channel = client.get_channel(1131625086722523297) # this is currently sending to admin commands, change this later
 
     league_teams = db['leagueteams']
     team1 = league_teams.find_one({'team_name': matchup['team1']})
