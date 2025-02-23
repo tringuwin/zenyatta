@@ -284,7 +284,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     if is_helper or is_push_bot or is_tourney_admin:
         return True, None
     
-    if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!help') or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband') or lower_message == '!fortnite' or lower_message == '!zorp' or lower_message == '!howdy' or lower_message == '!sigma' or lower_message == '!buzzcut' or lower_message=='!pingstate' or lower_message.startswith('!ask '):
+    if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!help') or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband') or lower_message == '!fortnite' or lower_message == '!zorp' or lower_message == '!howdy' or lower_message == '!sigma' or lower_message == '!buzzcut' or lower_message=='!top100' or lower_message.startswith('!ask '):
         return True, None
 
     if is_bot_commands_channel(message.channel):
