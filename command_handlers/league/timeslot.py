@@ -18,7 +18,7 @@ def get_team_index(team_name, matchup):
     else:
         return 2
     
-def notify_both_teams_about_timeslot():
+async def notify_both_teams_about_timeslot():
 
     pass
 
