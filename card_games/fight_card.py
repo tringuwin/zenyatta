@@ -217,6 +217,24 @@ async def process_battle(client, db, card_battle, challenger_single_card):
     return battle_result_message
 
 
+async def fight_card_procedure(client, db, card_battle, single_card, opp_card_display, message):
+
+    card_battles = db['card_battles']
+
+    battle_result_message = await process_battle(client, db, card_battle, single_card)
+
+    card_battles.delete_one({'card_display': opp_card_display})
+
+    battle_message_id = card_battle['message_id']
+    battle_message = await get_message_by_channel_and_id(client, constants.CARD_BATTLE_CHANNEL, battle_message_id)
+    await battle_message.delete()
+
+    opp_mention = '<@'+str(card_battle['user_id'])+'>'
+    await battle_result_message.reply(opp_mention+' '+message.author.mention)
+
+    await message.channel.send('Battle complete! You can see the result here: '+battle_result_message.jump_url)
+
+
 async def fight_card(client, db, message):
 
     user = user_exists(db, message.author.id)
@@ -264,18 +282,7 @@ async def fight_card(client, db, message):
         await message.channel.send('Your card does not meet the power requirements for this battle.')
         return
     
-    battle_result_message = await process_battle(client, db, card_battle, single_card)
-
-    card_battles.delete_one({'card_display': opp_card_display})
-
-    battle_message_id = card_battle['message_id']
-    battle_message = await get_message_by_channel_and_id(client, constants.CARD_BATTLE_CHANNEL, battle_message_id)
-    await battle_message.delete()
-
-    opp_mention = '<@'+str(card_battle['user_id'])+'>'
-    await battle_result_message.reply(opp_mention+' '+message.author.mention)
-
-    await message.channel.send('Battle complete! You can see the result here: '+battle_result_message.jump_url)
+    await fight_card_procedure(client, db, card_battle, single_card, opp_card_display, message)
 
 
     

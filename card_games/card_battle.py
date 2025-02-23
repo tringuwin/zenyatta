@@ -1,6 +1,7 @@
 
 import time
 import discord
+from card_games.fight_card import fight_card_procedure
 from cards import get_card_image_by_display, get_card_index
 from common_messages import not_registered_response
 from discord_actions import get_guild
@@ -94,27 +95,30 @@ async def create_card_battle(client, db, user, card_id, battle_type, min_power, 
     card_battles.insert_one(battle_info)
 
 
-# def find_existing_battle_opponent(db, user, my_power, battle_type, min_power, max_power):
+def find_existing_battle_opponent(db, user, my_power, battle_type, min_power, max_power):
 
-#     card_battles = db['card_battles']
-#     all_card_battles = card_battles.find()
-#     for battle in all_card_battles:
-#         if battle['user_id'] == user['discord_id']:
-#             continue
-#         if battle['battle_type'] != battle_type:
-#             continue
+    card_battles = db['card_battles']
+    all_card_battles = card_battles.find()
+    for battle in all_card_battles:
+        if battle['user_id'] == user['discord_id']:
+            continue
+        if battle['battle_type'] != battle_type:
+            continue
 
-#         #my card meets their power requirements
-#         if my_power < battle['min_power'] or my_power > battle['max_power']:
-#             continue
+        #my card meets their power requirements
+        if my_power < battle['min_power'] or my_power > battle['max_power']:
+            continue
 
-#         #their card meets my power requirements
+        #their card meets my power requirements
+        if battle['my_card_power'] < min_power or battle['my_card_power'] > max_power:
+            continue
+
+        return battle
+    
+    return None
         
         
             
-
-
-
 async def card_battle(client, db, message):
 
     params = message.content.split()
@@ -191,8 +195,10 @@ async def card_battle(client, db, message):
         await message.channel.send('Maximum power must be greater than or equal to minimum power.')
         return
     
-
-    # valid_opponent = find_existing_battle_opponent(db, user, my_card_power, battle_type, min_power, max_power)
+    valid_opponent = find_existing_battle_opponent(db, user, my_card_power, battle_type, min_power, max_power)
+    if valid_opponent:
+        await fight_card_procedure(client, db, valid_opponent, single_card, valid_opponent['card_display'], message)
+        return
     
     await create_card_battle(client, db, user, card_id, battle_type, min_power, max_power, my_card_power)
 
