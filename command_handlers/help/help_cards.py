@@ -21,5 +21,6 @@ async def help_cards_handler(message):
     help_embed.add_field(name='!cardpage [number]', value="Get a link to a card's page on our website to see who owns each variant.", inline=False)
     help_embed.add_field(name='!cardbattle [card id] [battle type duel/capture/elimination] [min power] [max power]', value="Create a card battle with one of your cards to allow another player to challenge you!", inline=False)
     help_embed.add_field(name='!fightcard [opponent card id] [your card id]', value="Accept another player's card battle by fighting with a card of your own!", inline=False)
+    help_embed.add_field(name='!top100', value="Show a list of the top 100 cards with the most power.", inline=False)
 
     await message.channel.send(embed=help_embed)
