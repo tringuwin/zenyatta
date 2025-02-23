@@ -71,7 +71,7 @@ def get_battle_expire_time():
 
     return time.time() + 60*60*24
 
-async def create_card_battle(client, db, user, card_id, battle_type, min_power, max_power):
+async def create_card_battle(client, db, user, card_id, battle_type, min_power, max_power, my_card_power):
 
     users = db['users']
     user_battle_cards = get_user_battle_cards(user)
@@ -87,11 +87,31 @@ async def create_card_battle(client, db, user, card_id, battle_type, min_power, 
         'battle_type': battle_type,
         'min_power': min_power,
         'max_power': max_power,
+        'my_card_power': my_card_power,
         'message_id': battle_embed_message.id,
         'expire_time': get_battle_expire_time()
     }
     card_battles.insert_one(battle_info)
 
+
+# def find_existing_battle_opponent(db, user, my_power, battle_type, min_power, max_power):
+
+#     card_battles = db['card_battles']
+#     all_card_battles = card_battles.find()
+#     for battle in all_card_battles:
+#         if battle['user_id'] == user['discord_id']:
+#             continue
+#         if battle['battle_type'] != battle_type:
+#             continue
+
+#         #my card meets their power requirements
+#         if my_power < battle['min_power'] or my_power > battle['max_power']:
+#             continue
+
+#         #their card meets my power requirements
+        
+        
+            
 
 
 
@@ -171,7 +191,10 @@ async def card_battle(client, db, message):
         await message.channel.send('Maximum power must be greater than or equal to minimum power.')
         return
     
-    await create_card_battle(client, db, user, card_id, battle_type, min_power, max_power)
+
+    # valid_opponent = find_existing_battle_opponent(db, user, my_card_power, battle_type, min_power, max_power)
+    
+    await create_card_battle(client, db, user, card_id, battle_type, min_power, max_power, my_card_power)
 
     await message.channel.send('Battle successfully created!')
 
