@@ -71,7 +71,7 @@ async def timeslot_handler(db, message, client, context):
     
     matchup_with_timeslot = matchups.find_one({'$and': [{'context': context}, {'timeslot': requested_timeslot}]})
     if matchup_with_timeslot:
-        await message.channel.send('There is already a match scheduled for that timeslot. You can see all available timeslots here: https://spicyesports/sol/timeslots')
+        await message.channel.send('There is already a match scheduled for that timeslot. You can see all available timeslots here: https://spicyesports.com/sol/timeslots')
         return
 
     my_team_index = get_team_index(team_name, my_matchup)
