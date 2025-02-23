@@ -70,6 +70,7 @@ async def timeslot_handler(db, message, context):
         return
 
     matchups.update_one({'_id': my_matchup['_id']}, {'$set': {'team'+str(my_team_index)+'_timeslot': requested_timeslot}})
+    await message.channel.send('You have successfully requested the timeslot "'+requested_timeslot+'"! Waiting for the other team to agree.')
 
     
     
