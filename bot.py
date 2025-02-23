@@ -100,6 +100,7 @@ from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.call_me import call_me_handler
 from command_handlers.league.picks.picks import picks_handler
 from command_handlers.league.sol_week_end import sol_week_end
+from command_handlers.league.timeslot import timeslot_handler
 from command_handlers.league.weekly_roster_reset import weekly_roster_reset
 from command_handlers.league.sol_weekly_pay import sol_weekly_pay
 from command_handlers.league.init_standings import init_standings
@@ -824,6 +825,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!setlineup':
         await set_lineup_handler(db, message, context)
+
+    elif lower_message.startswith('!timeslot '):
+        await timeslot_handler(db, message, context)
 
     elif lower_message.startswith('!callme '):
         await call_me_handler(db, message, context)

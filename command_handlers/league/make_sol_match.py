@@ -7,48 +7,6 @@ from common_messages import invalid_number_of_params
 from helpers import get_constant_value, get_league_emoji_from_team_name, valid_number_of_params
 
 
-TIMESLOT_TO_INFO = {
-
-    'W-6': ['Wednesday', 6],
-    'W-7': ['Wednesday', 7],
-    'W-8': ['Wednesday', 8],
-    'W-9': ['Wednesday', 9],
-    'W-10': ['Wednesday', 10],
-
-    'T-6': ['Thursday', 6],
-    'T-7': ['Thursday', 7],
-    'T-8': ['Thursday', 8],
-    'T-9': ['Thursday', 9],
-    'T-10': ['Thursday', 10],
-
-    'F-6': ['Friday', 6],
-    'F-7': ['Friday', 7],
-    'F-8': ['Friday', 8],
-    'F-9': ['Friday', 9],
-    'F-10': ['Friday', 10],
-
-    'S-2': ['Saturday', 2],
-    'S-3': ['Saturday', 3],
-    'S-4': ['Saturday', 4],
-    'S-5': ['Saturday', 5],
-    'S-6': ['Saturday', 6],
-    'S-7': ['Saturday', 7],
-    'S-8': ['Saturday', 8],
-    'S-9': ['Saturday', 9],
-    'S-10': ['Saturday', 10],
-
-    'X-2': ['Sunday', 2],
-    'X-3': ['Sunday', 3],
-    'X-4': ['Sunday', 4],
-    'X-5': ['Sunday', 5],
-    'X-6': ['Sunday', 6],
-    'X-7': ['Sunday', 7],
-    'X-8': ['Sunday', 8],
-    'X-9': ['Sunday', 9],
-    'X-10': ['Sunday', 10],
-
-}
-
 def get_weekday_index(week_data, match_weekday):
 
     cur_day_index = 0
@@ -92,7 +50,7 @@ async def make_sol_match(client, db, message):
     team_2 = params[3].lower()
     timeslot = params[4].upper()
 
-    if not (timeslot in TIMESLOT_TO_INFO):
+    if not (timeslot in constants.TIMESLOT_TO_INFO):
         await message.channel.send('That is not a valid timeslot')
         return
     
@@ -130,7 +88,7 @@ async def make_sol_match(client, db, message):
     week_index = week_num - 1
     week_data = league_schedule['weeks'][week_index]
 
-    timeslot_info = TIMESLOT_TO_INFO[timeslot]
+    timeslot_info = constants.TIMESLOT_TO_INFO[timeslot]
     match_weekday = timeslot_info[0]
     match_start_est = timeslot_info[1]
 
