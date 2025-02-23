@@ -57,4 +57,4 @@ async def redeem_code(db, message):
     users.update_one({'discord_id': message.author.id}, {'$set': {'packs': new_packs}})
 
     pack_string = num_to_packs_string(code_weight)
-    await message.channel.send(f'Code redeemed! You were given {code} SOL Card {pack_string}!')
+    await message.channel.send(f'Code redeemed! You were given {code_weight} SOL Card {pack_string}!')
