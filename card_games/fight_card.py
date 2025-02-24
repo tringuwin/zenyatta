@@ -223,7 +223,7 @@ async def process_battle(client, db, card_battle, challenger_single_card):
     user_result_message = '**You won!**' if winner == 'challenger' else 'You lost!'
     if card_battle['battle_type'] == 'duel':
         my_card_new_power = get_challenger_card_new_power(winner, new_winner_power, new_loser_power)
-        user_result_message += " Your card's new power is: "+str(my_card_new_power)
+        user_result_message += " Your card's new power is: **"+str(my_card_new_power)+'**'
 
 
     battle_result_message = await show_battle_result(client, db, winner_single, winner_original_power, new_winner_power, loser_single, loser_original_power, new_loser_power, card_battle['battle_type'])
