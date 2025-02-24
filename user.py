@@ -476,7 +476,7 @@ async def notify_user_of_gift(member):
 async def notify_user_of_gift(member, bot_coms_channel):
     try:
         # Try to send a DM
-        await member.send('Your gift is ready in the Spicy OW server! Just say **!gift** here to claim! '+bot_coms_channel.jump_url)
+        await member.send('Your gift is ready in the Spicy Esports server! Just say **!gift** here to claim! '+bot_coms_channel.jump_url)
     except discord.Forbidden:
         # If DM can't be sent, mention the member in the channel
         await bot_coms_channel.send(f'Your gift is ready, {member.mention}! (I tried to DM you but your privacy settings did not allow me to)')

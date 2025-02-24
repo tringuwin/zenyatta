@@ -36,7 +36,7 @@ async def battle_link(db, message, client, user, battle_tag):
     if member and reg_role:
         await give_role(member, reg_role, 'Battle Link')
 
-    await message.channel.send("Success! Your Battle Tag has been linked to the Spicy OW server! (Please note: if you change your Battle Tag please use the !battle command again to update it!)")
+    await message.channel.send("Success! Your Battle Tag has been linked to the Spicy Esports server! (Please note: if you change your Battle Tag please use the !battle command again to update it!)")
 
 
 async def battle_handler(db, message, client):

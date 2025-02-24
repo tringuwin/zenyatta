@@ -9,4 +9,4 @@ async def route_dm_message(db, message):
         await address_handler(db, message)
        
     else:
-        await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy OW Discord server.', 'DM Alert')
+        await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy Esports Discord server.', 'DM Alert')
