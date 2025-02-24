@@ -213,15 +213,17 @@ async def process_battle(client, db, card_battle, challenger_single_card):
     new_winner_power, new_loser_power = process_power_changes(single_cards, winner_single, loser_single, battle_type)
     process_card_movement(db, card_battle, challenger_single_card, winner)
 
+    user_result_message = '**You won!**' if winner == 'challenger' else 'You lost!'
+
     battle_result_message = await show_battle_result(client, db, winner_single, winner_original_power, new_winner_power, loser_single, loser_original_power, new_loser_power, card_battle['battle_type'])
-    return battle_result_message
+    return battle_result_message, user_result_message
 
 
 async def fight_card_procedure(client, db, card_battle, single_card, opp_card_display, message):
 
     card_battles = db['card_battles']
 
-    battle_result_message = await process_battle(client, db, card_battle, single_card)
+    battle_result_message, user_result_string = await process_battle(client, db, card_battle, single_card)
 
     card_battles.delete_one({'card_display': opp_card_display})
 
@@ -232,7 +234,7 @@ async def fight_card_procedure(client, db, card_battle, single_card, opp_card_di
     opp_mention = '<@'+str(card_battle['user_id'])+'>'
     await battle_result_message.reply(opp_mention+' '+message.author.mention)
 
-    await message.channel.send('Battle complete! You can see the result here: '+battle_result_message.jump_url)
+    await message.channel.send(f'Battle complete! {user_result_string} You can see the result here: '+battle_result_message.jump_url)
 
 
 async def fight_card(client, db, message):
