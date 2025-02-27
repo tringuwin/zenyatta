@@ -1,13 +1,4 @@
-from user import get_league_invites, get_rivals_league_invites, get_rivals_league_team
-
-
     
-def get_league_invites_with_context(user, context):
-
-    if context == 'OW':
-        return get_league_invites(user)
-    else:
-        return get_rivals_league_invites(user)
 
 def get_league_team_field(context):
 
@@ -16,12 +7,6 @@ def get_league_team_field(context):
     else:
         return 'rivals_league_team'
     
-def get_league_invites_field(context):
-
-    if context == 'OW':
-        return 'league_invites'
-    else:
-        return 'rivals_league_invites'
     
 def get_fan_of_field(context):
 

@@ -26,7 +26,6 @@ def get_league_teams_collection_from_context(db, context):
 
 
 
-
 CONTEXT_TO_LEAGUE_NOTIFS_CHANNEL = {
     'OW': constants.TEAM_NOTIFS_CHANNEL,
     'MR': constants.RIVALS_TEAM_NOTIFS_CHANNEL,
@@ -49,3 +48,12 @@ CONTEXT_TO_LEAGUE_TEAM_FIELD = {
 def get_league_team_field_from_context(context):
     return CONTEXT_TO_LEAGUE_TEAM_FIELD[context]
 
+
+CONTEXT_TO_LEAGUE_INVITES_FIELD = {
+    'OW': 'league_team',
+    'MR': 'rivals_league_team',
+    'FL': 'fake_league_team'
+}
+
+def get_league_invites_field(context):
+    return CONTEXT_TO_LEAGUE_INVITES_FIELD[context]

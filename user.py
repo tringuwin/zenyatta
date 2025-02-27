@@ -4,7 +4,7 @@ import discord
 import constants
 import time
 
-from context_helpers import get_league_team_field_from_context
+from context_helpers import get_league_invites_field, get_league_team_field_from_context
 
 def user_exists(db, discord_id):
     
@@ -231,21 +231,14 @@ def get_league_team_with_context(user, context):
         return user[league_team_field]
     
     return 'None'
-
     
-def get_league_invites(user):
+def get_league_invites_with_context(user, context):
 
-    if 'league_invites' in user:
-        return user['league_invites']
-    else:
-        return []
+    league_invites_field = get_league_invites_field(context)
+    if league_invites_field in user:
+        return user[league_invites_field]
     
-def get_rivals_league_invites(user):
-
-    if 'rivals_league_invites' in user:
-        return user['rivals_league_invites']
-    else:
-        return []
+    return []
     
 def get_gem_offer(user):
 
