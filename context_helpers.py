@@ -48,17 +48,6 @@ CONTEXT_TO_LEAGUE_TEAM_FIELD = {
 def get_league_team_field_from_context(context):
     return CONTEXT_TO_LEAGUE_TEAM_FIELD[context]
 
-
-CONTEXT_TO_LEAGUE_INVITES_FIELD = {
-    'OW': 'league_team',
-    'MR': 'rivals_league_team',
-    'FL': 'fake_league_team'
-}
-
-def get_league_invites_field(context):
-    return CONTEXT_TO_LEAGUE_INVITES_FIELD[context]
-
-
 CONTEXT_TO_LEAGUE_INVITES_FIELD = {
     'OW': 'league_invites',
     'MR': 'rivals_league_invites',
@@ -66,9 +55,15 @@ CONTEXT_TO_LEAGUE_INVITES_FIELD = {
 }
 
 
-def get_fan_of_field_from_context(context):
+def get_league_invites_field(context):
+    return CONTEXT_TO_LEAGUE_INVITES_FIELD[context]
 
-    if context == 'OW':
-        return 'fan_of'
-    else:
-        return 'fan_of_rivals'
+
+CONTEXT_TO_FAN_OF_FIELD = {
+    'OW': 'fan_of',
+    'MR': 'fan_of_rivals',
+    'FL': 'fan_of_fake'
+}
+
+def get_fan_of_field_from_context(context):
+    return CONTEXT_TO_FAN_OF_FIELD[context]
