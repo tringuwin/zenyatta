@@ -88,6 +88,11 @@ async def make_schedule_plan(message, db, context):
     if existing_schedule_plan:
         await message.channel.send(f'A Schedule Plan already exists with season number {season_number} for context {context}')
         return
+    
+    teams_for_season = get_teams_for_season(db, context)
+    if teams_for_season % 2 != 0:
+        await message.channel.send(f'There are an odd number of teams in the league. Cannot create schedule plan.')
+        return
 
     new_schedule_plan = {
         'context': context,
@@ -95,7 +100,7 @@ async def make_schedule_plan(message, db, context):
         'status': 'NOT STARTED',
         'weeks': build_weeks_for_season(league_start_day, league_start_month, league_start_year, num_weeks_in_season),
         'current_week': 0,
-        'season_teams': get_teams_for_season(db, context)
+        'season_teams': teams_for_season
     }
     schedule_plans.insert_one(new_schedule_plan)
 
