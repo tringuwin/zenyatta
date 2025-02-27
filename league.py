@@ -175,7 +175,7 @@ async def update_team_info(client, team, db, context='OW'):
 
     team_name = team['team_name']
     team_color = get_team_color_by_name(team_name)
-    team_image_url = get_team_logo_by_name[team_name]
+    team_image_url = get_team_logo_by_name(team_name)
 
     embed_description = make_team_description(team)
     embed = discord.Embed(title=team_name.upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', color=team_color, description=embed_description)
