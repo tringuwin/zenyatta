@@ -1,11 +1,8 @@
 
 
-from api import give_role, remove_role
 from common_messages import not_registered_response
-from discord_actions import get_guild, get_member_by_username, get_user_from_guild
-from helpers import can_be_int, generic_find_user, get_constant_value, update_token_tracker, valid_number_of_params
+from helpers import generic_find_user, update_token_tracker, valid_number_of_params
 from user import get_league_team, get_lvl_info, get_user_lootboxes, user_exists
-import constants
 
 
 async def change_tokens(db, user, num, source='unknown'):

@@ -47,7 +47,5 @@ CONTEXT_TO_LEAGUE_TEAM_FIELD = {
 }
 
 def get_league_team_field_from_context(context):
-
     return CONTEXT_TO_LEAGUE_TEAM_FIELD[context]
-
 

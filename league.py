@@ -1,10 +1,9 @@
 
-import constants
 from context_helpers import get_league_teams_collection_from_context, get_team_info_channel_from_context
 from discord_actions import get_guild
 from helpers import get_constant_value, get_league_emoji_from_team_name
-from league_helpers import get_league_invites_with_context, get_league_team_with_context
-from user import get_league_invites, user_exists
+from league_helpers import get_league_invites_with_context
+from user import get_league_team_with_context, user_exists
 import discord
 
 async def validate_admin(db, message, context='OW'):

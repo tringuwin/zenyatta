@@ -6,8 +6,7 @@ from context_helpers import get_league_notifs_channel_from_context, get_league_t
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info
-from league_helpers import get_league_team_with_context
-from user import user_exists
+from user import get_league_team_with_context, user_exists
 
 async def league_leave_handler(db, message, client, context):
 

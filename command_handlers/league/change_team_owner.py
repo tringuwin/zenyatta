@@ -2,8 +2,7 @@
 from common_messages import invalid_number_of_params
 from context_helpers import get_league_teams_collection_from_context
 from helpers import make_string_from_word_list
-from league_helpers import get_league_team_with_context
-from user import get_league_team, user_exists
+from user import get_league_team_with_context, user_exists
 
 
 async def change_team_owner_handler(db, message, context):

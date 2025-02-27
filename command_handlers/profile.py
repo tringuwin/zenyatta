@@ -1,8 +1,7 @@
 
 from common_messages import not_registered_response
-from discord_actions import get_guild, get_member_by_username
+from discord_actions import get_guild
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
-from poke_data import ALL_POKE_NUM
 from user import get_fan_of, get_fan_of_rivals, get_league_team, get_lvl_info, get_rival_of, get_rival_of_rivals, get_rivals_league_team, get_rivals_username, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_tokens, get_user_trophies, user_exists
 import constants
 

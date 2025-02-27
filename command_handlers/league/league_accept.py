@@ -3,11 +3,11 @@
 from api import give_role
 from common_messages import invalid_number_of_params, not_registered_response
 from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
-from discord_actions import get_guild, get_role_by_id
+from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name, make_string_from_word_list
 from league import has_username_for_game, remove_league_invite, update_team_info
-from league_helpers import get_league_invites_with_context, get_league_team_with_context
-from user import user_exists
+from league_helpers import get_league_invites_with_context
+from user import get_league_team_with_context, user_exists
 import constants
 from datetime import datetime
 import pytz

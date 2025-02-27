@@ -2,8 +2,7 @@
 from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info, user_admin_on_team, validate_admin
-from league_helpers import get_league_team_with_context
-from user import user_exists
+from user import get_league_team_with_context, user_exists
 
 
 async def make_team_admin_handler(db, message, client, context):
