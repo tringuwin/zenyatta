@@ -1,4 +1,5 @@
 
+from context.context_helpers import get_league_invites_field
 from league import validate_admin
 from user import get_league_invites_with_context, get_league_team_with_context, user_exists
 
@@ -36,7 +37,7 @@ async def league_invite_handler(db, message, context):
         return
 
     league_invites.append(team_name)
-    league_invites_field = 'league_invites' if context == 'OW' else 'rivals_league_invites'
+    league_invites_field = get_league_invites_field(context)
 
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {league_invites_field: league_invites}})

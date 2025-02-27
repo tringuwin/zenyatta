@@ -41,6 +41,7 @@ from automation.notify_about_matches import check_notify_about_matches
 from automation.process_trophy_rewards.process_trophy_rewards import process_trophy_rewards
 from automation.raffle import end_raffle, start_raffle
 from automation.schedule_plan.make_schedule_plan import make_schedule_plan
+from automation.schedule_plan.schedule_plan_loop.schedule_plan_loop import schedule_plan_loop
 from automation.update_team_avatars import update_team_avatars
 from automation.update_top_subs_avatars import update_top_subs_avatars
 from card_automation import make_all_cards_from_data
@@ -1987,6 +1988,8 @@ async def handle_message(message, db, client):
         await clear_expired_battles(client, db, message)
 
         await process_trophy_rewards(db, message)
+
+        await schedule_plan_loop(db, message, client)
 
     elif context == 'MR':
         await route_rivals_message(db, message, lower_message)
