@@ -1,6 +1,6 @@
 
 from common_messages import invalid_number_of_params
-from context_helpers import get_league_teams_collection_from_context
+from context.context_helpers import get_league_teams_collection_from_context
 from helpers import can_be_int, generic_find_user, valid_number_of_params
 from league import update_team_info, validate_admin
 

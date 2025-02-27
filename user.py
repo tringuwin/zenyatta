@@ -4,7 +4,7 @@ import discord
 import constants
 import time
 
-from context_helpers import get_league_invites_field, get_league_team_field_from_context
+from context.context_helpers import get_league_invites_field, get_league_team_field_from_context
 
 def user_exists(db, discord_id):
     

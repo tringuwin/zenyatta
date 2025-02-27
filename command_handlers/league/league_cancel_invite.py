@@ -1,5 +1,5 @@
 
-from context_helpers import get_league_invites_field
+from context.context_helpers import get_league_invites_field
 from league import validate_admin
 from user import get_league_invites_with_context, user_exists
 

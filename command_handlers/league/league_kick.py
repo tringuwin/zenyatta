@@ -1,7 +1,7 @@
 
 from api import remove_role
 from common_messages import invalid_number_of_params
-from context_helpers import get_league_notifs_channel_from_context, get_league_team_field_from_context, get_league_teams_collection_from_context
+from context.context_helpers import get_league_notifs_channel_from_context, get_league_team_field_from_context, get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info, validate_admin

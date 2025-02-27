@@ -1,6 +1,6 @@
 
 from common_messages import invalid_number_of_params
-from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
+from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from discord_actions import get_guild, get_member_by_username
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
 from league import update_team_info, validate_admin

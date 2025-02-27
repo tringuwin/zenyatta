@@ -1,7 +1,7 @@
 
 
 from common_messages import invalid_number_of_params
-from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
+from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from helpers import get_league_emoji_from_team_name, valid_number_of_params
 from league import update_team_info, validate_admin
 

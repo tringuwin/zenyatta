@@ -1,6 +1,6 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from context_helpers import get_fan_of_field_from_context, get_league_teams_collection_from_context
+from context.context_helpers import get_fan_of_field_from_context, get_league_teams_collection_from_context
 from helpers import valid_number_of_params
 from user import user_exists
 

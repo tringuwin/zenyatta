@@ -1,4 +1,4 @@
-from context_helpers import get_league_teams_collection_from_context
+from context.context_helpers import get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from league import validate_admin
 

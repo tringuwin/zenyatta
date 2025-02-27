@@ -1,6 +1,6 @@
 
 from common_messages import invalid_number_of_params
-from context_helpers import get_league_teams_collection_from_context
+from context.context_helpers import get_league_teams_collection_from_context
 from helpers import make_string_from_word_list
 from user import get_league_team_with_context, user_exists
 

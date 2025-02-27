@@ -1,5 +1,5 @@
 
-from context_helpers import get_league_teams_collection_from_context, get_team_info_channel_from_context
+from context.context_helpers import get_league_teams_collection_from_context, get_team_info_channel_from_context
 from discord_actions import get_guild
 from helpers import get_constant_value, get_league_emoji_from_team_name
 from user import get_league_invites_with_context, get_league_team_with_context, user_exists

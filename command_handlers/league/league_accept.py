@@ -2,7 +2,7 @@
 
 from api import give_role
 from common_messages import invalid_number_of_params, not_registered_response
-from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
+from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name, make_string_from_word_list
 from league import has_username_for_game, remove_league_invite, update_team_info
