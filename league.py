@@ -36,7 +36,7 @@ async def validate_admin(db, message, context='OW'):
     return is_admin, my_team, my_team['team_name'], is_owner
 
 
-team_name_to_color = {
+TEAM_NAME_TO_TEAM_COLOR = {
     'Polar': discord.Colour(0x00c9eb),
     'Olympians': discord.Colour(0xf9c429),
     'Eclipse': discord.Colour(0x005fe8),
@@ -67,9 +67,13 @@ team_name_to_color = {
 
 def get_team_color_by_name(team_name):
 
-    return team_name_to_color[team_name]
+    if team_name in TEAM_NAME_TO_TEAM_COLOR:
+        return TEAM_NAME_TO_TEAM_COLOR[team_name]
+    
+    return discord.Colour(0xFFFFFF)
 
-team_name_to_thumbnail = {
+
+TEAM_NAME_TO_TEAM_LOGO = {
     'Polar': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1725044418/Polar_rmvnhc.png',
     'Olympians': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1725045969/Olympians_gyfg6t.png',
     'Eclipse': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1725045969/Eclipse_kzs5us.png',
@@ -94,12 +98,19 @@ team_name_to_thumbnail = {
     'Deadlock': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1729637115/Deadlock_ejk1ro.png',
     'Horizon': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1731283566/Horizon_lseweb.png',
     'Monarchs': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1731283566/Monarchs_zfeaxw.png',
-    'Aces': '',
-    'Mantas': ''
 }
 
+DEFAULT_TEAM_LOGO_URL = 'https://res.cloudinary.com/dc8euoeya/image/upload/v1740178566/Spicy_Default_pk1yu8.png'
 
-async def make_team_description(client, team):
+def get_team_logo_by_name(team_name):
+
+    if team_name in TEAM_NAME_TO_TEAM_LOGO:
+        return TEAM_NAME_TO_TEAM_LOGO[team_name]
+    
+    return DEFAULT_TEAM_LOGO_URL
+
+
+def make_team_description(team):
 
     if len(team['allies']) == 0 and len(team['rivals']) == 0:
         return ''
@@ -161,9 +172,14 @@ async def update_team_info(client, team, db, context='OW'):
 
     available_tpp = 100
     num_members_on_team = str(len(team['members']))
-    embed_description = await make_team_description(client, team)
-    embed = discord.Embed(title=team['team_name'].upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', color=team_name_to_color[team['team_name']], description=embed_description)
-    embed.set_thumbnail(url=team_name_to_thumbnail[team['team_name']])
+
+    team_name = team['team_name']
+    team_color = get_team_color_by_name(team_name)
+    team_image_url = get_team_logo_by_name[team_name]
+
+    embed_description = make_team_description(team)
+    embed = discord.Embed(title=team_name.upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', color=team_color, description=embed_description)
+    embed.set_thumbnail(url=team_image_url)
 
     for member in team['members']:
 

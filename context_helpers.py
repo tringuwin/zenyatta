@@ -46,9 +46,8 @@ CONTEXT_TO_LEAGUE_TEAM_FIELD = {
     'FL': 'fake_league_team'
 }
 
-def set_user_league_team(db, user, team, context):
+def get_league_team_field_from_context(context):
 
-    users = db['users']
-    league_team_field = CONTEXT_TO_LEAGUE_TEAM_FIELD[context]
-    
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {league_team_field: team}})
+    return CONTEXT_TO_LEAGUE_TEAM_FIELD[context]
+
+

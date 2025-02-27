@@ -4,6 +4,8 @@ import discord
 import constants
 import time
 
+from context_helpers import get_league_team_field_from_context
+
 def user_exists(db, discord_id):
     
     users = db['users']
@@ -503,3 +505,10 @@ def get_net_worth(user):
 
     return total
 
+
+def set_user_league_team(db, user, team, context):
+
+    users = db['users']
+    league_team_field = get_league_team_field_from_context(context)
+    
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {league_team_field: team}})

@@ -1,5 +1,5 @@
 
-from context_helpers import get_league_teams_collection_from_context
+from context_helpers import get_league_team_field_from_context, get_league_teams_collection_from_context
 from discord_actions import get_guild
 from league import update_team_info
 import discord
@@ -13,7 +13,7 @@ async def update_team(db, team_name, client, context):
     team_name_lower = team_name.lower()
     team_object = league_teams.find_one({'name_lower': team_name_lower})
 
-    league_team_field = 'league_team' if context == 'OW' else 'rivals_league_team'
+    league_team_field = get_league_team_field_from_context(context)
 
     final_team_members = []
     ids_to_remove_team_from = []
