@@ -90,7 +90,7 @@ async def make_schedule_plan(message, db, context):
         return
     
     teams_for_season = get_teams_for_season(db, context)
-    if teams_for_season % 2 != 0:
+    if len(teams_for_season) % 2 != 0:
         await message.channel.send(f'There are an odd number of teams in the league. Cannot create schedule plan.')
         return
 
