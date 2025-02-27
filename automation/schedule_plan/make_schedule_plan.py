@@ -12,7 +12,7 @@ def get_schedule_plan_with_season_and_context(schedule_plans, season, context):
     return existing_schedule_plan
 
     
-def get_teams_for_season(db, context):
+def get_teams_for_season(db, context, blacklist):
 
     league_teams_collection = get_league_teams_collection_from_context(db, context)
     season_teams = league_teams_collection.find()
@@ -20,7 +20,8 @@ def get_teams_for_season(db, context):
     team_names = []
 
     for team in season_teams:
-        team_names.append(team['team_name'])
+        if not team['team_name'] in blacklist:
+            team_names.append(team['team_name'])
 
     return team_names
 
@@ -47,7 +48,7 @@ def build_weeks_for_season(day, month, year, num_weeks_in_season):
 
 async def make_schedule_plan(message, db, context):
 
-    valid_params, params = valid_number_of_params(message, 6)
+    valid_params, params = valid_number_of_params(message, 7)
 
     if not valid_params:
         await invalid_number_of_params(message)
@@ -83,13 +84,15 @@ async def make_schedule_plan(message, db, context):
         return
     num_weeks_in_season = int(num_weeks_in_season)
 
+    team_blacklist = params[7].split('|')
+
     schedule_plans = db['schedule_plans']
     existing_schedule_plan = get_schedule_plan_with_season_and_context(schedule_plans, season_number, context)
     if existing_schedule_plan:
         await message.channel.send(f'A Schedule Plan already exists with season number {season_number} for context {context}')
         return
     
-    teams_for_season = get_teams_for_season(db, context)
+    teams_for_season = get_teams_for_season(db, context, team_blacklist)
     if len(teams_for_season) % 2 != 0:
         await message.channel.send(f'There are an odd number of teams in the league. Cannot create schedule plan.')
         return
