@@ -146,8 +146,8 @@ def get_day_info_for_future_day(start_datetime, days_in_the_future):
 
 def has_date_passed_est(day, month, year):
     est = pytz.timezone('US/Eastern')
-    input_datetime = est.localize(datetime.datetime(year, month, day))
-    current_datetime = datetime.datetime.now(est)
+    input_datetime = est.localize(datetime(year, month, day))
+    current_datetime = datetime.now(est)
     return current_datetime > input_datetime
 
 
