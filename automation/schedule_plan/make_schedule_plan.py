@@ -84,7 +84,7 @@ async def make_schedule_plan(message, db, context):
         return
     num_weeks_in_season = int(num_weeks_in_season)
 
-    team_blacklist = params[7].split('|')
+    team_blacklist = params[6].split('|')
 
     schedule_plans = db['schedule_plans']
     existing_schedule_plan = get_schedule_plan_with_season_and_context(schedule_plans, season_number, context)
