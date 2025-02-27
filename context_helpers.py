@@ -1,5 +1,8 @@
 import constants
 
+
+
+
 CONEXT_TO_TEAM_INFO_CHANNEL_ID = {
     'OW': constants.TEAM_INFO_CHANNEL,
     'MR': constants.RIVALS_TEAM_INFO_CHANNEL,
@@ -10,6 +13,9 @@ def get_team_info_channel_from_context(client, context):
 
     team_info_channel_id = CONEXT_TO_TEAM_INFO_CHANNEL_ID[context]
     return client.get_channel(team_info_channel_id)
+
+
+
 
 
 
@@ -26,6 +32,8 @@ def get_league_teams_collection_from_context(db, context):
 
 
 
+
+
 CONTEXT_TO_LEAGUE_NOTIFS_CHANNEL = {
     'OW': constants.TEAM_NOTIFS_CHANNEL,
     'MR': constants.RIVALS_TEAM_NOTIFS_CHANNEL,
@@ -39,6 +47,9 @@ def get_league_notifs_channel_from_context(client, context):
 
 
 
+
+
+
 CONTEXT_TO_LEAGUE_TEAM_FIELD = {
     'OW': 'league_team',
     'MR': 'rivals_league_team',
@@ -48,15 +59,20 @@ CONTEXT_TO_LEAGUE_TEAM_FIELD = {
 def get_league_team_field_from_context(context):
     return CONTEXT_TO_LEAGUE_TEAM_FIELD[context]
 
+
+
+
+
 CONTEXT_TO_LEAGUE_INVITES_FIELD = {
     'OW': 'league_invites',
     'MR': 'rivals_league_invites',
     'FL': 'fake_league_invites'
 }
 
-
 def get_league_invites_field(context):
     return CONTEXT_TO_LEAGUE_INVITES_FIELD[context]
+
+
 
 
 CONTEXT_TO_FAN_OF_FIELD = {
@@ -67,3 +83,15 @@ CONTEXT_TO_FAN_OF_FIELD = {
 
 def get_fan_of_field_from_context(context):
     return CONTEXT_TO_FAN_OF_FIELD[context]
+
+
+
+
+CONTEXT_TO_RIVAL_OF_FIELD = {
+    'OW': 'rival_of',
+    'MR': 'rival_of_rivals',
+    'FL': 'rival_of_fake'
+}
+
+def get_rival_of_field_from_context(context):
+    return CONTEXT_TO_RIVAL_OF_FIELD[context]

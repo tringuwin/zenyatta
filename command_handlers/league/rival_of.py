@@ -1,8 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
-from context_helpers import get_league_teams_collection_from_context
+from context_helpers import get_league_teams_collection_from_context, get_rival_of_field_from_context
 from helpers import valid_number_of_params
-from league_helpers import get_rival_of_field
 from user import get_league_team_with_context, user_exists
 
 async def rival_of_handler(db, message, context):
@@ -39,7 +38,7 @@ async def rival_of_handler(db, message, context):
         return
     
     users = db['users']
-    rival_of_field = get_rival_of_field(context)
+    rival_of_field = get_rival_of_field_from_context(context)
     users.update_one({"discord_id": user['discord_id']}, {"$set": {rival_of_field: found_team}})
 
     await message.channel.send("Success! You're now a rival of "+found_team)
