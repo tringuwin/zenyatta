@@ -1,7 +1,8 @@
 
 from common_messages import invalid_number_of_params
+from context_helpers import get_league_teams_collection_from_context
 from helpers import make_string_from_word_list
-from league_helpers import get_league_team_with_context, get_league_teams_collection
+from league_helpers import get_league_team_with_context
 from user import get_league_team, user_exists
 
 
@@ -12,7 +13,7 @@ async def change_team_owner_handler(db, message, context):
         await invalid_number_of_params(message)
         return
     
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
     team_name = make_string_from_word_list(word_parts, 2)
     team_obj = league_teams.find_one({'team_name': team_name})
     if not team_obj:

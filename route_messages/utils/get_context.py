@@ -7,4 +7,7 @@ def get_context(message):
     if message_channel.category_id == constants.RIVALS_CATEGORY_ID or message_channel.category_id == constants.RIVALS_TEAMS_CATEGORY_ID:
         context = 'MR'
 
+    elif message_channel.category_id == constants.FAKE_LEAGUE_CATEGORY_ID:
+        context = 'FL'
+
     return context

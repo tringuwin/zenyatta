@@ -1,9 +1,9 @@
 
 
 from common_messages import invalid_number_of_params
+from context_helpers import get_league_teams_collection_from_context
 from helpers import valid_number_of_params
 from league import validate_admin
-from league_helpers import get_league_teams_collection
 
 
 async def deny_rival_handler(db, message, context):
@@ -21,7 +21,7 @@ async def deny_rival_handler(db, message, context):
     
     team_name_to_deny = params[1].lower()
 
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
 
     my_team_obj = league_teams.find_one({'team_name': team_name})
     if not my_team_obj:

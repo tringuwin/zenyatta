@@ -2,11 +2,12 @@
 
 from api import give_role
 from common_messages import invalid_number_of_params, not_registered_response
+from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from discord_actions import get_guild, get_role_by_id
 from helpers import get_league_emoji_from_team_name, make_string_from_word_list
 from league import has_username_for_game, remove_league_invite, update_team_info
-from league_helpers import get_league_invites_with_context, get_league_notifs_channel, get_league_team_with_context, get_league_teams_collection
-from user import get_user_div, get_user_team_swaps, user_exists
+from league_helpers import get_league_invites_with_context, get_league_team_with_context
+from user import user_exists
 import constants
 from datetime import datetime
 import pytz
@@ -63,7 +64,7 @@ async def league_accept_handler(db, message, client, context):
         await message.channel.send('You do not have a team invite from the team "'+team_name_to_join+'". Please check the spelling of the team name.')
         return
     
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
     league_team = league_teams.find_one({'name_lower': team_name_lower})
     real_team_name = league_team['team_name']
 
@@ -138,7 +139,7 @@ async def league_accept_handler(db, message, client, context):
 
     await update_team_info(client, league_team, db, context)
 
-    league_notifs_channel = get_league_notifs_channel(client, context)
+    league_notifs_channel = get_league_notifs_channel_from_context(client, context)
 
     team_emoji_string = get_league_emoji_from_team_name(real_team_name)
     

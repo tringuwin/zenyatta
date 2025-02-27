@@ -1,11 +1,11 @@
 
 from api import give_role
-from discord_actions import get_guild, get_role_by_id
+from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
+from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info
-from league_helpers import get_league_notifs_channel, get_league_team_with_context, get_league_teams_collection
+from league_helpers import get_league_team_with_context
 from user import get_league_team, user_exists
-import constants
 
 
 async def force_league_add_handler(db, message, client, context):
@@ -32,7 +32,7 @@ async def force_league_add_handler(db, message, client, context):
         await message.channel.send('That user is already on a league team.')
         return
     
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
     league_team = league_teams.find_one({'team_name': team_name_to_join})
     real_team_name = league_team['team_name']
 
@@ -58,7 +58,7 @@ async def force_league_add_handler(db, message, client, context):
 
     await update_team_info(client, league_team, db, context)
 
-    league_notifs_channel = get_league_notifs_channel(client, context)
+    league_notifs_channel = get_league_notifs_channel_from_context(client, context)
 
     team_emoji_string = get_league_emoji_from_team_name(real_team_name)
 

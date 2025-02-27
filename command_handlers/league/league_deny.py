@@ -1,8 +1,9 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
+from context_helpers import get_league_teams_collection_from_context
 from helpers import make_string_from_word_list
 from league import remove_league_invite
-from league_helpers import get_league_invites_with_context, get_league_teams_collection
+from league_helpers import get_league_invites_with_context
 from user import user_exists
 
 async def league_deny_handler(db, message, context):
@@ -31,7 +32,7 @@ async def league_deny_handler(db, message, context):
         await message.channel.send('You do not have a team invite from the team "'+team_name_to_deny+'". Please check the spelling of the team name.')
         return
     
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
     league_team = league_teams.find_one({'name_lower': team_name_lower})
     real_team_name = league_team['team_name']
     

@@ -1,8 +1,8 @@
 
 from common_messages import invalid_number_of_params
+from context_helpers import get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from helpers import valid_number_of_params
-from league_helpers import get_league_teams_collection
 
 
 TAKEOVER_USERS = [
@@ -57,7 +57,7 @@ async def wipe_team(db, message, client, context):
     team_name = params[1]
     team_name_lower = team_name.lower()
 
-    league_teams_collection = get_league_teams_collection(db, context)
+    league_teams_collection = get_league_teams_collection_from_context(db, context)
     team = league_teams_collection.find_one({'name_lower': team_name_lower})
     if not team:
         await message.channel.send('There is no team with the name: '+team_name)

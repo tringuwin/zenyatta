@@ -2,9 +2,9 @@
 
 from command_handlers.league.update_team import update_team
 from common_messages import invalid_number_of_params
+from context_helpers import get_league_teams_collection_from_context
 from helpers import can_be_int, valid_number_of_params
 from league import validate_admin
-from league_helpers import get_league_teams_collection
 
 
 async def league_order_handler(db, message, client, context):
@@ -58,7 +58,7 @@ async def league_order_handler(db, message, client, context):
     team_members[first_spot] = team_members[second_spot]
     team_members[second_spot] = hold_first
 
-    teams_db = get_league_teams_collection(db, context)
+    teams_db = get_league_teams_collection_from_context(db, context)
     teams_db.update_one({"team_name": team_name}, {"$set": {"members": team_members}})
 
     await message.channel.send('Please wait... This may take a while...')

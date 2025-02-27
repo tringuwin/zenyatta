@@ -2,12 +2,12 @@
 
 from api import remove_role
 from common_messages import not_registered_response
-from discord_actions import get_guild, get_role_by_id
+from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
+from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info
-from league_helpers import get_league_notifs_channel, get_league_team_with_context, get_league_teams_collection
+from league_helpers import get_league_team_with_context
 from user import user_exists
-import constants
 
 async def league_leave_handler(db, message, client, context):
 
@@ -21,7 +21,7 @@ async def league_leave_handler(db, message, client, context):
         await message.channel.send('You are not currently on a League Team.')
         return
     
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
     team_object = league_teams.find_one({'team_name': league_team})
     if not team_object:
         await message.channel.send('ERROR LEAVING TEAM: PLEASE CONTACT STAFF')
@@ -49,7 +49,7 @@ async def league_leave_handler(db, message, client, context):
 
     await update_team_info(client, team_object, db, context)
 
-    league_notifs_channel = get_league_notifs_channel(client, context)
+    league_notifs_channel = get_league_notifs_channel_from_context(client, context)
 
     team_emoji_string = get_league_emoji_from_team_name(team_object['team_name'])
 

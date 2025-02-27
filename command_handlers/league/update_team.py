@@ -1,16 +1,15 @@
 
+from context_helpers import get_league_teams_collection_from_context
 from discord_actions import get_guild
 from league import update_team_info
 import discord
-
-from league_helpers import get_league_teams_collection
 from user import user_exists
 
 
 async def update_team(db, team_name, client, context):
 
     guild = await get_guild(client)
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
     team_name_lower = team_name.lower()
     team_object = league_teams.find_one({'name_lower': team_name_lower})
 

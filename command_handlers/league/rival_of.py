@@ -1,7 +1,8 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
+from context_helpers import get_league_teams_collection_from_context
 from helpers import valid_number_of_params
-from league_helpers import get_league_team_with_context, get_league_teams_collection, get_rival_of_field
+from league_helpers import get_league_team_with_context, get_rival_of_field
 from user import user_exists
 
 async def rival_of_handler(db, message, context):
@@ -18,7 +19,7 @@ async def rival_of_handler(db, message, context):
     
     raw_team = params[1]
     
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
     found_team = None
     found_team_object = league_teams.find_one({'name_lower': raw_team.lower()})
     if found_team_object:

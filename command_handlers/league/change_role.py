@@ -1,10 +1,9 @@
 
 from common_messages import invalid_number_of_params
+from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from discord_actions import get_guild, get_member_by_username
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
 from league import update_team_info, validate_admin
-import constants
-from league_helpers import get_league_notifs_channel, get_league_teams_collection
 from user import user_exists
 
 async def change_role_handler(db, message, client, context):
@@ -57,10 +56,10 @@ async def change_role_handler(db, message, client, context):
         return
     
     my_team['members'][at_member_index]['role'] = new_role
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": my_team['members']}})
 
-    league_notifs_channel = get_league_notifs_channel(client, context)
+    league_notifs_channel = get_league_notifs_channel_from_context(client, context)
 
     team_emoji_string = get_league_emoji_from_team_name(team_name)
 

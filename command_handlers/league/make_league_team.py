@@ -1,12 +1,9 @@
 
 from api import give_role
+from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context, get_team_info_channel_from_context, set_user_league_team
 from discord_actions import get_role_by_id
 from helpers import make_string_from_word_list
-from league_helpers import get_league_notifs_channel, get_league_teams_collection, get_team_info_channel
-from user import set_user_league_team, user_exists
-import constants
-
-
+from user import user_exists
 
 
 async def make_league_team_handler(db, message, client, context):
@@ -27,14 +24,14 @@ async def make_league_team_handler(db, message, client, context):
         await message.channel.send('That user is not registered.')
         return
     
-    team_info_channel = get_team_info_channel(client, context)
+    team_info_channel = get_team_info_channel_from_context(client, context)
     player_string = team_owner.mention+' : Owner : 10 TPP'
     end_string = '\n--------------------------\nAvailable TPP: 90'
     new_team_message = await team_info_channel.send('**'+team_name+' Team Details**\nMembers:\n'+player_string+end_string)
 
     await give_role(team_owner, role, 'Make League Team')
     
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
 
     new_team = {
         'team_name': team_name,
@@ -94,7 +91,7 @@ async def make_league_team_handler(db, message, client, context):
 
     set_user_league_team(db, owner_user, team_name, context)
 
-    league_notifs_channel = get_league_notifs_channel(client, context)
+    league_notifs_channel = get_league_notifs_channel_from_context(client, context)
     await league_notifs_channel.send('New Team Created: "'+team_name+'". Owner is '+team_owner.mention)
     await message.channel.send('Team "'+team_name+'" was successfully created.')
 

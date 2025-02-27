@@ -1,10 +1,9 @@
 
 
 from common_messages import invalid_number_of_params
+from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from helpers import get_league_emoji_from_team_name, valid_number_of_params
 from league import update_team_info, validate_admin
-import constants
-from league_helpers import get_league_notifs_channel, get_league_teams_collection
 
 async def del_ally_handler(db, message, client, context):
 
@@ -21,7 +20,7 @@ async def del_ally_handler(db, message, client, context):
     
     team_name_to_accept = params[1].lower()
 
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
 
     my_team_obj = league_teams.find_one({'team_name': team_name})
     if not my_team_obj:
@@ -47,7 +46,7 @@ async def del_ally_handler(db, message, client, context):
     league_teams.update_one({'team_name': other_team_obj['team_name']}, {'$set': {'allies': other_team_obj['allies']}})
 
     # league notifs message
-    league_notifs_channel = get_league_notifs_channel(client, context)
+    league_notifs_channel = get_league_notifs_channel_from_context(client, context)
 
     my_team_emoji_string = get_league_emoji_from_team_name(team_name)
     other_team_emoji_string = get_league_emoji_from_team_name(other_team_obj['team_name'])

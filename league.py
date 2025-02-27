@@ -1,8 +1,9 @@
 
 import constants
+from context_helpers import get_league_teams_collection_from_context, get_team_info_channel_from_context
 from discord_actions import get_guild
 from helpers import get_constant_value, get_league_emoji_from_team_name
-from league_helpers import get_league_invites_with_context, get_league_team_with_context, get_league_teams_collection, get_team_info_channel
+from league_helpers import get_league_invites_with_context, get_league_team_with_context
 from user import get_league_invites, user_exists
 import discord
 
@@ -16,7 +17,7 @@ async def validate_admin(db, message, context='OW'):
     if user_team == "None":
         return None, None, None, None
 
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
     my_team = league_teams.find_one({'team_name': user_team})
     if not my_team:
         return None, None, None, None
@@ -152,7 +153,7 @@ def make_member_game_id(db, member, context):
 async def update_team_info(client, team, db, context='OW'):
 
     team_message_id = team['team_info_msg_id']
-    team_info_channel = get_team_info_channel(client, context)
+    team_info_channel = get_team_info_channel_from_context(client, context)
 
     info_message = await team_info_channel.fetch_message(team_message_id)
 

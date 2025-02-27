@@ -1,6 +1,6 @@
 
+from context_helpers import get_league_teams_collection_from_context
 from league import validate_admin
-from league_helpers import get_league_teams_collection
 
 
 async def toggle_apps_handler(db, message, context):
@@ -13,7 +13,7 @@ async def toggle_apps_handler(db, message, context):
 
     team_name_lower = team_name.lower()
 
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
     my_team = league_teams.find_one({'name_lower': team_name_lower})
     if not my_team:
         await message.channel.send('Was not able to set the minimum rank for this team because this team is not yet listed on the application website. If you think this is a mistake please contact the server owner.')

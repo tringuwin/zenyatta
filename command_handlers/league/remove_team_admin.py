@@ -1,9 +1,10 @@
 
+from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info, user_admin_on_team, validate_admin
-from league_helpers import get_league_notifs_channel, get_league_team_with_context, get_league_teams_collection
+from league_helpers import get_league_team_with_context
 from user import user_exists
-import constants
+
 
 async def remove_team_admin_handler(db, message, client, context):
 
@@ -29,7 +30,7 @@ async def remove_team_admin_handler(db, message, client, context):
         await message.channel.send('That user is not on your team.')
         return
     
-    league_teams = get_league_teams_collection(db, context)
+    league_teams = get_league_teams_collection_from_context(db, context)
     team_object = league_teams.find_one({'team_name': team_name})
     if not team_object:
         await message.channel.send('Team was not found.')
@@ -46,7 +47,7 @@ async def remove_team_admin_handler(db, message, client, context):
 
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": new_members}})
 
-    league_notifs_channel = get_league_notifs_channel(client, context)
+    league_notifs_channel = get_league_notifs_channel_from_context(client, context)
 
     team_emoji_string = get_league_emoji_from_team_name(team_name)
 
