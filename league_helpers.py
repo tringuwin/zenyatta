@@ -1,12 +1,4 @@
-    
 
-def get_league_team_field(context):
-
-    if context == 'OW':
-        return 'league_team'
-    else:
-        return 'rivals_league_team'
-    
     
 def get_fan_of_field(context):
 

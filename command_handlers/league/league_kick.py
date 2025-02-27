@@ -1,11 +1,10 @@
 
 from api import remove_role
 from common_messages import invalid_number_of_params
-from context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
+from context_helpers import get_league_notifs_channel_from_context, get_league_team_field_from_context, get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info, validate_admin
-from league_helpers import get_league_team_field
 
 async def league_kick_handler(db, message, client, context):
 
@@ -67,7 +66,7 @@ async def league_kick_handler(db, message, client, context):
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": final_members}})
 
     users = db['users']
-    league_team_field = get_league_team_field(context)
+    league_team_field = get_league_team_field_from_context(context)
     users.update_one({"discord_id": member_to_find.id}, {"$set": {league_team_field: 'None'}})
     role = await get_role_by_id(client, my_team['team_role_id'])
     if role:
