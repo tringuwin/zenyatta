@@ -2,7 +2,7 @@
 
 from api import give_role
 from common_messages import invalid_number_of_params, not_registered_response
-from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
+from context.context_helpers import get_league_notifs_channel_from_context, get_league_team_field_from_context, get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name, make_string_from_word_list
 from league import has_username_for_game, remove_league_invite, update_team_info
@@ -110,7 +110,8 @@ async def league_accept_handler(db, message, client, context):
     remove_league_invite(user, real_team_name, db, context)
     users = db['users']
 
-    update_obj = {"league_team": real_team_name} if context == 'OW' else {'rivals_league_team': real_team_name}
+    league_team_field = get_league_team_field_from_context(context)
+    update_obj = {league_team_field: real_team_name}
     # if season_active:
     #     if div_joined != 0:
     #         update_obj = {"league_team": real_team_name, 'team_swaps': team_swaps - 1, 'user_div': div_joined}
