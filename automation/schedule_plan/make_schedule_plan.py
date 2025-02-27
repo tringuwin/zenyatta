@@ -17,13 +17,18 @@ def get_teams_for_season(db, context, blacklist):
     league_teams_collection = get_league_teams_collection_from_context(db, context)
     season_teams = league_teams_collection.find()
 
-    team_names = []
+    teams_for_season = []
 
     for team in season_teams:
         if not team['team_name'] in blacklist:
-            team_names.append(team['team_name'])
+            teams_for_season.append(
+                {
+                    'team_name': team['team_name'],
+                    'teams_played': [],
+                }
+            )
 
-    return team_names
+    return teams_for_season
 
 
 def is_match_day(day_of_week):
