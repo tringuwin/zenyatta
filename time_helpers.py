@@ -1,6 +1,6 @@
 import time
 import constants
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 
 from discord_actions import get_guild
@@ -108,6 +108,38 @@ def been_a_week(db):
         return True
     
     return False
+
+
+
+
+
+def year_month_day_to_datetime(year, month, day):
+    return datetime(year, month, day)
+
+
+def get_future_week_info(start_datetime, i):
+
+    days_in_the_future = i*7
+    future_week_datetime = start_datetime + timedelta(days=days_in_the_future)
+
+    day_num = int(future_week_datetime.strftime("%d"))
+    month_num = int(future_week_datetime.strftime("%m"))
+    year_num = int(future_week_datetime.strftime("%Y"))
+
+    return {
+        'day': day_num,
+        'month': month_num,
+        'year': year_num
+    }
+
+
+
+
+
+
+
+
+
 
 
 

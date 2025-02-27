@@ -40,6 +40,7 @@ from automation.casting.update_score import add_point, remove_point
 from automation.notify_about_matches import check_notify_about_matches
 from automation.process_trophy_rewards.process_trophy_rewards import process_trophy_rewards
 from automation.raffle import end_raffle, start_raffle
+from automation.schedule_plan.make_schedule_plan import make_schedule_plan
 from automation.update_team_avatars import update_team_avatars
 from automation.update_top_subs_avatars import update_top_subs_avatars
 from card_automation import make_all_cards_from_data
@@ -1790,6 +1791,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!dropalert ') and is_admin:
         await drop_alert(client, db, message)
+
+    elif lower_message.startswith('!makescheduleplan ') and is_admin:
+        await make_schedule_plan(message, db, context)
 
     elif lower_message == '!cleartrophies' and is_admin:
 
