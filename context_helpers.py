@@ -57,3 +57,18 @@ CONTEXT_TO_LEAGUE_INVITES_FIELD = {
 
 def get_league_invites_field(context):
     return CONTEXT_TO_LEAGUE_INVITES_FIELD[context]
+
+
+CONTEXT_TO_LEAGUE_INVITES_FIELD = {
+    'OW': 'league_invites',
+    'MR': 'rivals_league_invites',
+    'FL': 'fake_league_invites'
+}
+
+
+def get_fan_of_field_from_context(context):
+
+    if context == 'OW':
+        return 'fan_of'
+    else:
+        return 'fan_of_rivals'
