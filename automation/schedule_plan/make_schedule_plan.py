@@ -42,6 +42,7 @@ def build_weeks_for_season(day, month, year, num_weeks_in_season):
         }
         weeks.append(new_week)
 
+    return weeks
 
 
 async def make_schedule_plan(message, db, context):
@@ -92,8 +93,8 @@ async def make_schedule_plan(message, db, context):
         'context': context,
         'season': season_number,
         'status': 'NOT STARTED',
-        'weeks': None,
-        'current_week': build_weeks_for_season(league_start_day, league_start_month, league_start_year, num_weeks_in_season),
+        'weeks': build_weeks_for_season(league_start_day, league_start_month, league_start_year, num_weeks_in_season),
+        'current_week': 0,
         'season_teams': get_teams_for_season(db, context)
     }
     schedule_plans.insert_one(new_schedule_plan)
