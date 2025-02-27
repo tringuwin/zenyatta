@@ -3,7 +3,7 @@
 from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_teams_collection_from_context
 from helpers import can_be_int, valid_number_of_params
-from time_helpers import get_future_week_info, year_month_day_to_datetime
+from time_helpers import get_day_info_for_future_day, get_future_week_datetime, year_month_day_to_datetime
 
 
 def get_schedule_plan_with_season_and_context(schedule_plans, season, context):
@@ -26,6 +26,30 @@ def get_teams_for_season(db, context, blacklist):
     return team_names
 
 
+def is_match_day(day_of_week):
+
+    if day_of_week == 'Monday' or day_of_week == 'Tuesday':
+        return False
+    
+    return True
+
+
+def build_days_for_week(season_week_datetime):
+
+    days = []
+
+    for i in range(7):
+        day_info = get_day_info_for_future_day(season_week_datetime, i)
+
+        days.append({
+            'status': 'NOT STARTED',
+            'date': day_info['date'],
+            'day_of_week': day_info['day_of_week'],
+            'is_match_day': is_match_day(day_info['day_of_week'])
+        })
+
+    return days
+
 
 def build_weeks_for_season(day, month, year, num_weeks_in_season):
 
@@ -35,11 +59,12 @@ def build_weeks_for_season(day, month, year, num_weeks_in_season):
 
     for i in range(num_weeks_in_season):
 
-        season_week_date_info = get_future_week_info(start_datetime, i)
+        season_week_datetime = get_future_week_datetime(start_datetime, i)
 
         new_week = {
             'status': 'NOT STARTED',
-            'start_day': season_week_date_info
+            'day_number': 0,
+            'days': build_days_for_week(season_week_datetime)
         }
         weeks.append(new_week)
 

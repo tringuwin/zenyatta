@@ -117,24 +117,31 @@ def year_month_day_to_datetime(year, month, day):
     return datetime(year, month, day)
 
 
-def get_future_week_info(start_datetime, i):
+def get_future_week_datetime(start_datetime, i):
 
     days_in_the_future = i*7
     future_week_datetime = start_datetime + timedelta(days=days_in_the_future)
 
-    day_num = int(future_week_datetime.strftime("%d"))
-    month_num = int(future_week_datetime.strftime("%m"))
-    year_num = int(future_week_datetime.strftime("%Y"))
+    return future_week_datetime
+
+
+def get_day_info_for_future_day(start_datetime, days_in_the_future):
+
+    future_day_datetime = start_datetime + timedelta(days=days_in_the_future)
+
+    day_of_week = future_day_datetime.strftime("%A")
+    day_num = int(future_day_datetime.strftime("%d"))
+    month_num = int(future_day_datetime.strftime("%m"))
+    year_num = int(future_day_datetime.strftime("%Y"))
 
     return {
-        'day': day_num,
-        'month': month_num,
-        'year': year_num
+        'day_of_week': day_of_week,
+        'date': {
+            'day': day_num,
+            'month': month_num,
+            'year': year_num
+        }
     }
-
-
-
-
 
 
 
