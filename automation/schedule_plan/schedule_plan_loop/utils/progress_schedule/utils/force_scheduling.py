@@ -1,6 +1,5 @@
 
 import random
-from automation.schedule_plan.notif_helpers.notify_team_owners_of_schedule import notify_team_owners_of_schedule
 import constants
 
 def make_available_timeslot_dict():

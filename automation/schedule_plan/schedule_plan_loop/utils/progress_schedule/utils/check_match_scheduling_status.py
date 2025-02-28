@@ -1,5 +1,6 @@
 
 
+from automation.schedule_plan.notif_helpers.notify_team_owners_of_schedule import notify_team_owners_of_schedule
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.get_all_matchups import get_all_matchups
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.not_scheduled_action import not_scheduled_action
 
@@ -21,6 +22,9 @@ async def check_match_scheduling_status(client, message, db, schedule_plans, sch
     all_matchups_have_timeslot = do_all_matchups_have_timeslot(all_matchups)
 
     if all_matchups_have_timeslot:
+
+        await notify_team_owners_of_schedule(client, db, schedule, all_matchups)
+
         schedule['weeks'][week_index]['status'] = 'MATCHES'
         schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})
         await message.channel.send(f'Match scheduling is complete for week {actual_week} of season {schedule["season"]} of league {schedule["context"]}.')
