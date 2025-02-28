@@ -1469,6 +1469,8 @@ async def handle_message(message, db, client):
         for matchup in TEST_MATCHUPS:
             new_matchup = {
                 'context': 'OW',
+                'season': 1,
+                'week': 1,
                 'team1': matchup[0],
                 'team2': matchup[1],
                 'team1_timeslot': 'NONE',

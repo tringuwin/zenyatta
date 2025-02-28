@@ -13,6 +13,6 @@ async def schedule_plan_loop(db, message, client):
         if schedule['status'] == 'NOT STARTED':
             await check_for_schedule_start(schedule_plans, schedule, message)
         elif schedule['status'] == 'IN PROGRESS':
-            await progress_schedule(schedule_plans, schedule, message, client)
+            await progress_schedule(db, schedule_plans, schedule, message, client)
 
     
