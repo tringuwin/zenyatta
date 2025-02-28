@@ -57,5 +57,10 @@ async def check_if_matches_are_set(db, schedule_plans, schedule, week, message, 
         team_has_match_dict[matchup['team2']] = True
 
     teams_without_matches = get_teams_without_matches(team_has_match_dict)
-    await message.channel.send(f'Teams without matches: {teams_without_matches}')
-    await notify_staff_for_matches(message, schedule)
+
+    if len(teams_without_matches) == 0:
+        pass
+    else:
+
+        await message.channel.send(f'Teams without matches: {teams_without_matches}')
+        await notify_staff_for_matches(message, schedule)
