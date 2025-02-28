@@ -69,7 +69,12 @@ def build_weeks_for_season(day, month, year, num_weeks_in_season):
         new_week = {
             'status': 'NOT STARTED',
             'day_number': 0,
-            'days': build_days_for_week(season_week_datetime)
+            'days': build_days_for_week(season_week_datetime),
+            'notifs': {
+                'notified_1_day_left': False,
+                'notified_5_hours_left': False,
+                'notified_1_hour_left': False,
+            }
         }
         weeks.append(new_week)
 
