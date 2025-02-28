@@ -26,6 +26,7 @@ async def check_status_of_matches(db, message, schedule_plans, schedule):
     if all_matches_completed:
         save_matchups_to_history(db, all_matches)
         schedule['weeks'][week_index]['status'] = 'COMPLETE'
-        schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})
+        new_week_index = week_index + 1
+        schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks'], "current_week": new_week_index}})
         await message.channel.send(f'Matchups are complete for week {actual_week} of season {season} of league {context}.')
         return
