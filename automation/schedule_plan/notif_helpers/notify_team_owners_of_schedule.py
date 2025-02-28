@@ -48,7 +48,7 @@ async def notify_team_owners_of_schedule(client, db, schedule, all_matchups):
 
         matchups_message += f'\n\n**{match_day_name}**\n'
         for match_time, matchup in match_day_matchups:
-            matchups_message += f'\n{match_time}:00 - {matchup["team1"]} VS {matchup["team2"]}'
+            matchups_message += f'\n{match_time}:00 PM EST - {matchup["team1"]} VS {matchup["team2"]}'
 
             team1 = league_teams.find_one({'team_name': matchup['team1']})
             team2 = league_teams.find_one({'team_name': matchup['team2']})
