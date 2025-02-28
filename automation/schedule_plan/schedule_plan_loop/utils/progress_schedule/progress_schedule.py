@@ -16,4 +16,4 @@ async def progress_schedule(db, schedule_plans, schedule, message, client):
     elif week_status == 'MATCHES':
         await check_if_matches_are_set(client, db, schedule_plans, schedule, message, current_week)
     elif week_status == 'SCHEDULING':
-        await check_match_scheduling_status()
+        await check_match_scheduling_status(message, db, schedule_plans, schedule, week, current_week)

@@ -1,6 +1,7 @@
 
 
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.get_all_matchups import get_all_matchups
+from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.not_scheduled_action import not_scheduled_action
 
 
 def do_all_matchups_have_timeslot(all_matchups):
@@ -24,10 +25,8 @@ async def check_match_scheduling_status(message, db, schedule_plans, schedule, w
         schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})
         await message.channel.send(f'Match scheduling is complete for week {actual_week} of season {schedule["season"]} of league {schedule["context"]}.')
         return
-
-    current_day_index = week['day_number']
-    current_day = week['days'][current_day_index]
-    current_day_status = current_day['status']
+    
+    await not_scheduled_action()
 
 
 
