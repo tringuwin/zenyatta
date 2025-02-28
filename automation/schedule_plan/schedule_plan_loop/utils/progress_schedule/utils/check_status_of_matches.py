@@ -13,7 +13,7 @@ def all_matches_completed(all_matches):
     return True
 
 
-async def check_status_of_matches(db, schedule_plans, schedule):
+async def check_status_of_matches(db, message, schedule_plans, schedule):
 
     context = schedule['context']
     season = schedule['season']
@@ -24,5 +24,8 @@ async def check_status_of_matches(db, schedule_plans, schedule):
     all_matches_completed = all_matches_completed(all_matches)
 
     if all_matches_completed:
-        await save_matchups_to_history()
+        save_matchups_to_history(db, all_matches)
+        schedule['weeks'][week_index]['status'] = 'COMPLETE'
+        schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})
+        await message.channel.send(f'Matchups are complete for week {actual_week} of season {season} of league {context}.')
         return
