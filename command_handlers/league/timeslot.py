@@ -37,11 +37,9 @@ async def notify_both_teams_about_timeslot(client, db, matchup, timeslot):
 
     await team_owners_channel.send(f'{team_1_mention} {team_2_mention} {timeslot_string}')
 
-async def timeslot_handler(db, message, client, context):
 
-    if context == 'MR':
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
+
+async def timeslot_handler(db, message, client, context):
 
     valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
