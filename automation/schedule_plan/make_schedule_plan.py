@@ -45,8 +45,6 @@ def build_days_for_week(season_week_datetime):
 
     for i in range(7):
         day_info = get_day_info_for_future_day(season_week_datetime, i)
-        if day_info['day_of_week'] == 'Monday' or day_info['day_of_week'] == 'Tuesday':
-            continue
 
         days.append({
             'status': 'NOT STARTED',
