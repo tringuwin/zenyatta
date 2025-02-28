@@ -13,4 +13,4 @@ async def progress_schedule(db, schedule_plans, schedule, message, client):
     if week_status == 'NOT STARTED':
         await check_status_of_not_started_week(schedule_plans, schedule, week, message, current_week)
     elif week_status == 'MATCHES':
-        await check_if_matches_are_set(db, schedule_plans, schedule, week, message, current_week)
+        await check_if_matches_are_set(client, db, schedule_plans, schedule, message, current_week)

@@ -1,6 +1,7 @@
 
 
 from automation.schedule_plan.notif_helpers.notify_staff_for_matches import notify_staff_for_matches
+from automation.schedule_plan.notif_helpers.notify_team_owners_of_matches import notify_team_owners_of_matches
 
 
 def get_all_matchups(db, league_context, season, week):
@@ -34,7 +35,7 @@ def get_teams_without_matches(team_has_match_dict):
 
     return teams_without_matches
 
-async def check_if_matches_are_set(db, schedule_plans, schedule, week, message, current_week):
+async def check_if_matches_are_set(client, db, schedule_plans, schedule, message, current_week):
 
     league_context = schedule['context']
     season = schedule['season']
@@ -59,8 +60,12 @@ async def check_if_matches_are_set(db, schedule_plans, schedule, week, message, 
     teams_without_matches = get_teams_without_matches(team_has_match_dict)
 
     if len(teams_without_matches) == 0:
-        pass
-    else:
+        await notify_team_owners_of_matches(client, db, all_matchups, league_context)
 
+        schedule['weeks'][current_week]['status'] = 'SCHEDULING'
+        schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})
+        await message.channel.send(f'Matches are set for week {actual_week} of season {season} of league {league_context} and team owners have been notified.')
+
+    else:
         await message.channel.send(f'Teams without matches: {teams_without_matches}')
         await notify_staff_for_matches(message, schedule)
