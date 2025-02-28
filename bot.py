@@ -1467,7 +1467,7 @@ async def handle_message(message, db, client):
         # ]
 
         TEST_MATCHUPS_FL = [
-            ['Sharks', 'Mangos'],
+            ['Akhaians', 'Mangos'],
             ['Gladiators', 'Frogs'],
             ['Spirits', 'Stars'],
             ['Spartans', 'Roses'],
