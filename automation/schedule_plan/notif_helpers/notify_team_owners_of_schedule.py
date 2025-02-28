@@ -37,7 +37,7 @@ async def notify_team_owners_of_schedule(client, db, schedule, all_matchups):
     team_owners_channel = get_team_owners_channel_from_context(client, context)
     league_teams = get_league_teams_collection_from_context(db, context)
 
-    matchups_message = f'**FINAL SCHEDULE FOR WEEK {actual_week}**\n'
+    matchups_message = f'**FINAL SCHEDULE FOR WEEK {actual_week}**'
     all_team_pings = ''
 
     week_match_days = make_week_match_days(all_matchups)
