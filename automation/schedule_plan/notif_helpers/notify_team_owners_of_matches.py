@@ -4,8 +4,6 @@ from context.context_helpers import get_league_teams_collection_from_context, ge
 
 async def notify_team_owners_of_matches(client, db, matchups, context, week_number):
 
-    print('matchups are')
-    print(matchups)
     team_owners_channel = get_team_owners_channel_from_context(client, context)
     league_teams = get_league_teams_collection_from_context(db, context)
 

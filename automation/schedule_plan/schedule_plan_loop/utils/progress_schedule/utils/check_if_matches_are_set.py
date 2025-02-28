@@ -2,19 +2,8 @@
 
 from automation.schedule_plan.notif_helpers.notify_staff_for_matches import notify_staff_for_matches
 from automation.schedule_plan.notif_helpers.notify_team_owners_of_matches import notify_team_owners_of_matches
+from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.get_all_matchups import get_all_matchups
 
-
-def get_all_matchups(db, league_context, season, week):
-
-    matchups_collection = db['matchups']
-
-    matchups = list(matchups_collection.find({
-        'context': league_context,
-        'season': season,
-        'week': week
-    }))
-
-    return matchups
 
 
 def make_team_has_match_dict(teams):
