@@ -1483,7 +1483,10 @@ async def handle_message(message, db, client):
                 'team2': matchup[1],
                 'team1_timeslot': 'NONE',
                 'team2_timeslot': 'NONE',
-                'timeslot': 'NONE'
+                'timeslot': 'NONE',
+                'team1_score': 0,
+                'team2_score': 0,
+                'match_over': False
             }
             matchups.insert_one(new_matchup)
 

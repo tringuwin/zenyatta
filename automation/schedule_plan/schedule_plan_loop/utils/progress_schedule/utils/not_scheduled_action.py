@@ -11,7 +11,7 @@ async def not_scheduled_action(client, db, schedule_plans, schedule, week, week_
     wednesday_has_passed = has_date_passed_est(wednesday_date['day'], wednesday_date['month'], wednesday_date['year'])
 
     if wednesday_has_passed:
-        await force_scheduling(client, db, schedule_plans, schedule, week_index, all_matchups)
+        await force_scheduling(db, all_matchups)
         return
 
     #applicable_warning = get_applicable_warning(week, wednesday_datetime)
