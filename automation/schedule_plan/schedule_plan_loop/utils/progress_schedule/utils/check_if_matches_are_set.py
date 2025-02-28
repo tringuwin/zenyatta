@@ -60,7 +60,7 @@ async def check_if_matches_are_set(client, db, schedule_plans, schedule, message
     teams_without_matches = get_teams_without_matches(team_has_match_dict)
 
     if len(teams_without_matches) == 0:
-        await notify_team_owners_of_matches(client, db, all_matchups, league_context)
+        await notify_team_owners_of_matches(client, db, all_matchups, league_context, actual_week)
 
         schedule['weeks'][current_week]['status'] = 'SCHEDULING'
         schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})
