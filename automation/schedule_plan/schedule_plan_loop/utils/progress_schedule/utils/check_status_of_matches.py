@@ -30,3 +30,5 @@ async def check_status_of_matches(db, message, schedule_plans, schedule):
         schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks'], "current_week": new_week_index}})
         await message.channel.send(f'Matchups are complete for week {actual_week} of season {season} of league {context}.')
         return
+    
+    

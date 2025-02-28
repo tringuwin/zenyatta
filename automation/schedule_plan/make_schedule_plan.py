@@ -81,6 +81,31 @@ def build_weeks_for_season(day, month, year, num_weeks_in_season):
     return weeks
 
 
+def make_standings_for_season(context, season_number, teams_for_season):
+
+    team_names = []
+    for team in teams_for_season:
+        team_names.append(team['team_name'])
+
+    standings_teams = {}
+    for team_name in team_names:
+        standings_teams[team_name] = {
+            'team_name': team_name,
+            'wins': 0,
+            'losses': 0,
+            'map_wins': 0,
+            'map_losses': 0,
+            'esubs': 0,
+            'points': 0,
+        }
+
+    return {
+        'context': context,
+        'season': season_number,
+        'teams': standings_teams
+    }
+
+
 async def make_schedule_plan(message, db, context):
 
     valid_params, params = valid_number_of_params(message, 7)
@@ -141,6 +166,10 @@ async def make_schedule_plan(message, db, context):
         'season_teams': teams_for_season
     }
     schedule_plans.insert_one(new_schedule_plan)
+
+    standings = db['standings']
+    new_standings = make_standings_for_season(context, season_number, teams_for_season)
+    standings.insert_one(new_standings)
 
     await message.channel.send(f'Schedule Plan created for season number {season_number} for context {context}')
     
