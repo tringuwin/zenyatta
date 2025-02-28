@@ -16,8 +16,8 @@ async def notify_team_owners_of_matches(client, db, matchups, context, week_numb
         team1 = league_teams.find_one({'team_name': matchup['team1']})
         team2 = league_teams.find_one({'team_name': matchup['team2']})
 
-        team_1_ping = f'<@&{team1['team_role_id']}>'
-        team_2_ping = f'<@&{team2['team_role_id']}>'
+        team_1_ping = '<@&'+team1['team_role_id']+'>'
+        team_2_ping = '<@&'+team2['team_role_id']+'>'
 
         all_team_pings += f'{team_1_ping} {team_2_ping} '
 
