@@ -1450,25 +1450,32 @@ async def handle_message(message, db, client):
         
         matchups = db['matchups']
 
-        TEST_MATCHUPS = [
-            ['Angels', 'Celestials'],
-            ['Deadlock', 'Diamonds'],
-            ['Eclipse', 'Evergreen'],
-            ['Fresas', 'Guardians'],
-            ['Horizon', 'Hunters'],
-            ['Instigators', 'Legion'],
-            ['Lotus', 'Misfits'],
-            ['Monarchs', 'Olympians'],
-            ['Outliers', 'Phantoms'],
-            ['Phoenix', 'Polar'],
-            ['Ragu', 'Saturn'],
-            ['Saviors', 'Sentinels'],
-            ['Aces', 'Mantas']
+        # TEST_MATCHUPS = [
+        #     ['Angels', 'Celestials'],
+        #     ['Deadlock', 'Diamonds'],
+        #     ['Eclipse', 'Evergreen'],
+        #     ['Fresas', 'Guardians'],
+        #     ['Horizon', 'Hunters'],
+        #     ['Instigators', 'Legion'],
+        #     ['Lotus', 'Misfits'],
+        #     ['Monarchs', 'Olympians'],
+        #     ['Outliers', 'Phantoms'],
+        #     ['Phoenix', 'Polar'],
+        #     ['Ragu', 'Saturn'],
+        #     ['Saviors', 'Sentinels'],
+        #     ['Aces', 'Mantas']
+        # ]
+
+        TEST_MATCHUPS_FL = [
+            ['Sharks', 'Mangos'],
+            ['Gladiators', 'Frogs'],
+            ['Spirits', 'Stars'],
+            ['Spartans', 'Roses']
         ]
 
-        for matchup in TEST_MATCHUPS:
+        for matchup in TEST_MATCHUPS_FL:
             new_matchup = {
-                'context': 'OW',
+                'context': 'FL',
                 'season': 1,
                 'week': 1,
                 'team1': matchup[0],
