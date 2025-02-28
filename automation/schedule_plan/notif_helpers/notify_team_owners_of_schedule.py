@@ -46,7 +46,7 @@ async def notify_team_owners_of_schedule(client, db, schedule, all_matchups):
         if len(match_day_matchups) == 0:
             continue
 
-        matchups_message += f'\n\n**{match_day_name}**\n'
+        matchups_message += f'\n\n**{match_day_name}**'
         for match_time, matchup in match_day_matchups:
             matchups_message += f'\n{match_time}:00 PM EST - {matchup["team1"]} VS {matchup["team2"]}'
 
