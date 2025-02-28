@@ -1470,7 +1470,8 @@ async def handle_message(message, db, client):
             ['Sharks', 'Mangos'],
             ['Gladiators', 'Frogs'],
             ['Spirits', 'Stars'],
-            ['Spartans', 'Roses']
+            ['Spartans', 'Roses'],
+            ['Hornets', 'Sirens']
         ]
 
         for matchup in TEST_MATCHUPS_FL:
