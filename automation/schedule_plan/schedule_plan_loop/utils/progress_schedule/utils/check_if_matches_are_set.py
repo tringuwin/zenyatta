@@ -28,7 +28,7 @@ async def check_if_matches_are_set(db, schedule_plans, schedule, week, message, 
     season = schedule['season']
     actual_week = current_week + 1
 
-    team_has_match_dict = make_team_has_match_dict(schedule['teams'])
+    team_has_match_dict = make_team_has_match_dict(schedule['season_teams'])
     all_matchups = get_all_matchups(db, league_context, season, actual_week)
 
     # for matchup in all_matchups:
