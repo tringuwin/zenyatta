@@ -13,7 +13,7 @@ def do_all_matchups_have_timeslot(all_matchups):
     return True
 
 
-async def check_match_scheduling_status(message, db, schedule_plans, schedule, week, week_index):
+async def check_match_scheduling_status(client, message, db, schedule_plans, schedule, week, week_index):
 
     actual_week = schedule['current_week'] + 1
 
@@ -26,7 +26,7 @@ async def check_match_scheduling_status(message, db, schedule_plans, schedule, w
         await message.channel.send(f'Match scheduling is complete for week {actual_week} of season {schedule["season"]} of league {schedule["context"]}.')
         return
     
-    await not_scheduled_action(db, schedule_plans, schedule, week, week_index, all_matchups)
+    await not_scheduled_action(client, db, schedule_plans, schedule, week, week_index, all_matchups)
 
 
 

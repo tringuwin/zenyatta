@@ -1,5 +1,6 @@
 
 import random
+from automation.schedule_plan.notif_helpers.notify_team_owners_of_schedule import notify_team_owners_of_schedule
 import constants
 
 def make_available_timeslot_dict():
@@ -56,10 +57,7 @@ def get_random_available_timeslots(available_timeslots):
     return random.choice(possible_timeslots)
 
 
-async def force_scheduling(db, schedule_plans, schedule, week_index, all_matchups):
-
-    return
-
+async def force_scheduling(db, all_matchups):
     matchups = db['matchups']
 
     available_timeslots = get_available_timeslots(all_matchups)
@@ -77,6 +75,3 @@ async def force_scheduling(db, schedule_plans, schedule, week_index, all_matchup
 
         available_timeslots[final_timeslot] = False
         matchups.update_one({"_id": matchup['_id']}, {"$set": {"timeslot": final_timeslot}})
-
-    schedule['weeks'][week_index]['status'] = 'MATCHES'
-    schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})
