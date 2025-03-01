@@ -103,14 +103,8 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
         matchups.insert_one(new_matchup)
 
 
-async def swiss_matchups(db, message, context):
 
-    valid_params, params = valid_number_of_params(message, 2)
-    if not valid_params:
-        await invalid_number_of_params(message)
-        return
-    
-    use_invisible_elo = params[1] == '1'
+async def swiss_matchups(message, db, context, use_invisible_elo):
 
     league_season_constant_name = get_league_season_constant_name(context)
     league_season = get_constant_value(db, league_season_constant_name)
@@ -164,6 +158,21 @@ async def swiss_matchups(db, message, context):
     convert_pairings_into_matchups(db, pairings, schedule_plan)
     
     await message.channel.send('Pairings for this week are:' +str(pairings))
+
+
+
+async def swiss_matchups_handler(db, message, context):
+
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    use_invisible_elo = params[1] == '1'
+
+    await swiss_matchups(message, db, context, use_invisible_elo)
+
+    
 
     
 
