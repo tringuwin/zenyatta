@@ -116,7 +116,7 @@ async def swiss_matchups(db, message, context):
         await message.channel.send(f'Could not find valid pairings for {context} season {league_season} week {schedule_week}.')
         return
     
-    await message.channel.send('Pairings for this week are:', pairings)
+    await message.channel.send('Pairings for this week are:' +str(pairings))
 
     
 
