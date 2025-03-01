@@ -101,6 +101,7 @@ from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.call_me import call_me_handler
 from command_handlers.league.picks.picks import picks_handler
+from command_handlers.league.score_match import score_match_handler
 from command_handlers.league.sol_week_end import sol_week_end
 from command_handlers.league.timeslot import timeslot_handler
 from command_handlers.league.weekly_roster_reset import weekly_roster_reset
@@ -1394,6 +1395,9 @@ async def handle_message(message, db, client):
     # !matchend winTeam winScore loseTeam loseScore
     elif lower_message.startswith('!matchend') and is_admin:
         await match_end_handler(db, message, client)
+
+    elif lower_message.startswith('!scorematch ') and is_admin:
+        await score_match_handler(db, message, context)
 
     elif lower_message.startswith('!teamesubs') and is_admin:
         await team_e_subs(db, message)
