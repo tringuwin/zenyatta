@@ -52,7 +52,7 @@ async def score_match_handler(db, message, context):
         await message.channel.send(f'Matchup not found for {winning_team} vs {losing_team} with context {context}.')
         return
     
-    add_teams_to_teams_played(db)
+    add_teams_to_teams_played(db, matchup)
     
     winning_team_index = 1 if matchup['team1'] == winning_team else 2
     losing_team_index = 1 if winning_team_index == 2 else 2
