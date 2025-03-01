@@ -1486,6 +1486,8 @@ async def handle_message(message, db, client):
                 'timeslot': 'NONE',
                 'team1_score': 0,
                 'team2_score': 0,
+                'team1_esubs': 0,
+                'team2_esubs': 0,
                 'match_over': False
             }
             matchups.insert_one(new_matchup)
@@ -1498,7 +1500,9 @@ async def handle_message(message, db, client):
         all_matchups = matchups.find()
 
         for matchup in all_matchups:
-            matchups.update_one({'_id': matchup['_id']}, {'$set': {'winning_team': 0}})
+            matchups.update_one({'_id': matchup['_id']}, {'$set': {'team1_esubs': 0, 'team2_esubs': 0}})
+
+        await message.channel.send('done')
 
     elif lower_message.startswith('!makesolmatch') and is_admin:
         await make_sol_match(client, db, message)
