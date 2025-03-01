@@ -30,6 +30,12 @@ CONTEXT_TO_RIVAL_OF_FIELD = {
     'FL': 'rival_of_fake'
 }
 
+CONTEXT_TO_LEAGUE_SEASON_CONSTANT_NAME = {
+    'OW': 'league_season',
+    'MR': 'league_season_rivals',
+    'FL': 'league_season_fake'
+}
+
 CONTEXT_TO_TEAM_INFO_CHANNEL_ID = {
     'OW': constants.TEAM_INFO_CHANNEL,
     'MR': constants.RIVALS_TEAM_INFO_CHANNEL,
