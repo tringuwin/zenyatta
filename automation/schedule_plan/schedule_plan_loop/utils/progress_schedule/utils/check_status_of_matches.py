@@ -7,8 +7,6 @@ from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.g
 
 async def check_status_of_matches(db, message, schedule_plans, schedule):
 
-    return
-
     context = schedule['context']
     season = schedule['season']
     week_index = schedule['current_week']
