@@ -3,6 +3,7 @@ import random
 import time
 import discord
 import aiohttp
+import uuid
 from datetime import timedelta
 from admin_handlers.cancel_vote import cancel_vote_handler
 from admin_handlers.delete_by_tag import delete_by_tag_handler
@@ -1480,6 +1481,7 @@ async def handle_message(message, db, client):
 
         for matchup in TEST_MATCHUPS_FL:
             new_matchup = {
+                'matchup_id': str(uuid.uuid4()),
                 'context': 'FL',
                 'season': 1,
                 'week': 1,

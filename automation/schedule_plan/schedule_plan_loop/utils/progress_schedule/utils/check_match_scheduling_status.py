@@ -13,12 +13,44 @@ def do_all_matchups_have_timeslot(all_matchups):
     
     return True
 
+TIMESLOT_DAY_TO_DAY_INDEX = {
+    'W': 2,
+    'T': 3,
+    'F': 4,
+    'S': 5,
+    'X': 6,
+}
+
+def write_matchups_to_schedule(db, schedule_plan, all_matchups):
+
+    schedule_db = db['schedule']
+    schedule_edited = False
+    this_season_schedule = schedule_db.find_one({'context': schedule_plan['context'], 'season': schedule_plan['season']})
+    week_index = schedule_plan['current_week']
+
+    for matchup in all_matchups:
+        if (not matchup['added_to_schedule']) and matchup['timeslot'] != 'NONE':
+
+            timeslot_parts = matchup['timeslot'].split('-')
+            timeslot_day = timeslot_parts[0]
+            timeslot_day_index = TIMESLOT_DAY_TO_DAY_INDEX[timeslot_day]
+
+            this_season_schedule['weeks'][week_index]['days'][timeslot_day_index]['matches'].append(matchup['matchup_id'])
+            schedule_edited = True
+            matchup['added_to_schedule'] = True
+            
+    if schedule_edited:
+        schedule_db.update_one({'_id': this_season_schedule['_id']}, {'$set': {'weeks': this_season_schedule['weeks']}})
+
+    return all_matchups
+
 
 async def check_match_scheduling_status(client, message, db, schedule_plans, schedule, week, week_index):
 
     actual_week = schedule['current_week'] + 1
 
     all_matchups = get_all_matchups(db, schedule['context'], schedule['season'], actual_week)
+    all_matchups = write_matchups_to_schedule(db, schedule, all_matchups)
     all_matchups_have_timeslot = do_all_matchups_have_timeslot(all_matchups)
 
     if all_matchups_have_timeslot:
