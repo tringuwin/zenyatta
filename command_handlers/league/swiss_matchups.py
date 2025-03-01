@@ -1,11 +1,15 @@
 
+from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_season_constant_name
-from helpers import get_constant_value
+from helpers import get_constant_value, valid_number_of_params
 
 
-def make_standings_team_elo_points(standings_team):
+def make_standings_team_elo_points(standings_team, use_invisible_elo, invisible_elo):
 
     elo_points = 0
+
+    if use_invisible_elo:
+        elo_points += invisible_elo
 
     elo_points += standings_team['wins'] * 10
     elo_points += standings_team['map_wins']
@@ -73,6 +77,13 @@ def make_team_array(team_dict):
 
 async def swiss_matchups(db, message, context):
 
+    valid_params, params = valid_number_of_params(message, 2)
+    if not valid_params:
+        await invalid_number_of_params(message)
+        return
+    
+    use_invisible_elo = params[1] == '1'
+
     league_season_constant_name = get_league_season_constant_name(context)
     league_season = get_constant_value(db, league_season_constant_name)
 
@@ -103,7 +114,13 @@ async def swiss_matchups(db, message, context):
         team_name = team['team_name']
 
         standings_team = season_standings['teams'][team_name]
-        elo_points = make_standings_team_elo_points(standings_team)
+        invisible_elo = team['invisible_elo']
+
+        if invisible_elo == -1:
+            await message.channel.send(f'Invisible elo not found for {team_name}.')
+            return
+
+        elo_points = make_standings_team_elo_points(standings_team, use_invisible_elo, invisible_elo)
 
         swiss_teams.append({
             'name': team_name,

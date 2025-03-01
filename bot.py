@@ -1503,7 +1503,7 @@ async def handle_message(message, db, client):
 
         await message.channel.send('Test matchups made')
 
-    elif lower_message == '!swissmatchups' and is_admin:
+    elif lower_message == '!swissmatchups ' and is_admin:
         await swiss_matchups(db, message, context)
     
     elif lower_message == '!amendmatchups' and is_admin:
