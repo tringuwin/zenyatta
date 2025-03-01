@@ -1492,6 +1492,14 @@ async def handle_message(message, db, client):
 
         await message.channel.send('Test matchups made')
 
+    elif lower_message == '!amendmatchups' and is_admin:
+
+        matchups = db['matchups']
+        all_matchups = matchups.find()
+
+        for matchup in all_matchups:
+            matchups.update_one({'_id': matchup['_id']}, {'$set': {'winning_team': 0}})
+
     elif lower_message.startswith('!makesolmatch') and is_admin:
         await make_sol_match(client, db, message)
 
