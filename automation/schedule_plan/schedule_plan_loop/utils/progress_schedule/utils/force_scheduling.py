@@ -56,21 +56,34 @@ def get_random_available_timeslots(available_timeslots):
     return random.choice(possible_timeslots)
 
 
+
+def schedule_matches_with_one_team_preference(matchups, matchups_not_scheduled, available_timeslots):
+    
+    matches_still_not_scheduled = []
+
+    for matchup in matchups_not_scheduled:
+
+        one_team_timeslot_preference = get_one_team_timeslot_preference(matchup)
+
+        if one_team_timeslot_preference and available_timeslots[one_team_timeslot_preference]:
+            available_timeslots[one_team_timeslot_preference] = False
+            matchups.update_one({"_id": matchup['_id']}, {"$set": {"timeslot": one_team_timeslot_preference}})
+        else:
+            matches_still_not_scheduled.append(matchup)
+
+    return matches_still_not_scheduled, available_timeslots
+
+
 async def force_scheduling(db, all_matchups):
     matchups = db['matchups']
 
     available_timeslots = get_available_timeslots(all_matchups)
     matchups_not_scheduled = get_matchups_not_scheduled(all_matchups)
+    matchups_with_no_team_preferences, available_timeslots = schedule_matches_with_one_team_preference(matchups, matchups_not_scheduled, available_timeslots)
 
-    for matchup in matchups_not_scheduled:
+    for matchup in matchups_with_no_team_preferences:
 
-        final_timeslot = 'NONE'
+        random_timeslot = get_random_available_timeslots(available_timeslots)
 
-        one_team_timeslot_preference = get_one_team_timeslot_preference(matchup)
-        if one_team_timeslot_preference and available_timeslots[one_team_timeslot_preference]:
-            final_timeslot = one_team_timeslot_preference
-        else:
-            final_timeslot = get_random_available_timeslots(available_timeslots)
-
-        available_timeslots[final_timeslot] = False
-        matchups.update_one({"_id": matchup['_id']}, {"$set": {"timeslot": final_timeslot}})
+        available_timeslots[random_timeslot] = False
+        matchups.update_one({"_id": matchup['_id']}, {"$set": {"timeslot": random_timeslot}})
