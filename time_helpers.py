@@ -151,7 +151,9 @@ def has_date_passed_est(day, month, year):
     return current_datetime > input_datetime
 
 
-
+def get_datetime_now_est():
+    est = pytz.timezone('US/Eastern')
+    return datetime.now(est)
 
 
 async def check_weekly(client, db, channel, message):
