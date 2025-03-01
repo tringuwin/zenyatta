@@ -43,9 +43,9 @@ async def timeslot_handler(db, message, client, context):
 
     valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
-    if message.author.id == 1112204092723441724:
-        valid_admin = True
-        team_name = 'Polar'
+    # if message.author.id == 1112204092723441724:
+    #     valid_admin = True
+    #     team_name = 'Polar'
 
     if not valid_admin:
         await message.channel.send('You are not an admin of a league team.')
