@@ -1,4 +1,5 @@
 
+import uuid
 from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_season_constant_name
 from helpers import get_constant_value, valid_number_of_params
@@ -74,6 +75,33 @@ def make_team_array(team_dict):
 
 
 
+def convert_pairings_into_matchups(db, pairings, schedule_plan):
+
+    matchups = db['matchups']
+    context = schedule_plan['context']
+    season = schedule_plan['season']
+    week = schedule_plan['current_week'] + 1
+
+    for matchup in pairings:
+        new_matchup = {
+            'matchup_id': str(uuid.uuid4()),
+            'context': context,
+            'season': season,
+            'week': week,
+            'team1': matchup[0],
+            'team2': matchup[1],
+            'team1_timeslot': 'NONE',
+            'team2_timeslot': 'NONE',
+            'timeslot': 'NONE',
+            'team1_score': 0,
+            'team2_score': 0,
+            'team1_esubs': 0,
+            'team2_esubs': 0,
+            'match_over': False,
+            'added_to_schedule': False
+        }
+        matchups.insert_one(new_matchup)
+
 
 async def swiss_matchups(db, message, context):
 
@@ -132,6 +160,8 @@ async def swiss_matchups(db, message, context):
     if not pairings:
         await message.channel.send(f'Could not find valid pairings for {context} season {league_season} week {schedule_week}.')
         return
+    
+    convert_pairings_into_matchups(db, pairings, schedule_plan)
     
     await message.channel.send('Pairings for this week are:' +str(pairings))
 

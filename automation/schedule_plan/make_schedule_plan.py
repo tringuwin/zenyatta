@@ -193,7 +193,11 @@ async def make_schedule_plan(message, db, context):
         'status': 'NOT STARTED',
         'weeks': build_weeks_for_season(league_start_day, league_start_month, league_start_year, num_weeks_in_season),
         'current_week': 0,
-        'season_teams': teams_for_season
+        'season_teams': teams_for_season,
+        'matchups_config': {
+            'auto_generate': False,
+            'weeks_of_invisible_elo': 3
+        }
     }
     schedule_plans.insert_one(new_schedule_plan)
 
