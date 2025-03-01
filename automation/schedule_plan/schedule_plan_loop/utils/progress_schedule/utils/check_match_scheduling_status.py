@@ -22,7 +22,8 @@ TIMESLOT_DAY_TO_DAY_INDEX = {
 }
 
 def write_matchups_to_schedule(db, schedule_plan, all_matchups):
-
+    print('writing matches to schedule')
+    print('input matchups', all_matchups)
     schedule_db = db['schedule']
     schedule_edited = False
     this_season_schedule = schedule_db.find_one({'context': schedule_plan['context'], 'season': schedule_plan['season']})
@@ -42,6 +43,7 @@ def write_matchups_to_schedule(db, schedule_plan, all_matchups):
     if schedule_edited:
         schedule_db.update_one({'_id': this_season_schedule['_id']}, {'$set': {'weeks': this_season_schedule['weeks']}})
 
+    print('output matchups', all_matchups)
     return all_matchups
 
 
