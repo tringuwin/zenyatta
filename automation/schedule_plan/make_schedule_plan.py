@@ -25,6 +25,7 @@ def get_teams_for_season(db, context, blacklist):
                 {
                     'team_name': team['team_name'],
                     'teams_played': [],
+                    'invisible_elo': -1
                 }
             )
 
