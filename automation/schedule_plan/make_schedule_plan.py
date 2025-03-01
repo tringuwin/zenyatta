@@ -106,6 +106,35 @@ def make_standings_for_season(context, season_number, teams_for_season):
     }
 
 
+def make_schedule_for_season(context, season_number, season_weeks):
+
+    schedule_weeks = []
+
+    week_index = 1
+    for week in season_weeks:
+
+        week_days = []
+        for day in week['days']:
+            week_days.append({
+                'date': day['date'],
+                'day_of_week': day['day_of_week'],
+                'matches': []
+            })
+
+        schedule_weeks.append({
+            'week_num': week_index,
+            'days': week_days
+        })
+
+        week_index += 1
+
+    return {
+        'context': context,
+        'season': season_number,
+        'weeks': schedule_weeks
+    }
+
+
 async def make_schedule_plan(message, db, context):
 
     valid_params, params = valid_number_of_params(message, 7)
@@ -170,6 +199,10 @@ async def make_schedule_plan(message, db, context):
     standings = db['standings']
     new_standings = make_standings_for_season(context, season_number, teams_for_season)
     standings.insert_one(new_standings)
+
+    schedule_db = db['schedule']
+    new_schedule = make_schedule_for_season(context, season_number, new_schedule_plan['weeks'])
+    schedule_db.insert_one(new_schedule)
 
     await message.channel.send(f'Schedule Plan created for season number {season_number} for context {context}')
     
