@@ -13,6 +13,23 @@ def find_matchup(matchups, context, winning_team, losing_team):
     return matchups.find_one({'context': context, 'team1': losing_team, 'team2': winning_team})
 
 
+def add_teams_to_teams_played(db, matchup):
+
+    schedule_plans = db['schedule_plans']
+    schedule_plan = schedule_plans.find_one({'context': matchup['context'], 'season': matchup['season']})
+
+    season_teams = schedule_plan['season_teams']
+
+    for team in season_teams:
+        if team['team_name'] == matchup['team1']:
+            team['teams_played'].append(matchup['team2'])
+        elif team['team_name'] == matchup['team2']:
+            team['teams_played'].append(matchup['team1'])
+
+    schedule_plans.update_one({"_id": schedule_plan['_id']}, {"$set": {"season_teams": season_teams}})
+
+
+
 async def score_match_handler(db, message, context):
 
     valid_params, params = valid_number_of_params(message, 7)
@@ -34,6 +51,8 @@ async def score_match_handler(db, message, context):
     if not matchup:
         await message.channel.send(f'Matchup not found for {winning_team} vs {losing_team} with context {context}.')
         return
+    
+    add_teams_to_teams_played(db)
     
     winning_team_index = 1 if matchup['team1'] == winning_team else 2
     losing_team_index = 1 if winning_team_index == 2 else 2

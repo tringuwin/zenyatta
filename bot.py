@@ -1390,6 +1390,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!addloss') and is_admin:
         await add_loss_handler(db, message)
 
+
     elif lower_message.startswith('!mapdiff') and is_admin:
         await map_diff_handler(db, message)
 
