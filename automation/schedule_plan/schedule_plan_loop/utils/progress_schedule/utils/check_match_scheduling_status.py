@@ -25,6 +25,7 @@ def write_matchups_to_schedule(db, schedule_plan, all_matchups):
     print('writing matches to schedule')
     print('input matchups', all_matchups)
     schedule_db = db['schedule']
+    matchups = db['matchups']
     schedule_edited = False
     this_season_schedule = schedule_db.find_one({'context': schedule_plan['context'], 'season': schedule_plan['season']})
     week_index = schedule_plan['current_week']
@@ -39,6 +40,7 @@ def write_matchups_to_schedule(db, schedule_plan, all_matchups):
             this_season_schedule['weeks'][week_index]['days'][timeslot_day_index]['matches'].append(matchup['matchup_id'])
             schedule_edited = True
             matchup['added_to_schedule'] = True
+            matchups.update_one({'_id': matchup['_id']}, {'$set': {'added_to_schedule': True}})
             
     if schedule_edited:
         schedule_db.update_one({'_id': this_season_schedule['_id']}, {'$set': {'weeks': this_season_schedule['weeks']}})
