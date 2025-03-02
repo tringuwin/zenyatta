@@ -7,7 +7,7 @@ from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.g
 
 
 
-async def check_status_of_matches(db, message, schedule_plans, schedule):
+async def check_status_of_matches(client, db, message, schedule_plans, schedule):
 
     context = schedule['context']
     season = schedule['season']
@@ -33,6 +33,6 @@ async def check_status_of_matches(db, message, schedule_plans, schedule):
     if current_day_status == 'NOT STARTED':
         await check_if_day_has_started(current_day['date'], schedule, schedule_plans, week_index, week_day_index)
     elif current_day_status == 'IN PROGRESS':
-        await check_day_progress(season_week, week_day_index, week_index, schedule, schedule_plans)
+        await check_day_progress(client, db, season_week, week_day_index, week_index, schedule, schedule_plans)
 
     

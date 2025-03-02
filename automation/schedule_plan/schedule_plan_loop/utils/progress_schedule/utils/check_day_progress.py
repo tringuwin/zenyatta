@@ -1,10 +1,10 @@
 
 
-from automation.schedule_plan.notif_helpers.notify_league_of_matches_today import notify_league_of_matches_today
+from automation.schedule_plan.notif_helpers.noon_match_notify import noon_match_notify
 from time_helpers import has_date_passed_est, is_after_noon_est
 
 
-async def check_day_progress(season_week, day_index, week_index, schedule, schedule_plans):
+async def check_day_progress(client, db, season_week, day_index, week_index, schedule, schedule_plans):
     
     if day_index != 6:
         next_day_index = day_index + 1
@@ -24,7 +24,7 @@ async def check_day_progress(season_week, day_index, week_index, schedule, sched
         if is_after_noon_est():
 
             # notify team owners with matches today
-            await notify_league_of_matches_today()
+            await noon_match_notify(client, schedule['context'], db, schedule['season'], week_index, day_index)
 
             schedule['weeks'][week_index]['days'][day_index]['notified'] = True
             schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})

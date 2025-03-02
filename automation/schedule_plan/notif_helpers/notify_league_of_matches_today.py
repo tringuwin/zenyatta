@@ -1,13 +1,27 @@
 
-
+import constants
 from context.context_helpers import get_league_announcements_channel_from_context
 
 
-async def notify_league_of_matches_today(client, context, db, season, week_index, day_index):
+async def notify_league_of_matches_today(client, context, matchups_today):
 
-    schedule_db = db['schedule']
-    season_schedule = schedule_db.find_one({"season": season, "context": context})
+    announcements_channel = get_league_announcements_channel_from_context(client, context)
 
-    day_in_schedule = season_schedule['weeks'][week_index]['days'][day_index]
+    announcement_message = constants.LEAGUE_NOTIFS_MENTION+'\n\n**LEAGUE MATCH SCHEDULE FOR TODAY**\n\n'
 
-    league_announcements_channel = get_league_announcements_channel_from_context(client, context)
+    for matchup in matchups_today:
+        team1_name = matchup['team1']
+        team2_name = matchup['team2']
+
+        timeslot = matchup['timeslot']
+        match_time_number = int(timeslot.split('-')[1])
+        match_time = f'{match_time_number}:00 PM EST'
+
+        announcement_message += f'{match_time} - **{team1_name}** VS **{team2_name}**\n'
+
+    await announcements_channel.send(announcement_message)
+
+    
+        
+
+    

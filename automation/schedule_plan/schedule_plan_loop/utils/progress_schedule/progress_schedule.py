@@ -19,4 +19,4 @@ async def progress_schedule(db, schedule_plans, schedule, message, client):
     elif week_status == 'SCHEDULING':
         await check_match_scheduling_status(client, message, db, schedule_plans, schedule, week, current_week)
     elif week_status == 'MATCHES':
-        await check_status_of_matches(db, message, schedule_plans, schedule)
+        await check_status_of_matches(client, db, message, schedule_plans, schedule)
