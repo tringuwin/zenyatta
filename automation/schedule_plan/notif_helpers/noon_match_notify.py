@@ -1,6 +1,7 @@
 
 
 from automation.schedule_plan.notif_helpers.notify_league_of_matches_today import notify_league_of_matches_today
+from automation.schedule_plan.notif_helpers.notify_team_owners_with_matches_today import notify_team_owners_with_matches_today
 
 
 async def noon_match_notify(client, context, db, season, week_index, day_index):
@@ -21,4 +22,4 @@ async def noon_match_notify(client, context, db, season, week_index, day_index):
         matchups_today.append(match)
 
     await notify_league_of_matches_today(client, context, matchups_today)
-    # notify team owners with matches today
+    await notify_team_owners_with_matches_today()
