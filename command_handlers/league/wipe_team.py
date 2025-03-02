@@ -6,7 +6,8 @@ from helpers import valid_number_of_params
 
 
 TAKEOVER_USERS = [
-    979526718186459206
+    979526718186459206, # ragu tester
+    340644170656120833 # adam silver
 ]
 
 
@@ -42,7 +43,8 @@ async def remove_league_team_from_all_users(message, db, team):
 
     users_with_team = users.find({'league_team': team['team_name']})
     for user in users_with_team:
-        users.update_one({'discord_id': user['discord_id']}, {'$set': {'league_team': 'None'}})
+        if not (user['discord_id'] in TAKEOVER_USERS):
+            users.update_one({'discord_id': user['discord_id']}, {'$set': {'league_team': 'None'}})
 
     await message.channel.send('All users with league team cleared.')
 

@@ -925,13 +925,6 @@ async def handle_message(message, db, client):
         # !setleagueteam [user_id] [team name]
         await set_league_team_handler(db, message)
 
-    elif lower_message.startswith('!wipeleagueteams') and is_admin:
-        
-        league_teams = db['leagueteams']
-        league_teams.delete_many({})
-
-        await send_msg(message.channel, 'All league teams deleted', '!wipeleagueteams')
-
     elif lower_message.startswith('!forcedelleagueteam ') and is_admin:
         await force_delete_league_team_handler(db, message)
 
