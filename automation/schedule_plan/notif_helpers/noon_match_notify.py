@@ -22,4 +22,4 @@ async def noon_match_notify(client, context, db, season, week_index, day_index):
         matchups_today.append(match)
 
     await notify_league_of_matches_today(client, context, matchups_today)
-    await notify_team_owners_with_matches_today()
+    await notify_team_owners_with_matches_today(client, db, context, matchups_today)

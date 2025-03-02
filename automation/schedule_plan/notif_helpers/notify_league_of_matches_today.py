@@ -7,7 +7,7 @@ async def notify_league_of_matches_today(client, context, matchups_today):
 
     announcements_channel = get_league_announcements_channel_from_context(client, context)
 
-    announcement_message = constants.LEAGUE_NOTIFS_MENTION+'\n\n**LEAGUE MATCH SCHEDULE FOR TODAY**\n\n'
+    announcement_message = constants.LEAGUE_NOTIFS_MENTION+'\n\n**LEAGUE MATCHES SCHEDULED FOR TODAY**\n\n'
 
     for matchup in matchups_today:
         team1_name = matchup['team1']
