@@ -51,7 +51,8 @@ def build_days_for_week(season_week_datetime):
             'status': 'NOT STARTED',
             'date': day_info['date'],
             'day_of_week': day_info['day_of_week'],
-            'is_match_day': is_match_day(day_info['day_of_week'])
+            'is_match_day': is_match_day(day_info['day_of_week']),
+            'notified': False,
         })
 
     return days
@@ -119,7 +120,7 @@ def make_schedule_for_season(context, season_number, season_weeks):
             week_days.append({
                 'date': day['date'],
                 'day_of_week': day['day_of_week'],
-                'matches': []
+                'matches': [],
             })
 
         schedule_weeks.append({
