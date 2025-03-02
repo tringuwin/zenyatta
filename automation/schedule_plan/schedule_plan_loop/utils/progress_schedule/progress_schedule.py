@@ -1,5 +1,6 @@
 
 
+from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.check_for_next_week import check_for_next_week
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.check_if_matches_are_set import check_if_matches_are_set
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.check_match_scheduling_status import check_match_scheduling_status
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.check_status_of_matches import check_status_of_matches
@@ -20,3 +21,5 @@ async def progress_schedule(db, schedule_plans, schedule, message, client):
         await check_match_scheduling_status(client, message, db, schedule_plans, schedule, week, current_week)
     elif week_status == 'MATCHES':
         await check_status_of_matches(client, db, message, schedule_plans, schedule)
+    elif week_status == 'COMPLETE':
+        await check_for_next_week(schedule_plans, schedule, message, current_week)
