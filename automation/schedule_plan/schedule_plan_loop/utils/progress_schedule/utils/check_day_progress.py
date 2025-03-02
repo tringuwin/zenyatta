@@ -14,6 +14,7 @@ async def check_day_progress(season_week, day_index, week_index, schedule, sched
 
         if next_day_started:
             schedule['weeks'][week_index]['day_number'] = next_day_index
+            schedule['weeks'][week_index]['days'][day_index]['status'] = 'COMPLETE'
             schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})
             return
         
