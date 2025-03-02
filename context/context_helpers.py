@@ -35,6 +35,11 @@ def get_team_owners_channel_from_context(client, context):
     team_owners_channel = constants.CONTEXT_TO_TEAM_OWNERS_CHANNEL[context]
     return client.get_channel(team_owners_channel)
 
+def get_league_announcements_channel_from_context(client, context):
+
+    league_announcements_channel = constants.CONTEXT_TO_LEAGUE_ANNOUNCEMENTS_CHANNEL[context]
+    return client.get_channel(league_announcements_channel)
+
 
 
 

@@ -155,6 +155,11 @@ def get_datetime_now_est():
     est = pytz.timezone('US/Eastern')
     return datetime.now(est)
 
+def is_after_noon_est():
+    est = pytz.timezone('America/New_York')
+    now = datetime.now(est)
+    return now.hour >= 12
+
 
 async def check_weekly(client, db, channel, message):
 

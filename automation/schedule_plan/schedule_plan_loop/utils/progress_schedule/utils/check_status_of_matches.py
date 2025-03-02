@@ -1,5 +1,6 @@
 
 
+from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.check_day_progress import check_day_progress
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.check_if_day_has_started import check_if_day_has_started
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.complete_finished_matchups import complete_finished_matchups
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.get_all_matchups import get_all_matchups
@@ -30,6 +31,8 @@ async def check_status_of_matches(db, message, schedule_plans, schedule):
     current_day_status = current_day['status']
 
     if current_day_status == 'NOT STARTED':
-        await check_if_day_has_started(current_day['date'], schedule, schedule_plans, week_index, current_day)
+        await check_if_day_has_started(current_day['date'], schedule, schedule_plans, week_index, week_day_index)
+    elif current_day_status == 'IN PROGRESS':
+        await check_day_progress(season_week, week_day_index, week_index, schedule, schedule_plans)
 
     
