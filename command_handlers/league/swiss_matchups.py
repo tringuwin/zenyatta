@@ -98,7 +98,13 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
             'team1_esubs': 0,
             'team2_esubs': 0,
             'match_over': False,
-            'added_to_schedule': False
+            'added_to_schedule': False,
+            'casting': {
+                'casting_signup_posted': False,
+                'casting_signup_closed': False,
+                'casters_assigned': False,
+                'casters': [],
+            }
         }
         matchups.insert_one(new_matchup)
 
