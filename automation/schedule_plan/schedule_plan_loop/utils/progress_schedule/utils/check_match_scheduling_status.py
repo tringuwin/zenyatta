@@ -65,9 +65,9 @@ def write_matchups_to_schedule(db, schedule_plan, all_matchups):
 
             this_season_schedule['weeks'][week_index]['days'][timeslot_day_index]['matches'].append(matchup['matchup_id'])
             schedule_edited = True
-            matchup['match_epoch'] = make_epoch_for_match(this_season_schedule['weeks'][week_index]['days'][timeslot_day_index]['date'], timeslot_pm_time_est)
-            matchup['added_to_schedule'] = True
-            matchups.update_one({'_id': matchup['_id']}, {'$set': {'added_to_schedule': True}})
+            match_epoch = make_epoch_for_match(this_season_schedule['weeks'][week_index]['days'][timeslot_day_index]['date'], timeslot_pm_time_est)
+    
+            matchups.update_one({'_id': matchup['_id']}, {'$set': {'added_to_schedule': True, 'match_epoch': match_epoch}})
             
     if schedule_edited:
         schedule_db.update_one({'_id': this_season_schedule['_id']}, {'$set': {'weeks': this_season_schedule['weeks']}})
