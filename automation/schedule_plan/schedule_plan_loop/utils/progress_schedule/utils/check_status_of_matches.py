@@ -1,5 +1,6 @@
 
 
+from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.check_if_day_has_started import check_if_day_has_started
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.complete_finished_matchups import complete_finished_matchups
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.get_all_matchups import get_all_matchups
 
@@ -22,4 +23,13 @@ async def check_status_of_matches(db, message, schedule_plans, schedule):
         schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks'], "current_week": new_week_index}})
         await message.channel.send(f'Matchups are complete for week {actual_week} of season {season} of league {context}.')
         return
+    
+    season_week = schedule['weeks'][week_index]
+    week_day_index = season_week['day_number']
+    current_day = season_week['days'][week_day_index]
+    current_day_status = current_day['status']
+
+    if current_day_status == 'NOT STARTED':
+        await check_if_day_has_started(current_day['date'], schedule, schedule_plans, week_index, current_day)
+
     
