@@ -53,6 +53,7 @@ def build_days_for_week(season_week_datetime):
             'day_of_week': day_info['day_of_week'],
             'is_match_day': is_match_day(day_info['day_of_week']),
             'notified': False,
+            'set_up_casting': False
         })
 
     return days
