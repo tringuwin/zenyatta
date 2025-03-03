@@ -104,6 +104,7 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
                 'casting_signup_closed': False,
                 'casters_assigned': False,
                 'casters': [],
+                'channel': 'NONE'
             }
         }
         matchups.insert_one(new_matchup)
