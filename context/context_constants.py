@@ -60,3 +60,8 @@ CONTEXT_TO_LEAGUE_ANNOUNCEMENTS_CHANNEL = {
     'FL': constants.FAKE_LEAGUE_ANNOUNCEMENTS_CHANNEL
 }
 
+CONTEXT_TO_LEAGUE_URL = {
+    'OW': 'sol',
+    'MR': 'srl',
+    'FL': 'fl'
+}
