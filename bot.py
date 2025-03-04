@@ -1516,6 +1516,16 @@ async def handle_message(message, db, client):
 
         await message.channel.send('done')
 
+    elif lower_message == '!amendcasters' and is_admin:
+
+        casters = db['casters']
+        all_casters = casters.find()
+
+        for caster in all_casters:
+            casters.update_one({'_id': caster['_id']}, {'$set': {'timeblocks': []}})
+
+        await message.channel.send('done')
+
     elif lower_message.startswith('!makesolmatch') and is_admin:
         await make_sol_match(client, db, message)
 
