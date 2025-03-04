@@ -60,7 +60,8 @@ async def make_caster_handler(db, message):
         'relations': make_empty_relations_matrix(casters),
         'platform': 'NONE',
         'groupPreference': 'NONE',
-        'isTrial': True
+        'isTrial': True,
+        'timeblocks': []
     }
 
     casters.insert_one(new_caster)
