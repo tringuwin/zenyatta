@@ -624,10 +624,10 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!standings':
         #await message.channel.send('This command is being fixed. Try again soon!')
-        await standings_handler(db, message, client)
+        await standings_handler(message, context)
 
-    elif lower_message == '!standings2':
-        await standings2_handler(db, message, client)
+    # elif lower_message == '!standings2':
+    #     await standings2_handler(db, message, client)
 
     elif lower_message == '!solweeklypay' and is_admin:
         await sol_weekly_pay(db, message)

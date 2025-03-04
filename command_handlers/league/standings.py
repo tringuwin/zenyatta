@@ -1,5 +1,6 @@
 
 import constants
+from context.context_helpers import get_league_url_from_context
 from helpers import get_constant_value, get_league_emoji_from_team_name
 
 
@@ -134,9 +135,13 @@ async def standings_main(db, message, client, top):
     await message.channel.send(final_string)
 
         
-async def standings_handler(db, message, client):
+async def standings_handler(message, context):
 
-    await standings_main(db, message, client, True)
+    league_url = get_league_url_from_context(context)
+
+    await message.reply(f'Check out the standings for the league here!\n\nhttps://spicyesports.com/{league_url}/standings')
+
+    # await standings_main(db, message, client, True)
 
 
 async def standings2_handler(db, message, client):
