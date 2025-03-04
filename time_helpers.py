@@ -114,7 +114,9 @@ def been_a_week(db):
 
 
 def year_month_day_to_datetime(year, month, day):
-    return datetime(year, month, day)
+    est = pytz.timezone('US/Eastern')
+    est_datetime = est.localize(datetime(year, month, day))
+    return est_datetime
 
 
 def get_future_week_datetime(start_datetime, i):
