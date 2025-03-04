@@ -1,5 +1,6 @@
 
 
+from context.context_helpers import get_league_teams_collection_from_context, get_team_owners_channel_from_context
 from league import validate_admin
 import constants
 
@@ -18,11 +19,15 @@ def get_team_index(team_name, matchup):
     else:
         return 2
     
+
+
 async def notify_both_teams_about_timeslot(client, db, matchup, timeslot):
 
-    team_owners_channel = client.get_channel(1131625086722523297) # this is currently sending to admin commands, change this later
+    context = matchup['context']
 
-    league_teams = db['leagueteams']
+    team_owners_channel = get_team_owners_channel_from_context(client, context)
+
+    league_teams = get_league_teams_collection_from_context(db, context)
     team1 = league_teams.find_one({'team_name': matchup['team1']})
     team2 = league_teams.find_one({'team_name': matchup['team2']})
 
