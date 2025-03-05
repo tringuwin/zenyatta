@@ -101,6 +101,7 @@ from command_handlers.help.help_poke import help_poke_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.call_me import call_me_handler
+from command_handlers.league.lft.rivals_rank import set_rivals_rank
 from command_handlers.league.picks.picks import picks_handler
 from command_handlers.league.score_match import score_match_handler
 from command_handlers.league.sol_week_end import sol_week_end
@@ -600,6 +601,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!setrank') and is_helper:
         await set_rank_handler(db, message)
+
+    elif lower_message.startswith('!rivalsrank') and is_helper:
+        await set_rivals_rank(db, message)
 
     elif lower_message == '!leaderboard':
         await leaderboard_handler(db, message)
