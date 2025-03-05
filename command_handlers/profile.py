@@ -180,7 +180,7 @@ async def rivals_profile(message, client, user):
     
     final_string = "**USER PROFILE FOR "+username+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
-    final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')'
+    final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
     final_string += make_rivals_rank_string(user)+'\n\n'
 
     league_team_string = league_team
