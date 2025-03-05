@@ -380,6 +380,21 @@ def get_user_esub(user):
     
     return False
 
+def get_user_rivals_esub(user):
+
+    if 'rivals_esub' in user:
+        return user['rivals_esub']
+    
+    return False
+
+def get_user_rivals_rank(user):
+
+    if 'rivals_rank' in user:
+        return user['rivals_rank']
+    
+    return None
+
+
 def get_user_esub_roles(user):
 
     if 'esub_roles' in user:

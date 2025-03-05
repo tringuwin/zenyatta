@@ -2,8 +2,8 @@
 
 from common_messages import not_registered_response
 from discord_actions import get_role_by_id
-from user import get_user_esub, get_user_esub_roles, get_user_ranks, user_exists
-
+from user import get_user_esub, get_user_esub_roles, get_user_ranks, get_user_rivals_esub, get_user_rivals_rank, user_exists
+import constants
 
 RANK_TO_ESUB_VALUE = {
 
@@ -78,22 +78,12 @@ DIV_TO_ROLE_ID = {
 }
 
 def user_ranks_empty(user_ranks):
-
-
     return (user_ranks['tank']['tier'] == 'none') and (user_ranks['offense']['tier'] == 'none') and (user_ranks['support']['tier'] == 'none')
 
 
-async def toggle_esub_handler(db, message, client, context):
 
-    if context == 'MR':
-        await message.channel.send('This command is not ready yet for Marvel Rivals.')
-        return
+async def toggle_esub_overwatch(db, message, client, user):
 
-    user = user_exists(db, message.author.id)
-    if not user:
-        await not_registered_response(message)
-        return
-    
     user_esub = get_user_esub(user)
     user_ranks = get_user_ranks(user)
     ranks_empty = user_ranks_empty(user_ranks)
@@ -152,3 +142,74 @@ async def toggle_esub_handler(db, message, client, context):
 
         await message.channel.send('You are no longer an Emergency Sub! You can turn it back on anytime.')
 
+
+
+async def get_rivals_esub_role(client):
+
+    role = await get_role_by_id(client, constants.ESUB_MARVEL_RIVALS_ROLE)
+    return role
+
+
+async def remove_rivals_esub(db, message, client, user):
+
+    users = db['users']
+
+    users.update_one({'discord_id': user['discord_id']}, {'$set': {'rivals_esub': False}})
+
+    esub_role = await get_rivals_esub_role(client)
+    await message.author.remove_roles(esub_role)
+
+    await message.channel.send('You are no longer an Emergency Sub for Marvel Rivals! You can turn it back on anytime.')
+
+async def add_rivals_esub(db, message, client, user):
+
+    users = db['users']
+
+    users.update_one({'discord_id': user['discord_id']}, {'$set': {'rivals_esub': True}})
+
+    esub_role = await get_rivals_esub_role(client)
+    await message.author.add_roles(esub_role)
+
+    await message.channel.send('You are now an Emergency Sub for Marvel Rivals! You can turn it off anytime.')
+
+
+RIVALS_BLOCKED_ESUB_RANKS = ['GM', 'C', 'E', 'O']
+
+async def toggle_esub_rivals(db, message, client, user):
+
+    user_rivals_esub = get_user_rivals_esub(user)
+
+    if user_rivals_esub:
+        await remove_rivals_esub(db, message, client, user)
+    else:
+        user_rivals_rank = get_user_rivals_rank(user)
+        if not user_rivals_rank:
+            await message.channel.send('You must verify your Rivals rank first before you can be an Emergency Sub. Please make a support ticket and show a screenshot of your rank to staff.')
+            return
+        
+        if user_rivals_rank['prefix'] in RIVALS_BLOCKED_ESUB_RANKS:
+            await message.channel.send('Your are ranked too high to be an emergency sub. Emergency subs must be ranked Diamond 1 or lower.')
+            return
+        
+        await add_rivals_esub(db, message, client, user)
+        
+        
+
+
+
+async def toggle_esub_handler(db, message, client, context):
+
+    if (context != 'OW') and (context != 'MR'):
+        await message.channel.send('This command is not ready yet for this league.')
+        return
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message)
+        return
+    
+    if context == 'OW':
+        await toggle_esub_overwatch(db, message, client, user)
+    elif context == 'MR':
+        await toggle_esub_rivals(db, message, client, user)
+        
