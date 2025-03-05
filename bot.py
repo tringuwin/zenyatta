@@ -849,7 +849,7 @@ async def handle_message(message, db, client):
         await role_color(client, db, message)
 
     elif lower_message.startswith('!teampage'):
-        await team_page_handler(db, message)
+        await team_page_handler(db, message, context)
 
     elif lower_message == '!website':
         await website_handler(message)
