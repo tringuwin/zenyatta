@@ -80,9 +80,9 @@ def make_rivals_rank_string(user):
 
     rivals_rank = get_user_rivals_rank(user)
     if rivals_rank:
-        return rivals_rank['display']
+        return 'Rank: '+rivals_rank['display']
     else:
-        return '[Rank Not Verified]'
+        return 'Rank: [Rank Not Verified]'
 
 
 async def overwatch_profile(message, client, user):
@@ -180,7 +180,7 @@ async def rivals_profile(message, client, user):
     
     final_string = "**USER PROFILE FOR "+username+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
-    final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n\n'
+    final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')'
     final_string += make_rivals_rank_string(user)+'\n\n'
 
     league_team_string = league_team
