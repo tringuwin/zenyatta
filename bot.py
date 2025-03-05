@@ -1502,23 +1502,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!swissmatchups') and is_admin:
         await swiss_matchups_handler(db, message, context)
-    
-    elif lower_message == '!amendmatchups' and is_admin:
-
-        matchups = db['matchups']
-        all_matchups = matchups.find()
-
-        casting = {
-            'casting_signup_posted': False,
-            'casting_signup_closed': False,
-            'casters_assigned': False,
-            'casters': [],
-        }
-
-        for matchup in all_matchups:
-            matchups.update_one({'_id': matchup['_id']}, {'$set': {'casting': casting}})
-
-        await message.channel.send('done')
 
     elif lower_message == '!amendcasters' and is_admin:
 
