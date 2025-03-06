@@ -2,10 +2,12 @@
 
 
 
+from automation.casting.utils.get_matchups import get_matchups_for_week
+from context.context_helpers import get_league_season_constant_name
 from helpers import get_constant_value
 
 
-async def swap_sides(db, message):
+async def swap_sides(db, message, context):
 
     command_parts = message.content.split()
     if len(command_parts) != 2:
@@ -14,26 +16,36 @@ async def swap_sides(db, message):
     team_name = command_parts[1]
     team_name_lower = team_name.lower()
 
-    league_season = get_constant_value(db, 'league_season')
-    league_week = get_constant_value(db, 'league_week')
+    league_season_constant = get_league_season_constant_name(context)
+    league_season = get_constant_value(db, league_season_constant)
 
-    schedule_db = db['schedule']
-    season = schedule_db.find_one({'season': league_season})
-    schedule_week = season['weeks'][league_week - 1]
+    schedule_plans = db['schedule_plans']
+    season_schedule_plan = schedule_plans.find_one({'season': league_season, 'context': context})
 
-    week_days = schedule_week['days']
-    found = False
-    for day in week_days:
-        for match in day['matches']:
-            if (match['home'].lower() == team_name_lower) or (match['away'].lower() == team_name_lower):
-                match['left_team'] = 'home' if match['left_team'] == 'away' else 'away'
-                found = True
-                break
+    if not season_schedule_plan:
+        await message.channel.send('Could not find a schedule for that current season.')
+        return
 
-    if not found:
+    league_week = season_schedule_plan['current_week'] + 1
+
+    matchups = get_matchups_for_week(db, context, league_season, league_week)
+
+
+    found_matchup = False
+    for matchup in matchups:
+        if matchup['team1'].lower() == team_name_lower or matchup['team2'].lower() == team_name_lower:
+            found_matchup = matchup
+            break
+
+    if not found_matchup:
         await message.channel.send('Could not find a match this week that includes a team named '+team_name)
         return
     
-    schedule_db.update_one({'season': league_season}, {'$set': {'weeks': season['weeks']}})
+    
+    new_left_team = 1 if matchup['left_team'] == 2 else 2
+
+    matchups = db['matchups']
+    matchups.update_one({'matchup_id': matchup['matchup_id']}, {'$set': {'left_team': new_left_team}})
+
     await message.channel.send('Swapped sides.')
             
