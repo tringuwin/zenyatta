@@ -1792,7 +1792,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!endraffle' and is_tourney_admin:
         await end_raffle(db, message)
 
-    elif lower_message.startswith('!swapsides', context) and is_tourney_admin:
+    elif lower_message.startswith('!swapsides') and is_tourney_admin:
         await swap_sides(db, message, context)
 
     elif lower_message.startswith('!addpoint') and is_tourney_admin:
