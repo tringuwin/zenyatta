@@ -3,44 +3,53 @@
 
 
 
+from automation.casting.utils.get_matchups_for_week import get_matchups_for_week
+from context.context_helpers import get_league_season_constant_name
 from helpers import get_constant_value
 
 
-async def update_score(db, message, team_name, score_change):
+async def update_score(db, message, team_name, score_change, context):
 
     team_name_lower = team_name.lower()
 
-    league_season = get_constant_value(db, 'league_season')
-    league_week = get_constant_value(db, 'league_week')
+    league_season_constant = get_league_season_constant_name(context)
+    league_season = get_constant_value(db, league_season_constant)
 
-    schedule_db = db['schedule']
-    season = schedule_db.find_one({'season': league_season})
-    schedule_week = season['weeks'][league_week - 1]
+    
+    schedule_plan = db['schedule_plans']
+    season_schedule_plan = schedule_plan.find_one({'season': league_season, 'context': context})
+    season_week = season_schedule_plan['current_week'] + 1
+    
+    matchups = get_matchups_for_week(db, context, league_season, season_week)
 
-    week_days = schedule_week['days']
-    found = False
-    for day in week_days:
-        for match in day['matches']:
-            if match['home'].lower() == team_name_lower:
-                match['home_score'] += score_change
-                found = True
-                break
-            elif match['away'].lower() == team_name_lower:
-                match['away_score'] += score_change
-                found = True
-                break
+    found_matchup = None
+    team_index = 0
 
-    if not found:
+    for matchup in matchups:
+        if matchup['team1'].lower() == team_name_lower:
+            found_matchup = matchup
+            team_index = 1
+            break
+        elif matchup['team2'].lower() == team_name_lower:
+            found_matchup = matchup
+            team_index = 2
+            break
+
+    if not found_matchup:
         await message.channel.send('Could not find a match this week that includes a team named '+team_name)
         return
     
-    schedule_db.update_one({'season': league_season}, {'$set': {'weeks': season['weeks']}})
+    
+    new_score_value = found_matchup['team'+str(team_index)+'_score'] + score_change
+    matchups_db = db['matchups']
+    matchups_db.update_one({'matchup_id': found_matchup['matchup_id']}, {'$set': {'team'+str(team_index)+'_score': new_score_value}})
+
     await message.channel.send('Score updated.')
 
 
 
 
-async def add_point(db, message):
+async def add_point(db, message, context):
 
     command_parts = message.content.split()
     if len(command_parts) != 2:
@@ -49,10 +58,10 @@ async def add_point(db, message):
     
     team_name = command_parts[1]
 
-    await update_score(db, message, team_name, 1)
+    await update_score(db, message, team_name, 1, context)
 
 
-async def remove_point(db, message):
+async def remove_point(db, message, context):
 
     command_parts = message.content.split()
     if len(command_parts) != 2:
@@ -61,7 +70,7 @@ async def remove_point(db, message):
     
     team_name = command_parts[1]
 
-    await update_score(db, message, team_name, -1)
+    await update_score(db, message, team_name, -1, context)
 
 
    

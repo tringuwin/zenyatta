@@ -2,7 +2,7 @@
 
 
 
-from automation.casting.utils.get_matchups import get_matchups_for_week
+from automation.casting.utils.get_matchups_for_week import get_matchups_for_week
 from context.context_helpers import get_league_season_constant_name
 from helpers import get_constant_value
 
@@ -29,7 +29,6 @@ async def swap_sides(db, message, context):
     league_week = season_schedule_plan['current_week'] + 1
 
     matchups = get_matchups_for_week(db, context, league_season, league_week)
-
 
     found_matchup = False
     for matchup in matchups:

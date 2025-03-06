@@ -1796,10 +1796,10 @@ async def handle_message(message, db, client):
         await swap_sides(db, message, context)
 
     elif lower_message.startswith('!addpoint') and is_tourney_admin:
-        await add_point(db, message)
+        await add_point(db, message, context)
 
     elif lower_message.startswith('!removepoint') and is_tourney_admin:
-        await remove_point(db, message)
+        await remove_point(db, message, context)
 
     elif lower_message.startswith('!startpred ') and is_tourney_admin:
         await start_pred(db, message)
