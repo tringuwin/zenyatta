@@ -2021,7 +2021,7 @@ async def handle_message(message, db, client):
 
         await check_open_bets(db, message)
 
-        await check_notify_about_matches(client, db, message)
+        # await check_notify_about_matches(client, db, message)
 
         await update_top_subs_avatars(guild, db, message)
 
