@@ -1,10 +1,13 @@
 
 
-import constants
-from helpers import get_constant_value, get_league_emoji_from_team_name
+from context.context_helpers import get_league_url_from_context
 
 
-async def schedule_handler(db, message, client):
+async def schedule_handler(message, context):
+
+    league_url = get_league_url_from_context(context)
+
+    await message.reply(f'Check out the standings for the league here!\n\nhttps://spicyesports.com/{league_url}/schedule')
 
     # final_string = "**SEASON 3 PLAYOFF SCHEDULE**"
 
@@ -19,57 +22,57 @@ async def schedule_handler(db, message, client):
 
     # await message.channel.send(final_string)
 
-    league_season = get_constant_value(db, 'league_season')
-    league_week = get_constant_value(db, 'league_week')
+    # league_season = get_constant_value(db, 'league_season')
+    # league_week = get_constant_value(db, 'league_week')
 
-    schedule = db['schedule']
-    season_schedule = schedule.find_one({'season': league_season})
+    # schedule = db['schedule']
+    # season_schedule = schedule.find_one({'season': league_season})
 
-    weeks = 0
-    week_index = 1
-    total_matches_added = 0
-    for week in season_schedule['weeks']:
+    # weeks = 0
+    # week_index = 1
+    # total_matches_added = 0
+    # for week in season_schedule['weeks']:
 
-        if week_index < league_week:
-            week_index += 1
-            continue
+    #     if week_index < league_week:
+    #         week_index += 1
+    #         continue
 
-        final_string = '\n**SEASON 4 WEEK '+str(week['week'])+'**'
+    #     final_string = '\n**SEASON 4 WEEK '+str(week['week'])+'**'
 
-        for day in week['days']:
+    #     for day in week['days']:
 
-            if len(day['matches']) < 1:
-                continue
+    #         if len(day['matches']) < 1:
+    #             continue
 
-            final_string += '\n\n**'+day['date']+'**'
-            final_string += '\n------------------'
-            match_index = 1
+    #         final_string += '\n\n**'+day['date']+'**'
+    #         final_string += '\n------------------'
+    #         match_index = 1
 
-            for match in day['matches']:
-                match_time = match['time']
-                home_team = match['home']
-                away_team = match['away']
+    #         for match in day['matches']:
+    #             match_time = match['time']
+    #             home_team = match['home']
+    #             away_team = match['away']
 
-                home_emoji_string = get_league_emoji_from_team_name(home_team)
-                away_emoji_string = get_league_emoji_from_team_name(away_team)
-                # final_string += '\n'+date
-                match_string = "Match "+str(match_index)+' : '+match_time+' EST : '
-                teams_string = home_emoji_string+' **'+home_team+'** VS '+away_emoji_string+' **'+away_team+'**'
-                final_string += '\n'+match_string+teams_string
+    #             home_emoji_string = get_league_emoji_from_team_name(home_team)
+    #             away_emoji_string = get_league_emoji_from_team_name(away_team)
+    #             # final_string += '\n'+date
+    #             match_string = "Match "+str(match_index)+' : '+match_time+' EST : '
+    #             teams_string = home_emoji_string+' **'+home_team+'** VS '+away_emoji_string+' **'+away_team+'**'
+    #             final_string += '\n'+match_string+teams_string
 
-                match_index += 1
-                total_matches_added += 1
+    #             match_index += 1
+    #             total_matches_added += 1
 
-        week_index += 1
-        weeks += 1
-        if weeks == 1:
-            break
+    #     week_index += 1
+    #     weeks += 1
+    #     if weeks == 1:
+    #         break
 
-    if total_matches_added == 0:
-        final_string += '\n\nLooks like the matches for this week have not been added yet. They usually appear on Wednesday. Check back soon!'
+    # if total_matches_added == 0:
+    #     final_string += '\n\nLooks like the matches for this week have not been added yet. They usually appear on Wednesday. Check back soon!'
 
-    final_string += f'\n\nSee the full Schedule here: {constants.WEBSITE_DOMAIN}/sol/schedule'
+    # final_string += f'\n\nSee the full Schedule here: {constants.WEBSITE_DOMAIN}/sol/schedule'
 
-    await message.channel.send(final_string)
+    # await message.channel.send(final_string)
 
 
