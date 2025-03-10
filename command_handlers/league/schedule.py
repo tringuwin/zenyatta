@@ -7,7 +7,7 @@ async def schedule_handler(message, context):
 
     league_url = get_league_url_from_context(context)
 
-    await message.reply(f'Check out the standings for the league here!\n\nhttps://spicyesports.com/{league_url}/schedule')
+    await message.reply(f'Check out the schedule for the league here!\n\nhttps://spicyesports.com/{league_url}/schedule')
 
     # final_string = "**SEASON 3 PLAYOFF SCHEDULE**"
 
