@@ -203,9 +203,8 @@ TEAM_NAME_TO_EMOJI_EMBED_STRING = {
     'Deadlock': '<:deadlock:1298375893839773818>',
     'Horizon': '<:horizon:1305322090513301564>',
     'Monarchs': '<:monarchs:1305323035611631616>',
-    'Aces': '<:solwhite:1278858168826593312>',
-    'Mantas': '<:solwhite:1278858168826593312>'
-
+    'Aces': '<:aces:1348420990023241769>',
+    'Mantas': '<:mantas:1348446040927371304>'
 }
 
 DEFAULT_TEAM_EMOJI = '<:solwhite:1278858168826593312>'
@@ -305,7 +304,7 @@ TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 
 
 EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix', 
                'Saturn', 'Celestials', 'Evergreen', 'Misfits', 'Hunters', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels', 'Legion',
-               'Lotus', 'Deadlock', 'Horizon', 'Monarchs']
+               'Lotus', 'Deadlock', 'Horizon', 'Monarchs', 'Aces', 'Mantas']
 
 LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassidy', 'dva', 'doomfist', 'echo', 'genji', 'hanzo', 'illari', 
                         'junker queen', 'junkrat', 'juno', 'kiriko', 'lifeweaver', 'lucio', 'mauga', 'mei', 'mercy', 'moira', 'orisa', 'ramattra', 'reaper', 
