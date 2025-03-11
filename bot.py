@@ -624,7 +624,7 @@ async def handle_message(message, db, client):
         await profile_handler(db, message, client, context)
 
     elif lower_message == '!randommap':
-        await random_map_handler(message)
+        await random_map_handler(message, context)
 
     elif lower_message == '!standings':
         #await message.channel.send('This command is being fixed. Try again soon!')

@@ -1,6 +1,6 @@
 import random
 
-MAPS = [
+OVERWATCH_MAPS = [
 
     [ # Control
         'Busan', 
@@ -47,9 +47,43 @@ MAPS = [
 
 ]
 
-async def random_map_handler(message):
+MARVEL_RIVALS_MAPS = [
 
-    game_mode = random.choice(MAPS)
+    [ # Convergence
+        'Central Park',
+        'Hall of Djalia',
+        'Symbiotic Surface',
+        'Shin-Shibuya',
+    ],
+
+    [ # Convoy
+        'Midtown',
+        'Spider-Islands',
+        'Yggdrasill Path'
+    ],
+
+    [ # Domination
+        "Hell's Heaven",
+        "Birnin T'Challa",
+        'Royal Palace',
+    ]
+
+]
+
+CONTEXT_TO_MAPS = {
+    'OW': OVERWATCH_MAPS,
+    'MR': MARVEL_RIVALS_MAPS
+}
+
+async def random_map_handler(message, context):
+
+    if context not in CONTEXT_TO_MAPS:
+        await message.channel.send("There are no maps for this league yet.")
+        return
+    
+    possible_maps = CONTEXT_TO_MAPS[context]
+
+    game_mode = random.choice(possible_maps)
     map = random.choice(game_mode)
 
     await message.channel.send(map)
