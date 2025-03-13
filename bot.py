@@ -1500,6 +1500,23 @@ async def handle_message(message, db, client):
 
         await message.channel.send('Test matchups made')
 
+    elif lower_message == '!testmakechannel' and is_admin:
+
+        overwrites = {}
+
+        test_user_id = 1149447725276995686
+
+        guild = await get_guild(client)
+
+        overwrites[guild.default_role] = discord.PermissionOverwrite(read_messages=False)
+
+        test_member = guild.get_member(test_user_id)
+        overwrites[test_member] = discord.PermissionOverwrite(read_messages=True)
+
+        await guild.create_text_channel('test-channel-casting', overwrites=overwrites)
+
+        await message.channel.send('done')
+
     elif lower_message.startswith('!swissmatchups') and is_admin:
         await swiss_matchups_handler(db, message, context)
 
