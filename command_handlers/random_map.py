@@ -40,10 +40,10 @@ OVERWATCH_MAPS = [
         'New Junk City',
         'Survasa'
     ],
-    [ # Clash
-        'Hanaoka',
-        'Throne of Anubis'
-    ]
+    # [ # Clash
+    #     'Hanaoka',
+    #     'Throne of Anubis'
+    # ]
 
 ]
 
@@ -75,15 +75,25 @@ CONTEXT_TO_MAPS = {
     'MR': MARVEL_RIVALS_MAPS
 }
 
-async def random_map_handler(message, context):
+def get_random_map(context):
 
     if context not in CONTEXT_TO_MAPS:
-        await message.channel.send("There are no maps for this league yet.")
-        return
+        return "NO_MAP"
     
     possible_maps = CONTEXT_TO_MAPS[context]
 
     game_mode = random.choice(possible_maps)
     map = random.choice(game_mode)
 
-    await message.channel.send(map)
+    return map
+
+
+async def random_map_handler(message, context):
+
+    if context not in CONTEXT_TO_MAPS:
+        await message.channel.send("There are no maps for this league yet.")
+        return
+    
+    random_map = get_random_map(context)
+
+    await message.channel.send(random_map)

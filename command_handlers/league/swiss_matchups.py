@@ -1,5 +1,6 @@
 
 import uuid
+from command_handlers.random_map import get_random_map
 from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_season_constant_name
 from helpers import get_constant_value, valid_number_of_params
@@ -107,7 +108,8 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
                 'casters': [],
                 'channel': 'NONE',
                 'casting_channel_id': 0
-            }
+            },
+            'first_map': get_random_map(context),
         }
         matchups.insert_one(new_matchup)
 
