@@ -1511,7 +1511,7 @@ async def handle_message(message, db, client):
         overwrites[guild.default_role] = discord.PermissionOverwrite(read_messages=False)
 
         test_member = guild.get_member(test_user_id)
-        overwrites[test_member] = discord.PermissionOverwrite(read_messages=True)
+        overwrites[test_member] = discord.PermissionOverwrite(read_messages=True, send_messages=True)
 
         await guild.create_text_channel('test-channel-casting', overwrites=overwrites)
 
