@@ -54,7 +54,7 @@ async def make_league_team_handler(db, message, client, context):
         'ally_reqs': [],
         'rival_reqs': [],
         'lineup': {
-            'tank1': {
+            'tank': {
                 'role': 'tank',
                 'user_id': 0
             },
