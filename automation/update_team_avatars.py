@@ -4,7 +4,9 @@ from discord_actions import get_member_by_id
 from helpers import get_constant_value, set_constant_value
 import constants
 
-async def update_team_avatars(guild, db, message):
+
+
+async def update_team_avatars(guild, db, message, context):
 
     current_team_index = get_constant_value(db, 'team_image_update_index')
     team_to_update = constants.TEAM_LIST[current_team_index]
@@ -35,3 +37,14 @@ async def update_team_avatars(guild, db, message):
         new_index = 0
 
     set_constant_value(db, 'team_image_update_index', new_index)
+
+
+
+async def update_overwatch_team_avatars(guild, db, message):
+
+    await update_team_avatars(guild, db, message, 'OW')
+
+
+async def update_rivals_team_avatars(guild, db, message):
+
+    await update_team_avatars(guild, db, message, 'MR')

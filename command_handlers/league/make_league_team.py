@@ -58,10 +58,6 @@ async def make_league_team_handler(db, message, client, context):
                 'role': 'tank',
                 'user_id': 0
             },
-            'tank2': {
-                'role': 'tank',
-                'user_id': 0
-            },
             'dps1': {
                 'role': 'dps',
                 'user_id': 0
