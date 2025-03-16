@@ -106,6 +106,7 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
                 'casting_signup_closed': False,
                 'casters_assigned': False,
                 'casters': [],
+                'lobby_admin_id': 0,
                 'channel': 'NONE',
                 'casting_channel_id': 0
             },
