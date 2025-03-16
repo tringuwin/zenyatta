@@ -20,6 +20,6 @@ async def notify_team_owners_with_matches_today(client, db, context, matchups_to
 
         team_pings += f'{team_1_ping} {team_2_ping} '
 
-    playing_today_message = 'Your team has a match today. Please make sure the lineup for your team has been set prior to the match. Use the command **!lineup** to set your lineup.'
+    playing_today_message = 'Your team has a match today. Please make sure the lineup for your team has been set prior to the match. Use the command **!setlineup** to set your lineup.'
 
     await team_owners_channel.send(f'{team_pings}\n\n{playing_today_message}')
