@@ -20,6 +20,9 @@ def get_rival_of_field_from_context(context):
 def get_league_season_constant_name(context):
     return constants.CONTEXT_TO_LEAGUE_SEASON_CONSTANT_NAME[context]
 
+def get_league_team_image_update_index(context):
+    return constants.CONTEXT_TO_LEAGUE_TEAM_IMAGE_UPDATE_INDEX[context]
+
 def get_team_info_channel_from_context(client, context):
 
     team_info_channel_id = constants.CONTEXT_TO_TEAM_INFO_CHANNEL_ID[context]
@@ -44,6 +47,9 @@ def get_league_url_from_context(context):
 
     return constants.CONTEXT_TO_LEAGUE_URL[context]
 
+def get_team_list_from_context(context):
+
+    return constants.CONTEXT_TO_TEAM_LIST[context]
 
 
 

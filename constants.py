@@ -302,6 +302,8 @@ TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 
              'Celestials', 'Saturn', 'Evergreen', 'Misfits', 'Hunters', 'Legion', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels',
              'Lotus', 'Deadlock', 'Horizon', 'Monarchs', 'Aces', 'Mantas']
 
+RIVALS_TEAM_LIST = ['Angels', 'Celestials', 'Deadlock', 'Eclipse', 'Evergreen', 'Fresas', 'Guardians', 'Horizon', 'Hunters', 'Lotus', 'Misfits', 'Monarchs', 'Olympians', 'Phantoms', 'Phoenix', 'Ragu', 'Saturn', 'Saviors']
+
 EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix', 
                'Saturn', 'Celestials', 'Evergreen', 'Misfits', 'Hunters', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels', 'Legion',
                'Lotus', 'Deadlock', 'Horizon', 'Monarchs', 'Aces', 'Mantas']

@@ -36,6 +36,11 @@ CONTEXT_TO_LEAGUE_SEASON_CONSTANT_NAME = {
     'FL': 'league_season_fake'
 }
 
+CONTEXT_TO_LEAGUE_TEAM_IMAGE_UPDATE_INDEX = {
+    'OW': 'team_image_update_index',
+    'MR': 'rivals_team_image_update_index',
+}
+
 CONTEXT_TO_TEAM_INFO_CHANNEL_ID = {
     'OW': constants.TEAM_INFO_CHANNEL,
     'MR': constants.RIVALS_TEAM_INFO_CHANNEL,
@@ -64,4 +69,9 @@ CONTEXT_TO_LEAGUE_URL = {
     'OW': 'sol',
     'MR': 'srl',
     'FL': 'fl'
+}
+
+CONTEXT_TO_TEAM_LIST = {
+    'OW': constants.TEAM_LIST,
+    'MR': constants.RIVALS_TEAM_LIST
 }
