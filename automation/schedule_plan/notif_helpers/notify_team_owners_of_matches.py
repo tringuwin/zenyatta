@@ -11,7 +11,7 @@ async def notify_team_owners_of_matches(client, db, matchups, context, week_numb
     all_team_pings = ''
 
     for matchup in matchups:
-        matchups_message += f'\n{matchup["team1"]} VS {matchup["team2"]}'
+        matchups_message += f'\n{matchup["team1"]} VS {matchup["team2"]} *(First Map: '+matchup['first_map']+')*'
 
         team1 = league_teams.find_one({'team_name': matchup['team1']})
         team2 = league_teams.find_one({'team_name': matchup['team2']})
