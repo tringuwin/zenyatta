@@ -79,7 +79,7 @@ async def unschedule_handler(db, message, client, context):
 
     week_index = season_schedule_plan['current_week']
     current_week = season_schedule_plan['weeks'][week_index]
-    if current_week['state'] != 'SCHEDULING':
+    if current_week['status'] != 'SCHEDULING':
         await message.channel.send('Scheduling is not currently open as this time.')
         return
 
