@@ -16,12 +16,14 @@ RANK_PREFIXES_TO_RANKS = {
     'O': 'One Above All'
 }
 
+NON_NUMBER_RANKS = ['E', 'O']
+
 
 async def set_rivals_rank(db, message):
 
-    valid_params, params = valid_number_of_params(message, 4)
-    if not valid_params:
-        await invalid_number_of_params(message)
+    params = message.content.split(' ')
+    if params < 3:
+        await invalid_number_of_params(message.channel)
         return
     
     mentioned_users = message.mentions
@@ -37,7 +39,18 @@ async def set_rivals_rank(db, message):
         await message.channel.send('Could not find that rank. Options are B, S, G, P, D, GM, C, E, O')
         return
     
-    rank_num = params[3]
+    rank_num = None
+    is_special_rank = False
+    if rank_prefix_upper in NON_NUMBER_RANKS:
+        rank_num = '1'
+        is_special_rank = True
+    else:
+        if len(params) < 4:
+            await message.channel.send('You must provide a rank number for this rank')
+            return
+
+        rank_num = params[3]
+
     if not can_be_int(rank_num):
         await message.channel.send(rank_num+' is not an integer')
         return
@@ -53,7 +66,7 @@ async def set_rivals_rank(db, message):
         return
     
     final_rank = {
-        'display': RANK_PREFIXES_TO_RANKS[rank_prefix_upper]+' '+str(rank_num),
+        'display': RANK_PREFIXES_TO_RANKS[rank_prefix_upper]+' '+str(rank_num) if not is_special_rank else RANK_PREFIXES_TO_RANKS[rank_prefix_upper],
         'prefix': rank_prefix_upper,
         'num': rank_num
     }
