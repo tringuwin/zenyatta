@@ -107,6 +107,7 @@ from command_handlers.league.score_match import score_match_handler
 from command_handlers.league.sol_week_end import sol_week_end
 from command_handlers.league.swiss_matchups import swiss_matchups_handler
 from command_handlers.league.timeslot import timeslot_handler
+from command_handlers.league.unschedule import unschedule_handler
 from command_handlers.league.weekly_roster_reset import weekly_roster_reset
 from command_handlers.league.sol_weekly_pay import sol_weekly_pay
 from command_handlers.league.init_standings import init_standings
@@ -838,6 +839,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!timeslot '):
         await timeslot_handler(db, message, client, context)
+
+    elif lower_message == '!unschedule':
+        await unschedule_handler(db, message, client, context)
 
     elif lower_message.startswith('!callme '):
         await call_me_handler(db, message, context)
