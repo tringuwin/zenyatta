@@ -101,6 +101,7 @@ from command_handlers.help.help_poke import help_poke_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.call_me import call_me_handler
+from command_handlers.league.first_map import first_map_handler
 from command_handlers.league.lft.rivals_rank import set_rivals_rank
 from command_handlers.league.picks.picks import picks_handler
 from command_handlers.league.score_match import score_match_handler
@@ -842,6 +843,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!unschedule':
         await unschedule_handler(db, message, client, context)
+
+    elif lower_message == '!firstmap':
+        await first_map_handler(db, message, context)
 
     elif lower_message.startswith('!callme '):
         await call_me_handler(db, message, context)
