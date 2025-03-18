@@ -22,7 +22,7 @@ NON_NUMBER_RANKS = ['E', 'O']
 async def set_rivals_rank(db, message):
 
     params = message.content.split(' ')
-    if params < 3:
+    if len(params) < 3:
         await invalid_number_of_params(message.channel)
         return
     
