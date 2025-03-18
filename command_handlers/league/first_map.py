@@ -43,6 +43,8 @@ async def first_map_handler(db, message, context):
         await message.channel.send('You do not have a matchup scheduled for this week.')
         return
     
-    await message.channel.send('The first map for your matchup this week is: '+user_matchup['first_map'])
+    team1 = user_matchup['team1']
+    team2 = user_matchup['team2']
+    await message.channel.send(f'The first map for your matchup ({team1} VS {team2}) this week is: '+user_matchup['first_map'])
 
 
