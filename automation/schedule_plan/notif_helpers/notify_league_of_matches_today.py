@@ -15,7 +15,7 @@ async def notify_league_of_matches_today(client, context, matchups_today):
 
         timeslot = matchup['timeslot']
         match_time_number = int(timeslot.split('-')[1])
-        match_time = f'{match_time_number}:00 PM EST'
+        match_time = f'{match_time_number}:00 PM ET'
 
         announcement_message += f'{match_time} - **{team1_name}** VS **{team2_name}**\n'
 

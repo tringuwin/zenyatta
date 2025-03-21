@@ -17,7 +17,7 @@ async def schedule_handler(message, context):
     # final_string += '\nMATCH 1: <:hunters:1245542818731134976> **Hunters** VS <:eclipse:1174517640987938926> **Eclipse**'
     # final_string += '\nMATCH 2: <:outliers:1200928308922167357> **Outliers** VS <:evergreen:1241087086207959040> **Evergreen**'
 
-    # final_string = '**GRAND FINALS : Sunday 5/5/2024 at 4:30 PM EST**'
+    # final_string = '**GRAND FINALS : Sunday 5/5/2024 at 4:30 PM ET**'
     # final_string += '\nFresas VS Olympians'
 
     # await message.channel.send(final_string)
@@ -56,7 +56,7 @@ async def schedule_handler(message, context):
     #             home_emoji_string = get_league_emoji_from_team_name(home_team)
     #             away_emoji_string = get_league_emoji_from_team_name(away_team)
     #             # final_string += '\n'+date
-    #             match_string = "Match "+str(match_index)+' : '+match_time+' EST : '
+    #             match_string = "Match "+str(match_index)+' : '+match_time+' ET : '
     #             teams_string = home_emoji_string+' **'+home_team+'** VS '+away_emoji_string+' **'+away_team+'**'
     #             final_string += '\n'+match_string+teams_string
 

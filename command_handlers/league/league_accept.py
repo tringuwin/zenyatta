@@ -46,7 +46,7 @@ async def league_accept_handler(db, message, client, context):
         return
     
     if constants.SEASON_ACTIVE and match_day_soft_lock():
-        await message.channel.send('Players are not allowed to join teams from 3:45 PM EST to 9:00 PM EST on SOL match days. Please try again later.')
+        await message.channel.send('Players are not allowed to join teams from 3:45 PM ET to 9:00 PM ET on SOL match days. Please try again later.')
         return
     
     team_name_to_join = make_string_from_word_list(word_list, 1)

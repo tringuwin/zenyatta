@@ -38,7 +38,7 @@ async def notify_both_teams_about_timeslot(client, db, matchup, timeslot):
     team_2_mention = f'<@&{team_2_role_id}>'
 
     timeslot_info = constants.TIMESLOT_TO_INFO[timeslot]
-    timeslot_string = f'Your match will take place at {timeslot_info[0]} at {timeslot_info[1]} PM EST.'
+    timeslot_string = f'Your match will take place at {timeslot_info[0]} at {timeslot_info[1]} PM ET.'
 
     await team_owners_channel.send(f'{team_1_mention} {team_2_mention} {timeslot_string}')
 

@@ -21,7 +21,7 @@ async def notify_team_owners_of_matches(client, db, matchups, context, week_numb
 
         all_team_pings += f'{team_1_ping} {team_2_ping} '
 
-    matchups_message += '\n\nPlease ensure these matches are scheduled by Tuesday at midnight EST.'
+    matchups_message += '\n\nPlease ensure these matches are scheduled by Tuesday at midnight ET.'
     matchups_message += '\n\n'+all_team_pings
 
     await team_owners_channel.send(matchups_message)

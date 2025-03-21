@@ -108,7 +108,7 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
                 'casters': [],
                 'lobby_admin_id': 0,
                 'channel': 'NONE',
-                'casting_channel_id': 0
+                'casting_channel_id': 0,
             },
             'first_map': get_random_map(context),
         }

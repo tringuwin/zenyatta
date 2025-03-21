@@ -88,7 +88,7 @@ async def notify_league_announcements(client, day):
 
     match_index = 1
     for match in matches:
-        matches_string += '\nMATCH '+str(match_index)+' | '+match['time']+' EST | '+get_league_emoji_from_team_name(match['home'])+' **'+match['home']+'** VS '+get_league_emoji_from_team_name(match['away'])+' **'+match['away']+'**'
+        matches_string += '\nMATCH '+str(match_index)+' | '+match['time']+' ET | '+get_league_emoji_from_team_name(match['home'])+' **'+match['home']+'** VS '+get_league_emoji_from_team_name(match['away'])+' **'+match['away']+'**'
 
         match_index += 1
 
