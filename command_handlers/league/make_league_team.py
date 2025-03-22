@@ -6,6 +6,67 @@ from helpers import make_string_from_word_list
 from user import set_user_league_team, user_exists
 
 
+DEFAULT_OW_LINEUP = {
+    'tank': {
+        'role': 'tank',
+        'user_id': 0
+    },
+    'dps1': {
+        'role': 'dps',
+        'user_id': 0
+    },
+    'dps2': {
+        'role': 'dps',
+        'user_id': 0
+    },
+    'sup1': {
+        'role': 'support',
+        'user_id': 0
+    },
+    'sup2': {
+        'role': 'support',
+        'user_id': 0
+    },
+}
+
+DEFAULT_MR_LINEUP = {
+    'player1': {
+        'role': 'player',
+        'user_id': 0
+    },
+    'player2': {
+        'role': 'player',
+        'user_id': 0
+    },
+    'player3': {
+        'role': 'player',
+        'user_id': 0
+    },
+    'player4': {
+        'role': 'player',
+        'user_id': 0
+    },
+    'player5': {
+        'role': 'player',
+        'user_id': 0
+    },
+    'player6': {
+        'role': 'player',
+        'user_id': 0
+    },
+}
+
+
+def get_default_lineup_from_context(context):
+
+    if context == 'OW':
+        return DEFAULT_OW_LINEUP
+    elif context == 'MR':
+        return DEFAULT_MR_LINEUP
+    else:
+        raise Exception('Default lineup does not exist for context: '+context)
+
+
 async def make_league_team_handler(db, message, client, context):
 
     word_parts = message.content.split(' ')
@@ -53,28 +114,7 @@ async def make_league_team_handler(db, message, client, context):
         'rivals': [],
         'ally_reqs': [],
         'rival_reqs': [],
-        'lineup': {
-            'tank': {
-                'role': 'tank',
-                'user_id': 0
-            },
-            'dps1': {
-                'role': 'dps',
-                'user_id': 0
-            },
-            'dps2': {
-                'role': 'dps',
-                'user_id': 0
-            },
-            'sup1': {
-                'role': 'support',
-                'user_id': 0
-            },
-            'sup2': {
-                'role': 'support',
-                'user_id': 0
-            },
-        },
+        'lineup': get_default_lineup_from_context(context),
         'banter': False,
         'applications': {
             'appsOpen': False,
