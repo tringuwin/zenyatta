@@ -1,11 +1,14 @@
 
 from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_teams_collection_from_context
+from discord_actions import get_guild, get_member_by_id
 from helpers import make_string_from_word_list
+from league_helpers.give_member_admin_role import give_member_admin_role
+from league_helpers.remove_member_admin_role import remove_member_admin_role
 from user import get_league_team_with_context, user_exists
 
 
-async def change_team_owner_handler(db, message, context):
+async def change_team_owner_handler(client, db, message, context):
 
     word_parts = message.content.split()
     if len(word_parts) < 3:
@@ -44,6 +47,13 @@ async def change_team_owner_handler(db, message, context):
         elif member['discord_id'] == mention_member.id:
             member['is_owner'] = True
             member['is_admin'] = True
+
+    await give_member_admin_role(mention_member, context, client)
+
+    guild = await get_guild(client)
+    old_owner_member = await get_member_by_id(guild, old_owner_id)
+    if old_owner_member:
+        await remove_member_admin_role(old_owner_member, context, client)
 
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": team_obj['members'], 'owner_id': mention_member.id}})
 
