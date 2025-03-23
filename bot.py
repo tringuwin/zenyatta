@@ -786,12 +786,12 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!leagueadminrolefix' and is_admin:
 
-        admin_role_id = 1353479674008961104
+        admin_role_id = 1353487134895378582
         admin_role = await get_role_by_id(client, admin_role_id)
 
         guild = await get_guild(client)
 
-        league_teams = db['leagueteams']
+        league_teams = db['rivals_leagueteams']
         all_teams = league_teams.find()
         for team in all_teams:
             members = team['members']
@@ -800,6 +800,8 @@ async def handle_message(message, db, client):
                     member_id = member['discord_id']
                     member_obj = get_member(guild, member_id, 'league_admin_role_fix')
                     await member_obj.add_roles(admin_role)
+
+        await message.channel.send('done')
 
 
     elif lower_message.startswith('!removeteamadmin'):
