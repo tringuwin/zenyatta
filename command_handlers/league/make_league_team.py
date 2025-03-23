@@ -3,6 +3,7 @@ from api import give_role
 from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context, get_team_info_channel_from_context
 from discord_actions import get_role_by_id
 from helpers import make_string_from_word_list
+from league_helpers.give_member_admin_role import give_member_admin_role
 from user import set_user_league_team, user_exists
 
 
@@ -126,6 +127,8 @@ async def make_league_team_handler(db, message, client, context):
     league_teams.insert_one(new_team)
 
     set_user_league_team(db, owner_user, team_name, context)
+
+    await give_member_admin_role(team_owner, context, client)
 
     league_notifs_channel = get_league_notifs_channel_from_context(client, context)
     await league_notifs_channel.send('New Team Created: "'+team_name+'". Owner is '+team_owner.mention)
