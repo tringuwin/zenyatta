@@ -6,6 +6,7 @@ from context.context_helpers import get_league_notifs_channel_from_context, get_
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info
+from league_helpers.remove_member_admin_role import remove_member_admin_role
 from user import get_league_team_with_context, user_exists
 
 async def league_leave_handler(db, message, client, context):
@@ -39,19 +40,23 @@ async def league_leave_handler(db, message, client, context):
     await remove_role(message.author, team_role, 'League Leave')
 
     final_members = []
+    was_admin = False
     for member in team_object['members']:
         if member['discord_id'] != user['discord_id']:
             final_members.append(member)
+        else:
+            was_admin = member['is_admin']
 
     league_teams.update_one({'team_name': team_object['team_name']}, {"$set": {"members": final_members}})
     team_object['members'] = final_members
 
+    if was_admin:
+        await remove_member_admin_role(message.author, context, client)
+
     await update_team_info(client, team_object, db, context)
 
     league_notifs_channel = get_league_notifs_channel_from_context(client, context)
-
     team_emoji_string = get_league_emoji_from_team_name(team_object['team_name'])
-
     await league_notifs_channel.send(team_emoji_string+' User '+message.author.mention+' has left the team "'+team_object['team_name']+'".')
 
     await message.channel.send('You have successfully left the team "'+team_object['team_name']+'"')

@@ -2,6 +2,7 @@
 from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info, user_admin_on_team, validate_admin
+from league_helpers.remove_member_admin_role import remove_member_admin_role
 from user import get_league_team_with_context, user_exists
 
 
@@ -46,10 +47,10 @@ async def remove_team_admin_handler(db, message, client, context):
 
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": new_members}})
 
+    await remove_member_admin_role(mentioned_member, context, client)
+
     league_notifs_channel = get_league_notifs_channel_from_context(client, context)
-
     team_emoji_string = get_league_emoji_from_team_name(team_name)
-
     await league_notifs_channel.send(team_emoji_string+' Team Update for '+team_name+": "+mentioned_member.mention+" is no longer a team admin.")
 
     team_object['members'] = new_members

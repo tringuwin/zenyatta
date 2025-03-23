@@ -5,6 +5,7 @@ from context.context_helpers import get_league_notifs_channel_from_context, get_
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info, validate_admin
+from league_helpers.remove_member_admin_role import remove_member_admin_role
 
 async def league_kick_handler(db, message, client, context):
 
@@ -72,10 +73,11 @@ async def league_kick_handler(db, message, client, context):
     if role:
         await remove_role(member_to_find, role, 'League Kick')
 
+    if kick_user_is_admin:
+        await remove_member_admin_role(member_to_find, context, client)
+
     league_notifs_channel = get_league_notifs_channel_from_context(client, context)
-
     team_emoji_string = get_league_emoji_from_team_name(team_name)
-
     await league_notifs_channel.send(team_emoji_string+' Team Update for '+team_name+": "+member_to_find.mention+" was kicked by "+message.author.mention)
 
     my_team['members'] = final_members

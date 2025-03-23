@@ -51,6 +51,9 @@ def get_team_list_from_context(context):
 
     return constants.CONTEXT_TO_TEAM_LIST[context]
 
+def get_team_admin_role_id_from_context(context):
+
+    return constants.CONTEXT_TO_TEAM_ADMIN_ROLE_ID[context]
 
 
 
