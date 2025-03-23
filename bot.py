@@ -798,7 +798,7 @@ async def handle_message(message, db, client):
             for member in members:
                 if member['is_admin']:
                     member_id = member['discord_id']
-                    member_obj = await get_member(guild, member_id, 'league_admin_role_fix')
+                    member_obj = get_member(guild, member_id, 'league_admin_role_fix')
                     await member_obj.add_roles(admin_role)
 
 
