@@ -925,7 +925,7 @@ async def handle_message(message, db, client):
         await top_100_handler(message)
 
     elif lower_message.startswith('!matchlineups') and is_tourney_admin:
-        await match_lineups_handler(db, message)
+        await match_lineups_handler(db, message, context)
 
     elif lower_message == '!toggleesub':
         #await message.channel.send('This command is being fixed. Try again soon!')

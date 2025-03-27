@@ -80,3 +80,14 @@ CONTEXT_TO_TEAM_ADMIN_ROLE_ID = {
     'OW': 1353479674008961104,
     'MR': 1353487134895378582,
 }
+
+CONTEXT_TO_LINEUP_ROLE_LIST = {
+    'OW': ['tank', 'dps1', 'dps2', 'sup1', 'sup2'],
+    'MR': ['player1', 'player2', 'player3', 'player4', 'player5', 'player6']
+}
+
+CONTEXT_TO_USER_ID = {
+    'OW': 'battle_tag',
+    'MR': 'rivals_username',
+    'FL': 'battle_tag'
+}

@@ -1,32 +1,37 @@
 
 
+from context.context_helpers import get_league_teams_collection_from_context, get_lineup_role_list_from_context, get_user_id_field_from_context
 from helpers import valid_number_of_params
 from user import user_exists
 
 
 
-def create_player_info(db, lineup_role):
+def create_player_info(db, lineup_role, context):
+
+    user_id_field = get_user_id_field_from_context(context)
 
     user = user_exists(db, lineup_role['user_id'])
     username = '**[NOT SET]**'
-    if user:
-        username = user['battle_tag']
+    if user and (user_id_field in user):
+        username = user[user_id_field]
 
     return '\n'+lineup_role['role'].upper()+': **'+username+'**'
 
-def create_lineup_info(db, team):
+
+
+
+def create_lineup_info(db, team, context):
 
     team_string = '**'+team['team_name'].upper()+'**\n--------------'
 
     lineup = team['lineup']
 
-    team_string += create_player_info(db, lineup['tank'])
-    team_string += create_player_info(db, lineup['dps1'])
-    team_string += create_player_info(db, lineup['dps2'])
-    team_string += create_player_info(db, lineup['sup1'])
-    team_string += create_player_info(db, lineup['sup2'])
+    lineup_roles = get_lineup_role_list_from_context(context)
+    for role in lineup_roles:
+        team_string += create_player_info(db, lineup[role], context)
 
     return team_string
+
 
 def banter_bool_to_word(banter_bool):
 
@@ -45,7 +50,7 @@ def create_banter_string(home_team, away_team):
     return 'Banter for Match is **'+banter_bool_to_word(banter)+'** | '+home_team['team_name']+': '+banter_bool_to_word(home_banter)+' | '+away_team['team_name']+': '+banter_bool_to_word(away_banter)
 
 
-async def match_lineups_handler(db, message):
+async def match_lineups_handler(db, message, context):
 
     valid_params, params = valid_number_of_params(message, 3)
     if not valid_params:
@@ -55,7 +60,7 @@ async def match_lineups_handler(db, message):
     home_team_name = params[1].lower()
     away_team_name = params[2].lower()
 
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection_from_context(db, context)
 
     home_team = league_teams.find_one({'name_lower': home_team_name})
     if not home_team:
@@ -67,8 +72,8 @@ async def match_lineups_handler(db, message):
         await message.channel.send(away_team_name+' is not a valid team name.')
         return
     
-    home_team_info_string = create_lineup_info(db, home_team)
-    away_team_info_string = create_lineup_info(db, away_team)
+    home_team_info_string = create_lineup_info(db, home_team, context)
+    away_team_info_string = create_lineup_info(db, away_team, context)
 
     banter_string = create_banter_string(home_team, away_team)
 
