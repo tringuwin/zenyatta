@@ -8,10 +8,6 @@ import constants
 
 async def set_lineup_handler(db, message, context):
 
-    if context == 'MR' and (not message.author.id == constants.SPICY_RAGU_ID):
-        await message.channel.send('Command is not ready yet for Marvel Rivals.')
-        return
-
     valid_admin, _, team_name, _ = await validate_admin(db, message)
 
     if message.author.id == constants.SPICY_RAGU_ID:
