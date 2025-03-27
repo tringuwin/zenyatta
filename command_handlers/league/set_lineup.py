@@ -8,7 +8,7 @@ import constants
 
 async def set_lineup_handler(db, message, context):
 
-    valid_admin, _, team_name, _ = await validate_admin(db, message)
+    valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
     if message.author.id == constants.SPICY_RAGU_ID:
         valid_admin = True
