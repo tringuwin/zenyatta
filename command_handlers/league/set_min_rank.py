@@ -34,7 +34,7 @@ async def set_min_rank_handler(db, message, context):
         await invalid_number_of_params(message)
         return
 
-    valid_admin, _, team_name, _ = await validate_admin(db, message)
+    valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
     if not valid_admin:
         await message.channel.send('You are not an admin of a league team.')
