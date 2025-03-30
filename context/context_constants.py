@@ -91,3 +91,9 @@ CONTEXT_TO_USER_ID = {
     'MR': 'rivals_username',
     'FL': 'battle_tag'
 }
+
+CONTEXT_TO_CALL = {
+    'OW': 'call',
+    'MR': 'rivals_call',
+    'FL': 'fake_call'
+}

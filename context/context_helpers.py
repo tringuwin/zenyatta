@@ -55,7 +55,6 @@ def get_team_admin_role_id_from_context(context):
 
     return constants.CONTEXT_TO_TEAM_ADMIN_ROLE_ID[context]
 
-
 def get_lineup_role_list_from_context(context):
 
     return constants.CONTEXT_TO_LINEUP_ROLE_LIST[context]
@@ -64,4 +63,7 @@ def get_user_id_field_from_context(context):
 
     return constants.CONTEXT_TO_USER_ID[context]
 
+def get_call_from_context(context):
+
+    return constants.CONTEXT_TO_CALL[context]
 
