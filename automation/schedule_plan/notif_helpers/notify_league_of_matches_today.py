@@ -1,6 +1,7 @@
 
 import constants
 from context.context_helpers import get_league_announcements_channel_from_context
+from helpers import get_league_emoji_from_team_name
 
 
 async def notify_league_of_matches_today(client, context, matchups_today):
@@ -17,7 +18,10 @@ async def notify_league_of_matches_today(client, context, matchups_today):
         match_time_number = int(timeslot.split('-')[1])
         match_time = f'{match_time_number}:00 PM ET'
 
-        announcement_message += f'{match_time} - **{team1_name}** VS **{team2_name}**\n'
+        team1_emoji = get_league_emoji_from_team_name(team1_name)
+        team2_emoji = get_league_emoji_from_team_name(team2_name)
+
+        announcement_message += f'{match_time} - {team1_emoji} **{team1_name}** VS  {team2_emoji} **{team2_name}**\n'
 
     await announcements_channel.send(announcement_message)
 
