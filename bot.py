@@ -357,7 +357,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
             return True, None
         
     elif (message.channel.id == constants.TEAM_OWNERS_CHANNEL or message.channel.id == constants.RIVALS_TEAM_OWNERS_CHANNEL):
-        if lower_message.startswith('!setlineup'):
+        if lower_message.startswith('!setlineup') or lower_message.startswith('!timeslot') or lower_message.startswith('!unschedule'):
             return True, None
     
     return False, 'Please only use commands in a valid channel'
