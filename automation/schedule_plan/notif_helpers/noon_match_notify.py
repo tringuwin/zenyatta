@@ -21,5 +21,7 @@ async def noon_match_notify(client, context, db, season, week_index, day_index):
         match = matchups.find_one({"matchup_id": match_id})
         matchups_today.append(match)
 
-    await notify_league_of_matches_today(client, context, matchups_today)
-    await notify_team_owners_with_matches_today(client, db, context, matchups_today)
+    sorted_matchups_today = sorted(matchups_today, key=lambda x: int(x['match_epoch']))
+
+    await notify_league_of_matches_today(client, context, sorted_matchups_today)
+    await notify_team_owners_with_matches_today(client, db, context, sorted_matchups_today)
