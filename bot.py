@@ -387,7 +387,7 @@ async def handle_message(message, db, client):
     user_message = str(message.content)
     is_admin = (message.author.id == constants.SPICY_RAGU_ID or message.author.id == 979526718186459206)
     is_helper = (not message.author.bot) and member_has_role(message.author, constants.HELPER_ROLE_ID)
-    is_league_helper = (not message.author.bot) and member_has_role(message.author, constants.LEAGUE_REWARDS_ROLE_ID)
+    is_xp_helper = (not message.author.bot) and member_has_role(message.author, constants.XP_HELPER_ROLE_ID)
     is_cp_helper = (not message.author.bot) and member_has_role(message.author, constants.CHANNEL_POINTS_ROLE_ID)
     is_tp_helper = (not message.author.bot) and member_has_role(message.author, constants.TWITCH_PACKS_ROLE_ID)
     is_league_commands_user = (not message.author.bot) and member_has_role(message.author, constants.LEAGUE_COMMANDS_PERMS_ROLE)
@@ -1634,7 +1634,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!money':
         await money(db, message)
 
-    elif lower_message.startswith('!givexp ') and (is_admin or is_league_helper):
+    elif lower_message.startswith('!givexp ') and (is_admin or is_xp_helper):
         await give_xp_handler(client, db, message)
 
     elif lower_message.startswith('!esub ') and (is_admin or is_esub_helper):
