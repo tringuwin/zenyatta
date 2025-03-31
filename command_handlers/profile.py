@@ -87,6 +87,10 @@ def make_rivals_rank_string(user):
 
 async def overwatch_profile(message, client, user):
     
+    if not 'battle_tag' in user:
+        await message.channel.send('This is an Overwatch channel, I do not see an Overwatch battle tag in your profile.')
+        return
+
     guild = await get_guild(client)
 
     level, xp = get_lvl_info(user)
@@ -157,6 +161,10 @@ async def overwatch_profile(message, client, user):
 
 
 async def rivals_profile(message, client, user):
+
+    if not 'rivals_username' in user:
+        await message.channel.send('This is an Marvel Rivals channel, I do not see a Marvel Rivals username in your profile.')
+        return
 
     guild = await get_guild(client)
 
