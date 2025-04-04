@@ -6,7 +6,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_username_by_user_id
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_packs, change_tokens
-from user import get_user_battle_cards, get_user_cards, get_user_packs, get_user_tokens, user_exists, get_user_for_sale_cards
+from user import get_total_cards, get_user_battle_cards, get_user_cards, get_user_packs, get_user_tokens, user_exists, get_user_for_sale_cards
 import random
 import constants
 
@@ -921,6 +921,18 @@ async def buy_card_handler(db, message):
     embed.set_image(url=card_img)
     await message.channel.send(embed=embed)
     
+
+async def total_cards_handler(db, message, context):
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message, context)
+        return
+    
+    total_cards = get_total_cards(user)
+
+    await message.channel.send('You have a total of **'+str(total_cards)+' Cards**.')
+
 
 async def total_packs_handler(db, message):
 

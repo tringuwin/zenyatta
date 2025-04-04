@@ -67,3 +67,6 @@ def get_call_from_context(context):
 
     return constants.CONTEXT_TO_CALL[context]
 
+def get_teams_joined_this_season_constant(context):
+
+    return constants.CONTEXT_TO_TEAMS_JOINED_THIS_SEASON[context]

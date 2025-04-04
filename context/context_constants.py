@@ -97,3 +97,9 @@ CONTEXT_TO_CALL = {
     'MR': 'rivals_call',
     'FL': 'fake_call'
 }
+
+CONTEXT_TO_TEAMS_JOINED_THIS_SEASON = {
+    'OW': 'teams_joined_this_season',
+    'MR': 'rivals_teams_joined_this_season',
+    'FL': 'fake_teams_joined_this_season'
+}
