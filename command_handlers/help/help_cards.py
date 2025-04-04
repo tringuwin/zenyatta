@@ -17,6 +17,7 @@ async def help_cards_handler(message):
     help_embed.add_field(name='!cardmarket', value='Get a link to the card market website.', inline=False)
     help_embed.add_field(name='!gallery', value='Get a link to a gallery showing all of the SOL cards.', inline=False)
     help_embed.add_field(name='!cardsearch', value='Get a link to a webpage that helps you search for cards.', inline=False)
+    help_embed.add_field(name='!totalcards', value='See the total number of cards you own.', inline=False)
     help_embed.add_field(name='!totalpacks', value='See how many cards are still in packs.', inline=False)
     help_embed.add_field(name='!cardpage [number]', value="Get a link to a card's page on our website to see who owns each variant.", inline=False)
     help_embed.add_field(name='!cardbattle [card id] [battle type duel/capture/elimination] [min power] [max power]', value="Create a card battle with one of your cards to allow another player to challenge you!", inline=False)
