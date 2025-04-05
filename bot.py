@@ -1900,6 +1900,9 @@ async def handle_message(message, db, client):
     elif lower_message == '!adsecond' and is_tourney_admin:
         await run_ad(db, message, 'second')
 
+    elif lower_message == '!adthird' and is_tourney_admin:
+        await run_ad(db, message, 'third')
+
     elif lower_message == '!raidmain' and is_tourney_admin:
         await raid_channel(db, message, 'second', 'main')
 
