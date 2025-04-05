@@ -38,6 +38,7 @@ async def respond_based_on_result(message, result):
     
     await message.channel.send('Something went wrong...')
 
+
 async def run_ad(db, message, channel_name):
 
     headers = make_run_ad_headers(db, channel_name)

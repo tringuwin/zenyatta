@@ -42,7 +42,7 @@ async def start_pred(db, message):
     minutes = params[4]
 
     if not is_valid_channel(channel_lower):
-        await message.channel.send(channel+' is not a valid channel name. It must be either main or second.')
+        await message.channel.send(channel+' is not a valid channel name. It must be either main, second or third.')
         return
 
     if not can_be_int(minutes):

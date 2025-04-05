@@ -44,7 +44,7 @@ async def end_pred(db, message):
     choice_lower = choice.lower()
 
     if not is_valid_channel(channel_lower):
-        await message.channel.send(channel+' is not a valid channel name. It must be either main or second.')
+        await message.channel.send(channel+' is not a valid channel name. It must be either main, second or third.')
         return
 
     constant_name = get_twitch_constant_name_from_channel(channel_lower)

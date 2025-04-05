@@ -37,3 +37,11 @@ async def check_token_issue(db, channel):
         token_issue_val_2['notif'] = True
         constants_db.update_one({"name": 'token_issue_second'}, {"$set": {"value": token_issue_val_2}})
 
+
+    token_issue_obj_3 = constants_db.find_one({'name': 'token_issue_third'})
+    token_issue_val_3 = token_issue_obj_3['value']
+
+    if token_issue_val_3['issue'] and ( not token_issue_val_3['notif'] ):
+        await channel.send('We need a new third twitch token: <@1112204092723441724>\n\n'+create_token_url('third'))
+        token_issue_val_3['notif'] = True
+        constants_db.update_one({"name": 'token_issue_third'}, {"$set": {"value": token_issue_val_3}})
