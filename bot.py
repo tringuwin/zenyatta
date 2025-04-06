@@ -9,6 +9,7 @@ from admin_handlers.cancel_vote import cancel_vote_handler
 from admin_handlers.delete_by_tag import delete_by_tag_handler
 from admin_handlers.end_vote import end_vote_handler
 from admin_handlers.feature import feature_handler
+from admin_handlers.fix_standings import fix_standings_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_battle_handler import force_battle_handler
 from admin_handlers.force_delete_team import force_delete_team_handler
@@ -634,6 +635,9 @@ async def handle_message(message, db, client):
     elif lower_message == '!standings':
         #await message.channel.send('This command is being fixed. Try again soon!')
         await standings_handler(message, context)
+
+    elif lower_message == '!fixstandings' and is_admin:
+        await fix_standings_handler(db, message, context)
 
     # elif lower_message == '!standings2':
     #     await standings2_handler(db, message, client)
