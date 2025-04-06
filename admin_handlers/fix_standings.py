@@ -57,6 +57,8 @@ def apply_matchup_to_standings(standings, matchup):
     standings[losing_team_name]['map_losses'] += winning_team_score
     standings[losing_team_name]['esubs'] += losing_team_esubs
 
+    return standings
+
 
 async def fix_standings_handler(db, message, context):
 
