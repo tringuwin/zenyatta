@@ -20,6 +20,8 @@ def make_blank_standings(teams):
             'points': 0,
         }
 
+    print('blank standings is', all_teams)
+
     return all_teams
 
 
