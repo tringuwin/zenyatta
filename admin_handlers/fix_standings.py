@@ -20,14 +20,10 @@ def make_blank_standings(teams):
             'points': 0,
         }
 
-    print('blank standings is', all_teams)
-
     return all_teams
 
 
 def apply_matchup_to_standings(standings, matchup):
-
-    print('standings in apply matchup', standings)
 
     team1 = matchup['team1']
     team2 = matchup['team2']
