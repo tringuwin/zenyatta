@@ -27,6 +27,7 @@ def make_run_ad_data(channel_name):
 async def respond_based_on_result(message, result):
 
     status_code = result.status_code
+    print('result is ', result)
 
     if status_code == 200:
         await message.channel.send('Ad started successfully.')
