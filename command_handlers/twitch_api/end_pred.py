@@ -58,6 +58,7 @@ async def end_pred(db, message):
 
     if pred_choice == -1:
         await message.channel.send('Could not find a prediction result with the name '+choice)
+        return
 
     worked = end_pred_twitch_call(db, channel_lower, pred_data['pred_id'], pred_data['outcomes'][pred_choice]['outcome_id'])
     if not worked:
