@@ -922,6 +922,18 @@ async def buy_card_handler(db, message):
     await message.channel.send(embed=embed)
     
 
+async def total_cards_handler(db, message, context):
+
+    user = user_exists(db, message.author.id)
+    if not user:
+        await not_registered_response(message, context)
+        return
+    
+    total_cards = get_total_cards(user)
+
+    await message.channel.send('You have a total of **'+str(total_cards)+' Cards**.')
+
+
 async def total_packs_handler(db, message):
 
     db_cards = db['cards']
