@@ -86,3 +86,7 @@ async def fix_standings_handler(db, message, context):
         team['points'] = calculate_team_points(team)
 
     print('new standings', new_standings)
+
+    standings.update_one({'context': context, 'season': season_number}, {'$set': {'teams': new_standings}})
+
+    await message.channel.send(f'Fixed standings for {context} season {season_number}')
