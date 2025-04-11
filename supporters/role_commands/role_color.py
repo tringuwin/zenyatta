@@ -26,7 +26,12 @@ async def role_color(client, db, message):
     if not is_valid_hex_code(color_raw):
         await message.channel.send(color_raw+' is not a valid hex code.')
         return
-    discord_color = discord.Colour.from_str(color_raw)
+    
+    try:
+        discord_color = discord.Colour.from_str(color_raw)
+    except ValueError as e:
+        await message.channel.send('Invalid hex code. Please use a valid hex code.')
+        return
     
     guild = await get_guild(client)
 
