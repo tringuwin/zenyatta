@@ -1642,7 +1642,8 @@ async def handle_message(message, db, client):
         await money(db, message)
 
     elif lower_message.startswith('!givexp ') and (is_admin or is_xp_helper):
-        await give_xp_handler(client, db, message)
+        await message.channel.send('This command is currently disabled. XP is turned off for now.')
+        #await give_xp_handler(client, db, message)
 
     elif lower_message.startswith('!esub ') and (is_admin or is_esub_helper):
         await e_sub_handler(client, db, message)

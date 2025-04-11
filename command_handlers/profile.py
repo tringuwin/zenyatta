@@ -93,7 +93,7 @@ async def overwatch_profile(message, client, user):
 
     guild = await get_guild(client)
 
-    level, xp = get_lvl_info(user)
+    # level, xp = get_lvl_info(user)
     league_team = get_league_team(user)
     fan_of = get_fan_of(user)
     rival_of = get_rival_of(user)
@@ -110,7 +110,7 @@ async def overwatch_profile(message, client, user):
     
     final_string = "**USER PROFILE FOR "+user['battle_tag']+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
-    final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
+    # final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
     final_string += make_rank_string(ranks)+'\n\n'
 
     league_team_string = league_team
@@ -172,7 +172,7 @@ async def rivals_profile(message, client, user):
     if username == '':
         username = '[Unknown Username]'
 
-    level, xp = get_lvl_info(user)
+    # level, xp = get_lvl_info(user)
     league_team = get_rivals_league_team(user)
     fan_of = get_fan_of_rivals(user)
     rival_of = get_rival_of_rivals(user)
@@ -188,7 +188,7 @@ async def rivals_profile(message, client, user):
     
     final_string = "**USER PROFILE FOR "+username+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
-    final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
+    # final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
     final_string += make_rivals_rank_string(user)+'\n\n'
 
     league_team_string = league_team

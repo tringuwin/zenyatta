@@ -14,7 +14,7 @@ async def lootboxes_handler(db, message):
     twitch_lootboxes = get_sub_lootboxes(user)
 
     if len(user_lootboxes) == 0 and twitch_lootboxes == 0:
-        await message.channel.send('You do not have any lootboxes right now. Earn XP and Level Up to earn more!')
+        await message.channel.send('You do not have any lootboxes right now. Subscribe on twitch to earn more!')
         return
     
     final_string = '**YOUR LOOTBOXES:**\n'
