@@ -612,7 +612,8 @@ async def handle_message(message, db, client):
         await set_rivals_rank(db, message)
 
     elif lower_message == '!leaderboard':
-        await leaderboard_handler(db, message)
+        await message.channel.send('This command is turned off for now as XP is not currently turned on. It may be turned on again in the future.')
+        #await leaderboard_handler(db, message)
 
     elif lower_message == '!tokenleaderboard':
         await token_leaderboard_handler(db, message)
