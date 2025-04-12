@@ -896,6 +896,23 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!setminrank'):
         await set_min_rank_handler(db, message, context)
 
+    elif lower_message == '!prodcrewfix' and is_admin:
+
+        casters = db['casters']
+        production_crew = db['production_crew']
+
+        all_casters = list(casters.find())
+        for caster in all_casters:
+            new_crew = {
+                'discord_id': caster['discord_id'],
+                'username': caster['username'],
+                'balance': 0.00
+            }
+            production_crew.insert_one(new_crew)
+
+        await message.channel.send('All casters have been added to the production crew.')
+
+
     elif lower_message == '!toggleapps':
         await toggle_apps_handler(db, message, context)
 
