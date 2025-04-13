@@ -26,7 +26,7 @@ async def make_lobby_admin_handler(db, message):
 
     create_new_production_crew_member(db, user_id, username)
 
-    await message.channel.send('Added '+username+' as a caster.')
+    await message.channel.send('Added '+username+' as a crew member.')
 
 
 
