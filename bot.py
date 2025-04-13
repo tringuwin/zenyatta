@@ -55,6 +55,7 @@ from card_matches.card_match_utils import make_match_card
 from cards import buy_card_handler, cards_handler, edit_card_handler, force_unlist, give_card_handler, init_card_handler, init_custom_handler, list_card_handler, make_card_handler, open_pack_handler, release_cards, sell_all_cards_handler, sell_card_handler, total_cards_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
 from cards_data import init_card_data_db, init_display_cards, update_card_data_db
 from casting.make_caster import make_caster_handler
+from casting.make_lobby_admin import make_lobby_admin_handler
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
 from command_handlers.ask import ask_handler
 from command_handlers.auction.bid import bid_handler
@@ -2048,8 +2049,11 @@ async def handle_message(message, db, client):
 
         await message.channel.send(message.author.avatar.url)
 
-    elif lower_message.startswith('!makecaster '):
+    elif lower_message.startswith('!makecaster ') and is_admin:
         await make_caster_handler(db, message)
+
+    elif lower_message.startswith('!makelobbyadmin ') and is_admin:
+        await make_lobby_admin_handler(db, message)
 
     elif lower_message == '!makereactionroles' and is_admin:
 
