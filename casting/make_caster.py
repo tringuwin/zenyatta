@@ -1,5 +1,6 @@
 
 import uuid
+from automation.crew.create_new_production_crew_member import create_new_production_crew_member
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
 
@@ -65,6 +66,8 @@ async def make_caster_handler(db, message):
     }
 
     casters.insert_one(new_caster)
+
+    create_new_production_crew_member(db, user_id, username)
 
     await message.channel.send('Added '+username+' as a caster.')
 
