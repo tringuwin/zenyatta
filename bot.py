@@ -191,6 +191,7 @@ from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.redeem_code import redeem_code
 from command_handlers.rp import rp_handler
 from command_handlers.sell_pp import sell_pp_handler
+from command_handlers.slime import slime_handler
 from command_handlers.team_page import team_page_handler
 from command_handlers.top_100 import top_100_handler
 from command_handlers.twitch import twitch_handler
@@ -1237,6 +1238,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!thepoint':
         await message.channel.send('https://i.imgur.com/mwekfl2.png')
+
+    elif lower_message.startswith('!slime '):
+        await slime_handler(db, message)
 
     elif lower_message == '!zorp':
 
