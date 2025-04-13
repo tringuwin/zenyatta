@@ -18,7 +18,7 @@ async def slime_handler(db, message):
     
     user_slimed = get_user_slimed(user)
     if user_slimed:
-        await message.channel.send("You have already been slimed. You cannot slime anyone else.")
+        await message.channel.send("You have already been slimed. You cannot slime anyone else unless you are revived first.")
         return
 
     if len(message.mentions) != 1:

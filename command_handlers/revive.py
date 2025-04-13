@@ -13,7 +13,7 @@ async def revive_handler(db, message):
     
     user_slimed = get_user_slimed(user)
     if user_slimed:
-        await message.channel.send("You have already been slimed. You cannot revive anyone.")
+        await message.channel.send("You have already been slimed. You cannot revive anyone unless you are revived first.")
         return
 
     if len(message.mentions) != 1:
