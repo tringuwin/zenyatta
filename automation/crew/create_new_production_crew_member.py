@@ -1,6 +1,6 @@
 
 
-async def create_new_production_crew_member(db, user_id, username):
+def create_new_production_crew_member(db, user_id, username):
 
     production_crew = db['production_crew']
 
