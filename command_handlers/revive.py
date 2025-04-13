@@ -27,7 +27,7 @@ async def revive_handler(db, message):
         return
     
     mentioned_user_slimed = get_user_slimed(mentioned_user)
-    if mentioned_user_slimed:
+    if not mentioned_user_slimed:
         await message.channel.send("That user has not been slimed, so they don't need to be revived.")
         return
     
@@ -42,7 +42,7 @@ async def revive_handler(db, message):
         return
     
     users = db['users']
-    
+
     user_gems['white'] -= 1
     users.update_one({"discord_id": message.author.id}, {"$set": {"gems": user_gems}})
 
