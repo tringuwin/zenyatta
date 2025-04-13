@@ -2,6 +2,12 @@
 
 from user import user_exists
 
+def get_user_slimed(user):
+
+    if 'slimed' in user:
+        return user['slimed']
+    
+    return False
 
 async def slime_handler(db, message):
 
@@ -10,7 +16,8 @@ async def slime_handler(db, message):
         await message.channel.send("You need to register first!")
         return
     
-    if 'slimed' in user:
+    user_slimed = get_user_slimed(user)
+    if user_slimed:
         await message.channel.send("You have already been slimed. You cannot slime anyone else.")
         return
 
@@ -24,7 +31,8 @@ async def slime_handler(db, message):
         await message.channel.send("The mentioned user is not registered.")
         return
     
-    if 'slimed' in mentioned_user:
+    mentioned_user_slimed = get_user_slimed(mentioned_user)
+    if mentioned_user_slimed:
         await message.channel.send("That user has already been slimed.")
         return
     

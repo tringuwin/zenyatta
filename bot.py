@@ -189,6 +189,7 @@ from command_handlers.open import open_handler
 from command_handlers.open_drop import open_drop
 from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.redeem_code import redeem_code
+from command_handlers.revive import revive_handler
 from command_handlers.rp import rp_handler
 from command_handlers.sell_pp import sell_pp_handler
 from command_handlers.slime import slime_handler
@@ -1241,6 +1242,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!slime '):
         await slime_handler(db, message)
+
+    elif lower_message.startswith('!revive '):
+        await revive_handler(db, message)
 
     elif lower_message == '!zorp':
 
