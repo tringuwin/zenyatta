@@ -82,6 +82,7 @@ from command_handlers.donate_gems import donate_gems
 from command_handlers.donate_packs import donate_packs
 from command_handlers.donate_pass import donate_pass_handler
 from command_handlers.drop_alert import drop_alert
+from command_handlers.drop_bank import drop_bank_handler
 from command_handlers.drops import drops
 from command_handlers.funding import funding_handler
 from command_handlers.gems import gems_handler
@@ -2063,6 +2064,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!pay ') and is_admin:
         await pay_handler(db, message)
+
+    elif lower_message == '!dropbank' and is_admin:
+        await drop_bank_handler(db, message)
 
     elif lower_message.startswith('!makelobbyadmin ') and is_admin:
         await make_lobby_admin_handler(db, message)
