@@ -56,6 +56,7 @@ from cards import buy_card_handler, cards_handler, edit_card_handler, force_unli
 from cards_data import init_card_data_db, init_display_cards, update_card_data_db
 from casting.make_caster import make_caster_handler
 from casting.make_lobby_admin import make_lobby_admin_handler
+from casting.pay import pay_handler
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
 from command_handlers.ask import ask_handler
 from command_handlers.auction.bid import bid_handler
@@ -2059,6 +2060,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!makecaster ') and is_admin:
         await make_caster_handler(db, message)
+
+    elif lower_message.startswith('!pay ') and is_admin:
+        await pay_handler(db, message)
 
     elif lower_message.startswith('!makelobbyadmin ') and is_admin:
         await make_lobby_admin_handler(db, message)
