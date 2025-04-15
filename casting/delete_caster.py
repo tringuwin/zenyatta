@@ -25,21 +25,15 @@ async def delete_caster_handler(db, message):
 
     final_balance = 0
     if crew_member:
-        print('found crew member')
         final_balance = crew_member['balance']
+        production_crew.delete_one({"discord_id": user_id})
 
     all_casters = list(casters.find())
     for caster in all_casters:
 
-        orig_relations = len(caster['relations'])
-        print('orig relations', orig_relations)
-
         if user_id in caster['relations']:
-            print('found caster relation')
             del caster['relations'][user_id]
+            casters.update_one({"discord_id": caster['discord_id']}, {"$set": {"relations": caster['relations']}})
 
-        new_relations = len(caster['relations'])
-        print('new relations', new_relations)
-
-
+    casters.delete_one({"discord_id": user_id})
     await message.channel.send('CASTED-DELETED | Deleted the caster "' + delete_caster['username'] +  '" Final balance was: '+str(final_balance))
