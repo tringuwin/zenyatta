@@ -261,5 +261,9 @@ async def profile_handler(db, message, client, context):
 
     if context == 'OW':
         await overwatch_profile(message, client, user)
-    else:
+    elif context == 'MR':
         await rivals_profile(message, client, user)
+    elif context == 'VL':
+        await message.channel.send('Valorant profiles are not ready yet.')
+    else:
+        await message.channel.send('This command is not ready yet for this league.')
