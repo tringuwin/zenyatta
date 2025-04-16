@@ -276,6 +276,12 @@ def get_fan_of_rivals(user):
         return user['fan_of_rivals']
     return 'None'
 
+def get_fan_of_valorant(user):
+
+    if 'fan_of_valorant' in user:
+        return user['fan_of_valorant']
+    return 'None'
+
 def get_rival_of(user):
 
     if 'rival_of' in user:
@@ -286,6 +292,12 @@ def get_rival_of_rivals(user):
 
     if 'rival_of_rivals' in user:
         return user['rival_of_rivals']
+    return 'None'
+
+def get_rival_of_valorant(user):
+
+    if 'rival_of_valorant' in user:
+        return user['rival_of_valorant']
     return 'None'
 
 def get_last_token_shop(user):
@@ -422,6 +434,15 @@ def get_rivals_username(user):
         return user['rivals_username']
     
     return ''
+
+
+def get_riot_id(user):
+
+    if 'riot_id' in user:
+        return user['riot_id']
+    
+    return ''
+
 
 
 def get_user_minute_points(user):

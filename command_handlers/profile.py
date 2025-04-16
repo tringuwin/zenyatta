@@ -2,7 +2,7 @@
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
-from user import get_fan_of, get_fan_of_rivals, get_league_team, get_lvl_info, get_rival_of, get_rival_of_rivals, get_rivals_league_team, get_rivals_username, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_rivals_rank, get_user_tokens, get_user_trophies, user_exists
+from user import get_fan_of, get_fan_of_rivals, get_fan_of_valorant, get_league_team, get_lvl_info, get_riot_id, get_rival_of, get_rival_of_rivals, get_rival_of_valorant, get_rivals_league_team, get_rivals_username, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_rivals_rank, get_user_tokens, get_user_trophies, get_valorant_league_team, user_exists
 import constants
 
 
@@ -163,7 +163,7 @@ async def overwatch_profile(message, client, user):
 async def rivals_profile(message, client, user):
 
     if not 'rivals_username' in user:
-        await message.channel.send('This is an Marvel Rivals channel, I do not see a Marvel Rivals username in your profile.')
+        await message.channel.send('This is a Marvel Rivals channel, I do not see a Marvel Rivals username in your profile.')
         return
 
     guild = await get_guild(client)
@@ -190,6 +190,83 @@ async def rivals_profile(message, client, user):
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
     # final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
     final_string += make_rivals_rank_string(user)+'\n\n'
+
+    league_team_string = league_team
+    if league_team in constants.EMOJI_TEAMS:
+        team_emoji_string = get_league_emoji_from_team_name(league_team)
+        league_team_string = team_emoji_string+' '+league_team_string
+
+    fan_of_string = fan_of
+    if fan_of in constants.EMOJI_TEAMS:
+        fan_emoji_string = get_league_emoji_from_team_name(fan_of)
+        fan_of_string = fan_emoji_string+' '+fan_of_string
+
+    rival_of_string = rival_of
+    if rival_of in constants.EMOJI_TEAMS:
+        rival_emoji_string = get_league_emoji_from_team_name(rival_of)
+        rival_of_string = rival_emoji_string+' '+rival_of_string
+        
+    final_string += 'League Team: **'+league_team_string+"**\n"
+    final_string += 'Fan of Team: **'+fan_of_string+'**\n'
+    final_string += 'Rival of Team: **'+rival_of_string+'**\n'
+
+    pack_emoji = guild.get_emoji(constants.PACK_EMOJI_ID)
+    #poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
+    drop_emoji_string = '<:spicy_drop:1327677388720701450>'
+    final_string +='\n'
+    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' 🏆 '+str(trophies)+'\n'
+
+    gems = get_user_gems(user)
+    gem_line_1 = ''
+    gem_line_2 = ''
+
+    gem_index = 1
+    for color, amount in gems.items():
+        gem_emoji_string = constants.GEM_COLOR_TO_STRING[color]
+        if gem_index < 6:
+            gem_line_1 += gem_emoji_string+' '+str(amount)+' '
+        else:
+            gem_line_2 += gem_emoji_string+' '+str(amount)+' '
+        gem_index +=1
+
+    final_string +='\n'
+    final_string += gem_line_1+'\n'+gem_line_2
+
+    #final_string += '\n\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
+
+    await message.channel.send(final_string)
+
+
+async def valorant_profile(message, client, user):
+
+    if not 'riot_id' in user:
+        await message.channel.send('This is a Valorant channel, I do not see a Riot I in your profile.')
+        return
+
+    guild = await get_guild(client)
+
+    riot_id = get_riot_id(user)
+    if riot_id == '':
+        riot_id = '[Unknown Riot ID]'
+
+    # level, xp = get_lvl_info(user)
+    league_team = get_valorant_league_team(user)
+    fan_of = get_fan_of_valorant(user)
+    rival_of = get_rival_of_valorant(user)
+    tokens = get_user_tokens(user)
+    passes = get_user_passes(user)
+    pickaxes = get_user_pickaxes(user)
+    packs = get_user_packs(user)
+    #poke_points = get_user_poke_points(user)
+    trophies = get_user_trophies(user)
+    twitch_username = get_twitch_username(user)
+    #pokedex = get_user_pokedex(user)
+    drops = get_user_drop_boxes(user)
+    
+    final_string = "**USER PROFILE FOR "+riot_id+':**\n'
+    final_string += 'Twitch Username: **'+twitch_username+'**\n'
+    # final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
+    # final_string += make_rivals_rank_string(user)+'\n\n'
 
     league_team_string = league_team
     if league_team in constants.EMOJI_TEAMS:
@@ -264,6 +341,6 @@ async def profile_handler(db, message, client, context):
     elif context == 'MR':
         await rivals_profile(message, client, user)
     elif context == 'VL':
-        await message.channel.send('Valorant profiles are not ready yet.')
+        await valorant_profile(message, client, user)
     else:
         await message.channel.send('This command is not ready yet for this league.')
