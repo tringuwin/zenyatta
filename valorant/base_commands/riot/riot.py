@@ -61,7 +61,7 @@ async def riot_link(db, message, client, user, riot_id):
             await message.channel.send("That Riot ID has already been connected to a different discord account. Please contact staff if you need help.")
         return
     
-    handle_riot_link_success(db, riot_id)
+    handle_riot_link_success(db, message, riot_id)
 
     guild = client.get_guild(constants.GUILD_ID)
     reg_role = guild.get_role(constants.REGISTERED_ROLE)
