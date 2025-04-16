@@ -2169,7 +2169,7 @@ async def handle_message(message, db, client):
         await route_rivals_message(db, message, lower_message)
 
     elif context == 'VL':
-        await route_valorant_message(db, message, lower_message)
+        await route_valorant_message(client, db, message, lower_message)
 
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
