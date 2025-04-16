@@ -282,6 +282,7 @@ from roster_lock import handle_lock
 from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from route_messages.utils.get_context import get_context
+from route_messages.valorant_message.route_rivals_message import route_valorant_message
 from server_level import sub_points_handler
 from streamlabs import check_streamlabs_raffles
 from supporters.role_commands.role_color import role_color
@@ -2166,6 +2167,9 @@ async def handle_message(message, db, client):
 
     elif context == 'MR':
         await route_rivals_message(db, message, lower_message)
+
+    elif context == 'VL':
+        await route_valorant_message(db, message, lower_message)
 
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
