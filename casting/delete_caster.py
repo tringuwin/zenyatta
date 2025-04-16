@@ -36,4 +36,4 @@ async def delete_caster_handler(db, message):
             casters.update_one({"discord_id": caster['discord_id']}, {"$set": {"relations": caster['relations']}})
 
     casters.delete_one({"discord_id": user_id})
-    await message.channel.send('CASTED-DELETED | Deleted the caster "' + delete_caster['username'] +  '" Final balance was: '+str(final_balance))
+    await message.channel.send('CASTED-DELETED | Deleted the caster "' + delete_caster['username'] +  '" Final balance was: $'+str(final_balance))
