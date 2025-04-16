@@ -57,6 +57,29 @@ DEFAULT_MR_LINEUP = {
     },
 }
 
+DEFAULT_VL_LINEUP = {
+    'player1': {
+        'role': 'player',
+        'user_id': 0
+    },
+    'player2': {
+        'role': 'player',
+        'user_id': 0
+    },
+    'player3': {
+        'role': 'player',
+        'user_id': 0
+    },
+    'player4': {
+        'role': 'player',
+        'user_id': 0
+    },
+    'player5': {
+        'role': 'player',
+        'user_id': 0
+    },
+}
+
 
 def get_default_lineup_from_context(context):
 
@@ -64,6 +87,8 @@ def get_default_lineup_from_context(context):
         return DEFAULT_OW_LINEUP
     elif context == 'MR':
         return DEFAULT_MR_LINEUP
+    elif context == 'VL':
+        return DEFAULT_VL_LINEUP
     else:
         raise Exception('Default lineup does not exist for context: '+context)
 

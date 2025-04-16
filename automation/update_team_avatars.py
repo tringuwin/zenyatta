@@ -48,3 +48,8 @@ async def update_overwatch_team_avatars(guild, db, message):
 async def update_rivals_team_avatars(guild, db, message):
 
     await update_team_avatars(guild, db, message, 'MR')
+
+
+async def update_valorant_team_avatars(guild, db, message):
+    return
+    # await update_team_avatars(guild, db, message, 'VL')

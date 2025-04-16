@@ -212,4 +212,6 @@ async def toggle_esub_handler(db, message, client, context):
         await toggle_esub_overwatch(db, message, client, user)
     elif context == 'MR':
         await toggle_esub_rivals(db, message, client, user)
+    elif context == 'VL':
+        await message.channel.send('Valorant is not ready yet for this command.')
         

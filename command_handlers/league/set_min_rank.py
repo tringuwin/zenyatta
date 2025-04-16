@@ -29,6 +29,10 @@ VALID_RANKS_MR = [
 
 async def set_min_rank_handler(db, message, context):
 
+    if context not in ['OW', 'MR']:
+        await message.channel.send('This command is not ready yet for this league.')
+        return
+
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
         await invalid_number_of_params(message)

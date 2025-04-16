@@ -224,6 +224,12 @@ def get_rivals_league_team(user):
     else:
         return 'None'
     
+def get_valorant_league_team(user):
+    if 'valorant_league_team' in user:
+        return user['valorant_league_team']
+    else:
+        return 'None'
+    
 def get_league_team_with_context(user, context):
 
     league_team_field = get_league_team_field_from_context(context)
