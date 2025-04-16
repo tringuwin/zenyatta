@@ -54,6 +54,7 @@ from card_games.fight_card import fight_card
 from card_matches.card_match_utils import make_match_card
 from cards import buy_card_handler, cards_handler, edit_card_handler, force_unlist, give_card_handler, init_card_handler, init_custom_handler, list_card_handler, make_card_handler, open_pack_handler, release_cards, sell_all_cards_handler, sell_card_handler, total_cards_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
 from cards_data import init_card_data_db, init_display_cards, update_card_data_db
+from casting.bal import bal_handler
 from casting.delete_caster import delete_caster_handler
 from casting.make_caster import make_caster_handler
 from casting.make_lobby_admin import make_lobby_admin_handler
@@ -2070,6 +2071,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!pay ') and is_admin:
         await pay_handler(db, message)
+
+    elif lower_message.startswith('!bal ') and is_admin:
+        await bal_handler(db, message)
 
     elif lower_message == '!dropbank' and is_admin:
         await drop_bank_handler(db, message)
