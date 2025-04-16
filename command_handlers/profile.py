@@ -264,7 +264,7 @@ async def valorant_profile(message, client, user):
     drops = get_user_drop_boxes(user)
     
     final_string = "**USER PROFILE FOR "+riot_id+':**\n'
-    final_string += 'Twitch Username: **'+twitch_username+'**\n'
+    final_string += 'Twitch Username: **'+twitch_username+'**\n\n'
     # final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
     # final_string += make_rivals_rank_string(user)+'\n\n'
 
