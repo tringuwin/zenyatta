@@ -264,7 +264,7 @@ def has_username_for_game(user, context):
         if 'rivals_username' in user:
             return True
     elif context == 'VL':
-        if 'valorant_username' in user:
+        if 'riot_id' in user:
             return True
     elif context == 'FL':
         return True

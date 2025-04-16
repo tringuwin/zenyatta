@@ -104,7 +104,7 @@ CONTEXT_TO_LINEUP_ROLE_LIST = {
 CONTEXT_TO_USER_ID = {
     'OW': 'battle_tag',
     'MR': 'rivals_username',
-    'VL': 'valorant_username',
+    'VL': 'riot_id',
     'FL': 'battle_tag'
 }
 
