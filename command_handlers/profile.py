@@ -240,7 +240,7 @@ async def rivals_profile(message, client, user):
 async def valorant_profile(message, client, user):
 
     if not 'riot_id' in user:
-        await message.channel.send('This is a Valorant channel, I do not see a Riot I in your profile.')
+        await message.channel.send('This is a Valorant channel, I do not see a Riot ID in your profile.')
         return
 
     guild = await get_guild(client)
