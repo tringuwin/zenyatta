@@ -142,10 +142,15 @@ def make_team_description(team):
     return final_desc
         
 
+CONTEXT_TO_DEFAULT_USER_ID = {
+    'OW': '[Battle Tag Not Found]',
+    'MR': '[Username Not Found]',
+    'VL': '[Riot ID Not Found]',
+}
 
 def make_member_game_id(db, member, context):
     
-    member_id = '[Battle Tag Not Found]' if context == 'OW' else '[Username Not Found]'
+    member_id = CONTEXT_TO_DEFAULT_USER_ID[context]
 
     user = user_exists(db, member['discord_id'])
 
@@ -155,6 +160,11 @@ def make_member_game_id(db, member, context):
                 member_id = user['battle_tag'].split('#')[0]
             except Exception as e:
                 raise Exception('Could not find a battle tag for user with id '+str(member['discord_id']))
+        elif context == 'VL':
+            try:
+                member_id = user['riot_id'].split('#')[0]
+            except Exception as e:
+                raise Exception('Could not find a riot id for user with id '+str(member['discord_id']))
         else:
             if 'rivals_username' in user:
                 member_id = user['rivals_username']
