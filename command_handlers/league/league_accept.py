@@ -89,7 +89,7 @@ async def league_accept_handler(db, message, client, context):
         elif context == 'MR':
             await message.channel.send('Please link your Marvel Rivals username before joining a Marvel Rivals team. Use the command **!username UsernameHere** to do this.')
         elif context == 'VL':
-            await message.channel.send('Please wait for the Valorant league to be ready.')
+            await message.channel.send('Please link your Riot ID before joining a Valorant team. Use the command **!riot RiotID#1234** to do this.')
         return
 
     
