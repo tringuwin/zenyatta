@@ -3,7 +3,7 @@
 import copy
 from api import get_member, give_role
 import constants
-from helpers import valid_number_of_params
+from helpers import make_string_from_word_list, valid_number_of_params
 from user import user_exists
 
 def create_new_user_from_riot_id(db, riot_id, user_id):
@@ -73,10 +73,8 @@ async def riot_link(db, message, client, user, riot_id):
 
 
 async def riot_handler(db, message, client):
-
-    valid_params, params = valid_number_of_params(message, 2)
-    if not valid_params:
-        await message.channel.send('This command was not formatted correctly. Please type !riot and then add your Riot ID.')
-        return
     
-    await riot_link(db, message, client, message.author, params[1])
+    word_parts = message.content.split()
+    riot_id = make_string_from_word_list(word_parts, 1)
+
+    await riot_link(db, message, client, message.author, riot_id)
