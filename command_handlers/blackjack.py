@@ -160,8 +160,8 @@ async def blackjack_handler(db, message, client):
         await message.channel.send('You do not have enough tokens for this wager.')
         return
     
-    if token_wager > 500 or token_wager < 1:
-        await message.channel.send('Wager amount must be between 1 and 500 tokens.')
+    if token_wager > 1000 or token_wager < 1:
+        await message.channel.send('Wager amount must be between 1 and 1000 tokens.')
         return
     
     existing_game = get_blackjack_by_user_id(db, user['discord_id'])
