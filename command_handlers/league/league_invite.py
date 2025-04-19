@@ -22,8 +22,10 @@ async def league_invite_handler(db, message, context):
     if not user:
         if context == 'OW':
             await message.channel.send('That user is not registered yet. They can register using the command **!battle BattleTagHere#1234**')
-        else:
+        elif context == 'MR':
             await message.channel.send('That user is not registered yet. They can register using the command **!username MarvelRivalsUsername**')
+        elif context == 'VL':
+            await message.channel.send('That user is not registered yet. They can register using the command **!riot RiotID#1234**')
         return
     
     user_team = get_league_team_with_context(user, context)
