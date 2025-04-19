@@ -1,14 +1,21 @@
+from dotenv import load_dotenv
+import os
+
 import bot
 import constants
 
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
+load_dotenv()
+
 
 if __name__ == '__main__':
 
-    client = MongoClient(constants.MONGO_URI, server_api=ServerApi('1'))
+    MONGO_URI = os.getenv("MONGO_URI")
+    client = MongoClient(MONGO_URI, server_api=ServerApi('1'))
     db = None
+
     try:
         print('trying ping command')
         client.admin.command('ping')
