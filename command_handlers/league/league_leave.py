@@ -2,7 +2,7 @@
 
 from api import remove_role
 from common_messages import not_registered_response
-from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
+from context.context_helpers import get_league_notifs_channel_from_context, get_league_team_field_from_context, get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info
@@ -32,7 +32,7 @@ async def league_leave_handler(db, message, client, context):
         return
     
     users = db['users']
-    league_team_field = 'league_team' if context == 'OW' else 'rivals_league_team'
+    league_team_field = get_league_team_field_from_context(context)
     users.update_one({"discord_id": user['discord_id']}, {"$set": {league_team_field: 'None'}})
     
     team_role_id = team_object['team_role_id']
