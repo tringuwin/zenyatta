@@ -1931,7 +1931,7 @@ async def handle_message(message, db, client):
         await raid_channel(db, message, 'main', 'second')
 
     elif lower_message.startswith('!lockon') and is_admin:
-        await handle_lock(db, message, True)
+        await handle_lock(db, message, True, context)
 
     elif lower_message.startswith('!lockoff') and is_admin:
         await handle_lock(db, message, False)

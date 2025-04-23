@@ -1,5 +1,8 @@
 
-async def handle_lock(db, message, lock_val):
+from context.context_helpers import get_league_teams_collection_from_context
+
+
+async def handle_lock(db, message, lock_val, context):
 
     word_parts = message.content.split()
 
@@ -7,7 +10,7 @@ async def handle_lock(db, message, lock_val):
         await message.channel.send('Only 2 or less params')
         return
     
-    league_teams = db['leagueteams']
+    league_teams = get_league_teams_collection_from_context(db, context)
 
     # toggle all
     if len(word_parts) == 1:
