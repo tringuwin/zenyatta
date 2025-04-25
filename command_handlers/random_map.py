@@ -7,7 +7,7 @@ OVERWATCH_MAPS = [
         'Nepal',
         'Ilios',
         'Oasis',
-        'Lijang Tower',
+        'Lijiang Tower',
         'Antarctic Peninsula',
         'Samoa'
     ],
