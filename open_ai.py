@@ -1,8 +1,10 @@
 import openai
 from openai import OpenAI
-import constants
+from constants import OPEN_AI_TOKEN
 
-client = OpenAI(api_key=constants.OPEN_AI_TOKEN)
+print('OPEN AI TOKEN IN OPEN AI FILE IS', OPEN_AI_TOKEN)
+
+client = OpenAI(api_key=OPEN_AI_TOKEN)
 
 ZEN_CONTEXT = ''
 with open('zen_ai_context.txt', 'r') as file:
