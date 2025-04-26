@@ -2,8 +2,6 @@ import openai
 from openai import OpenAI
 from constants import OPEN_AI_TOKEN
 
-print('OPEN AI TOKEN IN OPEN AI FILE IS', OPEN_AI_TOKEN)
-
 client = OpenAI(api_key=OPEN_AI_TOKEN)
 
 ZEN_CONTEXT = ''
