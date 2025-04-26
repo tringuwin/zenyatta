@@ -10,7 +10,6 @@ OPEN_AI_TOKEN = os.getenv("OPEN_AI_TOKEN")
 print('OPEN_AI_TOKEN IS', OPEN_AI_TOKEN)
 MONGO_URI = os.getenv("MONGO_URI")
 
-
 STREAMLABS_TOKEN = 'B032D12F02A4ED3AA822'
 WEBSITE_DOMAIN = 'https://spicyesports.com'
 
