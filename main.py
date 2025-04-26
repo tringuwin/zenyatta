@@ -1,18 +1,16 @@
-from dotenv import load_dotenv
-import os
+
 
 import bot
-import constants
 
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
-load_dotenv()
+from constants import MONGO_URI
 
 
 if __name__ == '__main__':
 
-    MONGO_URI = os.getenv("MONGO_URI")
+    
     client = MongoClient(MONGO_URI, server_api=ServerApi('1'))
     db = None
 

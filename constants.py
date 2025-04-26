@@ -1,11 +1,16 @@
 import copy
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 VERSION = '1.11.22'
 
+OPEN_AI_TOKEN = os.getenv("OPEN_AI_TOKEN")
+MONGO_URI = os.getenv("MONGO_URI")
+
+
 STREAMLABS_TOKEN = 'B032D12F02A4ED3AA822'
-
-OPEN_AI_TOKEN = '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'
-
 WEBSITE_DOMAIN = 'https://spicyesports.com'
 
 

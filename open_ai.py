@@ -1,6 +1,7 @@
 import openai
-
 from openai import OpenAI
+
+
 client = OpenAI(api_key="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")
 
 ZEN_CONTEXT = ''
