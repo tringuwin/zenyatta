@@ -1,6 +1,6 @@
 from common_messages import not_registered_response
 from discord_actions import get_guild, member_has_role
-from rewards import change_passes, change_pickaxes, change_tokens
+from rewards import change_pickaxes, change_tokens
 from time_helpers import get_current_time, long_enough_for_gift, time_to_gift
 from user import get_user_gems, user_exists
 import random
@@ -40,9 +40,6 @@ async def process_gift(db, current_time, existing_user, message):
         if prize_index <= 3:
             total_tokens_to_give += 100
             message_string += "🪙 **YOU FOUND 100 TOKENS!!** 🪙"
-        elif prize_index <= 9:
-            await change_passes(db, existing_user, 1)
-            message_string += '🎟️ You found a **Priority Pass!** 🎟️'
         elif prize_index <= 20:
             await change_pickaxes(db, existing_user, 1)
             message_string += "⛏️ You found a **Pickaxe!** ⛏️ Use it in the Mineshaft!"
@@ -57,9 +54,6 @@ async def process_gift(db, current_time, existing_user, message):
         if prize_index == 1:
             total_tokens_to_give += 100
             message_string += "🪙 **YOU FOUND 100 TOKENS!!** 🪙"
-        elif prize_index <= 5:
-            await change_passes(db, existing_user, 1)
-            message_string += '🎟️ You found a **Priority Pass!** 🎟️'
         elif prize_index <= 10:
             await change_pickaxes(db, existing_user, 1)
             message_string += "⛏️ You found a **Pickaxe!** ⛏️ Use it in the Mineshaft!"

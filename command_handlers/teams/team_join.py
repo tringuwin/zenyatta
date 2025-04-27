@@ -4,9 +4,8 @@ from discord_actions import member_has_role
 from events import add_team_to_event, event_has_space, event_is_open, get_event_team_size, player_on_team_in_event, team_in_event
 from getters.event_getters import get_event_by_id
 from helpers import make_string_from_word_list
-from rewards import change_passes
 from teams import get_team_by_name, team_is_full
-from user import get_user_passes, user_exists
+from user import user_exists
 
 
 async def team_join_handler(client, db, message):
@@ -61,14 +60,6 @@ async def team_join_handler(client, db, message):
     if await player_on_team_in_event(db, event, team):
         await message.channel.send('One or more players on this team is already participating in this event!')
         return
-    
-    if event['needs_pass']:
-
-        if get_user_passes(user) < 1:
-            await message.channel.send('This event requires a Priority Pass 🎟️ to join right now! Please get a Priority Pass first or wait until the event is open to everyone!')
-            return
-        else:
-            await change_passes(db, user, -1)
 
     await add_team_to_event(client, db, team, event)
 

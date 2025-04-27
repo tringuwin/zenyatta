@@ -5,8 +5,7 @@ from discord_actions import give_role_to_user, member_has_role
 from events import add_user_to_event_entries, event_has_space, event_is_open, get_event_role_id, get_event_team_size
 from getters.event_getters import get_event_by_id
 from helpers import valid_number_of_params
-from rewards import change_passes
-from user import add_event_entry_to_user, get_user_passes, user_entered_event, user_exists
+from user import add_event_entry_to_user, user_entered_event, user_exists
 
 async def join_handler(db, message, client):
 
@@ -41,14 +40,6 @@ async def join_handler(db, message, client):
     if not event_has_space(event):
         await message.channel.send('It looks like this event is full. Use the command **!events** to see if there are any events with remaining spots.')
         return
-
-    if event['needs_pass']:
-
-        if get_user_passes(user) < 1:
-            await message.channel.send('This event requires a Priority Pass 🎟️ to join right now! Please get a Priority Pass first or wait until the event is open to everyone!')
-            return
-        else:
-            await change_passes(db, user, -1)
 
     is_twitch_sub = member_has_role(message.author, constants.TWITCH_SUB_ROLE)
     if event['needs_sub']:

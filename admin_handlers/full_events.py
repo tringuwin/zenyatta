@@ -34,9 +34,7 @@ async def full_events_handler(db, message):
         else:
             final_string += str(num_players)+' players per team'
 
-        if ('needs_pass' in event) and (event['needs_pass']):
-            final_string += ' : ***🎟️ PRIORITY PASS REQUIRED 🎟️***'
-        elif ('needs_sub' in event) and (event['needs_sub']):
+        if ('needs_sub' in event) and (event['needs_sub']):
             final_string += ' : ***🟣 TWITCH SUBSCRIBERS ONLY 🟣***'
 
         if not event_full:

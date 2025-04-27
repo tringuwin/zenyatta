@@ -82,7 +82,6 @@ from command_handlers.deny_gem_trade import deny_gem_trade_handler
 from command_handlers.donate import donate_handler
 from command_handlers.donate_gems import donate_gems
 from command_handlers.donate_packs import donate_packs
-from command_handlers.donate_pass import donate_pass_handler
 from command_handlers.drop_alert import drop_alert
 from command_handlers.drop_bank import drop_bank_handler
 from command_handlers.drop_bank_add import drop_bank_add_handler
@@ -270,15 +269,14 @@ from command_handlers.wager import wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has_role, member_has_state_role
 from helper_handlers.twitch_pack import twitch_pack_handler
-from helper_handlers.twitch_pass import twitch_pass_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import get_constant_value, is_bot_commands_channel, make_string_from_word_list, set_constant_value
 from api import get_member, give_role, remove_role, send_msg
-from mongo import output_packs, output_passes, output_pickaxes, output_tokens, switch_matches
+from mongo import output_packs, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
 from random_event.check_random_event_on_message import check_random_event_on_message
 from random_event.random_event import react_to_event
-from rewards import give_packs_command, give_passes_command, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pass_for_tokens, sell_pickaxe_for_tokens
+from rewards import give_packs_command, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pickaxe_for_tokens
 from roster_lock import handle_lock
 from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
@@ -518,9 +516,6 @@ async def handle_message(message, db, client):
     elif lower_message == "!tokens":
         await output_tokens(db, message)
 
-    elif lower_message == "!passes":
-        await output_passes(db, message)
-
     elif lower_message == '!packs':
         await output_packs(db, message)
 
@@ -538,9 +533,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!pickaxes':
         await output_pickaxes(db, message)
-
-    elif lower_message == "!sellpass":
-        await sell_pass_for_tokens(db, message)
 
     elif lower_message == '!sellpickaxe':
         await sell_pickaxe_for_tokens(db, message)
@@ -595,9 +587,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!donatepacks '):
         await donate_packs(db, message)
-
-    elif lower_message.startswith('!donatepass'):
-        await donate_pass_handler(db, message)
 
     elif lower_message.startswith('!solojoin'):
         await message.channel.send('This command is not currently enabled! Check back later')
@@ -1225,9 +1214,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!twitch50') and is_cp_helper:
         await twitch_tokens_handler(client, db, message, 50)
 
-    elif lower_message.startswith('!twitchpass') and is_cp_helper:
-        await twitch_pass_handler(client, db, message)
-
     elif lower_message.startswith('!twitchpack') and is_cp_helper:
         await twitch_pack_handler(client, db, message)
 
@@ -1258,10 +1244,6 @@ async def handle_message(message, db, client):
                      'fortzorp', 'HELP ME IM TRAPPED HELP ME PLEASE HELP ME PLEASE IM NOT A DISCORD BOT HELP PLEASE HELP PLEASE', 'figeldeen zorpenstein']
 
         await message.channel.send(random.choice(test_zorp))
-
-    elif lower_message == '!bee':
-
-        await message.channel.send("Scripts.com Bee Movie By Jerry Seinfeld NARRATOR: (Black screen with text; The sound of buzzing bees can be heard) According to all known laws of aviation, : there is no way a bee should be able to fly. : Its wings are too small to get its fat little body off the ground. : The bee, of course, flies anyway : because bees don't care what humans think is impossible. BARRY BENSON: (Barry is picking out a shirt) Yellow, black. Yellow, black. Yellow, black. Yellow, black. : Ooh, black and yellow! Let's shake it up a little. JANET BENSON: Barry! Breakfast is ready! BARRY: Coming! : Hang on a second. (Barry uses his antenna like a phone) : Hello? ADAM FLAYMAN:(Through phone) - Barry? BARRY: - Adam? ADAM: - Can you believe this is happening? BARRY: - I can't. I'll pick you up. (Barry flies down the stairs) : MARTIN BENSON: Looking sharp. JANET: Use the stairs. Your father paid good money for those. BARRY: Sorry. I'm excited. MARTIN: Here's the graduate. We're very proud of you, son. : A perfect report card, all B's. JANET: Very proud. (Rubs Barry's hair) BARRY= Ma! I got a thing going here. JANET: - You got lint on your fuzz. BARRY: - Ow! That's me!JANET: - Wave to us! We'll be in row 118,000. - Bye! (Barry flies out the door) JANET: Barry, I told you, stop flying in the house! (Barry drives through the hive,and is waved at by Adam who is reading a newspaper) BARRY== - Hey, Adam. ADAM: - Hey, Barry. (Adam gets in Barry's car) : - Is that fuzz gel? BARRY: - A little. Special day, graduation. ADAM: Never thought I'd make it. (Barry pulls away from the house and continues driving) BARRY: Three days grade school, three days high school... ADAM: Those were awkward. BARRY: Three days college. I'm glad I took a day and hitchhiked around the hive. ADAM== You did come back different. (Barry and Adam pass by Artie, who is jogging) ARTIE: - Hi, Barry!")
 
     elif lower_message == '!testdm' and is_admin:
 
@@ -1669,15 +1651,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!setlevel ') and is_admin:
         await set_level_handler(client, db, message)
-
-    elif lower_message.startswith('!givepasses ') and is_admin:
-
-        # !givepasses [winner id] [passes]
-        word_list = message.content.split()
-        if len(word_list) == 3:
-            await give_passes_command(client, db, word_list[1], int(word_list[2]), message)
-        else:
-            await message.channel.send("Invalid number of arguments.")
 
     elif lower_message.startswith('!givepickaxes ') and is_admin:
 

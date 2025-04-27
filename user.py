@@ -55,13 +55,6 @@ def get_user_money(user):
     
     return 0.00
 
-def get_user_passes(user):
-
-    if 'passes' in user:
-        return user['passes']
-    
-    return 0
-
 def get_user_pickaxes(user):
 
     if 'pickaxes' in user:
@@ -506,7 +499,7 @@ async def add_event_entry_to_user(db, user, event_id):
 
 async def notify_user_of_gift(member):
 
-    pass
+    return
 
 
 async def notify_user_of_gift(member, bot_coms_channel):
@@ -538,13 +531,12 @@ def get_total_cards(user):
 def get_net_worth(user):
 
     tokens = get_user_tokens(user)
-    passes = get_user_passes(user) * 10
     pickaxes = get_user_pickaxes(user) * 15
     gems = total_gems(get_user_gems(user)) * 50
     packs = get_user_packs(user) * 100
     cards = get_total_cards(user) * 20
 
-    total = tokens + passes + pickaxes + gems + packs + cards
+    total = tokens + pickaxes + gems + packs + cards
 
     return total
 

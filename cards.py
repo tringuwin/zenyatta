@@ -152,7 +152,7 @@ async def cards_handler(db, message):
 
 def add_card_to_database():
 
-    pass
+    return
 
 CARD_VARIANTS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I']
 

@@ -2,7 +2,7 @@
 from common_messages import invalid_number_of_params
 from discord_actions import get_member_by_username
 from helpers import valid_number_of_params
-from user import get_user_by_tag, get_user_passes, get_user_pickaxes, get_user_tokens, user_exists
+from user import get_user_by_tag, get_user_pickaxes, get_user_tokens, user_exists
 
 
 async def get_details_handler(db, message, client, is_admin):
@@ -33,7 +33,7 @@ async def get_details_handler(db, message, client, is_admin):
         return
 
     final_string = 'User ID: '+str(user['discord_id'])+"\nBattle Tag: "+user['battle_tag']
-    final_string += '\nTokens: '+str(get_user_tokens(user))+'\n'+'Passes: '+str(get_user_passes(user))
+    final_string += '\nTokens: '+str(get_user_tokens(user))
     final_string += '\nPickaxes: '+str(get_user_pickaxes(user))
     await message.channel.send(final_string)
    

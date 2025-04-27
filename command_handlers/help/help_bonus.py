@@ -5,8 +5,6 @@ async def help_bonus_handler(message):
     
     help_embed = discord.Embed(title='List of bonus commands:')
     help_embed.add_field(name='!donate [@user] [number of tokens]', value='Donate tokens to another user in this server!', inline=False)
-    help_embed.add_field(name='!donatepass [@user]', value='Donate 1 Priority Pass another user in this server!', inline=False)
-    help_embed.add_field(name='!sellpass', value='Sell 1 Priority Pass for 10 tokens', inline=False)
     help_embed.add_field(name='!sellpickaxe', value='Sell 1 Pickaxe for 15 tokens', inline=False)
     help_embed.add_field(name='!invitedby [@user]', value='Mention the user that invited you for you both to get the invite reward.', inline=False)
     help_embed.add_field(name='!leaguexp', value='Shows the XP Leaderboard for the monthly XP challenge.', inline=False)

@@ -2,7 +2,7 @@
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
-from user import get_fan_of, get_fan_of_rivals, get_fan_of_valorant, get_league_team, get_lvl_info, get_riot_id, get_rival_of, get_rival_of_rivals, get_rival_of_valorant, get_rivals_league_team, get_rivals_username, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_passes, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_rivals_rank, get_user_tokens, get_user_trophies, get_valorant_league_team, user_exists
+from user import get_fan_of, get_fan_of_rivals, get_fan_of_valorant, get_league_team, get_lvl_info, get_riot_id, get_rival_of, get_rival_of_rivals, get_rival_of_valorant, get_rivals_league_team, get_rivals_username, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_pickaxes, get_user_poke_points, get_user_pokedex, get_user_ranks, get_user_rivals_rank, get_user_tokens, get_user_trophies, get_valorant_league_team, user_exists
 import constants
 
 
@@ -98,7 +98,6 @@ async def overwatch_profile(message, client, user):
     fan_of = get_fan_of(user)
     rival_of = get_rival_of(user)
     tokens = get_user_tokens(user)
-    passes = get_user_passes(user)
     pickaxes = get_user_pickaxes(user)
     packs = get_user_packs(user)
     #poke_points = get_user_poke_points(user)
@@ -136,7 +135,7 @@ async def overwatch_profile(message, client, user):
     #poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
     drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
-    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' 🏆 '+str(trophies)+'\n'
+    final_string += '🪙 '+str(tokens)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' 🏆 '+str(trophies)+'\n'
 
     gems = get_user_gems(user)
     gem_line_1 = ''
@@ -177,7 +176,6 @@ async def rivals_profile(message, client, user):
     fan_of = get_fan_of_rivals(user)
     rival_of = get_rival_of_rivals(user)
     tokens = get_user_tokens(user)
-    passes = get_user_passes(user)
     pickaxes = get_user_pickaxes(user)
     packs = get_user_packs(user)
     #poke_points = get_user_poke_points(user)
@@ -214,7 +212,7 @@ async def rivals_profile(message, client, user):
     #poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
     drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
-    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' 🏆 '+str(trophies)+'\n'
+    final_string += '🪙 '+str(tokens)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' 🏆 '+str(trophies)+'\n'
 
     gems = get_user_gems(user)
     gem_line_1 = ''
@@ -254,7 +252,6 @@ async def valorant_profile(message, client, user):
     fan_of = get_fan_of_valorant(user)
     rival_of = get_rival_of_valorant(user)
     tokens = get_user_tokens(user)
-    passes = get_user_passes(user)
     pickaxes = get_user_pickaxes(user)
     packs = get_user_packs(user)
     #poke_points = get_user_poke_points(user)
@@ -291,7 +288,7 @@ async def valorant_profile(message, client, user):
     #poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
     drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
-    final_string += '🪙 '+str(tokens)+' 🎟️ '+str(passes)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' 🏆 '+str(trophies)+'\n'
+    final_string += '🪙 '+str(tokens)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' 🏆 '+str(trophies)+'\n'
 
     gems = get_user_gems(user)
     gem_line_1 = ''

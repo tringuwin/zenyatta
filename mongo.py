@@ -6,7 +6,7 @@ from api import get_member, give_role
 from common_messages import not_registered_response
 import constants
 from bracket import get_bracket_by_event_id, make_bracket_from_users
-from user import get_user_passes, get_user_pickaxes, user_exists
+from user import get_user_pickaxes, user_exists
 
 
 def find_user_with_battle_tag(db, lower_tag):
@@ -56,11 +56,8 @@ def get_all_events(db):
 def create_event(db, event_id, event_name, max_players, pass_required, team_size, event_role_id, event_channel_id):
 
     events = db['events']
-    needs_pass = False
     needs_sub = False
-    if pass_required == '1':
-        needs_pass = True
-    elif pass_required == '2':
+    if pass_required == '2':
         needs_sub = True
 
     new_event = {
@@ -70,7 +67,6 @@ def create_event(db, event_id, event_name, max_players, pass_required, team_size
         "spots_filled": 0,
         "entries": [],
         "requests": [],
-        'needs_pass': needs_pass,
         'needs_sub': needs_sub,
         'team_size': int(team_size),
         'event_role_id': int(event_role_id),
@@ -108,22 +104,6 @@ async def output_tokens(db, message):
         await not_registered_response(message)
         
 
-
-async def output_passes(db, message):
-
-    existing_user = user_exists(db, message.author.id)
-
-    if existing_user:
-
-        if "passes" in existing_user:
-            await message.channel.send("Your Priority Passes: 🎟️**"+str(existing_user['passes'])+"**")
-        else:
-            users = db['users']
-            users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"passes": 0}})
-            await message.channel.send("Your Priority Passes: 🎟️**0**")
-    
-    else:
-        await not_registered_response(message)
 
 async def output_packs(db, message):
 

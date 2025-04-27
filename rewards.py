@@ -39,28 +39,6 @@ async def give_tokens_command(client, db, user_id, num, message):
     await message.channel.send('Tokens given')
 
 
-async def change_passes(db, user, num):
-
-    users = db['users']
-
-    if "passes" in user:
-        new_passes = user['passes'] + num
-        users.update_one({"discord_id": user['discord_id']}, {"$set": {"passes": new_passes}})
-    else:
-        users.update_one({"discord_id": user['discord_id']}, {"$set": {"passes": num}})
-
-
-async def give_passes_command(client, db, user_id, num, message):
-
-    user = await generic_find_user(client, db, user_id)
-    if not user:
-        await message.channel.send('Could not find user with that ID')
-        return
-    
-    await change_passes(db, user, num)
-    await message.channel.send('Passes given')
-
-
 async def give_pp_handler(db, message, client):
 
     valid_params, params = valid_number_of_params(message, 3)
@@ -78,23 +56,6 @@ async def give_pp_handler(db, message, client):
     
     await change_pp(db, user, num)
     await message.channel.send('PokePoints given')
-
-    
-
-async def sell_pass_for_tokens(db, message):
-
-    user = user_exists(db, int(message.author.id))
-
-    if not user:
-        await not_registered_response(message)
-
-    if 'passes' in user and user['passes'] > 0:
-        await change_passes(db, user, -1)
-        await change_tokens(db, user, 10, 'sell-priority-pass')
-        await message.channel.send('You sold 1 Priority Pass for **10 Tokens!**')
-    else:
-        await message.channel.send('You do not have any priority passes to sell.')
-
         
 
 async def sell_pickaxe_for_tokens(db, message):
