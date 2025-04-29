@@ -65,7 +65,7 @@ async def add_week(db, message, context):
         await message.reply("No schedule plan found for the given season and context.")
         return
     
-    schedules = db['schedules']
+    schedules = db['schedule']
     schedule = schedules.find_one({'season': ADD_WEEK_CONFIG['season'], 'context': context})
     if not schedule:
         await message.reply("No schedule found for the given season and context.")
