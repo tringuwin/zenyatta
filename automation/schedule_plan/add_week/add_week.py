@@ -87,11 +87,11 @@ async def add_week(db, message, context):
     new_schedule_plan_week['teams_playing'] = all_teams_participating
 
     # add matchups to db
-    #convert_pairings_into_matchups(db, ADD_WEEK_CONFIG['match_pairs'], schedule_plan)
+    convert_pairings_into_matchups(db, ADD_WEEK_CONFIG['match_pairs'], schedule_plan)
 
     schedule_plan['weeks'].append(new_schedule_plan_week)
 
-    #schedule_plans.update_one({'season': ADD_WEEK_CONFIG['season'], 'context': context}, {'$set': {'weeks': schedule_plan['weeks']}})
+    schedule_plans.update_one({'season': ADD_WEEK_CONFIG['season'], 'context': context}, {'$set': {'weeks': schedule_plan['weeks']}})
 
     new_schedule_week = make_schedule_week_from_schedule_plan_week(new_schedule_plan_week, len(schedule['weeks']) + 1)
     schedule['weeks'].append(new_schedule_week)
