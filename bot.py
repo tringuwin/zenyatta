@@ -1925,7 +1925,7 @@ async def handle_message(message, db, client):
         await handle_lock(db, message, True, context)
 
     elif lower_message.startswith('!lockoff') and is_admin:
-        await handle_lock(db, message, False)
+        await handle_lock(db, message, False, context)
 
     elif lower_message.startswith('!nextdrop'):
         await next_drop(db, message)
