@@ -12,12 +12,10 @@ ADD_WEEK_CONFIG = {
         'month': 4,
         'year': 2025
     },
-    'season': 6,
+    'season': 1,
     'match_pairs': [
-        ['Horizon', 'Ragu'],
-        ['Angels', 'Polar'],
-        ['Lotus', 'Instigators'],
-        ['Saturn', 'Deadlock']
+        ['Celestials', 'Ragu'],
+        ['Eclipse', 'Fresas'],
     ]
 
 }
