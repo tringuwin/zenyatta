@@ -42,6 +42,7 @@ from automation.casting.update_score import add_point, remove_point
 from automation.notify_about_matches import check_notify_about_matches
 from automation.process_trophy_rewards.process_trophy_rewards import process_trophy_rewards
 from automation.raffle import end_raffle, start_raffle
+from automation.schedule_plan.add_week.add_week import add_week
 from automation.schedule_plan.make_schedule_plan import make_schedule_plan
 from automation.schedule_plan.schedule_plan_loop.schedule_plan_loop import schedule_plan_loop
 from automation.update_team_avatars import update_overwatch_team_avatars, update_rivals_team_avatars
@@ -1941,6 +1942,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!makescheduleplan ') and is_admin:
         await make_schedule_plan(message, db, context)
+
+    elif lower_message == '!addweek' and is_admin:
+        await add_week(db, message, context)
 
     elif lower_message == '!cleartrophies' and is_admin:
 

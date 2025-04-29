@@ -59,6 +59,22 @@ def build_days_for_week(season_week_datetime):
     return days
 
 
+def build_week_for_season(season_week_datetime):
+
+    new_week = {
+        'status': 'NOT STARTED',
+        'day_number': 0,
+        'days': build_days_for_week(season_week_datetime),
+        'notifs': {
+            'notified_1_day_left': False,
+            'notified_5_hours_left': False,
+            'notified_1_hour_left': False,
+        }
+    }
+
+    return new_week
+
+
 def build_weeks_for_season(day, month, year, num_weeks_in_season):
 
     weeks = []
@@ -68,17 +84,7 @@ def build_weeks_for_season(day, month, year, num_weeks_in_season):
     for i in range(num_weeks_in_season):
 
         season_week_datetime = get_future_week_datetime(start_datetime, i)
-
-        new_week = {
-            'status': 'NOT STARTED',
-            'day_number': 0,
-            'days': build_days_for_week(season_week_datetime),
-            'notifs': {
-                'notified_1_day_left': False,
-                'notified_5_hours_left': False,
-                'notified_1_hour_left': False,
-            }
-        }
+        new_week = build_week_for_season(season_week_datetime)
         weeks.append(new_week)
 
     return weeks
