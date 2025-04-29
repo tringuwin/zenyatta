@@ -1,6 +1,7 @@
 
 
 from automation.schedule_plan.make_schedule_plan import build_week_for_season
+from command_handlers.league.swiss_matchups import convert_pairings_into_matchups
 from time_helpers import year_month_day_to_datetime
 
 
@@ -49,8 +50,13 @@ async def add_week(db, message, context):
     new_schedule_week['notifs']['notified_5_hours_left'] = True
     new_schedule_week['notifs']['notified_1_hour_left'] = True
 
+    new_schedule_week['status'] = 'SCHEDULING'
+
     all_teams_participating = get_all_teams_participating()
     new_schedule_week['teams_playing'] = all_teams_participating
+
+    # add matchups to db
+    convert_pairings_into_matchups(db, ADD_WEEK_CONFIG['match_pairs'], schedule_plan)
 
     schedule_plan['weeks'].append(new_schedule_week)
 
