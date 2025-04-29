@@ -21,6 +21,16 @@ ADD_WEEK_CONFIG = {
 
 }
 
+def get_all_teams_participating():
+
+    all_teams = []
+
+    for team in ADD_WEEK_CONFIG['match_pairs']:
+        all_teams.append(team[0])
+        all_teams.append(team[1])
+
+    return all_teams
+
 async def add_week(db, message, context):
 
     schedule_plans = db['schedule_plans']
@@ -38,6 +48,9 @@ async def add_week(db, message, context):
     new_schedule_week['notifs']['notified_1_day_left'] = True
     new_schedule_week['notifs']['notified_5_hours_left'] = True
     new_schedule_week['notifs']['notified_1_hour_left'] = True
+
+    all_teams_participating = get_all_teams_participating()
+    new_schedule_week['teams_playing'] = all_teams_participating
 
     schedule_plan['weeks'].append(new_schedule_week)
 
