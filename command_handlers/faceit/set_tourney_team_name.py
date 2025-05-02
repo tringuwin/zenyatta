@@ -14,12 +14,12 @@ async def set_tourney_team_name(db, message):
     
     team_number = command_parts[1]
     if not can_be_int(team_number):
-        await message.answer(team_number+" is not an integer")
+        await message.channel.send(team_number+" is not an integer")
         return
     team_number = int(team_number)
     
     if team_number != 1 and team_number != 2:
-        await message.answer("Team number must be either 1 or 2")
+        await message.channel.send("Team number must be either 1 or 2")
         return
     
     team_name = command_parts[2]
