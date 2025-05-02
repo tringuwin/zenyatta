@@ -89,6 +89,7 @@ from command_handlers.drop_bank_add import drop_bank_add_handler
 from command_handlers.drops import drops
 from command_handlers.faceit.set_tourney_team_name import set_tourney_team_name
 from command_handlers.faceit.set_tourney_team_score import set_tourney_team_score
+from command_handlers.faceit.swap_tourney_teams import swap_tourney_teams
 from command_handlers.funding import funding_handler
 from command_handlers.gems import gems_handler
 from command_handlers.getdetails import get_details_handler
@@ -1905,6 +1906,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!tname') and is_admin:
         await set_tourney_team_name(db, message)
+
+    elif lower_message == '!tswap' and is_admin:
+        await swap_tourney_teams(db, message)
 
     elif lower_message.startswith('!tscore') and is_admin:
         await set_tourney_team_score(db, message)
