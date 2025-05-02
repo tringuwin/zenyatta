@@ -32,4 +32,4 @@ async def set_tourney_team_name(db, message):
 
     set_constant_value(db, 'tourney_widget', tourney_widget_data)
 
-    await message.answer("Team "+str(team_number)+" name set to "+team_name)
+    await message.send("Team "+str(team_number)+" name set to "+team_name)
