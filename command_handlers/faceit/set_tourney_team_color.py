@@ -7,8 +7,19 @@ from helpers import can_be_int, get_constant_value, set_constant_value, valid_nu
 
 
 VALID_COLORS = [
-    'cyan',
-    'yellow'
+    'neon',
+    'yellow',
+    'lime',
+    'aqua',
+    'orange',
+    'brown',
+    'magenta',
+    'blue',
+    'red',
+    'gold',
+    'green',
+    'pink',
+    'purple'
 ]
 
 async def set_tourney_team_color(db, message):
