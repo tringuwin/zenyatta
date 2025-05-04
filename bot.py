@@ -2386,11 +2386,9 @@ def run_discord_bot(db):
 
             guild = await get_guild(client)
             default_msg = "Welcome to the Spicy Esports Discord Server! I'm *Scovi*, the server's helper bot. "
-            default_msg += f"\n\nIf you're interested in joining a **League Team**, you can apply to as many teams as you'd like here: Overwatch: {constants.WEBSITE_DOMAIN}/sol/apply or Marvel Rivals: {constants.WEBSITE_DOMAIN}/srl/apply"
-            default_msg += '\n\nTo find a team fast, you can make a post in the team up channel with some info about yourself and what you are looking for in a team!'
+            default_msg += '\n\nIf you are interested in joining a team, you can make a post in the team up channel with some info about yourself and what you are looking for in a team!'
             default_msg += '\nOverwatch Team Up Channel: https://discord.com/channels/1130553449491210442/1171266378813149244'
             default_msg += '\nMarvel Rivals Team Up Channel: https://discord.com/channels/1130553449491210442/1316625582825541644'
-            default_msg += "\n\nIf you're ranked Plat or below in Overwatch, or you'd like to practice playing in a Overwatch League Format, you should check out our Jr League where anyone can join a team ***without applying!*** https://discord.gg/Usp8RQGCRn"
             default_msg += '\n\nThank you for joining! If you have any questions, feel free to ask our friendly staff here: https://discord.com/channels/1130553449491210442/1202441473027477504'
 
             await member.send(default_msg)
