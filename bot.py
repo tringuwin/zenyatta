@@ -294,7 +294,7 @@ from supporters.role_commands.role_name import role_name
 from supporters.supporter_role_loop import supporter_role_loop
 from time_helpers import check_weekly, long_enough_for_gift
 from twitch_token import check_token_issue
-from user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_rivals_league_team, get_role_id_by_level, get_valorant_league_team, notify_user_of_gift, user_exists
+from user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_rivals_league_team, get_role_id_by_level, get_user_tokens, get_valorant_league_team, notify_user_of_gift, user_exists
 from user_input.bad_word_checker import bad_word_checker
 from user_input.non_tenor_link import non_tenor_link
 from xp_battles import add_to_battle, how_many_handler, remove_from_battle
@@ -475,6 +475,21 @@ async def handle_message(message, db, client):
 
     # elif lower_message == '!helppoke':
     #     await help_poke_handler(message)
+
+    elif lower_message == '!purgepoke':
+
+        users = db['users']
+        all_users = list(users.find())
+        for user in all_users:
+            if 'poke_cards' in user:
+
+                num_cards = len(user['poke_cards'])
+                tokens_to_give = num_cards * 20
+                new_tokens = get_user_tokens(user) + tokens_to_give
+
+                users.update_one({"_id": user['_id']}, {"$set": {"tokens": new_tokens, "poke_cards": []}})
+
+        await message.channel.send('All poke cards have been purged and users have been given 20 tokens for each card they had!')
 
     elif lower_message == '!helpdrops':
         await help_drops_handler(message)
