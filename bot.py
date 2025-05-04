@@ -476,7 +476,7 @@ async def handle_message(message, db, client):
     # elif lower_message == '!helppoke':
     #     await help_poke_handler(message)
 
-    elif lower_message == '!purgepoke':
+    elif lower_message == '!purgepokepoints':
 
         users = db['users']
         all_users = list(users.find())
@@ -557,8 +557,8 @@ async def handle_message(message, db, client):
     elif lower_message == '!sellpickaxe':
         await sell_pickaxe_for_tokens(db, message)
 
-    elif lower_message == '!sellpp':
-        await sell_pp_handler(db, message)
+    # elif lower_message == '!sellpp':
+    #     await sell_pp_handler(db, message)
 
     elif lower_message == '!dailygift' or lower_message == '!gift':
         await gift_handler(db, message, is_admin)
@@ -1846,8 +1846,8 @@ async def handle_message(message, db, client):
 
         await message.channel.send('done')
 
-    elif lower_message.startswith('!givepp ') and is_admin:
-        await give_pp_handler(db, message, client)
+    # elif lower_message.startswith('!givepp ') and is_admin:
+    #     await give_pp_handler(db, message, client)
 
     elif lower_message.startswith('!getdetails '):
         # !getdetails [username]

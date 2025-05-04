@@ -1,7 +1,7 @@
 
 
 from helpers import can_be_int, generic_find_user, valid_number_of_params
-from rewards import change_packs, change_pp
+from rewards import change_packs
 from user import get_subcount, get_sub_lootboxes
 
 
@@ -20,7 +20,6 @@ async def sub_rewards_handler(client, db, message):
         return
     
     await change_packs(db, user, 3)
-    await change_pp(db, user, 300)
     sub_boxes = get_sub_lootboxes(user)
     subcount = get_subcount(user)
 
@@ -55,6 +54,5 @@ async def gift_rewards_handler(client, db, message):
         return
     
     await change_packs(db, user, int(3 * num_to_give))
-    await change_pp(db, user, int(300 * num_to_give))
 
     await message.channel.send('Gave gifted sub rewards to the user.')

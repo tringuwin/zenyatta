@@ -3,7 +3,7 @@ import time
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_role_by_id, give_role_to_user
 from helpers import can_be_int, valid_number_of_params
-from rewards import change_pp, change_tokens
+from rewards import change_tokens
 from shop import get_redemptions_channel, update_shop
 from time_helpers import long_enough_for_shop, time_to_shop
 from user import get_last_token_shop, get_user_tokens, user_exists
@@ -69,9 +69,10 @@ async def buy_handler(db, message, client):
     if offer['auto']:
     
         if buy_item == 7:
+            pass
             # give player 500 poke-points
-            await change_pp(db, user, 500)
-            await message.reply('Success! You redeemed 500 PokePoints!')
+            # await change_pp(db, user, 500)
+            # await message.reply('Success! You redeemed 500 PokePoints!')
 
     else:
         redemptions_channel = await get_redemptions_channel(message)
