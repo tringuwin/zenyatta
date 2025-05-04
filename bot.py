@@ -893,14 +893,14 @@ async def handle_message(message, db, client):
     elif lower_message == '!rivalrequests':
         await rival_requests_handler(db, message, context)
 
-    elif lower_message.startswith('!setappslink'):
-        await set_apps_link_handler(db, message, context)
+    # elif lower_message.startswith('!setappslink'):
+    #     await set_apps_link_handler(db, message, context)
 
-    elif lower_message.startswith('!setminrank'):
-        await set_min_rank_handler(db, message, context)
+    # elif lower_message.startswith('!setminrank'):
+    #     await set_min_rank_handler(db, message, context)
 
-    elif lower_message == '!toggleapps':
-        await toggle_apps_handler(db, message, context)
+    # elif lower_message == '!toggleapps':
+    #     await toggle_apps_handler(db, message, context)
 
     elif lower_message == '!setlineup':
         await set_lineup_handler(db, message, context)
