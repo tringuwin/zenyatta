@@ -473,8 +473,8 @@ async def handle_message(message, db, client):
     elif lower_message == '!helplft':
         await help_lft_handler(message)
 
-    elif lower_message == '!helppoke':
-        await help_poke_handler(message)
+    # elif lower_message == '!helppoke':
+    #     await help_poke_handler(message)
 
     elif lower_message == '!helpdrops':
         await help_drops_handler(message)
