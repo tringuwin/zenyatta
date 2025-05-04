@@ -481,15 +481,15 @@ async def handle_message(message, db, client):
         users = db['users']
         all_users = list(users.find())
         for user in all_users:
-            if 'poke_cards' in user:
+            if 'poke_points' in user:
 
-                num_cards = len(user['poke_cards'])
-                tokens_to_give = num_cards * 20
-                new_tokens = get_user_tokens(user) + tokens_to_give
+                num_points = user['poke_points']
+                points_to_tokens = int(num_points / 5)
+                new_tokens = get_user_tokens(user) + points_to_tokens
 
-                users.update_one({"_id": user['_id']}, {"$set": {"tokens": new_tokens, "poke_cards": []}})
+                users.update_one({"_id": user['_id']}, {"$set": {"tokens": new_tokens, "poke_points": 0}})
 
-        await message.channel.send('All poke cards have been purged and users have been given 20 tokens for each card they had!')
+        await message.channel.send('All poke points have been converted to tokens!')
 
     elif lower_message == '!helpdrops':
         await help_drops_handler(message)
