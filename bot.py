@@ -636,9 +636,6 @@ async def handle_message(message, db, client):
     elif lower_message == '!tokenleaderboard':
         await token_leaderboard_handler(db, message)
 
-    elif lower_message == '!pokeleaderboard':
-        await poke_leaderboard_handler(db, message)
-
     elif lower_message == '!battleleaderboard':
         await battle_leaderboard_handler(db, message)
 
@@ -1779,72 +1776,72 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!delpoke') and is_admin:
         await del_poke_handler(db, message)
 
-    elif lower_message == '!openpoke':
-        await open_poke_handler(db, message)
+    # elif lower_message == '!openpoke':
+    #     await open_poke_handler(db, message)
 
-    elif lower_message.startswith('!sellpoke '):
-        await sell_poke_handler(db, message)
+    # elif lower_message.startswith('!sellpoke '):
+    #     await sell_poke_handler(db, message)
 
-    elif lower_message.startswith('!givepoke '):
-        await give_poke_handler(db, message)
+    # elif lower_message.startswith('!givepoke '):
+    #     await give_poke_handler(db, message)
 
-    elif lower_message.startswith('!viewpoke '):
-        await view_poke_handler(db, message)
+    # elif lower_message.startswith('!viewpoke '):
+    #     await view_poke_handler(db, message)
 
-    elif lower_message == '!mypokes':
-        await my_pokes_handler(db, message)
+    # elif lower_message == '!mypokes':
+    #     await my_pokes_handler(db, message)
 
-    elif lower_message == '!allpokes':
-        await all_pokes_handler(message)
+    # elif lower_message == '!allpokes':
+    #     await all_pokes_handler(message)
 
-    elif lower_message == '!unopened':
-        await unopened_handler(db, message)
+    # elif lower_message == '!unopened':
+    #     await unopened_handler(db, message)
 
-    elif lower_message.startswith('!addorder '):
-        await add_order_handler(db, message)
+    # elif lower_message.startswith('!addorder '):
+    #     await add_order_handler(db, message)
 
-    elif lower_message.startswith('!remorder '):
-        await rem_order_handler(db, message)
+    # elif lower_message.startswith('!remorder '):
+    #     await rem_order_handler(db, message)
 
-    elif lower_message == '!order':
-        await order_handler(db, message)
+    # elif lower_message == '!order':
+    #     await order_handler(db, message)
 
-    elif lower_message == '!buyorder':
-        await buy_order_handler(db, message, client)
+    # elif lower_message == '!buyorder':
+    #     await buy_order_handler(db, message, client)
 
-    elif lower_message.startswith('!cancelorder ') and is_admin:
-        await cancel_order_handler(db, message)
+    # elif lower_message.startswith('!cancelorder ') and is_admin:
+    #     await cancel_order_handler(db, message)
 
-    elif lower_message.startswith('!finishorder ') and is_admin:
-        await finish_order_handler(db, message)
+    # elif lower_message.startswith('!finishorder ') and is_admin:
+    #     await finish_order_handler(db, message)
 
-    elif lower_message == '!setpokedex' and is_admin:
-        users = db['users']
-        all_users = users.find()
-        num_affected = 0
-        for user in all_users:
+    # elif lower_message == '!setpokedex' and is_admin:
+    #     users = db['users']
+    #     all_users = users.find()
+    #     num_affected = 0
+    #     for user in all_users:
 
-            if not ('poke_cards' in user):
-                continue
+    #         if not ('poke_cards' in user):
+    #             continue
 
-            poke_cards = user['poke_cards']
-            user_pokedex = get_pokedex(db, poke_cards)    
-            users.update_one({"discord_id": user['discord_id']}, {"$set": {"pokedex": user_pokedex}})
-            num_affected += 1
+    #         poke_cards = user['poke_cards']
+    #         user_pokedex = get_pokedex(db, poke_cards)    
+    #         users.update_one({"discord_id": user['discord_id']}, {"$set": {"pokedex": user_pokedex}})
+    #         num_affected += 1
 
-        await message.channel.send('Complete. '+str(num_affected)+' users affected.')
+    #     await message.channel.send('Complete. '+str(num_affected)+' users affected.')
 
-    elif lower_message == '!setsorts':
+    # elif lower_message == '!setsorts':
 
-        pokemon = db['pokemon']
-        all_pokes = pokemon.find()
+    #     pokemon = db['pokemon']
+    #     all_pokes = pokemon.find()
 
-        for poke in all_pokes:
+    #     for poke in all_pokes:
 
-            sort_index = get_sort_index(poke['set'], poke['set_num'])
-            pokemon.update_one({"card_id": poke['card_id']}, {"$set": {"sort": sort_index}})
+    #         sort_index = get_sort_index(poke['set'], poke['set_num'])
+    #         pokemon.update_one({"card_id": poke['card_id']}, {"$set": {"sort": sort_index}})
 
-        await message.channel.send('done')
+    #     await message.channel.send('done')
 
     # elif lower_message.startswith('!givepp ') and is_admin:
     #     await give_pp_handler(db, message, client)
