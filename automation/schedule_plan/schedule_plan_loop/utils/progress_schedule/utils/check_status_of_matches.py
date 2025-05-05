@@ -17,6 +17,7 @@ async def check_status_of_matches(client, db, message, schedule_plans, schedule)
     all_matchups = get_all_matchups(db, context, season, actual_week)
     not_completed_matchups = complete_finished_matchups(db, all_matchups, context, season)
     all_matches_completed = len(not_completed_matchups) == 0
+    await message.channel.send(f'Matches not completed for context {context} is {len(not_completed_matchups)}.')
 
     if all_matches_completed:
         schedule['weeks'][week_index]['status'] = 'COMPLETE'
