@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-VERSION = '1.11.31'
+VERSION = '1.11.32'
 
 OPEN_AI_TOKEN = os.getenv("OPEN_AI_TOKEN")
 MONGO_URI = os.getenv("MONGO_URI")
