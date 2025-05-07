@@ -206,6 +206,7 @@ from command_handlers.team_page import team_page_handler
 from command_handlers.top_100 import top_100_handler
 from command_handlers.twitch import twitch_handler
 from command_handlers.twitch_api.end_pred import end_pred
+from command_handlers.twitch_api.raid import raid_handler
 from command_handlers.twitch_api.raid_channel import raid_channel
 from command_handlers.twitch_api.run_ad import run_ad
 from command_handlers.twitch_api.start_pred import start_pred
@@ -1941,6 +1942,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!raidsecond' and is_tourney_admin:
         await raid_channel(db, message, 'main', 'second')
+
+    elif lower_message.startswith('!raid') and is_tourney_admin:
+        await raid_handler(db, message)
 
     elif lower_message.startswith('!lockon') and is_admin:
         await handle_lock(db, message, True, context)
