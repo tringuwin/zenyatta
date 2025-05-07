@@ -17,7 +17,7 @@ async def raid_handler(db, message):
         await invalid_number_of_params(message)
         return
     
-    from_channel = params[1].lowwer()
+    from_channel = params[1].lower()
     to_channel = params[2].lower()
 
     if from_channel not in VALID_RAID_CHANNELS:
