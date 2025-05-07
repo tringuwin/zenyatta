@@ -276,7 +276,5 @@ def has_username_for_game(user, context):
     elif context == 'VL':
         if 'riot_id' in user:
             return True
-    elif context == 'FL':
-        return True
 
     return False

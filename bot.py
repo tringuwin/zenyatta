@@ -1561,34 +1561,26 @@ async def handle_message(message, db, client):
         
         matchups = db['matchups']
 
-        # TEST_MATCHUPS = [
-        #     ['Angels', 'Celestials'],
-        #     ['Deadlock', 'Diamonds'],
-        #     ['Eclipse', 'Evergreen'],
-        #     ['Fresas', 'Guardians'],
-        #     ['Horizon', 'Hunters'],
-        #     ['Instigators', 'Legion'],
-        #     ['Lotus', 'Misfits'],
-        #     ['Monarchs', 'Olympians'],
-        #     ['Outliers', 'Phantoms'],
-        #     ['Phoenix', 'Polar'],
-        #     ['Ragu', 'Saturn'],
-        #     ['Saviors', 'Sentinels'],
-        #     ['Aces', 'Mantas']
-        # ]
-
-        TEST_MATCHUPS_FL = [
-            ['Akhaians', 'Mangos'],
-            ['Sharks', 'Frogs'],
-            ['Spirits', 'Stars'],
-            ['Spartans', 'Roses'],
-            ['Hornets', 'Sirens']
+        TEST_MATCHUPS = [
+            ['Angels', 'Celestials'],
+            ['Deadlock', 'Diamonds'],
+            ['Eclipse', 'Evergreen'],
+            ['Fresas', 'Guardians'],
+            ['Horizon', 'Hunters'],
+            ['Instigators', 'Legion'],
+            ['Lotus', 'Misfits'],
+            ['Monarchs', 'Olympians'],
+            ['Outliers', 'Phantoms'],
+            ['Phoenix', 'Polar'],
+            ['Ragu', 'Saturn'],
+            ['Saviors', 'Sentinels'],
+            ['Aces', 'Mantas']
         ]
 
-        for matchup in TEST_MATCHUPS_FL:
+        for matchup in TEST_MATCHUPS:
             new_matchup = {
                 'matchup_id': str(uuid.uuid4()),
-                'context': 'FL',
+                'context': 'OW',
                 'season': 1,
                 'week': 1,
                 'team1': matchup[0],

@@ -10,8 +10,5 @@ def get_context(message):
 
     elif message_channel.category_id == constants.VALORANT_CATEGORY_ID or message_channel.category_id == constants.VALORANT_TEAMS_CATEGORY_ID:
         context = 'VL'
-
-    elif message_channel.category_id == constants.FAKE_LEAGUE_CATEGORY_ID:
-        context = 'FL'
-
+        
     return context
