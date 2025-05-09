@@ -232,7 +232,8 @@ TEAM_NAME_TO_EMOJI_EMBED_STRING = {
     'Horizon': '<:horizon:1305322090513301564>',
     'Monarchs': '<:monarchs:1305323035611631616>',
     'Aces': '<:aces:1348420990023241769>',
-    'Mantas': '<:mantas:1348446040927371304>'
+    'Mantas': '<:mantas:1348446040927371304>',
+    'Penguins': '<:spicyesports:1344813172342788177>'
 }
 
 DEFAULT_TEAM_EMOJI = '<:solwhite:1278858168826593312>'
@@ -328,7 +329,7 @@ NO_MAP_NAME = 'https://i.postimg.cc/hPNGk6G1/No-Map.png'
 
 TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians',  'Fresas', 'Outliers', 'Phoenix', 
              'Celestials', 'Saturn', 'Evergreen', 'Misfits', 'Hunters', 'Legion', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels',
-             'Lotus', 'Deadlock', 'Horizon', 'Monarchs', 'Aces', 'Mantas']
+             'Lotus', 'Deadlock', 'Horizon', 'Monarchs', 'Aces', 'Mantas', 'Penguins']
 
 RIVALS_TEAM_LIST = ['Angels', 'Celestials', 'Deadlock', 'Eclipse', 'Evergreen', 'Fresas', 'Guardians', 'Horizon', 'Hunters', 'Lotus', 'Misfits', 'Monarchs', 'Olympians', 'Phantoms', 'Phoenix', 'Ragu', 'Saturn', 'Saviors']
 
