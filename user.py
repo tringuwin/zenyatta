@@ -177,6 +177,13 @@ def get_user_gems(user):
     else:
         return copy.deepcopy(constants.DEFAULT_GEMS)
     
+def get_user_spicy_tickets(user):
+
+    if 'spicy_tickets' in user:
+        return user['spicy_tickets']
+    else:
+        return 0
+    
 def get_user_lootboxes(user):
 
     if 'lootboxes' in user:
