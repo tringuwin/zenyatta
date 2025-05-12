@@ -5,21 +5,6 @@ from command_handlers.league.swiss_matchups import convert_pairings_into_matchup
 from time_helpers import year_month_day_to_datetime
 
 
-ADD_WEEK_CONFIG = {
-
-    'start_day_info': {
-        'day': 12,
-        'month': 5,
-        'year': 2025
-    },
-    'season': 6,
-    'match_pairs': [
-        ['Hunters', 'Horizon'],
-        ['Phantoms', 'Polar'],
-    ]
-
-}
-
 # ADD_WEEK_CONFIG = {
 
 #     'start_day_info': {
@@ -27,15 +12,28 @@ ADD_WEEK_CONFIG = {
 #         'month': 5,
 #         'year': 2025
 #     },
-#     'season': 1,
+#     'season': 6,
 #     'match_pairs': [
-#         ['Deadlock', 'Fresas'],
-#         ['Hunters', 'Evergreen'],
-#         ['Phoenix', 'Ragu'],
-#         ['Angels', 'Saturn']
+#         ['Deadlock', 'Hunters'],
+#         ['Phoenix', 'Angels'],
 #     ]
 
 # }
+
+ADD_WEEK_CONFIG = {
+
+    'start_day_info': {
+        'day': 12,
+        'month': 5,
+        'year': 2025
+    },
+    'season': 1,
+    'match_pairs': [
+        ['Deadlock', 'Hunters'],
+        ['Phoenix', 'Angels'],
+    ]
+
+}
 
 def get_all_teams_participating():
 
