@@ -1,7 +1,7 @@
 
 
 from rewards import change_pickaxes, change_tokens
-from user import get_user_gems, get_user_packs
+from user import get_user_gems, get_user_packs, get_user_spicy_tickets
 
 
 async def process_automatic_reward(db, user, reward_info):
@@ -26,6 +26,11 @@ async def process_automatic_reward(db, user, reward_info):
         users = db['users']
         user_gems[gem_color] += amount
         users.update_one({'discord_id': user['discord_id']}, {'$set': {'gems': user_gems}})
+
+    elif reward_type == 'RAFFLE_TICKET':
+        user_spicy_tickets = get_user_spicy_tickets(user)
+        users = db['users']
+        users.update_one({'discord_id': user['discord_id']}, {'$set': {'spicy_tickets': user_spicy_tickets + amount}})
 
     else:
         raise Exception('Could not automatically handle reward of type: '+reward_type)
