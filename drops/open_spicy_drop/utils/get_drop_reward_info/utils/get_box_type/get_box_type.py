@@ -15,8 +15,9 @@ import random
 # 95
 
 BOX_DISTRIBUTION = {
-    'CRAP_BOX': 50,
+    'CRAP_BOX': 40,
     'MID_BOX': 20,
+    'RAFFLE_TICKET_BOX': 10,
     'GEM_BOX': 10,
     'PICK_BOX': 7,
     'MULTI_GEM_BOX': 5,

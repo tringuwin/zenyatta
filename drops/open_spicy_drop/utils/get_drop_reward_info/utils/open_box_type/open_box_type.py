@@ -19,6 +19,7 @@ from drops.open_spicy_drop.utils.get_drop_reward_info.utils.open_box_type.utils.
 from drops.open_spicy_drop.utils.get_drop_reward_info.utils.open_box_type.utils.open_multi_gem_box import open_multi_gem_box
 from drops.open_spicy_drop.utils.get_drop_reward_info.utils.open_box_type.utils.open_pack_box import open_pack_box
 from drops.open_spicy_drop.utils.get_drop_reward_info.utils.open_box_type.utils.open_pick_box import open_pick_box
+from drops.open_spicy_drop.utils.get_drop_reward_info.utils.open_box_type.utils.open_raffle_ticket_box import open_raffle_ticket_box
 
 
 def open_box_type(db, box_type):
@@ -27,6 +28,8 @@ def open_box_type(db, box_type):
         return open_crap_box()
     elif box_type == 'MID_BOX':
         return open_mid_box()
+    elif box_type == 'RAFFLE_TICKET_BOX':
+        return open_raffle_ticket_box()
     elif box_type == 'GEM_BOX':
         return open_gem_box()
     elif box_type == 'PICK_BOX':
