@@ -233,10 +233,8 @@ async def init_card(message, db, card_id):
         'card_id': int(card_id),
         'variant': 'A',
         'power': 20,
-        'owner': 0
+        'owner': user_copy_id
     })
-
-    # BROKE HERE
 
     for variant in USED_CARD_VARIANTS:
         single_cards.insert_one({
