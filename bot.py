@@ -47,7 +47,7 @@ from automation.schedule_plan.make_schedule_plan import make_schedule_plan
 from automation.schedule_plan.schedule_plan_loop.schedule_plan_loop import schedule_plan_loop
 from automation.update_team_avatars import update_overwatch_team_avatars, update_rivals_team_avatars
 from automation.update_top_subs_avatars import update_top_subs_avatars
-from card_automation import make_all_cards_from_data
+from card_automation import make_all_cards_from_data, make_all_cards_from_db
 from card_games.automation.clear_expired_battles import clear_expired_battles
 from card_games.card_battle import card_battle
 from card_games.feed_gem import feed_gem
@@ -1352,7 +1352,11 @@ async def handle_message(message, db, client):
         await fight_card(client, db, message)
 
     elif lower_message == '!makeallcardsfromdata' and is_admin:
-        await make_all_cards_from_data(db, message, client)
+        return
+        #await make_all_cards_from_data(db, message, client)
+
+    elif lower_message == '!makeallcardsfromdb' and is_admin:
+        await make_all_cards_from_db(db, message)
 
     elif lower_message.startswith('!makecard') and is_admin:
         await make_card_handler(db, message)
