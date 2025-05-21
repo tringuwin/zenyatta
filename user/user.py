@@ -6,6 +6,16 @@ import time
 
 from context.context_helpers import get_league_invites_field, get_league_team_field_from_context
 
+# DISCORD API FUNCTIONS
+
+async def notify_user_of_gift(member, bot_coms_channel):
+    try:
+        # Try to send a DM
+        await member.send('Your gift is ready in the Spicy Esports server! Just say **!gift** here to claim! '+bot_coms_channel.jump_url)
+    except discord.Forbidden:
+        # If DM can't be sent, mention the member in the channel
+        await bot_coms_channel.send(f'Your gift is ready, {member.mention}! (I tried to DM you but your privacy settings did not allow me to)')
+
 # MONGO
 
 def user_exists(db, discord_id):
@@ -53,6 +63,26 @@ def set_user_league_team(db, user, team, context):
     
     users.update_one({"discord_id": user['discord_id']}, {"$set": {league_team_field: team}})
 
+
+def toggle_off_gift_notify(db, user):
+
+    users = db['users']
+
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"gift_notify": False}})
+
+
+async def add_event_entry_to_user(db, user, event_id):
+    
+    users = db['users']
+
+    new_user = copy.deepcopy(user)
+    entry_info = {
+        "event_id": event_id,
+        "status": "Not Reviewed",
+    }
+    new_user['entries'].append(entry_info)
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"entries": new_user['entries']}})
+
 # FUNCTIONS THAT NEED REWORKING
 
 def get_gem_offer(user):
@@ -71,6 +101,16 @@ def get_gem_offer(user):
         return None
 
     return user['gem_offer']
+
+
+def user_entered_event(user, event_id):
+
+    user_entries = user['entries']
+    for entry in user_entries:
+        if entry['event_id'] == event_id:
+            return True
+        
+    return False
 
 # NON MONGO
 
@@ -324,6 +364,13 @@ def get_user_ranks(user):
         },
     }
 
+def get_user_rivals_rank(user):
+
+    if 'rivals_rank' in user:
+        return user['rivals_rank']
+    
+    return None
+
 def get_user_wlt(user):
 
     if 'wlt' in user:
@@ -345,13 +392,6 @@ def get_user_mr_wlt(user):
         'l': 0,
         't': 0
     }
-
-def get_user_rivals_rank(user):
-
-    if 'rivals_rank' in user:
-        return user['rivals_rank']
-    
-    return None
 
 def get_user_bets(user):
 
@@ -375,7 +415,6 @@ def get_riot_id(user):
         return user['riot_id']
     
     return ''
-
 
 
 def get_user_minute_points(user):
@@ -405,50 +444,6 @@ def get_user_total_trophies(user):
         return user['total_trophies']
     
     return 0
-
-
-def toggle_off_gift_notify(db, user):
-
-    users = db['users']
-
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"gift_notify": False}})
-
-
-def user_entered_event(user, event_id):
-
-    user_entries = user['entries']
-    for entry in user_entries:
-        if entry['event_id'] == event_id:
-            return True
-        
-    return False
-
-
-async def add_event_entry_to_user(db, user, event_id):
-    
-    users = db['users']
-
-    new_user = copy.deepcopy(user)
-    entry_info = {
-        "event_id": event_id,
-        "status": "Not Reviewed",
-    }
-    new_user['entries'].append(entry_info)
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"entries": new_user['entries']}})
-
-
-async def notify_user_of_gift(member):
-
-    return
-
-
-async def notify_user_of_gift(member, bot_coms_channel):
-    try:
-        # Try to send a DM
-        await member.send('Your gift is ready in the Spicy Esports server! Just say **!gift** here to claim! '+bot_coms_channel.jump_url)
-    except discord.Forbidden:
-        # If DM can't be sent, mention the member in the channel
-        await bot_coms_channel.send(f'Your gift is ready, {member.mention}! (I tried to DM you but your privacy settings did not allow me to)')
 
 
 def total_gems(gems):

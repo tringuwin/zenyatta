@@ -580,3 +580,170 @@ def test_get_user_mr_wlt():
         'l': 0,
         't': 0
     }
+
+
+def test_get_user_rivals_rank():
+
+    test_user = {
+        'rivals_rank': 'ExampleRank'
+    }
+    assert user_module.get_user_rivals_rank(test_user) == 'ExampleRank'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_rivals_rank(test_user) is None
+
+
+def test_get_user_bets():
+
+    # this is not the exact shape of the bet objects, it should be updated at some point
+    test_user = {
+        'bets': ['bet1', 'bet2']
+    }
+    assert user_module.get_user_bets(test_user) == ['bet1', 'bet2']
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_bets(test_user) == []
+
+
+def test_get_rivals_username():
+
+    test_user = {
+        'rivals_username': 'RivalsUser'
+    }
+    assert user_module.get_rivals_username(test_user) == 'RivalsUser'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_rivals_username(test_user) == ''
+
+
+def test_get_riot_id():
+
+    test_user = {
+        'riot_id': 'RiotUser#1234'
+    }
+    assert user_module.get_riot_id(test_user) == 'RiotUser#1234'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_riot_id(test_user) == ''
+
+
+def test_get_user_minute_points():
+
+    test_user = {
+        'minute_points': 100
+    }
+    assert user_module.get_user_minute_points(test_user) == 100
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_minute_points(test_user) == 0
+
+
+def test_get_user_drop_boxes():
+
+    test_user = {
+        'drop_boxes': 17
+    }
+    assert user_module.get_user_drop_boxes(test_user) == 17
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_drop_boxes(test_user) == 0
+
+
+def test_get_user_trophies():
+
+    test_user = {
+        'trophies': 5
+    }
+    assert user_module.get_user_trophies(test_user) == 5
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_trophies(test_user) == 0
+
+
+def test_get_user_total_trophies():
+
+    test_user = {
+        'total_trophies': 10
+    }
+    assert user_module.get_user_total_trophies(test_user) == 10
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_total_trophies(test_user) == 0
+
+
+def test_total_gems():
+
+    test_gems = {
+        'red': 1,
+        'blue': 2,
+        'yellow': 3,
+        'green': 4,
+        'purple': 5,
+        'orange': 6,
+        'pink': 7,
+        'teal': 8,
+        'white': 9,
+        'black': 10
+    }
+    assert user_module.total_gems(test_gems) == 55
+
+
+def test_get_total_cards():
+
+    test_user = {
+        'cards': [
+            {'card_display': '1-A', 'card_id': '1', 'variant_id': 'A'},
+            {'card_display': '2-B', 'card_id': '2', 'variant_id': 'B'}
+        ],
+        'for_sale_cards': ['3-C', '4-D'],
+    }
+    assert user_module.get_total_cards(test_user) == 4
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_total_cards(test_user) == 0
+
+
+def test_get_net_worth():
+
+    test_gems = {
+        'red': 1,
+        'blue': 2,
+        'yellow': 3,
+        'green': 4,
+        'purple': 5,
+        'orange': 6,
+        'pink': 7,
+        'teal': 8,
+        'white': 9,
+        'black': 10
+    }
+    test_user = {
+        'tokens': 10,
+        'pickaxes': 1,
+        'gems': test_gems,
+        'packs': 3,
+        'cards': [
+            {'card_display': '1-A', 'card_id': '1', 'variant_id': 'A'},
+            {'card_display': '2-B', 'card_id': '2', 'variant_id': 'B'}
+        ],
+        'for_sale_cards': ['3-C', '4-D'],
+    }
+    assert user_module.get_net_worth(test_user) == 3155
