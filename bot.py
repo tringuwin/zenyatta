@@ -1755,19 +1755,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!deletebytag ') and is_admin:
         await delete_by_tag_handler(db, message)
 
-    elif lower_message == '!givealllevels' and is_admin:
-
-        guild = await get_guild(client)
-        for member in client.get_all_members():
-            user = user_exists(db, member.id)
-            if user:
-                level, _ = get_lvl_info(user)
-                level_role_id = get_role_id_by_level(level)
-                level_role = guild.get_role(level_role_id)
-                await give_role(member, level_role, 'Give All Levels')
-
-        await send_msg(message.channel, 'all done', '!givealllevels')
-
     elif lower_message.startswith('!postreplay ') and is_admin:
         vod_link = message.content.split()[1]
         guild = await get_guild(client)
