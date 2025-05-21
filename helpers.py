@@ -138,7 +138,6 @@ def is_valid_hex_code(s):
 
 def verify_params_in_string(input_string, num_params):
 
-    print('running in test')
     parts = input_string.split()
     if len(parts) != num_params:
         raise CommandError(f"Invalid number of parameters. Expected {num_params}, got {len(parts)}.")
@@ -147,7 +146,6 @@ def verify_params_in_string(input_string, num_params):
 
 
 def convert_to_int(value):
-    print('running in test 2')
     
     try:
         return int(value)

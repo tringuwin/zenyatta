@@ -12,4 +12,4 @@ def test_get_force_remove_player_params():
     with pytest.raises(CommandError, match='Invalid value: not_int is not an integer.'):
         get_force_remove_player_params('!forceremoveplayer 1 not_int')
 
-    get_force_remove_player_params('!forceremoveplayer 1 78954') == ('1', 78954)
+    assert get_force_remove_player_params('!forceremoveplayer 1 78954') == ('1', 78954)
