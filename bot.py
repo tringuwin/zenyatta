@@ -214,6 +214,7 @@ from command_handlers.xp_battle.battle_win import battle_win_handler
 from command_handlers.xp_battle.end_battle import end_battle_handler
 from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
+from discord_utils.member_left.member_left import member_left
 from lineups import check_lineup_tokens
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
@@ -288,7 +289,7 @@ from supporters.role_commands.role_name import role_name
 from supporters.supporter_role_loop import supporter_role_loop
 from time_helpers import check_weekly, long_enough_for_gift
 from twitch_token import check_token_issue
-from user.user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_rivals_league_team, get_user_tokens, get_valorant_league_team, notify_user_of_gift, user_exists
+from user.user import get_knows_gift, get_last_gift, get_lvl_info, notify_user_of_gift, user_exists
 from user_input.bad_word_checker import bad_word_checker
 from user_input.non_tenor_link import non_tenor_link
 from xp_battles import add_to_battle, how_many_handler, remove_from_battle
@@ -2259,33 +2260,7 @@ def run_discord_bot(db, is_smoke_test=False):
 
     @client.event
     async def on_raw_member_remove(payload):
-        guild_user = payload.user
-        user_id = guild_user.id
-        
-        db_user = user_exists(db, user_id)
-        if db_user:
-
-            user_league_team = get_league_team(db_user)
-            if user_league_team != 'None':
-                users = db['users']
-                users.update_one({'discord_id': user_id}, {'$set': {'league_team': 'None'}})
-
-                await update_team(db, user_league_team, client, 'OW')
-
-            user_rivals_league_team = get_rivals_league_team(db_user)
-            if user_rivals_league_team != 'None':
-                users = db['users']
-                users.update_one({'discord_id': user_id}, {'$set': {'rivals_league_team': 'None'}})
-
-                await update_team(db, user_rivals_league_team, client, 'MR')
-
-            user_valorant_league_team = get_valorant_league_team(db_user)
-            if user_valorant_league_team != 'None':
-                users = db['users']
-                users.update_one({'discord_id': user_id}, {'$set': {'valorant_league_team': 'None'}})
-
-                await update_team(db, user_valorant_league_team, client, 'VL')
-
+        await member_left(payload, db, client)
 
 
     @client.event

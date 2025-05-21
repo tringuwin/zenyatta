@@ -2,7 +2,7 @@
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
-from user.user import get_fan_of, get_fan_of_rivals, get_fan_of_valorant, get_league_team, get_riot_id, get_rival_of, get_rival_of_rivals, get_rival_of_valorant, get_rivals_league_team, get_rivals_username, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_pickaxes, get_user_ranks, get_user_rivals_rank, get_user_tokens, get_user_trophies, get_valorant_league_team, user_exists
+from user.user import get_fan_of, get_fan_of_rivals, get_fan_of_valorant, get_league_team_with_context, get_riot_id, get_rival_of, get_rival_of_rivals, get_rival_of_valorant, get_rivals_username, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_pickaxes, get_user_ranks, get_user_rivals_rank, get_user_tokens, get_user_trophies, user_exists
 import constants
 
 
@@ -94,7 +94,7 @@ async def overwatch_profile(message, client, user):
     guild = await get_guild(client)
 
     # level, xp = get_lvl_info(user)
-    league_team = get_league_team(user)
+    league_team = get_league_team_with_context(user, 'OW')
     fan_of = get_fan_of(user)
     rival_of = get_rival_of(user)
     tokens = get_user_tokens(user)
@@ -167,7 +167,7 @@ async def rivals_profile(message, client, user):
         username = '[Unknown Username]'
 
     # level, xp = get_lvl_info(user)
-    league_team = get_rivals_league_team(user)
+    league_team = get_league_team_with_context(user, 'MR')
     fan_of = get_fan_of_rivals(user)
     rival_of = get_rival_of_rivals(user)
     tokens = get_user_tokens(user)
@@ -238,7 +238,7 @@ async def valorant_profile(message, client, user):
         riot_id = '[Unknown Riot ID]'
 
     # level, xp = get_lvl_info(user)
-    league_team = get_valorant_league_team(user)
+    league_team = get_league_team_with_context(user, 'VL')
     fan_of = get_fan_of_valorant(user)
     rival_of = get_rival_of_valorant(user)
     tokens = get_user_tokens(user)

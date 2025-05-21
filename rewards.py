@@ -2,7 +2,7 @@
 
 from common_messages import not_registered_response
 from helpers import generic_find_user, update_token_tracker, valid_number_of_params
-from user.user import get_league_team, get_lvl_info, get_user_lootboxes, user_exists
+from user.user import get_lvl_info, get_user_lootboxes, user_exists
 
 
 async def change_tokens(db, user, num, source='unknown'):
@@ -85,23 +85,6 @@ async def level_up(user, orig_level, new_level, client, db):
 async def change_xp(db, user, num, client):
 
     users = db['users']
-
-    league_team = get_league_team(user)
-    if league_team != 'None':
-
-        constants_db = db['constants']
-
-        league_xp_obj = constants_db.find_one({'name': 'league_xp'})
-        league_xp = league_xp_obj['value']
-        if league_team in league_xp:
-            league_xp[league_team] += num
-            constants_db.update_one({"name": 'league_xp'}, {"$set": {"value": league_xp}})
-
-        league_xp_total_obj = constants_db.find_one({'name': 'league_xp_total'})
-        league_xp_total = league_xp_total_obj['value']
-        if league_team in league_xp_total:
-            league_xp_total[league_team] += num
-            constants_db.update_one({"name": 'league_xp_total'}, {"$set": {"value": league_xp_total}})
     
     level, xp = get_lvl_info(user)
 
