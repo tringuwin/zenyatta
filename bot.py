@@ -60,7 +60,6 @@ from casting.make_caster import make_caster_handler
 from casting.make_lobby_admin import make_lobby_admin_handler
 from casting.pay import pay_handler
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
-from command_handlers.ask import ask_handler
 from command_handlers.auction.bid import bid_handler
 from command_handlers.auction.end_auction import end_auction_handler
 from command_handlers.auction.start_auction import start_auction_handler
@@ -303,7 +302,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     if is_helper or is_push_bot or is_tourney_admin:
         return True, None
     
-    if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!help') or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband') or lower_message == '!fortnite' or lower_message == '!zorp' or lower_message == '!howdy' or lower_message == '!sigma' or lower_message == '!buzzcut' or lower_message=='!top100' or lower_message.startswith('!ask '):
+    if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!help') or lower_message.startswith('!whichteam'):
         return True, None
 
     if is_bot_commands_channel(message.channel):
@@ -543,9 +542,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == "!hello":
         await hello_handler(message)
-
-    elif lower_message.startswith('!ask '):
-        await ask_handler(message)
 
     elif lower_message == '!gg ez':
         await gg_ez_handler(message)
@@ -2063,7 +2059,12 @@ async def handle_message(message, db, client):
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
 
-def run_discord_bot(db):
+
+def run_discord_bot(db, is_smoke_test=False):
+
+    if is_smoke_test:
+        return 'Started bot.py without errors'
+
     intents = discord.Intents.all()
     intents.message_content = True
     intents.reactions = True

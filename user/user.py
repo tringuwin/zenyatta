@@ -6,6 +6,8 @@ import time
 
 from context.context_helpers import get_league_invites_field, get_league_team_field_from_context
 
+# MONGO
+
 def user_exists(db, discord_id):
     
     users = db['users']
@@ -32,6 +34,26 @@ def get_user_by_tag(db, lower_tag):
 
     return users.find_one(search_query)
 
+
+def add_team_to_user(db, user, team_name):
+
+    users = db['users']
+
+    if not ('teams' in user):
+        user['teams'] = []
+
+    user['teams'].append(team_name)
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"teams": user['teams']}})
+
+
+def set_user_league_team(db, user, team, context):
+
+    users = db['users']
+    league_team_field = get_league_team_field_from_context(context)
+    
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {league_team_field: team}})
+
+# NON MONGO
 
 def get_twitch_username(user):
 
@@ -87,17 +109,6 @@ def get_lvl_info(user):
 
     return level, xp
 
-def add_team_to_user(db, user, team_name):
-
-    users = db['users']
-
-    if not ('teams' in user):
-        user['teams'] = []
-
-    user['teams'].append(team_name)
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"teams": user['teams']}})
-
-
 def get_user_invites(user):
     
     if 'invites' in user:
@@ -109,67 +120,64 @@ def get_user_teams(user):
 
     if 'teams' in user:
         return user['teams']
-    else:
-        return []
-    
+
+    return []
     
 def get_knows_gift(user):
 
     if 'knows_gift' in user:
         return user['knows_gift']
-    else:
-        return False
+    
+    return False
     
 def get_last_gift(user):
 
     if 'last_gift' in user:
         return user['last_gift']
 
-    else:
-        return 0
+    return 0
 
-    
 def get_invited_valid(user):
 
     if 'invited_valid' in user:
         return user['invited_valid']
-    else:
-        return False
+    
+    return False
     
 def get_user_gems(user):
 
     if 'gems' in user:
         return user['gems']
-    else:
-        return copy.deepcopy(constants.DEFAULT_GEMS)
+    
+    return copy.deepcopy(constants.DEFAULT_GEMS)
     
 def get_user_spicy_tickets(user):
 
     if 'spicy_tickets' in user:
         return user['spicy_tickets']
-    else:
-        return 0
+    
+    return 0
     
 def get_user_lootboxes(user):
 
     if 'lootboxes' in user:
         return user['lootboxes']
-    else:
-        return []
+    
+    return []
     
 def get_sub_lootboxes(user):
 
     if 'sub_lootboxes' in user:
         return user['sub_lootboxes']
-    else:
-        return 0
+    
+    return 0
     
 def get_subcount(user):
 
     if 'subcount' in user:
         return user['subcount']
-    else:
-        return 0
+    
+    return 0
     
 def get_last_sub_box(user):
 
@@ -505,11 +513,3 @@ def get_net_worth(user):
     total = tokens + pickaxes + gems + packs + cards
 
     return total
-
-
-def set_user_league_team(db, user, team, context):
-
-    users = db['users']
-    league_team_field = get_league_team_field_from_context(context)
-    
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {league_team_field: team}})
