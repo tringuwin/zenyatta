@@ -60,7 +60,6 @@ from casting.make_caster import make_caster_handler
 from casting.make_lobby_admin import make_lobby_admin_handler
 from casting.pay import pay_handler
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
-from command_handlers.ask import ask_handler
 from command_handlers.auction.bid import bid_handler
 from command_handlers.auction.end_auction import end_auction_handler
 from command_handlers.auction.start_auction import start_auction_handler
@@ -290,7 +289,7 @@ from supporters.role_commands.role_name import role_name
 from supporters.supporter_role_loop import supporter_role_loop
 from time_helpers import check_weekly, long_enough_for_gift
 from twitch_token import check_token_issue
-from user.user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_rivals_league_team, get_role_id_by_level, get_user_tokens, get_valorant_league_team, notify_user_of_gift, user_exists
+from user.user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_rivals_league_team, get_user_tokens, get_valorant_league_team, notify_user_of_gift, user_exists
 from user_input.bad_word_checker import bad_word_checker
 from user_input.non_tenor_link import non_tenor_link
 from xp_battles import add_to_battle, how_many_handler, remove_from_battle
@@ -301,7 +300,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     if is_helper or is_push_bot or is_tourney_admin:
         return True, None
     
-    if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!help') or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband') or lower_message == '!fortnite' or lower_message == '!zorp' or lower_message == '!howdy' or lower_message == '!sigma' or lower_message == '!buzzcut' or lower_message=='!top100' or lower_message.startswith('!ask '):
+    if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!help') or lower_message.startswith('!whichteam'):
         return True, None
 
     if is_bot_commands_channel(message.channel):
@@ -541,9 +540,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == "!hello":
         await hello_handler(message)
-
-    elif lower_message.startswith('!ask '):
-        await ask_handler(message)
 
     elif lower_message == '!gg ez':
         await gg_ez_handler(message)
@@ -1766,19 +1762,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!deletebytag ') and is_admin:
         await delete_by_tag_handler(db, message)
 
-    elif lower_message == '!givealllevels' and is_admin:
-
-        guild = await get_guild(client)
-        for member in client.get_all_members():
-            user = user_exists(db, member.id)
-            if user:
-                level, _ = get_lvl_info(user)
-                level_role_id = get_role_id_by_level(level)
-                level_role = guild.get_role(level_role_id)
-                await give_role(member, level_role, 'Give All Levels')
-
-        await send_msg(message.channel, 'all done', '!givealllevels')
-
     elif lower_message.startswith('!postreplay ') and is_admin:
         vod_link = message.content.split()[1]
         guild = await get_guild(client)
@@ -2087,7 +2070,12 @@ async def handle_message(message, db, client):
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
 
-def run_discord_bot(db):
+
+def run_discord_bot(db, is_smoke_test=False):
+
+    if is_smoke_test:
+        return 'Started bot.py without errors'
+
     intents = discord.Intents.all()
     intents.message_content = True
     intents.reactions = True

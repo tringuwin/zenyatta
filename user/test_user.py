@@ -209,3 +209,55 @@ def test_get_user_gems():
         'field': 1
     }
     assert user_module.get_user_gems(test_user) == constants.DEFAULT_GEMS
+
+
+def test_get_user_spicy_tickets():
+
+    test_user = {
+        'spicy_tickets': 10
+    }
+    assert user_module.get_user_spicy_tickets(test_user) == 10
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_spicy_tickets(test_user) == 0
+
+
+def test_get_user_lootboxes():
+
+    test_user = {
+        'lootboxes': [1, 2, 3]
+    }
+    assert user_module.get_user_lootboxes(test_user) == [1, 2, 3]
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_lootboxes(test_user) == []
+
+
+def test_get_sub_lootboxes():
+
+    test_user = {
+        'sub_lootboxes': 9
+    }
+    assert user_module.get_sub_lootboxes(test_user) == 9
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_sub_lootboxes(test_user) == 0
+
+
+def test_get_subcount():
+
+    test_user = {
+        'subcount': 4
+    }
+    assert user_module.get_subcount(test_user) == 4
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_subcount(test_user) == 0

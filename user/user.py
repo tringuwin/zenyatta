@@ -155,29 +155,29 @@ def get_user_spicy_tickets(user):
 
     if 'spicy_tickets' in user:
         return user['spicy_tickets']
-    else:
-        return 0
+    
+    return 0
     
 def get_user_lootboxes(user):
 
     if 'lootboxes' in user:
         return user['lootboxes']
-    else:
-        return []
+    
+    return []
     
 def get_sub_lootboxes(user):
 
     if 'sub_lootboxes' in user:
         return user['sub_lootboxes']
-    else:
-        return 0
+    
+    return 0
     
 def get_subcount(user):
 
     if 'subcount' in user:
         return user['subcount']
-    else:
-        return 0
+    
+    return 0
     
 def get_last_sub_box(user):
 
