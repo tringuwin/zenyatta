@@ -294,7 +294,9 @@ from user.user import get_knows_gift, get_last_gift, get_league_team, get_lvl_in
 from user_input.bad_word_checker import bad_word_checker
 from user_input.non_tenor_link import non_tenor_link
 from xp_battles import add_to_battle, how_many_handler, remove_from_battle
-
+from wipe_bracket import wipe_bracket_handler
+from switch_matches import switch_matches_handler
+from gen_tourney import gen_tourney_handler
 
 def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_admin):
 
@@ -1057,28 +1059,15 @@ async def handle_message(message, db, client):
         await gen_bracket_handler(db, message)
 
     elif lower_message.startswith("!wipebrackets") and is_admin:
-            
-        brackets = db['brackets']
-        brackets.delete_many({})
-        await send_msg(message.channel, 'Brackets have been wiped', '!wipebrackets')
+        await wipe_bracket_handler(db, message)
 
     elif lower_message.startswith("!switchmatches ") and is_admin:
-
         # !switchmatches [event id] [switch match id 1] [switch match id 2]
-        word_list = message.content.split()
-        if len(word_list) == 4:
-            await switch_matches(db, message, word_list[1], word_list[2], word_list[3])
-        else:
-            await message.channel.send("Invalid number of arguments.")
+        await switch_matches_handler(db, message)
 
     elif lower_message.startswith("!gentourney ") and is_admin:
-
         # !gentourney [event id]
-        word_list = message.content.split()
-        if len(word_list) == 2:
-            await gen_tourney(db, word_list[1], message)
-        else:
-            await message.channel.send("Invalid number of arguments.")
+        await gen_tourney_handler(db, message)
 
     elif lower_message == '!wipetourney' and is_admin:
 
