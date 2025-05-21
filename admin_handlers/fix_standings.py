@@ -16,7 +16,6 @@ def make_blank_standings(teams):
             'losses': 0,
             'map_wins': 0,
             'map_losses': 0,
-            'esubs': 0,
             'points': 0,
         }
 
@@ -31,27 +30,20 @@ def apply_matchup_to_standings(standings, matchup):
     team1_score = matchup['team1_score']
     team2_score = matchup['team2_score']
 
-    team1_esubs = matchup['team1_esubs']
-    team2_esubs = matchup['team2_esubs']
-
     winning_team_index = matchup['winning_team']
 
     winning_team_name = team1 if winning_team_index == 1 else team2
     losing_team_name = team2 if winning_team_index == 1 else team1
     winning_team_score = team1_score if winning_team_index == 1 else team2_score
     losing_team_score = team2_score if winning_team_index == 1 else team1_score
-    winning_team_esubs = team1_esubs if winning_team_index == 1 else team2_esubs
-    losing_team_esubs = team2_esubs if winning_team_index == 1 else team1_esubs
 
     standings[winning_team_name]['wins'] += 1
     standings[winning_team_name]['map_wins'] += winning_team_score
     standings[winning_team_name]['map_losses'] += losing_team_score
-    standings[winning_team_name]['esubs'] += winning_team_esubs
 
     standings[losing_team_name]['losses'] += 1
     standings[losing_team_name]['map_wins'] += losing_team_score
     standings[losing_team_name]['map_losses'] += winning_team_score
-    standings[losing_team_name]['esubs'] += losing_team_esubs
 
     return standings
 

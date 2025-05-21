@@ -162,7 +162,7 @@ from command_handlers.league.lft.update_lft import update_lft_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
 from command_handlers.league.map_diff import map_diff_handler
-from command_handlers.league.match_end import match_end_handler, team_e_subs
+from command_handlers.league.match_end import match_end_handler
 from command_handlers.league.next_week import next_week_handler
 from command_handlers.league.ping_team import ping_team_handler
 from command_handlers.league.power_rankings import power_rankings_handler
@@ -183,7 +183,6 @@ from command_handlers.league.set_score import set_score_handler
 from command_handlers.league.set_win import set_win_handler
 from command_handlers.league.standings import standings2_handler, standings_handler
 from command_handlers.league.toggle_apps import toggle_apps_handler
-from command_handlers.league.toggle_esub import toggle_esub_handler
 from command_handlers.league.update_team import update_team, update_team_handler
 from command_handlers.league.wipe_team import wipe_team
 from command_handlers.lootboxes import lootboxes_handler
@@ -403,7 +402,6 @@ async def handle_message(message, db, client):
     is_state_captain = (not message.author.bot) and member_has_role(message.author, constants.STATE_CAPTAIN_ROLE)
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
-    is_esub_helper = (not message.author.bot and member_has_role(message.author, constants.ESUB_HELPER_ROLE))
 
     lower_message = user_message.lower()
     if (not has_image_perms) and ( lower_message.find('discord.gg') != -1 or (non_tenor_link(lower_message)) ):
@@ -923,10 +921,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!matchlineups') and is_tourney_admin:
         await match_lineups_handler(db, message, context)
-
-    elif lower_message == '!toggleesub':
-        #await message.channel.send('This command is being fixed. Try again soon!')
-        await toggle_esub_handler(db, message, client, context)
 
     elif lower_message == '!make50codes' and is_admin:
         await make_50_codes_handler(db, message, 1)
@@ -1459,9 +1453,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!scorematch ') and is_admin:
         await score_match_handler(db, message, context)
 
-    elif lower_message.startswith('!teamesubs') and is_admin:
-        await team_e_subs(db, message)
-
     elif lower_message == '!initmaps' and is_admin:
 
         maps = db['maps']
@@ -1543,8 +1534,6 @@ async def handle_message(message, db, client):
                 'timeslot': 'NONE',
                 'team1_score': 0,
                 'team2_score': 0,
-                'team1_esubs': 0,
-                'team2_esubs': 0,
                 'match_over': False,
                 'added_to_schedule': False
             }
@@ -1622,9 +1611,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!givexp ') and (is_admin or is_xp_helper):
         await message.channel.send('This command is currently disabled. XP is turned off for now.')
         #await give_xp_handler(client, db, message)
-
-    elif lower_message.startswith('!esub ') and (is_admin or is_esub_helper):
-        await e_sub_handler(client, db, message)
 
     elif lower_message.startswith('!rp') and is_admin:
         await rp_handler(client, db, message)

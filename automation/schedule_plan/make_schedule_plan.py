@@ -104,7 +104,6 @@ def make_standings_for_season(context, season_number, teams_for_season):
             'losses': 0,
             'map_wins': 0,
             'map_losses': 0,
-            'esubs': 0,
             'points': 0,
         }
 

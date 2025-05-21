@@ -9,9 +9,8 @@ def calculate_team_points(team_data):
 
     win_total = team_data['wins'] * 10
     map_total = team_data['map_wins'] - team_data['map_losses']
-    e_sub_total = team_data['esubs'] * -1
 
-    return win_total + map_total + e_sub_total
+    return win_total + map_total
 
 
 
@@ -103,44 +102,6 @@ async def match_end_handler(db, message, client):
 
     await message.channel.send('match info recorded')
 
-
-async def team_e_subs(db, message):
-
-    valid_params, params = valid_number_of_params(message, 3)
-
-    if not valid_params:
-        await invalid_number_of_params(message)
-        return
-    
-    team_name = params[1]
-    esub_num = params[2]
-
-    if not can_be_int(esub_num):
-        await message.channel.send(esub_num+' is not a number')
-        return
-    esub_num = int(esub_num)
-    
-    league_teams = db['leagueteams']
-    league_team = league_teams.find_one({'name_lower': team_name.lower()})
-    real_team_name = league_team['team_name']
-
-    if not league_team:
-        await message.channel.send('Could not find league team.')
-        return
-    
-    league_season = get_constant_value(db, 'league_season')
-    
-    standings = db['standings']
-    standings_obj = standings.find_one({'season': league_season})
-
-    standings_obj['teams'][real_team_name]['esubs'] += esub_num
-
-    team_points = calculate_team_points(standings_obj['teams'][real_team_name])
-    standings_obj['teams'][real_team_name]['points'] = team_points
-
-    standings.update_one({"season": league_season}, {"$set": {"teams": standings_obj['teams']}})
-
-    await message.channel.send('updated esubs for team')
 
     
 

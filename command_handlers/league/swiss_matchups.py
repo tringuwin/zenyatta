@@ -97,8 +97,6 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
             'team1_score': 0,
             'team2_score': 0,
             'left_team': 1,
-            'team1_esubs': 0,
-            'team2_esubs': 0,
             'match_over': False,
             'added_to_schedule': False,
             'casting': {
