@@ -4,7 +4,7 @@ import copy
 from api import get_member, give_role
 import constants
 from helpers import make_string_from_word_list, valid_number_of_params
-from user import user_exists
+from user.user import user_exists
 
 def create_new_user_from_riot_id(db, riot_id, user_id):
 

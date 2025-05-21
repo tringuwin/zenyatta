@@ -1,7 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
-from user import get_user_by_tag
+from user.user import get_user_by_tag
 
 
 async def delete_by_tag_handler(db, message):

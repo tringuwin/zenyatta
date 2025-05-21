@@ -4,7 +4,7 @@ from card_games.utils.change_card_power import change_card_power
 from cards import get_card_index
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import valid_number_of_params
-from user import get_user_battle_cards, get_user_cards, get_user_for_sale_cards, get_user_gems, user_exists
+from user.user import get_user_battle_cards, get_user_cards, get_user_for_sale_cards, get_user_gems, user_exists
 import constants
 
 GEM_COLOR_TO_INDEX = {

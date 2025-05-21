@@ -3,7 +3,7 @@
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
-from user import get_user_tokens, user_exists
+from user.user import get_user_tokens, user_exists
 
 import random
 

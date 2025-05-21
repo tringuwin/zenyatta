@@ -3,7 +3,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from context.context_helpers import get_league_teams_collection_from_context
 from helpers import make_string_from_word_list
 from league import remove_league_invite
-from user import get_league_invites_with_context, user_exists
+from user.user import get_league_invites_with_context, user_exists
 
 async def league_deny_handler(db, message, context):
 

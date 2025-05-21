@@ -2,7 +2,7 @@
 
 from common_messages import not_registered_response
 from drops.open_spicy_drop.open_spicy_drop import open_spicy_drop
-from user import get_user_drop_boxes, user_exists
+from user.user import get_user_drop_boxes, user_exists
 
 
 async def open_drop(db, client, message):

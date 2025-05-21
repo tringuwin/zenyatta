@@ -4,7 +4,7 @@ from context.context_helpers import get_league_notifs_channel_from_context, get_
 from discord_actions import get_guild, get_member_by_username
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
 from league import update_team_info, validate_admin
-from user import user_exists
+from user.user import user_exists
 
 async def change_role_handler(db, message, client, context):
 

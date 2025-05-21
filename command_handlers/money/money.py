@@ -1,7 +1,7 @@
 
 
 from common_messages import not_registered_response
-from user import get_user_money, user_exists
+from user.user import get_user_money, user_exists
 
 
 async def money(db, message):

@@ -1,5 +1,5 @@
 
-from user import get_user_mr_wlt, get_user_wlt
+from user.user import get_user_mr_wlt, get_user_wlt
 
 
 def get_battle_constant_name(context):

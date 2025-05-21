@@ -3,7 +3,7 @@ from api import get_member
 from rewards import change_xp
 from teams import get_team_by_name
 
-from user import user_exists
+from user.user import user_exists
 
 
 async def get_match_size(num_users_in_round):

@@ -1,7 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import generic_find_user, valid_number_of_params
-from user import get_user_gems
+from user.user import get_user_gems
 import constants
 import random
 

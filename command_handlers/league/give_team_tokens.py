@@ -5,7 +5,7 @@ from helpers import can_be_int, make_string_from_word_list
 import math
 from rewards import change_tokens
 
-from user import user_exists
+from user.user import user_exists
 
 
 async def give_team_tokens(message, db, team_name, tokens_to_give):

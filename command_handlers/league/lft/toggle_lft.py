@@ -1,7 +1,7 @@
 
 from command_handlers.lft import get_lft_user
 from common_messages import not_registered_response
-from user import user_exists
+from user.user import user_exists
 import constants
 
 async def toggle_lft_handler(db, message):

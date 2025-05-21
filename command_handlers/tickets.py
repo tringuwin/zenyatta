@@ -1,11 +1,10 @@
 
 
-from user import get_user_spicy_tickets, user_exists
+from user.user import get_user_spicy_tickets, user_exists
 
 
 async def tickets_handler(db, message):
 
-    users = db['users']
     user = user_exists(db, message.author.id)
     if not user:
         await message.reply('You are not registered yet. Please register first.')

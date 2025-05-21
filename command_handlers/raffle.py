@@ -2,7 +2,7 @@
 
 from command_handlers.buy_ticket import get_all_tickets
 from common_messages import not_registered_response
-from user import get_user_tickets, user_exists
+from user.user import get_user_tickets, user_exists
 
 
 async def raffle_handler(db, message):

@@ -1,6 +1,6 @@
 
 from discord_actions import get_member_by_username
-from user import twitch_user_exists, user_exists
+from user.user import twitch_user_exists, user_exists
 import constants
 
 def valid_number_of_params(message, num_params):

@@ -2,7 +2,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
-from user import get_user_ranks, user_exists
+from user.user import get_user_ranks, user_exists
 
 
 RANK_STRINGS = {

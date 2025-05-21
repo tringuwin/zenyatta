@@ -5,7 +5,7 @@ from discord_actions import get_guild
 from helpers import get_constant_value, set_constant_value
 import random
 
-from user import user_exists
+from user.user import user_exists
 import constants
 
 

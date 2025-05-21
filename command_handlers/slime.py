@@ -1,6 +1,6 @@
 
 
-from user import user_exists
+from user.user import user_exists
 
 def get_user_slimed(user):
 

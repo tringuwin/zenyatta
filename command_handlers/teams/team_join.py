@@ -5,7 +5,7 @@ from events import add_team_to_event, event_has_space, event_is_open, get_event_
 from getters.event_getters import get_event_by_id
 from helpers import make_string_from_word_list
 from teams import get_team_by_name, team_is_full
-from user import user_exists
+from user.user import user_exists
 
 
 async def team_join_handler(client, db, message):

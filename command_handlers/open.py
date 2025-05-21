@@ -3,7 +3,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_pickaxes, change_tokens
-from user import get_sub_lootboxes, get_user_gems, get_user_lootboxes, user_exists
+from user.user import get_sub_lootboxes, get_user_gems, get_user_lootboxes, user_exists
 import random
 import constants
 

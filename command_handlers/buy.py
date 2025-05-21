@@ -6,7 +6,7 @@ from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
 from shop import get_redemptions_channel, update_shop
 from time_helpers import long_enough_for_shop, time_to_shop
-from user import get_last_token_shop, get_user_tokens, user_exists
+from user.user import get_last_token_shop, get_user_tokens, user_exists
 import constants
 
 

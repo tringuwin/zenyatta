@@ -1,6 +1,6 @@
 
 from common_messages import not_registered_response
-from user import get_league_invites_with_context, user_exists
+from user.user import get_league_invites_with_context, user_exists
 
 
 async def league_invites_handler(db, message, context):

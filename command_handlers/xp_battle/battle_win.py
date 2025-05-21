@@ -5,7 +5,7 @@ from common_messages import invalid_number_of_params
 from discord_actions import get_guild
 from helpers import get_constant_value, set_constant_value, valid_number_of_params
 from rewards import change_xp
-from user import get_user_wlt, user_exists
+from user.user import get_user_wlt, user_exists
 import constants
 
 

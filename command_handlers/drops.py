@@ -1,7 +1,7 @@
 
 
 from common_messages import not_registered_response
-from user import get_twitch_username, get_user_drop_boxes, user_exists
+from user.user import get_twitch_username, get_user_drop_boxes, user_exists
 
 
 async def drops(db, message):

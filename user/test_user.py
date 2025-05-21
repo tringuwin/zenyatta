@@ -1,7 +1,8 @@
 
 
 
-from user import get_user_tokens
+
+from user.user import get_user_tokens
 
 
 def test_get_user_tokens():

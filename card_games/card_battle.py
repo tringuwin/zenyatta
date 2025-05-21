@@ -6,7 +6,7 @@ from cards import get_card_image_by_display, get_card_index
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
-from user import get_user_battle_cards, get_user_cards, user_exists
+from user.user import get_user_battle_cards, get_user_cards, user_exists
 import constants
 import math
 

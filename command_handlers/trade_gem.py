@@ -1,7 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import valid_number_of_params
-from user import get_gem_offer, get_user_gems, user_exists
+from user.user import get_gem_offer, get_user_gems, user_exists
 import constants
 import time
 

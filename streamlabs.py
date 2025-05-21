@@ -3,7 +3,7 @@ from datetime import datetime
 
 from admin_handlers.give_random_gem import give_random_gem_to_user
 from rewards import change_packs, change_tokens
-from user import twitch_user_exists
+from user.user import twitch_user_exists
 
 stream_labs_data = 'https://streamlabs.com/api/v5/giveaway/history?token=B032D12F02A4ED3AA822&page=1'
 

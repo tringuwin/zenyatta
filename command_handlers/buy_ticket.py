@@ -2,7 +2,7 @@
 
 from common_messages import not_registered_response
 from rewards import change_tokens
-from user import get_user_tickets, get_user_tokens, user_exists
+from user.user import get_user_tickets, get_user_tokens, user_exists
 
 
 def get_all_tickets(db):

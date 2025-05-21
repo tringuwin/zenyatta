@@ -1,6 +1,6 @@
 
 from common_messages import not_registered_response
-from user import get_sub_lootboxes, get_user_lootboxes, user_exists
+from user.user import get_sub_lootboxes, get_user_lootboxes, user_exists
 
 
 async def lootboxes_handler(db, message):

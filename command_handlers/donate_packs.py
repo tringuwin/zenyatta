@@ -3,7 +3,7 @@ import constants
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_params_ignore_whitespace
 from rewards import change_packs
-from user import get_user_packs, user_exists
+from user.user import get_user_packs, user_exists
 
 
 async def donate_packs(db, message):

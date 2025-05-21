@@ -5,7 +5,7 @@ from discord_actions import get_guild
 
 import constants
 from rewards import change_tokens
-from user import user_exists
+from user.user import user_exists
 
 
 async def end_auction(db, client):
