@@ -32,18 +32,16 @@ def add_teams_to_teams_played(db, matchup):
 
 async def score_match_handler(db, message, context):
 
-    valid_params, params = valid_number_of_params(message, 7)
+    valid_params, params = valid_number_of_params(message, 5)
     if not valid_params:
         await invalid_number_of_params(message)
         return
     
     winning_team = params[1]
     winning_team_score = int(params[2])
-    winning_team_esubs = int(params[3])
 
-    losing_team = params[4]
-    losing_team_score = int(params[5])
-    losing_team_esubs = int(params[6])
+    losing_team = params[3]
+    losing_team_score = int(params[4])
 
     matchups = db['matchups']
     matchup = find_matchup(matchups, context, winning_team, losing_team)
@@ -60,8 +58,6 @@ async def score_match_handler(db, message, context):
     matchup_edit = {
         f'team{winning_team_index}_score': winning_team_score,
         f'team{losing_team_index}_score': losing_team_score,
-        f'team{winning_team_index}_esubs': winning_team_esubs,
-        f'team{losing_team_index}_esubs': losing_team_esubs,
         'match_over': True,
         'winning_team': winning_team_index
     }

@@ -53,6 +53,25 @@ def set_user_league_team(db, user, team, context):
     
     users.update_one({"discord_id": user['discord_id']}, {"$set": {league_team_field: team}})
 
+# FUNCTIONS THAT NEED REWORKING
+
+def get_gem_offer(user):
+
+    if not 'gem_offer' in user:
+        return None
+
+    offer = user['gem_offer']
+
+    if (not offer) or offer == None:
+        return None 
+
+    current_time = time.time()
+
+    if (current_time - offer['time_sent']) > 300:
+        return None
+
+    return user['gem_offer']
+
 # NON MONGO
 
 def get_twitch_username(user):
@@ -183,26 +202,26 @@ def get_last_sub_box(user):
 
     if 'last_sub_box' in user:
         return user['last_sub_box']
-    else:
-        return 0
+    
+    return 0
 
 def get_league_team(user):
     if 'league_team' in user:
         return user['league_team']
-    else:
-        return 'None'
+
+    return 'None'
     
 def get_rivals_league_team(user):
     if 'rivals_league_team' in user:
         return user['rivals_league_team']
-    else:
-        return 'None'
+    
+    return 'None'
     
 def get_valorant_league_team(user):
     if 'valorant_league_team' in user:
         return user['valorant_league_team']
-    else:
-        return 'None'
+    
+    return 'None'
     
 def get_league_team_with_context(user, context):
 
@@ -219,24 +238,7 @@ def get_league_invites_with_context(user, context):
         return user[league_invites_field]
     
     return []
-    
-def get_gem_offer(user):
 
-    if 'gem_offer' in user:
-
-        offer = user['gem_offer']
-
-        if (not offer) or offer == None:
-            return None 
-
-        current_time = time.time()
-
-        if (current_time - offer['time_sent']) > 300:
-            return None
-
-        return user['gem_offer']
-    else:
-        return None
     
 def get_fan_of(user):
 
@@ -344,48 +346,12 @@ def get_user_mr_wlt(user):
         't': 0
     }
 
-def get_user_team_swaps(user):
-
-    if 'team_swaps' in user:
-        return user['team_swaps']
-    
-    return 3
-
-def get_user_div(user):
-
-    if 'user_div' in user:
-        return user['user_div']
-    
-    return 0
-
-def get_user_esub(user):
-
-    if 'esub' in user:
-        return user['esub']
-    
-    return False
-
-def get_user_rivals_esub(user):
-
-    if 'rivals_esub' in user:
-        return user['rivals_esub']
-    
-    return False
-
 def get_user_rivals_rank(user):
 
     if 'rivals_rank' in user:
         return user['rivals_rank']
     
     return None
-
-
-def get_user_esub_roles(user):
-
-    if 'esub_roles' in user:
-        return user['esub_roles']
-    
-    return []
 
 def get_user_bets(user):
 

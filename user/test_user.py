@@ -261,3 +261,322 @@ def test_get_subcount():
         'field': 1
     }
     assert user_module.get_subcount(test_user) == 0
+
+
+def test_get_last_sub_box():
+
+    test_user = {
+        'last_sub_box': 1234567890
+    }
+    assert user_module.get_last_sub_box(test_user) == 1234567890
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_last_sub_box(test_user) == 0
+
+
+def test_get_league_team():
+
+    test_user = {
+        'league_team': 'Olympians'
+    }
+    assert user_module.get_league_team(test_user) == 'Olympians'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_league_team(test_user) == 'None'
+
+
+def test_get_rivals_league_team():
+
+    test_user = {
+        'rivals_league_team': 'Polar'
+    }
+    assert user_module.get_rivals_league_team(test_user) == 'Polar'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_rivals_league_team(test_user) == 'None'
+
+
+def test_get_valorant_league_team():
+
+    test_user = {
+        'valorant_league_team': 'Misfits'
+    }
+    assert user_module.get_valorant_league_team(test_user) == 'Misfits'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_valorant_league_team(test_user) == 'None'
+
+
+def test_get_league_team_with_context():
+
+    context = 'OW'
+    test_user = {
+        'league_team': 'Olympians'
+    }
+    assert user_module.get_league_team_with_context(test_user, context) == 'Olympians'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_league_team_with_context(test_user, context) == 'None'
+
+
+def test_get_league_invites_with_context():
+
+    context = 'OW'
+    test_user = {
+        'league_invites': ['Polar', 'Olympians']
+    }
+    assert user_module.get_league_invites_with_context(test_user, context) == ['Polar', 'Olympians']
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_league_invites_with_context(test_user, context) == []
+
+
+def test_get_gem_offer():
+
+    test_user = {
+        'field': 1,
+    }
+    assert user_module.get_gem_offer(test_user) is None
+
+
+def test_get_fan_of():
+
+    test_user = {
+        'fan_of': 'Polar'
+    }
+    assert user_module.get_fan_of(test_user) == 'Polar'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_fan_of(test_user) == 'None'
+
+
+def test_get_fan_of_rivals():
+
+    test_user = {
+        'fan_of_rivals': 'Polar'
+    }
+    assert user_module.get_fan_of_rivals(test_user) == 'Polar'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_fan_of_rivals(test_user) == 'None'
+
+
+def test_get_fan_of_valorant():
+
+    test_user = {
+        'fan_of_valorant': 'Polar'
+    }
+    assert user_module.get_fan_of_valorant(test_user) == 'Polar'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_fan_of_valorant(test_user) == 'None'
+
+
+def test_get_rival_of():
+
+    test_user = {
+        'rival_of': 'Horizon'
+    }
+    assert user_module.get_rival_of(test_user) == 'Horizon'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_rival_of(test_user) == 'None'
+
+
+def test_get_rival_of_rivals():
+
+    test_user = {
+        'rival_of_rivals': 'Horizon'
+    }
+    assert user_module.get_rival_of_rivals(test_user) == 'Horizon'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_rival_of_rivals(test_user) == 'None'
+
+
+def test_get_rival_of_valorant():
+
+    test_user = {
+        'rival_of_valorant': 'Horizon'
+    }
+    assert user_module.get_rival_of_valorant(test_user) == 'Horizon'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_rival_of_valorant(test_user) == 'None'
+
+
+def test_last_token_shop():
+
+    test_user = {
+        'last_token_shop': 1234567890
+    }
+    assert user_module.get_last_token_shop(test_user) == 1234567890
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_last_token_shop(test_user) == 0
+
+
+def test_get_user_cards():
+
+    card1 = {
+        'card_display': '1-A',
+        'card_id': '1',
+        'variant_id': 'A',
+    }
+    card2 = {
+        'card_display': '2-B',
+        'card_id': '2',
+        'variant_id': 'B',
+    }
+
+    test_user = {
+        'cards': [card1, card2]
+    }
+    assert user_module.get_user_cards(test_user) == [card1, card2]
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_cards(test_user) == []
+
+
+def test_get_user_battle_cards():
+
+    test_user = {
+        'battle_cards': ['A-1', 'B-2']
+    }
+    assert user_module.get_user_battle_cards(test_user) == ['A-1', 'B-2']
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_battle_cards(test_user) == []
+
+
+def test_user_for_sale_cards():
+    
+    test_user = {
+        'for_sale_cards': ['A-1', 'B-2']
+    }
+    assert user_module.get_user_for_sale_cards(test_user) == ['A-1', 'B-2']
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_for_sale_cards(test_user) == []
+
+
+def test_get_user_ranks():
+
+    example_ranks = {
+        'tank': {
+            'tier': 'Rank_Platinum',
+            'div': 'Division_5'
+        },
+        'offense': {
+            'tier': 'Rank_Platinum',
+            'div': 'Division_3'
+        },
+        'support': {
+            'tier': 'Rank_Platinum',
+            'div': 'Division_1'
+        }
+    }
+    test_user = {
+        'ranks': example_ranks
+    }
+    assert user_module.get_user_ranks(test_user) == example_ranks
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_ranks(test_user) == {
+        'tank': {
+            'tier': 'none',
+            'div': 'none'
+        },
+        'offense': {
+            'tier': 'none',
+            'div': 'none'
+        },
+        'support': {
+            'tier': 'none',
+            'div': 'none'
+        },
+    }
+
+
+def test_get_user_wlt():
+
+    test_user = {
+        'wlt': {
+            'w': 10,
+            'l': 5,
+            't': 2
+        }
+    }
+    assert user_module.get_user_wlt(test_user) == {
+        'w': 10,
+        'l': 5,
+        't': 2
+    }
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_wlt(test_user) == {
+        'w': 0,
+        'l': 0,
+        't': 0
+    }
+
+
+def test_get_user_mr_wlt():
+
+    test_user = {
+        'mr_wlt': {
+            'w': 10,
+            'l': 5,
+            't': 2
+        }
+    }
+    assert user_module.get_user_mr_wlt(test_user) == {
+        'w': 10,
+        'l': 5,
+        't': 2
+    }
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_user_mr_wlt(test_user) == {
+        'w': 0,
+        'l': 0,
+        't': 0
+    }
