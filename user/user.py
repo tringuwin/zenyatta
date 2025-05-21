@@ -76,20 +76,6 @@ def get_user_tickets(user):
     
     return 0
 
-def get_user_address(user):
-
-    if 'address' in user:
-        return user['address']
-    
-    return None
-
-def get_user_order(user):
-
-    if 'order' in user:
-        return user['order']
-    
-    return []
-
 def get_lvl_info(user):
 
     level = 1
@@ -100,12 +86,6 @@ def get_lvl_info(user):
         xp = user['xp']
 
     return level, xp
-
-
-
-def get_role_id_by_level(level_num):
-    role_id_index = level_num - 1
-    return constants.LEVEL_ROLE_IDS[role_id_index]
 
 def add_team_to_user(db, user, team_name):
 
@@ -122,8 +102,8 @@ def get_user_invites(user):
     
     if 'invites' in user:
         return user['invites']
-    else:
-        return []
+   
+    return []
 
 def get_user_teams(user):
 
