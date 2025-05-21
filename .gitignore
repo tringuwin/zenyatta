@@ -1,1 +1,6 @@
 .env
+__pycache__/
+.coverage
+/pycache/*
+*.pyc
+**/*.pyc
