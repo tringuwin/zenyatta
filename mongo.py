@@ -171,3 +171,9 @@ async def switch_matches(db, message, event_id, match1, match2):
         await message.channel.send('Matches moved.')
     else:
         await message.channel.send("Could not find a bracket with that event id.")
+
+
+def find_event_by_event_id(db, event_id):
+
+    events = db['events']
+    return events.find_one({'event_id': event_id})

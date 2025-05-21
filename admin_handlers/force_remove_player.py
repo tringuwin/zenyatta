@@ -1,3 +1,6 @@
+from mongo import find_event_by_event_id
+
+
 async def force_remove_player_handler(db, message):
     
     word_parts = message.content.split()
@@ -5,12 +8,10 @@ async def force_remove_player_handler(db, message):
     event_id = word_parts[1]
     user_id = int(word_parts[2])
 
-    events = db['events']
-    event = events.find_one({'event_id': event_id})
+    event = find_event_by_event_id(db, event_id)
     if not event:
         await message.channel.send('Event with that ID not found.')
         return
-
 
     player_removed = False
     final_entries = []
