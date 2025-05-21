@@ -177,3 +177,9 @@ def find_event_by_event_id(db, event_id):
 
     events = db['events']
     return events.find_one({'event_id': event_id})
+
+
+def update_event_by_event_id(db, event_id, update):
+
+    events = db['events']
+    events.update_one({'event_id': event_id}, {'$set': update})
