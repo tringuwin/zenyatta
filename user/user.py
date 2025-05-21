@@ -6,6 +6,8 @@ import time
 
 from context.context_helpers import get_league_invites_field, get_league_team_field_from_context
 
+# MONGO
+
 def user_exists(db, discord_id):
     
     users = db['users']
@@ -32,6 +34,7 @@ def get_user_by_tag(db, lower_tag):
 
     return users.find_one(search_query)
 
+# NON MONGO
 
 def get_twitch_username(user):
 
