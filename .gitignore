@@ -1,6 +1,7 @@
+# Environment and cache files
 .env
 __pycache__/
-.coverage
-/pycache/*
 *.pyc
-**/*.pyc
+
+# Coverage reports
+.coverage
