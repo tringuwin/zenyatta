@@ -130,7 +130,6 @@ async def overwatch_profile(message, client, user):
     final_string += 'Rival of Team: **'+rival_of_string+'**\n'
 
     pack_emoji = guild.get_emoji(constants.PACK_EMOJI_ID)
-    #poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
     drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
     final_string += '🪙 '+str(tokens)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' 🏆 '+str(trophies)+'\n'
@@ -150,8 +149,6 @@ async def overwatch_profile(message, client, user):
 
     final_string +='\n'
     final_string += gem_line_1+'\n'+gem_line_2
-
-    #final_string += '\n\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
 
     await message.channel.send(final_string)
 
@@ -205,7 +202,6 @@ async def rivals_profile(message, client, user):
     final_string += 'Rival of Team: **'+rival_of_string+'**\n'
 
     pack_emoji = guild.get_emoji(constants.PACK_EMOJI_ID)
-    #poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
     drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
     final_string += '🪙 '+str(tokens)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' 🏆 '+str(trophies)+'\n'
@@ -225,8 +221,6 @@ async def rivals_profile(message, client, user):
 
     final_string +='\n'
     final_string += gem_line_1+'\n'+gem_line_2
-
-    #final_string += '\n\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
 
     await message.channel.send(final_string)
 
@@ -279,7 +273,6 @@ async def valorant_profile(message, client, user):
     final_string += 'Rival of Team: **'+rival_of_string+'**\n'
 
     pack_emoji = guild.get_emoji(constants.PACK_EMOJI_ID)
-    #poke_emoji = guild.get_emoji(constants.POKE_EMOJI_ID)
     drop_emoji_string = '<:spicy_drop:1327677388720701450>'
     final_string +='\n'
     final_string += '🪙 '+str(tokens)+' ⛏️ '+str(pickaxes)+' '+str(pack_emoji)+' '+str(packs)+' '+drop_emoji_string+' '+str(drops)+' 🏆 '+str(trophies)+'\n'
@@ -299,8 +292,6 @@ async def valorant_profile(message, client, user):
 
     final_string +='\n'
     final_string += gem_line_1+'\n'+gem_line_2
-
-    #final_string += '\n\n<:spicedex:1242915011706228778> ' + str(pokedex) + '/' +str(ALL_POKE_NUM)
 
     await message.channel.send(final_string)
 

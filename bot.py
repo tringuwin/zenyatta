@@ -108,7 +108,6 @@ from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.help.help_league import help_league_handler
 from command_handlers.help.help_league_admin import help_league_admin_handler
 from command_handlers.help.help_lft import help_lft_handler
-from command_handlers.help.help_poke import help_poke_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.call_me import call_me_handler
@@ -196,11 +195,9 @@ from command_handlers.money.money import money
 from command_handlers.next_drop import next_drop
 from command_handlers.open import open_handler
 from command_handlers.open_drop import open_drop
-from command_handlers.poke_leaderboard import poke_leaderboard_handler
 from command_handlers.redeem_code import redeem_code
 from command_handlers.revive import revive_handler
 from command_handlers.rp import rp_handler
-from command_handlers.sell_pp import sell_pp_handler
 from command_handlers.slime import slime_handler
 from command_handlers.team_page import team_page_handler
 from command_handlers.tickets import tickets_handler
@@ -221,8 +218,6 @@ from command_handlers.xp_battle.end_battle import end_battle_handler
 from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
 from lineups import check_lineup_tokens
-from poke_data import update_poke_data_db
-from pokemon import add_order_handler, add_poke_handler, all_pokes_handler, buy_order_handler, cancel_order_handler, del_poke_handler, finish_order_handler, get_pokedex, get_sort_index, give_poke_handler, my_pokes_handler, open_poke_handler, order_handler, rem_order_handler, sell_poke_handler, unopened_handler, view_poke_handler
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
@@ -283,7 +278,7 @@ from mongo import output_packs, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
 from random_event.check_random_event_on_message import check_random_event_on_message
 from random_event.random_event import react_to_event
-from rewards import give_packs_command, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pickaxe_for_tokens
+from rewards import give_packs_command, give_pickaxes_command, give_tokens_command, sell_pickaxe_for_tokens
 from roster_lock import handle_lock
 from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
@@ -320,8 +315,6 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
             return False, 'Please only use the mine command in the Mineshaft Channel.'
         elif lower_message.startswith('!openpack'):
             return False, 'Please only open packs in the openening packs channel: https://discord.com/channels/1130553449491210442/1233596350306713600'
-        elif lower_message.startswith('!openpoke'):
-            return False, 'Please only open cards in the openening packs channel: https://discord.com/channels/1130553449491210442/1233596350306713600'
         elif lower_message.startswith('!opendrop'):
             return False, 'Please only open drops in the opening drops channel: https://discord.com/channels/1130553449491210442/1332055598057001021'
         else:
@@ -364,7 +357,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
         
     elif (message.channel.id == constants.CARD_TRADING_CHANNEL) or (message.channel.id == constants.PACK_OPEN_CHANNEL):
 
-        if lower_message.find('card') != -1 or lower_message.find('pack') != -1 or lower_message.find('token') != -1 or lower_message.find('donate') != -1 or lower_message.find('gallery') != -1  or lower_message.find('poke') != -1 or lower_message.find('unopened') != -1:
+        if lower_message.find('card') != -1 or lower_message.find('pack') != -1 or lower_message.find('token') != -1 or lower_message.find('donate') != -1 or lower_message.find('gallery') != -1:
             return True, None
         
     elif (message.channel.id == constants.OPENING_DROPS_CHANNEL):
@@ -475,24 +468,6 @@ async def handle_message(message, db, client):
     elif lower_message == '!helplft':
         await help_lft_handler(message)
 
-    # elif lower_message == '!helppoke':
-    #     await help_poke_handler(message)
-
-    elif lower_message == '!purgepokepoints':
-
-        users = db['users']
-        all_users = list(users.find())
-        for user in all_users:
-            if 'poke_points' in user:
-
-                num_points = user['poke_points']
-                points_to_tokens = int(num_points / 5)
-                new_tokens = get_user_tokens(user) + points_to_tokens
-
-                users.update_one({"_id": user['_id']}, {"$set": {"tokens": new_tokens, "poke_points": 0}})
-
-        await message.channel.send('All poke points have been converted to tokens!')
-
     elif lower_message == '!helpdrops':
         await help_drops_handler(message)
 
@@ -561,9 +536,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!sellpickaxe':
         await sell_pickaxe_for_tokens(db, message)
-
-    # elif lower_message == '!sellpp':
-    #     await sell_pp_handler(db, message)
 
     elif lower_message == '!dailygift' or lower_message == '!gift':
         await gift_handler(db, message, is_admin)
@@ -1398,9 +1370,6 @@ async def handle_message(message, db, client):
     elif lower_message == '!updatecarddata':
         await update_card_data_db(db, message)
 
-    elif lower_message == '!updatepokedata':
-        await update_poke_data_db(db, message)
-
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']
         db_constants.update_one({"name": 'raffle_total'}, {"$set": {"value": 0}})
@@ -1769,83 +1738,6 @@ async def handle_message(message, db, client):
             if user:
 
                 print(member.display_name+" : "+str(member.id) + " : "+user['battle_tag'])
-
-    elif (lower_message.startswith('!addpoke') or lower_message.startswith('!ap ')) and is_admin:
-        # !addpoke id type img_link 
-        await add_poke_handler(db, message)
-
-    elif lower_message.startswith('!delpoke') and is_admin:
-        await del_poke_handler(db, message)
-
-    # elif lower_message == '!openpoke':
-    #     await open_poke_handler(db, message)
-
-    # elif lower_message.startswith('!sellpoke '):
-    #     await sell_poke_handler(db, message)
-
-    # elif lower_message.startswith('!givepoke '):
-    #     await give_poke_handler(db, message)
-
-    # elif lower_message.startswith('!viewpoke '):
-    #     await view_poke_handler(db, message)
-
-    # elif lower_message == '!mypokes':
-    #     await my_pokes_handler(db, message)
-
-    # elif lower_message == '!allpokes':
-    #     await all_pokes_handler(message)
-
-    # elif lower_message == '!unopened':
-    #     await unopened_handler(db, message)
-
-    # elif lower_message.startswith('!addorder '):
-    #     await add_order_handler(db, message)
-
-    # elif lower_message.startswith('!remorder '):
-    #     await rem_order_handler(db, message)
-
-    # elif lower_message == '!order':
-    #     await order_handler(db, message)
-
-    # elif lower_message == '!buyorder':
-    #     await buy_order_handler(db, message, client)
-
-    # elif lower_message.startswith('!cancelorder ') and is_admin:
-    #     await cancel_order_handler(db, message)
-
-    # elif lower_message.startswith('!finishorder ') and is_admin:
-    #     await finish_order_handler(db, message)
-
-    # elif lower_message == '!setpokedex' and is_admin:
-    #     users = db['users']
-    #     all_users = users.find()
-    #     num_affected = 0
-    #     for user in all_users:
-
-    #         if not ('poke_cards' in user):
-    #             continue
-
-    #         poke_cards = user['poke_cards']
-    #         user_pokedex = get_pokedex(db, poke_cards)    
-    #         users.update_one({"discord_id": user['discord_id']}, {"$set": {"pokedex": user_pokedex}})
-    #         num_affected += 1
-
-    #     await message.channel.send('Complete. '+str(num_affected)+' users affected.')
-
-    # elif lower_message == '!setsorts':
-
-    #     pokemon = db['pokemon']
-    #     all_pokes = pokemon.find()
-
-    #     for poke in all_pokes:
-
-    #         sort_index = get_sort_index(poke['set'], poke['set_num'])
-    #         pokemon.update_one({"card_id": poke['card_id']}, {"$set": {"sort": sort_index}})
-
-    #     await message.channel.send('done')
-
-    # elif lower_message.startswith('!givepp ') and is_admin:
-    #     await give_pp_handler(db, message, client)
 
     elif lower_message.startswith('!getdetails '):
         # !getdetails [username]

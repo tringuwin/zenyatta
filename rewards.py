@@ -17,17 +17,6 @@ async def change_tokens(db, user, num, source='unknown'):
 
     update_token_tracker(db, source, num)
 
-async def change_pp(db, user, num):
-
-    users = db['users']
-    
-    if "poke_points" in user:
-        new_points = user['poke_points'] + num
-        users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": new_points}})
-    else:
-        users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": num}})
-
-
 async def give_tokens_command(client, db, user_id, num, message):
 
     user = await generic_find_user(client, db, user_id)
@@ -38,25 +27,6 @@ async def give_tokens_command(client, db, user_id, num, message):
     await change_tokens(db, user, num, 'admin-give-tokens')
     await message.channel.send('Tokens given')
 
-
-async def give_pp_handler(db, message, client):
-
-    valid_params, params = valid_number_of_params(message, 3)
-    if not valid_params:
-        await message.channel.send('Invalid number of params.')
-        return
-    
-    user_id = params[1]
-    num = int(params[2])
-
-    user = await generic_find_user(client, db, user_id)
-    if not user:
-        await message.channel.send('Could not find user with that ID')
-        return
-    
-    await change_pp(db, user, num)
-    await message.channel.send('PokePoints given')
-        
 
 async def sell_pickaxe_for_tokens(db, message):
 

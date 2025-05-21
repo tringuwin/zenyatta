@@ -70,9 +70,6 @@ async def buy_handler(db, message, client):
     
         if buy_item == 7:
             pass
-            # give player 500 poke-points
-            # await change_pp(db, user, 500)
-            # await message.reply('Success! You redeemed 500 PokePoints!')
 
     else:
         redemptions_channel = await get_redemptions_channel(message)
