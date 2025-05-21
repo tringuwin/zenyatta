@@ -1,6 +1,6 @@
 
 from helpers import make_string_from_word_list
-from user import user_exists
+from user.user import user_exists
 
 
 async def set_league_team_handler(db, message):

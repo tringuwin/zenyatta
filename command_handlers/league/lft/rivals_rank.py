@@ -2,7 +2,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, valid_number_of_params
-from user import user_exists
+from user.user import user_exists
 
 RANK_PREFIXES_TO_RANKS = {
     'B': 'Bronze',

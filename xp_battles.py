@@ -2,7 +2,7 @@
 
 from command_handlers.xp_battle.battle_helpers import get_battle_constant_name
 from discord_actions import get_guild
-from user import user_exists
+from user.user import user_exists
 import discord
 import constants
 

@@ -2,7 +2,7 @@
 
 from common_messages import not_registered_response
 from helpers import generic_find_user, update_token_tracker, valid_number_of_params
-from user import get_league_team, get_lvl_info, get_user_lootboxes, user_exists
+from user.user import get_league_team, get_lvl_info, get_user_lootboxes, user_exists
 
 
 async def change_tokens(db, user, num, source='unknown'):

@@ -2,7 +2,7 @@ from common_messages import not_registered_response
 from discord_actions import get_guild, member_has_role
 from rewards import change_pickaxes, change_tokens
 from time_helpers import get_current_time, long_enough_for_gift, time_to_gift
-from user import get_user_gems, user_exists
+from user.user import get_user_gems, user_exists
 import random
 import constants
 

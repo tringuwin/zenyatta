@@ -1,5 +1,5 @@
 
-from user import get_user_total_trophies, get_user_trophies, user_exists
+from user.user import get_user_total_trophies, get_user_trophies, user_exists
 
 
 def group_cards_by_score(top_cards):

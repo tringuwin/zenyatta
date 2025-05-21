@@ -6,7 +6,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_username_by_user_id
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_packs, change_tokens
-from user import get_total_cards, get_user_battle_cards, get_user_cards, get_user_packs, get_user_tokens, user_exists, get_user_for_sale_cards
+from user.user import get_total_cards, get_user_battle_cards, get_user_cards, get_user_packs, get_user_tokens, user_exists, get_user_for_sale_cards
 import random
 import constants
 

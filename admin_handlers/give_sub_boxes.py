@@ -1,7 +1,7 @@
 
 from discord_actions import get_guild, get_role_by_id
 import constants
-from user import get_last_sub_box, get_sub_lootboxes, get_user_packs, user_exists
+from user.user import get_last_sub_box, get_sub_lootboxes, get_user_packs, user_exists
 import time
 
 async def give_sub_boxes_handler(db, message, client):

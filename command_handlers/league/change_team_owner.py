@@ -5,7 +5,7 @@ from discord_actions import get_guild, get_member_by_id
 from helpers import make_string_from_word_list
 from league_helpers.give_member_admin_role import give_member_admin_role
 from league_helpers.remove_member_admin_role import remove_member_admin_role
-from user import get_league_team_with_context, user_exists
+from user.user import get_league_team_with_context, user_exists
 
 
 async def change_team_owner_handler(client, db, message, context):

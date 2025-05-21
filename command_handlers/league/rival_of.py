@@ -2,7 +2,7 @@
 from common_messages import invalid_number_of_params, not_registered_response
 from context.context_helpers import get_league_teams_collection_from_context, get_rival_of_field_from_context
 from helpers import valid_number_of_params
-from user import get_league_team_with_context, user_exists
+from user.user import get_league_team_with_context, user_exists
 
 async def rival_of_handler(db, message, context):
     

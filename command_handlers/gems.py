@@ -1,6 +1,6 @@
 
 from common_messages import not_registered_response
-from user import get_user_gems, user_exists
+from user.user import get_user_gems, user_exists
 import constants
 
 

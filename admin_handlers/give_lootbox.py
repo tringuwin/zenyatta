@@ -1,6 +1,6 @@
 
 from helpers import generic_find_user, valid_number_of_params
-from user import get_user_lootboxes
+from user.user import get_user_lootboxes
 
 
 async def give_lootbox_handler(db, message, client):

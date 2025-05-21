@@ -1,6 +1,6 @@
 
 from common_messages import not_registered_response
-from user import get_gem_offer, user_exists
+from user.user import get_gem_offer, user_exists
 
 
 async def deny_gem_trade_handler(db, message):

@@ -2,7 +2,7 @@
 from command_handlers.lft import get_lft_user
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import is_valid_hex_code, valid_number_of_params
-from user import user_exists
+from user.user import user_exists
 
 
 

@@ -2,7 +2,7 @@
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import valid_number_of_params
 from rewards import change_tokens
-from user import get_invited_valid, user_exists
+from user.user import get_invited_valid, user_exists
 import constants
 
 invited_by_blacklist = [

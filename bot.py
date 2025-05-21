@@ -290,7 +290,7 @@ from supporters.role_commands.role_name import role_name
 from supporters.supporter_role_loop import supporter_role_loop
 from time_helpers import check_weekly, long_enough_for_gift
 from twitch_token import check_token_issue
-from user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_rivals_league_team, get_role_id_by_level, get_user_tokens, get_valorant_league_team, notify_user_of_gift, user_exists
+from user.user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_rivals_league_team, get_role_id_by_level, get_user_tokens, get_valorant_league_team, notify_user_of_gift, user_exists
 from user_input.bad_word_checker import bad_word_checker
 from user_input.non_tenor_link import non_tenor_link
 from xp_battles import add_to_battle, how_many_handler, remove_from_battle

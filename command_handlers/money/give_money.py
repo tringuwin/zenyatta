@@ -1,7 +1,7 @@
 
 
 from helpers import generic_find_user, valid_number_of_params
-from user import get_user_money
+from user.user import get_user_money
 
 
 async def give_money(client, db, message):

@@ -2,7 +2,7 @@
 
 from common_messages import not_registered_response
 from discord_actions import get_role_by_id
-from user import get_user_esub, get_user_esub_roles, get_user_ranks, get_user_rivals_esub, get_user_rivals_rank, user_exists
+from user.user import get_user_esub, get_user_esub_roles, get_user_ranks, get_user_rivals_esub, get_user_rivals_rank, user_exists
 import constants
 
 RANK_TO_ESUB_VALUE = {

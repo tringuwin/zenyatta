@@ -3,7 +3,7 @@
 from common_messages import not_registered_response
 from context.context_helpers import get_call_from_context
 from helpers import make_string_from_word_list
-from user import user_exists
+from user.user import user_exists
 
 
 async def call_me_handler(db, message, context):

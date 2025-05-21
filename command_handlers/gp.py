@@ -3,7 +3,7 @@
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_packs
-from user import user_exists
+from user.user import user_exists
 
 
 async def gp_handler(db, message):

@@ -3,7 +3,7 @@
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
 from teams import get_team_by_name
-from user import user_exists
+from user.user import user_exists
 
 
 async def give_rewards_handler(db, message):

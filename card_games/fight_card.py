@@ -4,7 +4,7 @@ from cards import get_card_image_by_display, get_card_index
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_message_by_channel_and_id
 from helpers import valid_number_of_params
-from user import get_user_battle_cards, get_user_cards, user_exists
+from user.user import get_user_battle_cards, get_user_cards, user_exists
 import math
 import time
 import random

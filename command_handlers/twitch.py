@@ -2,7 +2,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import valid_number_of_params
-from user import twitch_user_exists, user_exists
+from user.user import twitch_user_exists, user_exists
 
 
 async def twitch_handler(db, message):

@@ -2,7 +2,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
-from user import get_user_gems, user_exists
+from user.user import get_user_gems, user_exists
 import constants
 
 async def donate_gems(db, message):

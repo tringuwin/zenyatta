@@ -3,7 +3,7 @@
 from helpers import make_string_from_word_list
 from marvel_rivals.base_commands.username.utils.create_new_user import create_new_user
 from marvel_rivals.base_commands.username.utils.update_user_username import update_user_username
-from user import user_exists
+from user.user import user_exists
 
 def user_with_username_exists(db, username):
 

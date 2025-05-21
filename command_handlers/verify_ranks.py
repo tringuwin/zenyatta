@@ -1,6 +1,6 @@
 
 from common_messages import not_registered_response
-from user import get_user_ranks, user_exists
+from user.user import get_user_ranks, user_exists
 import requests
 from bs4 import BeautifulSoup
 

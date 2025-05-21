@@ -1,7 +1,7 @@
 
 
 from helpers import generic_find_user, valid_number_of_params
-from user import get_sub_lootboxes
+from user.user import get_sub_lootboxes
 
 
 async def give_twitch_lootbox_handler(db, message, client):

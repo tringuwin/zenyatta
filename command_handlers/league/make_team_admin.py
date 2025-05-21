@@ -4,7 +4,7 @@ from discord_actions import get_guild
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info, user_admin_on_team, validate_admin
 from league_helpers.give_member_admin_role import give_member_admin_role
-from user import get_league_team_with_context, user_exists
+from user.user import get_league_team_with_context, user_exists
 
 
 

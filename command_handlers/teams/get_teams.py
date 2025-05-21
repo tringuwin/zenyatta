@@ -1,7 +1,7 @@
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import valid_number_of_params
 from teams import get_team_by_name
-from user import user_exists
+from user.user import user_exists
 
 async def get_active_teams(db, team_names):
 

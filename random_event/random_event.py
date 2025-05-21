@@ -3,7 +3,7 @@ import time
 import constants
 from discord_actions import get_guild
 from rewards import change_tokens
-from user import get_user_gems, user_exists
+from user.user import get_user_gems, user_exists
 
 SECONDS_IN_A_HOUR = 3600
 

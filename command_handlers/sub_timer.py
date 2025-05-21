@@ -1,7 +1,7 @@
 
 
 from common_messages import not_registered_response
-from user import get_last_sub_box, user_exists
+from user.user import get_last_sub_box, user_exists
 import time
 
 import constants

@@ -2,7 +2,7 @@
 from common_messages import invalid_number_of_params
 from helpers import make_string_from_word_list
 from teams import get_team_by_name
-from user import user_exists
+from user.user import user_exists
 
 def make_details_from_team(db, team):
     
