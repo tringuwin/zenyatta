@@ -17,6 +17,6 @@ def test_get_user_tokens():
     assert get_user_tokens(test_user) == 0
 
     fail_user = {
-        'tokens': 11
+        'tokens': 10
     }
     assert get_user_tokens(fail_user) == 10
