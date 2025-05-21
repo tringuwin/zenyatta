@@ -2,11 +2,26 @@ import copy
 import random
 import time
 import discord
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 from api import get_member, give_role
 from common_messages import not_registered_response
 import constants
 from bracket import get_bracket_by_event_id, make_bracket_from_users
 from user.user import get_user_pickaxes, user_exists
+
+
+def init_mongo_db():
+
+    client = MongoClient(constants.MONGO_URI, server_api=ServerApi('1'))
+    try:
+        client.admin.command('ping')
+        print('Pinged deployment!')
+        db = client['spicyragu']
+        return db
+        
+    except Exception as e:
+        print(e)
 
 
 def find_user_with_battle_tag(db, lower_tag):
