@@ -4,7 +4,7 @@ import time
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
-from user.user import get_league_team, get_user_bets, get_user_tokens, user_exists
+from user.user import get_league_team_with_context, get_user_bets, get_user_tokens, user_exists
 
 
 def bet_is_expired(bet_obj):
@@ -82,7 +82,7 @@ async def bet_handler(db, message):
         await message.channel.send('This match is not open for betting right now.')
         return
     
-    player_league_team = get_league_team(user)
+    player_league_team = get_league_team_with_context(user, 'OW')
     if player_league_team == other_team:
         await message.channel.send('You cannot bet against the league team you are on.')
         return

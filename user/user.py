@@ -244,24 +244,7 @@ def get_last_sub_box(user):
         return user['last_sub_box']
     
     return 0
-
-def get_league_team(user):
-    if 'league_team' in user:
-        return user['league_team']
-
-    return 'None'
     
-def get_rivals_league_team(user):
-    if 'rivals_league_team' in user:
-        return user['rivals_league_team']
-    
-    return 'None'
-    
-def get_valorant_league_team(user):
-    if 'valorant_league_team' in user:
-        return user['valorant_league_team']
-    
-    return 'None'
     
 def get_league_team_with_context(user, context):
 
@@ -271,6 +254,7 @@ def get_league_team_with_context(user, context):
     
     return 'None'
     
+
 def get_league_invites_with_context(user, context):
 
     league_invites_field = get_league_invites_field(context)

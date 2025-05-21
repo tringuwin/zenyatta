@@ -276,45 +276,6 @@ def test_get_last_sub_box():
     assert user_module.get_last_sub_box(test_user) == 0
 
 
-def test_get_league_team():
-
-    test_user = {
-        'league_team': 'Olympians'
-    }
-    assert user_module.get_league_team(test_user) == 'Olympians'
-
-    test_user = {
-        'field': 1
-    }
-    assert user_module.get_league_team(test_user) == 'None'
-
-
-def test_get_rivals_league_team():
-
-    test_user = {
-        'rivals_league_team': 'Polar'
-    }
-    assert user_module.get_rivals_league_team(test_user) == 'Polar'
-
-    test_user = {
-        'field': 1
-    }
-    assert user_module.get_rivals_league_team(test_user) == 'None'
-
-
-def test_get_valorant_league_team():
-
-    test_user = {
-        'valorant_league_team': 'Misfits'
-    }
-    assert user_module.get_valorant_league_team(test_user) == 'Misfits'
-
-    test_user = {
-        'field': 1
-    }
-    assert user_module.get_valorant_league_team(test_user) == 'None'
-
-
 def test_get_league_team_with_context():
 
     context = 'OW'
