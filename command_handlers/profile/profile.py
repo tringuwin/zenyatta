@@ -1,88 +1,12 @@
 
+from command_handlers.profile.make_rank_string.make_rank_string import make_rank_string
+from command_handlers.profile.make_rivals_rank_string.make_rivals_rank_string import make_rivals_rank_string
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
 from user.user import get_fan_of, get_fan_of_rivals, get_fan_of_valorant, get_league_team_with_context, get_riot_id, get_rival_of, get_rival_of_rivals, get_rival_of_valorant, get_rivals_username, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_pickaxes, get_user_ranks, get_user_rivals_rank, get_user_tokens, get_user_trophies, user_exists
 import constants
 
-
-RANK_TEXT_TO_ID = {
-    'Rank_Bronze Division_5': 'B5',
-    'Rank_Bronze Division_4': 'B4',
-    'Rank_Bronze Division_3': 'B3',
-    'Rank_Bronze Division_2': 'B2',
-    'Rank_Bronze Division_1': 'B1',
-
-    'Rank_Silver Division_5': 'S5',
-    'Rank_Silver Division_4': 'S4',
-    'Rank_Silver Division_3': 'S3',
-    'Rank_Silver Division_2': 'S2',
-    'Rank_Silver Division_1': 'S1',
-
-    'Rank_Gold Division_5': 'G5',
-    'Rank_Gold Division_4': 'G4',
-    'Rank_Gold Division_3': 'G3',
-    'Rank_Gold Division_2': 'G2',
-    'Rank_Gold Division_1': 'G1',
-
-    'Rank_Platinum Division_5': 'P5',
-    'Rank_Platinum Division_4': 'P4',
-    'Rank_Platinum Division_3': 'P3',
-    'Rank_Platinum Division_2': 'P2',
-    'Rank_Platinum Division_1': 'P1',
-
-    'Rank_Diamond Division_5': 'D5',
-    'Rank_Diamond Division_4': 'D4',
-    'Rank_Diamond Division_3': 'D3',
-    'Rank_Diamond Division_2': 'D2',
-    'Rank_Diamond Division_1': 'D1',
-
-    'Rank_Master Division_5': 'M5',
-    'Rank_Master Division_4': 'M4',
-    'Rank_Master Division_3': 'M3',
-    'Rank_Master Division_2': 'M2',
-    'Rank_Master Division_1': 'M1',
-
-    'Rank_GrandMaster Division_5': 'GM5',
-    'Rank_GrandMaster Division_4': 'GM4',
-    'Rank_GrandMaster Division_3': 'GM3',
-    'Rank_GrandMaster Division_2': 'GM2',
-    'Rank_GrandMaster Division_1': 'GM1',
-
-    'Rank_Champ Division_5': 'C5',
-    'Rank_Champ Division_4': 'C4',
-    'Rank_Champ Division_3': 'C3',
-    'Rank_Champ Division_2': 'C2',
-    'Rank_Champ Division_1': 'C1',
-}
-
-def make_rank_string(ranks):
-
-    tank = ranks['tank']
-    tank_string = 'Tank: ?'
-    if tank['tier'] != 'none':
-        tank_string = 'Tank: '+RANK_TEXT_TO_ID[tank['tier']+' '+tank['div']]
-
-    dps = ranks['offense']
-    dps_string = 'DPS: ?'
-    if dps['tier'] != 'none':
-        dps_string = 'DPS: '+RANK_TEXT_TO_ID[dps['tier']+' '+dps['div']]
-
-    sup = ranks['support']
-    sup_string = 'Support: ?'
-    if sup['tier'] != 'none':
-        sup_string = 'Support: '+RANK_TEXT_TO_ID[sup['tier']+' '+sup['div']]
-
-    return tank_string + ' | ' + dps_string + ' | ' + sup_string
-
-
-def make_rivals_rank_string(user):
-
-    rivals_rank = get_user_rivals_rank(user)
-    if rivals_rank:
-        return 'Rank: '+rivals_rank['display']
-    else:
-        return 'Rank: [Rank Not Verified]'
 
 
 async def overwatch_profile(message, client, user):
@@ -93,7 +17,6 @@ async def overwatch_profile(message, client, user):
 
     guild = await get_guild(client)
 
-    # level, xp = get_lvl_info(user)
     league_team = get_league_team_with_context(user, 'OW')
     fan_of = get_fan_of(user)
     rival_of = get_rival_of(user)
@@ -107,7 +30,6 @@ async def overwatch_profile(message, client, user):
     
     final_string = "**USER PROFILE FOR "+user['battle_tag']+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
-    # final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
     final_string += make_rank_string(ranks)+'\n\n'
 
     league_team_string = league_team
@@ -166,7 +88,6 @@ async def rivals_profile(message, client, user):
     if username == '':
         username = '[Unknown Username]'
 
-    # level, xp = get_lvl_info(user)
     league_team = get_league_team_with_context(user, 'MR')
     fan_of = get_fan_of_rivals(user)
     rival_of = get_rival_of_rivals(user)
@@ -179,7 +100,6 @@ async def rivals_profile(message, client, user):
     
     final_string = "**USER PROFILE FOR "+username+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n'
-    # final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
     final_string += make_rivals_rank_string(user)+'\n\n'
 
     league_team_string = league_team
@@ -237,7 +157,6 @@ async def valorant_profile(message, client, user):
     if riot_id == '':
         riot_id = '[Unknown Riot ID]'
 
-    # level, xp = get_lvl_info(user)
     league_team = get_league_team_with_context(user, 'VL')
     fan_of = get_fan_of_valorant(user)
     rival_of = get_rival_of_valorant(user)
@@ -250,9 +169,7 @@ async def valorant_profile(message, client, user):
     
     final_string = "**USER PROFILE FOR "+riot_id+':**\n'
     final_string += 'Twitch Username: **'+twitch_username+'**\n\n'
-    # final_string += 'Level '+str(level)+' | XP: ('+str(xp)+'/'+str(level*100)+')\n'
-    # final_string += make_rivals_rank_string(user)+'\n\n'
-
+    
     league_team_string = league_team
     if league_team in constants.EMOJI_TEAMS:
         team_emoji_string = get_league_emoji_from_team_name(league_team)
