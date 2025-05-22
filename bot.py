@@ -215,6 +215,7 @@ from command_handlers.xp_battle.end_battle import end_battle_handler
 from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
 from discord_utils.member_left.member_left import member_left
+from exceptions import CommandError
 from lineups import check_lineup_tokens
 from command_handlers.profile import profile_handler
 from command_handlers.raffle import raffle_handler
@@ -2270,6 +2271,8 @@ def run_discord_bot(db, is_smoke_test=False):
         try:
             await check_random_event_on_message(db, client)
             await handle_message(message, db, client)
+        except CommandError as e:
+            await message.reply(str(e))
         except aiohttp.client_exceptions.ClientOSError as e:
             if e.errno == 104:
                 await send_msg(message.channel, 'Network error. Please try your command again.', 'Network Error')
