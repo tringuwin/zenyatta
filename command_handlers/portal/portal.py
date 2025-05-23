@@ -23,6 +23,8 @@ def create_portal_token(db, user):
         {'$set': {'portal_token': new_portal_token}}
     )
 
+    return new_portal_token
+
 
 def get_portal_token_for_user(db, user):
 
