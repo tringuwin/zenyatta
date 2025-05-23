@@ -276,6 +276,24 @@ def test_get_last_sub_box():
     assert user_module.get_last_sub_box(test_user) == 0
 
 
+def test_get_user_slimed():
+
+    test_user = {
+        'field': 1,
+    }
+    assert user_module.get_user_slimed(test_user) is False
+
+    test_user = {
+        'slimed': True
+    }
+    assert user_module.get_user_slimed(test_user) is True
+
+    test_user = {
+        'slimed': False
+    }
+    assert user_module.get_user_slimed(test_user) is False
+
+
 def test_get_league_team_with_context():
 
     context = 'OW'
@@ -312,82 +330,70 @@ def test_get_gem_offer():
     assert user_module.get_gem_offer(test_user) is None
 
 
-def test_get_fan_of():
+def test_get_fan_of_with_context():
 
     test_user = {
         'fan_of': 'Polar'
     }
-    assert user_module.get_fan_of(test_user) == 'Polar'
+    assert user_module.get_fan_of_with_context(test_user, 'OW') == 'Polar'
 
     test_user = {
         'field': 1
     }
-    assert user_module.get_fan_of(test_user) == 'None'
-
-
-def test_get_fan_of_rivals():
+    assert user_module.get_fan_of_with_context(test_user, 'OW') == 'None'
 
     test_user = {
         'fan_of_rivals': 'Polar'
     }
-    assert user_module.get_fan_of_rivals(test_user) == 'Polar'
+    assert user_module.get_fan_of_with_context(test_user, 'MR') == 'Polar'
 
     test_user = {
         'field': 1
     }
-    assert user_module.get_fan_of_rivals(test_user) == 'None'
-
-
-def test_get_fan_of_valorant():
+    assert user_module.get_fan_of_with_context(test_user, 'MR') == 'None'
 
     test_user = {
         'fan_of_valorant': 'Polar'
     }
-    assert user_module.get_fan_of_valorant(test_user) == 'Polar'
+    assert user_module.get_fan_of_with_context(test_user, 'VL') == 'Polar'
 
     test_user = {
         'field': 1
     }
-    assert user_module.get_fan_of_valorant(test_user) == 'None'
+    assert user_module.get_fan_of_with_context(test_user, 'VL') == 'None'
 
 
-def test_get_rival_of():
-
-    test_user = {
-        'rival_of': 'Horizon'
-    }
-    assert user_module.get_rival_of(test_user) == 'Horizon'
+def test_get_rival_of_with_context():
 
     test_user = {
-        'field': 1
+        'rival_of': 'Polar'
     }
-    assert user_module.get_rival_of(test_user) == 'None'
-
-
-def test_get_rival_of_rivals():
-
-    test_user = {
-        'rival_of_rivals': 'Horizon'
-    }
-    assert user_module.get_rival_of_rivals(test_user) == 'Horizon'
+    assert user_module.get_rival_of_with_context(test_user, 'OW') == 'Polar'
 
     test_user = {
         'field': 1
     }
-    assert user_module.get_rival_of_rivals(test_user) == 'None'
-
-
-def test_get_rival_of_valorant():
+    assert user_module.get_rival_of_with_context(test_user, 'OW') == 'None'
 
     test_user = {
-        'rival_of_valorant': 'Horizon'
+        'rival_of_rivals': 'Polar'
     }
-    assert user_module.get_rival_of_valorant(test_user) == 'Horizon'
+    assert user_module.get_rival_of_with_context(test_user, 'MR') == 'Polar'
 
     test_user = {
         'field': 1
     }
-    assert user_module.get_rival_of_valorant(test_user) == 'None'
+    assert user_module.get_rival_of_with_context(test_user, 'MR') == 'None'
+
+    test_user = {
+        'rival_of_valorant': 'Polar'
+    }
+    assert user_module.get_rival_of_with_context(test_user, 'VL') == 'Polar'
+
+    test_user = {
+        'field': 1
+    }
+    assert user_module.get_rival_of_with_context(test_user, 'VL') == 'None'
 
 
 def test_last_token_shop():

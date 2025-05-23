@@ -1,13 +1,6 @@
 
 
-from user.user import user_exists
-
-def get_user_slimed(user):
-
-    if 'slimed' in user:
-        return user['slimed']
-    
-    return False
+from user.user import get_user_slimed, user_exists
 
 async def slime_handler(db, message):
 

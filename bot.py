@@ -93,7 +93,6 @@ from command_handlers.gems import gems_handler
 from command_handlers.getdetails import get_details_handler
 from command_handlers.gg_ez import gg_ez_handler
 from command_handlers.gift import gift_handler
-from command_handlers.give_rewards import give_rewards_handler
 from command_handlers.gp import gp_handler
 from command_handlers.hello import hello_handler
 from command_handlers.help.help_ally import help_ally_handler
@@ -1394,9 +1393,6 @@ async def handle_message(message, db, client):
         lucky_winner = random.choice(giant_array)
 
         await message.channel.send('The winner of the raffle is the user with the battle tag: '+lucky_winner)
-
-    elif lower_message.startswith('!giverewards ') and is_admin:
-        await give_rewards_handler(db, message)
 
     elif lower_message == '!initstandings' and is_admin:
         await init_standings(db, message)
