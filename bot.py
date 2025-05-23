@@ -303,6 +303,7 @@ from xp_battles import add_to_battle, how_many_handler, remove_from_battle
 from wipe_bracket import wipe_bracket_handler
 from switch_matches import switch_matches_handler
 from gen_tourney import gen_tourney_handler
+from reset_team_rules import reset_team_rules_handler
 
 def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_admin):
 
@@ -999,6 +1000,7 @@ async def handle_message(message, db, client):
 
             if changes_made:
                 users.update_one({'discord_id': user['discord_id']}, {'$set': set_array})
+        await reset_team_rules_handler(db, message)
 
     elif lower_message == '!lft':
         await message.channel.send(f'See the list of players looking to join a team here: {constants.WEBSITE_DOMAIN}/sol/lft')
