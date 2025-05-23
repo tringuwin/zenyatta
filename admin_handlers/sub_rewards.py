@@ -2,7 +2,7 @@
 
 from helpers import can_be_int, generic_find_user, valid_number_of_params
 from rewards import change_packs
-from user import get_subcount, get_sub_lootboxes
+from user.user import get_subcount, get_sub_lootboxes
 
 
 async def sub_rewards_handler(client, db, message):

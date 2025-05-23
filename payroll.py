@@ -1,7 +1,7 @@
 
 
 from rewards import change_tokens
-from user import user_exists
+from user.user import user_exists
 import time
 
 SECONDS_IN_A_WEEK = 604800

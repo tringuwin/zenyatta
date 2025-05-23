@@ -6,7 +6,7 @@ from helpers import can_be_int, valid_number_of_params
 import math
 
 from rewards import change_tokens
-from user import get_user_bets, user_exists
+from user.user import get_user_bets, user_exists
 import constants
 
 async def finish_bet(db, message, client, bet, team_won, team_loss):

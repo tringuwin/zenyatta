@@ -2,7 +2,7 @@
 from common_messages import invalid_number_of_params
 from discord_actions import get_member_by_username
 from helpers import valid_number_of_params
-from user import get_user_by_tag, get_user_pickaxes, get_user_tokens, user_exists
+from user.user import get_user_by_tag, get_user_pickaxes, get_user_tokens, user_exists
 
 
 async def get_details_handler(db, message, client, is_admin):

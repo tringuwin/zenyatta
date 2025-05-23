@@ -124,9 +124,8 @@ async def standings_main(db, message, client, top):
         team_emoji_string = get_league_emoji_from_team_name(team['team_name'])
 
         map_string = str(team['map_wins'])+' MW | '+str(team['map_losses'])+' ML | '
-        e_sub_string = str(team['esubs'])+' ES'
 
-        final_string += '\n'+str(rank)+'. '+team_emoji_string+' '+team['team_name']+' | '+str(team['points'])+' PTS | '+str(team['wins'])+' W | '+str(team['losses'])+' L | '+map_string+e_sub_string
+        final_string += '\n'+str(rank)+'. '+team_emoji_string+' '+team['team_name']+' | '+str(team['points'])+' PTS | '+str(team['wins'])+' W | '+str(team['losses'])+' L | '+map_string
 
         rank += 1
 

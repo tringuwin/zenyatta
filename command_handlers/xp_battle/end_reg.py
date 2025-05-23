@@ -3,7 +3,7 @@
 from command_handlers.xp_battle.battle_helpers import get_battle_constant_name, get_battle_upper_player_limit, get_battle_user_display
 from discord_actions import get_guild
 from helpers import get_constant_value, set_constant_value
-from user import user_exists
+from user.user import user_exists
 from xp_battles import init_player_pools
 import random
 import constants

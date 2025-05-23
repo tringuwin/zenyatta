@@ -3,7 +3,7 @@ from command_handlers.lft import get_lft_user
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, make_string_from_word_list
 import constants
-from user import user_exists
+from user.user import user_exists
 
 async def set_lft_hero_handler(db, message):
     

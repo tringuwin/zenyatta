@@ -2,7 +2,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import get_constant_value, set_constant_value, valid_number_of_params
-from user import get_user_packs, user_exists
+from user.user import get_user_packs, user_exists
 
 
 CODE_ARRAY_TO_WEIGHT = {

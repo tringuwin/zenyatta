@@ -6,7 +6,7 @@ from helpers import can_be_int, get_constant_value, set_constant_value
 import random
 import constants
 
-from user import user_exists
+from user.user import user_exists
 
 
 async def update_players_message(client, final_string, battle_obj):

@@ -3,7 +3,7 @@ from context.context_helpers import get_league_team_field_from_context, get_leag
 from discord_actions import get_guild
 from league import update_team_info
 import discord
-from user import user_exists
+from user.user import user_exists
 
 
 async def update_team(db, team_name, client, context):

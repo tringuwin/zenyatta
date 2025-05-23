@@ -4,7 +4,7 @@
 
 from common_messages import not_registered_response
 from context.context_helpers import get_league_team_field_from_context
-from user import user_exists
+from user.user import user_exists
 
 
 def find_user_matchup(db, league_team, context):

@@ -4,7 +4,7 @@ from command_handlers.bets.new_bet import get_team_payout_rate, total_tokens_on_
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from helpers import get_league_emoji_from_team_name
-from user import get_user_bets, user_exists
+from user.user import get_user_bets, user_exists
 import constants
 import math
 

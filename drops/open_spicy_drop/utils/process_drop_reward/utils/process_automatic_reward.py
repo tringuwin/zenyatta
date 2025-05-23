@@ -1,7 +1,7 @@
 
 
 from rewards import change_pickaxes, change_tokens
-from user import get_user_gems, get_user_packs, get_user_spicy_tickets
+from user.user import get_user_gems, get_user_packs, get_user_spicy_tickets
 
 
 async def process_automatic_reward(db, user, reward_info):

@@ -15,7 +15,7 @@ from admin_handlers.force_battle_handler import force_battle_handler
 from admin_handlers.force_delete_team import force_delete_team_handler
 from admin_handlers.force_league_remove import force_league_remove_handler
 from admin_handlers.force_make_team import force_make_team_handler
-from admin_handlers.force_remove_player import force_remove_player_handler
+from admin_handlers.force_remove_player.force_remove_player import force_remove_player_handler
 from admin_handlers.force_remove_team import force_remove_team_handler
 from admin_handlers.force_twitch import force_twitch_handler
 from admin_handlers.full_events import full_events_handler
@@ -41,7 +41,6 @@ from automation.casting.swap_sides import swap_sides
 from automation.casting.update_score import add_point, remove_point
 from automation.notify_about_matches import check_notify_about_matches
 from automation.process_trophy_rewards.process_trophy_rewards import process_trophy_rewards
-from automation.raffle import end_raffle, start_raffle
 from automation.schedule_plan.add_week.add_week import add_week
 from automation.schedule_plan.make_schedule_plan import make_schedule_plan
 from automation.schedule_plan.schedule_plan_loop.schedule_plan_loop import schedule_plan_loop
@@ -54,14 +53,12 @@ from card_games.feed_gem import feed_gem
 from card_games.fight_card import fight_card
 from card_matches.card_match_utils import make_match_card
 from cards import buy_card_handler, cards_handler, edit_card_handler, force_unlist, give_card_handler, init_card_handler, init_custom_handler, list_card_handler, make_card_handler, open_pack_handler, release_cards, sell_all_cards_handler, sell_card_handler, total_cards_handler, total_packs_handler, unlist_card_handler, view_card_handler, wipe_card_database_handler, wipe_player_cards_handler
-from cards_data import init_card_data_db, init_display_cards, update_card_data_db
 from casting.bal import bal_handler
 from casting.delete_caster import delete_caster_handler
 from casting.make_caster import make_caster_handler
 from casting.make_lobby_admin import make_lobby_admin_handler
 from casting.pay import pay_handler
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
-from command_handlers.ask import ask_handler
 from command_handlers.auction.bid import bid_handler
 from command_handlers.auction.end_auction import end_auction_handler
 from command_handlers.auction.start_auction import start_auction_handler
@@ -96,7 +93,6 @@ from command_handlers.gems import gems_handler
 from command_handlers.getdetails import get_details_handler
 from command_handlers.gg_ez import gg_ez_handler
 from command_handlers.gift import gift_handler
-from command_handlers.give_rewards import give_rewards_handler
 from command_handlers.gp import gp_handler
 from command_handlers.hello import hello_handler
 from command_handlers.help.help_ally import help_ally_handler
@@ -108,7 +104,6 @@ from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.help.help_league import help_league_handler
 from command_handlers.help.help_league_admin import help_league_admin_handler
 from command_handlers.help.help_lft import help_lft_handler
-from command_handlers.help.help_poke import help_poke_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.call_me import call_me_handler
@@ -165,7 +160,7 @@ from command_handlers.league.lft.update_lft import update_lft_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
 from command_handlers.league.map_diff import map_diff_handler
-from command_handlers.league.match_end import match_end_handler, team_e_subs
+from command_handlers.league.match_end import match_end_handler
 from command_handlers.league.next_week import next_week_handler
 from command_handlers.league.ping_team import ping_team_handler
 from command_handlers.league.power_rankings import power_rankings_handler
@@ -186,7 +181,6 @@ from command_handlers.league.set_score import set_score_handler
 from command_handlers.league.set_win import set_win_handler
 from command_handlers.league.standings import standings2_handler, standings_handler
 from command_handlers.league.toggle_apps import toggle_apps_handler
-from command_handlers.league.toggle_esub import toggle_esub_handler
 from command_handlers.league.update_team import update_team, update_team_handler
 from command_handlers.league.wipe_team import wipe_team
 from command_handlers.lootboxes import lootboxes_handler
@@ -196,11 +190,10 @@ from command_handlers.money.money import money
 from command_handlers.next_drop import next_drop
 from command_handlers.open import open_handler
 from command_handlers.open_drop import open_drop
-from command_handlers.poke_leaderboard import poke_leaderboard_handler
+from command_handlers.portal.portal import portal_handler
 from command_handlers.redeem_code import redeem_code
 from command_handlers.revive import revive_handler
 from command_handlers.rp import rp_handler
-from command_handlers.sell_pp import sell_pp_handler
 from command_handlers.slime import slime_handler
 from command_handlers.team_page import team_page_handler
 from command_handlers.tickets import tickets_handler
@@ -220,10 +213,10 @@ from command_handlers.xp_battle.battle_win import battle_win_handler
 from command_handlers.xp_battle.end_battle import end_battle_handler
 from command_handlers.xp_battle.end_reg import end_reg_handler
 from command_handlers.xp_battle.start_battle import start_battle_handler
+from discord_utils.member_left.member_left import member_left
+from exceptions import CommandError
 from lineups import check_lineup_tokens
-from poke_data import update_poke_data_db
-from pokemon import add_order_handler, add_poke_handler, all_pokes_handler, buy_order_handler, cancel_order_handler, del_poke_handler, finish_order_handler, get_pokedex, get_sort_index, give_poke_handler, my_pokes_handler, open_poke_handler, order_handler, rem_order_handler, sell_poke_handler, unopened_handler, view_poke_handler
-from command_handlers.profile import profile_handler
+from command_handlers.profile.profile import profile_handler
 from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
 from command_handlers.rps import rps_handler
@@ -283,7 +276,7 @@ from mongo import output_packs, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
 from random_event.check_random_event_on_message import check_random_event_on_message
 from random_event.random_event import react_to_event
-from rewards import give_packs_command, give_pickaxes_command, give_pp_handler, give_tokens_command, sell_pickaxe_for_tokens
+from rewards import give_packs_command, give_pickaxes_command, give_tokens_command, sell_pickaxe_for_tokens
 from roster_lock import handle_lock
 from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
@@ -296,7 +289,7 @@ from supporters.role_commands.role_name import role_name
 from supporters.supporter_role_loop import supporter_role_loop
 from time_helpers import check_weekly, long_enough_for_gift
 from twitch_token import check_token_issue
-from user import get_knows_gift, get_last_gift, get_league_team, get_lvl_info, get_rivals_league_team, get_role_id_by_level, get_user_tokens, get_valorant_league_team, notify_user_of_gift, user_exists
+from user.user import get_knows_gift, get_last_gift, get_lvl_info, notify_user_of_gift, user_exists
 from user_input.bad_word_checker import bad_word_checker
 from user_input.non_tenor_link import non_tenor_link
 from xp_battles import add_to_battle, how_many_handler, remove_from_battle
@@ -310,7 +303,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     if is_helper or is_push_bot or is_tourney_admin:
         return True, None
     
-    if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!help') or lower_message.startswith('!whichteam') or lower_message.startswith('!whichhero') or lower_message=='!pingteam' or lower_message.startswith('!profile') or lower_message.startswith('!bandforband') or lower_message == '!fortnite' or lower_message == '!zorp' or lower_message == '!howdy' or lower_message == '!sigma' or lower_message == '!buzzcut' or lower_message=='!top100' or lower_message.startswith('!ask '):
+    if lower_message == '!p' or lower_message == '!hello' or lower_message == '!gg ez' or lower_message.startswith('!help') or lower_message.startswith('!whichteam'):
         return True, None
 
     if is_bot_commands_channel(message.channel):
@@ -323,8 +316,6 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
             return False, 'Please only use the mine command in the Mineshaft Channel.'
         elif lower_message.startswith('!openpack'):
             return False, 'Please only open packs in the openening packs channel: https://discord.com/channels/1130553449491210442/1233596350306713600'
-        elif lower_message.startswith('!openpoke'):
-            return False, 'Please only open cards in the openening packs channel: https://discord.com/channels/1130553449491210442/1233596350306713600'
         elif lower_message.startswith('!opendrop'):
             return False, 'Please only open drops in the opening drops channel: https://discord.com/channels/1130553449491210442/1332055598057001021'
         else:
@@ -367,7 +358,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
         
     elif (message.channel.id == constants.CARD_TRADING_CHANNEL) or (message.channel.id == constants.PACK_OPEN_CHANNEL):
 
-        if lower_message.find('card') != -1 or lower_message.find('pack') != -1 or lower_message.find('token') != -1 or lower_message.find('donate') != -1 or lower_message.find('gallery') != -1  or lower_message.find('poke') != -1 or lower_message.find('unopened') != -1:
+        if lower_message.find('card') != -1 or lower_message.find('pack') != -1 or lower_message.find('token') != -1 or lower_message.find('donate') != -1 or lower_message.find('gallery') != -1:
             return True, None
         
     elif (message.channel.id == constants.OPENING_DROPS_CHANNEL):
@@ -413,7 +404,6 @@ async def handle_message(message, db, client):
     is_state_captain = (not message.author.bot) and member_has_role(message.author, constants.STATE_CAPTAIN_ROLE)
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
     is_push_bot = (message.author.id == constants.PUSH_BOT_ID)
-    is_esub_helper = (not message.author.bot and member_has_role(message.author, constants.ESUB_HELPER_ROLE))
 
     lower_message = user_message.lower()
     if (not has_image_perms) and ( lower_message.find('discord.gg') != -1 or (non_tenor_link(lower_message)) ):
@@ -477,24 +467,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!helplft':
         await help_lft_handler(message)
-
-    # elif lower_message == '!helppoke':
-    #     await help_poke_handler(message)
-
-    elif lower_message == '!purgepokepoints':
-
-        users = db['users']
-        all_users = list(users.find())
-        for user in all_users:
-            if 'poke_points' in user:
-
-                num_points = user['poke_points']
-                points_to_tokens = int(num_points / 5)
-                new_tokens = get_user_tokens(user) + points_to_tokens
-
-                users.update_one({"_id": user['_id']}, {"$set": {"tokens": new_tokens, "poke_points": 0}})
-
-        await message.channel.send('All poke points have been converted to tokens!')
 
     elif lower_message == '!helpdrops':
         await help_drops_handler(message)
@@ -565,17 +537,11 @@ async def handle_message(message, db, client):
     elif lower_message == '!sellpickaxe':
         await sell_pickaxe_for_tokens(db, message)
 
-    # elif lower_message == '!sellpp':
-    #     await sell_pp_handler(db, message)
-
     elif lower_message == '!dailygift' or lower_message == '!gift':
         await gift_handler(db, message, is_admin)
 
     elif lower_message == "!hello":
         await hello_handler(message)
-
-    elif lower_message.startswith('!ask '):
-        await ask_handler(message)
 
     elif lower_message == '!gg ez':
         await gg_ez_handler(message)
@@ -839,6 +805,9 @@ async def handle_message(message, db, client):
         # !removeteamadmin @Player
         await remove_team_admin_handler(db, message, client, context)
 
+    elif lower_message == '!portal':
+        await portal_handler(db, message, context)
+
     elif lower_message.startswith('!leagueinvite '):
         # !leagueinvite @player
         await league_invite_handler(db, message, context)
@@ -957,10 +926,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!matchlineups') and is_tourney_admin:
         await match_lineups_handler(db, message, context)
-
-    elif lower_message == '!toggleesub':
-        #await message.channel.send('This command is being fixed. Try again soon!')
-        await toggle_esub_handler(db, message, client, context)
 
     elif lower_message == '!make50codes' and is_admin:
         await make_50_codes_handler(db, message, 1)
@@ -1304,9 +1269,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!initcard ') and is_admin:
         await init_card_handler(db, message)
 
-    elif lower_message == '!initdisplaycards' and is_admin:
-        await init_display_cards(db, message)
-
     elif lower_message.startswith('!initcustom ') and is_admin:
         await init_custom_handler(db, message)
 
@@ -1383,15 +1345,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!cardpage '):
         await card_page(db, message)
 
-    elif lower_message == '!initcarddata':
-        await init_card_data_db(db, message)
-
-    elif lower_message == '!updatecarddata':
-        await update_card_data_db(db, message)
-
-    elif lower_message == '!updatepokedata':
-        await update_poke_data_db(db, message)
-
     elif lower_message == '!resetraffle' and is_admin:
         db_constants = db['constants']
         db_constants.update_one({"name": 'raffle_total'}, {"$set": {"value": 0}})
@@ -1448,9 +1401,6 @@ async def handle_message(message, db, client):
 
         await message.channel.send('The winner of the raffle is the user with the battle tag: '+lucky_winner)
 
-    elif lower_message.startswith('!giverewards ') and is_admin:
-        await give_rewards_handler(db, message)
-
     elif lower_message == '!initstandings' and is_admin:
         await init_standings(db, message)
 
@@ -1505,9 +1455,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!scorematch ') and is_admin:
         await score_match_handler(db, message, context)
-
-    elif lower_message.startswith('!teamesubs') and is_admin:
-        await team_e_subs(db, message)
 
     elif lower_message == '!initmaps' and is_admin:
 
@@ -1590,8 +1537,6 @@ async def handle_message(message, db, client):
                 'timeslot': 'NONE',
                 'team1_score': 0,
                 'team2_score': 0,
-                'team1_esubs': 0,
-                'team2_esubs': 0,
                 'match_over': False,
                 'added_to_schedule': False
             }
@@ -1669,9 +1614,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!givexp ') and (is_admin or is_xp_helper):
         await message.channel.send('This command is currently disabled. XP is turned off for now.')
         #await give_xp_handler(client, db, message)
-
-    elif lower_message.startswith('!esub ') and (is_admin or is_esub_helper):
-        await e_sub_handler(client, db, message)
 
     elif lower_message.startswith('!rp') and is_admin:
         await rp_handler(client, db, message)
@@ -1761,83 +1703,6 @@ async def handle_message(message, db, client):
 
                 print(member.display_name+" : "+str(member.id) + " : "+user['battle_tag'])
 
-    elif (lower_message.startswith('!addpoke') or lower_message.startswith('!ap ')) and is_admin:
-        # !addpoke id type img_link 
-        await add_poke_handler(db, message)
-
-    elif lower_message.startswith('!delpoke') and is_admin:
-        await del_poke_handler(db, message)
-
-    # elif lower_message == '!openpoke':
-    #     await open_poke_handler(db, message)
-
-    # elif lower_message.startswith('!sellpoke '):
-    #     await sell_poke_handler(db, message)
-
-    # elif lower_message.startswith('!givepoke '):
-    #     await give_poke_handler(db, message)
-
-    # elif lower_message.startswith('!viewpoke '):
-    #     await view_poke_handler(db, message)
-
-    # elif lower_message == '!mypokes':
-    #     await my_pokes_handler(db, message)
-
-    # elif lower_message == '!allpokes':
-    #     await all_pokes_handler(message)
-
-    # elif lower_message == '!unopened':
-    #     await unopened_handler(db, message)
-
-    # elif lower_message.startswith('!addorder '):
-    #     await add_order_handler(db, message)
-
-    # elif lower_message.startswith('!remorder '):
-    #     await rem_order_handler(db, message)
-
-    # elif lower_message == '!order':
-    #     await order_handler(db, message)
-
-    # elif lower_message == '!buyorder':
-    #     await buy_order_handler(db, message, client)
-
-    # elif lower_message.startswith('!cancelorder ') and is_admin:
-    #     await cancel_order_handler(db, message)
-
-    # elif lower_message.startswith('!finishorder ') and is_admin:
-    #     await finish_order_handler(db, message)
-
-    # elif lower_message == '!setpokedex' and is_admin:
-    #     users = db['users']
-    #     all_users = users.find()
-    #     num_affected = 0
-    #     for user in all_users:
-
-    #         if not ('poke_cards' in user):
-    #             continue
-
-    #         poke_cards = user['poke_cards']
-    #         user_pokedex = get_pokedex(db, poke_cards)    
-    #         users.update_one({"discord_id": user['discord_id']}, {"$set": {"pokedex": user_pokedex}})
-    #         num_affected += 1
-
-    #     await message.channel.send('Complete. '+str(num_affected)+' users affected.')
-
-    # elif lower_message == '!setsorts':
-
-    #     pokemon = db['pokemon']
-    #     all_pokes = pokemon.find()
-
-    #     for poke in all_pokes:
-
-    #         sort_index = get_sort_index(poke['set'], poke['set_num'])
-    #         pokemon.update_one({"card_id": poke['card_id']}, {"$set": {"sort": sort_index}})
-
-    #     await message.channel.send('done')
-
-    # elif lower_message.startswith('!givepp ') and is_admin:
-    #     await give_pp_handler(db, message, client)
-
     elif lower_message.startswith('!getdetails '):
         # !getdetails [username]
         await get_details_handler(db, message, client, is_admin)
@@ -1875,30 +1740,11 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!deletebytag ') and is_admin:
         await delete_by_tag_handler(db, message)
 
-    elif lower_message == '!givealllevels' and is_admin:
-
-        guild = await get_guild(client)
-        for member in client.get_all_members():
-            user = user_exists(db, member.id)
-            if user:
-                level, _ = get_lvl_info(user)
-                level_role_id = get_role_id_by_level(level)
-                level_role = guild.get_role(level_role_id)
-                await give_role(member, level_role, 'Give All Levels')
-
-        await send_msg(message.channel, 'all done', '!givealllevels')
-
     elif lower_message.startswith('!postreplay ') and is_admin:
         vod_link = message.content.split()[1]
         guild = await get_guild(client)
         clips_channel = guild.get_channel(constants.CLIPS_CHANNEL)
         await clips_channel.send('A new SOL Replay has been posted! Go check it out! '+vod_link)
-
-    elif lower_message == '!startraffle' and is_tourney_admin:
-        await start_raffle(db, message)
-
-    elif lower_message == '!endraffle' and is_tourney_admin:
-        await end_raffle(db, message)
 
     elif lower_message.startswith('!swapsides') and is_tourney_admin:
         await swap_sides(db, message, context)
@@ -2196,7 +2042,12 @@ async def handle_message(message, db, client):
     else:
         await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
 
-def run_discord_bot(db):
+
+def run_discord_bot(db, is_smoke_test=False):
+
+    if is_smoke_test:
+        return 'Started bot.py without errors'
+
     intents = discord.Intents.all()
     intents.message_content = True
     intents.reactions = True
@@ -2405,33 +2256,7 @@ def run_discord_bot(db):
 
     @client.event
     async def on_raw_member_remove(payload):
-        guild_user = payload.user
-        user_id = guild_user.id
-        
-        db_user = user_exists(db, user_id)
-        if db_user:
-
-            user_league_team = get_league_team(db_user)
-            if user_league_team != 'None':
-                users = db['users']
-                users.update_one({'discord_id': user_id}, {'$set': {'league_team': 'None'}})
-
-                await update_team(db, user_league_team, client, 'OW')
-
-            user_rivals_league_team = get_rivals_league_team(db_user)
-            if user_rivals_league_team != 'None':
-                users = db['users']
-                users.update_one({'discord_id': user_id}, {'$set': {'rivals_league_team': 'None'}})
-
-                await update_team(db, user_rivals_league_team, client, 'MR')
-
-            user_valorant_league_team = get_valorant_league_team(db_user)
-            if user_valorant_league_team != 'None':
-                users = db['users']
-                users.update_one({'discord_id': user_id}, {'$set': {'valorant_league_team': 'None'}})
-
-                await update_team(db, user_valorant_league_team, client, 'VL')
-
+        await member_left(payload, db, client)
 
 
     @client.event
@@ -2441,6 +2266,8 @@ def run_discord_bot(db):
         try:
             await check_random_event_on_message(db, client)
             await handle_message(message, db, client)
+        except CommandError as e:
+            await message.reply(str(e))
         except aiohttp.client_exceptions.ClientOSError as e:
             if e.errno == 104:
                 await send_msg(message.channel, 'Network error. Please try your command again.', 'Network Error')

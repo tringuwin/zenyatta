@@ -1,6 +1,7 @@
 
 from discord_actions import get_member_by_username
-from user import twitch_user_exists, user_exists
+from exceptions import CommandError
+from user.user import twitch_user_exists, user_exists
 import constants
 
 def valid_number_of_params(message, num_params):
@@ -18,6 +19,10 @@ def valid_params_ignore_whitespace(message, num_params):
     return valid, message_parts
 
 def can_be_int(var):
+
+    if var is None:
+        return False
+
     try:
         int(var)
         return True
@@ -111,7 +116,7 @@ def get_league_emoji_from_team_name(team_name):
 
 def is_bot_commands_channel(channel):
 
-    return (channel.id == constants.BOT_CHANNEL) or (channel.id == constants.RIVALS_BOT_CHANNEL) or (channel.id == constants.VALORANT_BOT_CHANNEL) or (channel.id == 1344702713086218432) # fake league commands channel
+    return (channel.id == constants.BOT_CHANNEL) or (channel.id == constants.RIVALS_BOT_CHANNEL) or (channel.id == constants.VALORANT_BOT_CHANNEL)
 
 
 def is_valid_hex_code(s):
@@ -129,3 +134,20 @@ def is_valid_hex_code(s):
             return False
 
     return True
+
+
+def verify_params_in_string(input_string, num_params):
+
+    parts = input_string.split()
+    if len(parts) != num_params:
+        raise CommandError(f"Invalid number of parameters. Expected {num_params}, got {len(parts)}.")
+    
+    return parts
+
+
+def convert_to_int(value):
+    
+    try:
+        return int(value)
+    except ValueError:
+        raise CommandError(f"Invalid value: {value} is not an integer.")

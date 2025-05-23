@@ -215,8 +215,6 @@ async def check_weekly(client, db, channel, message):
         else:
             offer['price'] -= 100
 
-    # always set pokepoints to 800
-    items[6]['price'] = 800
 
     # distribute goods
     increase_array = [0, 0, 0, 0, 0, 0, 0]

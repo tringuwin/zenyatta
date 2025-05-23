@@ -2,7 +2,7 @@
 
 from context.context_helpers import get_league_teams_collection_from_context, get_lineup_role_list_from_context, get_user_id_field_from_context
 from helpers import valid_number_of_params
-from user import user_exists
+from user.user import user_exists
 
 
 

@@ -1,7 +1,6 @@
 
 
-from command_handlers.slime import get_user_slimed
-from user import get_user_gems, user_exists
+from user.user import get_user_gems, get_user_slimed, user_exists
 
 
 async def revive_handler(db, message):

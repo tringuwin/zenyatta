@@ -2,7 +2,7 @@
 
 from common_messages import not_registered_response
 from helpers import generic_find_user, update_token_tracker, valid_number_of_params
-from user import get_league_team, get_lvl_info, get_user_lootboxes, user_exists
+from user.user import get_lvl_info, get_user_lootboxes, user_exists
 
 
 async def change_tokens(db, user, num, source='unknown'):
@@ -17,17 +17,6 @@ async def change_tokens(db, user, num, source='unknown'):
 
     update_token_tracker(db, source, num)
 
-async def change_pp(db, user, num):
-
-    users = db['users']
-    
-    if "poke_points" in user:
-        new_points = user['poke_points'] + num
-        users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": new_points}})
-    else:
-        users.update_one({"discord_id": user['discord_id']}, {"$set": {"poke_points": num}})
-
-
 async def give_tokens_command(client, db, user_id, num, message):
 
     user = await generic_find_user(client, db, user_id)
@@ -38,25 +27,6 @@ async def give_tokens_command(client, db, user_id, num, message):
     await change_tokens(db, user, num, 'admin-give-tokens')
     await message.channel.send('Tokens given')
 
-
-async def give_pp_handler(db, message, client):
-
-    valid_params, params = valid_number_of_params(message, 3)
-    if not valid_params:
-        await message.channel.send('Invalid number of params.')
-        return
-    
-    user_id = params[1]
-    num = int(params[2])
-
-    user = await generic_find_user(client, db, user_id)
-    if not user:
-        await message.channel.send('Could not find user with that ID')
-        return
-    
-    await change_pp(db, user, num)
-    await message.channel.send('PokePoints given')
-        
 
 async def sell_pickaxe_for_tokens(db, message):
 
@@ -109,45 +79,12 @@ async def level_up(user, orig_level, new_level, client, db):
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
 
-    # member = await get_user_from_guild(client, user['discord_id'])
-    # if member:
-
-    #     guild = await get_guild(client)
-
-    #     adjusted_orig_level = orig_level - 1
-    #     orig_level_id = constants.LEVEL_ROLE_IDS[adjusted_orig_level]
-    #     orig_level_role = guild.get_role(orig_level_id)
-
-    #     adjusted_new_level = new_level - 1
-    #     new_level_id = constants.LEVEL_ROLE_IDS[adjusted_new_level]
-    #     new_level_role = guild.get_role(new_level_id)
-
-    #     await give_role(member, new_level_role, 'Level Up')
-    #     await remove_role(member, orig_level_role, 'Level Up')
-
 
 
 
 async def change_xp(db, user, num, client):
 
     users = db['users']
-
-    league_team = get_league_team(user)
-    if league_team != 'None':
-
-        constants_db = db['constants']
-
-        league_xp_obj = constants_db.find_one({'name': 'league_xp'})
-        league_xp = league_xp_obj['value']
-        if league_team in league_xp:
-            league_xp[league_team] += num
-            constants_db.update_one({"name": 'league_xp'}, {"$set": {"value": league_xp}})
-
-        league_xp_total_obj = constants_db.find_one({'name': 'league_xp_total'})
-        league_xp_total = league_xp_total_obj['value']
-        if league_team in league_xp_total:
-            league_xp_total[league_team] += num
-            constants_db.update_one({"name": 'league_xp_total'}, {"$set": {"value": league_xp_total}})
     
     level, xp = get_lvl_info(user)
 

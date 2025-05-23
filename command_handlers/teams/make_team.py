@@ -2,7 +2,7 @@
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, make_string_from_word_list
 from teams import get_team_by_name, make_team
-from user import get_user_teams, user_exists
+from user.user import get_user_teams, user_exists
 import constants
 
 

@@ -4,7 +4,19 @@ import discord
 import constants
 import time
 
-from context.context_helpers import get_league_invites_field, get_league_team_field_from_context
+from context.context_helpers import get_fan_of_field_from_context, get_league_invites_field, get_league_team_field_from_context, get_rival_of_field_from_context
+
+# DISCORD API FUNCTIONS
+
+async def notify_user_of_gift(member, bot_coms_channel):
+    try:
+        # Try to send a DM
+        await member.send('Your gift is ready in the Spicy Esports server! Just say **!gift** here to claim! '+bot_coms_channel.jump_url)
+    except discord.Forbidden:
+        # If DM can't be sent, mention the member in the channel
+        await bot_coms_channel.send(f'Your gift is ready, {member.mention}! (I tried to DM you but your privacy settings did not allow me to)')
+
+# MONGO
 
 def user_exists(db, discord_id):
     
@@ -32,6 +44,75 @@ def get_user_by_tag(db, lower_tag):
 
     return users.find_one(search_query)
 
+
+def add_team_to_user(db, user, team_name):
+
+    users = db['users']
+
+    if not ('teams' in user):
+        user['teams'] = []
+
+    user['teams'].append(team_name)
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"teams": user['teams']}})
+
+
+def set_user_league_team(db, user, team, context):
+
+    users = db['users']
+    league_team_field = get_league_team_field_from_context(context)
+    
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {league_team_field: team}})
+
+
+def toggle_off_gift_notify(db, user):
+
+    users = db['users']
+
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"gift_notify": False}})
+
+
+async def add_event_entry_to_user(db, user, event_id):
+    
+    users = db['users']
+
+    new_user = copy.deepcopy(user)
+    entry_info = {
+        "event_id": event_id,
+        "status": "Not Reviewed",
+    }
+    new_user['entries'].append(entry_info)
+    users.update_one({"discord_id": user['discord_id']}, {"$set": {"entries": new_user['entries']}})
+
+# FUNCTIONS THAT NEED REWORKING
+
+def get_gem_offer(user):
+
+    if not 'gem_offer' in user:
+        return None
+
+    offer = user['gem_offer']
+
+    if (not offer) or offer == None:
+        return None 
+
+    current_time = time.time()
+
+    if (current_time - offer['time_sent']) > 300:
+        return None
+
+    return user['gem_offer']
+
+
+def user_entered_event(user, event_id):
+
+    user_entries = user['entries']
+    for entry in user_entries:
+        if entry['event_id'] == event_id:
+            return True
+        
+    return False
+
+# NON MONGO
 
 def get_twitch_username(user):
 
@@ -69,40 +150,12 @@ def get_user_packs(user):
     
     return 0
 
-def get_user_poke_points(user):
-    
-    if 'poke_points' in user:
-        return user['poke_points']
-    
-    return 0
-
-def get_user_poke_cards(user):
-
-    if 'poke_cards' in user:
-        return user['poke_cards']
-    
-    return []
-
 def get_user_tickets(user):
 
     if 'tickets' in user:
         return user['tickets']
     
     return 0
-
-def get_user_address(user):
-
-    if 'address' in user:
-        return user['address']
-    
-    return None
-
-def get_user_order(user):
-
-    if 'order' in user:
-        return user['order']
-    
-    return []
 
 def get_lvl_info(user):
 
@@ -115,120 +168,89 @@ def get_lvl_info(user):
 
     return level, xp
 
-
-
-def get_role_id_by_level(level_num):
-    role_id_index = level_num - 1
-    return constants.LEVEL_ROLE_IDS[role_id_index]
-
-def add_team_to_user(db, user, team_name):
-
-    users = db['users']
-
-    if not ('teams' in user):
-        user['teams'] = []
-
-    user['teams'].append(team_name)
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"teams": user['teams']}})
-
-
 def get_user_invites(user):
     
     if 'invites' in user:
         return user['invites']
-    else:
-        return []
+   
+    return []
 
 def get_user_teams(user):
 
     if 'teams' in user:
         return user['teams']
-    else:
-        return []
-    
+
+    return []
     
 def get_knows_gift(user):
 
     if 'knows_gift' in user:
         return user['knows_gift']
-    else:
-        return False
+    
+    return False
     
 def get_last_gift(user):
 
     if 'last_gift' in user:
         return user['last_gift']
 
-    else:
-        return 0
+    return 0
 
-    
 def get_invited_valid(user):
 
     if 'invited_valid' in user:
         return user['invited_valid']
-    else:
-        return False
+    
+    return False
     
 def get_user_gems(user):
 
     if 'gems' in user:
         return user['gems']
-    else:
-        return copy.deepcopy(constants.DEFAULT_GEMS)
+    
+    return copy.deepcopy(constants.DEFAULT_GEMS)
     
 def get_user_spicy_tickets(user):
 
     if 'spicy_tickets' in user:
         return user['spicy_tickets']
-    else:
-        return 0
+    
+    return 0
     
 def get_user_lootboxes(user):
 
     if 'lootboxes' in user:
         return user['lootboxes']
-    else:
-        return []
+    
+    return []
     
 def get_sub_lootboxes(user):
 
     if 'sub_lootboxes' in user:
         return user['sub_lootboxes']
-    else:
-        return 0
+    
+    return 0
     
 def get_subcount(user):
 
     if 'subcount' in user:
         return user['subcount']
-    else:
-        return 0
+    
+    return 0
     
 def get_last_sub_box(user):
 
     if 'last_sub_box' in user:
         return user['last_sub_box']
-    else:
-        return 0
+    
+    return 0
+    
+def get_user_slimed(user):
 
-def get_league_team(user):
-    if 'league_team' in user:
-        return user['league_team']
-    else:
-        return 'None'
+    if 'slimed' in user:
+        return user['slimed']
     
-def get_rivals_league_team(user):
-    if 'rivals_league_team' in user:
-        return user['rivals_league_team']
-    else:
-        return 'None'
-    
-def get_valorant_league_team(user):
-    if 'valorant_league_team' in user:
-        return user['valorant_league_team']
-    else:
-        return 'None'
+    return False
     
 def get_league_team_with_context(user, context):
 
@@ -238,6 +260,7 @@ def get_league_team_with_context(user, context):
     
     return 'None'
     
+
 def get_league_invites_with_context(user, context):
 
     league_invites_field = get_league_invites_field(context)
@@ -245,60 +268,25 @@ def get_league_invites_with_context(user, context):
         return user[league_invites_field]
     
     return []
+
     
-def get_gem_offer(user):
+def get_fan_of_with_context(user, context):
 
-    if 'gem_offer' in user:
-
-        offer = user['gem_offer']
-
-        if (not offer) or offer == None:
-            return None 
-
-        current_time = time.time()
-
-        if (current_time - offer['time_sent']) > 300:
-            return None
-
-        return user['gem_offer']
-    else:
-        return None
+    fan_of_field = get_fan_of_field_from_context(context)
+    if fan_of_field in user:
+        return user[fan_of_field]
     
-def get_fan_of(user):
-
-    if 'fan_of' in user:
-        return user['fan_of']
     return 'None'
 
-def get_fan_of_rivals(user):
 
-    if 'fan_of_rivals' in user:
-        return user['fan_of_rivals']
+def get_rival_of_with_context(user, context):
+
+    rival_of_field = get_rival_of_field_from_context(context)
+    if rival_of_field in user:
+        return user[rival_of_field]
+    
     return 'None'
 
-def get_fan_of_valorant(user):
-
-    if 'fan_of_valorant' in user:
-        return user['fan_of_valorant']
-    return 'None'
-
-def get_rival_of(user):
-
-    if 'rival_of' in user:
-        return user['rival_of']
-    return 'None'
-
-def get_rival_of_rivals(user):
-
-    if 'rival_of_rivals' in user:
-        return user['rival_of_rivals']
-    return 'None'
-
-def get_rival_of_valorant(user):
-
-    if 'rival_of_valorant' in user:
-        return user['rival_of_valorant']
-    return 'None'
 
 def get_last_token_shop(user):
 
@@ -347,13 +335,13 @@ def get_user_ranks(user):
             'div': 'none'
         },
     }
-    
-def get_user_pokedex(user):
 
-    if 'pokedex' in user:
-        return user['pokedex']
+def get_user_rivals_rank(user):
+
+    if 'rivals_rank' in user:
+        return user['rivals_rank']
     
-    return 0
+    return None
 
 def get_user_wlt(user):
 
@@ -377,49 +365,6 @@ def get_user_mr_wlt(user):
         't': 0
     }
 
-def get_user_team_swaps(user):
-
-    if 'team_swaps' in user:
-        return user['team_swaps']
-    
-    return 3
-
-def get_user_div(user):
-
-    if 'user_div' in user:
-        return user['user_div']
-    
-    return 0
-
-def get_user_esub(user):
-
-    if 'esub' in user:
-        return user['esub']
-    
-    return False
-
-def get_user_rivals_esub(user):
-
-    if 'rivals_esub' in user:
-        return user['rivals_esub']
-    
-    return False
-
-def get_user_rivals_rank(user):
-
-    if 'rivals_rank' in user:
-        return user['rivals_rank']
-    
-    return None
-
-
-def get_user_esub_roles(user):
-
-    if 'esub_roles' in user:
-        return user['esub_roles']
-    
-    return []
-
 def get_user_bets(user):
 
     if 'bets' in user:
@@ -442,7 +387,6 @@ def get_riot_id(user):
         return user['riot_id']
     
     return ''
-
 
 
 def get_user_minute_points(user):
@@ -474,50 +418,6 @@ def get_user_total_trophies(user):
     return 0
 
 
-def toggle_off_gift_notify(db, user):
-
-    users = db['users']
-
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"gift_notify": False}})
-
-
-def user_entered_event(user, event_id):
-
-    user_entries = user['entries']
-    for entry in user_entries:
-        if entry['event_id'] == event_id:
-            return True
-        
-    return False
-
-
-async def add_event_entry_to_user(db, user, event_id):
-    
-    users = db['users']
-
-    new_user = copy.deepcopy(user)
-    entry_info = {
-        "event_id": event_id,
-        "status": "Not Reviewed",
-    }
-    new_user['entries'].append(entry_info)
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {"entries": new_user['entries']}})
-
-
-async def notify_user_of_gift(member):
-
-    return
-
-
-async def notify_user_of_gift(member, bot_coms_channel):
-    try:
-        # Try to send a DM
-        await member.send('Your gift is ready in the Spicy Esports server! Just say **!gift** here to claim! '+bot_coms_channel.jump_url)
-    except discord.Forbidden:
-        # If DM can't be sent, mention the member in the channel
-        await bot_coms_channel.send(f'Your gift is ready, {member.mention}! (I tried to DM you but your privacy settings did not allow me to)')
-
-
 def total_gems(gems):
 
     total = 0
@@ -546,11 +446,3 @@ def get_net_worth(user):
     total = tokens + pickaxes + gems + packs + cards
 
     return total
-
-
-def set_user_league_team(db, user, team, context):
-
-    users = db['users']
-    league_team_field = get_league_team_field_from_context(context)
-    
-    users.update_one({"discord_id": user['discord_id']}, {"$set": {league_team_field: team}})

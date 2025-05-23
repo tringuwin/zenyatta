@@ -1,7 +1,7 @@
 
 from context.context_helpers import get_league_invites_field
 from league import validate_admin
-from user import get_league_invites_with_context, get_league_team_with_context, user_exists
+from user.user import get_league_invites_with_context, get_league_team_with_context, user_exists
 
 
 async def league_invite_handler(db, message, context):

@@ -1,7 +1,7 @@
 
 from common_messages import not_registered_response
 from teams import get_team_by_name
-from user import user_exists
+from user.user import user_exists
 
 async def get_active_teams(db, team_names):
 

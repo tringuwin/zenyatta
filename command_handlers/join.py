@@ -5,7 +5,7 @@ from discord_actions import give_role_to_user, member_has_role
 from events import add_user_to_event_entries, event_has_space, event_is_open, get_event_role_id, get_event_team_size
 from getters.event_getters import get_event_by_id
 from helpers import valid_number_of_params
-from user import add_event_entry_to_user, user_entered_event, user_exists
+from user.user import add_event_entry_to_user, user_entered_event, user_exists
 
 async def join_handler(db, message, client):
 

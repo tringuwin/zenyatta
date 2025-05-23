@@ -1,6 +1,6 @@
 
 from teams import add_user_to_team, get_team_by_name, make_team
-from user import user_exists
+from user.user import user_exists
 
 
 async def force_make_team_handler(db, message, client):

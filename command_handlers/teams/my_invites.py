@@ -1,6 +1,6 @@
 
 from common_messages import not_registered_response
-from user import get_user_invites, user_exists
+from user.user import get_user_invites, user_exists
 
 
 async def my_invites_handler(db, message):

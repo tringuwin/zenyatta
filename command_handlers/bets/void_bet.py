@@ -2,7 +2,7 @@
 
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
-from user import get_user_bets, user_exists
+from user.user import get_user_bets, user_exists
 import constants
 
 async def void_bet_handler(db, message, client):

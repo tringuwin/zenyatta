@@ -5,7 +5,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
 from time_helpers import get_current_day_est
-from user import get_user_tokens, user_exists
+from user.user import get_user_tokens, user_exists
 
 import constants
 

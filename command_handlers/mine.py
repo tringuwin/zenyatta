@@ -2,7 +2,7 @@
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from rewards import change_pickaxes, change_tokens
-from user import get_user_gems, get_user_pickaxes, get_user_tokens, user_exists
+from user.user import get_user_gems, get_user_pickaxes, get_user_tokens, user_exists
 import random
 import constants
 

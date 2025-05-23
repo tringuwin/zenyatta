@@ -29,9 +29,6 @@ def apply_match_results_to_standings(standings_teams, match):
     standings_teams[team2]['map_wins'] += team2_score
     standings_teams[team2]['map_losses'] += team1_score
 
-    standings_teams[team1]['esubs'] += match['team1_esubs']
-    standings_teams[team2]['esubs'] += match['team2_esubs']
-
     standings_teams[team1]['points'] = calculate_team_points(standings_teams[team1])
     standings_teams[team2]['points'] = calculate_team_points(standings_teams[team2])
 

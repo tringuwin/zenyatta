@@ -1,5 +1,5 @@
 
-from user import get_net_worth, user_exists
+from user.user import get_net_worth, user_exists
 import random
 
 money_gifs = [

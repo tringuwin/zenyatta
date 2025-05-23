@@ -6,7 +6,7 @@ from context.context_helpers import get_league_notifs_channel_from_context, get_
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name, make_string_from_word_list
 from league import has_username_for_game, remove_league_invite, update_team_info
-from user import get_league_invites_with_context, get_league_team_with_context, user_exists
+from user.user import get_league_invites_with_context, get_league_team_with_context, user_exists
 import constants
 from datetime import datetime
 import pytz
@@ -91,30 +91,6 @@ async def league_accept_handler(db, message, client, context):
         elif context == 'VL':
             await message.channel.send('Please link your Riot ID before joining a Valorant team. Use the command **!riot RiotID#1234** to do this.')
         return
-
-    
-    # season_active = False
-    # team_swaps = 0
-    # div_joined = 0
-    # if constants.SEASON_ACTIVE:
-        
-    #     season_active = True
-
-    #     # check if they have enough swaps
-    #     team_swaps = get_user_team_swaps(user)
-    #     if team_swaps < 1:
-    #         await message.channel.send('You have already joined a team 3 times this season, which is the maximum allowed in one season.')
-    #         return
-
-    #     # check if they can move divs
-    #     user_div = get_user_div(user)
-    #     if (user_div != league_team['div']):
-
-    #         if user_div != 0:
-    #             await message.channel.send('You are division locked for the rest of this season. You can only join teams in Division '+str(user_div)+' until the season ends.')
-    #             return
-    #         else:
-    #             div_joined = league_team['div']
     
     teams_joined_this_season_constant = get_teams_joined_this_season_constant(context)
     teams_joined_this_season = get_teams_joined_this_season(user, teams_joined_this_season_constant)
