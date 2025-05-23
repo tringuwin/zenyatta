@@ -190,6 +190,7 @@ from command_handlers.money.money import money
 from command_handlers.next_drop import next_drop
 from command_handlers.open import open_handler
 from command_handlers.open_drop import open_drop
+from command_handlers.portal.portal import portal_handler
 from command_handlers.redeem_code import redeem_code
 from command_handlers.revive import revive_handler
 from command_handlers.rp import rp_handler
@@ -802,6 +803,9 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!removeteamadmin'):
         # !removeteamadmin @Player
         await remove_team_admin_handler(db, message, client, context)
+
+    elif lower_message == '!portal':
+        await portal_handler(db, message)
 
     elif lower_message.startswith('!leagueinvite '):
         # !leagueinvite @player
