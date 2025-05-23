@@ -4,7 +4,7 @@ import discord
 import constants
 import time
 
-from context.context_helpers import get_league_invites_field, get_league_team_field_from_context
+from context.context_helpers import get_fan_of_field_from_context, get_league_invites_field, get_league_team_field_from_context, get_rival_of_field_from_context
 
 # DISCORD API FUNCTIONS
 
@@ -245,6 +245,12 @@ def get_last_sub_box(user):
     
     return 0
     
+def get_user_slimed(user):
+
+    if 'slimed' in user:
+        return user['slimed']
+    
+    return False
     
 def get_league_team_with_context(user, context):
 
@@ -264,41 +270,23 @@ def get_league_invites_with_context(user, context):
     return []
 
     
-def get_fan_of(user):
+def get_fan_of_with_context(user, context):
 
-    if 'fan_of' in user:
-        return user['fan_of']
+    fan_of_field = get_fan_of_field_from_context(context)
+    if fan_of_field in user:
+        return user[fan_of_field]
+    
     return 'None'
 
-def get_fan_of_rivals(user):
 
-    if 'fan_of_rivals' in user:
-        return user['fan_of_rivals']
+def get_rival_of_with_context(user, context):
+
+    rival_of_field = get_rival_of_field_from_context(context)
+    if rival_of_field in user:
+        return user[rival_of_field]
+    
     return 'None'
 
-def get_fan_of_valorant(user):
-
-    if 'fan_of_valorant' in user:
-        return user['fan_of_valorant']
-    return 'None'
-
-def get_rival_of(user):
-
-    if 'rival_of' in user:
-        return user['rival_of']
-    return 'None'
-
-def get_rival_of_rivals(user):
-
-    if 'rival_of_rivals' in user:
-        return user['rival_of_rivals']
-    return 'None'
-
-def get_rival_of_valorant(user):
-
-    if 'rival_of_valorant' in user:
-        return user['rival_of_valorant']
-    return 'None'
 
 def get_last_token_shop(user):
 

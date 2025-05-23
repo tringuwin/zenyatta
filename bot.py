@@ -41,7 +41,6 @@ from automation.casting.swap_sides import swap_sides
 from automation.casting.update_score import add_point, remove_point
 from automation.notify_about_matches import check_notify_about_matches
 from automation.process_trophy_rewards.process_trophy_rewards import process_trophy_rewards
-from automation.raffle import end_raffle, start_raffle
 from automation.schedule_plan.add_week.add_week import add_week
 from automation.schedule_plan.make_schedule_plan import make_schedule_plan
 from automation.schedule_plan.schedule_plan_loop.schedule_plan_loop import schedule_plan_loop
@@ -94,7 +93,6 @@ from command_handlers.gems import gems_handler
 from command_handlers.getdetails import get_details_handler
 from command_handlers.gg_ez import gg_ez_handler
 from command_handlers.gift import gift_handler
-from command_handlers.give_rewards import give_rewards_handler
 from command_handlers.gp import gp_handler
 from command_handlers.hello import hello_handler
 from command_handlers.help.help_ally import help_ally_handler
@@ -217,7 +215,7 @@ from command_handlers.xp_battle.start_battle import start_battle_handler
 from discord_utils.member_left.member_left import member_left
 from exceptions import CommandError
 from lineups import check_lineup_tokens
-from command_handlers.profile import profile_handler
+from command_handlers.profile.profile import profile_handler
 from command_handlers.raffle import raffle_handler
 from command_handlers.random_map import random_map_handler
 from command_handlers.rps import rps_handler
@@ -1397,9 +1395,6 @@ async def handle_message(message, db, client):
 
         await message.channel.send('The winner of the raffle is the user with the battle tag: '+lucky_winner)
 
-    elif lower_message.startswith('!giverewards ') and is_admin:
-        await give_rewards_handler(db, message)
-
     elif lower_message == '!initstandings' and is_admin:
         await init_standings(db, message)
 
@@ -1744,12 +1739,6 @@ async def handle_message(message, db, client):
         guild = await get_guild(client)
         clips_channel = guild.get_channel(constants.CLIPS_CHANNEL)
         await clips_channel.send('A new SOL Replay has been posted! Go check it out! '+vod_link)
-
-    elif lower_message == '!startraffle' and is_tourney_admin:
-        await start_raffle(db, message)
-
-    elif lower_message == '!endraffle' and is_tourney_admin:
-        await end_raffle(db, message)
 
     elif lower_message.startswith('!swapsides') and is_tourney_admin:
         await swap_sides(db, message, context)

@@ -224,6 +224,59 @@ TEAM_NAME_TO_EMOJI_EMBED_STRING = {
 
 DEFAULT_TEAM_EMOJI = '<:solwhite:1278858168826593312>'
 
+SPICY_DROP_EMOJI_STRING = '<:spicy_drop:1327677388720701450>'
+SPICY_PACK_EMOJI_STRING = '<:pack:1206654460735258654>'
+
+RANK_TEXT_TO_ID = {
+    'Rank_Bronze Division_5': 'B5',
+    'Rank_Bronze Division_4': 'B4',
+    'Rank_Bronze Division_3': 'B3',
+    'Rank_Bronze Division_2': 'B2',
+    'Rank_Bronze Division_1': 'B1',
+
+    'Rank_Silver Division_5': 'S5',
+    'Rank_Silver Division_4': 'S4',
+    'Rank_Silver Division_3': 'S3',
+    'Rank_Silver Division_2': 'S2',
+    'Rank_Silver Division_1': 'S1',
+
+    'Rank_Gold Division_5': 'G5',
+    'Rank_Gold Division_4': 'G4',
+    'Rank_Gold Division_3': 'G3',
+    'Rank_Gold Division_2': 'G2',
+    'Rank_Gold Division_1': 'G1',
+
+    'Rank_Platinum Division_5': 'P5',
+    'Rank_Platinum Division_4': 'P4',
+    'Rank_Platinum Division_3': 'P3',
+    'Rank_Platinum Division_2': 'P2',
+    'Rank_Platinum Division_1': 'P1',
+
+    'Rank_Diamond Division_5': 'D5',
+    'Rank_Diamond Division_4': 'D4',
+    'Rank_Diamond Division_3': 'D3',
+    'Rank_Diamond Division_2': 'D2',
+    'Rank_Diamond Division_1': 'D1',
+
+    'Rank_Master Division_5': 'M5',
+    'Rank_Master Division_4': 'M4',
+    'Rank_Master Division_3': 'M3',
+    'Rank_Master Division_2': 'M2',
+    'Rank_Master Division_1': 'M1',
+
+    'Rank_GrandMaster Division_5': 'GM5',
+    'Rank_GrandMaster Division_4': 'GM4',
+    'Rank_GrandMaster Division_3': 'GM3',
+    'Rank_GrandMaster Division_2': 'GM2',
+    'Rank_GrandMaster Division_1': 'GM1',
+
+    'Rank_Champ Division_5': 'C5',
+    'Rank_Champ Division_4': 'C4',
+    'Rank_Champ Division_3': 'C3',
+    'Rank_Champ Division_2': 'C2',
+    'Rank_Champ Division_1': 'C1',
+}
+
 
 MAP_NAME_TO_IMAGE = {
 
