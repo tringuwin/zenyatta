@@ -805,7 +805,7 @@ async def handle_message(message, db, client):
         await remove_team_admin_handler(db, message, client, context)
 
     elif lower_message == '!portal':
-        await portal_handler(db, message)
+        await portal_handler(db, message, context)
 
     elif lower_message.startswith('!leagueinvite '):
         # !leagueinvite @player
