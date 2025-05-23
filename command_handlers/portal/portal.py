@@ -58,6 +58,8 @@ async def portal_handler(db, message, context):
             f"Here is your portal link: {portal_url}\n"
             f"Please note that this link is unique to you and should not be shared with anyone else."
         )
+        await message.channel.send('I sent you a DM with your portal link. Please check your DMs.')
+        
     except Exception as e:
         raise CommandError('I tried to send you a DM, but I was unable to due to your privacy settings. Please check your DM settings and try again.')
 
