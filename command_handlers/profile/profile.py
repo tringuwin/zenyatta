@@ -11,11 +11,9 @@ import constants
 
 def get_team_display_string(team_name):
 
-    if team_name in constants.EMOJI_TEAMS:
-        team_emoji_string = get_league_emoji_from_team_name(team_name)
-        return team_emoji_string+' '+team_name
+    team_emoji_string = get_league_emoji_from_team_name(team_name)
+    return team_emoji_string+' '+team_name
 
-    return team_name
 
 
 def make_gem_string(user_gems):

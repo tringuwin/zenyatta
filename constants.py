@@ -374,10 +374,6 @@ RIVALS_TEAM_LIST = ['Angels', 'Celestials', 'Deadlock', 'Eclipse', 'Evergreen', 
 
 VALORANT_TEAM_LIST = ['Saturn', 'Lotus', 'Deadlock', 'Horizon', 'Saviors', 'Ragu', 'Phoenix', 'Celestials']
 
-EMOJI_TEAMS = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 'Guardians', 'Fresas', 'Outliers', 'Phoenix', 
-               'Saturn', 'Celestials', 'Evergreen', 'Misfits', 'Hunters', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels', 'Legion',
-               'Lotus', 'Deadlock', 'Horizon', 'Monarchs', 'Aces', 'Mantas']
-
 LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassidy', 'dva', 'doomfist', 'echo', 'genji', 'hanzo', 'illari', 
                         'junker queen', 'junkrat', 'juno', 'kiriko', 'lifeweaver', 'lucio', 'mauga', 'mei', 'mercy', 'moira', 'orisa', 'ramattra', 'reaper', 
                         'reinhardt', 'roadhog', 'sigma', 'sojourn', 'soldier 76', 'sombra', 'symmetra', 'torbjorn', 'tracer', 'venture', 'widowmaker', 
