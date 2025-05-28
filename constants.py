@@ -277,6 +277,21 @@ RANK_TEXT_TO_ID = {
     'Rank_Champ Division_1': 'C1',
 }
 
+DEFAULT_OVERWATCH_RANKS = {
+    'tank': {
+        'tier': 'none',
+        'div': 'none'
+    },
+    'offense': {
+        'tier': 'none',
+        'div': 'none'
+    },
+    'support': {
+        'tier': 'none',
+        'div': 'none'
+    },
+}
+
 
 MAP_NAME_TO_IMAGE = {
 
