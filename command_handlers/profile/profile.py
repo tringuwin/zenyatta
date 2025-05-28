@@ -11,6 +11,9 @@ import constants
 
 def get_team_display_string(team_name):
 
+    if team_name == 'None':
+        return 'None'
+
     team_emoji_string = get_league_emoji_from_team_name(team_name)
     return team_emoji_string+' '+team_name
 
