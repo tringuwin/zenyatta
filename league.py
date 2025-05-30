@@ -62,6 +62,7 @@ TEAM_NAME_TO_TEAM_COLOR = {
     'Aces': discord.Colour(0xA2A2A2),
     'Mantas': discord.Colour(0x00476a),
     'Penguins': discord.Colour(0xeb8d00),
+    'Lions': discord.Colour(0xc44c16),
 }
 
 def get_team_color_by_name(team_name):
