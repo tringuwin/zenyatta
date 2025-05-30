@@ -321,20 +321,7 @@ def get_user_ranks(user):
     if 'ranks' in user:
         return user['ranks']
     
-    return {
-        'tank': {
-            'tier': 'none',
-            'div': 'none'
-        },
-        'offense': {
-            'tier': 'none',
-            'div': 'none'
-        },
-        'support': {
-            'tier': 'none',
-            'div': 'none'
-        },
-    }
+    return copy.deepcopy(constants.DEFAULT_OVERWATCH_RANKS)
 
 def get_user_rivals_rank(user):
 
