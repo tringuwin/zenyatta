@@ -73,7 +73,7 @@ async def league_accept_handler(db, message, client, context):
     
     league_teams = get_league_teams_collection_from_context(db, context)
     league_team = league_teams.find_one({'name_lower': team_name_lower})
-    if not real_team_name:
+    if not league_team:
         await message.channel.send('Error: Could not find a team with the name "'+team_name_to_join+'". '+constants.STAFF_PING)
         return
     real_team_name = league_team['team_name']
