@@ -36,6 +36,7 @@ from admin_handlers.set_item_price import set_item_price_handler
 from admin_handlers.set_level import set_level_handler
 from admin_handlers.sub_rewards import gift_rewards_handler, sub_rewards_handler
 from admin_handlers.total_league import total_league_handler
+from admin_handlers.wipe_past_teams import wipe_past_teams
 from auction import check_auction
 from automation.casting.swap_sides import swap_sides
 from automation.casting.update_score import add_point, remove_point
@@ -1795,6 +1796,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!lockoff') and is_admin:
         await handle_lock(db, message, False, context)
+
+    elif lower_message.startswith('!wipepastteams') and is_admin:
+        await wipe_past_teams(db, message, context)
 
     elif lower_message.startswith('!nextdrop'):
         await next_drop(db, message)
