@@ -104,7 +104,6 @@ from command_handlers.help.help_drops import help_drops_handler
 from command_handlers.help.help_gems import help_gems_handler
 from command_handlers.help.help_league import help_league_handler
 from command_handlers.help.help_league_admin import help_league_admin_handler
-from command_handlers.help.help_lft import help_lft_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.call_me import call_me_handler
@@ -151,19 +150,12 @@ from command_handlers.league.league_kick import league_kick_handler
 from command_handlers.league.league_leave import league_leave_handler
 from command_handlers.league.league_order import league_order_handler
 from command_handlers.league.league_xp import league_xp_handler, total_league_xp_handler, wipe_league_xp_handler
-from command_handlers.league.lft.bump_lft import bump_lft_handler
-from command_handlers.league.lft.set_lft_color import set_lft_color_handler
-from command_handlers.league.lft.set_lft_hero import set_lft_hero_handler
-from command_handlers.league.lft.set_rank import set_rank_handler
-from command_handlers.league.lft.toggle_lft import toggle_lft_handler
-from command_handlers.league.lft.update_lft import update_lft_handler
 from command_handlers.league.make_league_team import make_league_team_handler
 from command_handlers.league.make_team_admin import make_team_admin_handler
 from command_handlers.league.map_diff import map_diff_handler
 from command_handlers.league.match_end import match_end_handler
 from command_handlers.league.next_week import next_week_handler
 from command_handlers.league.ping_team import ping_team_handler
-from command_handlers.league.power_rankings import power_rankings_handler
 from command_handlers.league.prune_team import prune_team_handler
 from command_handlers.league.remove_team_admin import remove_team_admin_handler
 from command_handlers.league.reset_map import reset_map_handler
@@ -464,9 +456,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!helpbonus':
         await help_bonus_handler(message)
-
-    elif lower_message == '!helplft':
-        await help_lft_handler(message)
 
     elif lower_message == '!helpdrops':
         await help_drops_handler(message)
@@ -947,25 +936,6 @@ async def handle_message(message, db, client):
 
             if changes_made:
                 users.update_one({'discord_id': user['discord_id']}, {'$set': set_array})
-
-    elif lower_message == '!lft':
-        await message.channel.send(f'See the list of players looking to join a team here: {constants.WEBSITE_DOMAIN}/sol/lft')
-
-    elif lower_message == '!togglelft':
-        await toggle_lft_handler(db, message)
-
-    elif lower_message.startswith('!setlftcolor'): 
-        await set_lft_color_handler(db, message)
-
-    elif lower_message.startswith('!setlfthero'):
-        # !setlfthero index hero
-        await set_lft_hero_handler(db, message)
-
-    elif lower_message.startswith('!updatelft'):
-        await update_lft_handler(db, message)
-
-    elif lower_message == '!bumplft':
-        await bump_lft_handler(db, message)
 
     elif lower_message.startswith('!setleagueteam ') and is_admin:
         # !setleagueteam [user_id] [team name]

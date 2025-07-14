@@ -11,7 +11,6 @@ async def help_handler(message):
     help_embed.add_field(name='!helpteams', value='Show a list of commands related to making teams for community tournaments. (This is not the league commands)', inline=False)
     help_embed.add_field(name='!helpcasino', value='Show a list of commands related to the casino channels.', inline=False)
     help_embed.add_field(name='!helpleague', value='Show a list of commands related to the Spicy Overwatch League.', inline=False)
-    help_embed.add_field(name='!helpLFT', value='Show a list of commands related to looking for a team.', inline=False)
     help_embed.add_field(name='!helpgems', value='Show a list of commands related to gems.', inline=False)
     help_embed.add_field(name='!helpbonus', value='Show a list of bonus commands.', inline=False)
     help_embed.add_field(name='!helpcards', value='Show a list of card commands.', inline=False)
