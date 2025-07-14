@@ -1,6 +1,5 @@
 **USER PROFILE FOR TestUser#1234:**
 Twitch Username: **test_user**
-Tank: ? | DPS: ? | Support: ?
 
 League Team: **<:polar:1173786406238298242> Polar**
 Fan of Team: **<:saturn:1236025870460780654> Saturn**
