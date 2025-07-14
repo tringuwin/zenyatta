@@ -1,6 +1,5 @@
 **USER PROFILE FOR TestUser:**
 Twitch Username: **test_user**
-Rank: [Rank Not Verified]
 
 League Team: **<:olympians:1174062447779385464> Olympians**
 Fan of Team: **<:misfits:1237197162354446336> Misfits**
