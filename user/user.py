@@ -316,20 +316,6 @@ def get_user_for_sale_cards(user):
     
     return []
 
-def get_user_ranks(user):
-
-    if 'ranks' in user:
-        return user['ranks']
-    
-    return copy.deepcopy(constants.DEFAULT_OVERWATCH_RANKS)
-
-def get_user_rivals_rank(user):
-
-    if 'rivals_rank' in user:
-        return user['rivals_rank']
-    
-    return None
-
 def get_user_wlt(user):
 
     if 'wlt' in user:

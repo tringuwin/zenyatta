@@ -109,7 +109,6 @@ from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.call_me import call_me_handler
 from command_handlers.league.first_map import first_map_handler
-from command_handlers.league.lft.rivals_rank import set_rivals_rank
 from command_handlers.league.picks.picks import picks_handler
 from command_handlers.league.score_match import score_match_handler
 from command_handlers.league.sol_week_end import sol_week_end
@@ -553,12 +552,6 @@ async def handle_message(message, db, client):
     elif lower_message == '!store':
         await message.channel.send('Check out the official SOL Merch Store here! https://exclaim.gg/store/spicyow')
 
-    elif lower_message == '!rogue':
-        await message.channel.send('Use this link to save 20% on Rogue Energy products and help support our League! https://rogueenergy.com/discount/Spicy?ref=dmxeauce')
-
-    elif lower_message == '!roguerank':
-        await message.channel.send('Our server is currently ranked **944th** among all Rogue Energy partners.\n\nHelp us reach the top to unlock bigger rewards for our League! Use the command **!rogue** for more details.')
-
     elif lower_message.startswith('!whichteam'):
         await which_team_handler(message)
 
@@ -589,20 +582,8 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!invitedby'):
         await invited_by_handler(db, message)
-
-    elif lower_message == '!verifyranks':
-        final_string = 'Please make a ticket here to show staff a screenshot of your ranks: https://discord.com/channels/1130553449491210442/1202441473027477504/1202442124390440970'
-        final_string += '\n\nSend a screenshot of your career profile that includes both your ranks and battle tag.'
-        await message.channel.send(final_string)
-
     
     # pi-pi chan
-
-    elif lower_message.startswith('!setrank') and is_helper:
-        await set_rank_handler(db, message)
-
-    elif lower_message.startswith('!rivalsrank') and is_helper:
-        await set_rivals_rank(db, message)
 
     elif lower_message == '!leaderboard':
         await message.channel.send('This command is turned off for now as XP is not currently turned on. It may be turned on again in the future.')
