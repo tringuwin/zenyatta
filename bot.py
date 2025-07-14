@@ -611,11 +611,7 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!solweekend' and is_admin:
         await sol_week_end(db, message)
-
-    elif lower_message == '!powerrankings':
-        await message.channel.send('fuck off')
-        #await power_rankings_handler(message, client)
-
+        
     elif lower_message == '!schedule':
         #await message.channel.send('This command is disabled until Season 3 starts on June 1st 2024.')
         await schedule_handler(message, context)

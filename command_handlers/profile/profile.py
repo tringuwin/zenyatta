@@ -1,12 +1,10 @@
 
-from command_handlers.profile.make_rank_string.make_rank_string import make_rank_string
-from command_handlers.profile.make_rivals_rank_string.make_rivals_rank_string import make_rivals_rank_string
+
 from common_messages import not_registered_response
 from exceptions import CommandError
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
-from user.user import get_fan_of_with_context, get_league_team_with_context, get_rival_of_with_context, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_pickaxes, get_user_ranks, get_user_rivals_rank, get_user_tokens, get_user_trophies, user_exists
+from user.user import get_fan_of_with_context, get_league_team_with_context, get_rival_of_with_context, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_pickaxes, get_user_tokens, get_user_trophies, user_exists
 import constants
-
 
 
 def get_team_display_string(team_name):
