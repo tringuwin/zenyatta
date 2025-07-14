@@ -75,8 +75,8 @@ def overwatch_profile(user):
     ranks = get_user_ranks(user)
     
     final_string = "**USER PROFILE FOR "+user['battle_tag']+':**\n'
-    final_string += 'Twitch Username: **'+gen_data['twitch_username']+'**\n'
-    final_string += make_rank_string(ranks)+'\n\n'
+    final_string += 'Twitch Username: **'+gen_data['twitch_username']+'**\n\n'
+    # final_string += make_rank_string(ranks)+'\n\n'
         
     final_string += get_league_team_string(gen_data['league_team'])
     final_string += get_fan_of_string(gen_data['fan_of'])
@@ -96,8 +96,8 @@ def rivals_profile(user):
     gen_data = get_generic_profile_data(user, 'MR')
     
     final_string = "**USER PROFILE FOR "+user['rivals_username']+':**\n'
-    final_string += 'Twitch Username: **'+gen_data['twitch_username']+'**\n'
-    final_string += make_rivals_rank_string(user)+'\n\n'
+    final_string += 'Twitch Username: **'+gen_data['twitch_username']+'**\n\n'
+    # final_string += make_rivals_rank_string(user)+'\n\n'
 
     final_string += get_league_team_string(gen_data['league_team'])
     final_string += get_fan_of_string(gen_data['fan_of'])
