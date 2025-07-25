@@ -322,9 +322,9 @@ TEAM_LIST = ['Olympians', 'Polar', 'Eclipse', 'Saviors', 'Ragu', 'Instigators', 
              'Celestials', 'Saturn', 'Evergreen', 'Misfits', 'Hunters', 'Legion', 'Diamonds', 'Angels', 'Phantoms', 'Sentinels',
              'Lotus', 'Deadlock', 'Horizon', 'Monarchs', 'Aces', 'Mantas', 'Penguins', 'Tsunami']
 
-RIVALS_TEAM_LIST = ['Angels', 'Celestials', 'Deadlock', 'Eclipse', 'Evergreen', 'Fresas', 'Guardians', 'Horizon', 'Hunters', 'Lotus', 'Misfits', 'Monarchs', 'Olympians', 'Phantoms', 'Phoenix', 'Ragu', 'Saturn', 'Saviors']
+RIVALS_TEAM_LIST = ['Angels', 'Celestials', 'Deadlock', 'Evergreen', 'Fresas', 'Guardians', 'Hunters', 'Lotus', 'Misfits','Ragu']
 
-VALORANT_TEAM_LIST = ['Saturn', 'Lotus', 'Deadlock', 'Horizon', 'Saviors', 'Ragu', 'Phoenix', 'Celestials']
+VALORANT_TEAM_LIST = ['Saturn', 'Lotus', 'Deadlock', 'Horizon', 'Saviors', 'Ragu', 'Phoenix', 'Polar']
 
 LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassidy', 'dva', 'doomfist', 'echo', 'genji', 'hanzo', 'illari', 
                         'junker queen', 'junkrat', 'juno', 'kiriko', 'lifeweaver', 'lucio', 'mauga', 'mei', 'mercy', 'moira', 'orisa', 'ramattra', 'reaper', 
