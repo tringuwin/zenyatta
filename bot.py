@@ -1760,6 +1760,7 @@ async def handle_message(message, db, client):
         await drop_alert(client, db, message)
 
     elif lower_message.startswith('!makescheduleplan ') and is_admin:
+        # !makescheduleplan seasonNumber startDay startMonth startYear numWeeks teamBlacklist
         await make_schedule_plan(message, db, context)
 
     elif lower_message == '!addweek' and is_admin:

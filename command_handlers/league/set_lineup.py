@@ -12,7 +12,7 @@ async def set_lineup_handler(db, message, context):
 
     if message.author.id == constants.SPICY_RAGU_ID:
         valid_admin = True
-        team_name = 'Fresas'
+        team_name = 'Ragu'
 
     if not valid_admin:
         await message.channel.send('You are not an admin of a league team.')
