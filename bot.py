@@ -45,7 +45,7 @@ from automation.process_trophy_rewards.process_trophy_rewards import process_tro
 from automation.schedule_plan.add_week.add_week import add_week
 from automation.schedule_plan.make_schedule_plan import make_schedule_plan
 from automation.schedule_plan.schedule_plan_loop.schedule_plan_loop import schedule_plan_loop
-from automation.update_team_avatars import update_overwatch_team_avatars, update_rivals_team_avatars
+from automation.update_team_avatars import update_overwatch_team_avatars, update_rivals_team_avatars, update_valorant_team_avatars
 from automation.update_top_subs_avatars import update_top_subs_avatars
 from card_automation import make_all_cards_from_data, make_all_cards_from_db
 from card_games.automation.clear_expired_battles import clear_expired_battles
@@ -1975,6 +1975,7 @@ async def handle_message(message, db, client):
 
         await update_overwatch_team_avatars(guild, db, message)
         await update_rivals_team_avatars(guild, db, message)
+        await update_valorant_team_avatars(guild, db, message)
 
         await supporter_role_loop(db, message, client)
 
