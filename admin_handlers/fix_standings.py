@@ -16,6 +16,7 @@ def make_blank_standings(teams):
             'losses': 0,
             'map_wins': 0,
             'map_losses': 0,
+            'forfeits': 0,
             'points': 0,
         }
 
@@ -72,10 +73,18 @@ async def fix_standings_handler(db, message, context):
     for matchup in all_matchups_in_season:
         new_standings = apply_matchup_to_standings(new_standings, matchup)
 
+    # apply forfeits to standings
+    forfeits_dict = season_standings.get('forfeits', {})
+
     # Calculate points based on wins and losses
     for team_name in new_standings:
+        
         team = new_standings[team_name]
-        team['points'] = calculate_team_points(team)
+        base_team_points = calculate_team_points(team)
+
+        num_forfeits = forfeits_dict.get(team_name, 0)
+        team['forfeits'] = num_forfeits
+        team['points'] = base_team_points - (num_forfeits * 5)
 
     print('new standings', new_standings)
 

@@ -107,6 +107,7 @@ from command_handlers.help.help_league_admin import help_league_admin_handler
 from command_handlers.invited_by import invited_by_handler
 from command_handlers.leaderboard import leaderboard_handler
 from command_handlers.league.call_me import call_me_handler
+from command_handlers.league.ff_match import ff_match_handler
 from command_handlers.league.first_map import first_map_handler
 from command_handlers.league.picks.picks import picks_handler
 from command_handlers.league.score_match import score_match_handler
@@ -1402,6 +1403,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!scorematch ') and is_admin:
         await score_match_handler(db, message, context)
+
+    elif lower_message.startswith('!ffmatch ') and is_admin:
+        await ff_match_handler(db, message, context)
 
     elif lower_message == '!initmaps' and is_admin:
 
