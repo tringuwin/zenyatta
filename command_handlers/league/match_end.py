@@ -10,7 +10,7 @@ def calculate_team_points(team_data):
     win_total = team_data['wins'] * 10
     map_total = team_data['map_wins'] - team_data['map_losses']
 
-    return win_total + map_total
+    return (win_total + map_total)
 
 
 

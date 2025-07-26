@@ -110,7 +110,8 @@ def make_standings_for_season(context, season_number, teams_for_season):
     return {
         'context': context,
         'season': season_number,
-        'teams': standings_teams
+        'teams': standings_teams,
+        'forfeits': {}
     }
 
 
