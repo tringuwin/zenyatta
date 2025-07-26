@@ -74,7 +74,7 @@ async def fix_standings_handler(db, message, context):
         new_standings = apply_matchup_to_standings(new_standings, matchup)
 
     # apply forfeits to standings
-    forfeits_dict = season_standings['forfeits']
+    forfeits_dict = season_standings.get('forfeits', {})
 
     # Calculate points based on wins and losses
     for team_name in new_standings:
