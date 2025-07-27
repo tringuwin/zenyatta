@@ -47,6 +47,8 @@ async def ff_match_handler(db, message, context):
     else:
         ff_team['forfeits'] = 1
 
+    ff_team['points'] -= 5
+
     standings_teams[ff_team_name] = ff_team
 
     standings.update_one(
