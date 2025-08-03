@@ -664,4 +664,4 @@ TOKEN_SHOP_USD_PRICES = [
 ]
 
 # For auto-mod moderation
-VERY_BAD_WORD_LIST = ['nigger', 'nigga', 'hitler', 'faggot', 'retard', 'beaner', 'chink', 'rape']
+VERY_BAD_WORD_LIST = ['nigger', 'nigga', 'hitler', 'faggot', 'retard', 'beaner', 'chink']
