@@ -1,6 +1,7 @@
 
 import random
 import constants
+from helpers import timeslot_to_day
 
 def make_available_timeslot_dict():
 
@@ -67,7 +68,7 @@ def schedule_matches_with_one_team_preference(matchups, matchups_not_scheduled, 
 
         if one_team_timeslot_preference and available_timeslots[one_team_timeslot_preference]:
             available_timeslots[one_team_timeslot_preference] = False
-            matchups.update_one({"_id": matchup['_id']}, {"$set": {"timeslot": one_team_timeslot_preference}})
+            matchups.update_one({"_id": matchup['_id']}, {"$set": {"timeslot": one_team_timeslot_preference, 'weekday': timeslot_to_day(one_team_timeslot_preference)}})
         else:
             matches_still_not_scheduled.append(matchup)
 
@@ -86,4 +87,4 @@ async def force_scheduling(db, all_matchups):
         random_timeslot = get_random_available_timeslots(available_timeslots)
 
         available_timeslots[random_timeslot] = False
-        matchups.update_one({"_id": matchup['_id']}, {"$set": {"timeslot": random_timeslot}})
+        matchups.update_one({"_id": matchup['_id']}, {"$set": {"timeslot": random_timeslot, 'weekday': timeslot_to_day(random_timeslot)}})

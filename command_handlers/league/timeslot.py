@@ -1,6 +1,7 @@
 
 
 from context.context_helpers import get_league_teams_collection_from_context, get_league_url_from_context, get_team_owners_channel_from_context
+from helpers import timeslot_to_day
 from league import validate_admin
 import constants
 
@@ -83,7 +84,7 @@ async def timeslot_handler(db, message, client, context):
 
     other_team_timeslot = my_matchup['team'+str(other_team_index)+'_timeslot']
     if other_team_timeslot == requested_timeslot:
-        matchups.update_one({'_id': my_matchup['_id']}, {'$set': {'timeslot': requested_timeslot, 'team'+str(my_team_index)+'_timeslot': requested_timeslot}})
+        matchups.update_one({'_id': my_matchup['_id']}, {'$set': {'timeslot': requested_timeslot, 'team'+str(my_team_index)+'_timeslot': requested_timeslot, 'weekday': timeslot_to_day(requested_timeslot)}})
         await message.channel.send('Both teams agreed on the timeslot "'+requested_timeslot+'"!')
         await notify_both_teams_about_timeslot(client, db, my_matchup, requested_timeslot)
         return

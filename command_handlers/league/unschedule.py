@@ -99,7 +99,7 @@ async def unschedule_handler(db, message, client, context):
 
     my_team_index = get_team_index(team_name, my_matchup)
 
-    matchups.update_one({'_id': my_matchup['_id']}, {'$set': {'team'+str(my_team_index)+'_timeslot': 'NONE', 'timeslot': 'NONE', 'added_to_schedule': False}})
+    matchups.update_one({'_id': my_matchup['_id']}, {'$set': {'team'+str(my_team_index)+'_timeslot': 'NONE', 'timeslot': 'NONE', 'added_to_schedule': False, 'weekday': 'NONE'}})
 
     await notify_both_teams_about_unschedule(client, db, my_matchup, team_name)
     await message.channel.send('You have unscheduled your match for this week. Please reschedule it as soon as possible.')

@@ -94,6 +94,7 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
             'team1_timeslot': 'NONE',
             'team2_timeslot': 'NONE',
             'timeslot': 'NONE',
+            'weekday': 'NONE',
             'team1_score': 0,
             'team2_score': 0,
             'left_team': 1,

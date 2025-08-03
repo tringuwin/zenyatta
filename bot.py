@@ -1486,6 +1486,7 @@ async def handle_message(message, db, client):
                 'team1_timeslot': 'NONE',
                 'team2_timeslot': 'NONE',
                 'timeslot': 'NONE',
+                'weekday': 'NONE',
                 'team1_score': 0,
                 'team2_score': 0,
                 'match_over': False,
