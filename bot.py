@@ -351,7 +351,7 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
         
     elif (message.channel.id == constants.CARD_TRADING_CHANNEL) or (message.channel.id == constants.PACK_OPEN_CHANNEL):
 
-        if lower_message.find('card') != -1 or lower_message.find('pack') != -1 or lower_message.find('token') != -1 or lower_message.find('donate') != -1 or lower_message.find('gallery') != -1:
+        if lower_message.find('card') != -1 or lower_message.find('pack') != -1 or lower_message.find('token') != -1 or lower_message.find('donate') != -1:
             return True, None
         
     elif (message.channel.id == constants.OPENING_DROPS_CHANNEL):
@@ -1272,8 +1272,8 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!registerrole') and is_admin:
         await register_role(db, message)
 
-    elif lower_message == '!gallery':
-        await message.channel.send(f'Check out the full SOL Card Gallery here: {constants.WEBSITE_DOMAIN}/sol/gallery')
+    # elif lower_message == '!gallery':
+    #     await message.channel.send(f'Check out the full SOL Card Gallery here: {constants.WEBSITE_DOMAIN}/sol/gallery')
 
     elif lower_message == '!openpack':
         await open_pack_handler(db, message)
