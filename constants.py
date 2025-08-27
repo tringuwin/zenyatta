@@ -220,8 +220,8 @@ TEAM_NAME_TO_EMOJI_EMBED_STRING = {
     'Monarchs': '<:monarchs:1305323035611631616>',
     'Aces': '<:aces:1348420990023241769>',
     'Mantas': '<:mantas:1348446040927371304>',
-    'Penguins': '<:spicyesports:1344813172342788177>',
-    'Tsunami': '<:spicyesports:1344813172342788177>'
+    'Penguins': '<:penguins:1408887466575925421>',
+    'Tsunami': '<:tsunami:1408887492123561994>'
 }
 
 DEFAULT_TEAM_EMOJI = '<:solwhite:1278858168826593312>'

@@ -61,8 +61,8 @@ TEAM_NAME_TO_TEAM_COLOR = {
     'Monarchs': discord.Colour(0x955d01),
     'Aces': discord.Colour(0xA2A2A2),
     'Mantas': discord.Colour(0x00476a),
-    'Penguins': discord.Colour(0xeb8d00),
-    'Tsunami': discord.Colour(0x1e6ea0),
+    'Penguins': discord.Colour(0xf7961d),
+    'Tsunami': discord.Colour(0x1b6fa2),
 }
 
 def get_team_color_by_name(team_name):
@@ -99,7 +99,9 @@ TEAM_NAME_TO_TEAM_LOGO = {
     'Horizon': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1731283566/Horizon_lseweb.png',
     'Monarchs': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1731283566/Monarchs_zfeaxw.png',
     'Aces': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1741559142/Aces_fyerrj.png',
-    'Mantas': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1741564906/Mantas_muwpwd.png'
+    'Mantas': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1741564906/Mantas_muwpwd.png',
+    'Penguins': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1756256399/Penguins_j8xoep.png',
+    'Tsunami': 'https://res.cloudinary.com/dc8euoeya/image/upload/v1756256399/Tsunami_yuz1by.png',
 }
 
 DEFAULT_TEAM_LOGO_URL = 'https://res.cloudinary.com/dc8euoeya/image/upload/v1740178566/Spicy_Default_pk1yu8.png'
