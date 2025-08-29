@@ -166,7 +166,7 @@ def make_member_game_id(db, member, context):
                 raise Exception('Could not find a battle tag for user with id '+str(member['discord_id']))
         elif context == 'VL':
             try:
-                member_id = user['riot_id'].split('#')[0]
+                member_id = user['riot_id']
             except Exception as e:
                 raise Exception('Could not find a riot id for user with id '+str(member['discord_id']))
         else:
