@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-VERSION = '1.11.39'
+VERSION = '1.11.40'
 
 OPEN_AI_TOKEN = os.getenv("OPEN_AI_TOKEN")
 MONGO_URI = os.getenv("MONGO_URI")
@@ -154,6 +154,10 @@ SECONDS_IN_A_WEEK = 604800
 ALL_LEAGUE_CONTEXTS = {
     'OW', 'MR', 'VL'
 }
+
+ALLOWED_ANYWHERE_COMMANDS = {'!p', '!hello', '!pingteam', '!gg ez', '!setlineup'}
+ALLOWED_ANYWHERE_PREFIXES = ['!help', '!whichteam']
+
 
 DEFAULT_GEMS = {
     'red': 0,
