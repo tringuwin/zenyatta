@@ -296,7 +296,9 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     if is_helper or is_push_bot or is_tourney_admin:
         return True, None
     
-    if lower_message == '!p' or lower_message == '!hello' or lower_message == '!pingteam' or lower_message == '!gg ez' or lower_message.startswith('!help') or lower_message.startswith('!whichteam') or lower_message == '!setlineup':
+    allowed_exact_commands = {'!p', '!hello', '!pingteam', '!gg ez', '!setlineup'}
+    allowed_prefixes = ['!help', '!whichteam']
+    if lower_message in allowed_exact_commands or any(lower_message.startswith(prefix) for prefix in allowed_prefixes):
         return True, None
 
     if is_bot_commands_channel(message.channel):
