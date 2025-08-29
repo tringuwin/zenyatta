@@ -295,10 +295,8 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
 
     if is_helper or is_push_bot or is_tourney_admin:
         return True, None
-    
-    allowed_exact_commands = {'!p', '!hello', '!pingteam', '!gg ez', '!setlineup'}
-    allowed_prefixes = ['!help', '!whichteam']
-    if lower_message in allowed_exact_commands or any(lower_message.startswith(prefix) for prefix in allowed_prefixes):
+
+    if lower_message in constants.ALLOWED_ANYWHERE_COMMANDS or any(lower_message.startswith(prefix) for prefix in constants.ALLOWED_ANYWHERE_PREFIXES):
         return True, None
 
     if is_bot_commands_channel(message.channel):
