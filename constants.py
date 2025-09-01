@@ -258,7 +258,7 @@ MAP_NAME_TO_IMAGE = {
 
     # Flashpoint
     'New Junk City': 'https://i.postimg.cc/C1sMgxPT/New-Junk-City.webp',
-    'Survasa': 'https://i.postimg.cc/hv4DPR6J/Survasa.webp',
+    'Suravasa': 'https://i.postimg.cc/hv4DPR6J/Survasa.webp',
 
     # Hybrid
     'Blizzard World': 'https://i.postimg.cc/pdDRfdth/Blizzard-World.webp',
@@ -302,7 +302,7 @@ MAP_NAME_TO_NAME_IMG = {
 
     # Flashpoint
     'New Junk City': 'https://i.postimg.cc/3NpqdkgR/New-Junk-City.png',
-    'Survasa': 'https://i.postimg.cc/9XqKxnvh/Survasa.png',
+    'Suravasa': 'https://i.postimg.cc/9XqKxnvh/Survasa.png',
 
     # Hybrid
     'Blizzard World': 'https://i.postimg.cc/T2rQ5Mzp/Blizzard-World.png',

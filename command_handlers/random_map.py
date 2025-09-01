@@ -38,7 +38,7 @@ OVERWATCH_MAPS = [
     ],
     [ # Flashpoint
         'New Junk City',
-        'Survasa'
+        'Suravasa'
     ],
     # [ # Clash
     #     'Hanaoka',
