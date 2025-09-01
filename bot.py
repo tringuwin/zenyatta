@@ -319,12 +319,12 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     # Open Pack Command
     elif lower_message.startswith('!openpack'):
         if message.channel.id != constants.PACK_OPEN_CHANNEL:
-            return False, 'Please only open packs in the openening packs channel: https://discord.com/channels/1130553449491210442/1233596350306713600'
+            return False, 'Please only open packs in the packs opening channel: https://discord.com/channels/1130553449491210442/1233596350306713600'
 
     # Open Drop Command
     elif lower_message.startswith('!opendrop'):
         if message.channel.id != constants.OPENING_DROPS_CHANNEL:
-            return False, 'Please only open drops in the opening drops channel: https://discord.com/channels/1130553449491210442/1332055598057001021'
+            return False, 'Please only open drops in the drops opening channel: https://discord.com/channels/1130553449491210442/1332055598057001021'
     
     return True, None
 
