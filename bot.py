@@ -296,73 +296,37 @@ def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_
     if is_helper or is_push_bot or is_tourney_admin:
         return True, None
 
-    if lower_message in constants.ALLOWED_ANYWHERE_COMMANDS or any(lower_message.startswith(prefix) for prefix in constants.ALLOWED_ANYWHERE_PREFIXES):
-        return True, None
-
-    if is_bot_commands_channel(message.channel):
-
-        if lower_message.startswith('!wager'):
+    # Wager Command
+    if lower_message.startswith('!wager'):
+        if message.channel.id != constants.ROULETTE_CHANNEL:
             return False, 'Please only use the wager command in the Roulette Channel.'
-        elif lower_message.startswith('!blackjack'):
+
+    # Blackjack Command
+    elif lower_message.startswith('!blackjack'):
+        if message.channel.id != constants.BLACKJACK_CHANNEL:
             return False, 'Please only use the blackjack command in the Blackjack Channel.'
-        elif lower_message.startswith('!mine'):
+
+    # Mine Command
+    elif lower_message.startswith('!mine'):
+        if message.channel.id != constants.MINE_CHANNEL:
             return False, 'Please only use the mine command in the Mineshaft Channel.'
-        elif lower_message.startswith('!openpack'):
-            return False, 'Please only open packs in the openening packs channel: https://discord.com/channels/1130553449491210442/1233596350306713600'
-        elif lower_message.startswith('!opendrop'):
-            return False, 'Please only open drops in the opening drops channel: https://discord.com/channels/1130553449491210442/1332055598057001021'
-        else:
-            return True, None
-        
-    elif message.channel.id == constants.CASINO_CHANNEL:
 
-        if lower_message.startswith('!wager') or lower_message.startswith('!tokens') or lower_message.startswith('!help'):
-            return True, None
-        else:
-            return False, 'Only these commands are allowed in the Roulette Channel: !wager, !tokens, !helpcasino, !help'
-        
-    elif message.channel.id == constants.BLACKJACK_CHANNEL:
+    # RPS Command
+    elif lower_message.startswith('!rps'):
+        if message.channel.id != constants.RPS_CHANNEL:
+            return False, 'Please only use the rps command in the RPS Channel.'
 
-        if lower_message.startswith('!blackjack') or lower_message.startswith('!tokens') or lower_message.startswith('!help'):
-            return True, None
-        else:
-            return False, 'Only these commands are allowed in the Blackjack Channel: !blackjack, !tokens, !helpcasino'
-        
-    elif message.channel.id == constants.MINE_CHANNEL:
+    # Open Pack Command
+    elif lower_message.startswith('!openpack'):
+        if message.channel.id != constants.PACK_OPEN_CHANNEL:
+            return False, 'Please only open packs in the packs opening channel: https://discord.com/channels/1130553449491210442/1233596350306713600'
 
-        if lower_message.startswith('!mine') or lower_message.startswith('!tokens') or lower_message.startswith('!pickaxes') or lower_message.startswith('!gems') or lower_message.startswith('!sellgems') or lower_message.startswith('!tradegemset') or lower_message.startswith('!help'):
-            return True, None
-        else:
-            return False, 'Only these commands are allowed in the Mineshaft Channel: !mine, !tokens, !pickaxes, !gems, !helpcasino'
-        
-    elif message.channel.id == constants.RPS_CHANNEL:
-
-        if lower_message.startswith('!rps') or lower_message.startswith('!tokens') or lower_message.startswith('!help'):
-            return True, None
-        else:
-            return False, 'Only these commands are allowed in the RPS Channel: !rps, !tokens, !helpcasino'
-        
-    elif message.channel.id == constants.GEM_TRADING_CHANNEL:
-
-        if lower_message.startswith('!help') or lower_message.find('gem') != -1:
-            return True, None
-        else:
-            return False, 'Only gem related commands are allowed in the Gem Trading channel.'
-        
-    elif (message.channel.id == constants.CARD_TRADING_CHANNEL) or (message.channel.id == constants.PACK_OPEN_CHANNEL):
-
-        if lower_message.find('card') != -1 or lower_message.find('pack') != -1 or lower_message.find('token') != -1 or lower_message.find('donate') != -1:
-            return True, None
-        
-    elif (message.channel.id == constants.OPENING_DROPS_CHANNEL):
-        if lower_message.find('drop') != -1:
-            return True, None
-        
-    elif (message.channel.id == constants.TEAM_OWNERS_CHANNEL or message.channel.id == constants.RIVALS_TEAM_OWNERS_CHANNEL):
-        if lower_message.startswith('!setlineup') or lower_message.startswith('!timeslot') or lower_message.startswith('!unschedule'):
-            return True, None
+    # Open Drop Command
+    elif lower_message.startswith('!opendrop'):
+        if message.channel.id != constants.OPENING_DROPS_CHANNEL:
+            return False, 'Please only open drops in the drops opening channel: https://discord.com/channels/1130553449491210442/1332055598057001021'
     
-    return False, 'Please only use commands in a valid channel'
+    return True, None
 
 
 
