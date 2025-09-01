@@ -260,7 +260,7 @@ MAP_NAME_TO_IMAGE = {
     'New Junk City': 'https://i.postimg.cc/C1sMgxPT/New-Junk-City.webp',
     'Suravasa': 'https://i.postimg.cc/hv4DPR6J/Survasa.webp',
 
-    # Hybrida
+    # Hybrid
     'Blizzard World': 'https://i.postimg.cc/pdDRfdth/Blizzard-World.webp',
     'Eichenwalde': 'https://i.postimg.cc/90f2HtwZ/Eichenwalde.webp',
     'Hollywood': 'https://i.postimg.cc/9f3cw7sH/Hollywood.webp',
