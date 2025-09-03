@@ -376,7 +376,7 @@ async def handle_message(message, db, client):
             await message.author.ban(delete_message_days=7)
             guild = await get_guild(client)
             mods_channel = guild.get_channel(constants.MODS_CHANNEL)
-            await mods_channel.send('BAN REPORT: User "'+banned_name+'" was banned for sending links twice without Image Permission. Please review the logs and check if this ban was correct. Revoke the ban if the user was not enaging in harmful activity. Message: '+message.content)
+            await mods_channel.send('BAN REPORT: User "'+banned_name+'" was banned for sending links twice without Image Permission. Please review the logs and check if this ban was correct. Revoke the ban if the user was not engaging in harmful activity. Message: '+message.content)
             return
         else:
             # add to warnings array
