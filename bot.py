@@ -344,9 +344,9 @@ async def handle_message(message, db, client):
     has_bad_word = bad_word_checker(message.content)
     if has_bad_word:
         guild = await get_guild(client)
-        helpers_channel = guild.get_channel(constants.HELPERS_CHANNEL)
+        mods_channel = guild.get_channel(constants.MODS_CHANNEL)
         await message.author.timeout(timedelta(days=7))
-        await helpers_channel.send(message.author.name+' was timed out for saying **'+message.content+'**\n\nPlease verify if this timeout was correct and take action on it.')
+        await mods_channel.send(message.author.name+' was timed out for saying **'+message.content+'**\n\nPlease verify if this timeout was correct and take action on it.')
         await message.delete()
         return
 
@@ -375,8 +375,8 @@ async def handle_message(message, db, client):
             banned_name = message.author.name
             await message.author.ban(delete_message_days=7)
             guild = await get_guild(client)
-            helpers_channel = guild.get_channel(constants.HELPERS_CHANNEL)
-            await helpers_channel.send('BAN REPORT: User "'+banned_name+'" was banned for sending links twice without Image Permission. Please review the logs and check if this ban was correct. Revoke the ban if the user was not enaging in harmful activity.')
+            mods_channel = guild.get_channel(constants.MODS_CHANNEL)
+            await mods_channel.send('BAN REPORT: User "'+banned_name+'" was banned for sending links twice without Image Permission. Please review the logs and check if this ban was correct. Revoke the ban if the user was not enaging in harmful activity. Message: '+message.content)
             return
         else:
             # add to warnings array
@@ -384,8 +384,8 @@ async def handle_message(message, db, client):
             warned_users.append(message.author.id)
             db_constants.update_one({"name": 'warnings'}, {"$set": {"value": warned_users}})
             guild = await get_guild(client)
-            helpers_channel = guild.get_channel(constants.HELPERS_CHANNEL)
-            await helpers_channel.send('WARN REPORT: User "'+message.author.name+'" was *warned* for sending a link without Image Permission. Please review the logs and check if what they sent was allowed. If it was allowed, please give them image perms immediately to prevent them from being accidently banned.')
+            mods_channel = guild.get_channel(constants.MODS_CHANNEL)
+            await mods_channel.send('WARN REPORT: User "'+message.author.name+'" was *warned* for sending a link without Image Permission. Please review the logs and check if what they sent was allowed. If it was allowed, please give them image perms immediately to prevent them from being accidently banned. Message: '+message.content)
             return
 
     is_command = len(user_message) > 0 and (user_message[0] == '!')
