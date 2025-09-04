@@ -1,6 +1,7 @@
 import asyncio
 import random
 import time
+from admin_handlers.slowmode import slowmode_handler
 import discord
 import aiohttp
 import uuid
@@ -1082,6 +1083,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!funding') and is_admin:
         await funding_handler(db, message, client)
+
+    elif lower_message.startswith('!slowmode ') and is_tier_3_mod:
+        await slowmode_handler(message)
 
     elif lower_message.startswith('!testcardmatch') and is_admin:
         
