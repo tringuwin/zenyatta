@@ -352,11 +352,11 @@ async def handle_message(message, db, client):
 
     user_message = str(message.content)
     is_admin = (message.author.id == constants.SPICY_RAGU_ID or message.author.id == 979526718186459206)
+    is_tier_3_mod = (not message.author.bot) and member_has_role(message.author, constants.TIER_3_MOD_ROLE_ID)
     is_helper = (not message.author.bot) and member_has_role(message.author, constants.HELPER_ROLE_ID)
     is_xp_helper = (not message.author.bot) and member_has_role(message.author, constants.XP_HELPER_ROLE_ID)
     is_cp_helper = (not message.author.bot) and member_has_role(message.author, constants.CHANNEL_POINTS_ROLE_ID)
     is_tp_helper = (not message.author.bot) and member_has_role(message.author, constants.TWITCH_PACKS_ROLE_ID)
-    is_league_commands_user = (not message.author.bot) and member_has_role(message.author, constants.LEAGUE_COMMANDS_PERMS_ROLE)
     is_tourney_admin = (not message.author.bot) and member_has_role(message.author, constants.TOURNEY_COMMANDS_PERMS_ROLE)
     is_state_captain = (not message.author.bot) and member_has_role(message.author, constants.STATE_CAPTAIN_ROLE)
     has_image_perms = message.author.bot or member_has_role(message.author, constants.IMAGE_PERMS_ROLE)
@@ -693,7 +693,7 @@ async def handle_message(message, db, client):
         
         await message.channel.send('All teams have been reset to have no players in their lineup.')
 
-    elif lower_message.startswith('!changeteamowner') and is_league_commands_user:
+    elif lower_message.startswith('!changeteamowner') and is_tier_3_mod:
         # !changeteamowner @player team name
         await change_team_owner_handler(client, db, message, context)
 
@@ -1071,7 +1071,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!forceleagueremove') and is_admin:
         await force_league_remove_handler(db, message, client)
 
-    elif lower_message.startswith('!forceleagueadd') and is_league_commands_user:
+    elif lower_message.startswith('!forceleagueadd') and is_tier_3_mod:
         await force_league_add_handler(db, message, client, context)
 
     elif lower_message.startswith('!wipeteam ') and is_admin:
