@@ -1072,7 +1072,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!forceleagueremove') and is_admin:
         await force_league_remove_handler(db, message, client)
 
-    elif lower_message.startswith('!forceleagueadd') and is_league_commands_user:
+    elif lower_message.startswith('!forceleagueadd') and is_tier_3_mod:
         await force_league_add_handler(db, message, client, context)
 
     elif lower_message.startswith('!wipeteam ') and is_admin:
