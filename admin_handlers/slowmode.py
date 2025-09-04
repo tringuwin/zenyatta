@@ -16,10 +16,12 @@ async def slowmode_handler(message):
         await message.channel.send(f'Slowmode must be a number of seconds.')
         return
     
+    slowmode_seconds = int(slowmode_seconds)
 
     if not (0 <= slowmode_seconds <= 21600):
         await message.channel.send('Slowmode must be between 0 and 21600 seconds (6 hours).')
         return
+    
     await message.channel.edit(slowmode_delay=slowmode_seconds)
 
     await message.channel.send(f'Slowmode set to {slowmode_seconds} seconds.')
