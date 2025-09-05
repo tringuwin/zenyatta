@@ -1091,22 +1091,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!free ') and is_tier_3_mod:
         await free_handler(message)
 
-    elif lower_message == '!secretkeypatch' and is_admin:
-        
-        matchups = db['matchups']
-        all_matchups = matchups.find()
-        for matchup in all_matchups:
-            new_secret_key = str(uuid.uuid4())
-            matchups.update_one({'matchup_id': matchup['matchup_id']}, {'$set': {'secret_key': new_secret_key}})
-
-        matchup_history = db['matchup_history']
-        all_matchup_history = matchup_history.find()
-        for matchup in all_matchup_history:
-            new_secret_key = str(uuid.uuid4())
-            matchup_history.update_one({'matchup_id': matchup['matchup_id']}, {'$set': {'secret_key': new_secret_key}})
-
-        await message.channel.send('All matchups and matchup history entries have had their secret keys reset.')
-
     elif lower_message.startswith('!testcardmatch') and is_admin:
         
         player1_card_ids = ['12-S', '20-S', '154-S', '194-S', '222-S']
