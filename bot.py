@@ -1091,7 +1091,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!free ') and is_tier_3_mod:
         await free_handler(message)
 
-    elif lower_message.startswith('!secretkeypatch ') and is_admin:
+    elif lower_message == '!secretkeypatch' and is_admin:
         
         matchups = db['matchups']
         all_matchups = matchups.find()
