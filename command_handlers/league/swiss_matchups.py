@@ -86,6 +86,7 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
     for matchup in pairings:
         new_matchup = {
             'matchup_id': str(uuid.uuid4()),
+            'secret_key': str(uuid.uuid4()),
             'context': context,
             'season': season,
             'week': week,
