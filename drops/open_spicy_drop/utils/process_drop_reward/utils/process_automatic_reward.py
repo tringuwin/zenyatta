@@ -27,10 +27,5 @@ async def process_automatic_reward(db, user, reward_info):
         user_gems[gem_color] += amount
         users.update_one({'discord_id': user['discord_id']}, {'$set': {'gems': user_gems}})
 
-    elif reward_type == 'RAFFLE_TICKET':
-        user_spicy_tickets = get_user_spicy_tickets(user)
-        users = db['users']
-        users.update_one({'discord_id': user['discord_id']}, {'$set': {'spicy_tickets': user_spicy_tickets + amount}})
-
     else:
         raise Exception('Could not automatically handle reward of type: '+reward_type)
