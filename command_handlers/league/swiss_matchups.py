@@ -111,6 +111,10 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
                 'casting_channel_id': 0,
                 'stream_message_id': 0,
             },
+            'crew_record': {
+                'casters': [],
+                'admins': [],
+            },
             'first_map': get_random_map(context),
         }
         matchups.insert_one(new_matchup)
