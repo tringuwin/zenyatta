@@ -1324,19 +1324,23 @@ async def handle_message(message, db, client):
     elif lower_message == '!initstandings' and is_admin:
         await init_standings(db, message)
 
-    elif lower_message == '!standingsmappatch' and is_admin:
+    elif lower_message == '!removeticketspatch' and is_admin:
 
-        standings = db['standings']
-        s4 = standings.find_one({'season': 4})
+        users = db['users']
+        all_users = users.find()
+        users_affected = 0
 
-        for team_name in s4['teams']:
-            team = s4['teams'][team_name]
-            team.append(0)
-            s4['teams'][team_name] == team
+        for user in all_users:
+            if 'spicy_tickets' in user:
 
-        standings.update_one({'season': 4}, {'$set': {'teams': s4['teams']}})
-        
-        await message.channel.send('patched')
+                num_tickets = user['spicy_tickets']
+                num_tokens = user['tokens']
+                tokens_to_give = num_tickets * 20
+
+                users.update_one({'discord_id': user['discord_id']}, {'$set': {'spicy_tickets': 0, 'tokens': num_tokens + tokens_to_give}})
+                users_affected += 1
+
+        await message.channel.send(f'All tickets have been removed from all users. {users_affected} users were affected.')
 
     elif lower_message == '!initauction' and is_admin:
 
