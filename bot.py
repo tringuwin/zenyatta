@@ -191,7 +191,6 @@ from command_handlers.revive import revive_handler
 from command_handlers.rp import rp_handler
 from command_handlers.slime import slime_handler
 from command_handlers.team_page import team_page_handler
-from command_handlers.tickets import tickets_handler
 from command_handlers.top_100 import top_100_handler
 from command_handlers.twitch import twitch_handler
 from command_handlers.twitch_api.end_pred import end_pred
@@ -486,9 +485,6 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!pickaxes':
         await output_pickaxes(db, message)
-
-    elif lower_message == '!tickets':
-        await tickets_handler(db, message)
 
     elif lower_message == '!sellpickaxe':
         await sell_pickaxe_for_tokens(db, message)
