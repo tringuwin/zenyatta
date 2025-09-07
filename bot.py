@@ -1881,19 +1881,14 @@ async def handle_message(message, db, client):
     elif lower_message == '!crewrecordpatch' and is_admin:
 
         matchups = db['matchups']
-        all_matchups = matchups.find()
 
         base_crew_record = {
             'casters': [],
             'admins': [],
         }
 
-        total_matchups_edited = 0
-
-        for matchup in all_matchups:
-            matchups.update_one({'_id': matchup['_id']}, {'$set': {'crew_record': base_crew_record}})
-            total_matchups_edited += 1
-
+        result = matchups.update_many({}, {'$set': {'crew_record': base_crew_record}})
+        total_matchups_edited = result.modified_count
         await message.channel.send('Crew record patch complete. Edited '+str(total_matchups_edited)+' matchups.')
 
     elif lower_message == 'check long' and is_push_bot:
