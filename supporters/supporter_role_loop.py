@@ -2,6 +2,7 @@
 from api import get_member, give_role
 import constants
 from discord_actions import get_guild, get_role_by_id
+from safe_send import safe_send
 
 
 def user_has_custom_role(custom_roles, user_id):
@@ -55,7 +56,7 @@ async def supporter_role_loop(db, message, client):
     custom_roles = db['custom_roles']
     for supporter_id in supporter_users:
         if not user_has_custom_role(custom_roles, supporter_id):
-            await message.channel.send('user with id '+str(supporter_id)+' does not have a custom role')
+            await safe_send(message.channel, 'user with id '+str(supporter_id)+' does not have a custom role')
             await assign_custom_role(client, guild, custom_roles, supporter_id)
 
     # take custom roles from users who are no longer subscribed

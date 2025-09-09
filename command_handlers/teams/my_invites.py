@@ -1,5 +1,6 @@
 
 from common_messages import not_registered_response
+from safe_send import safe_send
 from user.user import get_user_invites, user_exists
 
 
@@ -17,8 +18,8 @@ async def my_invites_handler(db, message):
         team_index = 1
         for invite in invites:
             final_string += str(team_index)+'. '+invite+'\n'
-        await message.channel.send(final_string)
+        await safe_send(message.channel, final_string)
     else:
-        await message.channel.send('You have no team invites.')
+        await safe_send(message.channel, 'You have no team invites.')
 
     

@@ -2,6 +2,7 @@
 from openai import OpenAI
 
 from constants import BOT_ID, OPEN_AI_TOKEN
+from safe_send import safe_reply
 
 try:
     client = OpenAI(api_key=OPEN_AI_TOKEN)
@@ -38,9 +39,4 @@ async def savage_scovi(message):
 
     response = get_completion(prompt)
 
-    # remove any accidental pings
-    response = response.replace('@', '(at)')
-    response = response.replace('everyone', 'every one')
-    response = response.replace('/', '')
-
-    await message.reply(response)
+    await safe_reply(message, response)

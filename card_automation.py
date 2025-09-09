@@ -2,6 +2,7 @@ import time
 from card_games.get_gem_preferences import get_gem_preferences
 from cards import init_card
 from helpers import get_constant_value
+from safe_send import safe_send
 
 
 async def make_all_cards_from_data(db, message, client):
@@ -30,7 +31,7 @@ async def make_all_cards_from_data(db, message, client):
             display_cards.insert_one(new_obj)
             print(new_obj)
 
-            await message.channel.send('New card added with ID of **'+str(new_id)+'**')
+            await safe_send(message.channel, 'New card added with ID of **'+str(new_id)+'**')
 
             time.sleep(1)
 
@@ -38,7 +39,7 @@ async def make_all_cards_from_data(db, message, client):
 
             time.sleep(1)
 
-    await message.channel.send('all them cards done boss')
+    await safe_send(message.channel, 'all them cards done boss')
 
 
 
@@ -71,7 +72,7 @@ async def make_all_cards_from_db(db, message):
             display_cards.insert_one(new_obj)
             print(new_obj)
 
-            await message.channel.send('New card added with ID of **'+str(new_id)+'**')
+            await safe_send(message.channel, 'New card added with ID of **'+str(new_id)+'**')
 
             time.sleep(1)
 
@@ -79,4 +80,4 @@ async def make_all_cards_from_db(db, message):
 
             time.sleep(1)
 
-    await message.channel.send('all them cards done boss')
+    await safe_send(message.channel, 'all them cards done boss')

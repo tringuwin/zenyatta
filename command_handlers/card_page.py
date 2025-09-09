@@ -2,6 +2,7 @@
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, valid_number_of_params
 import constants
+from safe_send import safe_reply
 
 async def card_page(db, message):
 
@@ -21,5 +22,5 @@ async def card_page(db, message):
     if not display_card:
         await message.channel.send('There is no card with the ID: '+str(card_id))
         return
-    
-    await message.reply(f'Check out this page to see who owns each variant of this card:\n\n{constants.WEBSITE_DOMAIN}/sol/card/'+str(card_id))
+
+    await safe_reply(message, f'Check out this page to see who owns each variant of this card:\n\n{constants.WEBSITE_DOMAIN}/sol/card/'+str(card_id))

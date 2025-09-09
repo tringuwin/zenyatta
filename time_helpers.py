@@ -5,6 +5,7 @@ import pytz
 
 from discord_actions import get_guild
 from helpers import get_constant_value
+from safe_send import safe_send
 from server_level import level_to_prize_money, level_to_token_shop_cash
 from shop import update_shop
 
@@ -165,13 +166,13 @@ def is_after_noon_est():
 
 async def check_weekly(client, db, channel, message):
 
-    await channel.send('Prizes disabled until further notice.')
+    await safe_send(channel, 'Prizes disabled until further notice.')
     return
 
     week_passed = been_a_week(db)
 
     if not week_passed:
-        await channel.send('Has not been a week for prize money constant')
+        await safe_send(channel, 'Has not been a week for prize money constant')
         return
     
     # get the full amount of money
@@ -197,7 +198,7 @@ async def check_weekly(client, db, channel, message):
     if prize_money > 0:
         constants_db.update_one({"name": 'prize_money'}, {"$set": {"value": int(prize_money+old_money)}})
 
-    await channel.send('Prize money added to total!')
+    await safe_send(channel, 'Prize money added to total!')
 
     # token shop refill
 
@@ -245,10 +246,9 @@ async def check_weekly(client, db, channel, message):
             users.update_one({"discord_id": user['discord_id']}, {"$set": {"last_token_shop": 0}})
 
     # confirmation message
-    await channel.send('Successfully re-stocked token shop!')
+    await safe_send(channel, 'Successfully re-stocked token shop!')
 
     guild = await get_guild(client)
     announcements_channel = guild.get_channel(constants.ANNOUNCEMENTS_CHANNEL_ID)
-    await announcements_channel.send('<@&1246634634259857459> THE TOKEN SHOP HAS BEEN RE-STOCKED! <#1187062494561325056>')
-
+    await safe_send(announcements_channel, '<@&1246634634259857459> THE TOKEN SHOP HAS BEEN RE-STOCKED! <#1187062494561325056>')
 

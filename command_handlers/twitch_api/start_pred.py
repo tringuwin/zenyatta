@@ -3,6 +3,7 @@ import requests
 from command_handlers.twitch_api.twitch_helpers import get_broadcaster_id_from_channel, get_client_id, get_twitch_constant_name_from_channel, get_twitch_token, is_valid_channel
 from helpers import can_be_int, set_constant_value, valid_number_of_params
 import constants
+from safe_send import safe_reply, safe_send
 
 
 
@@ -32,7 +33,7 @@ async def start_pred(db, message):
 
     valid_params, params = valid_number_of_params(message, 5)
     if not valid_params:
-        await message.reply('The command was not formatted correctly. There can only be two options and each option must be one word. The last part is how many minutes it will be open. Example: **!startpred main Polar Olympians 10**')
+        await safe_reply(message, 'The command was not formatted correctly. There can only be two options and each option must be one word. The last part is how many minutes it will be open. Example: **!startpred main Polar Olympians 10**')
         return
 
     channel = params[1]
@@ -42,11 +43,11 @@ async def start_pred(db, message):
     minutes = params[4]
 
     if not is_valid_channel(channel_lower):
-        await message.channel.send(channel+' is not a valid channel name. It must be either main, second or third.')
+        await safe_send(message.channel, channel+' is not a valid channel name. It must be either main, second or third.')
         return
 
     if not can_be_int(minutes):
-        await message.channel.send(minutes+' is not a number.')
+        await safe_send(message.channel, minutes+' is not a number.')
         return
     minutes = int(minutes)
     seconds = minutes * 60
@@ -83,10 +84,10 @@ async def start_pred(db, message):
             constant_name = get_twitch_constant_name_from_channel(channel_lower)
             set_constant_value(db, constant_name, save_object)
         else:
-            await message.channel.send('Command failed with error: '+twitch_json['message'])
+            await safe_send(message.channel, 'Command failed with error: '+twitch_json['message'])
             return
 
-    await message.channel.send('Started prediction.')
+    await safe_send(message.channel, 'Started prediction.')
 
 
 

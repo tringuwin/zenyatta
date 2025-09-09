@@ -2,6 +2,7 @@
 import discord
 from discord_actions import get_guild
 from helpers import is_valid_hex_code, make_string_from_word_list, valid_number_of_params
+from safe_send import safe_reply
 
 
 async def role_color(client, db, message):
@@ -14,7 +15,7 @@ async def role_color(client, db, message):
 
         no_role_message = 'You do not currently have a custom role assigned. You can get a custom role by subscribing to this discord. (Check our server shop for more info)'
         no_role_message +='\n\n*If you subscribed to this discord but do not have a role yet, it can take up to 20 minutes. If it takes longer, please contact staff*'
-        await message.reply(no_role_message)
+        await safe_reply(message, no_role_message)
         return
     
     valid_params, params = valid_number_of_params(message, 2)

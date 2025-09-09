@@ -6,6 +6,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_username_by_user_id
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_packs, change_tokens
+from safe_send import safe_send
 from user.user import get_total_cards, get_user_battle_cards, get_user_cards, get_user_packs, get_user_tokens, user_exists, get_user_for_sale_cards
 import random
 import constants
@@ -92,7 +93,7 @@ async def cards_handler(db, message):
     user_for_sale_cards = get_user_for_sale_cards(user)
 
     if len(user_cards) + len(battle_cards) + len(user_for_sale_cards) == 0:
-        await message.channel.send('You do not have any cards at the moment... Open packs to get cards!')
+        await safe_send(message.channel, 'You do not have any cards at the moment... Open packs to get cards!')
         return
 
     # display_card = user_cards[0]
@@ -144,10 +145,10 @@ async def cards_handler(db, message):
         final_string += '\n'+comma_separated_string
 
     if len(final_string) > 2000:
-        await message.channel.send('Sorry, you have too many cards to use this command! Try the command **!allcards** instead.')
+        await safe_send(message.channel, 'Sorry, you have too many cards to use this command! Try the command **!allcards** instead.')
         return
 
-    await message.channel.send(final_string)
+    await safe_send(message.channel, final_string)
 
 
 def add_card_to_database():
@@ -174,11 +175,11 @@ async def init_card(message, db, card_id):
 
     card_info = get_card_data_by_id(db, int(card_id))
     if not card_info:
-        await message.channel.send('I did not find a card with that ID.')
+        await safe_send(message.channel, 'I did not find a card with that ID.')
         return
     
     if ('custom' in card_info) and card_info['custom']:
-        await message.channel.send('This card is flagged as a custom. Use !initcustom instead')
+        await safe_send(message.channel, 'This card is flagged as a custom. Use !initcustom instead')
         return
 
     user_id_in_card = card_info['player_id']
@@ -188,7 +189,7 @@ async def init_card(message, db, card_id):
     card_database = db['cards']
     card_group = card_database.find_one({'cards_id': 1})
     if not card_group:
-        await message.channel.send('Something went wrong getting the card database.')
+        await safe_send(message.channel, 'Something went wrong getting the card database.')
         return
 
     user = user_exists(db, user_id_in_card)
@@ -196,7 +197,7 @@ async def init_card(message, db, card_id):
     if user:
         user_copy_id = user_id_in_card
         variant_list = USED_CARD_VARIANTS
-        await message.channel.send('User found ('+user['battle_tag']+'), giving them 1 copy.')
+        await safe_send(message.channel, 'User found ('+user['battle_tag']+'), giving them 1 copy.')
         user_cards = get_user_cards(user)
         user_cards.append({
             'card_display': card_id+'-A',
@@ -206,7 +207,7 @@ async def init_card(message, db, card_id):
         users = db['users']
         users.update_one({"discord_id": user_id_in_card}, {"$set": {"cards": user_cards}})
     else:
-        await message.channel.send('User not found, no copy for them.')
+        await safe_send(message.channel, 'User not found, no copy for them.')
 
     edit_cards = card_group['cards']
 
@@ -255,20 +256,20 @@ async def init_card(message, db, card_id):
 
 
 
-    await message.channel.send('success')
+    await safe_send(message.channel, 'success')
 
 async def init_card_handler(db, message):
 
     word_parts = message.content.split()
 
     if len(word_parts) != 2:
-        await message.channel.send('Invalid number of parameters.')
+        await safe_send(message.channel, 'Invalid number of parameters.')
         return
 
     card_id = word_parts[1]
 
     if not can_be_int(card_id):
-        await message.channel.send(card_id+' is not a number.')
+        await safe_send(message.channel, card_id+' is not a number.')
         return
     
     await init_card(message, db, card_id)
@@ -279,24 +280,24 @@ async def init_custom_handler(db, message):
     word_parts = message.content.split()
 
     if len(word_parts) != 2:
-        await message.channel.send('Invalid number of parameters.')
+        await safe_send(message.channel, 'Invalid number of parameters.')
         return
 
     card_id = word_parts[1]
 
     if not can_be_int(card_id):
-        await message.channel.send(card_id+' is not a number.')
+        await safe_send(message.channel, card_id+' is not a number.')
         return
 
     card_info = get_card_data_by_id(db, int(card_id))
     if not card_info:
-        await message.channel.send('I did not find a card with that ID.')
+        await safe_send(message.channel, 'I did not find a card with that ID.')
         return
 
     card_database = db['cards']
     card_group = card_database.find_one({'cards_id': 1})
     if not card_group:
-        await message.channel.send('Something went wrong getting the card database.')
+        await safe_send(message.channel, 'Something went wrong getting the card database.')
         return
 
     edit_cards = card_group['cards']
@@ -319,7 +320,7 @@ async def init_custom_handler(db, message):
         'owner': 0
     })
 
-    await message.channel.send('success')
+    await safe_send(message.channel, 'success')
 
 
 async def wipe_card_database_handler(db, message):

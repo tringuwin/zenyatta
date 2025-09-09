@@ -26,4 +26,13 @@ async def safe_send(channel, text, can_ping_role=False):
     await channel.send(cleaned_text)
 
 
+async def safe_reply(message, text, can_ping_role=False):
 
+    cleaned_text = clean_text(text, can_ping_role=can_ping_role)
+    await message.reply(cleaned_text)
+
+
+async def safe_dm(user, text):
+
+    # no need to clean text for dms
+    await user.send(text)

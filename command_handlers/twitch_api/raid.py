@@ -3,6 +3,7 @@
 from command_handlers.twitch_api.raid_channel import raid_channel
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
+from safe_send import safe_send
 
 VALID_RAID_CHANNELS = [
     'main',
@@ -21,11 +22,11 @@ async def raid_handler(db, message):
     to_channel = params[2].lower()
 
     if from_channel not in VALID_RAID_CHANNELS:
-        await message.channel.send(f'Invalid raid channel: {from_channel}. Valid channels are: {", ".join(VALID_RAID_CHANNELS)}')
+        await safe_send(message.channel, f'Invalid raid channel: {from_channel}. Valid channels are: {", ".join(VALID_RAID_CHANNELS)}')
         return
     
     if to_channel not in VALID_RAID_CHANNELS:
-        await message.channel.send(f'Invalid raid channel: {to_channel}. Valid channels are: {", ".join(VALID_RAID_CHANNELS)}')
+        await safe_send(message.channel, f'Invalid raid channel: {to_channel}. Valid channels are: {", ".join(VALID_RAID_CHANNELS)}')
         return
     
     await raid_channel(db, message, from_channel, to_channel)

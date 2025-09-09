@@ -1,6 +1,7 @@
 import copy
 from api import get_member
 from rewards import change_xp
+from safe_send import safe_send
 from teams import get_team_by_name
 
 from user.user import user_exists
@@ -131,7 +132,7 @@ async def gen_tourney(db, event_id, message):
     
     existing_tourney = await get_tourney(db)
     if existing_tourney:
-        await message.channel.send('There is already a tournament in progress.')
+        await safe_send(message.channel, 'There is already a tournament in progress.')
         return
     
     bracket = await get_bracket_by_event_id(db, event_id)
@@ -145,10 +146,10 @@ async def gen_tourney(db, event_id, message):
         }
         tourney.insert_one(new_tourney)
 
-        await message.channel.send('Tourney has been created for event '+event_id)
+        await safe_send(message.channel, 'Tourney has been created for event '+event_id)
 
     else:
-        await message.channel.send('There is no existing bracket with that event id.')
+        await safe_send(message.channel, 'There is no existing bracket with that event id.')
 
 
 async def wipe_tourney(db, message):
@@ -156,9 +157,7 @@ async def wipe_tourney(db, message):
     tourney = db['tourney']
     tourney.delete_many({})
 
-    await message.channel.send('Current tourney has been wiped.')
-
-
+    await safe_send(message.channel, 'Current tourney has been wiped.')
 
 
 async def make_mention(match_half, db, guild):
@@ -258,10 +257,10 @@ async def notify_next_users(db, guild, message):
                 break
         final_string += '\n--------------------------------------------'
         event_channel = guild.get_channel(event_channel_id)
-        await event_channel.send(final_string)
-        
+        await safe_send(event_channel, final_string)
+
     else:
-        await message.channel.send('An error occurred.')
+        await safe_send(message.channel, 'An error occurred.')
 
 async def give_earned_xp(entry, num_xp, db, client):
     
@@ -301,7 +300,7 @@ async def advance_to_next_match(db, round_index, match_index, bracket_copy, mess
     new_round_index, new_match_index = await increment_tourney_index(round_index, match_index, bracket_copy['bracket'])
     db['tourney'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"round_index": new_round_index}})
     db['tourney'].update_one({"event_id": bracket_copy['event_id']}, {"$set": {"match_index": new_match_index}})
-    await message.channel.send("Updates made")
+    await safe_send(message.channel, "Updates made")
 
     await notify_next_users(db, guild, message)
     await send_next_info(db, message, guild, client)
@@ -456,16 +455,16 @@ async def send_next_info(db, message, guild, client):
                 else:
                     final_string += '[TEAM NOT FOUND]\n'
 
-            await message.channel.send(final_string)
+            await safe_send(message.channel, final_string)
 
         else:
             user1 = user_exists(db, match[0]['user'])
             user2 = user_exists(db, match[1]['user'])
 
 
-            await message.channel.send("**USER 1**\nBattle Tag: "+user1['battle_tag']+"\n")
-            await message.channel.send("**USER 2**\nBattle Tag: "+user2['battle_tag']+"\n")
+            await safe_send(message.channel, "**USER 1**\nBattle Tag: "+user1['battle_tag']+"\n")
+            await safe_send(message.channel, "**USER 2**\nBattle Tag: "+user2['battle_tag']+"\n")
 
 
     else:
-        await message.channel.send('There are no matches left in this tournament.')
+        await safe_send(message.channel, 'There are no matches left in this tournament.')

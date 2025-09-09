@@ -4,6 +4,7 @@ import copy
 from api import get_member, give_role
 import constants
 from helpers import make_string_from_word_list, valid_number_of_params
+from safe_send import safe_send
 from user.user import user_exists
 
 def create_new_user_from_riot_id(db, riot_id, user_id):
@@ -38,15 +39,15 @@ def handle_riot_link_success(db, message, riot_id):
 async def riot_link(db, message, client, user, riot_id):
     
     if len(riot_id) > 30:
-        await message.channel.send('The Riot ID you provided is not valid.')
+        await safe_send(message.channel, 'The Riot ID you provided is not valid.')
         return
     
     if not ('#' in riot_id):
-        await message.channel.send("The Riot ID you provided seems to be missing the # and part at the end. Please include that too.")
+        await safe_send(message.channel, "The Riot ID you provided seems to be missing the # and part at the end. Please include that too.")
         return
     
     if riot_id[0] == '#':
-        await message.channel.send('Riot IDs cannot start with the "#" character. Please use this format: RiotID#1234')
+        await safe_send(message.channel, 'Riot IDs cannot start with the "#" character. Please use this format: RiotID#1234')
         return
         
     lower_id = riot_id.lower()
@@ -56,9 +57,9 @@ async def riot_link(db, message, client, user, riot_id):
 
     if user_with_riot_id:
         if user_with_riot_id['discord_id'] == message.author.id:
-            await message.channel.send("You've already linked this Riot ID.")
+            await safe_send(message.channel, "You've already linked this Riot ID.")
         else:
-            await message.channel.send("That Riot ID has already been connected to a different discord account. Please contact staff if you need help.")
+            await safe_send(message.channel, "That Riot ID has already been connected to a different discord account. Please contact staff if you need help.")
         return
     
     handle_riot_link_success(db, message, riot_id)
@@ -69,7 +70,7 @@ async def riot_link(db, message, client, user, riot_id):
     if member and reg_role:
         await give_role(member, reg_role, 'Riot ID Link')
 
-    await message.channel.send("Success! Your Riot ID has been linked to the Spicy Esports server! (Please note: if you change your Riot ID please use the !riot command again to update it!)")
+    await safe_send(message.channel, "Success! Your Riot ID has been linked to the Spicy Esports server! (Please note: if you change your Riot ID please use the !riot command again to update it!)")
 
 
 async def riot_handler(db, message, client):

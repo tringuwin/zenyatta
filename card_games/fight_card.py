@@ -4,6 +4,7 @@ from cards import get_card_image_by_display, get_card_index
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_message_by_channel_and_id
 from helpers import valid_number_of_params
+from safe_send import safe_reply
 from user.user import get_user_battle_cards, get_user_cards, user_exists
 import math
 import time
@@ -243,7 +244,7 @@ async def fight_card_procedure(client, db, card_battle, single_card, opp_card_di
     await battle_message.delete()
 
     opp_mention = '<@'+str(card_battle['user_id'])+'>'
-    await battle_result_message.reply(opp_mention+' '+message.author.mention)
+    await safe_reply(battle_result_message, opp_mention+' '+message.author.mention)
 
     await message.channel.send(f'Battle complete! {user_result_string} You can see the result here: '+battle_result_message.jump_url)
 

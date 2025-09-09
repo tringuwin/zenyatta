@@ -2,6 +2,7 @@
 
 from automation.schedule_plan.make_schedule_plan import build_week_for_season
 from command_handlers.league.swiss_matchups import convert_pairings_into_matchups
+from safe_send import safe_reply
 from time_helpers import year_month_day_to_datetime
 
 
@@ -75,13 +76,13 @@ async def add_week(db, message, context):
     schedule_plans = db['schedule_plans']
     schedule_plan = schedule_plans.find_one({'season': ADD_WEEK_CONFIG['season'], 'context': context})
     if not schedule_plan:
-        await message.reply("No schedule plan found for the given season and context.")
+        await safe_reply(message, "No schedule plan found for the given season and context.")
         return
     
     schedules = db['schedule']
     schedule = schedules.find_one({'season': ADD_WEEK_CONFIG['season'], 'context': context})
     if not schedule:
-        await message.reply("No schedule found for the given season and context.")
+        await safe_reply(message, "No schedule found for the given season and context.")
         return
     
     config_day_info = ADD_WEEK_CONFIG['start_day_info']

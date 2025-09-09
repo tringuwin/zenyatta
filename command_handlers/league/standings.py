@@ -2,6 +2,7 @@
 import constants
 from context.context_helpers import get_league_url_from_context
 from helpers import get_constant_value, get_league_emoji_from_team_name
+from safe_send import safe_reply
 
 
 def make_div_standings_string(div_teams, div_num):
@@ -138,7 +139,7 @@ async def standings_handler(message, context):
 
     league_url = get_league_url_from_context(context)
 
-    await message.reply(f'Check out the standings for the league here!\n\nhttps://spicyesports.com/{league_url}/standings')
+    await safe_reply(message, f'Check out the standings for the league here!\n\nhttps://spicyesports.com/{league_url}/standings')
 
     # await standings_main(db, message, client, True)
 

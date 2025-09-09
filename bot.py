@@ -278,7 +278,7 @@ from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from route_messages.utils.get_context import get_context
 from route_messages.valorant_message.route_rivals_message import route_valorant_message
-from safe_send import safe_send
+from safe_send import safe_reply, safe_send
 from savage_scovi import savage_scovi
 from server_level import sub_points_handler
 from streamlabs import check_streamlabs_raffles
@@ -350,7 +350,7 @@ async def handle_message(message, db, client):
         guild = await get_guild(client)
         mods_channel = guild.get_channel(constants.MODS_CHANNEL)
         await message.author.timeout(timedelta(days=7))
-        await mods_channel.send(message.author.name+' was timed out for saying **'+message.content+'**\n\nPlease verify if this timeout was correct and take action on it.')
+        await safe_send(mods_channel, message.author.name+' was timed out for saying **'+message.content+'**\n\nPlease verify if this timeout was correct and take action on it.')
         await message.delete()
         return
 
@@ -380,16 +380,16 @@ async def handle_message(message, db, client):
             await message.author.ban(delete_message_days=7)
             guild = await get_guild(client)
             mods_channel = guild.get_channel(constants.MODS_CHANNEL)
-            await mods_channel.send('BAN REPORT: User "'+banned_name+'" was banned for sending links twice without Image Permission. Please review the logs and check if this ban was correct. Revoke the ban if the user was not engaging in harmful activity. Message: '+message.content)
+            await safe_send(mods_channel, 'BAN REPORT: User "'+banned_name+'" was banned for sending links twice without Image Permission. Please review the logs and check if this ban was correct. Revoke the ban if the user was not engaging in harmful activity. Message: '+message.content)
             return
         else:
             # add to warnings array
-            await message.channel.send(message.author.mention+' '+' Image permission is off by default to keep the server safe! To get perms, just make a ticket and ask for it here: https://discord.com/channels/1130553449491210442/1202441473027477504\n\n**Please be careful, if you send another image or link before getting this permission, the auto-mod will think you are a spam bot and ban you.**')
+            await safe_send(message.channel, message.author.mention+' '+' Image permission is off by default to keep the server safe! To get perms, just make a ticket and ask for it here: https://discord.com/channels/1130553449491210442/1202441473027477504\n\n**Please be careful, if you send another image or link before getting this permission, the auto-mod will think you are a spam bot and ban you.**')
             warned_users.append(message.author.id)
             db_constants.update_one({"name": 'warnings'}, {"$set": {"value": warned_users}})
             guild = await get_guild(client)
             mods_channel = guild.get_channel(constants.MODS_CHANNEL)
-            await mods_channel.send('WARN REPORT: User "'+message.author.name+'" was *warned* for sending a link without Image Permission. Please review the logs and check if what they sent was allowed. If it was allowed, please give them image perms immediately to prevent them from being accidentally banned. Message: '+message.content)
+            await safe_send(mods_channel, 'WARN REPORT: User "'+message.author.name+'" was *warned* for sending a link without Image Permission. Please review the logs and check if what they sent was allowed. If it was allowed, please give them image perms immediately to prevent them from being accidentally banned. Message: '+message.content)
             return
 
     # mentioned_bot = message.mentions and message.mentions[0].id == constants.BOT_ID
@@ -404,7 +404,7 @@ async def handle_message(message, db, client):
     valid_channel, response = is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_admin)
 
     if not valid_channel:
-        await message.channel.send(message.author.mention+" "+response)
+        await safe_send(message.channel, message.author.mention+" "+response)
         return
 
     if lower_message == '!help':
@@ -435,7 +435,7 @@ async def handle_message(message, db, client):
         await help_drops_handler(message)
 
     elif lower_message.startswith('!address'):
-        notice = await message.channel.send(message.author.mention+' Please only use this command in a direct message with me for your safety!')
+        notice = await safe_send(message.channel, message.author.mention+' Please only use this command in a direct message with me for your safety!')
         await message.delete()
         time.sleep(5)
         await notice.delete()
@@ -510,7 +510,7 @@ async def handle_message(message, db, client):
         await which_hero_handler(message)
 
     elif lower_message == '!store':
-        await message.channel.send('Check out the official SOL Merch Store here! https://exclaim.gg/store/spicyow')
+        await safe_send(message.channel, 'Check out the official SOL Merch Store here! https://exclaim.gg/store/spicyow')
 
     elif lower_message.startswith('!whichteam'):
         await which_team_handler(message)
@@ -537,7 +537,7 @@ async def handle_message(message, db, client):
         await donate_packs(db, message)
 
     elif lower_message.startswith('!solojoin'):
-        await message.channel.send('This command is not currently enabled! Check back later')
+        await safe_send(message.channel, 'This command is not currently enabled! Check back later')
         # await solo_join_handler(db, message, client)
 
     elif lower_message.startswith('!invitedby'):
@@ -546,7 +546,7 @@ async def handle_message(message, db, client):
     # pi-pi chan
 
     elif lower_message == '!leaderboard':
-        await message.channel.send('This command is turned off for now as XP is not currently turned on. It may be turned on again in the future.')
+        await safe_send(message.channel, 'This command is turned off for now as XP is not currently turned on. It may be turned on again in the future.')
         #await leaderboard_handler(db, message)
 
     elif lower_message == '!tokenleaderboard':
@@ -565,7 +565,6 @@ async def handle_message(message, db, client):
         await random_map_handler(message, context)
 
     elif lower_message == '!standings':
-        #await message.channel.send('This command is being fixed. Try again soon!')
         await standings_handler(message, context)
 
     elif lower_message == '!fixstandings' and is_admin:
@@ -584,7 +583,6 @@ async def handle_message(message, db, client):
         await sol_week_end(db, message)
         
     elif lower_message == '!schedule':
-        #await message.channel.send('This command is disabled until Season 3 starts on June 1st 2024.')
         await schedule_handler(message, context)
 
     elif lower_message.startswith('!bid '):
@@ -603,7 +601,7 @@ async def handle_message(message, db, client):
         await vote_handler(db, message, client)
 
     elif lower_message == '!subtimer':
-        await message.channel.send('Twitch Lootboxes are now given instantly when you subscribe or re-subscribe!')
+        await safe_send(message.channel, 'Twitch Lootboxes are now given instantly when you subscribe or re-subscribe!')
         # await sub_timer_handler(db, message)
 
     elif lower_message == '!auctiontimer':
@@ -696,8 +694,8 @@ async def handle_message(message, db, client):
             }
 
             rivals_league_teams.update_one({'team_name': team['team_name']}, {'$set': {'lineup': team['lineup']}})
-        
-        await message.channel.send('All teams have been reset to have no players in their lineup.')
+
+        await safe_send(message.channel, 'All teams have been reset to have no players in their lineup.')
 
     elif lower_message.startswith('!changeteamowner') and is_tier_3_mod:
         # !changeteamowner @player team name
@@ -736,7 +734,7 @@ async def handle_message(message, db, client):
                     member_obj = get_member(guild, member_id, 'league_admin_role_fix')
                     await member_obj.add_roles(admin_role)
 
-        await message.channel.send('done')
+        await safe_send(message.channel, 'done')
 
 
     elif lower_message.startswith('!removeteamadmin'):
@@ -942,24 +940,6 @@ async def handle_message(message, db, client):
         # !addevent|[event id]|[event name]|[max participants]|[0 for no pass, 1 for pass, 2 for subs]|[team size]|[event role id]|[event channel id]
         await add_event_handler(db, message)
 
-    elif lower_message.startswith("!removepasses") and is_admin:
-
-        users = db['users']
-        all_users = users.find()
-        users_affected = 0
-        for user in all_users:
-            if 'passes' in user and 'tokens' in user:
-                num_passes = user['passes']
-                if num_passes > 0:
-                    tokens_to_give = num_passes * 10
-                    new_tokens = user['tokens'] + tokens_to_give
-                    users.update_one({'discord_id': user['discord_id']}, {'$set': {'tokens': new_tokens, 'passes': 0}})
-                    users_affected += 1
-
-        await message.channel.send(f'All users have had their passes removed and received 10 tokens for each pass they had. {users_affected} users were affected.')
-        
-
-
     elif lower_message.startswith("!delevent") and is_admin:
         # !delevent [event id]
         await delete_event_handler(db, message)
@@ -1038,7 +1018,7 @@ async def handle_message(message, db, client):
         battle_info = battle_obj['value']
         battle_info['sign_ups'] = test_sign_up_data
         constants_db.update_one({"name": "battle"}, {"$set": {"value": battle_info}})
-        await message.channel.send('test data set')
+        await safe_send(message.channel, 'test data set')
 
     elif lower_message.startswith('!newbet') and is_admin:
         # !newbets|title|home team name|away team name|uses home/away boolean (0/1)
@@ -1138,19 +1118,19 @@ async def handle_message(message, db, client):
         await twitch_pack_handler(client, db, message)
 
     elif lower_message == '!fortnite':
-        await message.channel.send('fortnite')
+        await safe_send(message.channel, 'fortnite')
 
     elif lower_message == '!sigma':
-        await message.channel.send('https://i.imgur.com/2qptwSa.png')
+        await safe_send(message.channel, 'https://i.imgur.com/2qptwSa.png')
 
     elif lower_message == '!buzzcut':
-        await message.channel.send('https://i.imgur.com/RpTj77v.png')
+        await safe_send(message.channel, 'https://i.imgur.com/RpTj77v.png')
 
     elif lower_message == '!howdy':
-        await message.channel.send('https://tenor.com/view/good-morning-summer-mickey-mouse-gif-13892611')
+        await safe_send(message.channel, 'https://tenor.com/view/good-morning-summer-mickey-mouse-gif-13892611')
 
     elif lower_message == '!thepoint':
-        await message.channel.send('https://i.imgur.com/mwekfl2.png')
+        await safe_send(message.channel, 'https://i.imgur.com/mwekfl2.png')
 
     elif lower_message.startswith('!slime '):
         await slime_handler(db, message)
@@ -1163,7 +1143,7 @@ async def handle_message(message, db, client):
         test_zorp = ['zorp?', 'bogos binted', 'pickenteen zumflood', 'porijug riwedor', 'zeriup zort', 'zorty zort', 'bering bering zrop', 'mrop mrop vorp', 'vropy vorp', 
                      'fortzorp', 'HELP ME IM TRAPPED HELP ME PLEASE HELP ME PLEASE IM NOT A DISCORD BOT HELP PLEASE HELP PLEASE', 'figeldeen zorpenstein']
 
-        await message.channel.send(random.choice(test_zorp))
+        await safe_send(message.channel, random.choice(test_zorp))
 
     elif lower_message == '!testdm' and is_admin:
 
@@ -1173,13 +1153,13 @@ async def handle_message(message, db, client):
         default_msg += '\n\nYou can also find more information about our League here: https://discord.com/channels/1130553449491210442/1178427939453411469'
         default_msg += '\n\nThank you for joining! If you have any questions, feel free to ask here: https://discord.com/channels/1130553449491210442/1166410753184632933'
 
-        await message.channel.send(default_msg)
+        await safe_send(message.channel, default_msg)
 
     elif lower_message.startswith('!8ball'):
         await eight_ball_handler(message)
 
     elif lower_message.startswith('!thisgif'):
-        await message.channel.send('https://i.imgur.com/J2jCzIb.png')
+        await safe_send(message.channel, 'https://i.imgur.com/J2jCzIb.png')
 
     elif lower_message.startswith('!feedgem '):
         await feed_gem(db, message)
@@ -1249,7 +1229,7 @@ async def handle_message(message, db, client):
         await register_role(db, message)
 
     # elif lower_message == '!gallery':
-    #     await message.channel.send(f'Check out the full SOL Card Gallery here: {constants.WEBSITE_DOMAIN}/sol/gallery')
+    #     await safe_send(message.channel, f'Check out the full SOL Card Gallery here: {constants.WEBSITE_DOMAIN}/sol/gallery')
 
     elif lower_message == '!openpack':
         await open_pack_handler(db, message)
@@ -1261,10 +1241,10 @@ async def handle_message(message, db, client):
         await total_packs_handler(db, message)
 
     elif lower_message == '!cardmarket':
-        await message.channel.send(f'Check out the SOL Card Market here!\n\n{constants.WEBSITE_DOMAIN}/sol/card-market')
+        await safe_send(message.channel, f'Check out the SOL Card Market here!\n\n{constants.WEBSITE_DOMAIN}/sol/card-market')
 
     elif lower_message == '!allcards':
-        await message.channel.send(f'View all your cards here: {constants.WEBSITE_DOMAIN}/sol/user-cards/'+str(message.author.id))
+        await safe_send(message.channel, f'View all your cards here: {constants.WEBSITE_DOMAIN}/sol/user-cards/'+str(message.author.id))
 
     elif lower_message.startswith('!cardpage '):
         await card_page(db, message)
@@ -1280,7 +1260,7 @@ async def handle_message(message, db, client):
             if 'tickets' in user:
                 users.update_one({"discord_id": user['discord_id']}, {"$set": {"tickets": 0}})
 
-        await message.channel.send('Raffle reset')
+        await safe_send(message.channel, 'Raffle reset')
 
 
     elif lower_message.startswith('!win ') and is_tourney_admin:
@@ -1291,7 +1271,7 @@ async def handle_message(message, db, client):
             guild = client.get_guild(constants.GUILD_ID)
             await won_match(int(word_list[1]), message, db, guild, client)
         else:
-            await message.channel.send("Invalid number of arguments.")
+            await safe_send(message.channel, "Invalid number of arguments.")
 
     elif lower_message.startswith('!noshow ') and is_tourney_admin:
 
@@ -1301,7 +1281,7 @@ async def handle_message(message, db, client):
             guild = client.get_guild(constants.GUILD_ID)
             await no_show(int(word_list[1]), message, db, guild, client)
         else:
-            await message.channel.send("Invalid number of arguments.")
+            await safe_send(message.channel, "Invalid number of arguments.")
 
     elif lower_message == '!bothnoshow' and is_tourney_admin:
 
@@ -1323,7 +1303,7 @@ async def handle_message(message, db, client):
 
         lucky_winner = random.choice(giant_array)
 
-        await message.channel.send('The winner of the raffle is the user with the battle tag: '+lucky_winner)
+        await safe_send(message.channel, 'The winner of the raffle is the user with the battle tag: '+lucky_winner)
 
     elif lower_message == '!initstandings' and is_admin:
         await init_standings(db, message)
@@ -1339,15 +1319,15 @@ async def handle_message(message, db, client):
             'highest_bidder_id': 0
         }
         auction.insert_one(new_auction)
-        await message.channel.send('auction data initated')
+        await safe_send(message.channel, 'auction data initated')
 
     elif lower_message == '!testgetconstant' and is_admin:
         constant_val = get_constant_value(db, 'test_constant')
-        await message.channel.send('test constant is: '+constant_val)
+        await safe_send(message.channel, 'test constant is: '+constant_val)
 
     elif lower_message == '!testsetconstant' and is_admin:
         set_constant_value(db, 'test_constant', 'nuts')
-        await message.channel.send('set test constant')
+        await safe_send(message.channel, 'set test constant')
 
     elif lower_message.startswith('!addwin') and is_admin:
         await add_win_handler(db, message)
@@ -1385,7 +1365,7 @@ async def handle_message(message, db, client):
             }
         }
         maps.insert_one(new_maps)
-        await message.channel.send('maps initated')
+        await safe_send(message.channel, 'maps initated')
 
     elif lower_message.startswith('!setmap') and is_admin:
         await set_map_handler(db, message)
@@ -1456,7 +1436,7 @@ async def handle_message(message, db, client):
             }
             matchups.insert_one(new_matchup)
 
-        await message.channel.send('Test matchups made')
+        await safe_send(message.channel, 'Test matchups made')
 
     elif lower_message == '!testmakechannel' and is_admin:
 
@@ -1473,30 +1453,10 @@ async def handle_message(message, db, client):
 
         await guild.create_text_channel('test-channel-casting', overwrites=overwrites)
 
-        await message.channel.send('done')
+        await safe_send(message.channel, 'done')
 
     elif lower_message.startswith('!swissmatchups') and is_admin:
         await swiss_matchups_handler(db, message, context)
-
-    elif lower_message == '!amendcasters' and is_admin:
-
-        casters = db['casters']
-        all_casters = casters.find()
-
-        for caster in all_casters:
-            casters.update_one({'_id': caster['_id']}, {'$set': {'timeblocks': []}})
-
-        await message.channel.send('done')
-
-    elif lower_message == '!amendmatchups' and is_admin:
-
-        matchups = db['matchups']
-        all_matchups = matchups.find()
-
-        for matchup in all_matchups:
-            matchups.update_one({'_id': matchup['_id']}, {'$set': {'left_team': 1}})
-
-        await message.channel.send('done')
 
     elif lower_message.startswith('!makesolmatch') and is_admin:
         await make_sol_match(client, db, message)
@@ -1517,7 +1477,7 @@ async def handle_message(message, db, client):
         if len(word_list) == 3:
             await give_tokens_command(client, db, word_list[1], int(word_list[2]), message)
         else:
-            await message.channel.send("Invalid number of arguments.")
+            await safe_send(message.channel, "Invalid number of arguments.")
 
     elif lower_message.startswith('!givemoney ') and is_admin:
         await give_money(client, db, message)
@@ -1526,7 +1486,7 @@ async def handle_message(message, db, client):
         await money(db, message)
 
     elif lower_message.startswith('!givexp ') and (is_admin or is_xp_helper):
-        await message.channel.send('This command is currently disabled. XP is turned off for now.')
+        await safe_send(message.channel, 'This command is currently disabled. XP is turned off for now.')
         #await give_xp_handler(client, db, message)
 
     elif lower_message.startswith('!rp') and is_admin:
@@ -1658,7 +1618,7 @@ async def handle_message(message, db, client):
         vod_link = message.content.split()[1]
         guild = await get_guild(client)
         clips_channel = guild.get_channel(constants.CLIPS_CHANNEL)
-        await clips_channel.send('A new SOL Replay has been posted! Go check it out! '+vod_link)
+        await safe_send(clips_channel, 'A new SOL Replay has been posted! Go check it out! '+vod_link)
 
     elif lower_message.startswith('!swapsides') and is_tourney_admin:
         await swap_sides(db, message, context)
@@ -1733,35 +1693,25 @@ async def handle_message(message, db, client):
     elif lower_message == '!addweek' and is_admin:
         await add_week(db, message, context)
 
-    elif lower_message == '!cleartrophies' and is_admin:
-
-        users = db['users']
-        all_users = users.find()
-        for user in all_users:
-            if 'trophies' in user:
-                users.update_one({"discord_id": user['discord_id']}, {"$set": {"trophies": 0}})
-
-        await message.channel.send('cleared all trophies')
-
     elif lower_message.startswith('!update|') and is_admin:
         parts = message.content.split('|')
         if len(parts) != 3:
-            await message.channel.send("Needs 3 parts. Command, op code, and message.")
+            await safe_send(message.channel, "Needs 3 parts. Command, op code, and message.")
             return
         op_code = parts[1]
         main_part = parts[2]
         guild = await get_guild(client)
         update_channel = guild.get_channel(constants.UPDATE_CHANNEL)
         if op_code.lower() == 'd':
-            update_msg = await update_channel.send('**[Scovi Version '+constants.VERSION+']**\n'+main_part)
+            update_msg = await safe_send(update_channel, '**[Scovi Version '+constants.VERSION+']**\n'+main_part)
         elif op_code.lower() == 'w':
-            update_msg = await update_channel.send('**[Spicy Esports Website Update]**\n'+main_part)
+            update_msg = await safe_send(update_channel, '**[Spicy Esports Website Update]**\n'+main_part)
         elif op_code.lower() == 'u':
-            update_msg = await update_channel.send('**[Discord Update]**\n'+main_part)
+            update_msg = await safe_send(update_channel, '**[Discord Update]**\n'+main_part)
 
         await update_msg.add_reaction("👍")
 
-        await message.channel.send('Update posted')
+        await safe_send(message.channel, 'Update posted')
 
     elif lower_message == '!giveeveryonerole' and is_admin:
 
@@ -1780,55 +1730,9 @@ async def handle_message(message, db, client):
         avatar = message.author.display_avatar
         if avatar:
             avatar_link = avatar.url
-            await message.channel.send('('+avatar_link+')')
+            await safe_send(message.channel, '('+avatar_link+')')
         else:
-            await message.channel.send('Problem getting avatar')
-
-    elif lower_message == '!pingstate':
-
-        if not is_state_captain:
-            await message.channel.send('Only state captains can ping a state team!')
-            return 
-        
-        team_role_id = None
-
-        for state_name in constants.STATE_INFO:
-            state_role_id = constants.STATE_INFO[state_name]['role']
-            if member_has_role(message.author, state_role_id):
-                team_role_id = state_role_id
-                break
-
-        if not team_role_id:
-            await message.channel.send('I could not determine which state team you are on')
-            return
-        
-        role_ping = f'<@&{team_role_id}>'
-        await message.channel.send(role_ping)
-
-
-    elif lower_message.startswith('!stateplayers'):
-        word_parts = lower_message.split()
-        team_name = make_string_from_word_list(word_parts, 1)
-
-        final_string = '**PLAYERS ON TEAM '+team_name.upper()+':**\n'
-
-        for state_name in constants.STATE_INFO:
-            if state_name.lower() == team_name:
-                state_role_id = constants.STATE_INFO[state_name]['role']
-                state_role = await get_role_by_id(client, state_role_id)
-
-                for member in client.get_all_members():
-                    if state_role in member.roles:
-                        final_string += '\n**'+member.display_name+'** ( '+member.name+' )'
-
-                await message.channel.send(final_string)
-
-                return
-
-
-        
-        await message.channel.send('I did not find any state called "'+str(team_name)+'"')
-    
+            await safe_send(message.channel, 'Problem getting avatar')
 
     elif lower_message == '!testerror' and is_admin:
 
@@ -1847,7 +1751,7 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!getpfplink':
 
-        await message.channel.send(message.author.avatar.url)
+        await safe_send(message.channel, message.author.avatar.url)
 
     elif lower_message.startswith('!makecaster ') and is_admin:
         await make_caster_handler(db, message)
@@ -1885,23 +1789,9 @@ async def handle_message(message, db, client):
         channel = guild.get_channel(1143592783999926404)
         for role in reaction_roles:
             discord_role = guild.get_role(role['id'])
-            
-            message = await channel.send('Add an emoji reaction to get the '+discord_role.mention+ ' role. Remove the reaction to remove it. Default is **OFF**.\n*'+role['extra']+'*')
+
+            message = await safe_send(channel, 'Add an emoji reaction to get the '+discord_role.mention+ ' role. Remove the reaction to remove it. Default is **OFF**.\n*'+role['extra']+'*', True)
             await message.add_reaction("✅")
-
-
-    elif lower_message == '!crewrecordpatch' and is_admin:
-
-        matchups = db['matchups']
-
-        base_crew_record = {
-            'casters': [],
-            'admins': [],
-        }
-
-        result = matchups.update_many({}, {'$set': {'crew_record': base_crew_record}})
-        total_matchups_edited = result.modified_count
-        await message.channel.send('Crew record patch complete. Edited '+str(total_matchups_edited)+' matchups.')
 
     elif lower_message == 'check long' and is_push_bot:
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
@@ -2175,7 +2065,7 @@ def run_discord_bot(db, is_smoke_test=False):
             await check_random_event_on_message(db, client)
             await handle_message(message, db, client)
         except CommandError as e:
-            await message.reply(str(e))
+            await safe_reply(message, str(e))
         except aiohttp.client_exceptions.ClientOSError as e:
             if e.errno == 104:
                 await safe_send(message.channel, 'Network error. Please try your command again.')
