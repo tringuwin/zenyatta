@@ -1,6 +1,8 @@
 
 import discord
 
+from safe_send import safe_send
+
 async def help_handler(message):
 
     help_embed = discord.Embed(title='List of commands:')
@@ -24,4 +26,4 @@ async def help_handler(message):
     help_embed.add_field(name='!gift', value='Earn a free gift every 8 hours!', inline=False)
     help_embed.add_field(name='!bid [number of tokens]', value='Bid on the current daily auction with your Tokens!', inline=False)
 
-    await message.channel.send(embed=help_embed)
+    await safe_send(message.channel, embed=help_embed)
