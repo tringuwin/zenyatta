@@ -40,5 +40,7 @@ async def savage_scovi(message):
 
     # remove any accidental pings
     response = response.replace('@', '(at)')
+    response = response.replace('everyone', 'every (one)')
+    response = response.replace('here', 'h (ere)')
 
     await message.reply(response)
