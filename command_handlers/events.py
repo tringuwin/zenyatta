@@ -2,6 +2,7 @@
 
 from events import event_is_open, get_event_team_size
 from mongo import get_all_events
+from safe_send import safe_send
 
 
 async def events_handler(db, message):
@@ -9,8 +10,6 @@ async def events_handler(db, message):
     event_list = get_all_events(db)
     found = False
     none_string = "It looks like there's no events right now... Check back soon!"
-    # await message.channel.send(none_string)
-    # return
 
     final_string = ""
 
@@ -51,6 +50,6 @@ async def events_handler(db, message):
             final_string += "\n\n"
 
     if found:
-        await message.channel.send(final_string)
+        await safe_send(message.channel, final_string)
     else:
-        await message.channel.send(none_string)
+        await safe_send(message.channel, none_string)

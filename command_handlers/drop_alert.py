@@ -2,6 +2,7 @@
 
 from discord_actions import get_guild, get_member_by_id
 from helpers import generic_find_user, valid_number_of_params
+from safe_send import safe_dm, safe_send
 
 
 
@@ -24,7 +25,7 @@ async def drop_alert(client, db, message):
 
     valid_params, params = valid_number_of_params(message, 3)
     if not valid_params:
-        await message.channel.send('Invalid number of params')
+        await safe_send(message.channel, 'Invalid number of params')
         return
     
     user_id = params[1]
@@ -32,21 +33,21 @@ async def drop_alert(client, db, message):
 
     user = await generic_find_user(client, db, user_id)
     if not user:
-        await message.channel.send('Could not find a matching user.')
+        await safe_send(message.channel, 'Could not find a matching user.')
         return
     
     guild = await get_guild(client)
     member = await get_member_by_id(guild, user['discord_id'])
     if not member:
-        await message.channel.send('Could not find member in the server.')
+        await safe_send(message.channel, 'Could not find member in the server.')
         return
     
     if not alert_code in ALERT_CODE_TO_MESSAGE:
-        await message.channel.send('Invalid alert code.')
+        await safe_send(message.channel, 'Invalid alert code.')
         return
 
     alert_message = ALERT_CODE_TO_MESSAGE[alert_code]
     alert_message += '\n\n*I cannot see responses here. If you need help, please contact staff by making a support ticket.*'
 
-    await member.send(alert_message)
-    await message.channel.send('Alert sent successfully.')
+    await safe_dm(member, alert_message)
+    await safe_send(message.channel, 'Alert sent successfully.')

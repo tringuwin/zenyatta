@@ -1,5 +1,6 @@
 
 from common_messages import not_registered_response
+from safe_send import safe_send
 from user.user import get_user_gems, user_exists
 import constants
 
@@ -22,5 +23,5 @@ async def gems_handler(db, message):
     final_string += 'Each gem is worth 50 Tokens seperately.\n'
     final_string += 'Or turn in a set of all 10 for 1,000 Tokens!'
 
-    await message.channel.send(final_string)
+    await safe_send(message.channel, final_string)
 
