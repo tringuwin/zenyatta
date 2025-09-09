@@ -3,7 +3,7 @@ import discord
 
 def clean_possible_role_pings(text):
 
-    text = text.replace('@&', ' @& ')
+    text = text.replace('@&', ' @ & ')
     return text
 
 
