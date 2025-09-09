@@ -278,6 +278,7 @@ from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from route_messages.utils.get_context import get_context
 from route_messages.valorant_message.route_rivals_message import route_valorant_message
+from safe_send import safe_send
 from savage_scovi import savage_scovi
 from server_level import sub_points_handler
 from streamlabs import check_streamlabs_raffles
@@ -440,7 +441,7 @@ async def handle_message(message, db, client):
         await notice.delete()
 
     elif lower_message == '!version' or lower_message == '!v':
-        await send_msg(message.channel, constants.VERSION, '!version')
+        await safe_send(message.channel, constants.VERSION)
     
     elif lower_message.startswith('!battle '):
         await battle_handler(db, message, client)
@@ -1541,7 +1542,7 @@ async def handle_message(message, db, client):
         if len(word_list) == 3:
             await give_pickaxes_command(client, db, word_list[1], int(word_list[2]), message)
         else:
-            await send_msg(message.channel, 'Invalid number of arguments.', '!givepickaxes')
+            await safe_send(message.channel, 'Invalid number of arguments.')
 
     elif lower_message.startswith('!givepacks ') and (is_admin or is_tp_helper):
 
@@ -1550,7 +1551,7 @@ async def handle_message(message, db, client):
         if len(word_list) == 3:
             await give_packs_command(client, db, word_list[1], float(word_list[2]), message)
         else:
-            await send_msg(message.channel, 'Invalid number of arguments.', '!givepacks')
+            await safe_send(message.channel, 'Invalid number of arguments.')
 
     elif lower_message.startswith('!gp') and (is_admin or is_tp_helper):
         await gp_handler(db, message)
@@ -1584,7 +1585,7 @@ async def handle_message(message, db, client):
 
             users.update_one({"discord_id": user['discord_id']}, {"$set": {"lootboxes": user_boxes}})
 
-        await send_msg(message.channel, 'boxes given', '!giveallboxes')
+        await safe_send(message.channel, 'boxes given')
 
     elif lower_message == '!givesubboxes' and is_admin:
         await give_sub_boxes_handler(db, message, client)
@@ -1648,7 +1649,7 @@ async def handle_message(message, db, client):
         rest = message.content[len("!say "):].strip()
         guild = await get_guild(client)
         chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
-        await send_msg(chat_channel, rest, '!say')
+        await safe_send(chat_channel, rest)
 
     elif lower_message.startswith('!deletebytag ') and is_admin:
         await delete_by_tag_handler(db, message)
@@ -1904,14 +1905,14 @@ async def handle_message(message, db, client):
 
     elif lower_message == 'check long' and is_push_bot:
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
-        await send_msg(bot_channel, 'Updating Bets', 'Check Long')
+        await safe_send(bot_channel, 'Updating Bets')
         # await give_sub_boxes_handler(db, message, client)
         await update_bets(db, message.channel, client)
 
     elif lower_message == 'check gifts' and is_push_bot:
 
         bot_channel = client.get_channel(constants.BOT_CHAT_CHANNEL)
-        await send_msg(bot_channel, 'Checking gifts', 'Check Gifts')
+        await safe_send(bot_channel, 'Checking gifts')
         guild = await get_guild(client)
         gift_notifs_role_id = constants.GIFT_ROLE_ID
         gift_notifs_role = await get_role_by_id(client, gift_notifs_role_id)
@@ -1935,9 +1936,9 @@ async def handle_message(message, db, client):
                             users_notified += 1
                             await asyncio.sleep(1)
 
-        await send_msg(message.channel, str(users_notified)+' users notified of having a gift', 'Check Gifts')
+        await safe_send(message.channel, str(users_notified)+' users notified of having a gift')
 
-        await send_msg(message.channel, 'Checking payroll', 'Check Payroll')
+        await safe_send(message.channel, 'Checking payroll')
 
         await check_payroll(db, message.channel)
 
@@ -1976,7 +1977,7 @@ async def handle_message(message, db, client):
         await route_valorant_message(client, db, message, lower_message)
 
     else:
-        await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
+        await safe_send(message.channel, 'Invalid command. Please see **!help** for a list of commands.')
 
 
 def run_discord_bot(db, is_smoke_test=False):
@@ -2177,22 +2178,22 @@ def run_discord_bot(db, is_smoke_test=False):
             await message.reply(str(e))
         except aiohttp.client_exceptions.ClientOSError as e:
             if e.errno == 104:
-                await send_msg(message.channel, 'Network error. Please try your command again.', 'Network Error')
+                await safe_send(message.channel, 'Network error. Please try your command again.')
         except discord.errors.NotFound as e:
-            await send_msg(message.channel, 'ERROR: I tried to delete a message but it was already deleted.\n'+str(e), '404 Error')
+            await safe_send(message.channel, 'ERROR: I tried to delete a message but it was already deleted.\n'+str(e))
         except discord.errors.HTTPException as e:
             print('HTTP Exception')
             print(e)
-            await send_msg(message.channel, "I'm overloaded at the moment and was not able to properly process this request.", 'HTTP Exception')
+            await safe_send(message.channel, "I'm overloaded at the moment and was not able to properly process this request.")
         except Exception as e:
             print(e)
             traceback.print_exc()
             guild = client.get_guild(constants.GUILD_ID)
             spicy_member = get_member(guild, constants.SPICY_RAGU_ID, 'Error Notify') 
-            await send_msg(message.channel, 'Whoops... An error occured. Let me notify staff. '+spicy_member.mention, 'Whoops message')
+            await safe_send(message.channel, 'Whoops... An error occured. Let me notify staff. '+spicy_member.mention)
             err_channel = guild.get_channel(constants.ERROR_LOGS_CHANNEL)
             traceback_str = traceback.format_exc()
-            await send_msg(err_channel, traceback_str, 'Error Channel')
+            await safe_send(err_channel, traceback_str)
 
 
     print('about to run client')

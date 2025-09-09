@@ -1,6 +1,6 @@
 
-from api import send_msg
 from command_handlers.address import address_handler
+from safe_send import safe_send
 
 
 async def route_dm_message(db, message):
@@ -9,4 +9,4 @@ async def route_dm_message(db, message):
         await address_handler(db, message)
        
     else:
-        await send_msg(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy Esports Discord server.', 'DM Alert')
+        await safe_send(message.channel, 'Sorry, I do not respond to messages in Direct Messages. Please only use commands in the #bot-commands channel of the Spicy Esports Discord server.')

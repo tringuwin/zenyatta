@@ -1,7 +1,7 @@
 
 
 
-from api import send_msg
+from safe_send import safe_send
 from valorant.base_commands.riot.riot import riot_handler
 
 
@@ -11,4 +11,4 @@ async def route_valorant_message(client, db, message, lower_message):
         await riot_handler(db, message, client)
 
     else:
-        await send_msg(message.channel, 'Invalid command. Please see **!help** for a list of commands.', 'Invalid Command')
+        await safe_send(message.channel, 'Invalid command. Please see **!help** for a list of commands.')
