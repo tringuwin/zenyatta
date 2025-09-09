@@ -2,7 +2,7 @@ import time
 import discord
 from discord_actions import is_dm_channel
 import constants
-from safe_send import safe_send_embed
+from safe_send import safe_send, safe_send_embed
 
 BLACK_LIST = [
     1291074955999580252,  # banz
@@ -13,12 +13,12 @@ BLACK_LIST = [
 async def suggest_handler(message, client):
     
     if message.author.id in BLACK_LIST:
-        await message.channel.send('You are temporarily not allowed to use this command anymore due to abusing it.')
+        await safe_send(message.channel, 'You are temporarily not allowed to use this command anymore due to abusing it.')
         return
 
     idea = message.content[len("!suggest "):].strip()
     if idea.lower().find('club') != -1:
-        await message.channel.send('Invalid suggestion.')
+        await safe_send(message.channel, 'Invalid suggestion.')
         return
 
     suggest_channel = client.get_channel(constants.SERVER_SUGGEST_CHANNEL)
@@ -35,8 +35,8 @@ async def suggest_handler(message, client):
     await idea_msg.add_reaction("👎")
 
     message_channel = message.channel
-    bot_response = await message_channel.send('Your suggestion has been added!')
-    await admin_channel.send('Suggestion made by '+str(message.author.name)+'\n'+idea)
+    bot_response = await safe_send(message_channel, 'Your suggestion has been added!')
+    await safe_send(admin_channel, 'Suggestion made by '+str(message.author.name)+'\n'+idea)
     if not is_dm_channel(message_channel):
         await message.delete()
         time.sleep(5)

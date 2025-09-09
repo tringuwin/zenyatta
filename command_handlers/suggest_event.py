@@ -3,7 +3,7 @@ import time
 import discord
 from discord_actions import is_dm_channel
 import constants
-from safe_send import safe_send_embed
+from safe_send import safe_send, safe_send_embed
 
 async def suggest_event_handler(message, client):
     
@@ -22,7 +22,7 @@ async def suggest_event_handler(message, client):
     await event_idea_msg.add_reaction("👎")
 
     message_channel = message.channel
-    bot_response = await message_channel.send('Your event suggestion has been added!')
+    bot_response = await safe_send(message_channel, 'Your event suggestion has been added!')
     if not is_dm_channel(message_channel):
         await message.delete()
         time.sleep(5)
