@@ -278,7 +278,7 @@ from route_messages.dm_messages.route_dm_message import route_dm_message
 from route_messages.rivals_message.route_rivals_message import route_rivals_message
 from route_messages.utils.get_context import get_context
 from route_messages.valorant_message.route_rivals_message import route_valorant_message
-from safe_send import safe_reply, safe_send
+from safe_send import safe_reply, safe_send, safe_send_test
 from savage_scovi import savage_scovi
 from server_level import sub_points_handler
 from streamlabs import check_streamlabs_raffles
@@ -1019,6 +1019,9 @@ async def handle_message(message, db, client):
         battle_info['sign_ups'] = test_sign_up_data
         constants_db.update_one({"name": "battle"}, {"$set": {"value": battle_info}})
         await safe_send(message.channel, 'test data set')
+
+    elif lower_message == '!testsafesend' and is_admin:
+        await safe_send_test(message)
 
     elif lower_message.startswith('!newbet') and is_admin:
         # !newbets|title|home team name|away team name|uses home/away boolean (0/1)

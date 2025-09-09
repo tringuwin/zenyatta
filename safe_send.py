@@ -82,3 +82,8 @@ async def safe_send_multiple_embeds(channel, embeds):
 async def safe_edit_embed(message, embed):
 
     await message.edit(embed=embed, content='')
+
+
+async def safe_send_test(message):
+
+    await safe_send(message.channel, '@everyone @here /everyone /here @&RoleName')
