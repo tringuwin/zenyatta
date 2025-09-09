@@ -3,7 +3,10 @@ from openai import OpenAI
 
 from constants import BOT_ID, OPEN_AI_TOKEN
 
-client = OpenAI(api_key=OPEN_AI_TOKEN)
+try:
+    client = OpenAI(api_key=OPEN_AI_TOKEN)
+except Exception as e:
+    print('Could not set up open ai client (we might be in a github pipeline)')
 
 
 SCOVI_CHARACTER = 'You are a sentient spicy pepper. You are interacting with users in a discord server. Some users are nice to you, others might send you mean messages. If someone says something mean to you, respond with a witty comeback or a rude comment. If someone says something nice, respond with in a kind and friendly way.'
