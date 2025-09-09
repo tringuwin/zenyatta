@@ -38,6 +38,12 @@ async def safe_dm(user, text):
     await user.send(text)
 
 
+# NOT IMPLEMENTED YET
+async def safe_edit():
+
+    pass
+
+
 # NOT REPLACED EVERYWHERE YET
 def safe_create_embed(title):
 
