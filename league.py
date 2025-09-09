@@ -2,6 +2,7 @@
 from context.context_helpers import get_league_invites_field, get_league_teams_collection_from_context, get_team_info_channel_from_context
 from discord_actions import get_guild
 from helpers import get_constant_value, get_league_emoji_from_team_name
+from safe_send import safe_add_field
 from user.user import get_league_invites_with_context, get_league_team_with_context, user_exists
 import discord
 
@@ -220,7 +221,7 @@ async def update_team_info(client, team, db, context='OW'):
 
         available_tpp -= member['TPP']
 
-        embed.add_field(name=name_string, value=value_string, inline=False)
+        safe_add_field(embed, name_string, value_string, False)
 
     embed.set_footer(text='Available TPP: '+str(available_tpp))
 

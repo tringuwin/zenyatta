@@ -1,6 +1,6 @@
 import discord
 
-from safe_send import safe_send
+from safe_send import safe_send, safe_send_embed
 
 async def help_league_handler(message):
 
@@ -17,4 +17,4 @@ async def help_league_handler(message):
     help_embed.add_field(name='!leagueleave', value='Leave your current league team.', inline=False)
     help_embed.add_field(name='!callme Name Here', value='Set how casters should say your name in your matches.', inline=False)
 
-    await safe_send(message.channel, embed=help_embed)
+    await safe_send_embed(message.channel, help_embed)

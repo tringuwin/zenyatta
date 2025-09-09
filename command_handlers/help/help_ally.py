@@ -1,5 +1,7 @@
 import discord
 
+from safe_send import safe_send_embed
+
 async def help_ally_handler(message):
 
     help_embed = discord.Embed(title='List of commands related to League Team Allies and Rivals:')
@@ -16,4 +18,4 @@ async def help_ally_handler(message):
     help_embed.add_field(name='!cancelally [team name here]', value='Cancel an Ally Request to another League Team.', inline=False)
     help_embed.add_field(name='!cancelrival [team name here]', value='Cancel a Rival Request to another League Team.', inline=False)
 
-    await message.channel.send(embed=help_embed)
+    await safe_send_embed(message.channel, help_embed)

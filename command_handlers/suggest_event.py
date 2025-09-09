@@ -3,6 +3,7 @@ import time
 import discord
 from discord_actions import is_dm_channel
 import constants
+from safe_send import safe_send_embed
 
 async def suggest_event_handler(message, client):
     
@@ -16,7 +17,7 @@ async def suggest_event_handler(message, client):
     )
     embed_msg.set_footer(text="Suggest your own idea using the command !suggestevent [event idea here]")
 
-    event_idea_msg = await event_suggest_channel.send(embed=embed_msg)
+    event_idea_msg = await safe_send_embed(event_suggest_channel, embed_msg)
     await event_idea_msg.add_reaction("👍")
     await event_idea_msg.add_reaction("👎")
 

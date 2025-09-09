@@ -1,6 +1,8 @@
 
 import discord
 
+from safe_send import safe_send_embed
+
 async def help_bonus_handler(message):
     
     help_embed = discord.Embed(title='List of bonus commands:')
@@ -18,4 +20,4 @@ async def help_bonus_handler(message):
     help_embed.add_field(name='!whichhero [question]', value='Ask the Scovi bot a question and it will respond with a hero. (Example: !whichhero should be nerfed?)', inline=False)
     help_embed.add_field(name='!bandforband @user', value="Challenge another user to see who has the higher net worth!", inline=False)
 
-    await message.channel.send(embed=help_embed)
+    await safe_send_embed(message.channel, help_embed)

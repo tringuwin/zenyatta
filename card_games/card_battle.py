@@ -6,6 +6,7 @@ from cards import get_card_image_by_display, get_card_index
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
+from safe_send import safe_send_embed
 from user.user import get_user_battle_cards, get_user_cards, user_exists
 import constants
 import math
@@ -63,7 +64,7 @@ async def send_battle_embed(client, db, card_display, user_id, battle_type, min_
 
     guild = await get_guild(client)
     card_battle_channel = guild.get_channel(constants.CARD_BATTLE_CHANNEL)
-    battle_message = await card_battle_channel.send(embed=embed)
+    battle_message = await safe_send_embed(card_battle_channel, embed)
     return battle_message
 
 

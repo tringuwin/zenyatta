@@ -6,7 +6,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_username_by_user_id
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_packs, change_tokens
-from safe_send import safe_send
+from safe_send import safe_add_field, safe_create_embed, safe_send, safe_send_embed, safe_set_footer
 from user.user import get_total_cards, get_user_battle_cards, get_user_cards, get_user_packs, get_user_tokens, user_exists, get_user_for_sale_cards
 import random
 import constants
@@ -390,7 +390,7 @@ async def open_pack_handler(db, message):
     embed = discord.Embed(title='YOU OPENED CARD '+removed_item['card_display'])
     embed.set_image(url=card_img)
 
-    await message.channel.send(embed=embed)
+    await safe_send_embed(message.channel, embed)
 
 
 async def view_card_handler(client, db, message):
@@ -451,12 +451,12 @@ async def view_card_handler(client, db, message):
     my_single_card = single_cards.find_one({'display': card_id+'-'+card_variant.upper()})
     power = my_single_card['power']
 
-    embed = discord.Embed(title='CARD '+card_id+'-'+card_variant.upper())
+    embed = safe_create_embed('CARD '+card_id+'-'+card_variant.upper())
     embed.set_image(url=card_img)
-    embed.add_field(name='Power', value=str(power), inline=False)
-    embed.set_footer(text=owner, icon_url=owner_icon)
+    safe_add_field(embed, 'Power', str(power), False)
+    safe_set_footer(embed, owner, owner_icon)
 
-    await message.channel.send(embed=embed)
+    await safe_send_embed(message.channel, embed)
 
 
 def get_card_index(cards, input_card):
@@ -918,8 +918,8 @@ async def buy_card_handler(db, message):
 
     embed = discord.Embed(title='YOU BOUGHT CARD '+buy_card)
     embed.set_image(url=card_img)
-    await message.channel.send(embed=embed)
-    
+    await safe_send_embed(message.channel, embed)
+
 
 async def total_cards_handler(db, message, context):
 

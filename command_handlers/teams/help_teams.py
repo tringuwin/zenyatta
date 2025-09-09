@@ -1,6 +1,6 @@
 import discord
 
-from safe_send import safe_send
+from safe_send import safe_send, safe_send_embed
 
 async def help_teams_handler(message):
 
@@ -17,4 +17,4 @@ async def help_teams_handler(message):
     help_embed.add_field(name='!deleteteam [team name]', value='Delete a team you own.', inline=False)
     help_embed.add_field(name='!kickplayer [@player] [team name]', value='Kick a player from a team you own.', inline=False)
 
-    await safe_send(message.channel, embed=help_embed)
+    await safe_send_embed(message.channel, help_embed)

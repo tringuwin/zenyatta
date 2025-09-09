@@ -1,6 +1,6 @@
 import discord
 
-from safe_send import safe_send
+from safe_send import safe_send_embed
 
 async def help_gems_handler(message):
 
@@ -14,4 +14,4 @@ async def help_gems_handler(message):
     help_embed.add_field(name='!tradegemset', value='Trade in a set of all 10 gem colors for 1,000 Tokens.', inline=False)
     help_embed.add_field(name='!feedgem [card-id] [gem color]', value='Feed a gem to one of your cards to increase the power of the card.', inline=False)
 
-    await safe_send(message.channel, embed=help_embed)
+    await safe_send_embed(message.channel, help_embed)
