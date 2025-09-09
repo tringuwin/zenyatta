@@ -1,5 +1,8 @@
 
 
+from safe_send import safe_send
+
+
 async def weekly_roster_reset(db, message):
 
     league_teams = db['leagueteams']
@@ -12,6 +15,4 @@ async def weekly_roster_reset(db, message):
             team_lineup[role_name]['user_id'] = 0
             league_teams.update_one({'team_name': team['team_name']}, {'$set': {'lineup': team_lineup}})
 
-    await message.channel.send('Reset lineups for all league teams')
-
-        
+    await safe_send(message.channel, 'Reset lineups for all league teams')

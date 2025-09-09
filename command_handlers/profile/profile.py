@@ -3,6 +3,7 @@
 from common_messages import not_registered_response
 from exceptions import CommandError
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
+from safe_send import safe_send
 from user.user import get_fan_of_with_context, get_league_team_with_context, get_rival_of_with_context, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_pickaxes, get_user_tokens, get_user_trophies, user_exists
 import constants
 
@@ -179,6 +180,4 @@ async def profile_handler(db, message, client, context):
     else:
         raise CommandError('This command is not ready yet for this league.')
 
-    await message.channel.send(profile_string)
-
-    
+    await safe_send(message.channel, profile_string)

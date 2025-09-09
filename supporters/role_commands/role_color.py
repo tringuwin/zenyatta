@@ -2,7 +2,7 @@
 import discord
 from discord_actions import get_guild
 from helpers import is_valid_hex_code, make_string_from_word_list, valid_number_of_params
-from safe_send import safe_reply
+from safe_send import safe_reply, safe_send
 
 
 async def role_color(client, db, message):
@@ -20,18 +20,18 @@ async def role_color(client, db, message):
     
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
-        await message.channel.send('Command not formatted correctly. Use a hex code at the color. For example: **!rolecolor #FF0000**')
+        await safe_send(message.channel, 'Command not formatted correctly. Use a hex code at the color. For example: **!rolecolor #FF0000**')
         return
     
     color_raw = params[1]
     if not is_valid_hex_code(color_raw):
-        await message.channel.send(color_raw+' is not a valid hex code.')
+        await safe_send(message.channel, color_raw+' is not a valid hex code.')
         return
     
     try:
         discord_color = discord.Colour.from_str(color_raw)
     except ValueError as e:
-        await message.channel.send('Invalid hex code. Please use a valid hex code.')
+        await safe_send(message.channel, 'Invalid hex code. Please use a valid hex code.')
         return
     
     guild = await get_guild(client)
@@ -43,6 +43,4 @@ async def role_color(client, db, message):
 
 
     await user_role.edit(color=discord_color)
-    await message.channel.send('You have changed your custom role color to "'+color_raw+'"')
-    
-    
+    await safe_send(message.channel, 'You have changed your custom role color to "'+color_raw+'"')

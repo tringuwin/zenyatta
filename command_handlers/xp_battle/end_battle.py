@@ -2,6 +2,7 @@
 
 from command_handlers.xp_battle.battle_helpers import get_battle_constant_name
 from helpers import get_constant_value, set_constant_value
+from safe_send import safe_send
 
 
 async def end_battle_handler(db, message, context):
@@ -14,4 +15,4 @@ async def end_battle_handler(db, message, context):
 
     set_constant_value(db, battle_constant_name, battle_info)
 
-    await message.channel.send('Battle ended.')
+    await safe_send(message.channel, 'Battle ended.')
