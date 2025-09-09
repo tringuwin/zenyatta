@@ -7,7 +7,7 @@ import discord
 
 from helpers import get_league_emoji_from_team_name
 from league import get_team_color_by_name, get_team_record_string
-from safe_send import safe_send_embed
+from safe_send import safe_send, safe_send_embed
 
 
 async def new_bet(client, db, title, team_1_name, team_2_name, uses_home_away, timestamp=None):
@@ -15,7 +15,7 @@ async def new_bet(client, db, title, team_1_name, team_2_name, uses_home_away, t
     guild = await get_guild(client)
     bet_channel = guild.get_channel(constants.BET_CHANNEL_ID)
 
-    title_msg = await bet_channel.send('**'+title+'**')
+    title_msg = await safe_send(bet_channel, '**'+title+'**')
 
     team_1_emoji_string = get_league_emoji_from_team_name(team_1_name)
     team_2_emoji_string = get_league_emoji_from_team_name(team_2_name)
@@ -60,13 +60,13 @@ async def new_bet_handler(db, message, client):
 
     bet_parts = message.content.split('|')
     if len(bet_parts) != 5:
-        await message.channel.send('5 arguments required')
+        await safe_send(message.channel, '5 arguments required')
         return
     
     home_away_bool = bet_parts[4]
     uses_home_away = False
     if home_away_bool != '0' and home_away_bool != '1':
-        await message.channel.send('Last argument must be 0 or 1')
+        await safe_send(message.channel, 'Last argument must be 0 or 1')
         return
     
     if home_away_bool == '1':
@@ -79,11 +79,11 @@ async def new_bet_handler(db, message, client):
 
     team_1 = teams.find_one({'name_lower': team_1_name.lower()})
     if not team_1:
-        await message.channel.send(team_1_name+' is not a valid team name')
+        await safe_send(message.channel, team_1_name+' is not a valid team name')
         return
     team_2 = teams.find_one({'name_lower': team_2_name.lower()})
     if not team_2:
-        await message.channel.send(team_2_name+' is not a valid team name')
+        await safe_send(message.channel, team_2_name+' is not a valid team name')
         return
     
     team_1_name = team_1['team_name']
@@ -93,7 +93,7 @@ async def new_bet_handler(db, message, client):
 
     await new_bet(client, db, title, team_1_name, team_2_name, uses_home_away)
 
-    await message.channel.send('Bet created.')
+    await safe_send(message.channel, 'Bet created.')
 
 
 def total_tokens_on_team(betters):
@@ -120,7 +120,7 @@ def get_team_payout_rate(my_total, other_total):
 
 async def update_bets(db, channel, client):
 
-    await channel.send('Starting to update bets')
+    await safe_send(channel, 'Starting to update bets')
 
     guild = await get_guild(client)
     bet_channel = guild.get_channel(constants.BET_CHANNEL_ID)
@@ -158,7 +158,7 @@ async def update_bets(db, channel, client):
         await bet_msg_2.edit(embed=new_embed_2, content='')
 
 
-    await channel.send('Updated bets')
+    await safe_send(channel, 'Updated bets')
 
 
 async def check_open_bets(db, message):
@@ -179,7 +179,6 @@ async def check_open_bets(db, message):
         bets.update_one({'bet_id': bet_id_to_close}, {'$set': {'open': False}})
 
     result_message = 'Closed '+str(bets_closed)+' bets' if bets_closed > 0 else 'No bets were closed.'
-    await message.channel.send(result_message)
-
+    await safe_send(message.channel, result_message)
 
     

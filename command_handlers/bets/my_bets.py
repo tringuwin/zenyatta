@@ -4,6 +4,7 @@ from command_handlers.bets.new_bet import get_team_payout_rate, total_tokens_on_
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from helpers import get_league_emoji_from_team_name
+from safe_send import safe_send
 from user.user import get_user_bets, user_exists
 import constants
 import math
@@ -17,12 +18,10 @@ async def my_bets_handler(db, message, client):
 
     user_bets = get_user_bets(user)
     if len(user_bets) == 0:
-        await message.channel.send('You do not have any current SOL match bets.')
+        await safe_send(message.channel, 'You do not have any current SOL match bets.')
         return
     
     final_string = '**YOUR SOL MATCH BETS:**'
-
-    guild = await get_guild(client)
 
     bets = db['bets']
     index = 1
@@ -50,5 +49,4 @@ async def my_bets_handler(db, message, client):
         final_string += bet_string
 
 
-    await message.channel.send(final_string)
-    
+    await safe_send(message.channel, final_string)

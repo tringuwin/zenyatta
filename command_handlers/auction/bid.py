@@ -4,6 +4,7 @@ from command_handlers.auction.end_auction import end_auction
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
+from safe_send import safe_send
 from time_helpers import get_current_day_est
 from user.user import get_user_tokens, user_exists
 
@@ -24,7 +25,7 @@ async def bid_handler(db, message, client):
     auction = db['auction']
     data = auction.find_one({'auction_id': 1})
     if not data['is_open']:
-        await message.channel.send('There is no daily auction open at the moment.')
+        await safe_send(message.channel, 'There is no daily auction open at the moment.')
         return
     
     cur_day = get_current_day_est()
@@ -33,23 +34,23 @@ async def bid_handler(db, message, client):
     bid_day = bid_day_obj['value']
     if cur_day != bid_day:
         await end_auction(db, client)
-        await message.channel.send('Sorry this auction has ended. There will be a new auction soon.')
+        await safe_send(message.channel, 'Sorry this auction has ended. There will be a new auction soon.')
         return
     
     bid_amount = params[1]
     if not can_be_int(bid_amount):
-        await message.channel.send(bid_amount+' is not a number.')
+        await safe_send(message.channel, bid_amount+' is not a number.')
         return
     
     bid_amount = int(bid_amount)
     current_bid = data['highest_bid']
     if bid_amount <= current_bid:
-        await message.channel.send(str(bid_amount)+' is not higher than the current bid of '+str(current_bid)+' Tokens.')
+        await safe_send(message.channel, str(bid_amount)+' is not higher than the current bid of '+str(current_bid)+' Tokens.')
         return
 
     user_tokens = get_user_tokens(user)
     if user_tokens < bid_amount:
-        await message.channel.send('You do not have enough tokens for that bid.')
+        await safe_send(message.channel, 'You do not have enough tokens for that bid.')
         return
 
     guild = await get_guild(client)
@@ -74,6 +75,6 @@ async def bid_handler(db, message, client):
     final_string = '--------------------------------\n'
     final_string += message.author.mention+' bid **'+str(bid_amount)+' Tokens** on '+data['item_name']+' '+previous_bid_string+'\n'
     final_string += 'To bid on this item use the command **!bid [number of tokens]** in '+bot_channel.mention
-    await auction_channel.send(final_string)
-    
-    await message.channel.send('You successfully bid '+str(bid_amount)+' Tokens on '+data['item_name']) 
+    await safe_send(auction_channel, final_string)
+
+    await safe_send(message.channel, 'You successfully bid '+str(bid_amount)+' Tokens on '+data['item_name']) 
