@@ -5,6 +5,7 @@ from common_messages import invalid_number_of_params
 from events import get_event_team_size
 from getters.event_getters import get_event_by_id, get_event_channel_id
 from helpers import valid_number_of_params
+from safe_send import safe_send
 
 async def gen_bracket_handler(db, message):
     
@@ -17,12 +18,12 @@ async def gen_bracket_handler(db, message):
 
     event = get_event_by_id(db, event_id)
     if not event:
-        await message.channel.send("I couldn't find any event with that ID.")
+        await safe_send(message.channel, "I couldn't find any event with that ID.")
         return
 
     existing_bracket = await get_bracket_by_event_id(db, event_id)
     if existing_bracket:
-        await message.channel.send("A bracket has already been generated for this event.")
+        await safe_send(message.channel, "A bracket has already been generated for this event.")
         return
    
     brackets = db['brackets']
@@ -39,4 +40,4 @@ async def gen_bracket_handler(db, message):
 
     brackets.insert_one(new_bracket)
 
-    await message.channel.send("Bracket has been created for event "+event_id)
+    await safe_send(message.channel, "Bracket has been created for event "+event_id)

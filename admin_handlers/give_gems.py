@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import generic_find_user, valid_number_of_params
+from safe_send import safe_send
 from user.user import get_user_gems
 
 
@@ -17,7 +18,7 @@ async def give_gems_handler(db, message, client):
 
     user = await generic_find_user(client, db, user_id)
     if not user:
-        await message.channel.send('Could not find that user.')
+        await safe_send(message.channel, 'Could not find that user.')
         return
     
     user_gems = get_user_gems(user)
@@ -26,4 +27,4 @@ async def give_gems_handler(db, message, client):
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"gems": user_gems}})
 
-    await message.channel.send('Gems given')
+    await safe_send(message.channel, 'Gems given')
