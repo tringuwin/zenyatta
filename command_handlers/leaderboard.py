@@ -1,5 +1,6 @@
 
 import constants
+from safe_send import safe_send
 
 async def leaderboard_handler(db, message):
     
@@ -26,4 +27,4 @@ async def leaderboard_handler(db, message):
     final_string += '------------------------\n'
     final_string += f'See the full leaderboard here!\n{constants.WEBSITE_DOMAIN}/leaderboard'
 
-    await message.channel.send(final_string)
+    await safe_send(message.channel, final_string)

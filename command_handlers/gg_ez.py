@@ -1,5 +1,7 @@
 import random
 
+from safe_send import safe_send
+
 responses = [
     'Well played. I salute you all.',
     'For glory and honor! Huzzah comrades!',
@@ -12,4 +14,4 @@ responses = [
 async def gg_ez_handler(message):
 
     my_response = random.choice(responses)
-    await message.channel.send(my_response)
+    await safe_send(message.channel, my_response)

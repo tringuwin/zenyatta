@@ -2,6 +2,7 @@
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from rewards import change_pickaxes, change_tokens
+from safe_send import safe_send
 from user.user import get_user_gems, get_user_pickaxes, get_user_tokens, user_exists
 import random
 import constants
@@ -52,7 +53,7 @@ async def mine_handler(db, message):
 
     tokens = get_user_tokens(user)
     if (not valid_mine) and tokens < 20:
-        await message.channel.send('Mining costs 20 tokens or a Pickaxe. Please try again once you have 20 tokens or a Pickaxe.')
+        await safe_send(message.channel, 'Mining costs 20 tokens or a Pickaxe. Please try again once you have 20 tokens or a Pickaxe.')
         return
 
     random_result = random.randint(1, 1000)
@@ -108,7 +109,4 @@ async def mine_handler(db, message):
     else:
         final_string += 'You found '+str(my_flair)+' **'+result+"** "+str(my_flair)+" ! You sold it for **"+str(payout)+' Tokens**'
 
-    await message.channel.send(final_string)
-
-
-
+    await safe_send(message.channel, final_string)

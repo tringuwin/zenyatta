@@ -1,5 +1,7 @@
 import random
 
+from safe_send import safe_send
+
 async def hello_handler(message):
     answers = [
         'Greetings.',
@@ -9,4 +11,4 @@ async def hello_handler(message):
     ]
 
     random_response = random.choice(answers)
-    await message.channel.send(random_response)
+    await safe_send(message.channel, random_response)
