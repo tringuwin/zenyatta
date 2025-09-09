@@ -4,6 +4,7 @@
 from automation.crew.create_new_production_crew_member import create_new_production_crew_member
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
+from safe_send import safe_send
 
 
 
@@ -21,12 +22,12 @@ async def make_lobby_admin_handler(db, message):
     production_crew = db['production_crew']
     existing_crew = production_crew.find_one({'discord_id': user_id})
     if existing_crew:
-        await message.channel.send('User already exists in the production crew.')
+        await safe_send(message.channel, 'User already exists in the production crew.')
         return
 
     create_new_production_crew_member(db, user_id, username)
 
-    await message.channel.send('Added '+username+' as a crew member.')
+    await safe_send(message.channel, 'Added '+username+' as a crew member.')
 
 
 

@@ -1,5 +1,6 @@
 
 from common_messages import not_registered_response
+from safe_send import safe_send
 from user.user import get_gem_offer, get_user_gems, user_exists
 
 
@@ -12,13 +13,13 @@ async def accept_gem_trade_handler(db, message):
     
     gem_offer = get_gem_offer(user)
     if not gem_offer:
-        await message.channel.send('You do not currently have any gem offers at this time.')
+        await safe_send(message.channel, 'You do not currently have any gem offers at this time.')
         return
     
     other_user_id = gem_offer['sender_id']
     other_user = user_exists(db, other_user_id)
     if not other_user:
-        await message.channel.send("There was an error finding your trade partner's data.")
+        await safe_send(message.channel, "There was an error finding your trade partner's data.")
         return
     
     users = db['users']
@@ -28,7 +29,7 @@ async def accept_gem_trade_handler(db, message):
     color_owned = user_gems[color_to_give]
     if color_owned < 1:
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"gem_offer": None}})
-        await message.channel.send('You no longer have any '+color_to_give+' gems. This offer has been cancelled.')
+        await safe_send(message.channel, 'You no longer have any '+color_to_give+' gems. This offer has been cancelled.')
         return
     
     sender_gems = get_user_gems(other_user)
@@ -36,7 +37,7 @@ async def accept_gem_trade_handler(db, message):
     other_color_owned = sender_gems[color_to_get]
     if other_color_owned < 1:
         users.update_one({"discord_id": user['discord_id']}, {"$set": {"gem_offer": None}})
-        await message.channel.send('The other user no longer has any '+color_to_get+' gems. This offer has been cancelled.')
+        await safe_send(message.channel, 'The other user no longer has any '+color_to_get+' gems. This offer has been cancelled.')
         return
     
     user_gems[color_to_give] -= 1
@@ -47,5 +48,4 @@ async def accept_gem_trade_handler(db, message):
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"gem_offer": None, "gems": user_gems}})
     users.update_one({"discord_id": other_user['discord_id']}, {"$set": {"gems": sender_gems}})
 
-    await message.channel.send('Gem trade complete!')
-    
+    await safe_send(message.channel, 'Gem trade complete!')
