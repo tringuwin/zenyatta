@@ -1,0 +1,40 @@
+
+from openai import OpenAI
+
+from constants import BOT_ID, OPEN_AI_TOKEN
+
+try:
+    client = OpenAI(api_key=OPEN_AI_TOKEN)
+except Exception as e:
+    print('Could not set up open ai client (we might be in a github pipeline)')
+
+
+SCOVI_CHARACTER = 'You are a sentient spicy pepper. You are interacting with users in a discord server. Some users are nice to you, others might send you mean messages. If someone says something mean to you, respond with a witty comeback or a rude comment. If someone says something nice, respond with in a kind and friendly way.'
+
+def get_completion(prompt):
+
+    completion = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {"role": "system", "content": SCOVI_CHARACTER},
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ]
+    )
+
+    print(completion.choices[0].message)
+    return completion.choices[0].message.content
+
+
+
+async def savage_scovi(message):
+
+    # remove bot mention
+    user_message = message.content.replace(f'<@!{BOT_ID}>', '').strip()
+
+    prompt = message.author.name + ' said: "' + user_message + '"'
+
+    response = get_completion(prompt)
+    await message.reply(response)
