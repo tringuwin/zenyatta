@@ -27,7 +27,7 @@ async def coin_stats(db, message):
 
     coin_message = f'{SPICY_COIN_EMOJI_STRING} **Spicy Coin Stats** {SPICY_COIN_EMOJI_STRING}'
     coin_message += f'\n\n**Total Spicy Coins:** {TOTAL_COINS:,}'
-    coin_message += f'\n**Free Vouchers:** {free_vouchers:,} ({percent_of_coins(free_vouchers)}%)'
+    coin_message += f'\n**Vouchers in League Bank:** {free_vouchers:,} ({percent_of_coins(free_vouchers)}%)'
     coin_message += f'\n**Owned Vouchers:** {owned_vouchers:,} ({percent_of_coins(owned_vouchers)}%)'
     coin_message += f'\n**Coins in Market:** {coins_in_market:,} ({percent_of_coins(coins_in_market)}%)'
 
