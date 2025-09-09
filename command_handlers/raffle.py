@@ -2,6 +2,7 @@
 
 from command_handlers.buy_ticket import get_all_tickets
 from common_messages import not_registered_response
+from safe_send import safe_send
 from user.user import get_user_tickets, user_exists
 
 
@@ -27,6 +28,4 @@ async def raffle_handler(db, message):
     final_string += 'Your current chance to win is **'+str(rounded_percent)+'%**\n'
     final_string += 'You can buy more tickets by using the command **!buyticket [number of tickets]**'
 
-    await message.channel.send(final_string)
-
-
+    await safe_send(message.channel, final_string)

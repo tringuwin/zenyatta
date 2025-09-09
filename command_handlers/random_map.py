@@ -1,5 +1,7 @@
 import random
 
+from safe_send import safe_send
+
 OVERWATCH_MAPS = [
 
     [ # Control
@@ -91,9 +93,9 @@ def get_random_map(context):
 async def random_map_handler(message, context):
 
     if context not in CONTEXT_TO_MAPS:
-        await message.channel.send("There are no maps for this league yet.")
+        await safe_send(message.channel, "There are no maps for this league yet.")
         return
     
     random_map = get_random_map(context)
 
-    await message.channel.send(random_map)
+    await safe_send(message.channel, random_map)

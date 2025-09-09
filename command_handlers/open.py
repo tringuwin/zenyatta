@@ -3,6 +3,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_pickaxes, change_tokens
+from safe_send import safe_send
 from user.user import get_sub_lootboxes, get_user_gems, get_user_lootboxes, user_exists
 import random
 import constants
@@ -197,7 +198,7 @@ async def open_handler(db, message):
 
         sub_lootboxes = get_sub_lootboxes(user)
         if sub_lootboxes < 1:
-            await message.channel.send('You do not have any twitch lootboxes right now.')
+            await safe_send(message.channel, 'You do not have any twitch lootboxes right now.')
             return
         
         sub_lootboxes -= 1
@@ -208,13 +209,13 @@ async def open_handler(db, message):
     else:
 
         if not can_be_int(box_num):
-            await message.channel.send(box_num+' is not a valid lootbox number.')
+            await safe_send(message.channel, box_num+' is not a valid lootbox number.')
             return
         
         box_num = int(box_num)
         user_boxes = get_user_lootboxes(user)
         if not (box_num in user_boxes):
-            await message.channel.send('You do not have that lootbox!')
+            await safe_send(message.channel, 'You do not have that lootbox!')
             return
         
         user_boxes.remove(box_num)
@@ -264,11 +265,7 @@ async def open_handler(db, message):
 
         await change_pickaxes(db, user, prize[1])
 
-    await message.channel.send(final_string)
-
-
-
-    
+    await safe_send(message.channel, final_string)
 
     
 
