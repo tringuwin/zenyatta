@@ -3,6 +3,7 @@ import constants
 from command_handlers.league.timeslot import get_team_index, get_team_matchup
 from context.context_helpers import get_league_teams_collection_from_context, get_team_owners_channel_from_context
 from league import validate_admin
+from safe_send import safe_send
 
 TIMESLOT_PREFIX_TO_DAY_INDEX = {
     'W': 2,
@@ -45,24 +46,24 @@ async def notify_both_teams_about_unschedule(client, db, matchup, team_name_remo
 
     info_string = f'Your match for this week has been unscheduled by {team_name_removed}. Please reschedule it as soon as possible.'
 
-    await team_owners_channel.send(f'{team_1_mention} {team_2_mention} {info_string}')
+    await safe_send(team_owners_channel, f'{team_1_mention} {team_2_mention} {info_string}', True)
 
 async def unschedule_handler(db, message, client, context):
 
     valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
     if not valid_admin:
-        await message.channel.send('You are not an admin of a league team.')
+        await safe_send(message.channel, 'You are not an admin of a league team.')
         return
     
     matchups = db['matchups']
     my_matchup = get_team_matchup(matchups, team_name, context)
     if not my_matchup:
-        await message.channel.send('Could not find a current matchup for your team.')
+        await safe_send(message.channel, 'Could not find a current matchup for your team.')
         return
     
     if my_matchup['timeslot'] == 'NONE':
-        await message.channel.send('Your match for this week is not currently scheduled yet.')
+        await safe_send(message.channel, 'Your match for this week is not currently scheduled yet.')
         return
     old_timeslot = my_matchup['timeslot']
     
@@ -72,7 +73,7 @@ async def unschedule_handler(db, message, client, context):
     season_schedule_plan = schedule_plans.find_one({'context': context, 'season': my_matchup['season']})
 
     if not season_schedule_plan:
-        await message.channel.send('Something went wrong, could not find this season.')
+        await safe_send(message.channel, 'Something went wrong, could not find this season.')
         return
 
     # ensure week plan is scheduling state
@@ -80,7 +81,7 @@ async def unschedule_handler(db, message, client, context):
     week_index = season_schedule_plan['current_week']
     current_week = season_schedule_plan['weeks'][week_index]
     if current_week['status'] != 'SCHEDULING':
-        await message.channel.send('Scheduling is not currently open as this time.')
+        await safe_send(message.channel, 'Scheduling is not currently open as this time.')
         return
 
     # get schedule object
@@ -102,4 +103,4 @@ async def unschedule_handler(db, message, client, context):
     matchups.update_one({'_id': my_matchup['_id']}, {'$set': {'team'+str(my_team_index)+'_timeslot': 'NONE', 'timeslot': 'NONE', 'added_to_schedule': False, 'weekday': 'NONE'}})
 
     await notify_both_teams_about_unschedule(client, db, my_matchup, team_name)
-    await message.channel.send('You have unscheduled your match for this week. Please reschedule it as soon as possible.')
+    await safe_send(message.channel, 'You have unscheduled your match for this week. Please reschedule it as soon as possible.')

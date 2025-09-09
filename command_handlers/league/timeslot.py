@@ -4,6 +4,7 @@ from context.context_helpers import get_league_teams_collection_from_context, ge
 from helpers import timeslot_to_day
 from league import validate_admin
 import constants
+from safe_send import safe_send
 
 
 def get_team_matchup(matchups, team_name, context):
@@ -41,8 +42,7 @@ async def notify_both_teams_about_timeslot(client, db, matchup, timeslot):
     timeslot_info = constants.TIMESLOT_TO_INFO[timeslot]
     timeslot_string = f'Your match will take place at {timeslot_info[0]} at {timeslot_info[1]} PM ET.'
 
-    await team_owners_channel.send(f'{team_1_mention} {team_2_mention} {timeslot_string}')
-
+    await safe_send(team_owners_channel, f'{team_1_mention} {team_2_mention} {timeslot_string}', True)
 
 
 async def timeslot_handler(db, message, client, context):
@@ -54,29 +54,29 @@ async def timeslot_handler(db, message, client, context):
     #     team_name = 'Polar'
 
     if not valid_admin:
-        await message.channel.send('You are not an admin of a league team.')
+        await safe_send(message.channel, 'You are not an admin of a league team.')
         return
     
     requested_timeslot = message.content.split(' ')[1].upper()
 
     if not (requested_timeslot in constants.TIMESLOT_TO_INFO):
-        await message.channel.send('That is not a valid timeslot')
+        await safe_send(message.channel, 'That is not a valid timeslot')
         return
     
     matchups = db['matchups']
     my_matchup = get_team_matchup(matchups, team_name, context)
     if not my_matchup:
-        await message.channel.send('Could not find a current matchup for your team.')
+        await safe_send(message.channel, 'Could not find a current matchup for your team.')
         return
     
     if my_matchup['timeslot'] != 'NONE':
-        await message.channel.send('The timeslot for your match is already set. Your match is scheduled for timeslot: '+my_matchup['timeslot'])
+        await safe_send(message.channel, 'The timeslot for your match is already set. Your match is scheduled for timeslot: '+my_matchup['timeslot'])
         return
     
     matchup_with_timeslot = matchups.find_one({'$and': [{'context': context}, {'timeslot': requested_timeslot}]})
     if matchup_with_timeslot:
         league_url = get_league_url_from_context(context)
-        await message.channel.send(f'There is already a match scheduled for that timeslot. You can see all available timeslots here: https://spicyesports.com/{league_url}/timeslots')
+        await safe_send(message.channel, f'There is already a match scheduled for that timeslot. You can see all available timeslots here: https://spicyesports.com/{league_url}/timeslots')
         return
 
     my_team_index = get_team_index(team_name, my_matchup)
@@ -85,12 +85,12 @@ async def timeslot_handler(db, message, client, context):
     other_team_timeslot = my_matchup['team'+str(other_team_index)+'_timeslot']
     if other_team_timeslot == requested_timeslot:
         matchups.update_one({'_id': my_matchup['_id']}, {'$set': {'timeslot': requested_timeslot, 'team'+str(my_team_index)+'_timeslot': requested_timeslot, 'weekday': timeslot_to_day(requested_timeslot)}})
-        await message.channel.send('Both teams agreed on the timeslot "'+requested_timeslot+'"!')
+        await safe_send(message.channel, 'Both teams agreed on the timeslot "'+requested_timeslot+'"!')
         await notify_both_teams_about_timeslot(client, db, my_matchup, requested_timeslot)
         return
 
     matchups.update_one({'_id': my_matchup['_id']}, {'$set': {'team'+str(my_team_index)+'_timeslot': requested_timeslot}})
-    await message.channel.send('You have successfully requested the timeslot "'+requested_timeslot+'"! Waiting for the other team to agree.')
+    await safe_send(message.channel, 'You have successfully requested the timeslot "'+requested_timeslot+'"! Waiting for the other team to agree.')
 
     
     

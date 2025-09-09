@@ -267,7 +267,7 @@ from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has
 from helper_handlers.twitch_pack import twitch_pack_handler
 from helper_handlers.twitch_tokens import twitch_tokens_handler
 from helpers import get_constant_value, is_bot_commands_channel, make_string_from_word_list, set_constant_value
-from api import get_member, give_role, remove_role, send_msg
+from api import get_member, give_role, remove_role
 from mongo import output_packs, output_pickaxes, output_tokens, switch_matches
 from payroll import check_payroll
 from random_event.check_random_event_on_message import check_random_event_on_message

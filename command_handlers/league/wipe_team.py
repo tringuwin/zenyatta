@@ -3,6 +3,7 @@ from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_team_field_from_context, get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from helpers import valid_number_of_params
+from safe_send import safe_send
 
 
 TAKEOVER_USERS = [
@@ -20,7 +21,7 @@ async def remove_team_role_from_all_members(message, team, client):
         if not (member.id in TAKEOVER_USERS):
             await member.remove_roles(team_role)
 
-    await message.channel.send('Team role removed from all users.')
+    await safe_send(message.channel, 'Team role removed from all users.')
 
 
 async def clear_members_from_league_team(message, league_teams_collection, team):
@@ -33,7 +34,7 @@ async def clear_members_from_league_team(message, league_teams_collection, team)
 
     league_teams_collection.update_one({'team_name': team['team_name']}, {'$set': {'members': final_members}})
 
-    await message.channel.send('All members removed from team object.')
+    await safe_send(message.channel, 'All members removed from team object.')
 
 
 
@@ -48,7 +49,7 @@ async def remove_league_team_from_all_users(message, db, team, context):
         if not (user['discord_id'] in TAKEOVER_USERS):
             users.update_one({'discord_id': user['discord_id']}, {'$set': {league_team_constant_name: 'None'}})
 
-    await message.channel.send('All users with league team cleared.')
+    await safe_send(message.channel, 'All users with league team cleared.')
 
 
 async def wipe_team(db, message, client, context):
@@ -64,7 +65,7 @@ async def wipe_team(db, message, client, context):
     league_teams_collection = get_league_teams_collection_from_context(db, context)
     team = league_teams_collection.find_one({'name_lower': team_name_lower})
     if not team:
-        await message.channel.send('There is no team with the name: '+team_name)
+        await safe_send(message.channel, 'There is no team with the name: '+team_name)
         return
     
     await remove_team_role_from_all_members(message, team, client)
