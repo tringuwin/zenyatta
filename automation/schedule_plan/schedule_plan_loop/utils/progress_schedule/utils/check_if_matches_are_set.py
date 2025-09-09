@@ -4,6 +4,7 @@ from automation.schedule_plan.notif_helpers.notify_staff_for_matches import noti
 from automation.schedule_plan.notif_helpers.notify_team_owners_of_matches import notify_team_owners_of_matches
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.check_if_should_generate_matchups import check_if_should_generate_matchups
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.get_all_matchups import get_all_matchups
+from safe_send import safe_send
 
 
 
@@ -41,11 +42,11 @@ async def check_if_matches_are_set(client, db, schedule_plans, schedule, message
     for matchup in all_matchups:
 
         if (not matchup['team1'] in team_has_match_dict):
-            await message.channel.send(f'Team {matchup["team1"]} is not in the league')
+            await safe_send(message.channel, f'Team {matchup["team1"]} is not in the league')
             return
         
         if (not matchup['team2'] in team_has_match_dict):
-            await message.channel.send(f'Team {matchup["team2"]} is not in the league')
+            await safe_send(message.channel, f'Team {matchup["team2"]} is not in the league')
             return
         
         team_has_match_dict[matchup['team1']] = True
@@ -58,8 +59,8 @@ async def check_if_matches_are_set(client, db, schedule_plans, schedule, message
 
         schedule['weeks'][current_week]['status'] = 'SCHEDULING'
         schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})
-        await message.channel.send(f'Matches are set for week {actual_week} of season {season} of league {league_context} and team owners have been notified.')
+        await safe_send(message.channel, f'Matches are set for week {actual_week} of season {season} of league {league_context} and team owners have been notified.')
 
     else:
-        await message.channel.send(f'Teams without matches: {teams_without_matches}')
+        await safe_send(message.channel, f'Teams without matches: {teams_without_matches}')
         await notify_staff_for_matches(message, schedule)

@@ -4,7 +4,7 @@ from cards import get_card_image_by_display, get_card_index
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_message_by_channel_and_id
 from helpers import valid_number_of_params
-from safe_send import safe_reply
+from safe_send import safe_reply, safe_send
 from user.user import get_user_battle_cards, get_user_cards, user_exists
 import math
 import time
@@ -246,7 +246,7 @@ async def fight_card_procedure(client, db, card_battle, single_card, opp_card_di
     opp_mention = '<@'+str(card_battle['user_id'])+'>'
     await safe_reply(battle_result_message, opp_mention+' '+message.author.mention)
 
-    await message.channel.send(f'Battle complete! {user_result_string} You can see the result here: '+battle_result_message.jump_url)
+    await safe_send(message.channel, f'Battle complete! {user_result_string} You can see the result here: '+battle_result_message.jump_url)
 
 
 async def fight_card(client, db, message):
@@ -265,35 +265,35 @@ async def fight_card(client, db, message):
     user_cards = get_user_cards(user)
     user_card_index = get_card_index(user_cards, user_card_display)
     if user_card_index == -1:
-        await message.channel.send('Either you do not own the card "'+user_card_display+'" or it is not available for a battle right now.')
+        await safe_send(message.channel, 'Either you do not own the card "'+user_card_display+'" or it is not available for a battle right now.')
         return
     
     user_battle_cards = get_user_battle_cards(user)
     if user_card_display in user_battle_cards:
-        await message.channel.send('This card is currently in a battle so it cannot be used in another battle at this time.')
+        await safe_send(message.channel, 'This card is currently in a battle so it cannot be used in another battle at this time.')
         return
 
     opp_card_display = params[1].upper()
     card_battles = db['card_battles']
     card_battle = card_battles.find_one({'card_display': opp_card_display})
     if not card_battle:
-        await message.channel.send('The card "'+opp_card_display+'" is not currently available for a battle.')
+        await safe_send(message.channel, 'The card "'+opp_card_display+'" is not currently available for a battle.')
         return
     
     card_battle_expire_time = card_battle['expire_time']
     if time.time() > card_battle_expire_time:
-        await message.channel.send('The battle for the card "'+opp_card_display+'" has expired.')
+        await safe_send(message.channel, 'The battle for the card "'+opp_card_display+'" has expired.')
         return
     
     if card_battle['user_id'] == user['discord_id']:
-        await message.channel.send('You cannot battle your own card.')
+        await safe_send(message.channel, 'You cannot battle your own card.')
         return
     
     single_cards = db['single_cards']
     single_card = single_cards.find_one({'display': user_card_display})
     user_card_power = single_card['power']
     if user_card_power < card_battle['min_power'] or user_card_power > card_battle['max_power']:
-        await message.channel.send('Your card does not meet the power requirements for this battle.')
+        await safe_send(message.channel, 'Your card does not meet the power requirements for this battle.')
         return
     
     await fight_card_procedure(client, db, card_battle, single_card, opp_card_display, message)

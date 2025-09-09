@@ -75,6 +75,13 @@ async def safe_send_embed(channel, embed):
     return await channel.send(embed=embed)
 
 
+async def safe_send_multiple_embeds(channel, embeds):
+
+    # have to check embed content earlier
+    return await channel.send(embeds=embeds)
+
+
+
 # NOT IMPLEMENTED YET
 async def safe_edit_embed():
 

@@ -1,5 +1,6 @@
 
 from context.context_helpers import get_league_teams_collection_from_context, get_team_owners_channel_from_context
+from safe_send import safe_send
 
 
 async def notify_team_owners_of_matches(client, db, matchups, context, week_number):
@@ -24,6 +25,4 @@ async def notify_team_owners_of_matches(client, db, matchups, context, week_numb
     matchups_message += '\n\nPlease ensure these matches are scheduled by Tuesday at midnight ET.'
     matchups_message += '\n\n'+all_team_pings
 
-    await team_owners_channel.send(matchups_message)
-
-
+    await safe_send(team_owners_channel, matchups_message, True)

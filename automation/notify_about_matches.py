@@ -3,6 +3,7 @@ import pytz
 from discord_actions import get_guild, get_role_by_id
 from helpers import get_constant_value, get_league_emoji_from_team_name
 import constants
+from safe_send import safe_send
 
 def get_current_time_est():
     # Define the EST timezone
@@ -78,7 +79,7 @@ async def notify_team_owners(client, db, day):
 
     guild = await get_guild(client)
     team_owners_channel = guild.get_channel(constants.TEAM_OWNERS_CHANNEL)
-    await team_owners_channel.send(final_team_owners_message)
+    await safe_send(team_owners_channel, final_team_owners_message, True)
 
 
 async def notify_league_announcements(client, day):
@@ -100,7 +101,7 @@ async def notify_league_announcements(client, day):
 
     guild = await get_guild(client)
     announcements_channel = guild.get_channel(constants.ANNOUNCEMENTS_CHANNEL_ID)
-    announcement_message = await announcements_channel.send(final_string)
+    announcement_message = await safe_send(announcements_channel, final_string, True)
     await announcement_message.add_reaction('🔥')
 
 
@@ -114,26 +115,26 @@ async def check_notify_about_matches(client, db, message):
 
     season_schedule = get_season_schedule(schedule_db, league_season)
     if not season_schedule:
-        await message.channel.send('Current SOL season schedule not found.')
+        await safe_send(message.channel, 'Current SOL season schedule not found.')
         return
 
     schedule_week = get_schedule_week(season_schedule, league_week)
     if not schedule_week:
-        await message.channel.send('Current SOL week not found.')
+        await safe_send(message.channel, 'Current SOL week not found.')
         return
 
     year, month, day, hour = get_current_time_est()
     if hour < 12:
-        await message.channel.send('Not past noon yet.')
+        await safe_send(message.channel, 'Not past noon yet.')
         return
 
     schedule_day, day_index = get_schedule_day(schedule_week, year, month, day)
     if not schedule_day:
-        await message.channel.send('Could not find today in the schedule for this week.')
+        await safe_send(message.channel, 'Could not find today in the schedule for this week.')
         return
     
     if schedule_day['notified_about_matches']:
-        await message.channel.send('Already notified about the matches today.')
+        await safe_send(message.channel, 'Already notified about the matches today.')
         return
 
     if len(schedule_day['matches']) > 0:
@@ -142,12 +143,12 @@ async def check_notify_about_matches(client, db, message):
         # Notify league accouncements here
         await notify_league_announcements(client, schedule_day)
     else:
-        await message.channel.send('There are no matches today to notify about.')
+        await safe_send(message.channel, 'There are no matches today to notify about.')
 
     season_schedule['weeks'][league_week-1]['days'][day_index]['notified_about_matches'] = True
     schedule_db.update_one({'season': league_season}, {'$set': {'weeks': season_schedule['weeks']}})
 
-    await message.channel.send('Notified about the matches today and updated database')
+    await safe_send(message.channel, 'Notified about the matches today and updated database')
 
 
 
