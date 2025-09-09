@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
+from safe_send import safe_send
 
 async def delete_event_handler(db, message):
     
@@ -17,7 +18,7 @@ async def delete_event_handler(db, message):
     result = events.delete_one(filter_query)
 
     if result.deleted_count == 1:
-        await message.channel.send('Event with id '+event_id+' has been deleted')
+        await safe_send(message.channel, 'Event with id '+event_id+' has been deleted')
     else:
-        await message.channel.send('Event with id does not exist.')
+        await safe_send(message.channel, 'Event with id does not exist.')
 

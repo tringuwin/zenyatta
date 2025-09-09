@@ -328,30 +328,30 @@ async def wipe_card_database_handler(db, message):
     card_database = db['cards']
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": []}})
 
-    await message.channel.send('Card database wiped.')
+    await safe_send(message.channel, 'Card database wiped.')
 
 async def wipe_player_cards_handler(db, message):
 
     word_parts = message.content.split()
     if len(word_parts) != 2:
-        await message.channel.send('Invalid number of params.')
+        await safe_send(message.channel, 'Invalid number of params.')
         return
     
     user_id_raw = word_parts[1]
     if not can_be_int(user_id_raw):
-        await message.channel.send(user_id_raw+' is not an integer.')
+        await safe_send(message.channel, user_id_raw+' is not an integer.')
         return
     
     user_id = int(user_id_raw)
     found_user = user_exists(db, user_id)
     if not found_user:
-        await message.channel.send('User not found.')
+        await safe_send(message.channel, 'User not found.')
         return
     
     users = db['users']
     users.update_one({"discord_id": user_id}, {"$set": {"cards": []}})
 
-    await message.channel.send('Users cards were wiped.')
+    await safe_send(message.channel, 'Users cards were wiped.')
 
 
 async def open_pack_handler(db, message):
@@ -363,7 +363,7 @@ async def open_pack_handler(db, message):
     
     user_packs = get_user_packs(user)
     if user_packs < 1:
-        await message.channel.send('You do not have any packs to open. ( Find out all the ways to earn packs here: https://discord.com/channels/1130553449491210442/1211775904007716994/1211779108607098980 )')
+        await safe_send(message.channel, 'You do not have any packs to open. ( Find out all the ways to earn packs here: https://discord.com/channels/1130553449491210442/1211775904007716994/1211779108607098980 )')
         return
     
     await change_packs(db, user, -1)
@@ -405,30 +405,30 @@ async def view_card_handler(client, db, message):
     card_info_parts = card_info.split('-')
 
     if len(card_info_parts) != 2:
-        await message.channel.send('Card is not in the correct format. (Example 1-A)')
+        await safe_send(message.channel, 'Card is not in the correct format. (Example 1-A)')
         return
 
     card_id = card_info_parts[0]
 
     if not can_be_int(card_id):
-        await message.channel.send(card_id+' is not a number.')
+        await safe_send(message.channel, card_id+' is not a number.')
         return
 
     card_data = get_card_data_by_id(db, int(card_id))
     if not card_data:
-        await message.channel.send('Could not find a card with the ID '+card_id)
+        await safe_send(message.channel, 'Could not find a card with the ID '+card_id)
         return
     
     card_variant = card_info_parts[1]
     if not (card_variant.upper() in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'S']):
-        await message.channel.send('"'+card_variant+'" is not a valid card variant. Valid variants are letters A-I or S')
+        await safe_send(message.channel, '"'+card_variant+'" is not a valid card variant. Valid variants are letters A-I or S')
         return
     
     is_custom = False
     if ('custom' in card_data) and card_data['custom']:
         is_custom = True
     if is_custom and (card_variant.upper() != 'A'):
-        await message.channel.send('This is a custom card so it only has one variant, "A"')
+        await safe_send(message.channel, 'This is a custom card so it only has one variant, "A"')
         return
     
     card_img = get_card_image_by_display_with_data(card_data, card_id+'-'+card_variant.upper())
@@ -492,15 +492,15 @@ async def sell_card_handler(db, message):
 
         user_for_sale_cards = get_user_for_sale_cards(user)
         if input_card in user_for_sale_cards:
-            await message.channel.send('You currently have this card listed on the Card Market! To unlist it, use the command **!unlistcard '+input_card+'**')
+            await safe_send(message.channel, 'You currently have this card listed on the Card Market! To unlist it, use the command **!unlistcard '+input_card+'**')
             return
 
-        await message.channel.send('I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
+        await safe_send(message.channel, 'I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
         return
     
     battle_cards = get_user_battle_cards(user)
     if input_card in battle_cards:
-        await message.channel.send('This card is currently in a battle so it cannot be sold at this time.')
+        await safe_send(message.channel, 'This card is currently in a battle so it cannot be sold at this time.')
         return
     
     removed_card = cards.pop(card_index)
@@ -516,8 +516,8 @@ async def sell_card_handler(db, message):
     card_database.update_one({"cards_id": 1}, {"$set": {"cards": edit_cards}})
 
     assign_owner_to_card(db, removed_card['card_display'], 0)
-    
-    await message.channel.send('You sold the card "'+input_card+'" for 20 tokens!')
+
+    await safe_send(message.channel, 'You sold the card "'+input_card+'" for 20 tokens!')
 
 
 def get_card_sell_status_groups(cards, battle_cards):
@@ -550,7 +550,7 @@ async def sell_all_cards_handler(db, message):
     num_sellable = len(card_status_groups['sellable'])
 
     if num_sellable == 0:
-        await message.channel.send('You have no cards that can be sold. You may have listed cards. You will need to unlist them first before using this command.')
+        await safe_send(message.channel, 'You have no cards that can be sold. You may have listed cards. You will need to unlist them first before using this command.')
         return
 
     tokens_to_earn = num_sellable * 20
@@ -569,8 +569,8 @@ async def sell_all_cards_handler(db, message):
 
     for card in card_status_groups['sellable']:
         assign_owner_to_card(db, card['card_display'], 0)
-    
-    await message.channel.send('You sold the all your cards! You sold '+str(num_sellable)+' cards for a total of **'+str(tokens_to_earn)+' Tokens**!')
+
+    await safe_send(message.channel, 'You sold the all your cards! You sold '+str(num_sellable)+' cards for a total of **'+str(tokens_to_earn)+' Tokens**!')
 
 
 async def release_cards(db, message):
@@ -583,13 +583,13 @@ async def release_cards(db, message):
     user_id = params[1]
     
     if not can_be_int(user_id):
-        await message.channel.send(user_id + ' is not a number')
+        await safe_send(message.channel, user_id + ' is not a number')
         return
     user_id = int(user_id)
 
     user = user_exists(db, user_id)
     if not user:
-        await message.channel.send('Could not find a user with that id.')
+        await safe_send(message.channel, 'Could not find a user with that id.')
         return
     
     cards = get_user_cards(user)
@@ -598,7 +598,7 @@ async def release_cards(db, message):
 
     num_cards = len(card_status_groups['sellable'])
     if num_cards == 0:
-        await message.channel.send('They have no cards.')
+        await safe_send(message.channel, 'They have no cards.')
         return
     
     users = db['users']
@@ -614,8 +614,8 @@ async def release_cards(db, message):
 
     for card in card_status_groups['sellable']:
         assign_owner_to_card(db, card['card_display'], 0)
-    
-    await message.channel.send('Returned '+str(num_cards)+' to packs.')
+
+    await safe_send(message.channel, 'Returned '+str(num_cards)+' to packs.')
 
 
 async def give_card_handler(db, message):
@@ -631,17 +631,17 @@ async def give_card_handler(db, message):
         return
     
     if len(message.mentions) != 1:
-        await message.channel.send('Please mention 1 user to give this card to.')
+        await safe_send(message.channel, 'Please mention 1 user to give this card to.')
         return
     
     give_mention = message.mentions[0]
     give_user = user_exists(db, give_mention.id)
     if not give_user:
-        await message.channel.send('That user is not registered.')
+        await safe_send(message.channel, 'That user is not registered.')
         return
     
     if give_mention.id == constants.ZEN_ID:
-        await message.channel.send('You cannot give cards to me, sorry!')
+        await safe_send(message.channel, 'You cannot give cards to me, sorry!')
         return
 
     cards = get_user_cards(user)
@@ -652,15 +652,15 @@ async def give_card_handler(db, message):
 
         user_for_sale_cards = get_user_for_sale_cards(user)
         if input_card in user_for_sale_cards:
-            await message.channel.send('You currently have this card listed on the Card Market! To unlist it, use the command **!unlistcard '+input_card+'**')
+            await safe_send(message.channel, 'You currently have this card listed on the Card Market! To unlist it, use the command **!unlistcard '+input_card+'**')
             return
 
-        await message.channel.send('I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
+        await safe_send(message.channel, 'I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
         return
     
     battle_cards = get_user_battle_cards(user)
     if input_card in battle_cards:
-        await message.channel.send('This card is currently in a battle so it cannot be given at this time.')
+        await safe_send(message.channel, 'This card is currently in a battle so it cannot be given at this time.')
         return
     
     removed_card = cards.pop(card_index)
@@ -673,8 +673,8 @@ async def give_card_handler(db, message):
 
     assign_owner_to_card(db, removed_card['card_display'], give_user['discord_id'])
 
-    await message.channel.send('Card was given!')
-    
+    await safe_send(message.channel, 'Card was given!')
+
 
 async def list_card_handler(db, message):
 
@@ -690,12 +690,12 @@ async def list_card_handler(db, message):
     
     cost = word_list[2]
     if not can_be_int(cost):
-        await message.channel.send(cost+' is not a number.')
+        await safe_send(message.channel, cost+' is not a number.')
         return
     
     cost = int(cost)
     if cost <= 20 or cost > 1000000:
-        await message.channel.send('Resell cost must be between 21 and 1,000,000.')
+        await safe_send(message.channel, 'Resell cost must be between 21 and 1,000,000.')
         return
     
     input_card = word_list[1].upper()
@@ -704,7 +704,7 @@ async def list_card_handler(db, message):
 
     card_index = get_card_index(cards, input_card)
     if card_index == -1:
-        await message.channel.send('I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
+        await safe_send(message.channel, 'I did not find the card "'+input_card+'" in your inventory. Check your inventory with **!cards**')
         return
 
     removed_card = cards.pop(card_index)
@@ -733,7 +733,7 @@ async def list_card_handler(db, message):
 
     resell_db.update_one({"cards_id": 1}, {"$set": {"cards": edit_group}})
 
-    await message.channel.send('Success! Your card was put on sale for **'+str(cost)+' Tokens!**')
+    await safe_send(message.channel, 'Success! Your card was put on sale for **'+str(cost)+' Tokens!**')
 
 
 def unlist_card(db, resell_db, edit_group, user_card, user):
@@ -785,19 +785,19 @@ async def unlist_card_handler(db, message):
     resell_group = resell_db.find_one({'cards_id': 1})
     edit_group = resell_group['cards']
     if not (user_card in edit_group):
-        await message.channel.send('I did not find any listed cards with that ID.')
+        await safe_send(message.channel, 'I did not find any listed cards with that ID.')
         return
 
     # player is owner
     listed_card = edit_group[user_card]
     if not (listed_card['owner_id'] == message.author.id):
-        await message.channel.send('You are not the owner of this card. Only the owner can unlist it.')
+        await safe_send(message.channel, 'You are not the owner of this card. Only the owner can unlist it.')
         return
 
     unlist_card(db, resell_db, edit_group, user_card, user)
 
     # confirmation message
-    await message.channel.send('Card was successfully unlisted!')
+    await safe_send(message.channel, 'Card was successfully unlisted!')
 
 
 async def force_unlist(db, message):
@@ -810,13 +810,13 @@ async def force_unlist(db, message):
     user_id = params[1]
     
     if not can_be_int(user_id):
-        await message.channel.send(user_id + ' is not a number')
+        await safe_send(message.channel, user_id + ' is not a number')
         return
     user_id = int(user_id)
 
     user = user_exists(db, user_id)
     if not user:
-        await message.channel.send('Could not find a user with that id.')
+        await safe_send(message.channel, 'Could not find a user with that id.')
         return
     
     resell_db = db['resell']
@@ -827,7 +827,7 @@ async def force_unlist(db, message):
     for card in for_sale_cards:
         unlist_card(db, resell_db, edit_group, card, user)
 
-    await message.channel.send('Unlisted all of the cards for the user')
+    await safe_send(message.channel, 'Unlisted all of the cards for the user')
 
 
 
@@ -851,21 +851,21 @@ async def buy_card_handler(db, message):
     resell_group = resell_db.find_one({'cards_id': 1})
     edit_group = resell_group['cards']
     if not (buy_card in edit_group):
-        await message.channel.send('I did not find any listed cards with that ID.')
+        await safe_send(message.channel, 'I did not find any listed cards with that ID.')
         return
 
     # verify lister isn't user
     listed_card_data = edit_group[buy_card]
     seller_id = listed_card_data['owner_id']
     if message.author.id == seller_id:
-        await message.channel.send("You can't buy your own card. Use the **!unlistcard** command to remove it from the card listings.")
+        await safe_send(message.channel, "You can't buy your own card. Use the **!unlistcard** command to remove it from the card listings.")
         return
 
     # verify user has enough money
     card_price = listed_card_data['cost']
     buyer_tokens = get_user_tokens(user)
     if card_price > buyer_tokens:
-        await message.channel.send('You do not have enough tokens to buy this card.')
+        await safe_send(message.channel, 'You do not have enough tokens to buy this card.')
         return
 
     # take tokens from buyer
@@ -874,7 +874,7 @@ async def buy_card_handler(db, message):
     # give tokens to seller
     seller_user = user_exists(db, seller_id)
     if not seller_user:
-        await message.channel.send('Something went very very wrong :( <@1112204092723441724>')
+        await safe_send(message.channel, 'Something went very very wrong :( <@1112204092723441724>')
         return
     seller_tokens = get_user_tokens(seller_user)
     seller_final_tokens = seller_tokens + card_price
@@ -930,7 +930,7 @@ async def total_cards_handler(db, message, context):
     
     total_cards = get_total_cards(user)
 
-    await message.channel.send('You have a total of **'+str(total_cards)+' Cards**.')
+    await safe_send(message.channel, 'You have a total of **'+str(total_cards)+' Cards**.')
 
 
 async def total_packs_handler(db, message):
@@ -939,7 +939,7 @@ async def total_packs_handler(db, message):
     card_group = db_cards.find_one({'cards_id': 1})
     all_packs = card_group['cards']
 
-    await message.channel.send('There are a total of **'+str(len(all_packs))+' Cards** left in packs.')
+    await safe_send(message.channel, 'There are a total of **'+str(len(all_packs))+' Cards** left in packs.')
 
 
 async def total_cards_handler(db, message, context):
@@ -951,14 +951,14 @@ async def total_cards_handler(db, message, context):
     
     total_cards = get_total_cards(user)
 
-    await message.channel.send('You have a total of **'+str(total_cards)+' Cards**.')
+    await safe_send(message.channel, 'You have a total of **'+str(total_cards)+' Cards**.')
 
 
 async def make_card_handler(db, message):
 
     params = message.content.split()
     if len(params) != 5 and len(params) != 4:
-        await message.channel.send('Need 4-5 params.')
+        await safe_send(message.channel, 'Need 4-5 params.')
         return
     
     is_custom = False
@@ -967,14 +967,14 @@ async def make_card_handler(db, message):
 
     user_id = params[1]
     if not can_be_int(user_id):
-        await message.channel.send(user_id+' is not a number')
+        await safe_send(message.channel, user_id+' is not a number')
         return
     
     user_id = int(user_id)
     if user_id != 0:
         user = user_exists(db, user_id)
         if not user:
-            await message.channel.send('User with that ID does not exist.')
+            await safe_send(message.channel, 'User with that ID does not exist.')
             return
     
     display_cards = db['display_cards']
@@ -993,8 +993,7 @@ async def make_card_handler(db, message):
 
     display_cards.insert_one(new_obj)
 
-    await message.channel.send('New card added with ID of **'+str(new_id)+'**')
-    
+    await safe_send(message.channel, 'New card added with ID of **'+str(new_id)+'**')
 
 
 EDIT_VAL_TO_FIELD = {
@@ -1007,26 +1006,26 @@ async def edit_card_handler(db, message):
 
     valid_params, params = valid_number_of_params(message, 4)
     if not valid_params:
-        await message.channel.send('Need 4 Params')
+        await safe_send(message.channel, 'Need 4 Params')
         return
     
     card_id = params[1]
     
     if not can_be_int(card_id):
-        await message.channel.send(card_id+' is not a number')
+        await safe_send(message.channel, card_id+' is not a number')
         return
     
     card_id = int(card_id)
 
     edit_val = params[2]
     if not (edit_val in EDIT_VAL_TO_FIELD):
-        await message.channel.send(edit_val+' is not a valid edit value')
+        await safe_send(message.channel, edit_val+' is not a valid edit value')
         return
 
     display_cards = db['display_cards']
     display_card = display_cards.find_one({'card_id': card_id})
     if not display_card:
-        await message.channel.send('Did not find card.')
+        await safe_send(message.channel, 'Did not find card.')
         return
 
     set_val = params[3]
@@ -1034,7 +1033,7 @@ async def edit_card_handler(db, message):
     if edit_val == 'p':
 
         if not can_be_int(set_val):
-            await message.channel.send(set_val+' is not a valid player ID')
+            await safe_send(message.channel, set_val+' is not a valid player ID')
             return
         
         display_cards.update_one({"card_id": card_id}, {"$set": {set_field: int(set_val)}})
@@ -1042,7 +1041,7 @@ async def edit_card_handler(db, message):
     else:
         display_cards.update_one({"card_id": card_id}, {"$set": {set_field: set_val}})
 
-    await message.channel.send('Card data updated.')
+    await safe_send(message.channel, 'Card data updated.')
 
 
 

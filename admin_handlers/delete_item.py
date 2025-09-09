@@ -26,7 +26,7 @@ async def delete_item_handler(db, message):
 
         await update_shop(db, message)
 
-        await message.channel.send('Item deleted and shop updated.')
+        await safe_send(message.channel, 'Item deleted and shop updated.')
 
     else:
         await invalid_number_of_params(message)
