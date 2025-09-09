@@ -1,6 +1,4 @@
 
-
-from unittest import result
 from constants import SPICY_COIN_EMOJI_STRING
 from helpers import get_constant_value
 
