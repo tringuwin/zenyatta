@@ -30,3 +30,5 @@ async def coin_stats(db, message):
     coin_message += f'\n**Free Vouchers:** {free_vouchers:,} ({percent_of_coins(free_vouchers)}%)'
     coin_message += f'\n**Owned Vouchers:** {owned_vouchers:,} ({percent_of_coins(owned_vouchers)}%)'
     coin_message += f'\n**Coins in Market:** {coins_in_market:,} ({percent_of_coins(coins_in_market)}%)'
+
+    await message.channel.send(coin_message)
