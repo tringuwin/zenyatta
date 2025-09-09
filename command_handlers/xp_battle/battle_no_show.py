@@ -16,7 +16,7 @@ async def update_players_message(client, final_string, battle_obj):
     xp_battle_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)
     players_message = await xp_battle_channel.fetch_message(battle_obj['players_msg'])
 
-    await safe_edit(players_message, content=final_string)
+    await safe_edit(players_message, final_string)
 
 async def battle_no_show_handler(db, message, client, context):
 
