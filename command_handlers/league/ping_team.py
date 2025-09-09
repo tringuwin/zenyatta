@@ -9,7 +9,7 @@ async def ping_team_handler(db, message, client, context):
     valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
     if not valid_admin:
-        await message.channel.send('You are not an admin of a league team.')
+        await safe_send(message.channel, 'You are not an admin of a league team.')
         return
     
     league_teams = get_league_teams_collection_from_context(db, context)

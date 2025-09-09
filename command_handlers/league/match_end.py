@@ -3,6 +3,7 @@
 from command_handlers.bets.finish_bet import finish_bet
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, get_constant_value, valid_number_of_params
+from safe_send import safe_send
 
 
 def calculate_team_points(team_data):
@@ -26,10 +27,10 @@ async def match_end_handler(db, message, client):
     lose_score = params[4]
 
     if not can_be_int(win_score):
-        await message.channel.send(win_score+' is not a valid number.')
+        await safe_send(message.channel, win_score+' is not a valid number.')
         return
     if not can_be_int(lose_score):
-        await message.channel.send(lose_score+' is not a valid number.')
+        await safe_send(message.channel, lose_score+' is not a valid number.')
         return
     
     win_score = int(win_score)
@@ -44,11 +45,11 @@ async def match_end_handler(db, message, client):
 
     win_team = league_teams.find_one({'name_lower': win_team_name_lower})
     if not win_team:
-        await message.channel.send(win_team_name+' is not a valid team name')
+        await safe_send(message.channel, win_team_name+' is not a valid team name')
         return
     lose_team = league_teams.find_one({'name_lower': lose_team_name_lower})
     if not lose_team:
-        await message.channel.send(lose_team_name+' is not a valid team name')
+        await safe_send(message.channel, lose_team_name+' is not a valid team name')
         return
     
     win_team_real_name = win_team['team_name']
@@ -95,13 +96,12 @@ async def match_end_handler(db, message, client):
             team_loss = 1
             match_bet_valid = True
         else:
-            await message.channel.send('Could not find the bet for this matchup.')
+            await safe_send(message.channel, 'Could not find the bet for this matchup.')
 
     if match_bet_valid:
         await finish_bet(db, message, client, valid_bet, str(team_won), str(team_loss))
 
-    await message.channel.send('match info recorded')
-
+    await safe_send(message.channel, 'match info recorded')
 
     
 

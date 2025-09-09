@@ -4,6 +4,7 @@ from common_messages import invalid_number_of_params
 from helpers import can_be_int, get_constant_value, valid_number_of_params
 
 import constants
+from safe_send import safe_send
 
 async def map_diff_handler(db, message):
 
@@ -17,13 +18,13 @@ async def map_diff_handler(db, message):
     league_teams = db['leagueteams']
     my_team = league_teams.find_one({'name_lower': team_name_lower})
     if not my_team:
-        await message.channel.send(params[1]+' is not a valid team name')
+        await safe_send(message.channel, params[1]+' is not a valid team name')
         return
     team_name = my_team['team_name']
     
     num_to_add = params[2]
     if not can_be_int(num_to_add):
-        await message.channel.send(params[2]+' is not a number')
+        await safe_send(message.channel, params[2]+' is not a number')
         return
     num_to_add = int(num_to_add)
 
@@ -35,4 +36,4 @@ async def map_diff_handler(db, message):
 
     standings.update_one({"season": league_season}, {"$set": {"teams": standings_obj['teams']}})
 
-    await message.channel.send('team maps changed')
+    await safe_send(message.channel, 'team maps changed')

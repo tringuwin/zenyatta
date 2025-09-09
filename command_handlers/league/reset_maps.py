@@ -1,5 +1,6 @@
 
 import constants
+from safe_send import safe_send
 
 async def reset_maps_handler(db, message):
 
@@ -33,4 +34,4 @@ async def reset_maps_handler(db, message):
     map_names = db['mapnames']
     map_names.update_one({"maps_id": 1}, {"$set": {"maps": blank_map_names}})
 
-    await message.channel.send('Maps reset')
+    await safe_send(message.channel, 'Maps reset')
