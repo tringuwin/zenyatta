@@ -1,6 +1,7 @@
 
 
 from command_handlers.league.match_end import calculate_team_points
+from safe_send import safe_send
 
 
 def make_blank_standings(teams):
@@ -55,14 +56,14 @@ async def fix_standings_handler(db, message, context):
 
     schedule_plan = schedule_plans.find_one({'context': context, 'status': 'IN PROGRESS'})
     if not schedule_plan:
-        await message.channel.send(f'No in progress schedule found for the context {context}')
+        await safe_send(message.channel, f'No in progress schedule found for the context {context}')
         return
     season_number = schedule_plan['season']
     
     standings = db['standings']
     season_standings = standings.find_one({'context': context, 'season': season_number})
     if not season_standings:
-        await message.channel.send(f'No standings found for the context {context} and season {season_number}')
+        await safe_send(message.channel, f'No standings found for the context {context} and season {season_number}')
         return
     
     new_standings = make_blank_standings(schedule_plan['season_teams'])
@@ -90,4 +91,4 @@ async def fix_standings_handler(db, message, context):
 
     standings.update_one({'context': context, 'season': season_number}, {'$set': {'teams': new_standings}})
 
-    await message.channel.send(f'Fixed standings for {context} season {season_number}')
+    await safe_send(message.channel, f'Fixed standings for {context} season {season_number}')
