@@ -4,6 +4,7 @@ from context.context_helpers import get_league_notifs_channel_from_context, get_
 from discord_actions import get_role_by_id
 from helpers import make_string_from_word_list
 from league_helpers.give_member_admin_role import give_member_admin_role
+from safe_send import safe_send
 from user.user import set_user_league_team, user_exists
 
 
@@ -103,18 +104,18 @@ async def make_league_team_handler(db, message, client, context):
 
     role = await get_role_by_id(client, team_role)
     if not role:
-        await message.channel.send('There is no role with that ID.')
+        await safe_send(message.channel, 'There is no role with that ID.')
         return
     
     owner_user = user_exists(db, team_owner.id)
     if not owner_user:
-        await message.channel.send('That user is not registered.')
+        await safe_send(message.channel, 'That user is not registered.')
         return
     
     team_info_channel = get_team_info_channel_from_context(client, context)
     player_string = team_owner.mention+' : Owner : 10 TPP'
     end_string = '\n--------------------------\nAvailable TPP: 90'
-    new_team_message = await team_info_channel.send('**'+team_name+' Team Details**\nMembers:\n'+player_string+end_string)
+    new_team_message = await safe_send(team_info_channel, '**'+team_name+' Team Details**\nMembers:\n'+player_string+end_string)
 
     await give_role(team_owner, role, 'Make League Team')
     
@@ -156,6 +157,6 @@ async def make_league_team_handler(db, message, client, context):
     await give_member_admin_role(team_owner, context, client)
 
     league_notifs_channel = get_league_notifs_channel_from_context(client, context)
-    await league_notifs_channel.send('New Team Created: "'+team_name+'". Owner is '+team_owner.mention)
-    await message.channel.send('Team "'+team_name+'" was successfully created.')
+    await safe_send(league_notifs_channel, 'New Team Created: "'+team_name+'". Owner is '+team_owner.mention)
+    await safe_send(message.channel, 'Team "'+team_name+'" was successfully created.')
 

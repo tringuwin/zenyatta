@@ -6,6 +6,7 @@ from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info, validate_admin
 from league_helpers.remove_member_admin_role import remove_member_admin_role
+from safe_send import safe_send
 
 async def league_kick_handler(db, message, client, context):
 
@@ -15,19 +16,19 @@ async def league_kick_handler(db, message, client, context):
         return
     
     if len(message.mentions) < 1:
-        await message.channel.send('Please mention the player to kick.')
+        await safe_send(message.channel, 'Please mention the player to kick.')
         return
     
     is_admin, my_team, team_name, is_owner = await validate_admin(db, message, context)
     
     if not my_team:
-        await message.channel.send("You're not on a league team... So you can't kick people... dumbass...")
+        await safe_send(message.channel, "You're not on a league team... So you can't kick people... dumbass...")
         return
 
     team_members = my_team['members']
 
     if not is_admin:
-        await message.channel.send('You are not an admin of this league team. Please ask the team owner to be an admin.')
+        await safe_send(message.channel, 'You are not an admin of this league team. Please ask the team owner to be an admin.')
         return
     
     member_to_find = message.mentions[0]
@@ -47,15 +48,15 @@ async def league_kick_handler(db, message, client, context):
         cur_index += 1
 
     if not at_member:
-        await message.channel.send('That member is not part of your team.')
+        await safe_send(message.channel, 'That member is not part of your team.')
         return
     
     if kick_user_is_owner:
-        await message.channel.send('The owner of the team cannot be kicked.')
+        await safe_send(message.channel, 'The owner of the team cannot be kicked.')
         return
     
     if kick_user_is_admin and (not is_owner):
-        await message.channel.send('Only the owner of a team can kick admins.')
+        await safe_send(message.channel, 'Only the owner of a team can kick admins.')
         return
 
     final_members = []
@@ -78,9 +79,9 @@ async def league_kick_handler(db, message, client, context):
 
     league_notifs_channel = get_league_notifs_channel_from_context(client, context)
     team_emoji_string = get_league_emoji_from_team_name(team_name)
-    await league_notifs_channel.send(team_emoji_string+' Team Update for '+team_name+": "+member_to_find.mention+" was kicked by "+message.author.mention)
+    await safe_send(league_notifs_channel, team_emoji_string+' Team Update for '+team_name+": "+member_to_find.mention+" was kicked by "+message.author.mention)
 
     my_team['members'] = final_members
     await update_team_info(client, my_team, db, context)
 
-    await message.channel.send("User was kicked from the league team.")
+    await safe_send(message.channel, "User was kicked from the league team.")
