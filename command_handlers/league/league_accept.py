@@ -6,6 +6,7 @@ from context.context_helpers import get_league_notifs_channel_from_context, get_
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name, make_string_from_word_list
 from league import has_username_for_game, remove_league_invite, update_team_info
+from safe_send import safe_send
 from user.user import get_league_invites_with_context, get_league_team_with_context, user_exists
 import constants
 from datetime import datetime
@@ -50,11 +51,11 @@ async def league_accept_handler(db, message, client, context):
     
     user_league_team = get_league_team_with_context(user, context)
     if user_league_team != "None":
-        await message.channel.send('You are already on a league team. Please leave that team before joining another team. Use the command **!leagueleave** to leave your current team.')
+        await safe_send(message.channel, 'You are already on a league team. Please leave that team before joining another team. Use the command **!leagueleave** to leave your current team.')
         return
     
     if constants.SEASON_ACTIVE and match_day_soft_lock():
-        await message.channel.send('Players are not allowed to join teams from 3:45 PM ET to 9:00 PM ET on SOL match days. Please try again later.')
+        await safe_send(message.channel, 'Players are not allowed to join teams from 3:45 PM ET to 9:00 PM ET on SOL match days. Please try again later.')
         return
     
     team_name_to_join = make_string_from_word_list(word_list, 1)
@@ -68,37 +69,37 @@ async def league_accept_handler(db, message, client, context):
             break
 
     if not found_team:
-        await message.channel.send('You do not have a team invite from the team "'+team_name_to_join+'". Please check the spelling of the team name.')
+        await safe_send(message.channel, 'You do not have a team invite from the team "'+team_name_to_join+'". Please check the spelling of the team name.')
         return
     
     league_teams = get_league_teams_collection_from_context(db, context)
     league_team = league_teams.find_one({'name_lower': team_name_lower})
     if not league_team:
-        await message.channel.send('Error: Could not find a team with the name "'+team_name_to_join+'". '+constants.STAFF_PING)
+        await safe_send(message.channel, 'Error: Could not find a team with the name "'+team_name_to_join+'". '+constants.STAFF_PING)
         return
     real_team_name = league_team['team_name']
 
     if league_team['roster_lock']:
-        await message.channel.send('This team currently has a roster lock (maybe because they are in the play-offs). Please try joining this team after the lock is removed.')
+        await safe_send(message.channel, 'This team currently has a roster lock (maybe because they are in the play-offs). Please try joining this team after the lock is removed.')
         return
 
     if len(league_team['members']) >= 25:
-        await message.channel.send('This League Team already has 25 players, which is the maximum allowed. Please contact an admin of this team if you think this is a mistake.')
+        await safe_send(message.channel, 'This League Team already has 25 players, which is the maximum allowed. Please contact an admin of this team if you think this is a mistake.')
         return
     
     if not has_username_for_game(user, context):
         if context == 'OW':
-            await message.channel.send('Please link your battle tag before joining an Overwatch team. Use the command **!battle BattleTagHere#1234** to do this.')
+            await safe_send(message.channel, 'Please link your battle tag before joining an Overwatch team. Use the command **!battle BattleTagHere#1234** to do this.')
         elif context == 'MR':
-            await message.channel.send('Please link your Marvel Rivals username before joining a Marvel Rivals team. Use the command **!username UsernameHere** to do this.')
+            await safe_send(message.channel, 'Please link your Marvel Rivals username before joining a Marvel Rivals team. Use the command **!username UsernameHere** to do this.')
         elif context == 'VL':
-            await message.channel.send('Please link your Riot ID before joining a Valorant team. Use the command **!riot RiotID#1234** to do this.')
+            await safe_send(message.channel, 'Please link your Riot ID before joining a Valorant team. Use the command **!riot RiotID#1234** to do this.')
         return
     
     teams_joined_this_season_constant = get_teams_joined_this_season_constant(context)
     teams_joined_this_season = get_teams_joined_this_season(user, teams_joined_this_season_constant)
     if real_team_name in teams_joined_this_season:
-        await message.channel.send('You have already been on the team "'+real_team_name+'" this season. You can only join a specific team once per season. You can still join a different team though.')
+        await safe_send(message.channel, 'You have already been on the team "'+real_team_name+'" this season. You can only join a specific team once per season. You can still join a different team though.')
         return
     teams_joined_this_season.append(real_team_name)
 
@@ -137,11 +138,9 @@ async def league_accept_handler(db, message, client, context):
     league_notifs_channel = get_league_notifs_channel_from_context(client, context)
 
     team_emoji_string = get_league_emoji_from_team_name(real_team_name)
+
+    await safe_send(league_notifs_channel, team_emoji_string+' User '+message.author.mention+' has joined the team "'+real_team_name+'".')
     
-    await league_notifs_channel.send(team_emoji_string+' User '+message.author.mention+' has joined the team "'+real_team_name+'".')
-    # if div_joined != 0:
-    #     await message.channel.send('You have successfully joined this team! You are now locked in **Division '+str(div_joined)+'** for the rest of this season.')
-    # else:
-    await message.channel.send('You have successfully joined this team!')
+    await safe_send(message.channel, 'You have successfully joined this team!')
 
 
