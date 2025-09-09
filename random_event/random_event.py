@@ -3,6 +3,7 @@ import time
 import constants
 from discord_actions import get_guild
 from rewards import change_tokens
+from safe_send import safe_send
 from user.user import get_user_gems, user_exists
 
 SECONDS_IN_A_HOUR = 3600
@@ -72,8 +73,8 @@ async def try_random_event(db, client):
     guild = await get_guild(client)
     chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
 
-    event_msg = await chat_channel.send('❗ A RANDOM EVENT HAS SPAWNED! REACT FIRST TO OPEN IT! ❗')
-    
+    event_msg = await safe_send(chat_channel, '❗ A RANDOM EVENT HAS SPAWNED! REACT FIRST TO OPEN IT! ❗')
+
     random_event['last_event'] = current_time
     random_event['event_msg_id'] = event_msg.id
     random_event['claimed'] = 0
@@ -102,7 +103,7 @@ async def react_to_event(db, client, message_id, member):
 
     user = user_exists(db, member.id)
     if not user:
-        await chat_channel.send(member.mention+" You're not registered yet. Please register before trying to claim a gift.")
+        await safe_send(chat_channel, member.mention+" You're not registered yet. Please register before trying to claim a gift.")
         return
     
     db_constants.update_one({"name": 'random_event'}, {"$set": {"claimed": 1}})
@@ -110,7 +111,7 @@ async def react_to_event(db, client, message_id, member):
     chosen_random_event = random.choice(random_event_list)
     event_message = chosen_random_event[2]
 
-    await chat_channel.send(member.mention+" "+event_message)
+    await safe_send(chat_channel, member.mention+" "+event_message)
 
     if chosen_random_event[0] == 'Token':
         await change_tokens(db, user, chosen_random_event[1], 'random-event')

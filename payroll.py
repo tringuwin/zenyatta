@@ -1,6 +1,7 @@
 
 
 from rewards import change_tokens
+from safe_send import safe_send
 from user.user import user_exists
 import time
 
@@ -15,9 +16,9 @@ async def check_payroll(db, channel):
     cur_time = time.time()
     over_a_week = (cur_time - last_val) > SECONDS_IN_A_WEEK
     if not over_a_week:
-        await channel.send('Not been over a week for payroll')
+        await safe_send(channel, 'Not been over a week for payroll')
         return
-    await channel.send('Been over a week, pay time')
+    await safe_send(channel, 'Been over a week, pay time')
     constants.update_one({"name": 'last_payroll'}, {"$set": {"value": cur_time}})
 
     payroll_constant = constants.find_one({'name': 'payroll'})
@@ -26,7 +27,7 @@ async def check_payroll(db, channel):
     for pay_user in pay_users:
 
         if pay_user['stopped']:
-            await channel.send('Payments paused for '+pay_user['displayName'])
+            await safe_send(channel, 'Payments paused for '+pay_user['displayName'])
             continue
 
         user = user_exists(db, pay_user['discord_id'])
@@ -34,4 +35,4 @@ async def check_payroll(db, channel):
             continue
 
         await change_tokens(db, user, pay_user['salary'], 'staff-salary')
-        await channel.send('Paid user '+pay_user['displayName']+' '+str(pay_user['salary'])+' Tokens for the role '+str(pay_user['role']))
+        await safe_send(channel, 'Paid user '+pay_user['displayName']+' '+str(pay_user['salary'])+' Tokens for the role '+str(pay_user['role']))

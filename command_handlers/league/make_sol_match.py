@@ -5,6 +5,7 @@ import constants
 from command_handlers.bets.new_bet import new_bet
 from common_messages import invalid_number_of_params
 from helpers import get_constant_value, get_league_emoji_from_team_name, valid_number_of_params
+from safe_send import safe_send
 
 
 def get_weekday_index(week_data, match_weekday):
@@ -51,20 +52,20 @@ async def make_sol_match(client, db, message):
     timeslot = params[4].upper()
 
     if not (timeslot in constants.TIMESLOT_TO_INFO):
-        await message.channel.send('That is not a valid timeslot')
+        await safe_send(message.channel, 'That is not a valid timeslot')
         return
     
     league_teams = db['leagueteams']
 
     team_1_obj = league_teams.find_one({'name_lower': team_1})
     if not team_1_obj:
-        await message.channel.send('Could not find team '+team_1)
+        await safe_send(message.channel, 'Could not find team '+team_1)
         return
     team_1_name = team_1_obj['team_name']
     
     team_2_obj = league_teams.find_one({'name_lower': team_2})
     if not team_2_obj:
-        await message.channel.send('Could not find team '+team_2)
+        await safe_send(message.channel, 'Could not find team '+team_2)
         return
     team_2_name = team_2_obj['team_name']
 
@@ -74,15 +75,15 @@ async def make_sol_match(client, db, message):
 
     league_schedule = schedules.find_one({'season': league_season})
     if not league_schedule:
-        await message.channel.send('There is not a schedule for the current league season')
+        await safe_send(message.channel, 'There is not a schedule for the current league season')
         return
     
     if len(league_schedule['weeks']) < week_num:
-        await message.channel.send('That week number is too high')
+        await safe_send(message.channel, 'That week number is too high')
         return
     
     if week_num < 1:
-        await message.channel.send('That week number is too low')
+        await safe_send(message.channel, 'That week number is too low')
         return
     
     week_index = week_num - 1
@@ -136,7 +137,7 @@ async def make_sol_match(client, db, message):
     timestamp_of_match = calculate_tick_of_match(match_day_numbers['year'], match_day_numbers['month'], match_day_numbers['day'], match_start_est)
     await new_bet(client, db, bet_title, team_1_name, team_2_name, False, timestamp_of_match)
 
-    await message.channel.send('Match added successfully')
+    await safe_send(message.channel, 'Match added successfully')
 
 
 

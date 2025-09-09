@@ -3,6 +3,8 @@
 from datetime import datetime, timedelta
 import pytz
 
+from safe_send import safe_send
+
 def time_until_midnight_EST():
     # Define the EST timezone
     est = pytz.timezone('US/Eastern')
@@ -31,7 +33,7 @@ async def auction_timer_handler(db, message):
     data = auction.find_one({'auction_id': 1})
 
     if not data['is_open']:
-        await message.channel.send('There is no auction right now... Check back soon!')
+        await safe_send(message.channel, 'There is no auction right now... Check back soon!')
         return
 
     # show time until midnight
@@ -39,4 +41,4 @@ async def auction_timer_handler(db, message):
 
     final_string = 'Time until Daily Auction ends: **'+str(hours)+' hours '+str(minutes)+' minutes '+str(seconds)+' seconds**'
 
-    await message.channel.send(final_string)
+    await safe_send(message.channel, final_string)

@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import generic_find_user, valid_number_of_params
+from safe_send import safe_send
 from user.user import get_user_gems
 import constants
 import random
@@ -30,9 +31,9 @@ async def give_random_gem_handler(db, message, client):
 
     user = await generic_find_user(client, db, user_id)
     if not user:
-        await message.channel.send('Could not find that user.')
+        await safe_send(message.channel, 'Could not find that user.')
         return
     
     random_color = await give_random_gem_to_user(db, user)
 
-    await message.channel.send('User recieved 1 '+random_color+' gem.')
+    await safe_send(message.channel, 'User recieved 1 '+random_color+' gem.')

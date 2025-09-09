@@ -1,5 +1,6 @@
 import constants
 from helpers import get_constant_value, get_league_emoji_from_team_name, set_constant_value
+from safe_send import safe_send
 
 
 async def general_league_xp(db, message, client, start_string, constant_name):
@@ -19,7 +20,7 @@ async def general_league_xp(db, message, client, start_string, constant_name):
 
         index += 1
 
-    await message.channel.send(final_string)
+    await safe_send(message.channel, final_string)
 
 
 
@@ -42,7 +43,4 @@ async def wipe_league_xp_handler(db, message):
 
     set_constant_value(db, 'league_xp', league_xp_obj)
 
-    await message.channel.send('Monthly League XP wiped.')
-
-    
-
+    await safe_send(message.channel, 'Monthly League XP wiped.')

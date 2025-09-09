@@ -3,6 +3,8 @@ from command_handlers.league.give_team_tokens import give_team_tokens
 from helpers import get_constant_value
 import time
 
+from safe_send import safe_send
+
 
 TOKENS_PER_PLACE = {
 
@@ -79,7 +81,7 @@ async def give_reward_based_on_placement(db, message, score_groups):
 
         for team in group_data['teams']:
             await give_team_tokens(message, db, team['name'], tokens_to_give)
-            await message.channel.send('Sent '+str(tokens_to_give)+' tokens to '+team['name'])
+            await safe_send(message.channel, 'Sent '+str(tokens_to_give)+' tokens to '+team['name'])
             time.sleep(1)
 
 
@@ -90,7 +92,7 @@ async def sol_weekly_pay(db, message):
     standings_db = db['standings']
     season_standings = standings_db.find_one({'season': league_season})
     if not season_standings:
-        await message.channel.send('Could not find the standings for season '+str(league_season))
+        await safe_send(message.channel, 'Could not find the standings for season '+str(league_season))
         return
     
     all_teams = season_standings['teams']
@@ -106,6 +108,4 @@ async def sol_weekly_pay(db, message):
 
     await give_reward_based_on_placement(db, message, groups_of_teams_by_score)
 
-    await message.channel.send('Command success')
-
-    
+    await safe_send(message.channel, 'Command success')

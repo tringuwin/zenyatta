@@ -1,5 +1,7 @@
 import random
 
+from safe_send import safe_reply
+
 EIGHT_BALL_RESPONSES = [
     'It is certain',
     'It is decidedly so',
@@ -19,4 +21,4 @@ EIGHT_BALL_RESPONSES = [
 ]
 
 async def eight_ball_handler(message):
-    await message.channel.reply(random.choice(EIGHT_BALL_RESPONSES))
+    await safe_reply(message, random.choice(EIGHT_BALL_RESPONSES))

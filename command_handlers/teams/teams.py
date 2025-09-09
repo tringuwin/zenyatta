@@ -1,5 +1,6 @@
 
 from common_messages import not_registered_response
+from safe_send import safe_send
 from teams import get_team_by_name
 from user.user import user_exists
 
@@ -29,7 +30,7 @@ async def teams_handler(db, message):
 
     team_index = 1
     if len(active_teams) == 0:
-        await message.channel.send('You are not currently part of any teams.')
+        await safe_send(message.channel, 'You are not currently part of any teams.')
     else:
         output_string = '**YOUR TEAMS** ('+str(len(active_teams))+' teams)\n'
         for team in active_teams:
@@ -37,4 +38,4 @@ async def teams_handler(db, message):
             output_string += str(team_index)+'. '+team['team_name']+' : '+str(len(team['members']))+'/'+str(team['team_size'])+' Players\n'
             team_index += 1
 
-        await message.channel.send(output_string)
+        await safe_send(message.channel, output_string)

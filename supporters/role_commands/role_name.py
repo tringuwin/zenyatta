@@ -2,6 +2,7 @@
 
 from discord_actions import get_guild
 from helpers import make_string_from_word_list
+from safe_send import safe_reply, safe_send
 
 
 async def role_name(client, db, message):
@@ -14,7 +15,7 @@ async def role_name(client, db, message):
 
         no_role_message = 'You do not currently have a custom role assigned. You can get a custom role by subscribing to this discord. (Check our server shop for more info)'
         no_role_message +='\n\n*If you subscribed to this discord but do not have a role yet, it can take up to 20 minutes. If it takes longer, please contact staff*'
-        await message.reply(no_role_message)
+        await safe_reply(message, no_role_message)
         return
     
     guild = await get_guild(client)
@@ -26,6 +27,4 @@ async def role_name(client, db, message):
     
     new_role_name = make_string_from_word_list(message.content.split(), 1)
     await user_role.edit(name=new_role_name)
-    await message.channel.send('You have changed your custom role name to "'+new_role_name+'"')
-    
-    
+    await safe_send(message.channel, 'You have changed your custom role name to "'+new_role_name+'"')

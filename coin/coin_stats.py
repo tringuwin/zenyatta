@@ -1,6 +1,7 @@
 
 from constants import SPICY_COIN_EMOJI_STRING
 from helpers import get_constant_value
+from safe_send import safe_send
 
 TOTAL_COINS = 10_000_000 # 10 million coins in total
 
@@ -31,4 +32,4 @@ async def coin_stats(db, message):
     coin_message += f'\n**Owned Vouchers:** {owned_vouchers:,} ({percent_of_coins(owned_vouchers)}%)'
     coin_message += f'\n**Coins in Market:** {coins_in_market:,} ({percent_of_coins(coins_in_market)}%)'
 
-    await message.channel.send(coin_message)
+    await safe_send(message.channel, coin_message)

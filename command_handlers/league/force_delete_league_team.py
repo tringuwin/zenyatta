@@ -1,5 +1,6 @@
 
 from helpers import make_string_from_word_list
+from safe_send import safe_send
 
 
 async def force_delete_league_team_handler(db, message):
@@ -10,8 +11,8 @@ async def force_delete_league_team_handler(db, message):
     league_teams = db['leagueteams']
     team = league_teams.find_one({'team_name': team_name})
     if not team:
-        await message.channel.send('Team not found')
+        await safe_send(message.channel, 'Team not found')
         return
     
     league_teams.delete_one({'team_name': team_name})
-    await message.channel.send('Team Deleted')
+    await safe_send(message.channel, 'Team Deleted')

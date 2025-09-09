@@ -5,6 +5,7 @@ from helpers import can_be_int, make_string_from_word_list
 import math
 from rewards import change_tokens
 
+from safe_send import safe_send
 from user.user import user_exists
 
 
@@ -15,7 +16,7 @@ async def give_team_tokens(message, db, team_name, tokens_to_give):
     league_teams = db['leagueteams']
     team_obj = league_teams.find_one({'name_lower': lower_team_name})
     if not team_obj:
-        await message.channel.send('Did not find team')
+        await safe_send(message.channel, 'Did not find team')
         return
 
     total_team_tpp = 0
@@ -33,11 +34,11 @@ async def give_team_tokens(message, db, team_name, tokens_to_give):
         team_owner_id = team_obj['owner_id']
         owner_user = user_exists(db, team_owner_id)
         if not owner_user:
-            await message.channel.send('Critical error. No TPP set and team owner not found. No tokens sent.')
+            await safe_send(message.channel, 'Critical error. No TPP set and team owner not found. No tokens sent.')
             return
         
         await change_tokens(db, owner_user, tokens_to_give, 'sol-match-tokens')
-        await message.channel.send('Tokens sent to the team owner.')
+        await safe_send(message.channel, 'Tokens sent to the team owner.')
 
     else:
     
@@ -49,7 +50,7 @@ async def give_team_tokens(message, db, team_name, tokens_to_give):
             await change_tokens(db, user, final_tokens, 'sol-match-tokens') 
 
 
-        await message.channel.send('Done')
+        await safe_send(message.channel, 'Done')
 
 
 
@@ -62,7 +63,7 @@ async def give_team_tokens_handler(db, message):
     
     tokens_to_give = word_parts[2]
     if not can_be_int(tokens_to_give):
-        await message.channel.send(tokens_to_give+' is not an integer')
+        await safe_send(message.channel, tokens_to_give+' is not an integer')
         return
     tokens_to_give = int(tokens_to_give)
     

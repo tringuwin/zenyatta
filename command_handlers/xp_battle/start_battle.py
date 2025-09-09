@@ -3,6 +3,7 @@ from command_handlers.xp_battle.battle_helpers import get_battle_constant_name, 
 from discord_actions import get_guild
 import constants
 from helpers import set_constant_value
+from safe_send import safe_send
 
 
 async def start_battle_handler(db, message, client, context):
@@ -13,14 +14,14 @@ async def start_battle_handler(db, message, client, context):
     battle_info = battle_obj['value']
 
     if battle_info['battle_on']:
-        await message.channel.send('There is already an XP Battle in progress. Please end that one first.')
+        await safe_send(message.channel, 'There is already an XP Battle in progress. Please end that one first.')
         return
     
     guild = await get_guild(client)
     xp_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)
 
     game_name = get_battle_game_name(context)
-    xp_message = await xp_channel.send('A NEW '+game_name+' XP BATTLE IS STARTING NOW! REACT WITH ⚔️ FOR A CHANCE TO JOIN!')
+    xp_message = await safe_send(xp_channel, 'A NEW '+game_name+' XP BATTLE IS STARTING NOW! REACT WITH ⚔️ FOR A CHANCE TO JOIN!')
     await xp_message.add_reaction('⚔️')
     
     battle_info['battle_on'] = True
@@ -32,4 +33,4 @@ async def start_battle_handler(db, message, client, context):
     constants_db.update_one({"name": battle_constant_name}, {"$set": {"value": battle_info}})
     set_constant_value(db, 'battle_context', context)
 
-    await message.channel.send('Battle Sign-Up Started')
+    await safe_send(message.channel, 'Battle Sign-Up Started')

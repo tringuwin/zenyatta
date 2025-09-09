@@ -2,18 +2,19 @@
 import constants
 from discord_actions import get_guild
 from helpers import get_constant_value, set_constant_value
+from safe_send import safe_send
 
 
 async def make_vote_handler(db, message, client):
 
     current_vote = get_constant_value(db, 'sub_vote')
     if current_vote['active']:
-        await message.channel.send('There is currently an active vote. End that one before starting a new one.')
+        await safe_send(message.channel, 'There is currently an active vote. End that one before starting a new one.')
         return
 
     message_parts = message.content.split('|')
     if len(message_parts) < 4:
-        await message.channel.send('Invalid number of params.')
+        await safe_send(message.channel, 'Invalid number of params.')
         return
     
     message_parts.pop(0)
@@ -35,8 +36,8 @@ async def make_vote_handler(db, message, client):
 
     guild = await get_guild(client)
     sub_vote_channel = guild.get_channel(constants.SUB_VOTE_CHANNEL)
-    await sub_vote_channel.send('<@&1273403775024894062>')
-    vote_msg = await sub_vote_channel.send(final_string)
+    await safe_send(sub_vote_channel, '<@&1273403775024894062>', True)
+    vote_msg = await safe_send(sub_vote_channel, final_string)
 
     current_vote['active'] = True
     current_vote['title'] = upper_title
@@ -46,6 +47,6 @@ async def make_vote_handler(db, message, client):
 
     set_constant_value(db, 'sub_vote', current_vote)
 
-    await message.channel.send('Vote started')
+    await safe_send(message.channel, 'Vote started')
 
 

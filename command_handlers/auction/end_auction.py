@@ -5,6 +5,7 @@ from discord_actions import get_guild
 
 import constants
 from rewards import change_tokens
+from safe_send import safe_send
 from user.user import user_exists
 
 
@@ -37,9 +38,9 @@ async def end_auction(db, client):
     final_string = '--------------------------------\n'
     final_string += 'Auction Ended!\n'
     final_string += won_string
-    
-    await redemptions_channel.send(won_string)
-    await auction_channel.send(final_string)
+
+    await safe_send(redemptions_channel, won_string)
+    await safe_send(auction_channel, final_string)
 
 
 async def end_auction_handler(db, message, client):
@@ -48,9 +49,9 @@ async def end_auction_handler(db, message, client):
     data = auction.find_one({'auction_id': 1})
 
     if not data['is_open']:
-        await message.channel.send('There is no current auction.')
+        await safe_send(message.channel, 'There is no current auction.')
         return
     
     await end_auction(db, client)
 
-    await message.channel.send('Auction ended.')
+    await safe_send(message.channel, 'Auction ended.')

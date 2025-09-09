@@ -1,6 +1,7 @@
 
 
 from context.context_helpers import get_league_teams_collection_from_context, get_team_owners_channel_from_context
+from safe_send import safe_send
 
 WARNING_TYPE_TO_MESSAGE = {
     '1H': '1 hour',
@@ -23,4 +24,4 @@ async def notify_team_owners_schedule_warning(client, db, context, teams_to_warn
         team_ping = '<@&'+str(team['team_role_id'])+'>'
         all_team_pings += f'{team_ping} '
 
-    await team_owners_channel.send(Warning_message + all_team_pings)
+    await safe_send(team_owners_channel, Warning_message + all_team_pings, True)

@@ -2,6 +2,7 @@
 import constants
 from context.context_helpers import get_league_url_from_context
 from helpers import get_constant_value, get_league_emoji_from_team_name
+from safe_send import safe_reply, safe_send
 
 
 def make_div_standings_string(div_teams, div_num):
@@ -87,8 +88,7 @@ async def standings_handler_old(db, message, client):
     final_string += '\n🟩 = Will play in Div Finals | 🟦 = Will play in Div Semi-Finals | ⬜ = Will miss playoffs'#| 🟥 = Will be relegated to lower Div next season'
     #final_string += '\nTeam ranked 7-10th will be demoted to Division 2 next season.'
 
-    await message.channel.send(final_string)
-    
+    await safe_send(message.channel, final_string)
 
 
 async def standings_main(db, message, client, top):
@@ -131,14 +131,14 @@ async def standings_main(db, message, client, top):
 
     final_string += '\n\n'+detail_string
 
-    await message.channel.send(final_string)
+    await safe_send(message.channel, final_string)
 
         
 async def standings_handler(message, context):
 
     league_url = get_league_url_from_context(context)
 
-    await message.reply(f'Check out the standings for the league here!\n\nhttps://spicyesports.com/{league_url}/standings')
+    await safe_reply(message, f'Check out the standings for the league here!\n\nhttps://spicyesports.com/{league_url}/standings')
 
     # await standings_main(db, message, client, True)
 

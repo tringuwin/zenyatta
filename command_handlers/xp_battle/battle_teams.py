@@ -5,6 +5,7 @@ from discord_actions import get_guild
 from helpers import get_constant_value, set_constant_value
 import random
 
+from safe_send import safe_send
 from user.user import user_exists
 import constants
 
@@ -15,7 +16,7 @@ async def battle_teams_handler(db, message, client, context):
     battle_info = get_constant_value(db, battle_constant_name)
 
     if not battle_info['battle_on']:
-        await message.channel.send('There is no battle right now.')
+        await safe_send(message.channel, 'There is no battle right now.')
         return
 
     current_players = battle_info['current_players']
@@ -107,10 +108,10 @@ async def battle_teams_handler(db, message, client, context):
             final_string += '\n'+str(user_index)+'. '+user_display+' | '+'<@'+str(user['discord_id'])+'>'
 
         user_index += 1
-        
-    await message.channel.send(final_string)
+
+    await safe_send(message.channel, final_string)
 
     guild = await get_guild(client)
     xp_battle_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)
-    await xp_battle_channel.send(final_string)
+    await safe_send(xp_battle_channel, final_string)
 

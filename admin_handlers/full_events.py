@@ -2,6 +2,7 @@
 
 from events import get_event_team_size
 from mongo import get_all_events
+from safe_send import safe_send
 
 
 async def full_events_handler(db, message):
@@ -46,6 +47,6 @@ async def full_events_handler(db, message):
             final_string += "\n\n"
 
     if found:
-        await message.channel.send(final_string)
+        await safe_send(message.channel, final_string)
     else:
-        await message.channel.send(none_string)
+        await safe_send(message.channel, none_string)

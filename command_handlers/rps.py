@@ -3,6 +3,7 @@
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
+from safe_send import safe_send
 from user.user import get_user_tokens, user_exists
 
 import random
@@ -31,17 +32,17 @@ async def rps_handler(db, message):
     
     bet = params[1]
     if not can_be_int(bet):
-        await message.channel.send(bet+' is not a number')
+        await safe_send(message.channel, bet+' is not a number')
         return
     
     bet = int(bet)
     if bet > 1000 or bet < 2:
-        await message.channel.send('Your bet must be a number between 2 and 1000.')
+        await safe_send(message.channel, 'Your bet must be a number between 2 and 1000.')
         return
     
     user_tokens = get_user_tokens(user)
     if user_tokens < bet:
-        await message.channel.send('You do not have enough tokens for this bet.')
+        await safe_send(message.channel, 'You do not have enough tokens for this bet.')
         return
     
     icon = params[2]
@@ -54,7 +55,7 @@ async def rps_handler(db, message):
             break
 
     if not is_valid:
-        await message.channel.send(icon+' is not valid. You must say rock, paper, or scissors.')
+        await safe_send(message.channel, icon+' is not valid. You must say rock, paper, or scissors.')
         return
     
     zen_choice = random.choice(VALID_RPS)
@@ -88,9 +89,5 @@ async def rps_handler(db, message):
         final_string += 'You win! You won **'+str(payout)+' Tokens!**'
         await change_tokens(db, user, payout, 'rps')
 
-    await message.channel.send(final_string)
+    await safe_send(message.channel, final_string)
 
-
-    
-
-    

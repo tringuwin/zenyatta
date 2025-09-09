@@ -7,6 +7,7 @@ from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info
 from league_helpers.remove_member_admin_role import remove_member_admin_role
+from safe_send import safe_send
 from user.user import get_league_team_with_context, user_exists
 
 async def league_leave_handler(db, message, client, context):
@@ -18,17 +19,17 @@ async def league_leave_handler(db, message, client, context):
     
     league_team = get_league_team_with_context(user, context)
     if league_team == 'None':
-        await message.channel.send('You are not currently on a League Team.')
+        await safe_send(message.channel, 'You are not currently on a League Team.')
         return
     
     league_teams = get_league_teams_collection_from_context(db, context)
     team_object = league_teams.find_one({'team_name': league_team})
     if not team_object:
-        await message.channel.send('ERROR LEAVING TEAM: PLEASE CONTACT STAFF')
+        await safe_send(message.channel, 'ERROR LEAVING TEAM: PLEASE CONTACT STAFF')
         return
     
     if team_object['owner_id'] == message.author.id:
-        await message.channel.send('You cannot use this command because you own this team. Please contact the league commissioner to change ownership.')
+        await safe_send(message.channel, 'You cannot use this command because you own this team. Please contact the league commissioner to change ownership.')
         return
     
     users = db['users']
@@ -57,7 +58,6 @@ async def league_leave_handler(db, message, client, context):
 
     league_notifs_channel = get_league_notifs_channel_from_context(client, context)
     team_emoji_string = get_league_emoji_from_team_name(team_object['team_name'])
-    await league_notifs_channel.send(team_emoji_string+' User '+message.author.mention+' has left the team "'+team_object['team_name']+'".')
+    await safe_send(league_notifs_channel, team_emoji_string+' User '+message.author.mention+' has left the team "'+team_object['team_name']+'".')
 
-    await message.channel.send('You have successfully left the team "'+team_object['team_name']+'"')
-    
+    await safe_send(message.channel, 'You have successfully left the team "'+team_object['team_name']+'"')

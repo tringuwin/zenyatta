@@ -3,6 +3,7 @@ import copy
 from helpers import get_constant_value
 import uuid
 import constants
+from safe_send import safe_dm, safe_send
 
 SEASON_5_PICK_ARRAY = {
     'round1': ['None', 'None', 'None', 'None'],
@@ -46,7 +47,7 @@ async def picks_handler(db, message):
 
     picks_active = get_constant_value(db, 'picks_active')
     if not picks_active:
-        await message.channel.send('There are no pick contests available right now. Check back soon!')
+        await safe_send(message.channel, 'There are no pick contests available right now. Check back soon!')
         return
     
     can_edit_picks = get_constant_value(db, 'can_edit_picks')
@@ -56,13 +57,13 @@ async def picks_handler(db, message):
 
     user_picks = make_or_fetch_user_picks(picks_db, league_season, message.author, can_edit_picks)
     if not user_picks:
-        await message.channel.send('Picks cannot be edited right now. Make sure to enter the next challenge.')
+        await safe_send(message.channel, 'Picks cannot be edited right now. Make sure to enter the next challenge.')
         return
 
     picks_message = f"Use this link to edit your picks. Don't share this link with anyone, or they'll be able to edit your picks!\n\n{constants.WEBSITE_DOMAIN}/sol/picks/"+user_picks['token']
 
     try:
-        await message.author.send(picks_message)
-        await message.channel.send('I DMed you a secure link to edit your picks!')
+        await safe_dm(message.author, picks_message)
+        await safe_send(message.channel, 'I DMed you a secure link to edit your picks!')
     except:
-        await message.channel.send("I tried to send you a link to edit your picks, but it didn't work. Maybe check your privacy settings.")
+        await safe_send(message.channel, "I tried to send you a link to edit your picks, but it didn't work. Maybe check your privacy settings.")

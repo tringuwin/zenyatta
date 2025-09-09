@@ -5,6 +5,8 @@ from common_messages import invalid_number_of_params
 from helpers import get_constant_value, valid_number_of_params
 import requests
 
+from safe_send import safe_send
+
 def make_end_pred_headers(db, channel):
 
     return {
@@ -44,7 +46,7 @@ async def end_pred(db, message):
     choice_lower = choice.lower()
 
     if not is_valid_channel(channel_lower):
-        await message.channel.send(channel+' is not a valid channel name. It must be either main, second or third.')
+        await safe_send(message.channel, channel+' is not a valid channel name. It must be either main, second or third.')
         return
 
     constant_name = get_twitch_constant_name_from_channel(channel_lower)
@@ -57,13 +59,12 @@ async def end_pred(db, message):
         pred_choice = 1
 
     if pred_choice == -1:
-        await message.channel.send('Could not find a prediction result with the name '+choice)
+        await safe_send(message.channel, 'Could not find a prediction result with the name '+choice)
         return
 
     worked = end_pred_twitch_call(db, channel_lower, pred_data['pred_id'], pred_data['outcomes'][pred_choice]['outcome_id'])
     if not worked:
-        await message.channel.send('Something went wrong.')
+        await safe_send(message.channel, 'Something went wrong.')
         return
-    
-    await message.channel.send('Prediction ended.')
-    
+
+    await safe_send(message.channel, 'Prediction ended.')

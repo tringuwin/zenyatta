@@ -7,6 +7,7 @@ import discord
 
 from helpers import get_league_emoji_from_team_name
 from league import get_team_color_by_name, get_team_record_string
+from safe_send import safe_add_field, safe_create_embed, safe_edit_embed, safe_send, safe_send_embed
 
 
 async def new_bet(client, db, title, team_1_name, team_2_name, uses_home_away, timestamp=None):
@@ -14,7 +15,7 @@ async def new_bet(client, db, title, team_1_name, team_2_name, uses_home_away, t
     guild = await get_guild(client)
     bet_channel = guild.get_channel(constants.BET_CHANNEL_ID)
 
-    title_msg = await bet_channel.send('**'+title+'**')
+    title_msg = await safe_send(bet_channel, '**'+title+'**')
 
     team_1_emoji_string = get_league_emoji_from_team_name(team_1_name)
     team_2_emoji_string = get_league_emoji_from_team_name(team_2_name)
@@ -22,19 +23,19 @@ async def new_bet(client, db, title, team_1_name, team_2_name, uses_home_away, t
     team_1_title = 'HOME TEAM: ' if uses_home_away else 'TEAM 1: '
     team_2_title = 'AWAY TEAM: ' if uses_home_away else 'TEAM 2: '
 
-    team_1_embed = discord.Embed(title=team_1_title+team_1_emoji_string+' '+team_1_name, color=get_team_color_by_name(team_1_name))
-    team_1_embed.add_field(name="Total Tokens Bet On Team", value="🪙 0", inline=False)
-    team_1_embed.add_field(name="Current Payout Rate", value="1:1", inline=False)
-    team_1_embed.add_field(name="Team Season Record", value=get_team_record_string(db, team_1_name), inline=False)
-    team_1_embed.add_field(name="Command to Bet", value='!bet '+team_1_name+' [number of tokens]', inline=False)
-    team_1_msg = await bet_channel.send(embed=team_1_embed)
-    
-    team_2_embed = discord.Embed(title=team_2_title+team_2_emoji_string+' '+team_2_name, color=get_team_color_by_name(team_2_name))
-    team_2_embed.add_field(name="Total Tokens Bet On Team", value="🪙 0", inline=False)
-    team_2_embed.add_field(name="Current Payout Rate", value="1:1", inline=False)
-    team_2_embed.add_field(name="Team Season Record", value=get_team_record_string(db, team_2_name), inline=False)
-    team_2_embed.add_field(name="Command to Bet", value='!bet '+team_2_name+' [number of tokens]', inline=False)
-    team_2_msg = await bet_channel.send(embed=team_2_embed)
+    team_1_embed = safe_create_embed(team_1_title+team_1_emoji_string+' '+team_1_name, None, get_team_color_by_name(team_1_name))
+    safe_add_field(team_1_embed, "Total Tokens Bet On Team", "🪙 0", False)
+    safe_add_field(team_1_embed, "Current Payout Rate", "1:1", False)
+    safe_add_field(team_1_embed, "Team Season Record", get_team_record_string(db, team_1_name), False)
+    safe_add_field(team_1_embed, "Command to Bet", '!bet '+team_1_name+' [number of tokens]', False)
+    team_1_msg = await safe_send_embed(bet_channel, team_1_embed)
+
+    team_2_embed = safe_create_embed(team_2_title+team_2_emoji_string+' '+team_2_name, None, get_team_color_by_name(team_2_name))
+    safe_add_field(team_2_embed, "Total Tokens Bet On Team", "🪙 0", False)
+    safe_add_field(team_2_embed, "Current Payout Rate", "1:1", False)
+    safe_add_field(team_2_embed, "Team Season Record", get_team_record_string(db, team_2_name), False)
+    safe_add_field(team_2_embed, "Command to Bet", '!bet '+team_2_name+' [number of tokens]', False)
+    team_2_msg = await safe_send_embed(bet_channel, team_2_embed)
 
     bet_obj = {
         'bet_id': title_msg.id,
@@ -59,13 +60,13 @@ async def new_bet_handler(db, message, client):
 
     bet_parts = message.content.split('|')
     if len(bet_parts) != 5:
-        await message.channel.send('5 arguments required')
+        await safe_send(message.channel, '5 arguments required')
         return
     
     home_away_bool = bet_parts[4]
     uses_home_away = False
     if home_away_bool != '0' and home_away_bool != '1':
-        await message.channel.send('Last argument must be 0 or 1')
+        await safe_send(message.channel, 'Last argument must be 0 or 1')
         return
     
     if home_away_bool == '1':
@@ -78,11 +79,11 @@ async def new_bet_handler(db, message, client):
 
     team_1 = teams.find_one({'name_lower': team_1_name.lower()})
     if not team_1:
-        await message.channel.send(team_1_name+' is not a valid team name')
+        await safe_send(message.channel, team_1_name+' is not a valid team name')
         return
     team_2 = teams.find_one({'name_lower': team_2_name.lower()})
     if not team_2:
-        await message.channel.send(team_2_name+' is not a valid team name')
+        await safe_send(message.channel, team_2_name+' is not a valid team name')
         return
     
     team_1_name = team_1['team_name']
@@ -92,7 +93,7 @@ async def new_bet_handler(db, message, client):
 
     await new_bet(client, db, title, team_1_name, team_2_name, uses_home_away)
 
-    await message.channel.send('Bet created.')
+    await safe_send(message.channel, 'Bet created.')
 
 
 def total_tokens_on_team(betters):
@@ -119,7 +120,7 @@ def get_team_payout_rate(my_total, other_total):
 
 async def update_bets(db, channel, client):
 
-    await channel.send('Starting to update bets')
+    await safe_send(channel, 'Starting to update bets')
 
     guild = await get_guild(client)
     bet_channel = guild.get_channel(constants.BET_CHANNEL_ID)
@@ -141,23 +142,24 @@ async def update_bets(db, channel, client):
         team_2_title = 'AWAY TEAM: ' if uses_home_away else 'TEAM 2: '
 
         bet_msg_1 = await bet_channel.fetch_message(bet['team_1_msg'])
-        new_embed_1 = discord.Embed(title=team_1_title+team_1_emoji_string+' '+team_1_name, color=get_team_color_by_name(team_1_name))
-        new_embed_1.add_field(name="Total Tokens Bet On Team", value="🪙 "+str(team_1_total), inline=False)
-        new_embed_1.add_field(name="Current Payout Rate", value="1:"+str(get_team_payout_rate(team_1_total, team_2_total)), inline=False)
-        new_embed_1.add_field(name="Team Season Record", value=get_team_record_string(db, team_1_name), inline=False)
-        new_embed_1.add_field(name="Command to Bet", value='!bet '+team_1_name+' [number of tokens]', inline=False)
-        await bet_msg_1.edit(embed=new_embed_1, content='')
+        new_embed_1 = safe_create_embed(team_1_title+team_1_emoji_string+' '+team_1_name, None, get_team_color_by_name(team_1_name))
+        safe_add_field(new_embed_1, "Total Tokens Bet On Team", "🪙 "+str(team_1_total), False)
+        safe_add_field(new_embed_1, "Current Payout Rate", "1:"+str(get_team_payout_rate(team_1_total, team_2_total)), False)
+        safe_add_field(new_embed_1, "Team Season Record", get_team_record_string(db, team_1_name), False)
+        safe_add_field(new_embed_1, "Command to Bet", '!bet '+team_1_name+' [number of tokens]', False)
+        await safe_edit_embed(bet_msg_1, new_embed_1)
 
         bet_msg_2 = await bet_channel.fetch_message(bet['team_2_msg'])
-        new_embed_2 = discord.Embed(title=team_2_title+team_2_emoji_string+' '+team_2_name, color=get_team_color_by_name(team_2_name))
-        new_embed_2.add_field(name="Total Tokens Bet On Team", value="🪙 "+str(team_2_total), inline=False)
-        new_embed_2.add_field(name="Current Payout Rate", value="1:"+str(get_team_payout_rate(team_2_total, team_1_total)), inline=False)
-        new_embed_2.add_field(name="Team Season Record", value=get_team_record_string(db, team_2_name), inline=False)
-        new_embed_2.add_field(name="Command to Bet", value='!bet '+team_2_name+' [number of tokens]', inline=False)
-        await bet_msg_2.edit(embed=new_embed_2, content='')
+        new_embed_2 = safe_create_embed(team_2_title+team_2_emoji_string+' '+team_2_name, None, get_team_color_by_name(team_2_name))
+        safe_add_field(new_embed_2, "Total Tokens Bet On Team", "🪙 "+str(team_2_total), False)
+        safe_add_field(new_embed_2, "Current Payout Rate", "1:"+str(get_team_payout_rate(team_2_total, team_1_total)), False)
+        safe_add_field(new_embed_2, "Team Season Record", get_team_record_string(db, team_2_name), False)
+        safe_add_field(new_embed_2, "Command to Bet", '!bet '+team_2_name+' [number of tokens]', False)
+        await safe_edit_embed(bet_msg_2, new_embed_2)
 
 
-    await channel.send('Updated bets')
+
+    await safe_send(channel, 'Updated bets')
 
 
 async def check_open_bets(db, message):
@@ -178,7 +180,6 @@ async def check_open_bets(db, message):
         bets.update_one({'bet_id': bet_id_to_close}, {'$set': {'open': False}})
 
     result_message = 'Closed '+str(bets_closed)+' bets' if bets_closed > 0 else 'No bets were closed.'
-    await message.channel.send(result_message)
-
+    await safe_send(message.channel, result_message)
 
     

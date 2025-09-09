@@ -5,6 +5,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_message_by_channel_and_id
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
+from safe_send import safe_send
 from user.user import get_user_tokens, user_exists
 import math
 
@@ -151,23 +152,23 @@ async def blackjack_handler(db, message, client):
     
     token_wager = params[1]
     if not can_be_int(token_wager):
-        await message.channel.send('Please enter a numerical value for your wager.')
+        await safe_send(message.channel, 'Please enter a numerical value for your wager.')
         return
     
     token_wager = int(token_wager)
     user_tokens = get_user_tokens(user)
     if user_tokens < token_wager:
-        await message.channel.send('You do not have enough tokens for this wager.')
+        await safe_send(message.channel, 'You do not have enough tokens for this wager.')
         return
     
     if token_wager > 1000 or token_wager < 1:
-        await message.channel.send('Wager amount must be between 1 and 1000 tokens.')
+        await safe_send(message.channel, 'Wager amount must be between 1 and 1000 tokens.')
         return
     
     existing_game = get_blackjack_by_user_id(db, user['discord_id'])
     if existing_game:
         original_bj_message = await get_message_by_channel_and_id(client, existing_game['channel_id'], existing_game['message_id'])
-        await message.channel.send('It seems like you already have a game in progress. Please finish the game here: '+original_bj_message.jump_url)
+        await safe_send(message.channel, 'It seems like you already have a game in progress. Please finish the game here: '+original_bj_message.jump_url)
         return
 
     deck = make_deck()
@@ -212,7 +213,7 @@ async def blackjack_handler(db, message, client):
         final_string += '\nTo **stand** react with 🇸'
         await change_tokens(db, user, -1*token_wager, 'blackjack')
 
-    bj_message = await message.channel.send(final_string)
+    bj_message = await safe_send(message.channel, final_string)
     if not (dealer_bj or player_bj):
         await bj_message.add_reaction('🇭')
         await bj_message.add_reaction('🇸')
@@ -271,7 +272,7 @@ async def dealer_wins(by_bust, is_tie, member, blackjack_game, db, client, chann
     delete_game_by_msg_id(db, blackjack_game['message_id'])
 
     same_channel = client.get_channel(channel_id)
-    await same_channel.send(final_string)
+    await safe_send(same_channel, final_string)
 
 
 async def player_wins(by_bust, member, blackjack_game, db, client, channel_id):
@@ -293,7 +294,7 @@ async def player_wins(by_bust, member, blackjack_game, db, client, channel_id):
     delete_game_by_msg_id(db, blackjack_game['message_id'])
 
     same_channel = client.get_channel(channel_id)
-    await same_channel.send(final_string)
+    await safe_send(same_channel, final_string)
 
 
 async def blackjack_hit(db, blackjack_game, member, client, channel_id):
@@ -319,7 +320,7 @@ async def blackjack_hit(db, blackjack_game, member, client, channel_id):
         final_string += '\nTo **stand** react with 🇸'
 
         same_channel = client.get_channel(channel_id)
-        new_bj_msg = await same_channel.send(final_string)
+        new_bj_msg = await safe_send(same_channel, final_string)
 
         blackjack = db['blackjack']
         blackjack.update_one({'message_id': blackjack_game['message_id']}, {"$set": {"message_id": new_bj_msg.id, 'player_hand': player_hand_copy}})

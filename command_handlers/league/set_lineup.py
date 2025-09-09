@@ -5,6 +5,7 @@ import uuid
 import time
 import discord
 import constants
+from safe_send import safe_dm, safe_send
 
 async def set_lineup_handler(db, message, context):
 
@@ -15,7 +16,7 @@ async def set_lineup_handler(db, message, context):
         team_name = 'Ragu'
 
     if not valid_admin:
-        await message.channel.send('You are not an admin of a league team.')
+        await safe_send(message.channel, 'You are not an admin of a league team.')
         return
     
     random_uuid_string = str(uuid.uuid4())
@@ -37,7 +38,7 @@ async def set_lineup_handler(db, message, context):
     
     try:
         league_url = get_league_url_from_context(context)
-        await message.author.send(f'Use this link to edit the lineup for {team_name}: {constants.WEBSITE_DOMAIN}/{league_url}/lineup/{random_uuid_string}\n\nDO NOT SHARE THIS LINK WITH ANYONE')
-        await message.channel.send('A link to edit the lineup for '+team_name+' was sent to your DMs.')
+        await safe_dm(message.author, (f'Use this link to edit the lineup for {team_name}: {constants.WEBSITE_DOMAIN}/{league_url}/lineup/{random_uuid_string}\n\nDO NOT SHARE THIS LINK WITH ANYONE'))
+        await safe_send(message.channel, 'A link to edit the lineup for '+team_name+' was sent to your DMs.')
     except discord.Forbidden:
-        await message.channel.send('I tried to DM you a private link to edit the lineup for your team, but your privacy settings did not allow me to. Please check your privacy settings and try again.')
+        await safe_send(message.channel, 'I tried to DM you a private link to edit the lineup for your team, but your privacy settings did not allow me to. Please check your privacy settings and try again.')

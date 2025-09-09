@@ -3,6 +3,7 @@
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
 from league import update_team_info
+from safe_send import safe_send
 
 
 async def force_league_remove_handler(db, message, client):
@@ -32,4 +33,4 @@ async def force_league_remove_handler(db, message, client):
     team_object['members'] = final_members
     await update_team_info(client, team_object, db)
 
-    await message.channel.send("User was kicked from the league team.")
+    await safe_send(message.channel, "User was kicked from the league team.")

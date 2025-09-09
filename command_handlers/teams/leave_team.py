@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import make_string_from_word_list
+from safe_send import safe_send
 from teams import get_team_by_name, remove_user_from_team, user_on_team
 from user.user import user_exists
 
@@ -20,17 +21,17 @@ async def leave_team_handler(db, message, client):
     team_name = make_string_from_word_list(word_list, 1)
     team = await get_team_by_name(db, team_name)
     if not team:
-        await message.channel.send('There is no team with that name.')
+        await safe_send(message.channel, 'There is no team with that name.')
         return
 
     if not user_on_team(team, user['discord_id']):
-        await message.channel.send('You are not on this team.')
+        await safe_send(message.channel, 'You are not on this team.')
         return
 
     if team['creator_id'] == user['discord_id']:
-        await message.channel.send('You are the creator of this team. Please delete the team instead of leaving.')
+        await safe_send(message.channel, 'You are the creator of this team. Please delete the team instead of leaving.')
         return
 
     await remove_user_from_team(db, user, team, client)
 
-    await message.channel.send('You have successfully left the team.')
+    await safe_send(message.channel, 'You have successfully left the team.')

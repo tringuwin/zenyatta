@@ -3,6 +3,7 @@ from datetime import datetime
 
 from admin_handlers.give_random_gem import give_random_gem_to_user
 from rewards import change_packs, change_tokens
+from safe_send import safe_send
 from user.user import twitch_user_exists
 
 stream_labs_data = 'https://streamlabs.com/api/v5/giveaway/history?token=B032D12F02A4ED3AA822&page=1'
@@ -10,11 +11,11 @@ stream_labs_data = 'https://streamlabs.com/api/v5/giveaway/history?token=B032D12
 
 async def check_streamlabs_raffles(db, channel):
 
-    await channel.send('Checking for raffles.')
-    
+    await safe_send(channel, 'Checking for raffles.')
+
     redeem_req = requests.get(stream_labs_data)
     if redeem_req.status_code != 200:
-        await channel.send('<@1112204092723441724> Error with streamlabs request.')
+        await safe_send(channel, '<@1112204092723441724> Error with streamlabs request.')
         return
     
     redeem_data = redeem_req.json()

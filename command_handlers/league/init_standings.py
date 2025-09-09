@@ -2,6 +2,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import can_be_int, valid_number_of_params
+from safe_send import safe_send
 
 
 async def init_standings(db, message):
@@ -32,4 +33,4 @@ async def init_standings(db, message):
 
     standings_db.insert_one(season_obj)
 
-    await message.channel.send('Standings created for Season '+str(new_season_num))
+    await safe_send(message.channel, 'Standings created for Season '+str(new_season_num))

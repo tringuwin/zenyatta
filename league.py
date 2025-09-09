@@ -2,6 +2,7 @@
 from context.context_helpers import get_league_invites_field, get_league_teams_collection_from_context, get_team_info_channel_from_context
 from discord_actions import get_guild
 from helpers import get_constant_value, get_league_emoji_from_team_name
+from safe_send import safe_add_field, safe_create_embed, safe_edit_embed, safe_set_footer
 from user.user import get_league_invites_with_context, get_league_team_with_context, user_exists
 import discord
 
@@ -192,7 +193,7 @@ async def update_team_info(client, team, db, context='OW'):
     team_image_url = get_team_logo_by_name(team_name)
 
     embed_description = make_team_description(team)
-    embed = discord.Embed(title=team_name.upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', color=team_color, description=embed_description)
+    embed = safe_create_embed(team_name.upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', embed_description, team_color)
     embed.set_thumbnail(url=team_image_url)
 
     for member in team['members']:
@@ -220,11 +221,11 @@ async def update_team_info(client, team, db, context='OW'):
 
         available_tpp -= member['TPP']
 
-        embed.add_field(name=name_string, value=value_string, inline=False)
+        safe_add_field(embed, name_string, value_string, False)
 
-    embed.set_footer(text='Available TPP: '+str(available_tpp))
+    safe_set_footer(embed, text='Available TPP: '+str(available_tpp))
 
-    await info_message.edit(embed=embed, content='')
+    await safe_edit_embed(info_message, embed)
 
 
 def remove_league_invite(user, team_name, db, context='OW'):

@@ -1,6 +1,8 @@
 import constants
 import copy
 
+from safe_send import safe_send
+
 async def create_new_user(db, user_id, message, rivals_username):
     
     users = db['users']
@@ -14,4 +16,4 @@ async def create_new_user(db, user_id, message, rivals_username):
 
     users.insert_one(new_user)
 
-    await message.channel.send("You've successfully added your Marvel Rivals username to your discord account.")
+    await safe_send(message.channel, "You've successfully added your Marvel Rivals username to your discord account.")

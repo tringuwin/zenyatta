@@ -1,6 +1,7 @@
 
 
 from common_messages import not_registered_response
+from safe_send import safe_reply
 from user.user import get_twitch_username, get_user_minute_points, user_exists
 
 
@@ -13,7 +14,7 @@ async def next_drop(db, message):
     
     twitch_username = get_twitch_username(user)
     if twitch_username == '[not set]':
-        await message.reply('Your twitch is not linked with this server! Please link it with this command: **!twitch UsernameHere**')
+        await safe_reply(message, 'Your twitch is not linked with this server! Please link it with this command: **!twitch UsernameHere**')
         return
     
     minute_points = get_user_minute_points(user)
@@ -35,4 +36,4 @@ async def next_drop(db, message):
 
         boxes_left -= 1
 
-    await message.reply(final_string)
+    await safe_reply(message, final_string)

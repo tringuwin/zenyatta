@@ -1,4 +1,5 @@
 
+from safe_send import safe_send
 from teams import add_user_to_team, get_team_by_name, make_team
 from user.user import user_exists
 
@@ -8,7 +9,7 @@ async def force_make_team_handler(db, message, client):
     parts = message.content.split('|')
 
     if len(parts) < 4:
-        await message.channel.send('Not enough parameters')
+        await safe_send(message.channel, 'Not enough parameters')
         return
     
     parts.pop(0)
@@ -22,7 +23,7 @@ async def force_make_team_handler(db, message, client):
             return
         
     if missing_user != 0:
-        await message.channel.send('Did not find any user with id: '+str(missing_user))
+        await safe_send(message.channel, 'Did not find any user with id: '+str(missing_user))
         return
 
     team_owner_user = user_exists(db, parts[0])
@@ -34,10 +35,7 @@ async def force_make_team_handler(db, message, client):
         user_obj = user_exists(db, member_id)
         await add_user_to_team(db, user_obj, team_obj, client)
 
-    await message.channel.send('Force team made')
-
-
-    
+    await safe_send(message.channel, 'Force team made')
 
 
 

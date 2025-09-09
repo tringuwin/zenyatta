@@ -3,6 +3,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from context.context_helpers import get_league_teams_collection_from_context
 from helpers import make_string_from_word_list
 from league import remove_league_invite
+from safe_send import safe_send
 from user.user import get_league_invites_with_context, user_exists
 
 async def league_deny_handler(db, message, context):
@@ -28,7 +29,7 @@ async def league_deny_handler(db, message, context):
             break
 
     if not found_team:
-        await message.channel.send('You do not have a team invite from the team "'+team_name_to_deny+'". Please check the spelling of the team name.')
+        await safe_send(message.channel, 'You do not have a team invite from the team "'+team_name_to_deny+'". Please check the spelling of the team name.')
         return
     
     league_teams = get_league_teams_collection_from_context(db, context)
@@ -37,4 +38,4 @@ async def league_deny_handler(db, message, context):
     
     remove_league_invite(user, real_team_name, db, context)
 
-    await message.channel.send('Successfully removed the invite from that team.')
+    await safe_send(message.channel, 'Successfully removed the invite from that team.')

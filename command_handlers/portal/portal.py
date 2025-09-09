@@ -2,6 +2,7 @@
 import uuid
 from common_messages import not_registered_response
 from exceptions import CommandError
+from safe_send import safe_dm, safe_send
 from user.user import user_exists
 import constants
 
@@ -54,12 +55,11 @@ async def portal_handler(db, message, context):
     portal_url = fetch_portal_url_for_user(db, user)
 
     try:
-        await message.author.send(
-            f"Here is your portal link: {portal_url}\n"
+        await safe_dm(message.author, f"Here is your portal link: {portal_url}\n"
             f"Please note that this link is unique to you and should not be shared with anyone else."
         )
-        await message.channel.send('I sent you a DM with your portal link. Please check your DMs.')
-        
+        await safe_send(message.channel, 'I sent you a DM with your portal link. Please check your DMs.')
+
     except Exception as e:
         raise CommandError('I tried to send you a DM, but I was unable to due to your privacy settings. Please check your DM settings and try again.')
 

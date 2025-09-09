@@ -3,6 +3,8 @@ from common_messages import invalid_number_of_params
 from helpers import get_constant_value, set_constant_value, valid_number_of_params
 from datetime import datetime, timedelta
 
+from safe_send import safe_send
+
 
 def get_day_with_suffix(day):
     if 10 <= day % 100 <= 20:  # Special case for '11th', '12th', '13th', etc.
@@ -66,7 +68,7 @@ async def make_sol_week(db, message):
 
     schedule_db.update_one({'season': league_season}, {'$set': {'weeks': this_season_schedule['weeks']}})
 
-    await message.channel.send('Added week to league season')
+    await safe_send(message.channel, 'Added week to league season')
 
 
 async def bump_sol_week(db, message):
@@ -75,4 +77,4 @@ async def bump_sol_week(db, message):
     new_league_week = current_week + 1
     set_constant_value(db, 'league_week', new_league_week)
 
-    await message.channel.send('League week bumped from '+str(current_week)+' to '+str(new_league_week))
+    await safe_send(message.channel, 'League week bumped from '+str(current_week)+' to '+str(new_league_week))

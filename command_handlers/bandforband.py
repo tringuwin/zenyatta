@@ -1,4 +1,5 @@
 
+from safe_send import safe_send
 from user.user import get_net_worth, user_exists
 import random
 
@@ -15,18 +16,18 @@ async def band_for_band_handler(db, message):
 
     user = user_exists(db, message.author.id)
     if not user:
-        await message.channel.send("You're not even registered lil bro 💀")
+        await safe_send(message.channel, "You're not even registered lil bro 💀")
         return
     
     mentions = message.mentions
     if len(mentions) != 1:
-        await message.channel.send('You gonna mention someone to flex on them. (Like @spicyragu)')
+        await safe_send(message.channel, 'You gonna mention someone to flex on them. (Like @spicyragu)')
         return
     
     other_guy = mentions[0]
     other_user = user_exists(db, other_guy.id)
     if not other_user:
-        await message.channel.send("That kid isn't even registered so you win big bro. 🔥")
+        await safe_send(message.channel, "That kid isn't even registered so you win big bro. 🔥")
         return
     
     my_net_worth = int(get_net_worth(user))
@@ -51,4 +52,4 @@ async def band_for_band_handler(db, message):
     else:
         final_string += "Damn... this one's a tie 🤷"
 
-    await message.channel.send(final_string)
+    await safe_send(message.channel, final_string)

@@ -1,6 +1,7 @@
-from api import send_msg
+
+from safe_send import safe_send
 
 async def wipe_bracket_handler(db, message):
     brackets = db['brackets']
     brackets.delete_many({})
-    await send_msg(message.channel, 'Brackets have been wiped', '!wipebrackets')
+    await safe_send(message.channel, 'Brackets have been wiped')

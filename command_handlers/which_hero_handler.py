@@ -1,5 +1,6 @@
 import random
 import constants
+from safe_send import safe_reply
 
 
 ALL_HEROES = ['Ana', 'Ashe', 'Baptiste', 'Bastion', 'Brigitte', 'Cassidy', 'D.va', 'Doomfist', 'Echo', 'Genji', 
@@ -9,4 +10,4 @@ ALL_HEROES = ['Ana', 'Ashe', 'Baptiste', 'Bastion', 'Brigitte', 'Cassidy', 'D.va
 
 async def which_hero_handler(message):
 
-    await message.reply(random.choice(ALL_HEROES))
+    await safe_reply(message, random.choice(ALL_HEROES))

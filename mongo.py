@@ -8,6 +8,7 @@ from api import get_member, give_role
 from common_messages import not_registered_response
 import constants
 from bracket import get_bracket_by_event_id, make_bracket_from_users
+from safe_send import safe_send
 from user.user import get_user_pickaxes, user_exists
 
 
@@ -109,11 +110,11 @@ async def output_tokens(db, message):
     if existing_user:
 
         if "tokens" in existing_user:
-            await message.channel.send("Your tokens: 🪙**"+str(existing_user['tokens'])+"**")
+            await safe_send(message.channel, "Your tokens: 🪙**"+str(existing_user['tokens'])+"**")
         else:
             users = db['users']
             users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"tokens": 0}})
-            await message.channel.send("Your tokens: 🪙**0**")
+            await safe_send(message.channel, "Your tokens: 🪙**0**")
 
     else:
         await not_registered_response(message)
@@ -127,12 +128,12 @@ async def output_packs(db, message):
     if existing_user:
 
         if "packs" in existing_user:
-            await message.channel.send("Your SOL Card Packs: <:pack:1206654460735258654>**"+str(existing_user['packs'])+"**")
+            await safe_send(message.channel, "Your SOL Card Packs: <:pack:1206654460735258654>**"+str(existing_user['packs'])+"**")
         else:
             users = db['users']
             users.update_one({"discord_id": existing_user['discord_id']}, {"$set": {"packs": 0}})
-            await message.channel.send("Your SOL Card Packs: <:pack:1206654460735258654>**0**")
-    
+            await safe_send(message.channel, "Your SOL Card Packs: <:pack:1206654460735258654>**0**")
+
     else:
         await not_registered_response(message)
 
@@ -146,7 +147,7 @@ async def output_pickaxes(db, message):
         return
     
     user_pickaxes = get_user_pickaxes(existing_user)
-    await message.channel.send('Your Pickaxes: ⛏️**'+str(user_pickaxes)+'**')
+    await safe_send(message.channel, 'Your Pickaxes: ⛏️**'+str(user_pickaxes)+'**')
 
 
 
@@ -168,9 +169,9 @@ async def switch_matches(db, message, event_id, match1, match2):
         my_bracket['bracket'][0] = round1copy
         brackets.update_one({"event_id": event_id}, {"$set": {"bracket": my_bracket['bracket']}})
 
-        await message.channel.send('Matches moved.')
+        await safe_send(message.channel, 'Matches moved.')
     else:
-        await message.channel.send("Could not find a bracket with that event id.")
+        await safe_send(message.channel, "Could not find a bracket with that event id.")
 
 
 def find_event_by_event_id(db, event_id):

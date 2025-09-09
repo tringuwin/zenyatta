@@ -2,6 +2,7 @@
 import constants
 from context.context_helpers import get_league_announcements_channel_from_context
 from helpers import get_league_emoji_from_team_name
+from safe_send import safe_send
 
 
 async def notify_league_of_matches_today(client, context, matchups_today):
@@ -23,7 +24,7 @@ async def notify_league_of_matches_today(client, context, matchups_today):
 
         announcement_message += f'{match_time} - {team1_emoji} **{team1_name}** VS  {team2_emoji} **{team2_name}**\n'
 
-    await announcements_channel.send(announcement_message)
+    await safe_send(announcements_channel, announcement_message, True)
 
     
         

@@ -2,6 +2,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
+from safe_send import safe_send
 from user.user import get_user_gems, user_exists
 import constants
 
@@ -14,7 +15,7 @@ async def donate_gems(db, message):
     
     mentioned_users = message.mentions
     if len(mentioned_users) != 1:
-        await message.channel.send('You must mention exactly one user to donate gems to.')
+        await safe_send(message.channel, 'You must mention exactly one user to donate gems to.')
         return
     
     user = user_exists(db, message.author.id)
@@ -24,32 +25,32 @@ async def donate_gems(db, message):
     
     user_to_donate = user_exists(db, mentioned_users[0].id)
     if not user_to_donate:
-        await message.channel.send('The user you mentioned is not registered.')
+        await safe_send(message.channel, 'The user you mentioned is not registered.')
         return
     
     if user_to_donate['discord_id'] == user['discord_id']:
-        await message.channel.send('You cannot donate gems to yourself.')
+        await safe_send(message.channel, 'You cannot donate gems to yourself.')
         return
     
     gem_color = params[2]
     gem_color_lower = gem_color.lower()
     if not gem_color_lower in constants.GEM_COLORS:
-        await message.channel.send(gem_color+' is not a valid gem color.')
+        await safe_send(message.channel, gem_color+' is not a valid gem color.')
         return
     
     amount = params[3]
     if (not can_be_int(amount)):
-        await message.channel.send(amount+' is not a valid number.')
+        await safe_send(message.channel, amount+' is not a valid number.')
         return
     
     amount = int(amount)
     if amount < 1:
-        await message.channel.send('You must donate at least 1 gem.')
+        await safe_send(message.channel, 'You must donate at least 1 gem.')
         return
     
     user_gems = get_user_gems(user)
     if user_gems[gem_color_lower] < amount:
-        await message.channel.send('You do not have '+str(amount)+' '+gem_color+' gems to donate.')
+        await safe_send(message.channel, 'You do not have '+str(amount)+' '+gem_color+' gems to donate.')
         return
     
     user_gems[gem_color_lower] -= amount
@@ -60,9 +61,5 @@ async def donate_gems(db, message):
     users.update_one({'discord_id': user['discord_id']}, {'$set': {'gems': user_gems}})
     users.update_one({'discord_id': user_to_donate['discord_id']}, {'$set': {'gems': donate_user_gems}})
 
-    await message.channel.send('You have donated '+str(amount)+' '+gem_color+' gems!')
-
-    
-
-    
+    await safe_send(message.channel, 'You have donated '+str(amount)+' '+gem_color+' gems!')
 

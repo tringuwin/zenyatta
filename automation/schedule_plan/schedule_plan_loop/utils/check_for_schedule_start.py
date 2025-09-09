@@ -1,5 +1,6 @@
 
 
+from safe_send import safe_send
 from time_helpers import has_date_passed_est
 
 
@@ -12,8 +13,7 @@ async def check_for_schedule_start(schedule_plans, schedule, message):
 
     if has_season_started:
         schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"status": "IN PROGRESS"}})
-        await message.channel.send(f"Season {schedule['season']} of league {schedule['context']} has started!")
+        await safe_send(message.channel, f"Season {schedule['season']} of league {schedule['context']} has started!")
         return
 
-    await message.channel.send(f"Season {schedule['season']} of league {schedule['context']} has not started yet.")
-    
+    await safe_send(message.channel, f"Season {schedule['season']} of league {schedule['context']} has not started yet.")

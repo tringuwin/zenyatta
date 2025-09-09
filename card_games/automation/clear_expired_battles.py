@@ -1,6 +1,7 @@
 import time
 import constants
 from discord_actions import get_guild, get_message_by_channel_and_id
+from safe_send import safe_send
 
 async def clear_expired_battles(client, db, message):
 
@@ -32,4 +33,4 @@ async def clear_expired_battles(client, db, message):
 
             battles_deleted += 1
 
-    await message.channel.send('Deleted '+str(battles_deleted)+' expired battles.')
+    await safe_send(message.channel, 'Deleted '+str(battles_deleted)+' expired battles.')

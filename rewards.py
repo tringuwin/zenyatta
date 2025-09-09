@@ -2,6 +2,7 @@
 
 from common_messages import not_registered_response
 from helpers import generic_find_user, update_token_tracker, valid_number_of_params
+from safe_send import safe_send
 from user.user import get_lvl_info, get_user_lootboxes, user_exists
 
 
@@ -21,11 +22,11 @@ async def give_tokens_command(client, db, user_id, num, message):
 
     user = await generic_find_user(client, db, user_id)
     if not user:
-        await message.channel.send('Could not find user with that ID')
+        await safe_send(message.channel, 'Could not find user with that ID')
         return
     
     await change_tokens(db, user, num, 'admin-give-tokens')
-    await message.channel.send('Tokens given')
+    await safe_send(message.channel, 'Tokens given')
 
 
 async def sell_pickaxe_for_tokens(db, message):
@@ -38,9 +39,9 @@ async def sell_pickaxe_for_tokens(db, message):
     if 'pickaxes' in user and user['pickaxes'] > 0:
         await change_pickaxes(db, user, -1)
         await change_tokens(db, user, 15, 'sell-pickaxe')
-        await message.channel.send('You sold 1 Pickaxe for **15 Tokens!**')
+        await safe_send(message.channel, 'You sold 1 Pickaxe for **15 Tokens!**')
     else:
-        await message.channel.send('You do not have any pickaxes to sell.')
+        await safe_send(message.channel, 'You do not have any pickaxes to sell.')
 
 
 
@@ -51,9 +52,9 @@ async def give_pickaxes_command(client, db, user_id, num, message):
     if user:
         await change_pickaxes(db, user, num)
 
-        await message.channel.send('Pickaxes given')
+        await safe_send(message.channel, 'Pickaxes given')
     else:
-        await message.channel.send('Could not find user with that ID')
+        await safe_send(message.channel, 'Could not find user with that ID')
 
 
 async def give_packs_command(client, db, user_id, num, message):
@@ -63,9 +64,9 @@ async def give_packs_command(client, db, user_id, num, message):
     if user:
         await change_packs(db, user, num)
 
-        await message.channel.send('Packs given')
+        await safe_send(message.channel, 'Packs given')
     else:
-        await message.channel.send('Could not find user with that ID')
+        await safe_send(message.channel, 'Could not find user with that ID')
 
 async def level_up(user, orig_level, new_level, client, db):
 

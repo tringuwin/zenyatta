@@ -1,6 +1,7 @@
 
 from discord_actions import get_guild, get_role_by_id
 import constants
+from safe_send import safe_send
 from user.user import get_last_sub_box, get_sub_lootboxes, get_user_packs, user_exists
 import time
 
@@ -27,4 +28,4 @@ async def give_sub_boxes_handler(db, message, client):
                     user_packs = get_user_packs(user)
                     users.update_one({"discord_id": user['discord_id']}, {"$set": {"sub_lootboxes": user_boxes, 'last_sub_box': current_time, 'packs': user_packs + 3}})
 
-    await message.channel.send('Command complete. '+str(boxes_given)+' total twitch lootboxes given.')
+    await safe_send(message.channel, 'Command complete. '+str(boxes_given)+' total twitch lootboxes given.')

@@ -1,6 +1,7 @@
 import random
 import string
 from helpers import get_constant_value, set_constant_value
+from safe_send import safe_send
 
 CODE_LENGTH = 12
 
@@ -51,4 +52,4 @@ async def make_50_codes_handler(db, message, code_weight):
 
     set_constant_value(db, pack_codes_constant, pack_codes)
 
-    await message.channel.send(new_codes_string)
+    await safe_send(message.channel, new_codes_string)

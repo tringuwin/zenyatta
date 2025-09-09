@@ -3,6 +3,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import make_string_from_word_list, valid_number_of_params
+from safe_send import safe_send
 from shop import update_shop
 
 
@@ -20,7 +21,7 @@ async def set_item_price_handler(db, message):
     the_shop = shop.find_one({'shop_id': 2})
 
     if len(the_shop['offers']) < item_id:
-        await message.channel.send('There is no item in the shop with that id.')
+        await safe_send(message.channel, 'There is no item in the shop with that id.')
         return
     
     new_item_price = int(params[2])
@@ -34,5 +35,5 @@ async def set_item_price_handler(db, message):
 
     await update_shop(db, message)
 
-    await message.channel.send('Item price updated and shop updated.')
-    
+    await safe_send(message.channel, 'Item price updated and shop updated.')
+

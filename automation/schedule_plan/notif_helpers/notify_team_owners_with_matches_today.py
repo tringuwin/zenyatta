@@ -1,6 +1,7 @@
 
 
 from context.context_helpers import get_league_teams_collection_from_context, get_team_owners_channel_from_context
+from safe_send import safe_send
 
 
 async def notify_team_owners_with_matches_today(client, db, context, matchups_today):
@@ -23,4 +24,4 @@ async def notify_team_owners_with_matches_today(client, db, context, matchups_to
     playing_today_message = 'Your team has a match today. Please make sure your team is ready to play by the match time.'
     playing_today_message += '\n\nPlease make sure the lineup for your team has been set prior to the match. Use the command **!setlineup** to set your lineup.'
 
-    await team_owners_channel.send(f'{team_pings}\n\n{playing_today_message}')
+    await safe_send(team_owners_channel, f'{team_pings}\n\n{playing_today_message}', True)

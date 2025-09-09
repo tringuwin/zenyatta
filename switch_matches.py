@@ -1,4 +1,5 @@
 from mongo import switch_matches
+from safe_send import safe_send
 
 async def switch_matches_handler(db, message):
     
@@ -7,4 +8,4 @@ async def switch_matches_handler(db, message):
     if len(word_list) == 4:
         await switch_matches(db, message, word_list[1], word_list[2], word_list[3])
     else:
-        await message.channel.send("Invalid number of arguments.")
+        await safe_send(message.channel, "Invalid number of arguments.")

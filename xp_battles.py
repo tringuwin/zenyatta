@@ -2,6 +2,7 @@
 
 from command_handlers.xp_battle.battle_helpers import get_battle_constant_name
 from discord_actions import get_guild
+from safe_send import safe_dm, safe_send
 from user.user import user_exists
 import discord
 import constants
@@ -13,11 +14,11 @@ async def contact_member_to_reg(member, client, context):
         default_message = 'Please register before entering XP Battles. To register, go to this channel ( https://discord.com/channels/1130553449491210442/1318388766691295272 ) and use this command to register: **!username MarvelRivalsUsernameHere**'
 
     try:
-        await member.send(default_message)
+        await safe_dm(member, default_message)
     except discord.Forbidden:
         guild = await get_guild(client)
         chat_channel = guild.get_channel(constants.CHAT_CHANNEL)
-        await chat_channel.send(member.mention+' '+default_message+" (I tried to DM you but your privacy settings did not allow me to)")
+        await safe_send(chat_channel, member.mention+' '+default_message+" (I tried to DM you but your privacy settings did not allow me to)")
 
 def user_ready_for_battle(db, member, context):
 
@@ -83,7 +84,7 @@ async def how_many_handler(db, message, context):
 
     number_sign_ups = len(battle_info['sign_ups'])
 
-    await message.channel.send('Total number of users signed up for the XP Battle: '+str(number_sign_ups))
+    await safe_send(message.channel, 'Total number of users signed up for the XP Battle: '+str(number_sign_ups))
 
 
 def init_player_pools(battle_info):

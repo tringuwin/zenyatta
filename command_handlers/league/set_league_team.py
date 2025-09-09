@@ -1,5 +1,6 @@
 
 from helpers import make_string_from_word_list
+from safe_send import safe_send
 from user.user import user_exists
 
 
@@ -12,11 +13,11 @@ async def set_league_team_handler(db, message):
 
     user = user_exists(db, user_id)
     if not user:
-        await message.channel.send('User not found')
+        await safe_send(message.channel, 'User not found')
         return
     
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"league_team": team_name}})
 
-    await message.channel.send('League team updated')
+    await safe_send(message.channel, 'League team updated')
 

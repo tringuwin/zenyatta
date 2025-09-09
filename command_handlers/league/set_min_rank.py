@@ -2,6 +2,7 @@
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
 from league import validate_admin
+from safe_send import safe_send
 
 
 VALID_RANKS_OW = [
@@ -30,7 +31,7 @@ VALID_RANKS_MR = [
 async def set_min_rank_handler(db, message, context):
 
     if context not in ['OW', 'MR']:
-        await message.channel.send('This command is not ready yet for this league.')
+        await safe_send(message.channel, 'This command is not ready yet for this league.')
         return
 
     valid_params, params = valid_number_of_params(message, 2)
@@ -41,7 +42,7 @@ async def set_min_rank_handler(db, message, context):
     valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
     if not valid_admin:
-        await message.channel.send('You are not an admin of a league team.')
+        await safe_send(message.channel, 'You are not an admin of a league team.')
         return
     
     rank = params[1].lower()
@@ -49,7 +50,7 @@ async def set_min_rank_handler(db, message, context):
     valid_ranks = VALID_RANKS_OW if context == 'OW' else VALID_RANKS_MR
 
     if not rank in valid_ranks:
-        await message.channel.send('That is not a valid rank. Please enter a rank in the range bronze to champ.')
+        await safe_send(message.channel, 'That is not a valid rank. Please enter a rank in the range bronze to champ.')
         return
 
     team_name_lower = team_name.lower()
@@ -57,10 +58,10 @@ async def set_min_rank_handler(db, message, context):
     league_teams = db['leagueteams']
     my_team = league_teams.find_one({'name_lower': team_name_lower})
     if not my_team:
-        await message.channel.send('Was not able to set the minimum rank for this team because this team is not yet listed on the application website. If you think this is a mistake please contact the server owner.')
+        await safe_send(message.channel, 'Was not able to set the minimum rank for this team because this team is not yet listed on the application website. If you think this is a mistake please contact the server owner.')
         return
 
     my_team['applications']['min'] = rank
 
     league_teams.update_one({"name_lower": team_name_lower}, {"$set": {"applications": my_team['applications']}})
-    await message.channel.send('Application link for '+team_name+' has been updated.')
+    await safe_send(message.channel, 'Application link for '+team_name+' has been updated.')

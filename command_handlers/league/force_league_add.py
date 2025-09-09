@@ -4,6 +4,7 @@ from context.context_helpers import get_league_notifs_channel_from_context, get_
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
 from league import update_team_info
+from safe_send import safe_send
 from user.user import get_league_team_with_context, user_exists
 
 
@@ -11,24 +12,24 @@ async def force_league_add_handler(db, message, client, context):
 
     mentioned_user = message.mentions[0]
     if not mentioned_user:
-        await message.channel.send('no mentioned user')
+        await safe_send(message.channel, 'no mentioned user')
         return
     
     word_parts = message.content.split()
     if len(word_parts) != 3:
-        await message.channel.send('incorrect num of params')
+        await safe_send(message.channel, 'incorrect num of params')
         return
     
     team_name_to_join = word_parts[2]
     
     user = user_exists(db, mentioned_user.id)
     if not user:
-        await message.channel.send('user not reg')
+        await safe_send(message.channel, 'user not reg')
         return
     
     user_league_team = get_league_team_with_context(user, context)
     if user_league_team != "None":
-        await message.channel.send('That user is already on a league team.')
+        await safe_send(message.channel, 'That user is already on a league team.')
         return
     
     league_teams = get_league_teams_collection_from_context(db, context)
@@ -61,5 +62,5 @@ async def force_league_add_handler(db, message, client, context):
 
     team_emoji_string = get_league_emoji_from_team_name(real_team_name)
 
-    await league_notifs_channel.send(team_emoji_string+' User '+mentioned_user.mention+' has joined the team "'+team_name_to_join+'".')
-    await message.channel.send('Added user to league team.')
+    await safe_send(league_notifs_channel, team_emoji_string+' User '+mentioned_user.mention+' has joined the team "'+team_name_to_join+'".')
+    await safe_send(message.channel, 'Added user to league team.')

@@ -1,6 +1,7 @@
 
 import constants
 from discord_actions import get_guild
+from safe_send import safe_send
 
 
 async def message_about_drop(client, user, reward_info):
@@ -10,4 +11,4 @@ async def message_about_drop(client, user, reward_info):
 
     user_mention = '<@'+str(user['discord_id'])+'>'
 
-    await redemptions_channel.send(user_mention+' just got the reward: '+reward_info['user_message'])
+    await safe_send(redemptions_channel, user_mention+' just got the reward: '+reward_info['user_message'])

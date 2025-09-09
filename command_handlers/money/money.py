@@ -1,6 +1,7 @@
 
 
 from common_messages import not_registered_response
+from safe_send import safe_reply
 from user.user import get_user_money, user_exists
 
 
@@ -14,6 +15,6 @@ async def money(db, message):
     user_money_raw = get_user_money(user)
     rounded_money = round(user_money_raw, 2)
 
-    await message.reply('Your current balance is: $'+str(rounded_money))
+    await safe_reply(message, 'Your current balance is: $'+str(rounded_money))
 
     

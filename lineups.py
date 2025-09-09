@@ -1,11 +1,13 @@
 
 import time
 
+from safe_send import safe_send
+
 TIME_IN_2_HOURS = 7200
 
 async def check_lineup_tokens(db, message):
 
-    await message.channel.send('Checking Lineup Tokens')
+    await safe_send(message.channel, 'Checking Lineup Tokens')
     cur_time = time.time()
 
     lineup_tokens = db['lineup_tokens']
@@ -17,7 +19,7 @@ async def check_lineup_tokens(db, message):
             lineup_tokens.delete_one({'token': token['token']})
             num_inval += 1
 
-    await message.channel.send('Deleted '+str(num_inval)+' Lineup Tokens')
+    await safe_send(message.channel, 'Deleted '+str(num_inval)+' Lineup Tokens')
 
 
 

@@ -1,19 +1,22 @@
 import discord
 
+from safe_send import safe_add_field, safe_create_embed, safe_send_embed
+
 async def help_ally_handler(message):
 
-    help_embed = discord.Embed(title='List of commands related to League Team Allies and Rivals:')
-    help_embed.add_field(name='!allyrequest [team name here]', value='Send an Ally Request from your League Team to another League Team.', inline=False)
-    help_embed.add_field(name='!rivalrequest [team name here]', value='Send a Rival Request from your League Team to another League Team.', inline=False)
-    help_embed.add_field(name='!acceptally [team name here]', value='Accept an Ally Request from another League Team.', inline=False)
-    help_embed.add_field(name='!acceptrival [team name here]', value='Accept a Rival Request from another League Team.', inline=False)
-    help_embed.add_field(name='!allyrequests', value='Check all the Ally Requests your team has received from other League Teams.', inline=False)
-    help_embed.add_field(name='!rivalrequests', value='Check all the Ally Requests your team has received from other League Teams.', inline=False)
-    help_embed.add_field(name='!delally [team name here]', value='Remove an Ally from your League Team.', inline=False)
-    help_embed.add_field(name='!delrival [team name here]', value='Remove a Rival from your League Team.', inline=False)
-    help_embed.add_field(name='!denyally [team name here]', value='Deny an Ally Request from another League Team.', inline=False)
-    help_embed.add_field(name='!denyrival [team name here]', value='Deny a Rival Request from another League Team.', inline=False)
-    help_embed.add_field(name='!cancelally [team name here]', value='Cancel an Ally Request to another League Team.', inline=False)
-    help_embed.add_field(name='!cancelrival [team name here]', value='Cancel a Rival Request to another League Team.', inline=False)
+    help_embed = safe_create_embed('List of commands related to League Team Allies and Rivals:')
 
-    await message.channel.send(embed=help_embed)
+    safe_add_field(help_embed, '!allyrequest [team name here]', 'Send an Ally Request from your League Team to another League Team.', False)
+    safe_add_field(help_embed, '!rivalrequest [team name here]', 'Send a Rival Request from your League Team to another League Team.', False)
+    safe_add_field(help_embed, '!acceptally [team name here]', 'Accept an Ally Request from another League Team.', False)
+    safe_add_field(help_embed, '!acceptrival [team name here]', 'Accept a Rival Request from another League Team.', False)
+    safe_add_field(help_embed, '!allyrequests', 'Check all the Ally Requests your team has received from other League Teams.', False)
+    safe_add_field(help_embed, '!rivalrequests', 'Check all the Rival Requests your team has received from other League Teams.', False)
+    safe_add_field(help_embed, '!delally [team name here]', 'Remove an Ally from your League Team.', False)
+    safe_add_field(help_embed, '!delrival [team name here]', 'Remove a Rival from your League Team.', False)
+    safe_add_field(help_embed, '!denyally [team name here]', 'Deny an Ally Request from another League Team.', False)
+    safe_add_field(help_embed, '!denyrival [team name here]', 'Deny a Rival Request from another League Team.', False)
+    safe_add_field(help_embed, '!cancelally [team name here]', 'Cancel an Ally Request to another League Team.', False)
+    safe_add_field(help_embed, '!cancelrival [team name here]', 'Cancel a Rival Request to another League Team.', False)
+
+    await safe_send_embed(message.channel, help_embed)

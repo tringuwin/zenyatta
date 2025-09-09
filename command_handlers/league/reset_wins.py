@@ -1,5 +1,8 @@
 
 
+from safe_send import safe_send
+
+
 async def reset_wins_handler(db, message):
 
     local_files = db['localfiles']
@@ -12,4 +15,4 @@ async def reset_wins_handler(db, message):
 
     local_files.update_one({"files_id": 1}, {"$set": {"files": files['files']}})
 
-    await message.channel.send('wins reset')
+    await safe_send(message.channel, 'wins reset')

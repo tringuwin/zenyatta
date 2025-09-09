@@ -2,6 +2,7 @@
 
 from common_messages import not_registered_response
 from rewards import change_tokens
+from safe_send import safe_send
 from user.user import get_user_tickets, get_user_tokens, user_exists
 
 
@@ -25,7 +26,7 @@ async def buy_ticket_handler(db, message, amount):
     
     user_tokens = get_user_tokens(user)
     if user_tokens < cost:
-        await message.channel.send(message.author.mention+' You do not have enough tokens for this. You only have **'+str(user_tokens)+ ' tokens** right now and you need **'+str(cost)+'** for this purchase.')
+        await safe_send(message.channel, message.author.mention+' You do not have enough tokens for this. You only have **'+str(user_tokens)+ ' tokens** right now and you need **'+str(cost)+'** for this purchase.')
         return
     
     await change_tokens(db, user, -1*cost, 'buy-ticket')
@@ -43,4 +44,4 @@ async def buy_ticket_handler(db, message, amount):
     percentage_win = float(user_tickets) / float(all_tickets)
     rounded_percent = round(percentage_win * 100.0, 3)
 
-    await message.channel.send(message.author.mention+' You bought '+str(amount)+' raffle tickets! You now have '+str(user_tickets)+' and your chance to win is **'+str(rounded_percent)+'%**')
+    await safe_send(message.channel, message.author.mention+' You bought '+str(amount)+' raffle tickets! You now have '+str(user_tickets)+' and your chance to win is **'+str(rounded_percent)+'%**')

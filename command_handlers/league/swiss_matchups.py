@@ -4,6 +4,7 @@ from command_handlers.random_map import get_random_map
 from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_season_constant_name
 from helpers import get_constant_value, valid_number_of_params
+from safe_send import safe_send
 
 
 def make_standings_team_elo_points(standings_team, use_invisible_elo, invisible_elo):
@@ -130,19 +131,19 @@ async def swiss_matchups(message, db, context, use_invisible_elo):
     schedule_plan = schedule_plans.find_one({'context': context, 'season': league_season})
 
     if not schedule_plan:
-        await message.channel.send(f'No schedule plan found for {context} season {league_season}.')
+        await safe_send(message.channel, f'No schedule plan found for {context} season {league_season}.')
         return
     
     schedule_week = schedule_plan['current_week']
     if schedule_plan['weeks'][schedule_week]['status'] != 'MATCHUPS':
-        await message.channel.send(f'Schedule plan for {context} season {league_season} week {schedule_week} is not in matchups status.')
+        await safe_send(message.channel, f'Schedule plan for {context} season {league_season} week {schedule_week} is not in matchups status.')
         return
     
     standings = db['standings']
     season_standings = standings.find_one({'context': context, 'season': league_season})
 
     if not season_standings:
-        await message.channel.send(f'No standings found for {context} season {league_season}.')
+        await safe_send(message.channel, f'No standings found for {context} season {league_season}.')
         return
     
     season_teams = schedule_plan['season_teams']
@@ -156,7 +157,7 @@ async def swiss_matchups(message, db, context, use_invisible_elo):
         invisible_elo = team['invisible_elo']
 
         if invisible_elo == -1:
-            await message.channel.send(f'Invisible elo not found for {team_name}.')
+            await safe_send(message.channel, f'Invisible elo not found for {team_name}.')
             return
 
         elo_points = make_standings_team_elo_points(standings_team, use_invisible_elo, invisible_elo)
@@ -169,12 +170,12 @@ async def swiss_matchups(message, db, context, use_invisible_elo):
 
     pairings = find_pairings(swiss_teams)
     if not pairings:
-        await message.channel.send(f'Could not find valid pairings for {context} season {league_season} week {schedule_week}.')
+        await safe_send(message.channel, f'Could not find valid pairings for {context} season {league_season} week {schedule_week}.')
         return
     
     convert_pairings_into_matchups(db, pairings, schedule_plan)
-    
-    await message.channel.send('Pairings for this week are:' +str(pairings))
+
+    await safe_send(message.channel, 'Pairings for this week are:' +str(pairings))
 
 
 

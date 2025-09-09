@@ -2,6 +2,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import get_constant_value, set_constant_value, valid_number_of_params
+from safe_send import safe_send
 from user.user import get_user_packs, user_exists
 
 
@@ -48,7 +49,7 @@ async def redeem_code(db, message):
             break
 
     if not code_constant_name:
-        await message.channel.send('Invalid code.')
+        await safe_send(message.channel, 'Invalid code.')
         return
     
     all_codes_with_weight.remove(code)
@@ -60,4 +61,4 @@ async def redeem_code(db, message):
     users.update_one({'discord_id': message.author.id}, {'$set': {'packs': new_packs}})
 
     pack_string = num_to_packs_string(code_weight)
-    await message.channel.send(f'Code redeemed! You were given {code_weight} SOL Card {pack_string}!')
+    await safe_send(message.channel, f'Code redeemed! You were given {code_weight} SOL Card {pack_string}!')

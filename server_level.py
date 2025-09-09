@@ -4,6 +4,7 @@ from common_messages import invalid_number_of_params
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
 import constants
+from safe_send import safe_edit, safe_send
 
 
 ALL_LEVELS = {
@@ -152,7 +153,7 @@ async def sub_points_handler(db, message, client):
     
     num_subs = params[1]
     if not can_be_int(num_subs):
-        await message.channel.send(num_subs+' is not a number')
+        await safe_send(message.channel, num_subs+' is not a number')
         return
     
     num_subs = int(num_subs)
@@ -188,8 +189,7 @@ async def sub_points_handler(db, message, client):
     level_string += '\nCurrent SOL Prize Pool: **$'+str(int(prize_money))+'**'
     level_string += '\n-----------------------------------'
 
-    await level_message.edit(content=level_string)
-
+    await safe_edit(level_message, level_string)
 
     next_message = await server_level_channel.fetch_message(constants.NEXT_LEVELS_MESSAGE)
     
@@ -203,7 +203,7 @@ async def sub_points_handler(db, message, client):
 
     next_string += '\n-----------------------------------'
 
-    await next_message.edit(content=next_string)
+    await safe_edit(next_message, next_string)
 
 
     if server_level != level:
@@ -240,11 +240,10 @@ async def sub_points_handler(db, message, client):
             final_string += '\n\n'+changed_string
             final_string += '\n\nThe server level impacts things like Token Shop Stock, Daily Auctions, and SOL Prize money. Find out how you can contribute here: https://discord.com/channels/1130553449491210442/1234932215482155048' 
 
-        await announcements_channel.send(final_string)
-    
-    await message.channel.send('level: '+str(level)+' - subs: '+str(num_subs))
+        await safe_send(announcements_channel, final_string)
 
-    
+    await safe_send(message.channel, 'level: '+str(level)+' - subs: '+str(num_subs))
+
 
     
 

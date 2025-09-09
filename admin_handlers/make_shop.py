@@ -1,5 +1,8 @@
 
 
+from safe_send import safe_send
+
+
 async def make_shop_handler(db, message):
     
     shop = db['shop']
@@ -10,4 +13,4 @@ async def make_shop_handler(db, message):
     }
     shop.insert_one(new_shop)
 
-    await message.channel.send('Shop has been created.')
+    await safe_send(message.channel, 'Shop has been created.')

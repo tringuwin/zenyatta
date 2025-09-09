@@ -1,5 +1,6 @@
 from context.context_helpers import get_league_teams_collection_from_context
 from league import validate_admin
+from safe_send import safe_send
 
 
 async def rival_requests_handler(db, message, context):
@@ -7,18 +8,18 @@ async def rival_requests_handler(db, message, context):
     valid_admin, _, team_name, _ = await validate_admin(db, message, context)
 
     if not valid_admin:
-        await message.channel.send('You are not a team admin of a league team.')
+        await safe_send(message.channel, 'You are not a team admin of a league team.')
         return
 
     league_teams = get_league_teams_collection_from_context(db, context)
     my_team = league_teams.find_one({'team_name': team_name})
     if not my_team:
-        await message.channel.send('Something went very wrong.')
+        await safe_send(message.channel, 'Something went very wrong.')
         return
     
     rival_reqs = my_team['rival_reqs']
     if len(rival_reqs) == 0:
-        await message.channel.send('Your team does not currently have any Rival Requests from any other teams.')
+        await safe_send(message.channel, 'Your team does not currently have any Rival Requests from any other teams.')
         return
     
     final_string = '**RIVAL REQUESTS FOR '+team_name.upper()+'**'
@@ -30,4 +31,4 @@ async def rival_requests_handler(db, message, context):
 
         cur_index += 1
 
-    await message.channel.send(final_string)
+    await safe_send(message.channel, final_string)

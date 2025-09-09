@@ -1,10 +1,5 @@
 
 
-async def send_msg(channel, info, source):
-    print('Message from source: '+source)
-    await channel.send(info)
-
-
 async def give_role(member, role, source):
     print('Role add from source: '+source)
     await member.add_roles(role)

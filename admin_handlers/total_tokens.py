@@ -1,3 +1,6 @@
+from safe_send import safe_send
+
+
 async def total_tokens_handler(db, message):
     
     users = db['users']
@@ -8,4 +11,4 @@ async def total_tokens_handler(db, message):
         if 'tokens' in user:
             total_tokens += user['tokens']
 
-    await message.channel.send('Total tokens in circulation: '+str(total_tokens))
+    await safe_send(message.channel, 'Total tokens in circulation: '+str(total_tokens))

@@ -1,6 +1,7 @@
 
 
 from helpers import get_constant_value, set_constant_value
+from safe_send import safe_send
 
 
 async def swap_tourney_teams(db, message):
@@ -18,4 +19,4 @@ async def swap_tourney_teams(db, message):
 
     set_constant_value(db, 'tourney_widget', new_tourney_widget_data)
 
-    await message.channel.send("Tournament teams swapped")
+    await safe_send(message.channel, "Tournament teams swapped")

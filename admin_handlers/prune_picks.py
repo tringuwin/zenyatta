@@ -2,6 +2,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
+from safe_send import safe_send
 
 
 def pick_is_done(picks):
@@ -42,6 +43,4 @@ async def prune_picks(db, message):
         picks_db.delete_one({'token': id_to_delete})
         num_deleted += 1
 
-    await message.channel.send('Command success, deleted '+str(num_deleted)+' picks.')
-
-    
+    await safe_send(message.channel, 'Command success, deleted '+str(num_deleted)+' picks.')

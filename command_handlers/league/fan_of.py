@@ -2,6 +2,7 @@
 from common_messages import invalid_number_of_params, not_registered_response
 from context.context_helpers import get_fan_of_field_from_context, get_league_teams_collection_from_context
 from helpers import valid_number_of_params
+from safe_send import safe_send
 from user.user import user_exists
 
 async def fan_of_handler(db, message, context):
@@ -29,11 +30,11 @@ async def fan_of_handler(db, message, context):
             found_team = 'None'
 
     if not found_team:
-        await message.channel.send('There is no team named '+str(raw_team))
+        await safe_send(message.channel, 'There is no team named '+str(raw_team))
         return
     
     users = db['users']
     fan_of_field = get_fan_of_field_from_context(context)
     users.update_one({"discord_id": user['discord_id']}, {"$set": {fan_of_field: found_team}})
 
-    await message.channel.send("Success! You're now a fan of "+found_team)
+    await safe_send(message.channel, "Success! You're now a fan of "+found_team)

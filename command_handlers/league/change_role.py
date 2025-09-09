@@ -4,6 +4,7 @@ from context.context_helpers import get_league_notifs_channel_from_context, get_
 from discord_actions import get_guild, get_member_by_username
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
 from league import update_team_info, validate_admin
+from safe_send import safe_send
 from user.user import user_exists
 
 async def change_role_handler(db, message, client, context):
@@ -17,7 +18,7 @@ async def change_role_handler(db, message, client, context):
     team_members = my_team['members']
 
     if not is_admin:
-        await message.channel.send('You are not an admin of this league team. Please ask the team owner to be an admin.')
+        await safe_send(message.channel, 'You are not an admin of this league team. Please ask the team owner to be an admin.')
         return
     
     user_to_change_role = None
@@ -33,7 +34,7 @@ async def change_role_handler(db, message, client, context):
         mentioned_member = await get_member_by_username(client, username)
     
     if not user_to_change_role:
-        await message.channel.send('User not found.')
+        await safe_send(message.channel, 'User not found.')
         return
 
     at_member = None
@@ -47,12 +48,12 @@ async def change_role_handler(db, message, client, context):
         cur_index += 1
 
     if not at_member:
-        await message.channel.send('That member is not part of your team.')
+        await safe_send(message.channel, 'That member is not part of your team.')
         return
     
     new_role = make_string_from_word_list(word_list, 2)
     if len(new_role) > 20:
-        await message.channel.send('Roles must be 20 letters or less.')
+        await safe_send(message.channel, 'Roles must be 20 letters or less.')
         return
     
     my_team['members'][at_member_index]['role'] = new_role
@@ -64,11 +65,11 @@ async def change_role_handler(db, message, client, context):
     team_emoji_string = get_league_emoji_from_team_name(team_name)
 
     if mentioned_member:
-        await league_notifs_channel.send(team_emoji_string+' Team Update for '+team_name+": "+mentioned_member.mention+"'s role has been changed to "+new_role)
+        await safe_send(league_notifs_channel, team_emoji_string+' Team Update for '+team_name+": "+mentioned_member.mention+"'s role has been changed to "+new_role)
     else:
-        await league_notifs_channel.send(team_emoji_string+' Team Update for '+team_name+": "+username+"'s role has been changed to "+new_role)
+        await safe_send(league_notifs_channel, team_emoji_string+' Team Update for '+team_name+": "+username+"'s role has been changed to "+new_role)
 
 
     await update_team_info(client, my_team, db, context)
 
-    await message.channel.send("User's role was successfully updated.")
+    await safe_send(message.channel, "User's role was successfully updated.")

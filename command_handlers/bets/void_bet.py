@@ -2,6 +2,7 @@
 
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
+from safe_send import safe_send
 from user.user import get_user_bets, user_exists
 import constants
 
@@ -10,22 +11,22 @@ async def void_bet_handler(db, message, client):
     valid_params, params = valid_number_of_params(message, 2)
 
     if not valid_params:
-        await message.channel.send('need 2 params')
+        await safe_send(message.channel, 'need 2 params')
         return
     
     bet_id = params[1]
 
     if not can_be_int(bet_id):
-        await message.channel.send(bet_id+' is not a number')
+        await safe_send(message.channel, bet_id+' is not a number')
         return
     bet_id  = int(bet_id)
 
     bets = db['bets']
     bet = bets.find_one({'bet_id': bet_id})
     if not bet:
-        await message.channel.send('Bet with id not found.')
-        return    
-    
+        await safe_send(message.channel, 'Bet with id not found.')
+        return
+
     betters_1 = bet['team_1_betters']
     betters_2 = bet['team_2_betters']
 
@@ -73,4 +74,4 @@ async def void_bet_handler(db, message, client):
 
     bets.delete_one({'bet_id': bet_id})
 
-    await message.channel.send('Bet void complete')
+    await safe_send(message.channel, 'Bet void complete')

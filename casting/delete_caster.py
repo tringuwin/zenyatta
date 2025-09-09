@@ -2,6 +2,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
+from safe_send import safe_send
 
 
 async def delete_caster_handler(db, message):
@@ -17,7 +18,7 @@ async def delete_caster_handler(db, message):
     casters = db['casters']
     delete_caster = casters.find_one({"discord_id": user_id})
     if not delete_caster:
-        await message.channel.send('No caster found with that ID.')
+        await safe_send(message.channel, 'No caster found with that ID.')
         return
     
     production_crew = db['production_crew']
@@ -36,4 +37,4 @@ async def delete_caster_handler(db, message):
             casters.update_one({"discord_id": caster['discord_id']}, {"$set": {"relations": caster['relations']}})
 
     casters.delete_one({"discord_id": user_id})
-    await message.channel.send('CASTED-DELETED | Deleted the caster "' + delete_caster['username'] +  '" Final balance was: $'+str(final_balance))
+    await safe_send(message.channel, 'CASTED-DELETED | Deleted the caster "' + delete_caster['username'] +  '" Final balance was: $'+str(final_balance))

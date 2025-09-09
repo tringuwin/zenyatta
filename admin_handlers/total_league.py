@@ -1,4 +1,7 @@
 
+from safe_send import safe_send
+
+
 async def total_league_handler(db, message):
 
     leagueteams = db['leagueteams']
@@ -12,4 +15,4 @@ async def total_league_handler(db, message):
 
     total_possible = int(total_teams * 25)
 
-    await message.channel.send('Total players in SOL: '+str(total_players)+'/'+str(total_possible))
+    await safe_send(message.channel, 'Total players in SOL: '+str(total_players)+'/'+str(total_possible))

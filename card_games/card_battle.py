@@ -6,6 +6,7 @@ from cards import get_card_image_by_display, get_card_index
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
+from safe_send import safe_add_field, safe_create_embed, safe_send, safe_send_embed
 from user.user import get_user_battle_cards, get_user_cards, user_exists
 import constants
 import math
@@ -52,18 +53,18 @@ async def send_battle_embed(client, db, card_display, user_id, battle_type, min_
 
     card_img = get_card_image_by_display(db, card_display)
 
-    embed = discord.Embed(title='BATTLE FOR CARD '+card_display, color=get_embed_color_from_battle_type(battle_type))
-    embed.add_field(name='Card Power', value=card_power, inline=False)
-    embed.add_field(name='Owner', value='<@'+str(user_id)+'>', inline=False)
-    embed.add_field(name='Battle Type', value=battle_type, inline=False)
-    embed.add_field(name='Minimum Power', value=min_power)
-    embed.add_field(name='Maximum Power', value=max_power)
-    embed.add_field(name='Command to Challenge', value='!fightcard '+card_display+' [your card id]', inline=False)
+    embed = safe_create_embed('BATTLE FOR CARD '+card_display, None, get_embed_color_from_battle_type(battle_type))
+    safe_add_field(embed, 'Card Power', str(card_power), False)
+    safe_add_field(embed, 'Owner', '<@'+str(user_id)+'>', False)
+    safe_add_field(embed, 'Battle Type', battle_type, False)
+    safe_add_field(embed, 'Minimum Power', min_power, True)
+    safe_add_field(embed, 'Maximum Power', max_power, True)
+    safe_add_field(embed, 'Command to Challenge', '!fightcard '+card_display+' [your card id]', False)
     embed.set_image(url=card_img)
 
     guild = await get_guild(client)
     card_battle_channel = guild.get_channel(constants.CARD_BATTLE_CHANNEL)
-    battle_message = await card_battle_channel.send(embed=embed)
+    battle_message = await safe_send_embed(card_battle_channel, embed)
     return battle_message
 
 
@@ -124,7 +125,7 @@ async def card_battle(client, db, message):
     params = message.content.split()
 
     if len(params) < 2:
-        await message.channel.send('Command not formatted correctly. Try **!helpcards** for more info.')
+        await safe_send(message.channel, 'Command not formatted correctly. Try **!helpcards** for more info.')
         return
     
     user = user_exists(db, message.author.id)
@@ -135,14 +136,14 @@ async def card_battle(client, db, message):
     card_id = params[1].upper()
     card_id_valid, error = validate_card_id_for_battle(user, card_id)
     if not card_id_valid:
-        await message.channel.send(error)
+        await safe_send(message.channel, error)
         return
     
     single_cards = db['single_cards']
     single_card = single_cards.find_one({'display': card_id})
     my_card_power = single_card['power']
     if my_card_power < 2:
-        await message.channel.send('Card power must be at least 2 to be used in a battle.')
+        await safe_send(message.channel, 'Card power must be at least 2 to be used in a battle.')
         return
     
     battle_type = 'duel'
@@ -156,7 +157,7 @@ async def card_battle(client, db, message):
             battle_type = 'elimination'
         
     if battle_type not in BATTLE_TYPES:
-        await message.channel.send('Invalid battle type. Please choose from duel, capture, or elimination.')
+        await safe_send(message.channel, 'Invalid battle type. Please choose from duel, capture, or elimination.')
         return
     
     my_card_power_half = math.ceil(my_card_power / 2)
@@ -166,7 +167,7 @@ async def card_battle(client, db, message):
     if len(params) >= 4:
         min_power = params[3]
         if not can_be_int(min_power):
-            await message.channel.send(min_power+' is not a valid number. Minimum power must be a number.')
+            await safe_send(message.channel, min_power+' is not a valid number. Minimum power must be a number.')
             return
         min_power = int(min_power)
     else:
@@ -175,7 +176,7 @@ async def card_battle(client, db, message):
             min_power = 2
     
     if min_power < 2:
-        await message.channel.send('Minimum power must be at least 2.')
+        await safe_send(message.channel, 'Minimum power must be at least 2.')
         return
 
     max_power = None
@@ -184,7 +185,7 @@ async def card_battle(client, db, message):
 
         max_power = params[4]
         if not can_be_int(max_power):
-            await message.channel.send(max_power+' is not a valid number. Maximum power must be a number.')
+            await safe_send(message.channel, max_power+' is not a valid number. Maximum power must be a number.')
             return
         max_power = int(max_power)
 
@@ -192,7 +193,7 @@ async def card_battle(client, db, message):
         max_power = my_card_power + my_card_power_half
 
     if max_power < min_power:
-        await message.channel.send('Maximum power must be greater than or equal to minimum power.')
+        await safe_send(message.channel, 'Maximum power must be greater than or equal to minimum power.')
         return
     
     valid_opponent = find_existing_battle_opponent(db, user, my_card_power, battle_type, min_power, max_power)
@@ -202,7 +203,7 @@ async def card_battle(client, db, message):
     
     await create_card_battle(client, db, user, card_id, battle_type, min_power, max_power, my_card_power)
 
-    await message.channel.send('Battle successfully created!')
+    await safe_send(message.channel, 'Battle successfully created!')
 
     
 

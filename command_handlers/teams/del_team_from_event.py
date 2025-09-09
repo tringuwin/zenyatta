@@ -1,19 +1,20 @@
 
 from getters.event_getters import get_event_by_id
 from helpers import make_string_from_word_list
+from safe_send import safe_send
 
 
 async def del_team_from_event_handler(db, message):
 
     word_list = message.content.split()
     if len(word_list) < 2: 
-        await message.channel.send('Not enough parameters')
+        await safe_send(message.channel, 'Not enough parameters')
         return
     
     event_id = word_list[1]
     event = get_event_by_id(db, event_id)
     if not event:
-        await message.channel.send('No event with that id')
+        await safe_send(message.channel, 'No event with that id')
         return
 
     team_name = make_string_from_word_list(word_list, 2)
@@ -28,4 +29,4 @@ async def del_team_from_event_handler(db, message):
 
     events = db['events']
     events.update_one({"event_id": event['event_id']}, {"$set": {"entries": final_entries, "spots_filled": len(final_entries)}})
-    await message.channel.send('command done')
+    await safe_send(message.channel, 'command done')

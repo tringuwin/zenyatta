@@ -3,6 +3,8 @@
 from command_handlers.twitch_api.twitch_helpers import get_broadcaster_id_from_channel, get_client_id, get_twitch_token
 import requests
 
+from safe_send import safe_send
+
 def run_ad_twitch_call(headers, data):
 
     result = requests.post('https://api.twitch.tv/helix/channels/commercial', headers=headers, json=data)
@@ -30,14 +32,14 @@ async def respond_based_on_result(message, result):
     print('result is ', result)
 
     if status_code == 200:
-        await message.channel.send('Ad started successfully.')
+        await safe_send(message.channel, 'Ad started successfully.')
         return
 
     elif status_code == 400:
-        await message.channel.send('This channel is not currently live, so ads cannot be run.')
+        await safe_send(message.channel, 'This channel is not currently live, so ads cannot be run.')
         return
-    
-    await message.channel.send('Something went wrong...')
+
+    await safe_send(message.channel, 'Something went wrong...')
 
 
 async def run_ad(db, message, channel_name):

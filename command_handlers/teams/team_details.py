@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import make_string_from_word_list
+from safe_send import safe_send
 from teams import get_team_by_name
 from user.user import user_exists
 
@@ -46,9 +47,9 @@ async def team_details_hanlder(db, message):
         existing_team = await get_team_by_name(db, team_name)
         if existing_team:
             team_details = make_details_from_team(db, existing_team)
-            await message.channel.send(team_details)
+            await safe_send(message.channel, team_details)
         else:
-            await message.channel.send('There is no team with the name "'+team_name+'"')
+            await safe_send(message.channel, 'There is no team with the name "'+team_name+'"')
 
     else:
         await invalid_number_of_params(message)

@@ -2,6 +2,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
+from safe_send import safe_send
 
 
 async def register_role(db, message):
@@ -20,4 +21,4 @@ async def register_role(db, message):
         'user_id': 0,
     })
 
-    await message.channel.send('Role added to roles db.')
+    await safe_send(message.channel, 'Role added to roles db.')

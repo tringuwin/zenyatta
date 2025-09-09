@@ -4,6 +4,7 @@ import time
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
+from safe_send import safe_send
 from user.user import get_league_team_with_context, get_user_bets, get_user_tokens, user_exists
 
 
@@ -37,17 +38,17 @@ async def bet_handler(db, message):
     tokens_to_bet = params[2]
 
     if not can_be_int(tokens_to_bet):
-        await message.channel.send(tokens_to_bet+' is not a number.')
+        await safe_send(message.channel, tokens_to_bet+' is not a number.')
         return
     tokens_to_bet = int(tokens_to_bet)
 
     if tokens_to_bet < 1:
-        await message.channel.send('The minimum amount of tokens that can be bet is 1')
+        await safe_send(message.channel, 'The minimum amount of tokens that can be bet is 1')
         return
     
     user_tokens = get_user_tokens(user)
     if tokens_to_bet > user_tokens:
-        await message.channel.send('You do not have enough tokens for this bet.')
+        await safe_send(message.channel, 'You do not have enough tokens for this bet.')
         return
 
     bets = db['bets']
@@ -70,21 +71,21 @@ async def bet_handler(db, message):
             betters = 'team_2_betters'
 
     if bet_team == None:
-        await message.channel.send('There is no team named "'+params[1]+'" that can be bet on right now.')
+        await safe_send(message.channel, 'There is no team named "'+params[1]+'" that can be bet on right now.')
         return
     
     if not bet_obj['open']:
-        await message.channel.send('This match is not open for betting right now.')
+        await safe_send(message.channel, 'This match is not open for betting right now.')
         return
     
     if bet_is_expired(bet_obj):
         close_bet(bets, bet_obj)
-        await message.channel.send('This match is not open for betting right now.')
+        await safe_send(message.channel, 'This match is not open for betting right now.')
         return
     
     player_league_team = get_league_team_with_context(user, 'OW')
     if player_league_team == other_team:
-        await message.channel.send('You cannot bet against the league team you are on.')
+        await safe_send(message.channel, 'You cannot bet against the league team you are on.')
         return
     
     already_bet_on_match = False
@@ -96,7 +97,7 @@ async def bet_handler(db, message):
             past_bet_on_team = bet['team']
 
     if already_bet_on_match and (past_bet_on_team != bet_team):
-        await message.channel.send('You cannot bet on both teams in a match. You have already bet on '+past_bet_on_team+' for this match.')
+        await safe_send(message.channel, 'You cannot bet on both teams in a match. You have already bet on '+past_bet_on_team+' for this match.')
         return
     
     await change_tokens(db, user, int(-1*tokens_to_bet), 'sol-bet')
@@ -131,7 +132,7 @@ async def bet_handler(db, message):
 
         bets.update_one({'bet_id': bet_obj['bet_id']}, {"$set": {betters: bet_obj[betters]}})        
 
-    await message.channel.send('Bet placed successfully!')
+    await safe_send(message.channel, 'Bet placed successfully!')
 
     
 

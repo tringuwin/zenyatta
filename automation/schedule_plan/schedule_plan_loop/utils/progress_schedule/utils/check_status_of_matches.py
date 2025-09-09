@@ -4,6 +4,7 @@ from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.c
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.check_if_day_has_started import check_if_day_has_started
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.complete_finished_matchups import complete_finished_matchups
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.get_all_matchups import get_all_matchups
+from safe_send import safe_send
 
 
 
@@ -17,12 +18,12 @@ async def check_status_of_matches(client, db, message, schedule_plans, schedule)
     all_matchups = get_all_matchups(db, context, season, actual_week)
     not_completed_matchups = complete_finished_matchups(db, all_matchups, context, season)
     all_matches_completed = len(not_completed_matchups) == 0
-    await message.channel.send(f'Matches not completed for context {context} is {len(not_completed_matchups)}.')
+    await safe_send(message.channel, f'Matches not completed for context {context} is {len(not_completed_matchups)}.')
 
     if all_matches_completed:
         schedule['weeks'][week_index]['status'] = 'COMPLETE'
         schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})
-        await message.channel.send(f'Matchups are complete for week {actual_week} of season {season} of league {context}.')
+        await safe_send(message.channel, f'Matchups are complete for week {actual_week} of season {season} of league {context}.')
         return
     
     season_week = schedule['weeks'][week_index]

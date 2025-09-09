@@ -1,6 +1,7 @@
 
 
 from helpers import make_string_from_word_list
+from safe_send import safe_send
 from shop import update_shop
 
 
@@ -34,4 +35,4 @@ async def add_item_handler(db, message):
 
     await update_shop(db, message)
 
-    await message.channel.send('Item added and shop updated.')
+    await safe_send(message.channel, 'Item added and shop updated.')

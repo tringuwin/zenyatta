@@ -1,4 +1,5 @@
 import constants
+from safe_send import safe_dm
 from user.user import user_exists
 
 async def member_joined(member, db, client):
@@ -29,6 +30,6 @@ async def member_joined(member, db, client):
         default_msg += '\n\nIf you cannot see the channels above, make sure sure to select your game roles here: https://discord.com/channels/1130553449491210442/1316612922985811968'
         default_msg += '\n\nThank you for joining! If you have any questions, feel free to ask our friendly staff here: https://discord.com/channels/1130553449491210442/1202441473027477504'
 
-        await member.send(default_msg)
+        await safe_dm(member, default_msg)
     except Exception:
         print('Could not DM user.')

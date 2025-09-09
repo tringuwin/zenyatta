@@ -4,6 +4,7 @@
 
 from common_messages import not_registered_response
 from context.context_helpers import get_league_team_field_from_context
+from safe_send import safe_send
 from user.user import user_exists
 
 
@@ -30,21 +31,21 @@ async def first_map_handler(db, message, context):
 
     league_team_field = get_league_team_field_from_context(context)
     if not (league_team_field in user):
-        await message.channel.send('You are not on a league team.')
+        await safe_send(message.channel, 'You are not on a league team.')
         return
     
     league_team = user[league_team_field]
     if league_team == 'None':
-        await message.channel.send('You are not on a league team.')
+        await safe_send(message.channel, 'You are not on a league team.')
         return
     
     user_matchup = find_user_matchup(db, league_team, context)
     if not user_matchup:
-        await message.channel.send('You do not have a matchup scheduled for this week.')
+        await safe_send(message.channel, 'You do not have a matchup scheduled for this week.')
         return
     
     team1 = user_matchup['team1']
     team2 = user_matchup['team2']
-    await message.channel.send(f'The first map for your matchup ( {team1} VS {team2} ) this week is: **'+user_matchup['first_map']+'**')
+    await safe_send(message.channel, f'The first map for your matchup ( {team1} VS {team2} ) this week is: **'+user_matchup['first_map']+'**')
 
 

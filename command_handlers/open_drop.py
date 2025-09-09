@@ -2,6 +2,7 @@
 
 from common_messages import not_registered_response
 from drops.open_spicy_drop.open_spicy_drop import open_spicy_drop
+from safe_send import safe_send
 from user.user import get_user_drop_boxes, user_exists
 
 
@@ -14,7 +15,7 @@ async def open_drop(db, client, message):
 
     user_drops = get_user_drop_boxes(user)
     if user_drops < 1:
-        await message.channel.send('You do not have any Spicy Drops right now. Use the command **!nextdrop** to see how close you are to the next one!')
+        await safe_send(message.channel, 'You do not have any Spicy Drops right now. Use the command **!nextdrop** to see how close you are to the next one!')
         return
 
     new_drops = user_drops - 1

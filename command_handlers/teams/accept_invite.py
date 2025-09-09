@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params, not_registered_response
 from helpers import make_string_from_word_list
+from safe_send import safe_send
 from teams import add_user_to_team, get_team_by_name, remove_invite_from_team, remove_team_invite, team_is_full, user_invited_to_team, user_on_team
 from user.user import get_user_teams, user_exists
 import constants
@@ -22,31 +23,29 @@ async def accept_invite_handler(db, message, client):
     
     team = await get_team_by_name(db, team_name)
     if not team:
-        await message.channel.send('There is no team with that name. (If you are trying to join a League Team, use the command **!leagueaccept TeamName** instead)')
+        await safe_send(message.channel, 'There is no team with that name. (If you are trying to join a League Team, use the command **!leagueaccept TeamName** instead)')
         return
     
     if not user_invited_to_team(team, user):
-        await message.channel.send('You do not have an invite to join this team. (If you are trying to join a League Team, use the command **!leagueaccept TeamName** instead)')
+        await safe_send(message.channel, 'You do not have an invite to join this team. (If you are trying to join a League Team, use the command **!leagueaccept TeamName** instead)')
         return
 
     user_teams = get_user_teams(user)
     if len(user_teams) >= constants.MAX_PLAYER_TEAMS:
-        await message.channel.send('You are already on '+str(constants.MAX_PLAYER_TEAMS)+' teams which is the max allowed.')
+        await safe_send(message.channel, 'You are already on '+str(constants.MAX_PLAYER_TEAMS)+' teams which is the max allowed.')
         return
     
     if user_on_team(team, user['discord_id']):
-        await message.channel.send('You are already on this team.')
+        await safe_send(message.channel, 'You are already on this team.')
         return
 
     if team_is_full(team):
         await remove_team_invite(db, user, team_name)
-        await message.channel.send('This team is currently full')
+        await safe_send(message.channel, 'This team is currently full')
         return
 
     await add_user_to_team(db, user, team, client)
     await remove_team_invite(db, user, team_name)
     remove_invite_from_team(db, team, user['discord_id'])
 
-    await message.channel.send('You have successfully joined the team **'+team['team_name']+'**')
-
-    
+    await safe_send(message.channel, 'You have successfully joined the team **'+team['team_name']+'**')
