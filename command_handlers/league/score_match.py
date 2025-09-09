@@ -2,6 +2,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
+from safe_send import safe_send
 
 
 def find_matchup(matchups, context, winning_team, losing_team):
@@ -47,7 +48,7 @@ async def score_match_handler(db, message, context):
     matchup = find_matchup(matchups, context, winning_team, losing_team)
 
     if not matchup:
-        await message.channel.send(f'Matchup not found for {winning_team} vs {losing_team} with context {context}.')
+        await safe_send(message.channel, f'Matchup not found for {winning_team} vs {losing_team} with context {context}.')
         return
     
     add_teams_to_teams_played(db, matchup)
@@ -63,4 +64,4 @@ async def score_match_handler(db, message, context):
     }
 
     matchups.update_one({"_id": matchup['_id']}, {"$set": matchup_edit})
-    await message.channel.send(f'Matchup between {winning_team} and {losing_team} for context {context} has been scored.')
+    await safe_send(message.channel, f'Matchup between {winning_team} and {losing_team} for context {context} has been scored.')
