@@ -31,8 +31,6 @@ def get_completion(prompt):
 
 async def savage_scovi(message):
 
-    return
-
     # remove bot mention
     user_message = message.content.replace(f'<@!{BOT_ID}>', '').strip()
 
@@ -43,5 +41,6 @@ async def savage_scovi(message):
     # remove any accidental pings
     response = response.replace('@', '(at)')
     response = response.replace('everyone', 'every one')
+    response = response.replace('/', '')
 
     await message.reply(response)
