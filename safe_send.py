@@ -61,8 +61,7 @@ def safe_add_field(embed, name, value, inline):
     embed.add_field(name=safe_name, value=safe_value, inline=inline)
 
 
-# NOT REPLACED EVERYWHERE YET
-def safe_set_footer(embed, text, icon_url):
+def safe_set_footer(embed, text, icon_url=None):
 
     safe_text = clean_text(text)
 
