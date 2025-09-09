@@ -1,7 +1,7 @@
 import time
 import discord
 import constants
-from safe_send import safe_send, safe_send_embed, safe_set_footer
+from safe_send import safe_create_embed, safe_send, safe_send_embed, safe_set_footer
 
 
 async def feature_handler(message, client):
@@ -10,10 +10,8 @@ async def feature_handler(message, client):
 
     feature_channel = client.get_channel(constants.FEATURE_CHANNEL)
 
-    embed_msg = discord.Embed(
-        title = "Upcoming Feature",
-        description=feature
-    )
+    embed_msg = safe_create_embed('Upcoming Feature', feature)
+
     safe_set_footer(embed_msg, text="Want this to be our priority? Cast your vote!")
 
     feature_msg = await safe_send_embed(feature_channel, embed_msg)

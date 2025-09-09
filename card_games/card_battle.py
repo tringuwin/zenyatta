@@ -6,7 +6,7 @@ from cards import get_card_image_by_display, get_card_index
 from common_messages import not_registered_response
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
-from safe_send import safe_add_field, safe_send, safe_send_embed
+from safe_send import safe_add_field, safe_create_embed, safe_send, safe_send_embed
 from user.user import get_user_battle_cards, get_user_cards, user_exists
 import constants
 import math
@@ -53,7 +53,7 @@ async def send_battle_embed(client, db, card_display, user_id, battle_type, min_
 
     card_img = get_card_image_by_display(db, card_display)
 
-    embed = discord.Embed(title='BATTLE FOR CARD '+card_display, color=get_embed_color_from_battle_type(battle_type))
+    embed = safe_create_embed('BATTLE FOR CARD '+card_display, None, get_embed_color_from_battle_type(battle_type))
     safe_add_field(embed, 'Card Power', str(card_power), False)
     safe_add_field(embed, 'Owner', '<@'+str(user_id)+'>', False)
     safe_add_field(embed, 'Battle Type', battle_type, False)

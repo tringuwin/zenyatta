@@ -2,7 +2,7 @@
 from context.context_helpers import get_league_invites_field, get_league_teams_collection_from_context, get_team_info_channel_from_context
 from discord_actions import get_guild
 from helpers import get_constant_value, get_league_emoji_from_team_name
-from safe_send import safe_add_field, safe_set_footer
+from safe_send import safe_add_field, safe_create_embed, safe_set_footer
 from user.user import get_league_invites_with_context, get_league_team_with_context, user_exists
 import discord
 
@@ -193,7 +193,7 @@ async def update_team_info(client, team, db, context='OW'):
     team_image_url = get_team_logo_by_name(team_name)
 
     embed_description = make_team_description(team)
-    embed = discord.Embed(title=team_name.upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', color=team_color, description=embed_description)
+    embed = safe_create_embed(team_name.upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', embed_description, team_color)
     embed.set_thumbnail(url=team_image_url)
 
     for member in team['members']:

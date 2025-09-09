@@ -2,7 +2,7 @@ import time
 import discord
 from discord_actions import is_dm_channel
 import constants
-from safe_send import safe_send, safe_send_embed, safe_set_footer
+from safe_send import safe_create_embed, safe_send, safe_send_embed, safe_set_footer
 
 BLACK_LIST = [
     1291074955999580252,  # banz
@@ -24,10 +24,7 @@ async def suggest_handler(message, client):
     suggest_channel = client.get_channel(constants.SERVER_SUGGEST_CHANNEL)
     admin_channel = client.get_channel(constants.ADMIN_COMMAND_CHANNEL)
 
-    embed_msg = discord.Embed(
-        title = "Suggestion",
-        description=idea
-    )
+    embed_msg = safe_create_embed('Suggestion', idea)
     safe_set_footer(embed_msg, text="Suggest your own idea using the command !suggest [idea here]")
 
     idea_msg = await safe_send_embed(suggest_channel, embed_msg)

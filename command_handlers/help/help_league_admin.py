@@ -1,11 +1,12 @@
 
 import discord
 
-from safe_send import safe_send, safe_send_embed
+from safe_send import safe_create_embed, safe_send, safe_send_embed
 
 async def help_league_admin_handler(message):
 
-    help_embed = discord.Embed(title='List of league team admin commands:')
+    help_embed = safe_create_embed('List of league team admin commands:')
+
     help_embed.add_field(name='!helpally', value='Show a list of league team admin commands related to League Team Allies and Rivals.', inline=False)
     help_embed.add_field(name='!setlineup', value='The bot will DM you a secure link to the SOL website to set the lineup for your team.', inline=False)
     help_embed.add_field(name='!leagueinvite @User', value='Admin command to invite a user to your league team', inline=False)

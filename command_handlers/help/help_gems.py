@@ -1,10 +1,11 @@
 import discord
 
-from safe_send import safe_send_embed
+from safe_send import safe_create_embed, safe_send_embed
 
 async def help_gems_handler(message):
 
-    help_embed = discord.Embed(title='List of gem commands:')
+    help_embed = safe_create_embed('List of gem commands:')
+
     help_embed.add_field(name='!gems', value='Show a list of your current gems. Also shows some information about gem values.', inline=False)
     help_embed.add_field(name='!sellgems [color] [amount]', value='Sell gems of any color for 50 Tokens each.', inline=False)
     help_embed.add_field(name='!donategems @user [color to give] [number]', value='Give gems to another user.', inline=False)

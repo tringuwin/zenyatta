@@ -1,10 +1,10 @@
 import discord
 
-from safe_send import safe_send_embed
+from safe_send import safe_create_embed, safe_send_embed
 
 async def help_cards_handler(message):
 
-    help_embed = discord.Embed(title='List of cards commands:')
+    help_embed = safe_create_embed('List of cards commands:')
     help_embed.add_field(name='!cards', value='Shows a list of your cards.', inline=False)
     help_embed.add_field(name='!allcards', value='Get a link to a website that shows all of your cards at once.', inline=False)
     help_embed.add_field(name='!packs', value='Shows how many packs you own.', inline=False)

@@ -44,12 +44,12 @@ async def safe_edit():
     pass
 
 
-# NOT REPLACED EVERYWHERE YET
-def safe_create_embed(title):
+def safe_create_embed(title, description=None, color=None):
 
     safe_title = clean_text(title)
+    safe_description = clean_text(description) if description else None
 
-    return discord.Embed(title=safe_title)
+    return discord.Embed(title=safe_title, description=safe_description, color=color)
 
 
 # NOT REPLACED EVERYWHERE YET

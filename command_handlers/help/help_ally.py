@@ -1,10 +1,10 @@
 import discord
 
-from safe_send import safe_send_embed
+from safe_send import safe_create_embed, safe_send_embed
 
 async def help_ally_handler(message):
 
-    help_embed = discord.Embed(title='List of commands related to League Team Allies and Rivals:')
+    help_embed = safe_create_embed('List of commands related to League Team Allies and Rivals:')
     help_embed.add_field(name='!allyrequest [team name here]', value='Send an Ally Request from your League Team to another League Team.', inline=False)
     help_embed.add_field(name='!rivalrequest [team name here]', value='Send a Rival Request from your League Team to another League Team.', inline=False)
     help_embed.add_field(name='!acceptally [team name here]', value='Accept an Ally Request from another League Team.', inline=False)

@@ -96,17 +96,6 @@ async def cards_handler(db, message):
         await safe_send(message.channel, 'You do not have any cards at the moment... Open packs to get cards!')
         return
 
-    # display_card = user_cards[0]
-    # card_variant = display_card['variant_id']
-    # card_id = display_card['card_id']
-    # if card_variant == 'S':
-    #     card_img = ALL_CARDS[card_id]['special_img']
-    # else:
-    #     card_img = ALL_CARDS[card_id]['normal_img']
-
-    # embed = discord.Embed(title='YOUR CARDS')
-    # embed.set_image(url=card_img)
-
     final_string = 'none'
 
     if len(user_cards) > 0:
@@ -387,7 +376,8 @@ async def open_pack_handler(db, message):
     
     card_img = get_card_image_by_display(db, removed_item['card_display'])
 
-    embed = discord.Embed(title='YOU OPENED CARD '+removed_item['card_display'])
+    embed = safe_create_embed('YOU OPENED CARD '+removed_item['card_display'])
+
     embed.set_image(url=card_img)
 
     await safe_send_embed(message.channel, embed)
@@ -916,7 +906,7 @@ async def buy_card_handler(db, message):
     # confirmation message
     card_img = get_card_image_by_display(db, buy_card)
 
-    embed = discord.Embed(title='YOU BOUGHT CARD '+buy_card)
+    embed = safe_create_embed('YOU BOUGHT CARD '+buy_card)
     embed.set_image(url=card_img)
     await safe_send_embed(message.channel, embed)
 

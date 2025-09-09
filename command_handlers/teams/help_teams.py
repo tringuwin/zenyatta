@@ -1,10 +1,11 @@
 import discord
 
-from safe_send import safe_send, safe_send_embed
+from safe_send import safe_create_embed, safe_send, safe_send_embed
 
 async def help_teams_handler(message):
 
-    help_embed = discord.Embed(title='List of teams commands:')
+    help_embed = safe_create_embed('List of teams commands:')
+    
     help_embed.add_field(name='!teams', value='See the teams that you are currently part of.', inline=False)
     help_embed.add_field(name='!teaminfo [team name]', value='See the details of a specific team.', inline=False)
     help_embed.add_field(name='!maketeam [team size] [team name]', value='Make a new team.', inline=False)
