@@ -52,7 +52,6 @@ def safe_create_embed(title, description=None, color=None):
     return discord.Embed(title=safe_title, description=safe_description, color=color)
 
 
-# NOT REPLACED EVERYWHERE YET
 def safe_add_field(embed, name, value, inline):
 
     safe_name = clean_text(name)
