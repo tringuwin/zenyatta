@@ -1,18 +1,18 @@
 import discord
 
-from safe_send import safe_create_embed, safe_send_embed
+from safe_send import safe_add_field, safe_create_embed, safe_send_embed
 
 async def help_gems_handler(message):
 
     help_embed = safe_create_embed('List of gem commands:')
 
-    help_embed.add_field(name='!gems', value='Show a list of your current gems. Also shows some information about gem values.', inline=False)
-    help_embed.add_field(name='!sellgems [color] [amount]', value='Sell gems of any color for 50 Tokens each.', inline=False)
-    help_embed.add_field(name='!donategems @user [color to give] [number]', value='Give gems to another user.', inline=False)
-    help_embed.add_field(name='!tradegem [color to give] @Partner [color to get]', value='Make a gem trade offer to another user.', inline=False)
-    help_embed.add_field(name='!denygemtrade', value='Deny a gem trade offer.', inline=False)
-    help_embed.add_field(name='!acceptgemtrade', value='Accept a gem trade offer.', inline=False)
-    help_embed.add_field(name='!tradegemset', value='Trade in a set of all 10 gem colors for 1,000 Tokens.', inline=False)
-    help_embed.add_field(name='!feedgem [card-id] [gem color]', value='Feed a gem to one of your cards to increase the power of the card.', inline=False)
+    safe_add_field(help_embed, '!gems', 'Show a list of your current gems. Also shows some information about gem values.', False)
+    safe_add_field(help_embed, '!sellgems [color] [amount]', 'Sell gems of any color for 50 Tokens each.', False)
+    safe_add_field(help_embed, '!donategems @user [color to give] [number]', 'Give gems to another user.', False)
+    safe_add_field(help_embed, '!tradegem [color to give] @Partner [color to get]', 'Make a gem trade offer to another user.', False)
+    safe_add_field(help_embed, '!denygemtrade', 'Deny a gem trade offer.', False)
+    safe_add_field(help_embed, '!acceptgemtrade', 'Accept a gem trade offer.', False)
+    safe_add_field(help_embed, '!tradegemset', 'Trade in a set of all 10 gem colors for 1,000 Tokens.', False)
+    safe_add_field(help_embed, '!feedgem [card-id] [gem color]', 'Feed a gem to one of your cards to increase the power of the card.', False)
 
     await safe_send_embed(message.channel, help_embed)

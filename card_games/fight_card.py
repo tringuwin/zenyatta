@@ -4,7 +4,7 @@ from cards import get_card_image_by_display, get_card_index
 from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_message_by_channel_and_id
 from helpers import valid_number_of_params
-from safe_send import safe_create_embed, safe_reply, safe_send, safe_send_multiple_embeds
+from safe_send import safe_add_field, safe_create_embed, safe_reply, safe_send, safe_send_multiple_embeds
 from user.user import get_user_battle_cards, get_user_cards, user_exists
 import math
 import time
@@ -48,15 +48,15 @@ async def show_battle_result(client, db, winner_single, winner_original_power, n
     general_embed = safe_create_embed('BATTLE RESULT', make_battle_description(winner_single, loser_single, battle_type), discord.Color.from_str('#ffffff'))
 
     winner_embed = safe_create_embed('BATTLE WINNER ('+winner_single['display']+')', None, discord.Color.green())
-    winner_embed.add_field(name='Owner', value='<@'+str(winner_single['owner'])+'>', inline=False)
-    winner_embed.add_field(name='Original Power', value=winner_original_power, inline=False)
-    winner_embed.add_field(name='New Power', value=new_winner_power, inline=False)
+    safe_add_field(winner_embed, 'Owner', '<@'+str(winner_single['owner'])+'>', False)
+    safe_add_field(winner_embed, 'Original Power', winner_original_power, False)
+    safe_add_field(winner_embed, 'New Power', new_winner_power, False)
     winner_embed.set_image(url=winner_img)
 
     loser_embed = safe_create_embed('BATTLE LOSER ('+loser_single['display']+')', None, discord.Color.red())
-    loser_embed.add_field(name='Owner', value='<@'+str(loser_single['owner'])+'>', inline=False)
-    loser_embed.add_field(name='Original Power', value=loser_original_power, inline=False)
-    loser_embed.add_field(name='New Power', value=new_loser_power, inline=False)
+    safe_add_field(loser_embed, 'Owner', '<@'+str(loser_single['owner'])+'>', False)
+    safe_add_field(loser_embed, 'Original Power', loser_original_power, False)
+    safe_add_field(loser_embed, 'New Power', new_loser_power, False)
     loser_embed.set_image(url=loser_img)
 
     battle_results_channel = client.get_channel(constants.CARD_BATTLE_RESULTS_CHANNEL)

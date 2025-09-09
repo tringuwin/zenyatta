@@ -7,7 +7,7 @@ import discord
 
 from helpers import get_league_emoji_from_team_name
 from league import get_team_color_by_name, get_team_record_string
-from safe_send import safe_create_embed, safe_edit_embed, safe_send, safe_send_embed
+from safe_send import safe_add_field, safe_create_embed, safe_edit_embed, safe_send, safe_send_embed
 
 
 async def new_bet(client, db, title, team_1_name, team_2_name, uses_home_away, timestamp=None):
@@ -24,17 +24,17 @@ async def new_bet(client, db, title, team_1_name, team_2_name, uses_home_away, t
     team_2_title = 'AWAY TEAM: ' if uses_home_away else 'TEAM 2: '
 
     team_1_embed = safe_create_embed(team_1_title+team_1_emoji_string+' '+team_1_name, None, get_team_color_by_name(team_1_name))
-    team_1_embed.add_field(name="Total Tokens Bet On Team", value="🪙 0", inline=False)
-    team_1_embed.add_field(name="Current Payout Rate", value="1:1", inline=False)
-    team_1_embed.add_field(name="Team Season Record", value=get_team_record_string(db, team_1_name), inline=False)
-    team_1_embed.add_field(name="Command to Bet", value='!bet '+team_1_name+' [number of tokens]', inline=False)
+    safe_add_field(team_1_embed, "Total Tokens Bet On Team", "🪙 0", False)
+    safe_add_field(team_1_embed, "Current Payout Rate", "1:1", False)
+    safe_add_field(team_1_embed, "Team Season Record", get_team_record_string(db, team_1_name), False)
+    safe_add_field(team_1_embed, "Command to Bet", '!bet '+team_1_name+' [number of tokens]', False)
     team_1_msg = await safe_send_embed(bet_channel, team_1_embed)
 
     team_2_embed = safe_create_embed(team_2_title+team_2_emoji_string+' '+team_2_name, None, get_team_color_by_name(team_2_name))
-    team_2_embed.add_field(name="Total Tokens Bet On Team", value="🪙 0", inline=False)
-    team_2_embed.add_field(name="Current Payout Rate", value="1:1", inline=False)
-    team_2_embed.add_field(name="Team Season Record", value=get_team_record_string(db, team_2_name), inline=False)
-    team_2_embed.add_field(name="Command to Bet", value='!bet '+team_2_name+' [number of tokens]', inline=False)
+    safe_add_field(team_2_embed, "Total Tokens Bet On Team", "🪙 0", False)
+    safe_add_field(team_2_embed, "Current Payout Rate", "1:1", False)
+    safe_add_field(team_2_embed, "Team Season Record", get_team_record_string(db, team_2_name), False)
+    safe_add_field(team_2_embed, "Command to Bet", '!bet '+team_2_name+' [number of tokens]', False)
     team_2_msg = await safe_send_embed(bet_channel, team_2_embed)
 
     bet_obj = {
@@ -143,18 +143,18 @@ async def update_bets(db, channel, client):
 
         bet_msg_1 = await bet_channel.fetch_message(bet['team_1_msg'])
         new_embed_1 = safe_create_embed(team_1_title+team_1_emoji_string+' '+team_1_name, None, get_team_color_by_name(team_1_name))
-        new_embed_1.add_field(name="Total Tokens Bet On Team", value="🪙 "+str(team_1_total), inline=False)
-        new_embed_1.add_field(name="Current Payout Rate", value="1:"+str(get_team_payout_rate(team_1_total, team_2_total)), inline=False)
-        new_embed_1.add_field(name="Team Season Record", value=get_team_record_string(db, team_1_name), inline=False)
-        new_embed_1.add_field(name="Command to Bet", value='!bet '+team_1_name+' [number of tokens]', inline=False)
+        safe_add_field(new_embed_1, "Total Tokens Bet On Team", "🪙 "+str(team_1_total), False)
+        safe_add_field(new_embed_1, "Current Payout Rate", "1:"+str(get_team_payout_rate(team_1_total, team_2_total)), False)
+        safe_add_field(new_embed_1, "Team Season Record", get_team_record_string(db, team_1_name), False)
+        safe_add_field(new_embed_1, "Command to Bet", '!bet '+team_1_name+' [number of tokens]', False)
         await safe_edit_embed(bet_msg_1, new_embed_1)
 
         bet_msg_2 = await bet_channel.fetch_message(bet['team_2_msg'])
         new_embed_2 = safe_create_embed(team_2_title+team_2_emoji_string+' '+team_2_name, None, get_team_color_by_name(team_2_name))
-        new_embed_2.add_field(name="Total Tokens Bet On Team", value="🪙 "+str(team_2_total), inline=False)
-        new_embed_2.add_field(name="Current Payout Rate", value="1:"+str(get_team_payout_rate(team_2_total, team_1_total)), inline=False)
-        new_embed_2.add_field(name="Team Season Record", value=get_team_record_string(db, team_2_name), inline=False)
-        new_embed_2.add_field(name="Command to Bet", value='!bet '+team_2_name+' [number of tokens]', inline=False)
+        safe_add_field(new_embed_2, "Total Tokens Bet On Team", "🪙 "+str(team_2_total), False)
+        safe_add_field(new_embed_2, "Current Payout Rate", "1:"+str(get_team_payout_rate(team_2_total, team_1_total)), False)
+        safe_add_field(new_embed_2, "Team Season Record", get_team_record_string(db, team_2_name), False)
+        safe_add_field(new_embed_2, "Command to Bet", '!bet '+team_2_name+' [number of tokens]', False)
         await safe_edit_embed(bet_msg_2, new_embed_2)
 
 

@@ -1,30 +1,28 @@
 
-import discord
-
-from safe_send import safe_create_embed, safe_send, safe_send_embed
+from safe_send import safe_create_embed, safe_send_embed, safe_add_field
 
 async def help_handler(message):
 
     help_embed = safe_create_embed('List of commands:')
-    
-    help_embed.add_field(name='!battle BattleTagHere#1234', value='Register your battle tag with the Spicy Esports server', inline=False)
-    help_embed.add_field(name='!twitch TwitchUsernameHere', value='Add your twitch username to the server so you can be given rewards you earn on stream!', inline=False)
-    help_embed.add_field(name='!profile', value='Shows your profile for this Discord Server.', inline=False)
-    help_embed.add_field(name='!website', value="Get a link to our community's official website.'", inline=False)
-    help_embed.add_field(name='!helpteams', value='Show a list of commands related to making teams for community tournaments. (This is not the league commands)', inline=False)
-    help_embed.add_field(name='!helpcasino', value='Show a list of commands related to the casino channels.', inline=False)
-    help_embed.add_field(name='!helpleague', value='Show a list of commands related to the Spicy Overwatch League.', inline=False)
-    help_embed.add_field(name='!helpgems', value='Show a list of commands related to gems.', inline=False)
-    help_embed.add_field(name='!helpbonus', value='Show a list of bonus commands.', inline=False)
-    help_embed.add_field(name='!helpcards', value='Show a list of card commands.', inline=False)
-    help_embed.add_field(name='!helpdrops', value='Show a list of commands related to twitch drops.', inline=False)
-    help_embed.add_field(name='!events', value='Show a list of current server events', inline=False)
-    help_embed.add_field(name='!bracket', value='Show the bracket for the next/current event.', inline=False)
-    help_embed.add_field(name='!join [event id]', value='Join an upcoming event', inline=False)
-    help_embed.add_field(name='!suggest [idea here]', value='Suggest an idea for this Discord server', inline=False)
-    help_embed.add_field(name='!suggestevent [idea here]', value='Suggest an idea for a future event', inline=False)
-    help_embed.add_field(name='!tokens', value='See your current number of tokens', inline=False)
-    help_embed.add_field(name='!gift', value='Earn a free gift every 8 hours!', inline=False)
-    help_embed.add_field(name='!bid [number of tokens]', value='Bid on the current daily auction with your Tokens!', inline=False)
+
+    safe_add_field(help_embed, '!battle BattleTagHere#1234', 'Register your battle tag with the Spicy Esports server', False)
+    safe_add_field(help_embed, '!twitch TwitchUsernameHere', 'Add your twitch username to the server so you can be given rewards you earn on stream!', False)
+    safe_add_field(help_embed, '!profile', 'Shows your profile for this Discord Server.', False)
+    safe_add_field(help_embed, '!website', "Get a link to our community's official website.'", False)
+    safe_add_field(help_embed, '!helpteams', 'Show a list of commands related to making teams for community tournaments. (This is not the league commands)', False)
+    safe_add_field(help_embed, '!helpcasino', 'Show a list of commands related to the casino channels.', False)
+    safe_add_field(help_embed, '!helpleague', 'Show a list of commands related to the Spicy Overwatch League.', False)
+    safe_add_field(help_embed, '!helpgems', 'Show a list of commands related to gems.', False)
+    safe_add_field(help_embed, '!helpbonus', 'Show a list of bonus commands.', False)
+    safe_add_field(help_embed, '!helpcards', 'Show a list of card commands.', False)
+    safe_add_field(help_embed, '!helpdrops', 'Show a list of commands related to twitch drops.', False)
+    safe_add_field(help_embed, '!events', 'Show a list of current server events', False)
+    safe_add_field(help_embed, '!bracket', 'Show the bracket for the next/current event.', False)
+    safe_add_field(help_embed, '!join [event id]', 'Join an upcoming event', False)
+    safe_add_field(help_embed, '!suggest [idea here]', 'Suggest an idea for this Discord server', False)
+    safe_add_field(help_embed, '!suggestevent [idea here]', 'Suggest an idea for a future event', False)
+    safe_add_field(help_embed, '!tokens', 'See your current number of tokens', False)
+    safe_add_field(help_embed, '!gift', 'Earn a free gift every 8 hours!', False)
+    safe_add_field(help_embed, '!bid [number of tokens]', 'Bid on the current daily auction with your Tokens!', False)
 
     await safe_send_embed(message.channel, help_embed)
