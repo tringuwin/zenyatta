@@ -4,7 +4,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from discord_actions import get_role_by_id, give_role_to_user
 from helpers import can_be_int, valid_number_of_params
 from rewards import change_tokens
-from safe_send import safe_reply
+from safe_send import safe_reply, safe_send
 from shop import get_redemptions_channel, update_shop
 from time_helpers import long_enough_for_shop, time_to_shop
 from user.user import get_last_token_shop, get_user_tokens, user_exists
@@ -77,7 +77,7 @@ async def buy_handler(db, message, client):
         final_string = 'Success! Your reward "'+offer['item_name']+'" has been redeemed. SpicyRagu will contact you soon to get you your reward!'
         final_string += '\n**It may take up to a week for you to be contacted. DO NOT PING/MESSAGE STAFF ABOUT REWARDS UNLESS IT HAS BEEN LONGER THAN 1 WEEK.**'
         final_string += '\n\nIf you would like to gift this reward to another user, please make a ticket in https://discord.com/channels/1130553449491210442/1202441473027477504 immediately.'
-        await redemptions_channel.send('**User Redeemed Reward: '+offer['item_name']+'**\n'+'User ID: '+str(message.author.id)+'\nUser Name: '+message.author.display_name+'\nBattle Tag: '+user['battle_tag'])
+        await safe_send(redemptions_channel, '**User Redeemed Reward: '+offer['item_name']+'**\n'+'User ID: '+str(message.author.id)+'\nUser Name: '+message.author.display_name+'\nBattle Tag: '+user['battle_tag'])
         await safe_reply(message, final_string)
 
     # send back confirm message

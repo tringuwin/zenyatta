@@ -1,5 +1,6 @@
 
 import constants
+from safe_send import safe_send
 
 async def battle_leaderboard_handler(db, message):
 
@@ -35,7 +36,4 @@ async def battle_leaderboard_handler(db, message):
     final_string += '\n------------------------'
     final_string += f'\nSee the full battle leaderboard here!\n{constants.WEBSITE_DOMAIN}/battle-leaderboard'
 
-    await message.channel.send(final_string)
-
-    
-
+    await safe_send(message.channel, final_string)
