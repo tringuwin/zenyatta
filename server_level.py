@@ -4,7 +4,7 @@ from common_messages import invalid_number_of_params
 from discord_actions import get_guild
 from helpers import can_be_int, valid_number_of_params
 import constants
-from safe_send import safe_send
+from safe_send import safe_edit, safe_send
 
 
 ALL_LEVELS = {
@@ -189,8 +189,7 @@ async def sub_points_handler(db, message, client):
     level_string += '\nCurrent SOL Prize Pool: **$'+str(int(prize_money))+'**'
     level_string += '\n-----------------------------------'
 
-    await level_message.edit(content=level_string)
-
+    await safe_edit(level_message, level_string)
 
     next_message = await server_level_channel.fetch_message(constants.NEXT_LEVELS_MESSAGE)
     
@@ -204,7 +203,7 @@ async def sub_points_handler(db, message, client):
 
     next_string += '\n-----------------------------------'
 
-    await next_message.edit(content=next_string)
+    await safe_edit(next_message, next_string)
 
 
     if server_level != level:

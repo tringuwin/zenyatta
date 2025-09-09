@@ -38,10 +38,10 @@ async def safe_dm(user, text):
     await user.send(text)
 
 
-# NOT IMPLEMENTED YET
-async def safe_edit():
+async def safe_edit(message, text):
 
-    pass
+    cleaned_text = clean_text(text)
+    await message.edit(content=cleaned_text)
 
 
 def safe_create_embed(title, description=None, color=None):
@@ -80,8 +80,6 @@ async def safe_send_multiple_embeds(channel, embeds):
     return await channel.send(embeds=embeds)
 
 
+async def safe_edit_embed(message, embed):
 
-# NOT IMPLEMENTED YET
-async def safe_edit_embed():
-
-    pass
+    await message.edit(embed=embed, content='')

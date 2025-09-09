@@ -3,7 +3,7 @@ from common_messages import invalid_number_of_params
 import constants
 from discord_actions import get_message_by_channel_and_id, get_role_by_id
 from helpers import can_be_int, get_constant_value, set_constant_value, valid_number_of_params
-from safe_send import safe_send
+from safe_send import safe_edit, safe_send
 
 async def update_vote(client, current_vote):
 
@@ -14,7 +14,7 @@ async def update_vote(client, current_vote):
         index += 1
 
     vote_message = await get_message_by_channel_and_id(client, constants.SUB_VOTE_CHANNEL, current_vote['vote_msg_id'])
-    await vote_message.edit(content=final_string)
+    await safe_edit(vote_message, final_string)
 
 async def vote_handler(db, message, client):
 

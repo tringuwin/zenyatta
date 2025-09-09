@@ -6,7 +6,7 @@ from helpers import can_be_int, get_constant_value, set_constant_value
 import random
 import constants
 
-from safe_send import safe_send
+from safe_send import safe_edit, safe_send
 from user.user import user_exists
 
 
@@ -16,7 +16,7 @@ async def update_players_message(client, final_string, battle_obj):
     xp_battle_channel = guild.get_channel(constants.XP_BATTLE_CHANNEL)
     players_message = await xp_battle_channel.fetch_message(battle_obj['players_msg'])
 
-    await players_message.edit(content=final_string)
+    await safe_edit(players_message, content=final_string)
 
 async def battle_no_show_handler(db, message, client, context):
 

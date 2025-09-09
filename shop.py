@@ -1,4 +1,5 @@
 import constants
+from safe_send import safe_edit
 
 
 async def get_shop_channel(message):
@@ -51,4 +52,4 @@ async def update_shop(db, message):
 
         offer_num += 1
 
-    await offer_msg.edit(content=offers_string+guide_string)
+    await safe_edit(offer_msg, offers_string+guide_string)
