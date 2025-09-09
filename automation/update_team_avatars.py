@@ -2,6 +2,7 @@ import time
 from context.context_helpers import get_league_team_image_update_index, get_league_teams_collection_from_context, get_team_list_from_context
 from discord_actions import get_member_by_id
 from helpers import get_constant_value, set_constant_value
+from safe_send import safe_send
 
 
 async def update_team_avatars(guild, db, message, context):
@@ -14,7 +15,7 @@ async def update_team_avatars(guild, db, message, context):
     league_teams = get_league_teams_collection_from_context(db, context)
     league_team = league_teams.find_one({'team_name': team_to_update})
     if not league_team:
-        await message.channel.send('Critical error. Could not find team '+team_to_update)
+        await safe_send(message.channel, 'Critical error. Could not find team '+team_to_update)
         return
     
     users = db['users']
@@ -30,7 +31,7 @@ async def update_team_avatars(guild, db, message, context):
         
         time.sleep(1)
 
-    await message.channel.send('Updated profile pictures for '+str(updated)+' users on team '+team_to_update)
+    await safe_send(message.channel, 'Updated profile pictures for '+str(updated)+' users on team '+team_to_update)
 
     new_index = current_team_index + 1
     if new_index >= len(team_list):

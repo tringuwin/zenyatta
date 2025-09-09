@@ -1,6 +1,7 @@
 import time
 
 from discord_actions import get_member_by_id
+from safe_send import safe_send
 
 async def update_top_subs_avatars(guild, db, message):
 
@@ -35,4 +36,4 @@ async def update_top_subs_avatars(guild, db, message):
 
         time.sleep(1)
 
-    await message.channel.send('Updated profile pictures for '+str(updated)+' users.')
+    await safe_send(message.channel, 'Updated profile pictures for '+str(updated)+' users.')

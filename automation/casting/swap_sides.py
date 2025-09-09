@@ -5,13 +5,14 @@
 from automation.casting.utils.get_matchups_for_week import get_matchups_for_week
 from context.context_helpers import get_league_season_constant_name
 from helpers import get_constant_value
+from safe_send import safe_send
 
 
 async def swap_sides(db, message, context):
 
     command_parts = message.content.split()
     if len(command_parts) != 2:
-        await message.channel.send('Please send the name of one of the two teams playing in the match to swap. Example: **!swapsides Polar**')
+        await safe_send(message.channel, 'Please send the name of one of the two teams playing in the match to swap. Example: **!swapsides Polar**')
         return
     team_name = command_parts[1]
     team_name_lower = team_name.lower()
@@ -23,7 +24,7 @@ async def swap_sides(db, message, context):
     season_schedule_plan = schedule_plans.find_one({'season': league_season, 'context': context})
 
     if not season_schedule_plan:
-        await message.channel.send('Could not find a schedule for that current season.')
+        await safe_send(message.channel, 'Could not find a schedule for that current season.')
         return
 
     league_week = season_schedule_plan['current_week'] + 1
@@ -37,7 +38,7 @@ async def swap_sides(db, message, context):
             break
 
     if not found_matchup:
-        await message.channel.send('Could not find a match this week that includes a team named '+team_name)
+        await safe_send(message.channel, 'Could not find a match this week that includes a team named '+team_name)
         return
     
     
@@ -46,5 +47,5 @@ async def swap_sides(db, message, context):
     matchups = db['matchups']
     matchups.update_one({'matchup_id': matchup['matchup_id']}, {'$set': {'left_team': new_left_team}})
 
-    await message.channel.send('Swapped sides.')
-            
+    await safe_send(message.channel, 'Swapped sides.')
+

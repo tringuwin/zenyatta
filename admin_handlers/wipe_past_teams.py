@@ -1,6 +1,7 @@
 
 
 from context.context_helpers import get_teams_joined_this_season_constant
+from safe_send import safe_send
 
 async def wipe_past_teams(db, message, context):
     
@@ -14,4 +15,4 @@ async def wipe_past_teams(db, message, context):
         users.update_one({'discord_id': user['discord_id']}, {'$set': {teams_joined_var: []}})
         users_cleared += 1
 
-    await message.channel.send(f'Wiped past teams for {users_cleared} users in context {context}.')
+    await safe_send(message.channel, f'Wiped past teams for {users_cleared} users in context {context}.')

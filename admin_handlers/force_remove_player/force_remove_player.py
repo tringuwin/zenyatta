@@ -1,5 +1,6 @@
 from admin_handlers.force_remove_player.get_force_remove_player_params.get_force_remove_player_params import get_force_remove_player_params
 from mongo import find_event_by_event_id, update_event_by_event_id
+from safe_send import safe_send
 
 
 async def force_remove_player_handler(db, message):
@@ -8,7 +9,7 @@ async def force_remove_player_handler(db, message):
 
     event = find_event_by_event_id(db, event_id)
     if not event:
-        await message.channel.send('Event with that ID not found.')
+        await safe_send(message.channel, 'Event with that ID not found.')
         return
 
     player_removed = False
@@ -23,6 +24,6 @@ async def force_remove_player_handler(db, message):
     update_event_by_event_id(db, event_id, event_update)
 
     if player_removed:
-        await message.channel.send('Player was removed.')
+        await safe_send(message.channel, 'Player was removed.')
     else:
-        await message.channel.send('Player was not found.')
+        await safe_send(message.channel, 'Player was not found.')
