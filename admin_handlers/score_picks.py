@@ -1,5 +1,8 @@
 
 
+from safe_send import safe_send
+
+
 BEST_POSSIBLE_SCORE = 6
 
 
@@ -37,4 +40,4 @@ async def score_picks(db, message):
 
         picks_db.update_one({'token': pick['token']}, {'$set': {'score': pick_score, 'max': BEST_POSSIBLE_SCORE, 'perfect': is_perfect}})
 
-    await message.channel.send('Command success')
+    await safe_send(message.channel, 'Command success')

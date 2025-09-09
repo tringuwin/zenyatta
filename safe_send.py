@@ -23,7 +23,7 @@ def clean_text(text, can_ping_role=False):
 async def safe_send(channel, text, can_ping_role=False):
 
     cleaned_text = clean_text(text, can_ping_role=can_ping_role)
-    await channel.send(cleaned_text)
+    return await channel.send(cleaned_text)
 
 
 async def safe_reply(message, text, can_ping_role=False):
@@ -72,7 +72,7 @@ def safe_set_footer(embed, text, icon_url):
 async def safe_send_embed(channel, embed):
 
     # have to check embed content earlier
-    await channel.send(embed=embed)
+    return await channel.send(embed=embed)
 
 
 # NOT IMPLEMENTED YET

@@ -1,6 +1,7 @@
 
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
+from safe_send import safe_send
 from shop import update_shop
 
 
@@ -23,5 +24,4 @@ async def set_stock_handler(db, message):
 
     await update_shop(db, message)
 
-    await message.channel.send('Stock of item has been changed and shop updated')
-    
+    await safe_send(message.channel, 'Stock of item has been changed and shop updated')

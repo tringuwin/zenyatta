@@ -5,6 +5,7 @@ from discord_actions import get_guild, get_member_by_id, get_role_by_id
 from events import get_event_team_size
 from getters.event_getters import get_event_by_id
 from helpers import valid_number_of_params
+from safe_send import safe_send
 from teams import get_team_by_name
 
 async def prune_team_event_handler(db, message, client):
@@ -17,12 +18,12 @@ async def prune_team_event_handler(db, message, client):
     event_id = params[1]
     event = get_event_by_id(db, event_id)
     if not event:
-        await message.channel.send('There is no event with that ID.')
+        await safe_send(message.channel, 'There is no event with that ID.')
         return
     
     event_team_size = get_event_team_size(event)
     if event_team_size == 1:
-        await message.channel.send('This is not a team event.')
+        await safe_send(message.channel, 'This is not a team event.')
         return
     
     valid_entries = []
