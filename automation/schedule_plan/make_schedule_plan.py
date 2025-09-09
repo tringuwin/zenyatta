@@ -3,6 +3,7 @@
 from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_teams_collection_from_context
 from helpers import can_be_int, valid_number_of_params
+from safe_send import safe_send
 from time_helpers import get_day_info_for_future_day, get_future_week_datetime, year_month_day_to_datetime
 
 
@@ -155,31 +156,31 @@ async def make_schedule_plan(message, db, context):
 
     season_number = params[1]
     if not can_be_int(season_number):
-        await message.channel.send(season_number+' is not a valid season number.')
+        await safe_send(message.channel, season_number+' is not a valid season number.')
         return
     season_number = int(season_number)
 
     league_start_day = params[2]
     if not can_be_int(league_start_day):
-        await message.channel.send(league_start_day+' is not a valid day.')
+        await safe_send(message.channel, league_start_day+' is not a valid day.')
         return
     league_start_day = int(league_start_day)
 
     league_start_month = params[3]
     if not can_be_int(league_start_month):
-        await message.channel.send(league_start_month+' is not a valid month.')
+        await safe_send(message.channel, league_start_month+' is not a valid month.')
         return
     league_start_month = int(league_start_month)
 
     league_start_year = params[4]
     if not can_be_int(league_start_year):
-        await message.channel.send(league_start_year+' is not a valid year.')
+        await safe_send(message.channel, league_start_year+' is not a valid year.')
         return
     league_start_year = int(league_start_year)
 
     num_weeks_in_season = params[5]
     if not can_be_int(num_weeks_in_season):
-        await message.channel.send(num_weeks_in_season+' is not a number.')
+        await safe_send(message.channel, num_weeks_in_season+' is not a number.')
         return
     num_weeks_in_season = int(num_weeks_in_season)
 
@@ -188,12 +189,12 @@ async def make_schedule_plan(message, db, context):
     schedule_plans = db['schedule_plans']
     existing_schedule_plan = get_schedule_plan_with_season_and_context(schedule_plans, season_number, context)
     if existing_schedule_plan:
-        await message.channel.send(f'A Schedule Plan already exists with season number {season_number} for context {context}')
+        await safe_send(message.channel, f'A Schedule Plan already exists with season number {season_number} for context {context}')
         return
     
     teams_for_season = get_teams_for_season(db, context, team_blacklist)
     if len(teams_for_season) % 2 != 0:
-        await message.channel.send(f'There are an odd number of teams in the league. Cannot create schedule plan.')
+        await safe_send(message.channel, f'There are an odd number of teams in the league. Cannot create schedule plan.')
         return
 
     new_schedule_plan = {
@@ -218,5 +219,5 @@ async def make_schedule_plan(message, db, context):
     new_schedule = make_schedule_for_season(context, season_number, new_schedule_plan['weeks'])
     schedule_db.insert_one(new_schedule)
 
-    await message.channel.send(f'Schedule Plan created for season number {season_number} for context {context}')
-    
+    await safe_send(message.channel, f'Schedule Plan created for season number {season_number} for context {context}')
+
