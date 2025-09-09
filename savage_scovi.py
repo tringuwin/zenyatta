@@ -31,6 +31,8 @@ def get_completion(prompt):
 
 async def savage_scovi(message):
 
+    return
+
     # remove bot mention
     user_message = message.content.replace(f'<@!{BOT_ID}>', '').strip()
 
