@@ -12,7 +12,7 @@ async def join_handler(db, message, client):
 
     valid_params, params = valid_number_of_params(message, 2)
     if not valid_params:
-        safe_send(message.channel, "Command was not in the correct format. Please enter '!join' followed by the id of the event you want to join.")
+        await safe_send(message.channel, "Command was not in the correct format. Please enter '!join' followed by the id of the event you want to join.")
         return
     
     user = user_exists(db, message.author.id)
