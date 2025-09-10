@@ -59,6 +59,8 @@ async def coin_price(message):
     price = fetch_coin_price()
 
     response_message = SPICY_COIN_EMOJI_STRING + ' **Spicy Coin Current Price** ' + SPICY_COIN_EMOJI_STRING
-    response_message += f'\n\n$1 USD = {price} Spicy Coins'
+    response_message += f'\n\n$1 USD = **{price}** Spicy Coins'
+    response_message += '\n\nBuy and Sell Spicy Coins here:'
+    response_message += '\n\nhttps://app.uniswap.org/explore/tokens/base/0x522b00495662d2a0e9047ae04a3ebff3221b59b8'
 
     await safe_send(message.channel, response_message)
