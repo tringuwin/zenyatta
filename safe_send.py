@@ -28,6 +28,10 @@ async def safe_send(channel, text, can_ping_role=False):
 
 async def safe_reply(message, text, can_ping_role=False):
 
+    # check that @everyone and @here are not in the text
+    if '@everyone' in text or '@here' in text:
+        return
+
     cleaned_text = clean_text(text, can_ping_role=can_ping_role)
     await message.reply(cleaned_text)
 
