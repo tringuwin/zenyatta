@@ -30,6 +30,7 @@ async def safe_reply(message, text, can_ping_role=False):
 
     # check that @everyone and @here are not in the text
     if '@everyone' in text or '@here' in text:
+        await safe_send(message.channel, '6 7 🥶')
         return
 
     cleaned_text = clean_text(text, can_ping_role=can_ping_role)
