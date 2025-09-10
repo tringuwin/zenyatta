@@ -91,4 +91,4 @@ async def safe_edit_embed(message, embed):
 
 async def safe_send_test(message):
 
-    await safe_send(message.channel, '@everyone @here /everyone /here @&RoleName')
+    await safe_send(message.channel, '@everyone @here /everyone /here @&RoleName <@&1140095032104321165>')
