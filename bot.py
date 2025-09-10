@@ -61,6 +61,7 @@ from casting.delete_caster import delete_caster_handler
 from casting.make_caster import make_caster_handler
 from casting.make_lobby_admin import make_lobby_admin_handler
 from casting.pay import pay_handler
+from coin.coin_price import coin_price
 from coin.coin_stats import coin_stats
 from command_handlers.accept_gem_trade import accept_gem_trade_handler
 from command_handlers.auction.bid import bid_handler
@@ -1747,6 +1748,9 @@ async def handle_message(message, db, client):
 
     elif lower_message == '!coinstats':
         await coin_stats(db, message)
+
+    elif lower_message == '!coinprice':
+        await coin_price(message)
 
     elif lower_message == '!forcescheduleloop' and is_admin:
 
