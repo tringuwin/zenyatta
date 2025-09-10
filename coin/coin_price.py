@@ -48,9 +48,9 @@ def fetch_coin_price():
     # 8. Compute SPICY price in ETH and USD
     spicy_price_in_eth = reserve0_eth / reserve1_spicy
     spicy_price_in_usd = spicy_price_in_eth * eth_price_usd
-    spicy_for_1_usd = round(1 / spicy_price_in_usd)
+    value_of_1000_spicy_in_usd = round(spicy_price_in_usd * 1000, 2)
 
-    return str(spicy_for_1_usd)
+    return str(value_of_1000_spicy_in_usd)
 
 
 
@@ -58,8 +58,8 @@ async def coin_price(message):
 
     price = fetch_coin_price()
 
-    response_message = SPICY_COIN_EMOJI_STRING + ' **Spicy Coin Current Price** ' + SPICY_COIN_EMOJI_STRING
-    response_message += f'\n\n$1 USD = **{price}** Spicy Coins'
+    response_message = SPICY_COIN_EMOJI_STRING + ' **Spicy Coin Live Price** ' + SPICY_COIN_EMOJI_STRING
+    response_message += f'\n\n1,000 SPICY COINS = **${price}** USD'
     response_message += '\n\nBuy and Sell Spicy Coins here:'
     response_message += '\n\nhttps://app.uniswap.org/explore/tokens/base/0x522b00495662d2a0e9047ae04a3ebff3221b59b8'
 
