@@ -1753,7 +1753,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!coinprice':
         await coin_price(message)
 
-    elif lower_message == '!redeemtropies':
+    elif lower_message == '!redeemtrophies':
         await redeem_trophies(db, message)
 
     elif lower_message == '!forcescheduleloop' and is_admin:
