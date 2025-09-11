@@ -1,10 +1,11 @@
 import requests
+from helpers import set_constant_value
 from web3 import Web3
 
 from constants import SPICY_COIN_EMOJI_STRING
 from safe_send import safe_send
 
-def fetch_coin_price():
+def fetch_coin_price(db):
 
     # 1. Connect to Base RPC
     w3 = Web3(Web3.HTTPProvider("https://mainnet.base.org"))
@@ -50,13 +51,16 @@ def fetch_coin_price():
     spicy_price_in_usd = spicy_price_in_eth * eth_price_usd
     value_of_1000_spicy_in_usd = round(spicy_price_in_usd * 1000, 2)
 
+    # Save to constants database for other uses
+    set_constant_value(db, 'spicy_price_in_usd', spicy_price_in_usd)
+
     return str(value_of_1000_spicy_in_usd)
 
 
 
-async def coin_price(message):
+async def coin_price(db, message):
 
-    price = fetch_coin_price()
+    price = fetch_coin_price(db)
 
     response_message = SPICY_COIN_EMOJI_STRING + ' **Spicy Coin Live Price** ' + SPICY_COIN_EMOJI_STRING
     response_message += f'\n\n1,000 SPICY COINS = **${price}** USD'
