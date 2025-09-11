@@ -35,7 +35,7 @@ def test_overwatch_profile():
     with open("command_handlers/profile/mocks/overwatch_profile.txt", encoding="utf-8") as f:
         expected_profile = f.read()
 
-    assert overwatch_profile(MOCK_USER) == expected_profile
+    assert overwatch_profile(MOCK_USER, 0) == expected_profile
 
 
 def test_rivals_profile():
@@ -43,7 +43,7 @@ def test_rivals_profile():
     with open("command_handlers/profile/mocks/rivals_profile.txt", encoding="utf-8") as f:
         expected_profile = f.read()
 
-    assert rivals_profile(MOCK_USER) == expected_profile
+    assert rivals_profile(MOCK_USER, 0) == expected_profile
 
 
 def test_valorant_profile():
@@ -51,8 +51,7 @@ def test_valorant_profile():
     with open("command_handlers/profile/mocks/valorant_profile.txt", encoding="utf-8") as f:
         expected_profile = f.read()
 
-    print(valorant_profile(MOCK_USER))
-    assert valorant_profile(MOCK_USER) == expected_profile
+    assert valorant_profile(MOCK_USER, 0) == expected_profile
 
 
 def test_get_league_team_string():
@@ -96,9 +95,10 @@ def test_get_generic_profile_data():
         'vouchers': 0,
         'drops': 15,
         'gems': MOCK_GEMS,
-        'twitch_username': 'test_user'
+        'twitch_username': 'test_user',
+        'value_of_vouchers': 0
     }
-    assert get_generic_profile_data(MOCK_USER, context) == expected_result
+    assert get_generic_profile_data(MOCK_USER, context, 0) == expected_result
 
     context = 'MR'
     expected_result = {
@@ -112,9 +112,10 @@ def test_get_generic_profile_data():
         'vouchers': 0,
         'drops': 15,
         'gems': MOCK_GEMS,
-        'twitch_username': 'test_user'
+        'twitch_username': 'test_user',
+        'value_of_vouchers': 0
     }
-    assert get_generic_profile_data(MOCK_USER, context) == expected_result
+    assert get_generic_profile_data(MOCK_USER, context, 0) == expected_result
 
     context = 'VL'
     expected_result = {
@@ -128,9 +129,10 @@ def test_get_generic_profile_data():
         'vouchers': 0,
         'drops': 15,
         'gems': MOCK_GEMS,
-        'twitch_username': 'test_user'
+        'twitch_username': 'test_user',
+        'value_of_vouchers': 0
     }
-    assert get_generic_profile_data(MOCK_USER, context) == expected_result
+    assert get_generic_profile_data(MOCK_USER, context, 0) == expected_result
 
 
 def test_get_team_display_string():

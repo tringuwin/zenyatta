@@ -2,7 +2,7 @@
 
 from common_messages import not_registered_response
 from exceptions import CommandError
-from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
+from helpers import generic_find_user, get_constant_value, get_league_emoji_from_team_name, make_string_from_word_list
 from safe_send import safe_send
 from user.user import get_fan_of_with_context, get_league_team_with_context, get_rival_of_with_context, get_twitch_username, get_user_drop_boxes, get_user_gems, get_user_packs, get_user_pickaxes, get_user_tokens, get_user_trophies, get_user_vouchers, user_exists
 import constants
@@ -35,7 +35,16 @@ def make_gem_string(user_gems):
     return gem_line_1+'\n'+gem_line_2
 
 
-def get_generic_profile_data(user, context):
+
+def get_voucher_estimated_value(db):
+
+    return get_constant_value(db, 'spicy_price_in_usd')
+
+
+def get_generic_profile_data(user, context, voucher_value):
+
+    user_vouchers = get_user_vouchers(user)
+    value_of_vouchers = user_vouchers * voucher_value
 
     return {
         'league_team': get_league_team_with_context(user, context),
@@ -45,10 +54,11 @@ def get_generic_profile_data(user, context):
         'pickaxes': get_user_pickaxes(user),
         'packs': get_user_packs(user),
         'trophies': get_user_trophies(user),
-        'vouchers': get_user_vouchers(user),
+        'vouchers': user_vouchers,
         'drops': get_user_drop_boxes(user),
         'gems': get_user_gems(user),
         'twitch_username': get_twitch_username(user),
+        'value_of_vouchers': value_of_vouchers
     }
 
 
@@ -68,9 +78,9 @@ def get_rival_of_string(rival_of):
     return 'Rival of Team: **'+team_string+'**\n'
 
 
-def overwatch_profile(user):
+def overwatch_profile(user, voucher_value):
 
-    gen_data = get_generic_profile_data(user, 'OW')
+    gen_data = get_generic_profile_data(user, 'OW', voucher_value)
  
     final_string = "**USER PROFILE FOR "+user['battle_tag']+':**\n'
     final_string += 'Twitch Username: **'+gen_data['twitch_username']+'**\n\n'
@@ -80,7 +90,8 @@ def overwatch_profile(user):
     final_string += get_rival_of_string(gen_data['rival_of'])
 
     final_string +='\n'
-    final_string += '🪙 '+str(gen_data['tokens'])+' ⛏️ '+str(gen_data['pickaxes'])+' '+constants.SPICY_PACK_EMOJI_STRING+' '+str(gen_data['packs'])+' '+constants.SPICY_DROP_EMOJI_STRING+' '+str(gen_data['drops'])+' 🏆 '+str(gen_data['trophies'])+' '+constants.SPICY_VOUCHER_EMOJI_STRING+' '+str(gen_data['vouchers'])+'\n'
+    vouchers_string =' '+constants.SPICY_VOUCHER_EMOJI_STRING+' '+str(gen_data['vouchers'])+' (Est. $'+str(round(gen_data['value_of_vouchers'],2))+')'
+    final_string += '🪙 '+str(gen_data['tokens'])+' ⛏️ '+str(gen_data['pickaxes'])+' '+constants.SPICY_PACK_EMOJI_STRING+' '+str(gen_data['packs'])+' '+constants.SPICY_DROP_EMOJI_STRING+' '+str(gen_data['drops'])+' 🏆 '+str(gen_data['trophies'])+vouchers_string+'\n'
 
     final_string +='\n'
     final_string += make_gem_string(gen_data['gems'])
@@ -88,9 +99,9 @@ def overwatch_profile(user):
     return final_string
 
 
-def rivals_profile(user):
+def rivals_profile(user, voucher_value):
 
-    gen_data = get_generic_profile_data(user, 'MR')
+    gen_data = get_generic_profile_data(user, 'MR', voucher_value)
     
     final_string = "**USER PROFILE FOR "+user['rivals_username']+':**\n'
     final_string += 'Twitch Username: **'+gen_data['twitch_username']+'**\n\n'
@@ -100,7 +111,8 @@ def rivals_profile(user):
     final_string += get_rival_of_string(gen_data['rival_of'])
 
     final_string +='\n'
-    final_string += '🪙 '+str(gen_data['tokens'])+' ⛏️ '+str(gen_data['pickaxes'])+' '+constants.SPICY_PACK_EMOJI_STRING+' '+str(gen_data['packs'])+' '+constants.SPICY_DROP_EMOJI_STRING+' '+str(gen_data['drops'])+' 🏆 '+str(gen_data['trophies'])+' '+constants.SPICY_VOUCHER_EMOJI_STRING+' '+str(gen_data['vouchers'])+'\n'
+    vouchers_string =' '+constants.SPICY_VOUCHER_EMOJI_STRING+' '+str(gen_data['vouchers'])+' (Est. $'+str(round(gen_data['value_of_vouchers'],2))+')'
+    final_string += '🪙 '+str(gen_data['tokens'])+' ⛏️ '+str(gen_data['pickaxes'])+' '+constants.SPICY_PACK_EMOJI_STRING+' '+str(gen_data['packs'])+' '+constants.SPICY_DROP_EMOJI_STRING+' '+str(gen_data['drops'])+' 🏆 '+str(gen_data['trophies'])+vouchers_string+'\n'
 
     final_string +='\n'
     final_string += make_gem_string(gen_data['gems'])
@@ -108,10 +120,10 @@ def rivals_profile(user):
     return final_string
 
 
-def valorant_profile(user):
+def valorant_profile(user, voucher_value):
 
-    gen_data = get_generic_profile_data(user, 'VL')
-    
+    gen_data = get_generic_profile_data(user, 'VL', voucher_value)
+
     final_string = "**USER PROFILE FOR "+user['riot_id']+':**\n'
     final_string += 'Twitch Username: **'+gen_data['twitch_username']+'**\n'
     
@@ -120,7 +132,8 @@ def valorant_profile(user):
     final_string += get_rival_of_string(gen_data['rival_of'])
 
     final_string +='\n'
-    final_string += '🪙 '+str(gen_data['tokens'])+' ⛏️ '+str(gen_data['pickaxes'])+' '+constants.SPICY_PACK_EMOJI_STRING+' '+str(gen_data['packs'])+' '+constants.SPICY_DROP_EMOJI_STRING+' '+str(gen_data['drops'])+' 🏆 '+str(gen_data['trophies'])+' '+constants.SPICY_VOUCHER_EMOJI_STRING+' '+str(gen_data['vouchers'])+'\n'
+    vouchers_string =' '+constants.SPICY_VOUCHER_EMOJI_STRING+' '+str(gen_data['vouchers'])+' (Est. $'+str(round(gen_data['value_of_vouchers'],2))+')'
+    final_string += '🪙 '+str(gen_data['tokens'])+' ⛏️ '+str(gen_data['pickaxes'])+' '+constants.SPICY_PACK_EMOJI_STRING+' '+str(gen_data['packs'])+' '+constants.SPICY_DROP_EMOJI_STRING+' '+str(gen_data['drops'])+' 🏆 '+str(gen_data['trophies'])+vouchers_string+'\n'
 
     final_string +='\n'
     final_string += make_gem_string(gen_data['gems'])
@@ -167,17 +180,19 @@ async def profile_handler(db, message, client, context):
 
     if not user:
         raise CommandError('User not found.')
+    
+    voucher_value = get_constant_value(db, 'spicy_price_in_usd')
 
     profile_string = ''
     if context == 'OW':
         verify_overwatch_user(user)
-        profile_string = overwatch_profile(user)
+        profile_string = overwatch_profile(user, voucher_value)
     elif context == 'MR':
         verify_rivals_user(user)
-        profile_string = rivals_profile(user)
+        profile_string = rivals_profile(user, voucher_value)
     elif context == 'VL':
         verify_valorant_user(user)
-        profile_string = valorant_profile(user)
+        profile_string = valorant_profile(user, voucher_value)
     else:
         raise CommandError('This command is not ready yet for this league.')
 
