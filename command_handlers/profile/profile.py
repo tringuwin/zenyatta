@@ -100,7 +100,7 @@ def rivals_profile(user):
     final_string += get_rival_of_string(gen_data['rival_of'])
 
     final_string +='\n'
-    final_string += '🪙 '+str(gen_data['tokens'])+' ⛏️ '+str(gen_data['pickaxes'])+' '+constants.SPICY_PACK_EMOJI_STRING+' '+str(gen_data['packs'])+' '+constants.SPICY_DROP_EMOJI_STRING+' '+str(gen_data['drops'])+' 🏆 '+str(gen_data['trophies'])+'\n'
+    final_string += '🪙 '+str(gen_data['tokens'])+' ⛏️ '+str(gen_data['pickaxes'])+' '+constants.SPICY_PACK_EMOJI_STRING+' '+str(gen_data['packs'])+' '+constants.SPICY_DROP_EMOJI_STRING+' '+str(gen_data['drops'])+' 🏆 '+str(gen_data['trophies'])+' '+constants.SPICY_VOUCHER_EMOJI_STRING+' '+str(gen_data['vouchers'])+'\n'
 
     final_string +='\n'
     final_string += make_gem_string(gen_data['gems'])
@@ -120,7 +120,7 @@ def valorant_profile(user):
     final_string += get_rival_of_string(gen_data['rival_of'])
 
     final_string +='\n'
-    final_string += '🪙 '+str(gen_data['tokens'])+' ⛏️ '+str(gen_data['pickaxes'])+' '+constants.SPICY_PACK_EMOJI_STRING+' '+str(gen_data['packs'])+' '+constants.SPICY_DROP_EMOJI_STRING+' '+str(gen_data['drops'])+' 🏆 '+str(gen_data['trophies'])+'\n'
+    final_string += '🪙 '+str(gen_data['tokens'])+' ⛏️ '+str(gen_data['pickaxes'])+' '+constants.SPICY_PACK_EMOJI_STRING+' '+str(gen_data['packs'])+' '+constants.SPICY_DROP_EMOJI_STRING+' '+str(gen_data['drops'])+' 🏆 '+str(gen_data['trophies'])+' '+constants.SPICY_VOUCHER_EMOJI_STRING+' '+str(gen_data['vouchers'])+'\n'
 
     final_string +='\n'
     final_string += make_gem_string(gen_data['gems'])
