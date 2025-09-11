@@ -1751,7 +1751,7 @@ async def handle_message(message, db, client):
         await coin_stats(db, message)
 
     elif lower_message == '!coinprice':
-        await coin_price(message)
+        await coin_price(db, message)
 
     elif lower_message == '!redeemtrophies':
         await redeem_trophies(db, message)
