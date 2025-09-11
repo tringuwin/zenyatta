@@ -3,6 +3,7 @@ import random
 import time
 from admin_handlers.free import free_handler
 from admin_handlers.slowmode import slowmode_handler
+from coin.redeem_trophies import redeem_trophies
 import discord
 import aiohttp
 import uuid
@@ -1752,7 +1753,8 @@ async def handle_message(message, db, client):
     elif lower_message == '!coinprice':
         await coin_price(message)
 
-        
+    elif lower_message == '!redeemtrophies':
+        await redeem_trophies(db, message)
 
     elif lower_message == '!forcescheduleloop' and is_admin:
 
