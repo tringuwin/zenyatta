@@ -23,6 +23,7 @@ MOCK_USER = {
     'pickaxes': 5,
     'packs': 10,
     'trophies': 100,
+    'vouchers': 0,
     'drop_boxes': 15,
     'gems': MOCK_GEMS,
     'twitch': 'test_user',
@@ -92,6 +93,7 @@ def test_get_generic_profile_data():
         'pickaxes': 5,
         'packs': 10,
         'trophies': 100,
+        'vouchers': 0,
         'drops': 15,
         'gems': MOCK_GEMS,
         'twitch_username': 'test_user'
@@ -107,6 +109,7 @@ def test_get_generic_profile_data():
         'pickaxes': 5,
         'packs': 10,
         'trophies': 100,
+        'vouchers': 0,
         'drops': 15,
         'gems': MOCK_GEMS,
         'twitch_username': 'test_user'
@@ -122,6 +125,7 @@ def test_get_generic_profile_data():
         'pickaxes': 5,
         'packs': 10,
         'trophies': 100,
+        'vouchers': 0,
         'drops': 15,
         'gems': MOCK_GEMS,
         'twitch_username': 'test_user'

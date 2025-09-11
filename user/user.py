@@ -384,6 +384,13 @@ def get_user_trophies(user):
     
     return 0
 
+def get_user_vouchers(user):
+
+    if 'vouchers' in user:
+        return user['vouchers']
+    
+    return 0
+
 def get_user_total_trophies(user):
 
     if 'total_trophies' in user:
