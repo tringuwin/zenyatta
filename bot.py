@@ -1752,6 +1752,8 @@ async def handle_message(message, db, client):
     elif lower_message == '!coinprice':
         await coin_price(message)
 
+        
+
     elif lower_message == '!forcescheduleloop' and is_admin:
 
         await schedule_plan_loop(db, message, client)
