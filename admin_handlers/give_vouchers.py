@@ -1,7 +1,7 @@
 
 
 from common_messages import invalid_number_of_params
-from helpers import generic_find_user, get_constant_value, valid_number_of_params
+from helpers import generic_find_user, get_constant_value, set_constant_value, valid_number_of_params
 from safe_send import safe_send
 from user.user import get_user_vouchers
 
@@ -29,5 +29,7 @@ async def give_vouchers(client, db, message):
 
     users = db['users']
     users.update_one({"discord_id": user['discord_id']}, {"$set": {"vouchers": user_vouchers}})
+
+    set_constant_value(db, 'free_vouchers', free_vouchers - vouchers_to_give)
 
     await safe_send(message.channel, f'Vouchers given: {vouchers_to_give}')
