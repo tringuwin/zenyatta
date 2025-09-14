@@ -4,6 +4,7 @@ import time
 from admin_handlers.free import free_handler
 from admin_handlers.give_vouchers import give_vouchers
 from admin_handlers.slowmode import slowmode_handler
+from admin_handlers.take_vouchers import take_vouchers
 from coin.redeem_trophies import redeem_trophies
 import discord
 import aiohttp
@@ -1759,6 +1760,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!givevouchers ') and is_admin:
         await give_vouchers(client, db, message)
+
+    elif lower_message.startswith('!takevouchers ') and is_admin:
+        await take_vouchers(client, db, message)
 
     elif lower_message == '!forcescheduleloop' and is_admin:
 
