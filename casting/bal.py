@@ -15,7 +15,7 @@ async def bal_handler(db, message):
     production_crew = db['production_crew']
     crew_member = production_crew.find_one({"lower_username": crew_member_name_lower})
     if not crew_member:
-        await safe_send(message.channel, f"User {crew_member_name_lower} not found in the production crew.")
+        await safe_send(message.channel, f"User {params[1]} not found in the production crew.")
         return
     
     balance = crew_member['balance']
