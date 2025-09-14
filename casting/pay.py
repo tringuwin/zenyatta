@@ -13,15 +13,15 @@ async def pay_handler(db, message):
 
     production_crew = db['production_crew']
 
-    username = params[1]
-    pay_user = production_crew.find_one({"username": username})
+    username_lower = params[1].lower()
+    pay_user = production_crew.find_one({"lower_username": username_lower})
     if not pay_user:
-        await safe_send(message.channel, f"User {username} not found in the production crew.")
+        await safe_send(message.channel, f"User {params[1]} not found in the production crew.")
         return
 
     bal_to_pay = float(params[2])
 
     new_balance = pay_user['balance'] + bal_to_pay
-    production_crew.update_one({"username": username}, {"$set": {"balance": new_balance}})
+    production_crew.update_one({"lower_username": username_lower}, {"$set": {"balance": new_balance}})
 
-    await safe_send(message.channel, f"Paid {bal_to_pay} to {username}. New balance: {new_balance}")
+    await safe_send(message.channel, f"Paid {bal_to_pay} to {pay_user['username']}. New balance: {new_balance}")
