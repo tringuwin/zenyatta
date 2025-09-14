@@ -334,7 +334,7 @@ VALORANT_TEAM_LIST = ['Deadlock', 'Guardians', 'Horizon', 'Hunters', 'Lotus', 'P
 LOWERCASE_HERO_NAMES = ['ana', 'ashe', 'baptiste', 'bastion', 'brigitte', 'cassidy', 'dva', 'doomfist', 'echo', 'genji', 'hanzo', 'illari', 
                         'junker queen', 'junkrat', 'juno', 'kiriko', 'lifeweaver', 'lucio', 'mauga', 'mei', 'mercy', 'moira', 'orisa', 'ramattra', 'reaper', 
                         'reinhardt', 'roadhog', 'sigma', 'sojourn', 'soldier 76', 'sombra', 'symmetra', 'torbjorn', 'tracer', 'venture', 'widowmaker', 
-                        'winston', 'wrecking ball', 'zarya', 'zenyatta', 'pharah']
+                        'winston', 'wrecking ball', 'zarya', 'zenyatta', 'pharah', 'hazard', 'wuyang', 'freja']
 
 SEASON_ACTIVE = False
 
