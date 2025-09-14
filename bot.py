@@ -1789,16 +1789,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!makelobbyadmin ') and is_admin:
         await make_lobby_admin_handler(db, message)
 
-    elif lower_message == '!crewnamepatch' and is_admin:
-
-        production_crew = db['production_crew']
-        all_crew = production_crew.find()
-
-        for crew in all_crew:
-            production_crew.update_one({"discord_id": crew['discord_id']}, {"$set": {"lower_username": crew['username'].lower()}})
-
-        await safe_send(message.channel, 'Crew names patched')
-
     elif lower_message == '!makereactionroles' and is_admin:
 
         reaction_roles = [
