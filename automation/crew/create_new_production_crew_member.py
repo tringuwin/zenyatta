@@ -11,6 +11,7 @@ def create_new_production_crew_member(db, user_id, username):
     new_member = {
         "discord_id": user_id,
         "username": username,
+        "lower_username": username.lower(),
         "balance": 0.0,
     }
 
