@@ -99,6 +99,8 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
             'weekday': 'NONE',
             'team1_score': 0,
             'team2_score': 0,
+            'team1_ban': 'none',
+            'team2_ban': 'none',
             'left_team': 1,
             'match_over': False,
             'added_to_schedule': False,
