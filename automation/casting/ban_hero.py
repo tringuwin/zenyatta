@@ -45,6 +45,6 @@ async def ban_hero_handler(db, message, context):
     
     matchups.update_one({'matchup_id': found_matchup['matchup_id']}, {'$set': {'team'+str(team_number)+'_ban': hero_name}})
 
-    await safe_send(message.channel, 'Hero '+hero_name+' has been set as the banned hero for team '+team_name+'.')
+    await safe_send(message.channel, 'Hero '+params[2]+' has been set as the banned hero for team '+team_name+'.')
     
 
