@@ -1633,6 +1633,16 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!addpoint') and is_tourney_admin:
         await add_point(db, message, context)
 
+    elif lower_message == '!patchmatchupbans' and is_admin:
+
+        matchups = db['matchups']
+        all_matchups = matchups.find()
+
+        for matchup in all_matchups:
+            matchups.update_one({'matchup_id': matchup['matchup_id']}, {'$set': {'team1_ban': 'none', 'team2_ban': 'none'}})
+
+        await safe_send(message.channel, 'all matchup bans patched')
+
     elif lower_message.startswith('!removepoint') and is_tourney_admin:
         await remove_point(db, message, context)
 
