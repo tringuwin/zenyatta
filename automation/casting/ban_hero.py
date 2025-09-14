@@ -40,7 +40,7 @@ async def ban_hero_handler(db, message, context):
 
     found_matchup, team_number = find_matchup_for_team(all_matchups_in_context, team_name)
     if not found_matchup:
-        await safe_send(message.channel, 'Could not find a current match that includes a team named '+team_name)
+        await safe_send(message.channel, 'Could not find a current match that includes a team named '+params[1])
         return
     
     matchups.update_one({'matchup_id': found_matchup['matchup_id']}, {'$set': {'team'+str(team_number)+'_ban': hero_name}})
