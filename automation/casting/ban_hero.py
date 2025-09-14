@@ -30,8 +30,8 @@ async def ban_hero_handler(db, message, context):
     team_name = params[1].lower()
     hero_name = params[2].lower()
 
-    if hero_name not in constants.LOWERCASE_HERO_NAMES:
-        await safe_send(message.channel, 'Invalid hero name. Please check your spelling and try again.')
+    if hero_name not in constants.LOWERCASE_BAN_HERO_NAMES:
+        await safe_send(message.channel, 'Invalid hero name. Please check your spelling and try again. (Special heroes: Junker Queen = "queen", Soldier 76 = "soldier", Wrecking Ball = "ball")')
         return
     
     matchups = db['matchups']
