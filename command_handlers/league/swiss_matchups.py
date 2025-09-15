@@ -82,7 +82,7 @@ def convert_pairings_into_matchups(db, pairings, schedule_plan):
     matchups = db['matchups']
     context = schedule_plan['context']
     season = schedule_plan['season']
-    week = schedule_plan['current_week'] + 1
+    week = schedule_plan['current_week'] + 2
 
     for matchup in pairings:
         new_matchup = {
