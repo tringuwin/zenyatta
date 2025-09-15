@@ -28,9 +28,14 @@ ADD_WEEK_CONFIG = {
         'month': 9,
         'year': 2025
     },
-    'season': 2,
+    'season': 7,
     'match_pairs': [
-        ['Fresas', 'Misfits'],
+        ['Legion', 'Celestials'],
+        ['Eclipse', 'Guardians'],
+        ['Deadlock', 'Phantoms'],
+        ['Phoenix', 'Misfits'],
+        ['Ragu', 'Outliers'],
+        ['Saturn', 'Tsunami'],
     ]
 
 }
