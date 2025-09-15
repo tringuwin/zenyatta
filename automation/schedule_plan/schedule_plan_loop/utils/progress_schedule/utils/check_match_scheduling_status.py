@@ -78,6 +78,8 @@ def write_matchups_to_schedule(db, schedule_plan, all_matchups):
 
 async def check_match_scheduling_status(client, message, db, schedule_plans, schedule, week, week_index):
 
+    await safe_send(message.channel, f'Checking match scheduling status for league with context {schedule["context"]}')
+
     actual_week = schedule['current_week'] + 1
 
     all_matchups = get_all_matchups(db, schedule['context'], schedule['season'], actual_week)
