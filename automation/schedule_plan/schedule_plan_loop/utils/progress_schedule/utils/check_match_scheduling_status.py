@@ -96,6 +96,7 @@ async def check_match_scheduling_status(client, message, db, schedule_plans, sch
         return
     
     await not_scheduled_action(client, db, schedule_plans, schedule, week, week_index, all_matchups)
+    await safe_send(message.channel, f'Match scheduling is not complete for week {actual_week} of season {schedule["season"]} of league {schedule["context"]}.')
 
 
 
