@@ -34,23 +34,6 @@ def create_lineup_info(db, team, context):
     return team_string
 
 
-def banter_bool_to_word(banter_bool):
-
-    if banter_bool:
-        return 'ON'
-    
-    return 'OFF'
-
-def create_banter_string(home_team, away_team):
-
-    home_banter = home_team['banter']
-    away_banter = away_team['banter']
-
-    banter = (home_banter and away_banter)
-
-    return 'Banter for Match is **'+banter_bool_to_word(banter)+'** | '+home_team['team_name']+': '+banter_bool_to_word(home_banter)+' | '+away_team['team_name']+': '+banter_bool_to_word(away_banter)
-
-
 async def match_lineups_handler(db, message, context):
 
     valid_params, params = valid_number_of_params(message, 3)
@@ -76,8 +59,6 @@ async def match_lineups_handler(db, message, context):
     home_team_info_string = create_lineup_info(db, home_team, context)
     away_team_info_string = create_lineup_info(db, away_team, context)
 
-    banter_string = create_banter_string(home_team, away_team)
-
-    final_string = home_team_info_string+'\n\n'+away_team_info_string+'\n\n'+banter_string
+    final_string = home_team_info_string+'\n\n'+away_team_info_string
 
     await safe_send(message.channel, final_string)
