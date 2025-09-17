@@ -142,7 +142,6 @@ async def make_league_team_handler(db, message, client, context):
         'ally_reqs': [],
         'rival_reqs': [],
         'lineup': get_default_lineup_from_context(context),
-        'banter': False,
         'applications': {
             'appsOpen': False,
             'appsLink': '',
