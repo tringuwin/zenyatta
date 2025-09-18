@@ -46,8 +46,12 @@ async def update_score(db, message, team_name, score_change, context):
     if score_change > 0:
         map_win_array.append(found_matchup['team'+str(team_index)])
     else:
-        if map_win_array and map_win_array[-1] == found_matchup['team'+str(team_index)]:
-            map_win_array.pop()
+        team_name_to_remove = found_matchup['team'+str(team_index)]
+        # Remove the last occurrence of the team's name from map_win_array
+        for i in range(len(map_win_array) - 1, -1, -1):
+            if map_win_array[i] == team_name_to_remove:
+                del map_win_array[i]
+                break
 
     matchups_db = db['matchups']
     matchups_db.update_one({'matchup_id': found_matchup['matchup_id']}, {'$set': {'team'+str(team_index)+'_score': new_score_value, 'map_win_array': map_win_array}})
