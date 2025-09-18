@@ -6,6 +6,7 @@ from admin_handlers.give_vouchers import give_vouchers
 from admin_handlers.slowmode import slowmode_handler
 from admin_handlers.take_vouchers import take_vouchers
 from automation.casting.ban_hero import ban_hero_handler
+from automation.casting.first_pick import first_pick_handler
 from coin.redeem_trophies import redeem_trophies
 import discord
 import aiohttp
@@ -1639,6 +1640,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!ban') and is_tourney_admin:
         await ban_hero_handler(db, message, context)
+
+    elif lower_message.startswith('!firstpick') and is_tourney_admin:
+        await first_pick_handler(db, message, context)
 
     elif lower_message.startswith('!tname') and is_admin:
         await set_tourney_team_name(db, message)
