@@ -9,6 +9,7 @@ from admin_handlers.slowmode import slowmode_handler
 from admin_handlers.take_vouchers import take_vouchers
 from automation.casting.ban_hero import ban_hero_handler
 from automation.casting.first_pick import first_pick_handler
+from coin.donate_vouchers import donate_vouchers
 from coin.redeem_trophies import redeem_trophies
 import discord
 import aiohttp
@@ -1778,6 +1779,9 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!takevouchers ') and is_admin:
         await take_vouchers(client, db, message)
+
+    elif lower_message.startswith('!donatevouchers '):
+        await donate_vouchers(db, message, context)
 
     elif lower_message == '!forcescheduleloop' and is_admin:
 
