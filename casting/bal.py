@@ -18,5 +18,5 @@ async def bal_handler(db, message):
         await safe_send(message.channel, f"User {params[1]} not found in the production crew.")
         return
     
-    balance = crew_member['balance']
+    balance = round(crew_member['balance'], 2)
     await safe_send(message.channel, f"Balance for {crew_member['username']}: ${balance}")
