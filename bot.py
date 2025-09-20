@@ -4,6 +4,7 @@ import time
 from admin_handlers.free import free_handler
 from admin_handlers.give_vouchers import give_vouchers
 from admin_handlers.reset_token_tracker import reset_token_tracker_handler
+from admin_handlers.set_desc import set_desc_handler
 from admin_handlers.slowmode import slowmode_handler
 from admin_handlers.take_vouchers import take_vouchers
 from automation.casting.ban_hero import ban_hero_handler
@@ -1631,6 +1632,9 @@ async def handle_message(message, db, client):
         guild = await get_guild(client)
         clips_channel = guild.get_channel(constants.CLIPS_CHANNEL)
         await safe_send(clips_channel, 'A new SOL Replay has been posted! Go check it out! '+vod_link)
+
+    elif lower_message.startswith('!setdesc ') and is_admin:
+        await set_desc_handler(db, message)
 
     elif lower_message.startswith('!swapsides') and is_tourney_admin:
         await swap_sides(db, message, context)
