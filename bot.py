@@ -3,6 +3,7 @@ import random
 import time
 from admin_handlers.free import free_handler
 from admin_handlers.give_vouchers import give_vouchers
+from admin_handlers.reset_token_tracker import reset_token_tracker_handler
 from admin_handlers.slowmode import slowmode_handler
 from admin_handlers.take_vouchers import take_vouchers
 from automation.casting.ban_hero import ban_hero_handler
@@ -1593,6 +1594,8 @@ async def handle_message(message, db, client):
         await wipe_teams_handler(db, message)
     elif lower_message == '!totaltokens' and is_admin:
         await total_tokens_handler(db, message)
+    elif lower_message == '!resettokentracker' and is_admin:
+        await reset_token_tracker_handler(db, message)
     elif lower_message == '!totalleague' and is_admin:
         await total_league_handler(db, message)
     elif lower_message == '!makeshop' and is_admin:
