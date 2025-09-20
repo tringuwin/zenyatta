@@ -19,7 +19,8 @@ async def noon_match_notify(client, context, db, season, week_index, day_index):
     matchups = db['matchups']
     for match_id in match_ids_today:
         match = matchups.find_one({"matchup_id": match_id})
-        matchups_today.append(match)
+        if match:
+            matchups_today.append(match)
 
     sorted_matchups_today = sorted(matchups_today, key=lambda x: int(x['match_epoch']))
 
