@@ -1998,6 +1998,10 @@ def run_discord_bot(db, is_smoke_test=False):
             guild = await get_guild(client)
             role = guild.get_role(constants.VALORANT_ROLE)
             await give_role(member, role, 'Raw Reaction Add')
+        elif message_id ==  constants.DBD_MSG:
+            guild = await get_guild(client)
+            role = guild.get_role(constants.DBD_ROLE)
+            await give_role(member, role, 'Raw Reaction Add')
 
         elif channel_id == constants.STATE_CUP_CHANNEL:
             if not (member_has_state_role(member)):
@@ -2084,6 +2088,10 @@ def run_discord_bot(db, is_smoke_test=False):
         elif message_id == constants.VALORANT_MSG:
             member = get_member(guild, user_id, 'Raw Reaction Remove')
             role = guild.get_role(constants.VALORANT_ROLE)
+            await remove_role(member, role, 'Notifs Settings')
+        elif message_id == constants.DBD_MSG:
+            member = get_member(guild, user_id, 'Raw Reaction Remove')
+            role = guild.get_role(constants.DBD_ROLE)
             await remove_role(member, role, 'Notifs Settings')
 
     @client.event
