@@ -26,7 +26,7 @@ async def update_team_avatars(guild, db, message, context):
         if discord_user:
             discord_user_avatar = discord_user.display_avatar
             if discord_user_avatar:
-                users.update_one({'discord_id': member['discord_id']}, {'$set': {'avatar': discord_user_avatar.url}})
+                users.update_one({'discord_id': member['discord_id']}, {'$set': {'avatar': discord_user_avatar.url, 'discord_username': discord_user.name}})
                 updated += 1
         
         time.sleep(1)
