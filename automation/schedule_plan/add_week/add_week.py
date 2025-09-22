@@ -30,10 +30,10 @@ ADD_WEEK_CONFIG = {
     },
     'season': 2,
     'match_pairs': [
-        ['Sentinels', 'Legion'],
-        ['Eclipse', 'Deadlock'],
-        ['Phoenix', 'Ragu'],
-        ['Saturn', 'Fresas'],
+        ['Evergreen', 'Lotus'],
+        ['Deadlock', 'Fresas'],
+        ['Celestials', 'Ragu'],
+        ['Hunters', 'Guardians'],
     ]
 
 }
