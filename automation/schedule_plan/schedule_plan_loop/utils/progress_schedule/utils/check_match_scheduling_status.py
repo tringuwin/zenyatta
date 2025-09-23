@@ -4,8 +4,9 @@ import pytz
 from automation.schedule_plan.notif_helpers.notify_team_owners_of_schedule import notify_team_owners_of_schedule
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.get_all_matchups import get_all_matchups
 from automation.schedule_plan.schedule_plan_loop.utils.progress_schedule.utils.not_scheduled_action import not_scheduled_action
+from command_handlers.bets.new_bet import new_bet
 from safe_send import safe_send
-
+import time
 
 def do_all_matchups_have_timeslot(all_matchups):
 
@@ -93,6 +94,20 @@ async def check_match_scheduling_status(client, message, db, schedule_plans, sch
         schedule['weeks'][week_index]['status'] = 'MATCHES'
         schedule_plans.update_one({"_id": schedule['_id']}, {"$set": {"weeks": schedule['weeks']}})
         await safe_send(message.channel, f'Match scheduling is complete for week {actual_week} of season {schedule["season"]} of league {schedule["context"]}.')
+
+
+        if schedule['context'] == 'OW':
+
+            for matchup in all_matchups:
+
+                team1 = matchup['team1']
+                team2 = matchup['team2']
+
+                bet_title = (f'{team1} vs {team2}').upper()
+
+                await new_bet(client, db, bet_title, team1, team2, False)
+                time.sleep(1)
+
         return
     
     await not_scheduled_action(client, db, schedule_plans, schedule, week, week_index, all_matchups)
