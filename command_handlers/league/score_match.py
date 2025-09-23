@@ -1,5 +1,6 @@
 
 
+from command_handlers.bets.finish_bet import finish_bet
 from common_messages import invalid_number_of_params
 from helpers import valid_number_of_params
 from safe_send import safe_send
@@ -31,7 +32,7 @@ def add_teams_to_teams_played(db, matchup):
 
 
 
-async def score_match_handler(db, message, context):
+async def score_match_handler(client, db, message, context):
 
     valid_params, params = valid_number_of_params(message, 5)
     if not valid_params:
@@ -65,3 +66,19 @@ async def score_match_handler(db, message, context):
 
     matchups.update_one({"_id": matchup['_id']}, {"$set": matchup_edit})
     await safe_send(message.channel, f'Matchup between {winning_team} and {losing_team} for context {context} has been scored.')
+
+    if context == 'OW':
+        winning_team_name = matchup['team1'] if winning_team_index == 1 else matchup['team2']
+
+        bets = db['bets']
+        all_bets = list(bets.find())
+
+        for bet in all_bets:
+            if bet['team_1'] == winning_team_name:
+                await finish_bet(db, message, client, bet, '1', '2')
+                break
+            elif bet['team_2'] == winning_team_name:
+                await finish_bet(db, message, client, bet, '2', '1')
+                break
+
+                
