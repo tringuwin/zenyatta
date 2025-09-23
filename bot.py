@@ -1356,7 +1356,7 @@ async def handle_message(message, db, client):
         await match_end_handler(db, message, client)
 
     elif lower_message.startswith('!scorematch ') and is_admin:
-        await score_match_handler(db, message, context)
+        await score_match_handler(client, db, message, context)
 
     elif lower_message.startswith('!ffmatch ') and is_admin:
         await ff_match_handler(db, message, context)
