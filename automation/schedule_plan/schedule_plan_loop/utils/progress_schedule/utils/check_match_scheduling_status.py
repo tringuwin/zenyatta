@@ -105,7 +105,7 @@ async def check_match_scheduling_status(client, message, db, schedule_plans, sch
 
                 bet_title = (f'{team1} vs {team2}').upper()
 
-                await new_bet(client, db, bet_title, team1, team2, False)
+                await new_bet(client, db, bet_title, team1, team2, False, matchup['match_epoch'])
                 time.sleep(1)
 
         return
