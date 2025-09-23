@@ -229,7 +229,6 @@ from command_handlers.sell_gems import sell_gems_handler
 from command_handlers.solo_join import solo_join_handler
 from command_handlers.sub_timer import sub_timer_handler
 from command_handlers.suggest import suggest_handler
-from command_handlers.suggest_event import suggest_event_handler
 from command_handlers.teams.del_team_from_event import del_team_from_event_handler
 from command_handlers.teams.get_teams import get_teams_handler
 from command_handlers.teams.switch_event_teams import switch_event_teams
