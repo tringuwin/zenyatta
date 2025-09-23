@@ -472,9 +472,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith("!join "):
         await join_handler(db, message, client)
-    
-    elif lower_message.startswith("!suggestevent "):
-        await suggest_event_handler(message, client)
 
     elif lower_message.startswith("!suggest "):
         await suggest_handler(message, client)

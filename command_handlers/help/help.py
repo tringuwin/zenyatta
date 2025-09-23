@@ -20,7 +20,6 @@ async def help_handler(message):
     safe_add_field(help_embed, '!bracket', 'Show the bracket for the next/current event.', False)
     safe_add_field(help_embed, '!join [event id]', 'Join an upcoming event', False)
     safe_add_field(help_embed, '!suggest [idea here]', 'Suggest an idea for this Discord server', False)
-    safe_add_field(help_embed, '!suggestevent [idea here]', 'Suggest an idea for a future event', False)
     safe_add_field(help_embed, '!tokens', 'See your current number of tokens', False)
     safe_add_field(help_embed, '!gift', 'Earn a free gift every 8 hours!', False)
     safe_add_field(help_embed, '!bid [number of tokens]', 'Bid on the current daily auction with your Tokens!', False)
