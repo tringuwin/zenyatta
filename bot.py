@@ -22,9 +22,7 @@ from admin_handlers.feature import feature_handler
 from admin_handlers.fix_standings import fix_standings_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_battle_handler import force_battle_handler
-from admin_handlers.force_delete_team import force_delete_team_handler
 from admin_handlers.force_league_remove import force_league_remove_handler
-from admin_handlers.force_make_team import force_make_team_handler
 from admin_handlers.force_remove_player.force_remove_player import force_remove_player_handler
 from admin_handlers.force_remove_team import force_remove_team_handler
 from admin_handlers.force_twitch import force_twitch_handler
@@ -229,9 +227,6 @@ from command_handlers.sell_gems import sell_gems_handler
 from command_handlers.solo_join import solo_join_handler
 from command_handlers.sub_timer import sub_timer_handler
 from command_handlers.suggest import suggest_handler
-from command_handlers.teams.del_team_from_event import del_team_from_event_handler
-from command_handlers.teams.get_teams import get_teams_handler
-from command_handlers.teams.switch_event_teams import switch_event_teams
 from command_handlers.token_leaderboard import token_leaderboard_handler
 from command_handlers.trade_gem import trade_gem_handler
 from command_handlers.trade_gem_set import trade_gem_set_handler
@@ -256,19 +251,7 @@ from command_handlers.battle import battle_handler
 from command_handlers.buy import buy_handler
 from command_handlers.events import events_handler
 from command_handlers.join import join_handler
-from command_handlers.teams.accept_invite import accept_invite_handler
-from command_handlers.teams.delete_team import delete_team_handler
-from command_handlers.teams.deny_invite import deny_invite_handler
-from command_handlers.teams.help_teams import help_teams_handler
-from command_handlers.teams.invite import invite_handler
-from command_handlers.teams.kick_player import kick_player_handler
-from command_handlers.teams.leave_team import leave_team_handler
-from command_handlers.teams.my_invites import my_invites_handler
-from command_handlers.teams.make_team import make_team_handler
 from command_handlers.help.help import help_handler
-from command_handlers.teams.team_details import team_details_hanlder
-from command_handlers.teams.team_join import team_join_handler
-from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has_role, member_has_state_role
@@ -612,54 +595,6 @@ async def handle_message(message, db, client):
     elif lower_message == '!auctiontimer':
         await auction_timer_handler(db, message)
 
-    # TEAM COMMANDS
-
-    elif lower_message == '!teams':
-        await teams_handler(db, message)
-
-    elif lower_message.startswith('!getteams ') and is_admin:
-        await get_teams_handler(db, message)
-
-    elif lower_message.startswith('!teaminfo'):
-        await team_details_hanlder(db, message)
-
-    elif lower_message.startswith('!maketeam '):
-        await make_team_handler(db, message)
-
-    elif lower_message.startswith('!invite '):
-        await invite_handler(db, message, is_admin)
-
-    elif lower_message == '!myinvites':
-        await my_invites_handler(db, message)
-
-    elif lower_message.startswith('!acceptinvite '):
-        await accept_invite_handler(db, message, client)
-
-    elif lower_message.startswith('!denyinvite'):
-        await deny_invite_handler(db, message)
-
-    elif lower_message.startswith('!leaveteam'):
-        await leave_team_handler(db, message, client)
-
-    elif lower_message.startswith('!deleteteam'):
-        await delete_team_handler(db, message, client)
-
-    elif lower_message.startswith('!teamjoin'):
-        await team_join_handler(client, db, message)
-
-    elif lower_message.startswith('!kickplayer'):
-        await kick_player_handler(db, message, client)
-
-    elif lower_message.startswith('!helpteams'):
-        await help_teams_handler(message)
-
-    elif lower_message.startswith('!delteamfromevent') and is_admin:
-        await del_team_from_event_handler(db, message)
-
-    elif lower_message.startswith('!switcheventteams ') and is_admin:
-        # !switcheventteams [event id] [match id] [spot id (1 or 2)] [new team name]
-        await switch_event_teams(db, message)
-
     # LEAGUE COMMANDS
 
     elif lower_message.startswith('!makeleagueteam') and is_admin:
@@ -714,8 +649,8 @@ async def handle_message(message, db, client):
         # !changerole @Player [new role]
         await change_role_handler(db, message, client, context)
 
-    elif lower_message.startswith('!leaguekick '):
-        # !leaguekick @Player
+    elif lower_message.startswith('!kick ') or lower_message.startswith('!leaguekick '):
+        # !kick @Player
         await league_kick_handler(db, message, client, context)
 
     elif lower_message.startswith('!maketeamadmin'):
@@ -749,24 +684,24 @@ async def handle_message(message, db, client):
     elif lower_message == '!portal':
         await portal_handler(db, message, context)
 
-    elif lower_message.startswith('!leagueinvite '):
-        # !leagueinvite @player
+    elif lower_message.startswith('!invite ') or lower_message.startswith('!leagueinvite '):
+        # !invite @player
         await league_invite_handler(db, message, context)
 
-    elif lower_message.startswith('!leaguecancelinvite '):
-        # !leaguecancelinvite @player
+    elif lower_message.startswith('!cancelinvite '):
+        # !cancelinvite @player
         await league_cancel_invite_handler(db, message, context)
 
-    elif lower_message == '!leagueinvites':
+    elif lower_message == '!invites' or lower_message == '!leagueinvites':
         await league_invites_handler(db, message, context)
 
-    elif lower_message.startswith('!leagueaccept '):
+    elif lower_message.startswith('!accept ') or lower_message.startswith('!leagueaccept '):
         await league_accept_handler(db, message, client, context)
 
-    elif lower_message.startswith('!leaguedeny' ):
+    elif lower_message.startswith('!deny ') or lower_message.startswith('!leaguedeny ' ):
         await league_deny_handler(db, message, context)
 
-    elif lower_message == '!leagueleave':
+    elif lower_message == '!leave' or lower_message == '!leagueleave':
         await league_leave_handler(db, message, client, context)
 
     elif lower_message == '!leaguexp':
@@ -784,7 +719,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!pruneteam':
         await prune_team_handler(db, message, client, context)
 
-    elif lower_message.startswith('!leagueorder'):
+    elif lower_message.startswith('!order '):
         await league_order_handler(db, message, client, context)
 
     elif lower_message.startswith('!allyrequest '):
@@ -1046,12 +981,6 @@ async def handle_message(message, db, client):
 
     elif lower_message.startswith('!forcebattle') and is_admin:
         await force_battle_handler(db, message, client)
-
-    elif lower_message.startswith('!forcemaketeam') and is_admin:
-        await force_make_team_handler(db, message, client)
-
-    elif lower_message.startswith('!forcedeleteteam') and is_admin:
-        await force_delete_team_handler(db, message, client)
 
     elif lower_message.startswith('!forceaddteam') and is_admin:
         await force_add_team_handler(db, message, client)
