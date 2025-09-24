@@ -3,7 +3,7 @@ from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from discord_actions import get_guild, get_member_by_username
 from helpers import generic_find_user, get_league_emoji_from_team_name, make_string_from_word_list
-from league import update_team_info, validate_admin
+from league import validate_admin
 from safe_send import safe_send
 from user.user import user_exists
 
@@ -68,8 +68,5 @@ async def change_role_handler(db, message, client, context):
         await safe_send(league_notifs_channel, team_emoji_string+' Team Update for '+team_name+": "+mentioned_member.mention+"'s role has been changed to "+new_role)
     else:
         await safe_send(league_notifs_channel, team_emoji_string+' Team Update for '+team_name+": "+username+"'s role has been changed to "+new_role)
-
-
-    await update_team_info(client, my_team, db, context)
 
     await safe_send(message.channel, "User's role was successfully updated.")

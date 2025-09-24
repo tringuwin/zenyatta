@@ -3,7 +3,7 @@
 from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from helpers import get_league_emoji_from_team_name, valid_number_of_params
-from league import update_team_info, validate_admin
+from league import validate_admin
 from safe_send import safe_send
 
 async def del_ally_handler(db, message, client, context):
@@ -56,6 +56,3 @@ async def del_ally_handler(db, message, client, context):
 
     # confirmation message
     await safe_send(message.channel, team_name+' and '+other_team_obj['team_name']+' are no longer Allies.')
-
-    await update_team_info(client, my_team_obj, db, context)
-    await update_team_info(client, other_team_obj, db, context)

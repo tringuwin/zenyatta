@@ -23,11 +23,6 @@ def get_league_season_constant_name(context):
 def get_league_team_image_update_index(context):
     return constants.CONTEXT_TO_LEAGUE_TEAM_IMAGE_UPDATE_INDEX[context]
 
-def get_team_info_channel_from_context(client, context):
-
-    team_info_channel_id = constants.CONTEXT_TO_TEAM_INFO_CHANNEL_ID[context]
-    return client.get_channel(team_info_channel_id)
-
 def get_league_notifs_channel_from_context(client, context):
 
     league_notifs_channel = constants.CONTEXT_TO_LEAGUE_NOTIFS_CHANNEL[context]
