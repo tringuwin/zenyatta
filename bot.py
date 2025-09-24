@@ -22,9 +22,7 @@ from admin_handlers.feature import feature_handler
 from admin_handlers.fix_standings import fix_standings_handler
 from admin_handlers.force_add_team import force_add_team_handler
 from admin_handlers.force_battle_handler import force_battle_handler
-from admin_handlers.force_delete_team import force_delete_team_handler
 from admin_handlers.force_league_remove import force_league_remove_handler
-from admin_handlers.force_make_team import force_make_team_handler
 from admin_handlers.force_remove_player.force_remove_player import force_remove_player_handler
 from admin_handlers.force_remove_team import force_remove_team_handler
 from admin_handlers.force_twitch import force_twitch_handler
