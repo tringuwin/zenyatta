@@ -51,7 +51,7 @@ async def league_accept_handler(db, message, client, context):
     
     user_league_team = get_league_team_with_context(user, context)
     if user_league_team != "None":
-        await safe_send(message.channel, 'You are already on a league team. Please leave that team before joining another team. Use the command **!leagueleave** to leave your current team.')
+        await safe_send(message.channel, 'You are already on a league team. Please leave that team before joining another team. Use the command **!leave** to leave your current team.')
         return
     
     if constants.SEASON_ACTIVE and match_day_soft_lock():
