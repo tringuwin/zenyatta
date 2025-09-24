@@ -984,12 +984,6 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!forcebattle') and is_admin:
         await force_battle_handler(db, message, client)
 
-    elif lower_message.startswith('!forcemaketeam') and is_admin:
-        await force_make_team_handler(db, message, client)
-
-    elif lower_message.startswith('!forcedeleteteam') and is_admin:
-        await force_delete_team_handler(db, message, client)
-
     elif lower_message.startswith('!forceaddteam') and is_admin:
         await force_add_team_handler(db, message, client)
 
