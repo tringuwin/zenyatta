@@ -398,8 +398,8 @@ async def handle_message(message, db, client):
         await safe_send(message.channel, message.author.mention+" "+response)
         return
 
-    await safe_send(message.channel, 'I am being updated right now. I will be back soon!')
-    return
+    # await safe_send(message.channel, 'I am being updated right now. I will be back soon!')
+    # return
 
     if lower_message == '!help':
         await help_handler(message)
