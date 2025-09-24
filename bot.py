@@ -697,13 +697,13 @@ async def handle_message(message, db, client):
     elif lower_message == '!invites' or lower_message == '!leagueinvites':
         await league_invites_handler(db, message, context)
 
-    elif lower_message.startswith('!invite') or lower_message.startswith('!leagueaccept '):
+    elif lower_message.startswith('!accept ') or lower_message.startswith('!leagueaccept '):
         await league_accept_handler(db, message, client, context)
 
-    elif lower_message.startswith('!leaguedeny' ):
+    elif lower_message.startswith('!deny ') or lower_message.startswith('!leaguedeny ' ):
         await league_deny_handler(db, message, context)
 
-    elif lower_message == '!leagueleave':
+    elif lower_message.startswith('!leave') or lower_message == '!leagueleave':
         await league_leave_handler(db, message, client, context)
 
     elif lower_message == '!leaguexp':
