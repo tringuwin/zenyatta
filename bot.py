@@ -651,8 +651,8 @@ async def handle_message(message, db, client):
         # !changerole @Player [new role]
         await change_role_handler(db, message, client, context)
 
-    elif lower_message.startswith('!leaguekick '):
-        # !leaguekick @Player
+    elif lower_message.startswith('!kick') or lower_message.startswith('!leaguekick '):
+        # !kick @Player
         await league_kick_handler(db, message, client, context)
 
     elif lower_message.startswith('!maketeamadmin'):
@@ -690,8 +690,8 @@ async def handle_message(message, db, client):
         # !invite @player
         await league_invite_handler(db, message, context)
 
-    elif lower_message.startswith('!leaguecancelinvite '):
-        # !leaguecancelinvite @player
+    elif lower_message.startswith('!cancelinvite '):
+        # !cancelinvite @player
         await league_cancel_invite_handler(db, message, context)
 
     elif lower_message == '!invites' or lower_message == '!leagueinvites':
@@ -721,7 +721,7 @@ async def handle_message(message, db, client):
     elif lower_message == '!pruneteam':
         await prune_team_handler(db, message, client, context)
 
-    elif lower_message.startswith('!leagueorder'):
+    elif lower_message.startswith('!order'):
         await league_order_handler(db, message, client, context)
 
     elif lower_message.startswith('!allyrequest '):
