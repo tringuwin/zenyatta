@@ -20,6 +20,6 @@ async def league_invites_handler(db, message, context):
     final_string = message.author.mention+'\n**YOUR LEAGUE INVITES:**'
     index = 1
     for team in user_invites:
-        final_string += '\n'+str(index)+'. '+team+' | To join this team, use the command: **!leagueaccept '+team+'**'
+        final_string += '\n'+str(index)+'. '+team+' | To join this team, use the command: **!accept '+team+'**'
 
     await safe_send(message.channel, final_string)  
