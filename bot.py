@@ -651,7 +651,7 @@ async def handle_message(message, db, client):
         # !changerole @Player [new role]
         await change_role_handler(db, message, client, context)
 
-    elif lower_message.startswith('!kick') or lower_message.startswith('!leaguekick '):
+    elif lower_message.startswith('!kick ') or lower_message.startswith('!leaguekick '):
         # !kick @Player
         await league_kick_handler(db, message, client, context)
 
