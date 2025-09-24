@@ -703,7 +703,7 @@ async def handle_message(message, db, client):
     elif lower_message.startswith('!deny ') or lower_message.startswith('!leaguedeny ' ):
         await league_deny_handler(db, message, context)
 
-    elif lower_message.startswith('!leave') or lower_message == '!leagueleave':
+    elif lower_message == '!leave' or lower_message == '!leagueleave':
         await league_leave_handler(db, message, client, context)
 
     elif lower_message == '!leaguexp':
