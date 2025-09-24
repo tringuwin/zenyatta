@@ -1,7 +1,7 @@
 
 from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from helpers import get_league_emoji_from_team_name
-from league import update_team_info, user_admin_on_team, validate_admin
+from league import user_admin_on_team, validate_admin
 from league_helpers.remove_member_admin_role import remove_member_admin_role
 from safe_send import safe_send
 from user.user import get_league_team_with_context, user_exists
@@ -55,6 +55,5 @@ async def remove_team_admin_handler(db, message, client, context):
     await safe_send(league_notifs_channel, team_emoji_string+' Team Update for '+team_name+": "+mentioned_member.mention+" is no longer a team admin.")
 
     team_object['members'] = new_members
-    await update_team_info(client, team_object, db, context)
 
     await safe_send(message.channel, 'User is no longer an admin of your league team')

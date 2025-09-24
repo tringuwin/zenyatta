@@ -5,7 +5,6 @@ from common_messages import not_registered_response
 from context.context_helpers import get_league_notifs_channel_from_context, get_league_team_field_from_context, get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
-from league import update_team_info
 from league_helpers.remove_member_admin_role import remove_member_admin_role
 from safe_send import safe_send
 from user.user import get_league_team_with_context, user_exists
@@ -53,8 +52,6 @@ async def league_leave_handler(db, message, client, context):
 
     if was_admin:
         await remove_member_admin_role(message.author, context, client)
-
-    await update_team_info(client, team_object, db, context)
 
     league_notifs_channel = get_league_notifs_channel_from_context(client, context)
     team_emoji_string = get_league_emoji_from_team_name(team_object['team_name'])

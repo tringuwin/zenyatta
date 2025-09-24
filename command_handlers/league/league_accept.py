@@ -5,7 +5,7 @@ from common_messages import invalid_number_of_params, not_registered_response
 from context.context_helpers import get_league_notifs_channel_from_context, get_league_team_field_from_context, get_league_teams_collection_from_context, get_teams_joined_this_season_constant
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name, make_string_from_word_list
-from league import has_username_for_game, remove_league_invite, update_team_info
+from league import has_username_for_game, remove_league_invite
 from safe_send import safe_send
 from user.user import get_league_invites_with_context, get_league_team_with_context, user_exists
 import constants
@@ -132,8 +132,6 @@ async def league_accept_handler(db, message, client, context):
     role = await get_role_by_id(client, league_team['team_role_id'])
     if role:
         await give_role(message.author, role, 'League Accept')
-
-    await update_team_info(client, league_team, db, context)
 
     league_notifs_channel = get_league_notifs_channel_from_context(client, context)
 

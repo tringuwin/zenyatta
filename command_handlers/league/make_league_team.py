@@ -1,6 +1,6 @@
 
 from api import give_role
-from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context, get_team_info_channel_from_context
+from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from helpers import make_string_from_word_list
 from league_helpers.give_member_admin_role import give_member_admin_role
@@ -111,11 +111,6 @@ async def make_league_team_handler(db, message, client, context):
     if not owner_user:
         await safe_send(message.channel, 'That user is not registered.')
         return
-    
-    team_info_channel = get_team_info_channel_from_context(client, context)
-    player_string = team_owner.mention+' : Owner : 10 TPP'
-    end_string = '\n--------------------------\nAvailable TPP: 90'
-    new_team_message = await safe_send(team_info_channel, '**'+team_name+' Team Details**\nMembers:\n'+player_string+end_string)
 
     await give_role(team_owner, role, 'Make League Team')
     
@@ -133,7 +128,6 @@ async def make_league_team_handler(db, message, client, context):
                 'TPP': 10,
             }
         ],
-        'team_info_msg_id': new_team_message.id,
         'team_role_id': team_role,
         'name_lower': team_name.lower(),
         'roster_lock': False,

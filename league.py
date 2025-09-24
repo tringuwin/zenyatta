@@ -1,5 +1,5 @@
 
-from context.context_helpers import get_league_invites_field, get_league_teams_collection_from_context, get_team_info_channel_from_context
+from context.context_helpers import get_league_invites_field, get_league_teams_collection_from_context
 from discord_actions import get_guild
 from helpers import get_constant_value, get_league_emoji_from_team_name
 from safe_send import safe_add_field, safe_create_embed, safe_edit_embed, safe_set_footer
@@ -175,57 +175,6 @@ def make_member_game_id(db, member, context):
                 member_id = user['rivals_username']
 
     return member_id
-
-async def update_team_info(client, team, db, context='OW'):
-
-    team_message_id = team['team_info_msg_id']
-    team_info_channel = get_team_info_channel_from_context(client, context)
-
-    info_message = await team_info_channel.fetch_message(team_message_id)
-
-    guild = await get_guild(client)
-
-    available_tpp = 100
-    num_members_on_team = str(len(team['members']))
-
-    team_name = team['team_name']
-    team_color = get_team_color_by_name(team_name)
-    team_image_url = get_team_logo_by_name(team_name)
-
-    embed_description = make_team_description(team)
-    embed = safe_create_embed(team_name.upper()+' TEAM DETAILS ('+num_members_on_team+'/25)', embed_description, team_color)
-    embed.set_thumbnail(url=team_image_url)
-
-    for member in team['members']:
-
-        try:
-            guild_member = await guild.fetch_member(member['discord_id'])
-        except discord.NotFound:
-            guild_member = None
-
-        member_mention = '[User not found]'
-        if guild_member:
-            member_mention = guild_member.mention
-
-        member_game_id = make_member_game_id(db, member, context)
-
-        name_string = member_game_id+' - '+member['role']
-
-        value_string = ''
-        if member['is_owner']:
-            value_string = '👑 | '
-        elif member['is_admin']:
-            value_string = '🛡️ | '
-
-        value_string += member_mention+' | '+str(member['TPP'])+' TPP'
-
-        available_tpp -= member['TPP']
-
-        safe_add_field(embed, name_string, value_string, False)
-
-    safe_set_footer(embed, text='Available TPP: '+str(available_tpp))
-
-    await safe_edit_embed(info_message, embed)
 
 
 def remove_league_invite(user, team_name, db, context='OW'):

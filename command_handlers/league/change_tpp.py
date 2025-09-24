@@ -2,7 +2,7 @@
 from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_teams_collection_from_context
 from helpers import can_be_int, generic_find_user, valid_number_of_params
-from league import update_team_info, validate_admin
+from league import validate_admin
 from safe_send import safe_send
 
 
@@ -64,7 +64,5 @@ async def change_tpp_handler(db, message, client, context):
     my_team['members'][at_member_index]['TPP'] = tpp_offer
     league_teams = get_league_teams_collection_from_context(db, context)
     league_teams.update_one({'team_name': team_name}, {"$set": {"members": my_team['members']}})
-
-    await update_team_info(client, my_team, db, context)
 
     await safe_send(message.channel, "User's TPP was successfully updated.")

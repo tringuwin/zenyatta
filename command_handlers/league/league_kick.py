@@ -4,7 +4,7 @@ from common_messages import invalid_number_of_params
 from context.context_helpers import get_league_notifs_channel_from_context, get_league_team_field_from_context, get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
-from league import update_team_info, validate_admin
+from league import validate_admin
 from league_helpers.remove_member_admin_role import remove_member_admin_role
 from safe_send import safe_send
 
@@ -82,6 +82,5 @@ async def league_kick_handler(db, message, client, context):
     await safe_send(league_notifs_channel, team_emoji_string+' Team Update for '+team_name+": "+member_to_find.mention+" was kicked by "+message.author.mention)
 
     my_team['members'] = final_members
-    await update_team_info(client, my_team, db, context)
-
+    
     await safe_send(message.channel, "User was kicked from the league team.")

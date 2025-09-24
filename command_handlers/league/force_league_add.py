@@ -3,7 +3,6 @@ from api import give_role
 from context.context_helpers import get_league_notifs_channel_from_context, get_league_teams_collection_from_context
 from discord_actions import get_role_by_id
 from helpers import get_league_emoji_from_team_name
-from league import update_team_info
 from safe_send import safe_send
 from user.user import get_league_team_with_context, user_exists
 
@@ -55,8 +54,6 @@ async def force_league_add_handler(db, message, client, context):
     role = await get_role_by_id(client, league_team['team_role_id'])
     if role:
         await give_role(mentioned_user, role, 'League Accept')
-
-    await update_team_info(client, league_team, db, context)
 
     league_notifs_channel = get_league_notifs_channel_from_context(client, context)
 
