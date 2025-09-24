@@ -612,54 +612,6 @@ async def handle_message(message, db, client):
     elif lower_message == '!auctiontimer':
         await auction_timer_handler(db, message)
 
-    # TEAM COMMANDS
-
-    elif lower_message == '!teams':
-        await teams_handler(db, message)
-
-    elif lower_message.startswith('!getteams ') and is_admin:
-        await get_teams_handler(db, message)
-
-    elif lower_message.startswith('!teaminfo'):
-        await team_details_hanlder(db, message)
-
-    elif lower_message.startswith('!maketeam '):
-        await make_team_handler(db, message)
-
-    elif lower_message.startswith('!invite '):
-        await invite_handler(db, message, is_admin)
-
-    elif lower_message == '!myinvites':
-        await my_invites_handler(db, message)
-
-    elif lower_message.startswith('!acceptinvite '):
-        await accept_invite_handler(db, message, client)
-
-    elif lower_message.startswith('!denyinvite'):
-        await deny_invite_handler(db, message)
-
-    elif lower_message.startswith('!leaveteam'):
-        await leave_team_handler(db, message, client)
-
-    elif lower_message.startswith('!deleteteam'):
-        await delete_team_handler(db, message, client)
-
-    elif lower_message.startswith('!teamjoin'):
-        await team_join_handler(client, db, message)
-
-    elif lower_message.startswith('!kickplayer'):
-        await kick_player_handler(db, message, client)
-
-    elif lower_message.startswith('!helpteams'):
-        await help_teams_handler(message)
-
-    elif lower_message.startswith('!delteamfromevent') and is_admin:
-        await del_team_from_event_handler(db, message)
-
-    elif lower_message.startswith('!switcheventteams ') and is_admin:
-        # !switcheventteams [event id] [match id] [spot id (1 or 2)] [new team name]
-        await switch_event_teams(db, message)
-
     # LEAGUE COMMANDS
 
     elif lower_message.startswith('!makeleagueteam') and is_admin:
@@ -749,18 +701,18 @@ async def handle_message(message, db, client):
     elif lower_message == '!portal':
         await portal_handler(db, message, context)
 
-    elif lower_message.startswith('!leagueinvite '):
-        # !leagueinvite @player
+    elif lower_message.startswith('!invite ') or lower_message.startswith('!leagueinvite '):
+        # !invite @player
         await league_invite_handler(db, message, context)
 
     elif lower_message.startswith('!leaguecancelinvite '):
         # !leaguecancelinvite @player
         await league_cancel_invite_handler(db, message, context)
 
-    elif lower_message == '!leagueinvites':
+    elif lower_message == '!invites' or lower_message == '!leagueinvites':
         await league_invites_handler(db, message, context)
 
-    elif lower_message.startswith('!leagueaccept '):
+    elif lower_message.startswith('!invite') or lower_message.startswith('!leagueaccept '):
         await league_accept_handler(db, message, client, context)
 
     elif lower_message.startswith('!leaguedeny' ):
