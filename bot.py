@@ -229,9 +229,6 @@ from command_handlers.sell_gems import sell_gems_handler
 from command_handlers.solo_join import solo_join_handler
 from command_handlers.sub_timer import sub_timer_handler
 from command_handlers.suggest import suggest_handler
-from command_handlers.teams.del_team_from_event import del_team_from_event_handler
-from command_handlers.teams.get_teams import get_teams_handler
-from command_handlers.teams.switch_event_teams import switch_event_teams
 from command_handlers.token_leaderboard import token_leaderboard_handler
 from command_handlers.trade_gem import trade_gem_handler
 from command_handlers.trade_gem_set import trade_gem_set_handler
@@ -256,19 +253,7 @@ from command_handlers.battle import battle_handler
 from command_handlers.buy import buy_handler
 from command_handlers.events import events_handler
 from command_handlers.join import join_handler
-from command_handlers.teams.accept_invite import accept_invite_handler
-from command_handlers.teams.delete_team import delete_team_handler
-from command_handlers.teams.deny_invite import deny_invite_handler
-from command_handlers.teams.help_teams import help_teams_handler
-from command_handlers.teams.invite import invite_handler
-from command_handlers.teams.kick_player import kick_player_handler
-from command_handlers.teams.leave_team import leave_team_handler
-from command_handlers.teams.my_invites import my_invites_handler
-from command_handlers.teams.make_team import make_team_handler
 from command_handlers.help.help import help_handler
-from command_handlers.teams.team_details import team_details_hanlder
-from command_handlers.teams.team_join import team_join_handler
-from command_handlers.teams.teams import teams_handler
 from command_handlers.wager import wager_handler
 from bracket import both_no_show, gen_tourney, no_show, notify_next_users, send_next_info, wipe_tourney, won_match
 from discord_actions import get_guild, get_role_by_id, is_dm_channel, member_has_role, member_has_state_role
