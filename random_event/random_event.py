@@ -6,7 +6,7 @@ from rewards import change_tokens
 from safe_send import safe_send
 from user.user import get_user_gems, user_exists
 
-SECONDS_IN_A_HOUR = 3600
+SECONDS_IN_3_HOURS = 3600 * 3
 
 
 random_event_list = [
@@ -66,7 +66,7 @@ async def try_random_event(db, client):
     last_event = random_event['last_event']
 
     current_time = time.time()
-    if current_time - last_event < SECONDS_IN_A_HOUR:
+    if current_time - last_event < SECONDS_IN_3_HOURS:
         print('not long enough')
         return
 
