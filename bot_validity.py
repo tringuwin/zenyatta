@@ -1,6 +1,6 @@
 import constants
 
-async def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_admin):
+def is_valid_channel(message, lower_message, is_helper, is_push_bot, is_tourney_admin):
 
     if is_helper or is_push_bot or is_tourney_admin:
         return True, None
